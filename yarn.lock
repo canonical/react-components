@@ -1366,7 +1366,7 @@
     lodash "^4.17.15"
     prop-types "^15.7.2"
 
-"@storybook/addon-knobs@^5.2.5":
+"@storybook/addon-knobs@5.2.5":
   version "5.2.5"
   resolved "https://registry.yarnpkg.com/@storybook/addon-knobs/-/addon-knobs-5.2.5.tgz#cb3c617d2f017fc98c22b6db4384c90556cc074c"
   integrity sha512-jr8HvtGciYaJqWgsl8CVYemcvC0Apw9YaLCV/ez8wmB4im94lmotE4llE+ZgpyIn6U6ikUYjQEeNzUMvEn25Xg==
@@ -4886,7 +4886,7 @@ entities@^2.0.0:
   resolved "https://registry.yarnpkg.com/entities/-/entities-2.0.0.tgz#68d6084cab1b079767540d80e56a39b423e4abf4"
   integrity sha512-D9f7V0JSRwIxlRI2mjMqufDrRDnx8p+eEOz7aUM9SuvF8gsBzra0/6tbjl1m8eQHrZlYj6PxqE00hZ1SAIKPLw==
 
-enzyme-adapter-react-16@^1.15.1:
+enzyme-adapter-react-16@1.15.1:
   version "1.15.1"
   resolved "https://registry.yarnpkg.com/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.15.1.tgz#8ad55332be7091dc53a25d7d38b3485fc2ba50d5"
   integrity sha512-yMPxrP3vjJP+4wL/qqfkT6JAIctcwKF+zXO6utlGPgUJT2l4tzrdjMDWGd/Pp1BjHBcljhN24OzNEGRteibJhA==
@@ -4921,14 +4921,14 @@ enzyme-shallow-equal@^1.0.0:
     has "^1.0.3"
     object-is "^1.0.1"
 
-enzyme-to-json@^3.4.3:
+enzyme-to-json@3.4.3:
   version "3.4.3"
   resolved "https://registry.yarnpkg.com/enzyme-to-json/-/enzyme-to-json-3.4.3.tgz#ed4386f48768ed29e2d1a2910893542c34e7e0af"
   integrity sha512-jqNEZlHqLdz7OTpXSzzghArSS3vigj67IU/fWkPyl1c0TCj9P5s6Ze0kRkYZWNEoCqCR79xlQbigYlMx5erh8A==
   dependencies:
     lodash "^4.17.15"
 
-enzyme@^3.10.0:
+enzyme@3.10.0:
   version "3.10.0"
   resolved "https://registry.yarnpkg.com/enzyme/-/enzyme-3.10.0.tgz#7218e347c4a7746e133f8e964aada4a3523452f6"
   integrity sha512-p2yy9Y7t/PFbPoTvrWde7JIYB2ZyGC+NgTNbVEGvZ5/EyoYSr9aG/2rSbVvyNvMHEhw9/dmGUJHWtfQIEiX9pg==
@@ -8794,7 +8794,7 @@ node-releases@^1.1.29, node-releases@^1.1.38:
   dependencies:
     semver "^6.3.0"
 
-node-sass@^4.13.0:
+node-sass@4.13.0:
   version "4.13.0"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.13.0.tgz#b647288babdd6a1cb726de4545516b31f90da066"
   integrity sha512-W1XBrvoJ1dy7VsvTAS5q1V45lREbTlZQqFbiHb3R3OTTCma0XBtuG6xZ6Z4506nR4lmHPTqVRwxT6KgtWC97CA==

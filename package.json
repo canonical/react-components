@@ -1,5 +1,5 @@
 {
-  "name": "@maas-ui/react-components",
+  "name": "@canonical/react-components",
   "version": "0.1.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -46,7 +46,7 @@
     "lint-js": "eslint src",
     "lint-package-json": "npmPkgJsonLint .",
     "lint": "yarn lint-package-json && yarn lint-js",
-    "prepublishOnly": "yarn clean && yarn build",
+    "prepublishOnly": "yarn clean && yarn install && yarn build",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
