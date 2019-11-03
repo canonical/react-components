@@ -4,6 +4,7 @@
   "main": "dist/index.js",
   "module": "dist/index.js",
   "author": "Huw Wilkins <huw.wilkins@canonical.com>",
+  "license": "LGPL-3.0",
   "files": [
     "dist",
     "README.md"
@@ -47,6 +48,7 @@
     "lint-package-json": "npmPkgJsonLint .",
     "lint": "yarn lint-package-json && yarn lint-js",
     "prepublishOnly": "yarn clean && yarn install && yarn build",
+    "serve": "yarn docs",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
