@@ -1,0 +1,32 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import ArticlePagination from "./ArticlePagination";
+
+<Meta
+  title="ArticlePagination"
+  component={ArticlePagination}
+  decorators={[withKnobs]}
+/>
+
+### ArticlePagination
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Article pagination](https://docs.vanillaframework.io/patterns/article-pagination/).
+
+The article pagination component should be used to navigate from one article to the next, or previous, in chronological order.
+
+### Props
+
+<Props of={ArticlePagination} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <ArticlePagination
+      nextLabel="Consectetur adipisicing elit"
+      nextURL="#next"
+      previousLabel="Lorem ipsum dolor sit amet"
+      previousURL="#previous"
+    />
+  </Story>
+</Preview>

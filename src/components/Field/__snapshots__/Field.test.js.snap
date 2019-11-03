@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Field  renders 1`] = `
+<div
+  className="p-form__group p-form-validation"
+>
+  <Label
+    forId="test-id"
+  >
+    Test label
+  </Label>
+  <div
+    className="p-form__control u-clearfix"
+  >
+    Test content
+  </div>
+</div>
+`;

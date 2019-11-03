@@ -1,0 +1,56 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import Code from "./Code";
+
+<Meta title="Code" component={Code} decorators={[withKnobs]} />
+
+### Code
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Code](https://docs.vanillaframework.io/base/code/).
+
+Vanilla gives you multiple ways to display code using the standard HTML elements.
+
+### Props
+
+<Props of={Code} />
+
+### Inline
+
+<Preview>
+  <Story name="Inline">
+    <p>
+      The quick brown <Code inline>fox jumps</Code> over the lazy dog
+    </p>
+  </Story>
+</Preview>
+
+### Block
+
+<Preview>
+  <Story name="Block">
+    <Code>Mode: all Settings: maas_url=http://192.168.122.1:5240/MAAS</Code>
+  </Story>
+</Preview>
+
+### Copyable
+
+<Preview>
+  <Story name="Copyable">
+    <Code copyable>sudo apt-get update</Code>
+  </Story>
+</Preview>
+
+### Numbered
+
+<Preview>
+  <Story name="Numbered">
+    <Code numbered>
+      #!/bin/bash set -eu . $CONJURE_UP_SPELLSDIR/sdk/common.sh if [[
+      "$JUJU_PROVIDERTYPE" == "lxd" ]]; then debug "Running pre-deploy for
+      $CONJURE_UP_SPELL" sed "s/##MODEL##/$JUJU_MODEL/"
+      $(scriptPath)/lxd-profile.yaml | lxc profile edit "juju-$JUJU_MODEL" ||
+      exposeResult "Failed to set profile" $? "false" fi exposeResult
+      "Successful pre-deploy." 0 "true"
+    </Code>
+  </Story>
+</Preview>

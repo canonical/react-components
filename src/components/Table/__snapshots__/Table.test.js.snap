@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table renders 1`] = `
+<table
+  className=""
+  role="grid"
+>
+  <thead />
+</table>
+`;

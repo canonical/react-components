@@ -1,0 +1,21 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import Loader from "./Loader";
+
+<Meta title="Loader" component={Loader} decorators={[withKnobs]} />
+
+### Loader
+
+This is a not an existing Vanilla component. It can be used to display loading states.
+
+### Props
+
+<Props of={Loader} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <Loader text="Loading..." />
+  </Story>
+</Preview>

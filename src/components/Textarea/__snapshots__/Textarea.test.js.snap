@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Textarea  renders 1`] = `
+<Field
+  forId="test-id"
+>
+  <textarea
+    className="p-form-validation__input"
+    id="test-id"
+    onKeyUp={[Function]}
+  />
+</Field>
+`;

@@ -1,0 +1,53 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import Select from "./Select";
+
+<Meta title="Select" component={Select} decorators={[withKnobs]} />
+
+### Select
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Select](https://docs.vanillaframework.io/base/forms/#select).
+
+Use the Select component to create a drop-down list.
+
+### Props
+
+<Props of={Select} />
+
+### Select
+
+<Preview>
+  <Story name="Select">
+    <Select
+      name="exampleSelect"
+      id="exampleSelect2"
+      defaultValue=""
+      options={[
+        { value: "", disabled: "disabled", label: "Select an option" },
+        { value: "1", label: "Cosmic Cuttlefish" },
+        { value: "2", label: "Bionic Beaver" },
+        { value: "3", label: "Xenial Xerus" }
+      ]}
+      label="Ubuntu releases"
+    />
+  </Story>
+</Preview>
+
+### Select multiple
+
+<Preview>
+  <Story name="Select multiple">
+    <Select
+      name="exampleSelectMulti"
+      id="exampleSelectMulti2"
+      options={[
+        { value: "", disabled: "disabled", label: "Select..." },
+        { value: "1", label: "Cosmic Cuttlefish" },
+        { value: "2", label: "Bionic Beaver" },
+        { value: "3", label: "Xenial Xerus" }
+      ]}
+      label="Ubuntu releases"
+      multiple
+    />
+  </Story>
+</Preview>

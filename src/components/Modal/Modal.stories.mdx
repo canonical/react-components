@@ -1,0 +1,38 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import Modal from "./Modal";
+
+<Meta title="Modal" component={Modal} decorators={[withKnobs]} />
+
+### Modal
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Modal](https://docs.vanillaframework.io/patterns/modal/).
+
+The modal component can be used to overlay an area of the screen which can contain a prompt, dialog or interaction.
+
+### Props
+
+<Props of={Modal} />
+
+<Preview>
+  <Story name="Default">
+    // This containing div is only required for the component demo.
+    <div style={{ height: "100vh", position: "relative" }}>
+      <Modal close={() => {}} title="Confirm delete">
+        <p>
+          Are you sure you want to delete user "Simon"? This action is permanent
+          and can not be undone.
+        </p>
+        <hr />
+        <div className="u-align--right">
+          <button onClick={() => {}} className="u-no-margin--bottom">
+            Cancel
+          </button>
+          <button className="p-button--negative u-no-margin--bottom">
+            Delete
+          </button>
+        </div>
+      </Modal>
+    </div>
+  </Story>
+</Preview>

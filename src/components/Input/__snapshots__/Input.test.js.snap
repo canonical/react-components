@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input  renders 1`] = `
+<Field
+  forId="test-id"
+  labelFirst={true}
+>
+  <input
+    className="p-form-validation__input"
+    id="test-id"
+    type="text"
+  />
+</Field>
+`;

@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Pagination /> renders and matches the snapshot 1`] = `
+<nav>
+  <ul
+    className="p-pagination"
+  >
+    <PaginationButton
+      direction="back"
+      disabled={true}
+      key="back"
+      onClick={[Function]}
+    />
+    <PaginationItem
+      isActive={true}
+      key="1"
+      number={1}
+      onClick={[Function]}
+    />
+    <PaginationItem
+      isActive={false}
+      key="2"
+      number={2}
+      onClick={[Function]}
+    />
+    <PaginationItem
+      isActive={false}
+      key="3"
+      number={3}
+      onClick={[Function]}
+    />
+    <PaginationItem
+      isActive={false}
+      key="4"
+      number={4}
+      onClick={[Function]}
+    />
+    <PaginationItem
+      isActive={false}
+      key="5"
+      number={5}
+      onClick={[Function]}
+    />
+    <PaginationButton
+      direction="forward"
+      disabled={false}
+      key="forward"
+      onClick={[Function]}
+    />
+  </ul>
+</nav>
+`;

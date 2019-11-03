@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Strip  renders 1`] = `
+<div
+  className="p-strip"
+>
+  <Row>
+    <Col
+      size="12"
+    >
+      Test content
+    </Col>
+  </Row>
+</div>
+`;

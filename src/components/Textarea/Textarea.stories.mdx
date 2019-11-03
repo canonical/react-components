@@ -1,0 +1,26 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import Textarea from "./Textarea";
+
+<Meta title="Textarea" component={Textarea} decorators={[withKnobs]} />
+
+### Textarea
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Textarea](https://docs.vanillaframework.io/base/forms/#textarea).
+
+The Textarea component defines a multi-line text input control.
+
+### Props
+
+<Props of={Textarea} />
+
+<Preview>
+  <Story name="Default">
+    <Textarea
+      label="Tell us about your project or interest"
+      id="textarea2"
+      rows="3"
+      defaultValue="Ubuntu"
+    />
+  </Story>
+</Preview>

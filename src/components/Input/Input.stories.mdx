@@ -1,0 +1,157 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import Input from "./Input";
+
+<Meta title="Input" component={Input} decorators={[withKnobs]} />
+
+### Input
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Input](https://docs.vanillaframework.io/base/forms/#input).
+
+An input field where the user can enter data, which can vary in many ways, depending on the type attribute.
+
+### Props
+
+<Props of={Input} />
+
+### Text input
+
+<Preview>
+  <Story name="Text input">
+    <Input
+      type="text"
+      id="exampleTextInput2"
+      placeholder="example@canonical.com"
+      label="Email address"
+    />
+  </Story>
+</Preview>
+
+### Stacked
+
+<Preview>
+  <Story name="Stacked">
+    <Input
+      type="text"
+      id="exampleTextInput3"
+      placeholder="example@canonical.com"
+      stacked
+      label="Email address"
+    />
+  </Story>
+</Preview>
+
+### Disabled
+
+<Preview>
+  <Story name="Disabled">
+    <Input
+      type="text"
+      id="exampleTextInput4"
+      placeholder="example@canonical.com"
+      disabled
+      label="Email address"
+    />
+  </Story>
+</Preview>
+
+### Error
+
+<Preview>
+  <Story name="Error">
+    <Input
+      type="text"
+      id="exampleTextInput5"
+      placeholder="example@canonical.com"
+      error="This field is required."
+      label="Email address"
+    />
+  </Story>
+</Preview>
+
+### Success
+
+<Preview>
+  <Story name="Success">
+    <Input
+      type="text"
+      id="exampleTextInput6"
+      placeholder="example@canonical.com"
+      success="Verified."
+      label="Email address"
+    />
+  </Story>
+</Preview>
+
+### Caution
+
+<Preview>
+  <Story name="Caution">
+    <Input
+      type="text"
+      id="exampleTextInput7"
+      placeholder="example@canonical.com"
+      caution="No validation is performed in preview mode."
+      label="Email address"
+    />
+  </Story>
+</Preview>
+
+### Required
+
+<Preview>
+  <Story name="Required">
+    <Input
+      type="text"
+      id="exampleTextInput8"
+      placeholder="example@canonical.com"
+      required
+      label="Email address"
+    />
+  </Story>
+</Preview>
+
+### Checkbox
+
+<Preview>
+  <Story name="Checkbox">
+    <Input type="checkbox" id="checkExample12" defaultChecked label="HTML" />
+    <Input type="checkbox" id="checkExample22" label="CSS" />
+    <Input
+      type="checkbox"
+      id="checkExample32"
+      disabled="disabled"
+      label="PHP"
+    />
+  </Story>
+</Preview>
+
+### Radio button
+
+<Preview>
+  <Story name="Radio button">
+    <Input
+      label="Linux"
+      type="radio"
+      name="RadioOptions"
+      id="Radio12"
+      defaultValue="option1"
+      defaultChecked
+    />
+    <Input
+      label="Mac OS"
+      type="radio"
+      name="RadioOptions"
+      id="Radio22"
+      defaultValue="option2"
+    />
+    <Input
+      label="Windows"
+      type="radio"
+      name="RadioOptions"
+      id="Radio42"
+      defaultValue="option4"
+      disabled="disabled"
+    />
+  </Story>
+</Preview>

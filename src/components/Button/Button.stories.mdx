@@ -1,0 +1,107 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import Button from "./Button";
+
+<Meta title="Button" component={Button} decorators={[withKnobs]} />
+
+### Button
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Button](https://docs.vanillaframework.io/patterns/buttons/).
+
+Buttons are clickable elements used to perform an action, they can be used for buttons and link elements.
+
+### Props
+
+<Props of={Button} />
+
+### Base
+
+<Preview>
+  <Story name="Base disabled">
+    <Button appearance="base">Base</Button>
+    <Button appearance="base" disabled>
+      Base disabled
+    </Button>
+  </Story>
+</Preview>
+
+### Link
+
+<Preview>
+  <Story name="Link">
+    <Button element="a" href="#test" appearance="base">
+      Base link
+    </Button>
+    <Button element="a" href="#test" appearance="base" disabled>
+      Base link button
+    </Button>
+  </Story>
+</Preview>
+
+### Neutral
+
+<Preview>
+  <Story name="Neutral">
+    <Button appearance="neutral">Neutral button</Button>
+    <Button appearance="neutral" disabled>
+      Neutral button disabled
+    </Button>
+  </Story>
+</Preview>
+
+### Positive
+
+<Preview>
+  <Story name="Positive">
+    <Button appearance="positive">Positive button</Button>
+    <Button appearance="positive" disabled>
+      Positive button disabled
+    </Button>
+  </Story>
+</Preview>
+
+### Negative
+
+<Preview>
+  <Story name="Negative">
+    <Button appearance="negative">Negative button</Button>
+    <Button appearance="negative" disabled>
+      Negative button disabled
+    </Button>
+  </Story>
+</Preview>
+
+### Brand
+
+<Preview>
+  <Story name="Brand">
+    <Button appearance="brand">Brand button</Button>
+    <Button appearance="brand" disabled>
+      Brand button disabled
+    </Button>
+  </Story>
+</Preview>
+
+### Inline
+
+<Preview>
+  <Story name="Inline">
+    <span>Everything you need to get started with Vanilla. </span>
+    <Button appearance="neutral" inline>
+      Inline button
+    </Button>
+  </Story>
+</Preview>
+
+### Icon
+
+<Preview>
+  <Story name="Icon">
+    <Button hasIcon>
+      <i className="p-icon--plus"></i>
+    </Button>
+    <Button hasIcon>
+      <i className="p-icon--plus"></i> <span>Button with icon</span>
+    </Button>
+  </Story>
+</Preview>

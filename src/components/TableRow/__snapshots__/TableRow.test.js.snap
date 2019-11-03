@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableRow renders 1`] = `
+<tr
+  role="row"
+>
+  <td />
+</tr>
+`;

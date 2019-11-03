@@ -1,0 +1,31 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import ActionButton from "./ActionButton";
+
+<Meta title="ActionButton" component={ActionButton} decorators={[withKnobs]} />
+
+### ActionButton
+
+This is a not an existing Vanilla component. It can be used to display submitting states for forms or other actions.
+
+### Props
+
+<Props of={ActionButton} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <ActionButton appearance="positive">Click me!</ActionButton>
+  </Story>
+</Preview>
+
+### Loading
+
+<Preview>
+  <Story name="Loading">
+    <ActionButton appearance="positive" loading>
+      Click me!
+    </ActionButton>
+  </Story>
+</Preview>

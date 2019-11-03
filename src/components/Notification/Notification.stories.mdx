@@ -1,0 +1,66 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import Notification from "./Notification";
+
+<Meta title="Notification" component={Notification} decorators={[withKnobs]} />
+
+### Notification
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Notification](https://docs.vanillaframework.io/patterns/notification/).
+
+Notifications are used to display global information, our notification variants consist of default, caution, negative or positive.
+
+### Props
+
+<Props of={Notification} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <Notification close={() => {}}>
+      We use cookies to improve your experience. By your continued use of this
+      site you accept such use.
+    </Notification>
+  </Story>
+</Preview>
+
+### Caution
+
+<Preview>
+  <Story name="Caution">
+    <Notification type="caution" status="Blocked:">
+      Custom storage configuration is only supported on Ubuntu, CentOS and RHEL.
+    </Notification>
+  </Story>
+</Preview>
+
+### Negative
+
+<Preview>
+  <Story name="Negative">
+    <Notification type="negative" status="Error:">
+      Node must be connected to a network.
+    </Notification>
+  </Story>
+</Preview>
+
+### Positive
+
+<Preview>
+  <Story name="Positive">
+    <Notification type="positive" status="Success:">
+      Code successfully reformatted.
+    </Notification>
+  </Story>
+</Preview>
+
+### Information
+
+<Preview>
+  <Story name="Information">
+    <Notification type="information" status="Information:">
+      Anyone with access can view your invited users.
+    </Notification>
+  </Story>
+</Preview>

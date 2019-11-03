@@ -1,0 +1,81 @@
+{
+  "name": "@maas-ui/react-components",
+  "version": "0.1.0",
+  "main": "dist/index.js",
+  "module": "dist/index.js",
+  "author": "Huw Wilkins <huw.wilkins@canonical.com>",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:canonical-web-and-design/react-components.git"
+  },
+  "bugs": {
+    "url": "https://github.com/canonical-web-and-design/react-components/issues"
+  },
+  "homepage": "https://github.com/canonical-web-and-design/react-components/",
+  "devDependencies": {
+    "@babel/cli": "7.6.4",
+    "@storybook/addon-docs": "5.2.5",
+    "@storybook/addon-knobs": "5.2.5",
+    "@storybook/react": "5.2.5",
+    "enzyme": "3.10.0",
+    "enzyme-adapter-react-16": "1.15.1",
+    "enzyme-to-json": "3.4.3",
+    "node-sass": "4.13.0",
+    "npm-package-json-lint": "4.0.3",
+    "react-scripts": "3.2.0"
+  },
+  "dependencies": {
+    "classnames": "2.2.6",
+    "prop-types": "15.7.2",
+    "vanilla-framework": "2.4.1"
+  },
+  "peerDependencies.": {
+    "react": "16.11.0",
+    "react-dom": "16.11.0"
+  },
+  "scripts": {
+    "build": "rm -rf dist && NODE_ENV=production babel src --out-dir dist --copy-files --ignore .test.js,.md,__snapshots__,testing",
+    "build-docs": "build-storybook -c .storybook -o .out",
+    "clean": "rm -rf node_modules dist .out",
+    "docs": "start-storybook --port 8403",
+    "eject": "react-scripts eject",
+    "lint-js": "eslint src",
+    "lint-package-json": "npmPkgJsonLint .",
+    "lint": "yarn lint-package-json && yarn lint-js",
+    "prepublishOnly": "yarn clean && yarn build",
+    "start": "react-scripts start",
+    "test": "react-scripts test"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
+  },
+  "npmpackagejsonlint": {
+    "rules": {
+      "prefer-absolute-version-dependencies": "error",
+      "prefer-absolute-version-devDependencies": "error",
+      "prefer-alphabetical-dependencies": "error",
+      "prefer-alphabetical-devDependencies": "error"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBox  renders 1`] = `
+<form
+  className="p-search-box"
+  onSubmit={[Function]}
+>
+  <input
+    className="p-search-box__input"
+    name="search"
+    onChange={[Function]}
+    placeholder="Search"
+    type="search"
+  />
+  <button
+    alt="search"
+    className="p-search-box__button"
+    type="submit"
+  >
+    <i
+      className="p-icon--search"
+    />
+  </button>
+</form>
+`;

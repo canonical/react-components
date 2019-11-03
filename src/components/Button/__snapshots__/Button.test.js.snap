@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button  renders 1`] = `
+<button
+  className="p-button--neutral"
+>
+  Test content
+</button>
+`;
+
+exports[`Button  renders as a link 1`] = `
+<a
+  className="p-button--neutral"
+>
+  Test content
+</a>
+`;

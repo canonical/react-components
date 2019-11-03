@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ArticlePagination  renders 1`] = `
+<footer
+  className="p-article-pagination"
+>
+  <a
+    className="p-article-pagination__link--previous"
+    href="#previous"
+  >
+    <span
+      className="p-article-pagination__label"
+    >
+      Previous
+    </span>
+    <span
+      className="p-article-pagination__title"
+    >
+      Lorem ipsum dolor sit amet
+    </span>
+  </a>
+  <a
+    className="p-article-pagination__link--next"
+    href="#next"
+  >
+    <span
+      className="p-article-pagination__label"
+    >
+      Next
+    </span>
+    <span
+      className="p-article-pagination__title"
+    >
+      Consectetur adipisicing elit
+    </span>
+  </a>
+</footer>
+`;

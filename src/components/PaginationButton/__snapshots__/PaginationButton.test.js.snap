@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PaginationButton /> renders and matches the snapshot 1`] = `
+<li
+  className="p-pagination__item"
+>
+  <button
+    className="p-pagination__link--previous"
+    disabled={false}
+    onClick={[MockFunction]}
+  >
+    <i
+      className="p-icon--contextual-menu"
+    >
+      Previous page
+    </i>
+  </button>
+</li>
+`;

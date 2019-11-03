@@ -1,0 +1,62 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import Link from "./Link";
+import Strip from "../Strip";
+
+<Meta title="Link" component={Link} decorators={[withKnobs]} />
+
+### Link
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Link](https://docs.vanillaframework.io/patterns/links/).
+
+Links are used to embed actions or pathways to more information, allowing users to click their way from page to page.
+
+### Props
+
+<Props of={Link} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <Link>
+      Fast, secure and simple, Ubuntu powers millions of PCs worldwide
+    </Link>
+  </Story>
+</Preview>
+
+### External
+
+<Preview>
+  <Story name="External">
+    <p>
+      <Link external>Get started with Juju</Link>
+    </p>
+  </Story>
+</Preview>
+
+### Soft
+
+<Preview>
+  <Story name="Soft">
+    <Link soft>Learn about MAAS</Link>
+  </Story>
+</Preview>
+
+### Inverted
+
+<Preview>
+  <Story name="Inverted">
+    <Strip type="dark">
+      <Link inverted>Package &amp; publish your app</Link>
+    </Strip>
+  </Story>
+</Preview>
+
+### Back to top
+
+<Preview>
+  <Story name="Back to top">
+    <Link top>Back to top</Link>
+  </Story>
+</Preview>

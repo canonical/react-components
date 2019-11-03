@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`List  renders 1`] = `
+<ul
+  className="p-list p-list"
+>
+  <li
+    className="p-list__item"
+    key="0"
+  >
+    test
+  </li>
+  <li
+    className="p-list__item"
+    key="1"
+  >
+    items
+  </li>
+  <li
+    className="p-list__item"
+    key="2"
+  >
+    here
+  </li>
+</ul>
+`;

@@ -1,0 +1,79 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import Card from "./Card";
+import Col from "../Col";
+import Row from "../Row";
+
+<Meta title="Card" component={Card} decorators={[withKnobs]} />
+
+### Card
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Card](https://docs.vanillaframework.io/patterns/card/).
+
+There are four card styles available to use in Vanilla: default, header, highlighted and overlay. Our card component will expand to fill the full width of its parent container.
+
+### Props
+
+<Props of={Card} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <Card title="We'd love to have you join us as a partner.">
+      If you are an independent software vendor or bundle author, it's easy to
+      apply. You can find out more below.
+    </Card>
+  </Story>
+</Preview>
+
+### Header
+
+<Preview>
+  <Story name="Header">
+    <Card
+      title="Raspberry Pi2 and Pi3"
+      thumbnail="https://assets.ubuntu.com/v1/dca2e4c4-raspberry-logo.png"
+    >
+      For fun, for education and for profit, the RPi makes device development
+      personal and entertaining. With support for both the Pi2 and the new Pi3,
+      Ubuntu Core supports the world’s most beloved board.
+    </Card>
+  </Story>
+</Preview>
+
+### Highlighted
+
+<Preview>
+  <Story name="Highlighted">
+    <Card title="We'd love to have you join us as a partner." highlighted>
+      If you are an independent software vendor or bundle author, it's easy to
+      apply. You can find out more below.
+    </Card>
+  </Story>
+</Preview>
+
+### Overlay
+
+<Preview>
+  <Story name="Overlay">
+    <section
+      className="p-strip--image is-light"
+      style={{
+        backgroundImage:
+          "url('https://assets.ubuntu.com/v1/0a98afcd-screenshot_desktop.jpg')"
+      }}
+    >
+      <Row>
+        <Col size="6" emptyLarge="7">
+          <Card title="Web browsing" overlay>
+            Renowned for speed and security, Ubuntu and Firefox make browsing
+            the web a pleasure again. Ubuntu also includes Chrome, Opera and
+            other browsers that can be installed from the Ubuntu Software
+            Centre.
+          </Card>
+        </Col>
+      </Row>
+    </section>
+  </Story>
+</Preview>

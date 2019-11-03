@@ -1,0 +1,54 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import Pagination from "./Pagination";
+
+<Meta title="Pagination" component={Pagination} decorators={[withKnobs]} />
+
+### Pagination
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Pagination](https://docs.vanillaframework.io/patterns/pagination/).
+
+The pagination component should be used to navigate between pages of content. Depending on the length provided, the pagination component will automatically scale.
+
+### Props
+
+<Props of={Pagination} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <Pagination
+      itemsPerPage={20}
+      totalItems={100}
+      paginate={() => {}}
+      currentPage={3}
+    />
+  </Story>
+</Preview>
+
+### Truncated
+
+<Preview>
+  <Story name="Truncated">
+    <Pagination
+      itemsPerPage={10}
+      totalItems={1000}
+      paginate={() => {}}
+      currentPage={34}
+    />
+  </Story>
+</Preview>
+
+### Disabled controls
+
+<Preview>
+  <Story name="Disabled controls">
+    <Pagination
+      itemsPerPage={20}
+      totalItems={100}
+      paginate={() => {}}
+      currentPage={1}
+    />
+  </Story>
+</Preview>
