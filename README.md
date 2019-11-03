@@ -1,5 +1,7 @@
 This package provides [React](https://reactjs.org/) components for [Vanilla Framework](http://vanillaframework.io).
 
+See the [component docs](https://canonical-web-and-design.github.io/react-components/) for usage instructions.
+
 ## Install
 
 ```shell
