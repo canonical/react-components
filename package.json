@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/canonical-web-and-design/react-components/issues"
   },
-  "homepage": "https://github.com/canonical-web-and-design/react-components/",
+  "homepage": "/react-components/",
   "devDependencies": {
     "@babel/cli": "7.6.4",
     "@storybook/addon-docs": "5.2.5",
