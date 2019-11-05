@@ -14,18 +14,31 @@ const Button = ({
 }) => {
   const classes = classNames(className, `p-button--${appearance}`, {
     "has-icon": hasIcon,
-    "is-disabled": (Component === "a") & disabled,
+    "is-disabled": (Component !== "button") & disabled,
     "is-inline": inline
   });
+  const onClickDisabled = e => e.preventDefault();
+
   if (Component === "button") {
     return (
-      <button className={classes} disabled={disabled} {...props}>
+      <button
+        className={classes}
+        disabled={disabled}
+        {...props}
+        onClick={disabled ? onClickDisabled : undefined}
+      >
         {children}
       </button>
     );
   }
+
   return (
-    <Component className={classes} aria-disabled={disabled} {...props}>
+    <Component
+      className={classes}
+      aria-disabled={disabled}
+      {...props}
+      onClick={disabled ? onClickDisabled : undefined}
+    >
       {children}
     </Component>
   );

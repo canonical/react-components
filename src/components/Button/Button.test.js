@@ -8,9 +8,11 @@ describe("Button ", () => {
     const wrapper = shallow(<Button>Test content</Button>);
     expect(wrapper).toMatchSnapshot();
   });
+
   it("renders as a link", () => {
     const wrapper = shallow(<Button element="a">Test content</Button>);
     expect(wrapper).toMatchSnapshot();
+    expect(wrapper.prop("onClick")).toBe(undefined);
   });
 
   it("correctly disables a button", () => {
@@ -25,6 +27,7 @@ describe("Button ", () => {
     expect(wrapper.prop("className").includes("is-disabled")).toBe(true);
     expect(wrapper.prop("aria-disabled")).toBe(true);
     expect(wrapper.prop("disabled")).toBe(undefined);
+    expect(wrapper.prop("onClick")).not.toBe(undefined);
   });
 
   it("correctly handle icons", () => {
