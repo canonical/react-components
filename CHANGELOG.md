@@ -11,11 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Correctly pass click events to buttons.
-
 ### Removed
 
-## [0.2.0] - 2019-11-03
+## [0.2.1] - 2019-11-07
+
+### Changed
+
+- Correctly pass click events to buttons.
+
+## [0.2.0] - 2019-11-06
 
 ### Added
 
