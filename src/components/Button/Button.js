@@ -10,6 +10,7 @@ const Button = ({
   element: Component = "button",
   hasIcon,
   inline,
+  onClick,
   ...props
 }) => {
   const classes = classNames(className, `p-button--${appearance}`, {
@@ -18,27 +19,22 @@ const Button = ({
     "is-inline": inline
   });
   const onClickDisabled = e => e.preventDefault();
+  const commonProps = {
+    ...props,
+    className: classes,
+    onClick: disabled ? onClickDisabled : onClick
+  };
 
   if (Component === "button") {
     return (
-      <button
-        className={classes}
-        disabled={disabled}
-        {...props}
-        onClick={disabled ? onClickDisabled : undefined}
-      >
+      <button {...commonProps} disabled={disabled}>
         {children}
       </button>
     );
   }
 
   return (
-    <Component
-      className={classes}
-      aria-disabled={disabled}
-      {...props}
-      onClick={disabled ? onClickDisabled : undefined}
-    >
+    <Component {...commonProps} aria-disabled={disabled}>
       {children}
     </Component>
   );
@@ -55,7 +51,8 @@ Button.propTypes = {
     PropTypes.string
   ]),
   hasIcon: PropTypes.bool,
-  inline: PropTypes.bool
+  inline: PropTypes.bool,
+  onClick: PropTypes.func
 };
 
 export default Button;

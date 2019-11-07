@@ -8,26 +8,49 @@ describe("Button ", () => {
     const wrapper = shallow(<Button>Test content</Button>);
     expect(wrapper).toMatchSnapshot();
   });
-
   it("renders as a link", () => {
     const wrapper = shallow(<Button element="a">Test content</Button>);
     expect(wrapper).toMatchSnapshot();
-    expect(wrapper.prop("onClick")).toBe(undefined);
+  });
+
+  it("can handle button click events", () => {
+    const onClick = jest.fn();
+    const wrapper = shallow(<Button onClick={onClick} />);
+    wrapper.simulate("click");
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it("can handle anchor click events", () => {
+    const onClick = jest.fn();
+    const wrapper = shallow(<Button element="a" onClick={onClick} />);
+    wrapper.simulate("click");
+    expect(onClick).toHaveBeenCalled();
   });
 
   it("correctly disables a button", () => {
-    const wrapper = shallow(<Button disabled={true} />);
+    const onClick = jest.fn();
+    const wrapper = shallow(<Button disabled={true} onClick={onClick} />);
     expect(wrapper.prop("disabled")).toBe(true);
     expect(wrapper.prop("className").includes("is-disabled")).toBe(false);
     expect(wrapper.prop("aria-disabled")).toBe(undefined);
+    const preventDefault = jest.fn();
+    wrapper.simulate("click", { preventDefault });
+    expect(preventDefault).toHaveBeenCalled();
+    expect(onClick).not.toHaveBeenCalled();
   });
 
   it("correctly disables a link", () => {
-    const wrapper = shallow(<Button element="a" disabled={true} />);
+    const onClick = jest.fn();
+    const wrapper = shallow(
+      <Button element="a" disabled={true} onClick={onClick} />
+    );
     expect(wrapper.prop("className").includes("is-disabled")).toBe(true);
     expect(wrapper.prop("aria-disabled")).toBe(true);
     expect(wrapper.prop("disabled")).toBe(undefined);
-    expect(wrapper.prop("onClick")).not.toBe(undefined);
+    const preventDefault = jest.fn();
+    wrapper.simulate("click", { preventDefault });
+    expect(preventDefault).toHaveBeenCalled();
+    expect(onClick).not.toHaveBeenCalled();
   });
 
   it("correctly handle icons", () => {
