@@ -6,8 +6,11 @@
   "author": "Huw Wilkins <huw.wilkins@canonical.com>",
   "license": "LGPL-3.0",
   "files": [
-    "dist",
-    "README.md"
+    "dist/**/*.js",
+    "dist/**/*.scss",
+    "!dist/**/*.test.js",
+    "!dist/testing",
+    "!dist/setupTests.js"
   ],
   "repository": {
     "type": "git",
@@ -39,7 +42,7 @@
     "react-dom": "16.11.0"
   },
   "scripts": {
-    "build": "rm -rf dist && NODE_ENV=production babel src --out-dir dist --copy-files --ignore .test.js,.md,__snapshots__,testing",
+    "build": "rm -rf dist && NODE_ENV=production babel src --out-dir dist --copy-files",
     "build-docs": "build-storybook -c .storybook -o docs",
     "clean": "rm -rf node_modules dist .out",
     "docs": "start-storybook --port 8403",
