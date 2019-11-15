@@ -42,7 +42,7 @@
     "build": "rm -rf dist && NODE_ENV=production babel src --out-dir dist --copy-files --ignore .test.js,.md,__snapshots__,testing",
     "build-docs": "build-storybook -c .storybook -o docs",
     "clean": "rm -rf node_modules dist .out",
-    "docs": "start-storybook --port 8403",
+    "docs": "start-storybook --port $PORT",
     "eject": "react-scripts eject",
     "lint-js": "eslint src",
     "lint-package-json": "npmPkgJsonLint .",
