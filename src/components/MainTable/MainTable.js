@@ -7,6 +7,8 @@ import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
 
+import "./MainTable.scss";
+
 const updateSort = (setSortKey, setSortDirection, sortKey, sortDirection) => {
   let newDirection = null;
   if (sortDirection === "none") {
@@ -82,60 +84,64 @@ const generateRows = (
   sortFunction
 ) => {
   // Clone the rows so we can restore the original order.
-  const sortedRows = [...rows];
-  if (sortable && currentSortKey) {
-    if (!sortFunction) {
-      sortFunction = (a, b) => {
-        if (!a.sortData || !b.sortData) {
+  if (Object.entries(rows).length) {
+    const sortedRows = [...rows];
+    if (sortable && currentSortKey) {
+      if (!sortFunction) {
+        sortFunction = (a, b) => {
+          if (!a.sortData || !b.sortData) {
+            return 0;
+          }
+          if (a.sortData[currentSortKey] > b.sortData[currentSortKey]) {
+            return currentSortDirection === "ascending" ? 1 : -1;
+          } else if (a.sortData[currentSortKey] < b.sortData[currentSortKey]) {
+            return currentSortDirection === "ascending" ? -1 : 1;
+          }
           return 0;
-        }
-        if (a.sortData[currentSortKey] > b.sortData[currentSortKey]) {
-          return currentSortDirection === "ascending" ? 1 : -1;
-        } else if (a.sortData[currentSortKey] < b.sortData[currentSortKey]) {
-          return currentSortDirection === "ascending" ? -1 : 1;
-        }
-        return 0;
-      };
-    }
-    sortedRows.sort((a, b) =>
-      sortFunction(a, b, currentSortDirection, currentSortKey)
-    );
-  }
-  let slicedRows = sortedRows;
-  if (paginate) {
-    let startIndex = (currentPage - 1) * paginate;
-    if (startIndex > rows.length) {
-      // If the rows have changed e.g. when filtering and the user is on a page
-      // that no longer exists then send them to the start.
-      setCurrentPage(1);
-    }
-    slicedRows = sortedRows.slice(startIndex, startIndex + paginate);
-  }
-  const rowItems = slicedRows.map(
-    (
-      { columns, expanded, expandedContent, key, sortData, ...rowProps },
-      index
-    ) => {
-      const cellItems = columns.map(({ content, ...cellProps }, index) => (
-        <TableCell key={index} {...cellProps}>
-          {content}
-        </TableCell>
-      ));
-      // The expanding cell is alway created to match the correct number of
-      // table cells in rows that do have expanding content.
-      return (
-        <TableRow key={key || index} {...rowProps}>
-          {cellItems}
-          {expanding && (
-            <TableCell expanding={true} hidden={!expanded}>
-              {expandedContent}
-            </TableCell>
-          )}
-        </TableRow>
+        };
+      }
+      sortedRows.sort((a, b) =>
+        sortFunction(a, b, currentSortDirection, currentSortKey)
       );
     }
-  );
-  return <tbody>{rowItems}</tbody>;
+    let slicedRows = sortedRows;
+    if (paginate) {
+      let startIndex = (currentPage - 1) * paginate;
+      if (startIndex > rows.length) {
+        // If the rows have changed e.g. when filtering and the user is on a page
+        // that no longer exists then send them to the start.
+        setCurrentPage(1);
+      }
+      slicedRows = sortedRows.slice(startIndex, startIndex + paginate);
+    }
+    const rowItems = slicedRows.map(
+      (
+        { columns, expanded, expandedContent, key, sortData, ...rowProps },
+        index
+      ) => {
+        const cellItems = columns.map(({ content, ...cellProps }, index) => (
+          <TableCell key={index} {...cellProps}>
+            {content}
+          </TableCell>
+        ));
+        // The expanding cell is alway created to match the correct number of
+        // table cells in rows that do have expanding content.
+        return (
+          <TableRow key={key || index} {...rowProps}>
+            {cellItems}
+            {expanding && (
+              <TableCell expanding={true} hidden={!expanded}>
+                {expandedContent}
+              </TableCell>
+            )}
+          </TableRow>
+        );
+      }
+    );
+    return <tbody>{rowItems}</tbody>;
+  } else {
+    return <caption>No data to display</caption>;
+  }
 };
 
 const MainTable = ({

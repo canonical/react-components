@@ -4,6 +4,11 @@ exports[`Table renders 1`] = `
 <table
   className=""
   role="grid"
+  style={
+    Object {
+      "captionSide": "bottom",
+    }
+  }
 >
   <thead />
 </table>
