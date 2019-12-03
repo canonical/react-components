@@ -75,6 +75,7 @@ const generateHeaders = (
 const generateRows = (
   currentSortDirection,
   currentSortKey,
+  emptyStateMsg,
   expanding,
   paginate,
   rows,
@@ -83,10 +84,11 @@ const generateRows = (
   sortable,
   sortFunction
 ) => {
-  // Clone the rows so we can restore the original order.
+  // If the table has no rows, return empty state message
   if (Object.entries(rows).length === 0) {
-    return <caption>No data to display</caption>;
+    return <caption>{emptyStateMsg}</caption>;
   }
+  // Clone the rows so we can restore the original order.
   const sortedRows = [...rows];
   if (sortable && currentSortKey) {
     if (!sortFunction) {
@@ -146,6 +148,7 @@ const generateRows = (
 const MainTable = ({
   defaultSort,
   defaultSortDirection,
+  emptyStateMsg,
   expanding,
   headers,
   onUpdateSort,
@@ -180,6 +183,7 @@ const MainTable = ({
   return (
     <>
       <Table
+        emptyStateMsg={emptyStateMsg}
         expanding={expanding}
         sortable={sortable}
         responsive={responsive}
@@ -199,6 +203,7 @@ const MainTable = ({
           generateRows(
             currentSortDirection,
             currentSortKey,
+            emptyStateMsg,
             expanding,
             paginate,
             rows,
@@ -224,6 +229,7 @@ const MainTable = ({
 MainTable.propTypes = {
   defaultSort: PropTypes.string,
   defaultSortDirection: PropTypes.oneOf(["ascending", "descending"]),
+  emptyStateMsg: PropTypes.string.isRequired,
   expanding: PropTypes.bool,
   headers: PropTypes.arrayOf(
     PropTypes.shape({
@@ -255,6 +261,11 @@ MainTable.propTypes = {
   ),
   sortable: PropTypes.bool,
   sortFunction: PropTypes.func
+};
+
+// Specifies the default values for props:
+MainTable.defaultProps = {
+  emptyStateMsg: "No data to display"
 };
 
 export default MainTable;
