@@ -13,6 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.2.2] - 2019-12-05
+
+### Changed
+
+- Fix issue where notification timeout handler was not called.
+- Ensure only required files are included in npm package.
+- Remove non-functional `yarn start` script.
+
 ## [0.2.1] - 2019-11-07
 
 ### Changed
