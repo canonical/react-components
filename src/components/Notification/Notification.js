@@ -21,7 +21,7 @@ const Notification = ({
   const timeoutId = useRef();
 
   useEffect(() => {
-    if (timeout && close && !timeoutId.current) {
+    if (timeout && close) {
       timeoutId.current = setTimeout(() => close(), timeout);
     }
     return () => clearTimeout(timeoutId.current);
