@@ -17,7 +17,6 @@ const Table = ({
       "p-table--sortable": sortable,
       "p-table-expanding": expanding
     })}
-    style={{ captionSide: "bottom" }}
     {...props}
   >
     {children}

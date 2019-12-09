@@ -183,6 +183,7 @@ const MainTable = ({
   return (
     <>
       <Table
+        className="p-main-table"
         emptyStateMsg={emptyStateMsg}
         expanding={expanding}
         sortable={sortable}
