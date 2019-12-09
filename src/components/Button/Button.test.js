@@ -63,10 +63,22 @@ describe("Button ", () => {
     expect(wrapper.prop("className").includes("is-inline")).toBe(true);
   });
 
+  it("can be dense", () => {
+    const wrapper = shallow(<Button dense />);
+    expect(wrapper.prop("className").includes("is-dense")).toBe(true);
+  });
+
   it("can add additional classes", () => {
     const wrapper = shallow(<Button className="extra-class" />);
     const className = wrapper.prop("className");
     expect(className.includes("p-button--neutral")).toBe(true);
     expect(className.includes("extra-class")).toBe(true);
+  });
+
+  it("puts additional classes at the end", () => {
+    const wrapper = shallow(<Button className="extra-class" dense />);
+    expect(wrapper.prop("className")).toEqual(
+      "p-button--neutral is-dense extra-class"
+    );
   });
 });
