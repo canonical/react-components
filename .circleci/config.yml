@@ -49,3 +49,11 @@ jobs:
           key: yarn-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
+
+workflows:
+  version: 2
+  build_lint_and_test:
+    jobs:
+      - build
+      - lint
+      - test
