@@ -2,7 +2,7 @@
 
 exports[`Accordion  renders 1`] = `
 <aside
-  ariaMultiselect="true"
+  ariaMultiselectable="true"
   className="p-accordion"
   role="tablist"
 >
