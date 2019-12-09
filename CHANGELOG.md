@@ -9,12 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- The Button component now supports is-dense.
-- User supplied Button classes are now inserted after those added by the component.
-
 ### Changed
 
 ### Removed
+
+## [0.3.0] - 2019-12-09
+
+### Added
+
+- The Button component now supports is-dense.
+- User supplied Button classes are now inserted after those added by the component.
 
 ## [0.2.2] - 2019-12-05
 
