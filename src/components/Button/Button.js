@@ -6,6 +6,7 @@ const Button = ({
   appearance = "neutral",
   children,
   className,
+  dense,
   disabled,
   element: Component = "button",
   hasIcon,
@@ -13,11 +14,16 @@ const Button = ({
   onClick,
   ...props
 }) => {
-  const classes = classNames(className, `p-button--${appearance}`, {
-    "has-icon": hasIcon,
-    "is-disabled": (Component !== "button") & disabled,
-    "is-inline": inline
-  });
+  const classes = classNames(
+    `p-button--${appearance}`,
+    {
+      "has-icon": hasIcon,
+      "is-dense": dense,
+      "is-disabled": (Component !== "button") & disabled,
+      "is-inline": inline
+    },
+    className
+  );
   const onClickDisabled = e => e.preventDefault();
   const commonProps = {
     ...props,
@@ -44,6 +50,7 @@ Button.propTypes = {
   appearance: PropTypes.string,
   children: PropTypes.node,
   className: PropTypes.string,
+  dense: PropTypes.bool,
   disabled: PropTypes.bool,
   element: PropTypes.oneOfType([
     PropTypes.func,
