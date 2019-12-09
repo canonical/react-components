@@ -184,7 +184,6 @@ const MainTable = ({
     <>
       <Table
         className="p-main-table"
-        emptyStateMsg={emptyStateMsg}
         expanding={expanding}
         sortable={sortable}
         responsive={responsive}
