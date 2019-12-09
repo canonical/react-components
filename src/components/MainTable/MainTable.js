@@ -148,7 +148,7 @@ const generateRows = (
 const MainTable = ({
   defaultSort,
   defaultSortDirection,
-  emptyStateMsg,
+  emptyStateMsg = "No data to display",
   expanding,
   headers,
   onUpdateSort,
@@ -262,11 +262,6 @@ MainTable.propTypes = {
   ),
   sortable: PropTypes.bool,
   sortFunction: PropTypes.func
-};
-
-// Specifies the default values for props:
-MainTable.defaultProps = {
-  emptyStateMsg: "No data to display"
 };
 
 export default MainTable;
