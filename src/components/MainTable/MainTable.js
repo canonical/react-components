@@ -230,7 +230,7 @@ const MainTable = ({
 MainTable.propTypes = {
   defaultSort: PropTypes.string,
   defaultSortDirection: PropTypes.oneOf(["ascending", "descending"]),
-  emptyStateMsg: PropTypes.string.isRequired,
+  emptyStateMsg: PropTypes.string,
   expanding: PropTypes.bool,
   headers: PropTypes.arrayOf(
     PropTypes.shape({
