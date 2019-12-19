@@ -21,7 +21,7 @@
   },
   "homepage": "/react-components/",
   "devDependencies": {
-    "@babel/cli": "7.7.4",
+    "@babel/cli": "7.7.7",
     "@storybook/addon-docs": "5.2.8",
     "@storybook/addon-knobs": "5.2.8",
     "@storybook/react": "5.2.8",
