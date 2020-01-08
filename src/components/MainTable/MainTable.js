@@ -85,7 +85,7 @@ const generateRows = (
   sortFunction
 ) => {
   // If the table has no rows, return empty state message
-  if (Object.entries(rows).length === 0) {
+  if (Object.entries(rows).length === 0 && emptyStateMsg) {
     return <caption>{emptyStateMsg}</caption>;
   }
   // Clone the rows so we can restore the original order.
@@ -148,7 +148,7 @@ const generateRows = (
 const MainTable = ({
   defaultSort,
   defaultSortDirection,
-  emptyStateMsg = "No data to display",
+  emptyStateMsg = "",
   expanding,
   headers,
   onUpdateSort,
@@ -229,7 +229,10 @@ const MainTable = ({
 MainTable.propTypes = {
   defaultSort: PropTypes.string,
   defaultSortDirection: PropTypes.oneOf(["ascending", "descending"]),
-  emptyStateMsg: PropTypes.string,
+  /**
+   * A state that will be shown when no rows are passed to the table.
+   */
+  emptyStateMsg: PropTypes.node,
   expanding: PropTypes.bool,
   headers: PropTypes.arrayOf(
     PropTypes.shape({
