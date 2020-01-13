@@ -7,6 +7,8 @@ import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
 
+import "./MainTable.scss";
+
 const updateSort = (setSortKey, setSortDirection, sortKey, sortDirection) => {
   let newDirection = null;
   if (sortDirection === "none") {
@@ -73,6 +75,7 @@ const generateHeaders = (
 const generateRows = (
   currentSortDirection,
   currentSortKey,
+  emptyStateMsg,
   expanding,
   paginate,
   rows,
@@ -81,6 +84,10 @@ const generateRows = (
   sortable,
   sortFunction
 ) => {
+  // If the table has no rows, return empty state message
+  if (Object.entries(rows).length === 0 && emptyStateMsg) {
+    return <caption>{emptyStateMsg}</caption>;
+  }
   // Clone the rows so we can restore the original order.
   const sortedRows = [...rows];
   if (sortable && currentSortKey) {
@@ -141,6 +148,7 @@ const generateRows = (
 const MainTable = ({
   defaultSort,
   defaultSortDirection,
+  emptyStateMsg = "",
   expanding,
   headers,
   onUpdateSort,
@@ -175,6 +183,7 @@ const MainTable = ({
   return (
     <>
       <Table
+        className="p-main-table"
         expanding={expanding}
         sortable={sortable}
         responsive={responsive}
@@ -194,6 +203,7 @@ const MainTable = ({
           generateRows(
             currentSortDirection,
             currentSortKey,
+            emptyStateMsg,
             expanding,
             paginate,
             rows,
@@ -219,6 +229,10 @@ const MainTable = ({
 MainTable.propTypes = {
   defaultSort: PropTypes.string,
   defaultSortDirection: PropTypes.oneOf(["ascending", "descending"]),
+  /**
+   * A state that will be shown when no rows are passed to the table.
+   */
+  emptyStateMsg: PropTypes.node,
   expanding: PropTypes.bool,
   headers: PropTypes.arrayOf(
     PropTypes.shape({

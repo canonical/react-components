@@ -22,7 +22,7 @@ const Accordion = ({ className, sections, ...props }) => {
       className={classNames(className, "p-accordion")}
       {...props}
       role="tablist"
-      aria-multiselect="true" //eslint-disable-line jsx-a11y/aria-props
+      ariaMultiselectable="true"
     >
       <ul className="p-accordion__list">
         {generateSections(sections, setExpanded, expanded)}
