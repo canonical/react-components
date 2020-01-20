@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+## [0.3.1] - 2020-01-20
+
+### Added
+
+- Added empty state to MainTable component.
+
 ## [0.3.0] - 2019-12-09
 
 ### Added
