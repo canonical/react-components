@@ -230,5 +230,11 @@
   text-align: left;
   margin: 0 1rem; }
 
+.p-main-table {
+  caption-side: bottom; }
+  .p-main-table caption {
+    margin-top: -1rem;
+    width: 100%; }
+
 
 /*# sourceMappingURL=main.css.map*/
