@@ -28,7 +28,7 @@
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
     "enzyme-to-json": "3.4.3",
-    "node-sass": "4.13.0",
+    "node-sass": "4.13.1",
     "npm-package-json-lint": "4.5.0",
     "react-scripts": "3.2.0"
   },
