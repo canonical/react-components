@@ -3,6 +3,7 @@ dist
 
 .docker-project
 .yarn.*
+.dotrun.json
 
 npm-debug.log*
 yarn-debug.log*

@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import React from "react";
 
 const SearchBox = ({
-  disabled,
   className,
+  disabled,
+  externallyControlled,
   onChange,
   onSubmit,
   placeholder = "Search",
@@ -34,7 +35,8 @@ const SearchBox = ({
         placeholder={placeholder}
         ref={input}
         type="search"
-        defaultValue={value}
+        defaultValue={externallyControlled ? undefined : value}
+        value={externallyControlled ? value : undefined}
       />
       {value && (
         <button
@@ -62,6 +64,10 @@ const SearchBox = ({
 SearchBox.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
+  /**
+   * Whether the input value will be controlled via external state.
+   */
+  externallyControlled: PropTypes.bool,
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
   placeholder: PropTypes.string,
