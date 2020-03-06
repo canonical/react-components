@@ -52,6 +52,7 @@
     "lint": "yarn lint-package-json && yarn lint-js",
     "prepublishOnly": "yarn clean && yarn install && yarn build",
     "serve": "yarn docs",
+    "start": "yarn docs",
     "test": "react-scripts test"
   },
   "eslintConfig": {

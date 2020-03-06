@@ -30,6 +30,18 @@ Search boxes enable search functionality on a page and are typically used in a n
   </Story>
 </Preview>
 
+### External state
+
+If you wish to control the value of the input via external state you can set
+the `externallyControlled` prop and provide an `onChange` method to update the
+state and the `value` from state.
+
+<Preview>
+  <Story name="External state">
+    <SearchBox externallyControlled onChange={() => {}} value="..." />
+  </Story>
+</Preview>
+
 ### Navigation
 
 <Preview>
