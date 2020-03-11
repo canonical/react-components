@@ -1,21 +1,22 @@
 {
   "files": {
-    "main.css": "/react-components/main.css",
-    "main.js": "/react-components/main.6b4b22e79a326056e627.bundle.js",
-    "main.css.map": "/react-components/main.css.map",
-    "main.js.map": "/react-components/main.6b4b22e79a326056e627.bundle.js.map",
-    "runtime~main.js": "/react-components/runtime~main.6b4b22e79a326056e627.bundle.js",
-    "runtime~main.js.map": "/react-components/runtime~main.6b4b22e79a326056e627.bundle.js.map",
-    "vendors~main.js": "/react-components/vendors~main.6b4b22e79a326056e627.bundle.js",
-    "vendors~main.js.map": "/react-components/vendors~main.6b4b22e79a326056e627.bundle.js.map",
+    "main.css": "/react-components/static/css/main.b3b6a032.chunk.css",
+    "main.js": "/react-components/main.4f5e88df57d0dc21650d.bundle.js",
+    "main.css.map": "/react-components/static/css/main.b3b6a032.chunk.css.map",
+    "main.js.map": "/react-components/main.4f5e88df57d0dc21650d.bundle.js.map",
+    "runtime~main.js": "/react-components/runtime~main.4f5e88df57d0dc21650d.bundle.js",
+    "runtime~main.js.map": "/react-components/runtime~main.4f5e88df57d0dc21650d.bundle.js.map",
+    "vendors~main.js": "/react-components/vendors~main.4f5e88df57d0dc21650d.bundle.js",
+    "vendors~main.js.map": "/react-components/vendors~main.4f5e88df57d0dc21650d.bundle.js.map",
     "iframe.html": "/react-components/iframe.html",
-    "precache-manifest.2e99500519e549ee357c046d97242468.js": "/react-components/precache-manifest.2e99500519e549ee357c046d97242468.js",
-    "service-worker.js": "/react-components/service-worker.js"
+    "precache-manifest.b31a436375a1589a407a3ed4cf8d7f6a.js": "/react-components/precache-manifest.b31a436375a1589a407a3ed4cf8d7f6a.js",
+    "service-worker.js": "/react-components/service-worker.js",
+    "vendors~main.4f5e88df57d0dc21650d.bundle.js.LICENSE.txt": "/react-components/vendors~main.4f5e88df57d0dc21650d.bundle.js.LICENSE.txt"
   },
   "entrypoints": [
-    "runtime~main.6b4b22e79a326056e627.bundle.js",
-    "vendors~main.6b4b22e79a326056e627.bundle.js",
-    "main.css",
-    "main.6b4b22e79a326056e627.bundle.js"
+    "runtime~main.4f5e88df57d0dc21650d.bundle.js",
+    "vendors~main.4f5e88df57d0dc21650d.bundle.js",
+    "static/css/main.b3b6a032.chunk.css",
+    "main.4f5e88df57d0dc21650d.bundle.js"
   ]
 }
