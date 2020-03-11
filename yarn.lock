@@ -2352,7 +2352,7 @@
     percy-client "^3.0.0"
     slugify "^1.1.0"
 
-"@percy/storybook@^3.3.0":
+"@percy/storybook@3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@percy/storybook/-/storybook-3.3.0.tgz#7ebdf2a0f6e09924b82045a755a2e2fbc6704581"
   integrity sha512-xo6wIZUhrR07K5iTjTRUK0jXWhIYsP4yjUNjqNVwsuYS+aDD+1ZGd+2ZI0IrfTcllUkA6MUgtP1qMRhpx9hZ6g==
@@ -15624,10 +15624,10 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vanilla-framework@2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/vanilla-framework/-/vanilla-framework-2.4.1.tgz#36ef374e90b8457a07e55cf33be1bcfd07092c84"
-  integrity sha512-St8LdmoMpWSFWvFRDBNjFcdfWo/nOMwrkRPJN+dR0vOHP/Jb1UqOSxw+wDxkiGrpeRb0VPFwCuz/2u0RWb0xuQ==
+vanilla-framework@2.8.0:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/vanilla-framework/-/vanilla-framework-2.8.0.tgz#ec20ed3bf4fc2f1ce2d42075edb7a58c26f56982"
+  integrity sha512-fIxO7/BtCmj7aMAFCxxk19fqRB9HVZBv1typ7YL4AEiJhq8Za3qDCLuxjiSP0tFvKzXUtrI7y4KGHYMrFIevKg==
 
 vary@~1.1.2:
   version "1.1.2"
