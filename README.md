@@ -1,10 +1,16 @@
-This package provides [React](https://reactjs.org/) components for [Vanilla Framework](http://vanillaframework.io).
+# React components for Vanilla Framework.
+
+This is a collection of components designed to be the way to consume [Vanilla Framework](http://vanillaframework.io) when using React.
+
+## How to use the components
 
 See the [component docs](https://canonical-web-and-design.github.io/react-components/) for usage instructions.
 
 ![CI](https://github.com/canonical-web-and-design/react-components/workflows/CI/badge.svg?branch=master)
 
 ## Install
+
+To use the [NPM package](https://www.npmjs.com/package/@canonical/react-components) do:
 
 ```shell
 yarn add @canonical/react-components
@@ -22,4 +28,9 @@ Please file any issues at [GitHub](https://github.com/canonical-web-and-design/r
 
 ## Contributing
 
-The source can be found on [GitHub](https://github.com/canonical-web-and-design/react-components).
+You might want to:
+
+- [View the source](https://github.com/canonical-web-and-design/react-components) on GitHub.
+- Read abut [developing components](https://github.com/canonical-web-and-design/react-components/blob/master/HACKING.md).
+- Find out how to [publish to NPM](https://github.com/canonical-web-and-design/react-components/blob/master/PUBLISH-NPM-PACKAGE.md).
+- Know how to [publish the docs](https://github.com/canonical-web-and-design/react-components/blob/master/PUBLISHING-DOCS.md) to GitHub Pages.
