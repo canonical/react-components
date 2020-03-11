@@ -9,7 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Add docs for developing and publishing the project.
+
 ### Changed
+
+- Corrected the aria-multiselectable prop on the accordion.
 
 ### Removed
 
