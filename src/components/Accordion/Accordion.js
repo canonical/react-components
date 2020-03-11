@@ -22,7 +22,7 @@ const Accordion = ({ className, sections, ...props }) => {
       className={classNames(className, "p-accordion")}
       {...props}
       role="tablist"
-      ariaMultiselectable="true"
+      aria-multiselectable="true"
     >
       <ul className="p-accordion__list">
         {generateSections(sections, setExpanded, expanded)}

@@ -2352,7 +2352,7 @@
     percy-client "^3.0.0"
     slugify "^1.1.0"
 
-"@percy/storybook@^3.3.0":
+"@percy/storybook@3.3.0":
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/@percy/storybook/-/storybook-3.3.0.tgz#7ebdf2a0f6e09924b82045a755a2e2fbc6704581"
   integrity sha512-xo6wIZUhrR07K5iTjTRUK0jXWhIYsP4yjUNjqNVwsuYS+aDD+1ZGd+2ZI0IrfTcllUkA6MUgtP1qMRhpx9hZ6g==
