@@ -1,8 +1,10 @@
-## Developing
+# Contributing
 
-Use [Storybook](https://storybook.js.org/) to develop new components.
+## Developing components with Storybook
 
-Using [dotrun](https://github.com/canonical-web-and-design/dotrun):
+You can run [Storybook](https://storybook.js.org/) locally to develop new components. You may also need to validate that they work with other projects, in which case see the instructions below.
+
+Run Storybook with [dotrun](https://github.com/canonical-web-and-design/dotrun):
 
 ```shell
 dotrun
