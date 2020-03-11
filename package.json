@@ -36,7 +36,7 @@
   "dependencies": {
     "classnames": "2.2.6",
     "prop-types": "15.7.2",
-    "vanilla-framework": "2.4.1"
+    "vanilla-framework": "2.8.0"
   },
   "peerDependencies": {
     "react": "16.13.0",
