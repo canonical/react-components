@@ -2,6 +2,8 @@ This package provides [React](https://reactjs.org/) components for [Vanilla Fram
 
 See the [component docs](https://canonical-web-and-design.github.io/react-components/) for usage instructions.
 
+![CI](https://github.com/canonical-web-and-design/react-components/workflows/CI/badge.svg?branch=master)
+
 ## Install
 
 ```shell

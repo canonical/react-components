@@ -22,6 +22,7 @@
   "homepage": "/react-components/",
   "devDependencies": {
     "@babel/cli": "7.8.4",
+    "@percy/storybook": "3.3.0",
     "@storybook/addon-docs": "5.3.14",
     "@storybook/addon-knobs": "5.3.14",
     "@storybook/react": "5.3.14",
