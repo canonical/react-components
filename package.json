@@ -25,13 +25,17 @@
     "@percy/storybook": "3.3.0",
     "@storybook/addon-docs": "5.3.14",
     "@storybook/addon-knobs": "5.3.14",
+    "@storybook/preset-create-react-app": "2.0.0",
     "@storybook/react": "5.3.14",
+    "concurrently": "5.1.0",
+    "cypress": "4.1.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
     "enzyme-to-json": "3.4.4",
     "node-sass": "4.13.1",
     "npm-package-json-lint": "4.6.0",
-    "react-scripts": "3.4.0"
+    "react-scripts": "3.4.0",
+    "wait-on": "4.0.1"
   },
   "dependencies": {
     "classnames": "2.2.6",
@@ -54,7 +58,11 @@
     "prepublishOnly": "yarn clean && yarn install && yarn build",
     "serve": "yarn docs",
     "start": "yarn docs",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "test-cypress": "concurrently 'yarn run docs' 'yarn run cypress:test' -k -s first",
+    "cypress:test": "wait-on http://localhost:${PORT} && cypress run --env port=${PORT}",
+    "cypress:run": "cypress run",
+    "cypress:open": "cypress open"
   },
   "eslintConfig": {
     "extends": "react-app"
