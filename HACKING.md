@@ -58,3 +58,22 @@ yarn unlink "@canonical/react-components"
 ```
 
 More details on yarn link in the [docs](https://yarnpkg.com/lang/en/docs/cli/link/).
+
+## Developing integration tests with cypress
+
+### Running against a local storybook
+Start storybook with:
+```shell
+PORT=<PORT> yarn docs
+```
+
+Start the interactive cypress environment with:
+```
+yarn cypress:open --env port=<PORT>
+```
+
+### Running cypress tests in CI
+```shell
+PORT=<PORT> yarn test-cypress
+```
+
