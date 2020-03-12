@@ -7,6 +7,7 @@ This is a collection of components designed to be the way to consume [Vanilla Fr
 See the [component docs](https://canonical-web-and-design.github.io/react-components/) for usage instructions.
 
 ![CI](https://github.com/canonical-web-and-design/react-components/workflows/CI/badge.svg?branch=master)
+![Cypress chrome headless](https://github.com/canonical-web-and-design/react-components/workflows/Cypress%20chrome%20headless/badge.svg)
 
 ## Install
 
