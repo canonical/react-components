@@ -25,6 +25,7 @@
     "@percy/storybook": "3.3.0",
     "@storybook/addon-docs": "5.3.14",
     "@storybook/addon-knobs": "5.3.14",
+    "@storybook/preset-create-react-app": "2.0.0",
     "@storybook/react": "5.3.14",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
