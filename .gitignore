@@ -10,4 +10,3 @@ yarn-debug.log*
 yarn-error.log*
 
 storybook-static/
-cypress/videos
