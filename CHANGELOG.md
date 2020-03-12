@@ -9,11 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Add docs for developing and publishing the project.
+### Changed
+
+### Removed
+
+## [0.4.0] - 2020-03-11
+
+### Added
+
+- Added docs for developing and publishing the project.
+- Added percy snapshotting.
 
 ### Changed
 
 - Corrected the aria-multiselectable prop on the accordion.
+- Updated SearchBox to be a controlled input when needed.
 
 ### Removed
 
