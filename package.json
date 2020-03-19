@@ -43,8 +43,8 @@
     "vanilla-framework": "2.8.0"
   },
   "peerDependencies": {
-    "react": "16.13.0",
-    "react-dom": "16.13.0"
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
   },
   "scripts": {
     "build": "rm -rf dist && NODE_ENV=production babel src --out-dir dist --copy-files",
