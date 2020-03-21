@@ -34,7 +34,7 @@
     "enzyme-to-json": "3.4.4",
     "node-sass": "4.13.1",
     "npm-package-json-lint": "4.6.0",
-    "react-scripts": "3.4.0",
+    "react-scripts": "3.4.1",
     "wait-on": "4.0.1"
   },
   "dependencies": {
