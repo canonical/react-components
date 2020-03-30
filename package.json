@@ -28,7 +28,7 @@
     "@storybook/preset-create-react-app": "2.1.0",
     "@storybook/react": "5.3.17",
     "concurrently": "5.1.0",
-    "cypress": "4.2.0",
+    "cypress": "4.3.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
     "enzyme-to-json": "3.4.4",
