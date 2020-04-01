@@ -5,18 +5,21 @@ import React, { useState } from "react";
 import AccordionSection from "../AccordionSection";
 
 const generateSections = (sections, setExpanded, expanded) =>
-  sections.map(({ content, title }, i) => (
+  sections.map((props, i) => (
     <AccordionSection
-      content={content}
       expanded={expanded}
       key={i}
       setExpanded={setExpanded}
-      title={title}
+      {...props}
     />
   ));
 
-const Accordion = ({ className, sections, ...props }) => {
+const Accordion = ({ className, onExpandedChange, sections, ...props }) => {
   const [expanded, setExpanded] = useState();
+  const changeExpanded = (id, title) => {
+    setExpanded(id);
+    onExpandedChange && onExpandedChange(title);
+  };
   return (
     <aside
       className={classNames(className, "p-accordion")}
@@ -25,7 +28,7 @@ const Accordion = ({ className, sections, ...props }) => {
       aria-multiselectable="true"
     >
       <ul className="p-accordion__list">
-        {generateSections(sections, setExpanded, expanded)}
+        {generateSections(sections, changeExpanded, expanded)}
       </ul>
     </aside>
   );
@@ -42,6 +45,10 @@ Accordion.propTypes = {
   sections: PropTypes.arrayOf(
     PropTypes.shape({
       /**
+       * An optional click event when the title is clicked.
+       */
+      onTitleClick: PropTypes.func,
+      /**
        * The title of the section.
        */
       title: PropTypes.string,
@@ -50,7 +57,12 @@ Accordion.propTypes = {
        */
       content: PropTypes.node
     }).isRequired
-  )
+  ),
+  /**
+   * Optional function that is called when the expanded section is changed.
+   * The function is provided the section title or null.
+   */
+  onExpandedChange: PropTypes.func
 };
 
 export default Accordion;

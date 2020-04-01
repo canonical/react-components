@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Upgrade Vanilla Framework to 2.9.0.
+- Added click event props to Accordion.
+
 ### Removed
 
 ## [0.4.0] - 2020-03-11
