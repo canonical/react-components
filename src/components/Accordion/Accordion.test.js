@@ -1,4 +1,4 @@
-import { shallow } from "enzyme";
+import { mount, shallow } from "enzyme";
 import React from "react";
 
 import Accordion from "./Accordion";
@@ -24,6 +24,31 @@ describe("Accordion ", () => {
       />
     );
     expect(wrapper).toMatchSnapshot();
+  });
+
+  it("can call a function when a section is expanded", () => {
+    const onExpandedChange = jest.fn();
+    const wrapper = mount(
+      <Accordion
+        onExpandedChange={onExpandedChange}
+        sections={[
+          {
+            title: "Advanced topics",
+            content: "test content"
+          },
+          {
+            title: "Networking",
+            content: <>More test content</>
+          }
+        ]}
+      />
+    );
+    const title = wrapper.find(".p-accordion__tab").at(0);
+    title.simulate("click");
+    expect(onExpandedChange).toHaveBeenCalledWith("Advanced topics");
+    // Clicking the title again should close the accordion section.
+    title.simulate("click");
+    expect(onExpandedChange).toHaveBeenCalledWith(null);
   });
 
   it("can add additional classes", () => {
