@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/react-components/static/css/main.b3b6a032.chunk.css",
-    "main.js": "/react-components/main.da35ac8890d2a5481afc.bundle.js",
-    "main.css.map": "/react-components/static/css/main.b3b6a032.chunk.css.map",
-    "main.js.map": "/react-components/main.da35ac8890d2a5481afc.bundle.js.map",
-    "runtime~main.js": "/react-components/runtime~main.da35ac8890d2a5481afc.bundle.js",
-    "runtime~main.js.map": "/react-components/runtime~main.da35ac8890d2a5481afc.bundle.js.map",
-    "vendors~main.js": "/react-components/vendors~main.da35ac8890d2a5481afc.bundle.js",
-    "vendors~main.js.map": "/react-components/vendors~main.da35ac8890d2a5481afc.bundle.js.map",
-    "iframe.html": "/react-components/iframe.html",
-    "precache-manifest.dd234fb4825c572d2e299c2c0a37ba53.js": "/react-components/precache-manifest.dd234fb4825c572d2e299c2c0a37ba53.js",
-    "service-worker.js": "/react-components/service-worker.js",
-    "vendors~main.da35ac8890d2a5481afc.bundle.js.LICENSE.txt": "/react-components/vendors~main.da35ac8890d2a5481afc.bundle.js.LICENSE.txt"
+    "main.css": "./static/css/main.6139caf5.chunk.css",
+    "main.js": "./main.6411037d156215ad3b3e.bundle.js",
+    "main.css.map": "./static/css/main.6139caf5.chunk.css.map",
+    "main.js.map": "./main.6411037d156215ad3b3e.bundle.js.map",
+    "runtime~main.js": "./runtime~main.6411037d156215ad3b3e.bundle.js",
+    "runtime~main.js.map": "./runtime~main.6411037d156215ad3b3e.bundle.js.map",
+    "vendors~main.js": "./vendors~main.6411037d156215ad3b3e.bundle.js",
+    "vendors~main.js.map": "./vendors~main.6411037d156215ad3b3e.bundle.js.map",
+    "iframe.html": "./iframe.html",
+    "precache-manifest.0d9213e3ef79725fecc714755b4b5684.js": "./precache-manifest.0d9213e3ef79725fecc714755b4b5684.js",
+    "service-worker.js": "./service-worker.js",
+    "vendors~main.6411037d156215ad3b3e.bundle.js.LICENSE.txt": "./vendors~main.6411037d156215ad3b3e.bundle.js.LICENSE.txt"
   },
   "entrypoints": [
-    "runtime~main.da35ac8890d2a5481afc.bundle.js",
-    "vendors~main.da35ac8890d2a5481afc.bundle.js",
-    "static/css/main.b3b6a032.chunk.css",
-    "main.da35ac8890d2a5481afc.bundle.js"
+    "runtime~main.6411037d156215ad3b3e.bundle.js",
+    "vendors~main.6411037d156215ad3b3e.bundle.js",
+    "static/css/main.6139caf5.chunk.css",
+    "main.6411037d156215ad3b3e.bundle.js"
   ]
 }
