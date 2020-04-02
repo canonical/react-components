@@ -3,9 +3,9 @@ import React from "react";
 
 import AccordionSection from "./AccordionSection";
 
-jest.mock("uuid/v4", () =>
-  jest.fn(() => "00000000-0000-0000-0000-000000000000")
-);
+const MOCK_UUID = "00000000-0000-0000-0000-000000000000";
+
+jest.mock("uuid/v4", () => jest.fn(() => MOCK_UUID));
 
 describe("AccordionSection ", () => {
   it("renders", () => {
@@ -38,13 +38,35 @@ describe("AccordionSection ", () => {
       .find(".p-accordion__tab")
       .at(0)
       .simulate("click");
-    expect(onTitleClick.mock.calls[0][0]).toBe(true);
+    expect(onTitleClick.mock.calls[0][0]).toBe(true, MOCK_UUID);
     wrapper.setProps({ expanded });
     // Clicking the title again should close the accordion section.
     wrapper
       .find(".p-accordion__tab")
       .at(0)
       .simulate("click");
-    expect(onTitleClick.mock.calls[1][0]).toBe(false);
+    expect(onTitleClick.mock.calls[1][0]).toBe(false, MOCK_UUID);
+  });
+
+  it("can use a key for expanded state", () => {
+    const onTitleClick = jest.fn();
+    let expanded = null;
+    const wrapper = shallow(
+      <AccordionSection
+        content={<span>Test</span>}
+        expanded={expanded}
+        sectionKey="first-key"
+        onTitleClick={onTitleClick}
+        setExpanded={id => {
+          expanded = id;
+        }}
+        title="Test section"
+      />
+    );
+    wrapper
+      .find(".p-accordion__tab")
+      .at(0)
+      .simulate("click");
+    expect(onTitleClick.mock.calls[0][0]).toBe(true, "first-key");
   });
 });

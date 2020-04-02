@@ -3,9 +3,9 @@ import React from "react";
 
 import Accordion from "./Accordion";
 
-jest.mock("uuid/v4", () =>
-  jest.fn(() => "00000000-0000-0000-0000-000000000000")
-);
+const MOCK_UUID = "00000000-0000-0000-0000-000000000000";
+
+jest.mock("uuid/v4", () => jest.fn(() => MOCK_UUID));
 
 describe("Accordion ", () => {
   it("renders", () => {
@@ -45,10 +45,34 @@ describe("Accordion ", () => {
     );
     const title = wrapper.find(".p-accordion__tab").at(0);
     title.simulate("click");
-    expect(onExpandedChange).toHaveBeenCalledWith("Advanced topics");
+    expect(onExpandedChange).toHaveBeenCalledWith(MOCK_UUID, "Advanced topics");
     // Clicking the title again should close the accordion section.
     title.simulate("click");
-    expect(onExpandedChange).toHaveBeenCalledWith(null);
+    expect(onExpandedChange).toHaveBeenCalledWith(null, null);
+  });
+
+  it("can set the default expanded state", () => {
+    const wrapper = shallow(
+      <Accordion
+        expanded="networking"
+        sections={[
+          {
+            title: "Advanced topics",
+            content: "test content"
+          },
+          {
+            title: "Networking",
+            content: <>More test content</>
+          }
+        ]}
+      />
+    );
+    expect(
+      wrapper
+        .find("AccordionSection")
+        .at(0)
+        .prop("expanded")
+    ).toBe("networking");
   });
 
   it("can add additional classes", () => {
