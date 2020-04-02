@@ -6,26 +6,26 @@ const AccordionSection = ({
   content,
   expanded,
   onTitleClick,
+  sectionKey,
   setExpanded,
   title
 }) => {
-  const buttonId = useRef(uuidv4());
   const sectionId = useRef(uuidv4());
-  const isExpanded = expanded === buttonId.current;
+  const key = sectionKey || sectionId.current;
+  const isExpanded = expanded === key;
   return (
     <li className="p-accordion__group">
       <button
         aria-controls={`#${sectionId.current}`}
         aria-expanded={isExpanded ? "true" : "false"}
         className="p-accordion__tab"
-        id={buttonId.current}
         onClick={() => {
           if (isExpanded) {
             setExpanded(null, null);
           } else {
-            setExpanded(buttonId.current, title);
+            setExpanded(key, title);
           }
-          onTitleClick && onTitleClick(!isExpanded);
+          onTitleClick && onTitleClick(!isExpanded, key);
         }}
         role="tab"
         type="button"
@@ -52,6 +52,10 @@ AccordionSection.propTypes = {
    * An optional click event when the title is clicked.
    */
   onTitleClick: PropTypes.func,
+  /**
+   * An optional key to be used to track which section is selected.
+   */
+  sectionKey: PropTypes.string,
   setExpanded: PropTypes.func,
   title: PropTypes.string
 };

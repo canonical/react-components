@@ -48,10 +48,12 @@
   },
   "scripts": {
     "build": "rm -rf dist && NODE_ENV=production babel src --out-dir dist --copy-files",
+    "build-watch": "yarn build --watch",
     "build-docs": "build-storybook -c .storybook -o docs",
     "clean": "rm -rf node_modules dist .out",
     "docs": "start-storybook --port ${PORT}",
     "eject": "react-scripts eject",
+    "link-package": "yarn install && yarn build && yarn link && cd node_modules/react && yarn link",
     "lint-js": "eslint src",
     "lint-package-json": "npmPkgJsonLint .",
     "lint": "yarn lint-package-json && yarn lint-js",
@@ -60,6 +62,7 @@
     "start": "yarn docs",
     "test": "react-scripts test",
     "test-cypress": "concurrently 'yarn run docs' 'yarn run cypress:test' -k -s first",
+    "unlink-package": "yarn unlink && cd node_modules/react && yarn unlink",
     "cypress:test": "wait-on http://localhost:${PORT} && cypress run --env port=${PORT}",
     "cypress:run": "cypress run",
     "cypress:open": "cypress open"

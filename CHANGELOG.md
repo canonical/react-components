@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Accordion now supports handling expanded sections using external state.
+- Added `yarn build-watch` to watch and build files when developing locally.
+- Added `yarn link-package` and `yarn unlink-package` to improve developing against another project.
+
 ### Changed
 
 ### Removed

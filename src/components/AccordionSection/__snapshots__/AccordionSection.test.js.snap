@@ -8,7 +8,6 @@ exports[`AccordionSection  renders 1`] = `
     aria-controls="#00000000-0000-0000-0000-000000000000"
     aria-expanded="false"
     className="p-accordion__tab"
-    id="00000000-0000-0000-0000-000000000000"
     onClick={[Function]}
     role="tab"
     type="button"
