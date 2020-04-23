@@ -16831,10 +16831,10 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vanilla-framework@2.9.1:
-  version "2.9.1"
-  resolved "https://registry.yarnpkg.com/vanilla-framework/-/vanilla-framework-2.9.1.tgz#d2d0d4b39936651bcf7ce5c32d801aa4a9d3e8fc"
-  integrity sha512-Ax59BOjsoHuZX80vYD0oVRsgUwXWRpQ8y3F7+m+CW6jquHHG6GVdkpnmQL19qNsmp5JuzxHAprDxj3wn28reWA==
+vanilla-framework@2.10.0:
+  version "2.10.0"
+  resolved "https://registry.yarnpkg.com/vanilla-framework/-/vanilla-framework-2.10.0.tgz#74c0cba977ce058552aa4443cccaa6bbf9308e9e"
+  integrity sha512-otQLBXzRBLyiN8RFtHP0E19Iy2p3Frbm7E4TIU7Q7LN+ScmfmgAc7InqbYXvTL9oIATTs0sBD7T/2Fzezgmalg==
 
 vary@~1.1.2:
   version "1.1.2"
