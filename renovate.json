@@ -1,5 +1,15 @@
 {
-  "extends": [
-    "config:base"
+  "extends": ["config:base"],
+  "labels": ["Maintenance 🔨"],
+  "packageRules": [
+    {
+      "packagePatterns": ["*"],
+      "excludePackagePatterns": ["vanilla-framework"],
+      "extends": ["schedule:weekly"],
+      "minor": {
+        "groupName": "all non-major dependencies",
+        "groupSlug": "all-minor-patch"
+      }
+    }
   ]
 }
