@@ -25,4 +25,11 @@ describe("SearchBox ", () => {
     input = wrapper.find(".p-search-box__input");
     expect(input.prop("value")).toBe("new-admin");
   });
+
+  it("can show a spinner if given loading prop", () => {
+    const wrapper = shallow(
+      <SearchBox loading onChange={jest.fn()} value="" />
+    );
+    expect(wrapper.find(".p-search-box__spinner").exists()).toBe(true);
+  });
 });

@@ -2,10 +2,13 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 
+import "./SearchBox.scss";
+
 const SearchBox = ({
   className,
   disabled,
   externallyControlled,
+  loading,
   onChange,
   onSubmit,
   placeholder = "Search",
@@ -38,6 +41,11 @@ const SearchBox = ({
         defaultValue={externallyControlled ? undefined : value}
         value={externallyControlled ? value : undefined}
       />
+      {loading && (
+        <p className="p-search-box__spinner">
+          <i className="p-icon--spinner u-animation--spin"></i>
+        </p>
+      )}
       {value && (
         <button
           alt="reset"
@@ -68,6 +76,7 @@ SearchBox.propTypes = {
    * Whether the input value will be controlled via external state.
    */
   externallyControlled: PropTypes.bool,
+  loading: PropTypes.bool,
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
   placeholder: PropTypes.string,
