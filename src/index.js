@@ -19,6 +19,7 @@ export { default as Pagination } from "./components/Pagination";
 export { default as Row } from "./components/Row";
 export { default as SearchBox } from "./components/SearchBox";
 export { default as Select } from "./components/Select";
+export { default as Spinner } from "./components/Spinner";
 export { default as Strip } from "./components/Strip";
 export { default as Table } from "./components/Table";
 export { default as TableCell } from "./components/TableCell";

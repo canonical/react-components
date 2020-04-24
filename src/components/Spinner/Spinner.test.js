@@ -1,25 +1,25 @@
 import { shallow } from "enzyme";
 import React from "react";
 
-import Loader from "./Loader";
+import Spinner from "./Spinner";
 
-describe("<Loader />", () => {
+describe("<Spinner />", () => {
   // snapshot tests
   it("renders and matches the snapshot", () => {
-    const component = shallow(<Loader />);
+    const component = shallow(<Spinner />);
 
     expect(component).toMatchSnapshot();
   });
 
   it("renders and matches the snapshot with text", () => {
-    const component = shallow(<Loader text="foo" />);
+    const component = shallow(<Spinner text="foo" />);
 
     expect(component).toMatchSnapshot();
   });
 
   // unit tests
   it("renders a spinner icon", () => {
-    const component = shallow(<Loader />);
+    const component = shallow(<Spinner />);
 
     expect(
       component
@@ -31,7 +31,7 @@ describe("<Loader />", () => {
 
   it("renders text correctly if given text prop", () => {
     const text = "Loading...";
-    const component = shallow(<Loader text={text} />);
+    const component = shallow(<Spinner text={text} />);
 
     expect(
       component
@@ -42,7 +42,7 @@ describe("<Loader />", () => {
   });
 
   it("renders a light spinner if given isLight prop", () => {
-    const component = shallow(<Loader isLight />);
+    const component = shallow(<Spinner isLight />);
 
     expect(
       component
