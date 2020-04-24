@@ -1,0 +1,21 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import Spinner from "./Spinner";
+
+<Meta title="Spinner" component={Spinner} decorators={[withKnobs]} />
+
+### Spinner
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Spin](https://docs.vanillaframework.io/settings/animation-settings/#spin) animation.
+
+### Props
+
+<Props of={Spinner} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <Spinner text="Loading..." />
+  </Story>
+</Preview>
