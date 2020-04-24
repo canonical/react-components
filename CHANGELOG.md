@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Renamed the Loader component to Spinner. https://github.com/canonical-web-and-design/react-components/issues/36
+- Update the wrapping element of Spinner to allow it to be used in paragraphs. https://github.com/canonical-web-and-design/react-components/issues/111
+
 ### Removed
 
 ## [0.6.0] - 2020-04-02

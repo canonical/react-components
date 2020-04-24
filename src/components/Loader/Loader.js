@@ -1,29 +1,15 @@
-import PropTypes from "prop-types";
 import React from "react";
-import classNames from "classnames";
 
-import "./Loader.scss";
+import Spinner from "../Spinner";
+import { IS_DEV } from "../../utils";
 
-const Loader = ({ className, text, isLight, inline }) => (
-  <div
-    className={classNames(className, "p-loader", "p-text--default", {
-      "p-loader--inline": inline
-    })}
-  >
-    <i
-      className={classNames("p-icon--spinner", "u-animation--spin", {
-        "is-light": isLight
-      })}
-    />
-    {text && <span className="p-icon__text">{text}</span>}
-  </div>
-);
-
-Loader.propTypes = {
-  className: PropTypes.string,
-  text: PropTypes.string,
-  isLight: PropTypes.bool,
-  inline: PropTypes.bool
+const Loader = props => {
+  if (IS_DEV) {
+    console.warn(
+      "The Loader component has been renamed to Spinner and will be removed in a future release. https://canonical-web-and-design.github.io/react-components/?path=/story/spinner--default-story"
+    );
+  }
+  return <Spinner {...props} />;
 };
 
 export default Loader;
