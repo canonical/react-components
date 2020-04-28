@@ -1,7 +1,5 @@
 # React components for Vanilla Framework.
 
-![CI](https://github.com/huwshimi/vanilla-react-components/workflows/CI/badge.svg)
-
 This is a collection of components designed to be the way to consume [Vanilla Framework](http://vanillaframework.io) when using React.
 
 ## How to use the components
