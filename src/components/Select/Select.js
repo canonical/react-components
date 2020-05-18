@@ -18,6 +18,7 @@ const Select = ({
   help,
   id,
   label,
+  onChange,
   options,
   required,
   stacked,
@@ -34,13 +35,12 @@ const Select = ({
       label={label}
       required={required}
       stacked={stacked}
-      success={success}
-    >
+      success={success}>
       <select
         className={classNames("p-form-validation__input", className)}
         id={id}
-        {...props}
-      >
+        onChange={evt => onChange(evt.target.value)}
+        {...props}>
         {generateOptions(options)}
       </select>
     </Field>
@@ -54,6 +54,7 @@ Select.propTypes = {
   help: PropTypes.string,
   id: PropTypes.string,
   label: PropTypes.string,
+  onChange: PropTypes.func,
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,

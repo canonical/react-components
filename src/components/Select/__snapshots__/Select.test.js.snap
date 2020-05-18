@@ -8,6 +8,7 @@ exports[`Select  renders 1`] = `
   <select
     className="p-form-validation__input"
     id="test-id"
+    onChange={[Function]}
   >
     <option
       disabled="disabled"
