@@ -7,7 +7,7 @@ describe("Select ", () => {
   it("renders", () => {
     const wrapper = shallow(
       <Select
-        id='test-id'
+        id="test-id"
         options={[
           { value: "", disabled: "disabled", label: "Select an option" },
           { value: "1", label: "Cosmic Cuttlefish" },
@@ -22,8 +22,7 @@ describe("Select ", () => {
   it("should call onChange prop", () => {
     const onChangeMock = jest.fn();
     const event = {
-      preventDefault() {},
-      target: { value: "test-value" },
+      event: "test-event"
     };
     const component = shallow(
       <Select
@@ -32,7 +31,7 @@ describe("Select ", () => {
       />
     );
     component.find("select").simulate("change", event);
-    expect(onChangeMock).toBeCalledWith("test-value");
+    expect(onChangeMock).toBeCalledWith(event);
   });
 
   it("can add additional classes", () => {

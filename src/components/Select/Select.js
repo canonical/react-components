@@ -39,7 +39,7 @@ const Select = ({
       <select
         className={classNames("p-form-validation__input", className)}
         id={id}
-        onChange={evt => onChange(evt.target.value)}
+        onChange={(evt) => onChange && onChange(evt)}
         {...props}>
         {generateOptions(options)}
       </select>
