@@ -25,7 +25,7 @@
     "@percy/storybook": "3.3.0",
     "@storybook/addon-docs": "5.3.19",
     "@storybook/addon-knobs": "5.3.19",
-    "@storybook/preset-create-react-app": "2.1.2",
+    "@storybook/preset-create-react-app": "3.0.1",
     "@storybook/react": "5.3.19",
     "concurrently": "5.2.0",
     "cypress": "4.8.0",
