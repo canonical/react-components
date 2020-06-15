@@ -21,21 +21,21 @@
   },
   "homepage": "/react-components/",
   "devDependencies": {
-    "@babel/cli": "7.8.4",
+    "@babel/cli": "7.10.1",
     "@percy/storybook": "3.3.0",
-    "@storybook/addon-docs": "5.3.18",
-    "@storybook/addon-knobs": "5.3.18",
+    "@storybook/addon-docs": "5.3.19",
+    "@storybook/addon-knobs": "5.3.19",
     "@storybook/preset-create-react-app": "2.1.2",
-    "@storybook/react": "5.3.18",
+    "@storybook/react": "5.3.19",
     "concurrently": "5.2.0",
-    "cypress": "4.5.0",
+    "cypress": "4.8.0",
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
-    "enzyme-to-json": "3.4.4",
+    "enzyme-to-json": "3.5.0",
     "node-sass": "4.14.1",
     "npm-package-json-lint": "5.1.0",
     "react-scripts": "3.4.1",
-    "wait-on": "5.0.0"
+    "wait-on": "5.0.1"
   },
   "dependencies": {
     "classnames": "2.2.6",
