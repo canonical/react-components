@@ -4,13 +4,14 @@ import React, { useState } from "react";
 
 import AccordionSection from "../AccordionSection";
 
-const generateSections = (sections, setExpanded, expanded) =>
+const generateSections = (sections, setExpanded, expanded, titleElement) =>
   sections.map(({ key, ...props }, i) => (
     <AccordionSection
       expanded={expanded}
       key={key || i}
       sectionKey={key}
       setExpanded={setExpanded}
+      titleElement={titleElement}
       {...props}
     />
   ));
@@ -21,6 +22,7 @@ const Accordion = ({
   externallyControlled,
   onExpandedChange,
   sections,
+  titleElement,
   ...props
 }) => {
   const [expandedSection, setExpandedSection] = useState(expanded);
@@ -39,7 +41,8 @@ const Accordion = ({
         {generateSections(
           sections,
           setExpanded,
-          externallyControlled ? expanded : expandedSection
+          externallyControlled ? expanded : expandedSection,
+          titleElement
         )}
       </ul>
     </aside>
@@ -89,7 +92,11 @@ Accordion.propTypes = {
    * Optional function that is called when the expanded section is changed.
    * The function is provided the section title or null.
    */
-  onExpandedChange: PropTypes.func
+  onExpandedChange: PropTypes.func,
+  /**
+    * Optional string describing heading element that should be used for the secion titles.
+    */
+  titleElement: PropTypes.oneOf(["h2", "h3", "h4", "h5", "h6"])
 };
 
 export default Accordion;
