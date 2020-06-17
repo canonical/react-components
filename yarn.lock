@@ -14129,6 +14129,13 @@ react-transition-group@^2.2.1:
     prop-types "^15.6.2"
     react-lifecycles-compat "^3.0.4"
 
+react-useportal@1.0.13:
+  version "1.0.13"
+  resolved "https://registry.yarnpkg.com/react-useportal/-/react-useportal-1.0.13.tgz#abfc29f8128756cd7382bff7c81a4f446b792199"
+  integrity sha512-83KpNTXUIHnRVTLeMberIblCtssvRSKCPnG/xT9NW60gDYfU13pQBNQKCVUF8MBK+7LnCQ/ZrOuXl8Mp+iXdXA==
+  dependencies:
+    use-ssr "^1.0.19"
+
 react@^16.8.3:
   version "16.11.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.11.0.tgz#d294545fe62299ccee83363599bf904e4a07fdbb"
@@ -16737,6 +16744,11 @@ use-sidecar@^1.0.1:
   dependencies:
     detect-node "^2.0.4"
     tslib "^1.9.3"
+
+use-ssr@^1.0.19:
+  version "1.0.23"
+  resolved "https://registry.yarnpkg.com/use-ssr/-/use-ssr-1.0.23.tgz#3bde1e10cd01b3b61ab6386d7cddb72e74828bf8"
+  integrity sha512-5bvlssgROgPgIrnILJe2mJch4e2Id0/bVm1SQzqvPvEAXmlsinCCVHWK3a2iHcPat7PkdJHBo0gmSmODIz6tNA==
 
 use@^3.1.0:
   version "3.1.1"

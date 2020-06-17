@@ -1,0 +1,47 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { select, withKnobs } from "@storybook/addon-knobs";
+import Button from "../Button";
+import Tooltip from "./Tooltip";
+
+<Meta title="Tooltip" component={Tooltip} decorators={[withKnobs]} />
+
+### Tooltip
+
+This is the [React](https://reactjs.org/) component for Vanilla [Tooltips](https://vanillaframework.io/docs/patterns/tooltips).
+
+Tooltips are text labels that appear when the user hovers over, focuses on, or touches an element on the screen.
+
+They can be used to provide information about concepts/terms/actions that are not self-explanatory or well known.
+
+An alternative use of tooltips is to provide information on a disabled actionable element, e.g. for disabled buttons, providing information about why they are disabled.
+
+### Props
+
+<Props of={Tooltip} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <div style={{ display: "flex", justifyContent: "center", padding: "3rem" }}>
+      <Tooltip
+        message="Tooltip message to display."
+        position={select(
+          "Position",
+          [
+            "top-left",
+            "top-center",
+            "top-right",
+            "left",
+            "right",
+            "btm-left",
+            "btm-center",
+            "btm-right"
+          ],
+        )}
+      >
+        <Button className="u-no-margin--bottom">Hover over me!</Button>
+      </Tooltip>
+    </div>
+  </Story>
+</Preview>

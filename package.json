@@ -40,6 +40,7 @@
   "dependencies": {
     "classnames": "2.2.6",
     "prop-types": "15.7.2",
+    "react-useportal": "1.0.13",
     "vanilla-framework": "2.13.0"
   },
   "peerDependencies": {
