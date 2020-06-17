@@ -1,0 +1,71 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { boolean, withKnobs } from "@storybook/addon-knobs";
+import Row from "../Row";
+import Tabs from "./Tabs";
+
+<Meta title="Tabs" component={Tabs} decorators={[withKnobs]} />
+
+### Tabs
+
+This is the [React](https://reactjs.org/) component for Vanilla [Tabs](https://vanillaframework.io/docs/patterns/tabs).
+
+Tabs organise and allow navigation between groups of content that are related and at the same level
+of hierarchy.
+
+### Props
+
+<Props of={Tabs} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <Tabs
+      links={[
+        {
+          active: boolean("Summary active", true),
+          label: "Summary",
+        }, {
+          active: boolean("Network active", false),
+          label: "Network",
+        }, {
+          active: boolean("Storage active", false),
+          label: "Storage",
+        }, {
+          active: boolean("Settings active", false),
+          label: "Settings",
+        }
+      ]}
+    />
+  </Story>
+</Preview>
+
+### Horizontally aligned
+
+To horizontally align the Tabs with other content, they can be contained within a Row component to
+provide correct gutters.
+
+<Preview>
+  <Story name="Horizontally aligned">
+    <Row>
+      <Tabs
+        links={[
+          {
+            active: boolean("Summary active", true),
+            label: "Summary",
+          }, {
+            active: boolean("Network active", false),
+            label: "Network",
+          }, {
+            active: boolean("Storage active", false),
+            label: "Storage",
+          }, {
+            active: boolean("Settings active", false),
+            label: "Settings",
+          }
+        ]}
+      />
+      <p>There should be gutters and the text should be horizontally aligned</p>
+    </Row>
+  </Story>
+</Preview>
