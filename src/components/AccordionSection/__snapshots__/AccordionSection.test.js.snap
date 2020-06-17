@@ -27,3 +27,35 @@ exports[`AccordionSection  renders 1`] = `
   </section>
 </li>
 `;
+
+exports[`AccordionSection  renders headings for titles 1`] = `
+<li
+  className="p-accordion__group"
+>
+  <button
+    aria-controls="#00000000-0000-0000-0000-000000000000"
+    aria-expanded="false"
+    className="p-accordion__tab--with-title"
+    onClick={[Function]}
+    role="tab"
+    type="button"
+  >
+    <h4
+      className="p-accordion__title"
+    >
+      Test section
+    </h4>
+  </button>
+  <section
+    aria-hidden="true"
+    aria-labelledby="00000000-0000-0000-0000-000000000000"
+    className="p-accordion__panel"
+    id="00000000-0000-0000-0000-000000000000"
+    role="tabpanel"
+  >
+    <span>
+      Test
+    </span>
+  </section>
+</li>
+`;

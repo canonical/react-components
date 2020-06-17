@@ -26,6 +26,25 @@ describe("Accordion ", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it("renders headings for titles", () => {
+    const wrapper = shallow(
+      <Accordion
+        sections={[
+          {
+            title: "Advanced topics",
+            content: "test content"
+          },
+          {
+            title: "Networking",
+            content: <>More test content</>
+          }
+        ]}
+        titleElement="h4"
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it("can call a function when a section is expanded", () => {
     const onExpandedChange = jest.fn();
     const wrapper = mount(

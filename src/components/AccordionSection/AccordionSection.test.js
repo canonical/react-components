@@ -20,6 +20,19 @@ describe("AccordionSection ", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it("renders headings for titles", () => {
+    const wrapper = shallow(
+      <AccordionSection
+        content={<span>Test</span>}
+        expanded="abcd-1234"
+        setExpanded={jest.fn()}
+        title="Test section"
+        titleElement="h4"
+      />
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it("can handle click events on the title", () => {
     const onTitleClick = jest.fn();
     let expanded = null;
