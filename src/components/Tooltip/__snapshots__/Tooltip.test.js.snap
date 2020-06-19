@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tooltip /> renders and matches the snapshot 1`] = `
+<Fragment>
+  <span
+    onBlur={[Function]}
+    onFocus={[Function]}
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
+  >
+    Child
+  </span>
+</Fragment>
+`;
