@@ -26,7 +26,7 @@ describe("Accordion ", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it("renders headings for titles", () => {
+  it("passes title heading element to AccordionSections", () => {
     const wrapper = shallow(
       <Accordion
         sections={[
@@ -42,7 +42,12 @@ describe("Accordion ", () => {
         titleElement="h4"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(
+      wrapper
+        .find("AccordionSection")
+        .at(0)
+        .prop("titleElement")
+    ).toBe("h4");
   });
 
   it("can call a function when a section is expanded", () => {

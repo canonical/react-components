@@ -30,6 +30,7 @@ describe("AccordionSection ", () => {
         titleElement="h4"
       />
     );
+    expect(wrapper.find('h4.p-accordion__title')).toHaveLength(1);
     expect(wrapper).toMatchSnapshot();
   });
 
