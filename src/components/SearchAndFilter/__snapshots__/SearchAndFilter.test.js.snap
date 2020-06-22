@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search and filter  renders 1`] = `
+<div
+  className="search-and-filter"
+>
+  <SearchBox
+    externallyControlled={false}
+    onChange={[Function]}
+    placeholder="Search and filter"
+    value=""
+  />
+</div>
+`;
