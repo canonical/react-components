@@ -27,9 +27,13 @@ const SearchBox = ({
       onSubmit={submit}
       {...props}
     >
+      <label className="u-off-screen" htmlFor="search">
+        {placeholder || "Search"}
+      </label>
       <input
         className="p-search-box__input"
         disabled={disabled}
+        id="search"
         name="search"
         onChange={evt => onChange(evt.target.value)}
         placeholder={placeholder}
@@ -46,7 +50,7 @@ const SearchBox = ({
           onClick={resetInput}
           type="reset"
         >
-          <i className="p-icon--close"></i>
+          <i className="p-icon--close">Clear search field</i>
         </button>
       )}
       <button
@@ -55,7 +59,7 @@ const SearchBox = ({
         disabled={disabled}
         type="submit"
       >
-        <i className="p-icon--search"></i>
+        <i className="p-icon--search">Search</i>
       </button>
     </form>
   );

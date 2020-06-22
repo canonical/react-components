@@ -5,8 +5,15 @@ exports[`SearchBox  renders 1`] = `
   className="p-search-box"
   onSubmit={[Function]}
 >
+  <label
+    className="u-off-screen"
+    htmlFor="search"
+  >
+    Search
+  </label>
   <input
     className="p-search-box__input"
+    id="search"
     name="search"
     onChange={[Function]}
     placeholder="Search"
@@ -19,7 +26,9 @@ exports[`SearchBox  renders 1`] = `
   >
     <i
       className="p-icon--search"
-    />
+    >
+      Search
+    </i>
   </button>
 </form>
 `;
