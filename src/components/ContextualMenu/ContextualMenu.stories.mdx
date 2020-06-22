@@ -1,0 +1,33 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import ContextualMenu from "./ContextualMenu";
+
+<Meta
+  title="ContextualMenu"
+  component={ContextualMenu}
+  decorators={[withKnobs]}
+/>
+
+### Contextual Menu
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Contextual menu](https://docs.vanillaframework.io/patterns//contextual-menu/).
+
+A contextual menu can be used in conjunction with any page element to provide a contextual menu.
+
+### Props
+
+<Props of={ContextualMenu} />
+
+### Default
+
+The contextual menu will provide a visual wrapper to any provided children. Visbility can be toggled via the `visible` prop.
+
+<Preview>
+  <Story name="Default">
+    <ContextualMenu visible={true}>
+      <a href="#">Link 1</a>
+      <a href="#">Link 2</a>
+      <a href="#">Link 3</a>
+    </ContextualMenu>
+  </Story>
+</Preview>
