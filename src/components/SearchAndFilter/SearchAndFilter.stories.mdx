@@ -1,0 +1,42 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import SearchAndFilter from "./SearchAndFilter";
+
+<Meta
+  title="SearchAndFilter"
+  component={SearchAndFilter}
+  decorators={[withKnobs]}
+/>
+
+### Search And Filter
+
+This component is used to search and filter large datasets.
+
+### Props
+
+<Props of={SearchAndFilter} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <SearchAndFilter />
+  </Story>
+</Preview>
+
+### External state
+
+If you wish to control the value of the data set via external state you can set
+the `externallyControlled` prop and provide an `onChange` method to update the
+state and the `value` from state.
+
+<Preview>
+  <Story name="External state">
+    <SearchAndFilter
+      externallyControlled
+      onChange={(searchTerm) => {
+        console.log("onChange: ", searchTerm);
+      }}
+    />
+  </Story>
+</Preview>
