@@ -53,7 +53,7 @@ Input.propTypes = {
   required: PropTypes.bool,
   stacked: PropTypes.bool,
   success: PropTypes.string,
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 
 export default Input;

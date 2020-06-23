@@ -56,30 +56,18 @@ describe("Tabs", () => {
         ]}
       />
     );
+    expect(wrapper.find("nav").props().className.includes("nav-class")).toBe(
+      true
+    );
+    expect(wrapper.find("ul").props().className.includes("list-class")).toBe(
+      true
+    );
     expect(
-      wrapper
-        .find("nav")
-        .props()
-        .className.includes("nav-class")
+      wrapper.find("li").props().className.includes("list-item-class")
     ).toBe(true);
-    expect(
-      wrapper
-        .find("ul")
-        .props()
-        .className.includes("list-class")
-    ).toBe(true);
-    expect(
-      wrapper
-        .find("li")
-        .props()
-        .className.includes("list-item-class")
-    ).toBe(true);
-    expect(
-      wrapper
-        .find("a")
-        .props()
-        .className.includes("link-class")
-    ).toBe(true);
+    expect(wrapper.find("a").props().className.includes("link-class")).toBe(
+      true
+    );
   });
 
   it("can set custom components as links", () => {

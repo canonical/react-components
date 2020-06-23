@@ -4,7 +4,7 @@ import { act } from "react-dom/test-utils";
 
 import ActionButton, {
   LOADER_MIN_DURATION,
-  SUCCESS_DURATION
+  SUCCESS_DURATION,
 } from "./ActionButton";
 
 describe("ActionButton", () => {

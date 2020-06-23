@@ -18,7 +18,7 @@ const Link = ({
         "p-link--external": external,
         "p-link--inverted": inverted,
         "p-link--soft": soft,
-        "p-top__link": top
+        "p-top__link": top,
       })}
       href={href}
       {...props}
@@ -39,7 +39,7 @@ Link.propTypes = {
   href: PropTypes.string,
   inverted: PropTypes.bool,
   soft: PropTypes.bool,
-  top: PropTypes.bool
+  top: PropTypes.bool,
 };
 
 export default Link;

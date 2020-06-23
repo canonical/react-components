@@ -17,7 +17,7 @@ const SearchBox = ({
     onChange && onChange("");
     input.current.value = "";
   };
-  const submit = evt => {
+  const submit = (evt) => {
     evt.preventDefault();
     onSubmit && onSubmit(evt);
   };
@@ -35,7 +35,7 @@ const SearchBox = ({
         disabled={disabled}
         id="search"
         name="search"
-        onChange={evt => onChange(evt.target.value)}
+        onChange={(evt) => onChange(evt.target.value)}
         placeholder={placeholder}
         ref={input}
         type="search"
@@ -75,7 +75,7 @@ SearchBox.propTypes = {
   onChange: PropTypes.func,
   onSubmit: PropTypes.func,
   placeholder: PropTypes.string,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 export default SearchBox;

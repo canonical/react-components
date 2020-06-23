@@ -12,7 +12,7 @@ describe("Strip ", () => {
   it("can set a background", () => {
     const wrapper = shallow(<Strip background="test.png" />);
     expect(wrapper.prop("style")).toStrictEqual({
-      backgroundImage: "url('test.png')"
+      backgroundImage: "url('test.png')",
     });
   });
 
@@ -53,12 +53,7 @@ describe("Strip ", () => {
 
   it("can set a col size", () => {
     const wrapper = shallow(<Strip colSize="4" />);
-    expect(
-      wrapper
-        .find("Col")
-        .first()
-        .prop("size")
-    ).toEqual("4");
+    expect(wrapper.find("Col").first().prop("size")).toEqual("4");
   });
 
   it("can not include a col", () => {
@@ -68,12 +63,9 @@ describe("Strip ", () => {
 
   it("can set row classes", () => {
     const wrapper = shallow(<Strip rowClassName="row--extra" />);
-    expect(
-      wrapper
-        .find("Row")
-        .prop("className")
-        .includes("row--extra")
-    ).toBe(true);
+    expect(wrapper.find("Row").prop("className").includes("row--extra")).toBe(
+      true
+    );
   });
 
   it("can add additional classes", () => {

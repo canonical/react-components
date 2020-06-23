@@ -85,7 +85,7 @@ Accordion.propTypes = {
       /**
        * The title of the section.
        */
-      title: PropTypes.string
+      title: PropTypes.string,
     }).isRequired
   ),
   /**
@@ -94,9 +94,9 @@ Accordion.propTypes = {
    */
   onExpandedChange: PropTypes.func,
   /**
-    * Optional string describing heading element that should be used for the secion titles.
-    */
-  titleElement: PropTypes.oneOf(["h2", "h3", "h4", "h5", "h6"])
+   * Optional string describing heading element that should be used for the secion titles.
+   */
+  titleElement: PropTypes.oneOf(["h2", "h3", "h4", "h5", "h6"]),
 };
 
 export default Accordion;

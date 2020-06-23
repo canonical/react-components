@@ -18,7 +18,7 @@ const Code = ({
       </code>
     );
   } else if (copyable) {
-    const handleClick = evt => {
+    const handleClick = (evt) => {
       input.current.focus();
       input.current.select();
       try {
@@ -66,7 +66,7 @@ Code.propTypes = {
   className: PropTypes.string,
   inline: PropTypes.bool,
   copyable: PropTypes.bool,
-  numbered: PropTypes.bool
+  numbered: PropTypes.bool,
 };
 
 export default Code;

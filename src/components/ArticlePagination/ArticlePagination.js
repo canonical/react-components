@@ -47,7 +47,7 @@ ArticlePagination.propTypes = {
   /**
    * The label for the previous link.
    */
-  previousLabel: PropTypes.string
+  previousLabel: PropTypes.string,
 };
 
 export default ArticlePagination;

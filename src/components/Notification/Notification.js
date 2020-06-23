@@ -6,7 +6,7 @@ export const notificationTypes = {
   CAUTION: "caution",
   INFORMATION: "information",
   NEGATIVE: "negative",
-  POSITIVE: "positive"
+  POSITIVE: "positive",
 };
 
 const Notification = ({
@@ -31,7 +31,7 @@ const Notification = ({
     <div
       className={classNames(className, {
         [`p-notification--${type}`]: !!type,
-        "p-notification": !type
+        "p-notification": !type,
       })}
       {...props}
     >
@@ -58,7 +58,7 @@ Notification.propTypes = {
   close: PropTypes.func,
   status: PropTypes.string,
   timeout: PropTypes.number,
-  type: PropTypes.oneOf(["caution", "negative", "positive", "information"])
+  type: PropTypes.oneOf(["caution", "negative", "positive", "information"]),
 };
 
 export default Notification;

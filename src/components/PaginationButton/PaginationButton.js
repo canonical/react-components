@@ -9,7 +9,7 @@ const PaginationButton = ({ direction, onClick, disabled = false }) => {
       <button
         className={classNames({
           "p-pagination__link--previous": direction === "back",
-          "p-pagination__link--next": direction === "forward"
+          "p-pagination__link--next": direction === "forward",
         })}
         disabled={disabled}
         onClick={onClick}
@@ -23,7 +23,7 @@ const PaginationButton = ({ direction, onClick, disabled = false }) => {
 PaginationButton.propTypes = {
   direction: PropTypes.oneOf(["forward", "back"]),
   onClick: PropTypes.func.isRequired,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
 };
 
 export default PaginationButton;

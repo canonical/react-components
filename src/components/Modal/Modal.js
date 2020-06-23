@@ -12,7 +12,7 @@ export const Modal = ({ children, close, title }) => {
         role="dialog"
         aria-labelledby={titleId.current}
         aria-describedby={descriptionId.current}
-        onClick={evt => evt.stopPropagation()}
+        onClick={(evt) => evt.stopPropagation()}
       >
         <header className="p-modal__header">
           <h2 className="p-modal__title" id={titleId.current}>
@@ -35,7 +35,7 @@ export const Modal = ({ children, close, title }) => {
 Modal.propTypes = {
   children: PropTypes.node.isRequired,
   close: PropTypes.func.isRequired,
-  title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired,
 };
 
 export default Modal;
