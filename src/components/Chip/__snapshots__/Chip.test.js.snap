@@ -1,9 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Chip  renders 1`] = `
+exports[`Chip  renders default chip 1`] = `
 <div
   className="p-chip"
 >
   positive
+</div>
+`;
+
+exports[`Chip  renders lead-value chip 1`] = `
+<div
+  className="p-chip"
+>
+  OWNER: 
+  Bob
 </div>
 `;
