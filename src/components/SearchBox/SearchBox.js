@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 const SearchBox = ({
+  autocomplete = "on",
   className,
   disabled,
   externallyControlled,
@@ -31,6 +32,7 @@ const SearchBox = ({
         {placeholder || "Search"}
       </label>
       <input
+        autoComplete={autocomplete}
         className="p-search-box__input"
         disabled={disabled}
         id="search"
@@ -66,6 +68,7 @@ const SearchBox = ({
 };
 
 SearchBox.propTypes = {
+  autocomplete: PropTypes.string,
   className: PropTypes.string,
   disabled: PropTypes.bool,
   /**

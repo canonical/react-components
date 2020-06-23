@@ -12,6 +12,7 @@ exports[`SearchBox  renders 1`] = `
     Search
   </label>
   <input
+    autoComplete="on"
     className="p-search-box__input"
     id="search"
     name="search"

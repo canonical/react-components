@@ -1,0 +1,33 @@
+.search-and-filter {
+  position: relative;
+
+  span[class*="p-contextual-menu"],
+  .p-contextual-menu__dropdown {
+    display: block;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .p-contextual-menu__dropdown {
+    padding: 0.5rem;
+  }
+
+  .p-search-box {
+    margin: 0;
+  }
+
+  .p-contextual-menu__dropdown {
+    top: 0;
+    left: 0;
+  }
+
+  &__panel {
+    padding: 0;
+    transition: opacity 0.25s;
+
+    &[data-visible="false"] {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+}

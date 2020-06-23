@@ -1,14 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Search and filter  renders 1`] = `
+exports[`Search and filter renders 1`] = `
 <div
   className="search-and-filter"
 >
   <SearchBox
+    autocomplete="off"
     externallyControlled={false}
     onChange={[Function]}
+    onFocus={[Function]}
     placeholder="Search and filter"
     value=""
   />
+  <div
+    className="search-and-filter__panel"
+    data-visible={false}
+  >
+    <ContextualMenu>
+      Filter panel content
+    </ContextualMenu>
+  </div>
 </div>
 `;
