@@ -37,8 +37,8 @@ describe("Chip ", () => {
     const wrapper = mount(
       <Chip lead="Owner" value="Bob" onDismiss={onDismiss} />
     );
-    const dismissButton = wrapper.find(".p-chip__dismiss").at(0);
+    const dismissButton = wrapper.find(".p-chip__dismiss");
     dismissButton.simulate("click");
-    expect(onDismiss).toHaveBeenCalled();
+    expect(onDismiss).toHaveBeenCalledTimes(1);
   });
 });
