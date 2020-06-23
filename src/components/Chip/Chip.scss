@@ -1,0 +1,31 @@
+@import "~vanilla-framework/scss/base_placeholders";
+@include vf-b-placeholders;
+
+.p-chip {
+  @extend %small-text;
+
+  background-color: rgba($color-x-dark, 0.05);
+  border-radius: 1rem;
+  display: inline-block;
+  margin-bottom: 0;
+  margin-right: $sph-inner--small;
+  padding: 0 $sph-inner map-get($nudges, nudge--small);
+  white-space: nowrap;
+  user-select: none;
+
+  &:hover {
+    background-color: rgba($color-x-dark, 0.08);
+  }
+
+  &.is-selected {
+    background-color: rgba($color-x-dark, 0.2);
+
+    &:hover {
+      background-color: rgba($color-x-dark, 0.23);
+    }
+  }
+
+  &:active {
+    background-color: rgba($color-x-dark, 0.2);
+  }
+}

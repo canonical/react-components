@@ -1,0 +1,21 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { withKnobs } from "@storybook/addon-knobs";
+import Chip from "./Chip";
+
+<Meta title="Chip" component={Chip} decorators={[withKnobs]} />
+
+### Chip
+
+This is a not an existing Vanilla component. It can be used to display a small value attached to a component.
+
+### Props
+
+<Props of={Chip} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <Chip value="positive"></Chip>
+  </Story>
+</Preview>
