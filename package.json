@@ -34,6 +34,7 @@
     "enzyme-to-json": "3.5.0",
     "node-sass": "4.14.1",
     "npm-package-json-lint": "5.1.0",
+    "prettier": "2.0.5",
     "react-scripts": "3.4.1",
     "wait-on": "5.0.1"
   },
