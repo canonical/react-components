@@ -8,7 +8,7 @@ const SearchAndFilter = ({ externallyControlled = false, onChange }) => {
 
   const searchOnChange = (searchTerm) => {
     setSearchTerm(searchTerm);
-    if (externallyControlled) {
+    if (externallyControlled && onChange) {
       onChange(searchTerm);
     }
   };
