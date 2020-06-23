@@ -1,14 +1,11 @@
-@import "~vanilla-framework/scss/settings_spacing";
+@import "~vanilla-framework/scss/base_placeholders";
+@include vf-b-placeholders;
 
 .p-chip {
-  // XXX Ant - 22.06.20: hardcoding @extend %small-text; due to:
-  // https://github.com/canonical-web-and-design/vanilla-framework/issues/3133
-  font-size: .875rem;
-  line-height: 1rem;
+  @extend %small-text;
 
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 1rem;
-  cursor: pointer;
   display: inline-block;
   margin-bottom: $sp-unit + $spv-inner--small - 2 * map-get($nudges, nudge--small);
   margin-right: $sph-inner--small;
