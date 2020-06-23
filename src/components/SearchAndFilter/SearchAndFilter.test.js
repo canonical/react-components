@@ -3,7 +3,7 @@ import React from "react";
 
 import SearchAndFilter from "./SearchAndFilter";
 
-describe("Search and filter ", () => {
+describe("Search and filter", () => {
   it("renders", () => {
     const wrapper = shallow(<SearchAndFilter />);
     expect(wrapper).toMatchSnapshot();
@@ -21,5 +21,19 @@ describe("Search and filter ", () => {
     );
     wrapper.find(".p-search-box__input").simulate("change");
     expect(mockOnChange).toHaveBeenCalledTimes(1);
+  });
+
+  it("shows panel on focus", () => {
+    const mockOnChange = jest.fn();
+    const wrapper = mount(
+      <SearchAndFilter externallyControlled onChange={mockOnChange} />
+    );
+    expect(
+      wrapper.find(".search-and-filter__panel").prop("data-visible")
+    ).toEqual(false);
+    wrapper.find(".p-search-box__input").simulate("focus");
+    expect(
+      wrapper.find(".search-and-filter__panel").prop("data-visible")
+    ).toEqual(true);
   });
 });
