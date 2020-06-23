@@ -7,7 +7,7 @@
   background-color: rgba(0, 0, 0, 0.05);
   border-radius: 1rem;
   display: inline-block;
-  margin-bottom: $sp-unit + $spv-inner--small - 2 * map-get($nudges, nudge--small);
+  margin-bottom: 0;
   margin-right: $sph-inner--small;
   padding: 0 $sph-inner map-get($nudges, nudge--small);
   white-space: nowrap;
