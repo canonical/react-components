@@ -16,7 +16,9 @@ This is a not an existing Vanilla component. It can be used to display a small v
 
 <Preview>
   <Story name="Default">
-    <Chip value="positive"></Chip>
+    <Chip
+      value="positive"
+    />
   </Story>
 </Preview>
 
@@ -24,6 +26,23 @@ This is a not an existing Vanilla component. It can be used to display a small v
 
 <Preview>
   <Story name="Lead-value">
-    <Chip lead="Owner" value="Bob"></Chip>
+    <Chip
+      lead="Owner"
+      value="Bob"
+    />
+  </Story>
+</Preview>
+
+### Dismissible
+
+<Preview>
+  <Story name="Dismissible">
+    <Chip
+      lead="Owner"
+      value="Bob"
+      onDismiss={() => {
+        console.log("onDismiss called");
+      }}
+    />
   </Story>
 </Preview>
