@@ -3,17 +3,11 @@ import PropTypes from "prop-types";
 
 import "./Chip.scss";
 
-const generateLead = (lead) => {
-  if (!lead && typeof lead !== "string") {
-    return "";
-  }
-  return `${lead.toUpperCase()}: `;
-}
-
-const Chip = ({ value, lead }) => {
+const Chip = ({ value, lead = "" }) => {
   return (
     <div className="p-chip">
-      { generateLead(lead) }{ value }
+      {lead ? `${lead.toUpperCase()}: ` : null}
+      {value}
     </div>
   );
 };
