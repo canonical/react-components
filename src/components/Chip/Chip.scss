@@ -6,7 +6,7 @@
   @extend %small-text;
   background-color: rgba($color-x-dark, 0.05);
   border-radius: 1rem;
-  display: inline-block;
+  display: inline-flex;
   height: 1.25rem;
   margin-bottom: 0;
   margin-right: $sph-inner--small;
@@ -44,6 +44,5 @@
     margin-bottom: 0;
     padding: 0 $sp-xx-small;
     position: relative;
-    top: 1px;
   }
 }
