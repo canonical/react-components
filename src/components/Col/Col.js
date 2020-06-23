@@ -26,7 +26,7 @@ export const colSizes = [
   "9",
   "10",
   "11",
-  "12"
+  "12",
 ];
 
 const Col = ({
@@ -49,7 +49,7 @@ const Col = ({
       [`col-large-${large}`]: !!large,
       [`col-start-small-${emptySmall}`]: !!emptySmall,
       [`col-start-medium-${emptyMedium}`]: !!emptyMedium,
-      [`col-start-large-${emptyLarge}`]: !!emptyLarge
+      [`col-start-large-${emptyLarge}`]: !!emptyLarge,
     })}
     {...props}
   >
@@ -67,7 +67,7 @@ Col.propTypes = {
   large: PropTypes.oneOf(colSizes),
   medium: PropTypes.oneOf(colSizes),
   size: PropTypes.oneOf(colSizes).isRequired,
-  small: PropTypes.oneOf(colSizes)
+  small: PropTypes.oneOf(colSizes),
 };
 
 export default Col;

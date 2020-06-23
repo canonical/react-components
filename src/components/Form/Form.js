@@ -7,7 +7,7 @@ const Form = ({ children, className, inline, stacked, ...props }) => (
     className={classNames(className, {
       "p-form": inline || stacked,
       "p-form--inline": inline,
-      "p-form--stacked": stacked
+      "p-form--stacked": stacked,
     })}
     {...props}
   >
@@ -19,7 +19,7 @@ Form.propTypes = {
   children: PropTypes.node,
   className: PropTypes.string,
   inline: PropTypes.bool,
-  stacked: PropTypes.bool
+  stacked: PropTypes.bool,
 };
 
 export default Form;

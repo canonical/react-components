@@ -29,11 +29,11 @@ const Strip = ({
       "is-dark": dark,
       "is-deep": deep,
       "is-light": light,
-      "is-shallow": shallow
+      "is-shallow": shallow,
     })}
     style={
       background && {
-        backgroundImage: `url('${background}')`
+        backgroundImage: `url('${background}')`,
       }
     }
     {...props}
@@ -57,7 +57,7 @@ Strip.propTypes = {
   light: PropTypes.bool,
   rowClassName: PropTypes.string,
   shallow: PropTypes.bool,
-  type: PropTypes.string
+  type: PropTypes.string,
 };
 
 export default Strip;

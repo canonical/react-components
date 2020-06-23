@@ -8,7 +8,7 @@ const TableRow = ({ children, ...props }) => (
 );
 
 TableRow.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default TableRow;

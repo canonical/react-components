@@ -15,7 +15,7 @@ const Card = ({
     className={classNames(className, {
       "p-card": !highlighted && !overlay,
       "p-card--highlighted": highlighted,
-      "p-card--overlay": overlay
+      "p-card--overlay": overlay,
     })}
     {...props}
   >
@@ -36,7 +36,7 @@ Card.propTypes = {
   highlighted: PropTypes.bool,
   overlay: PropTypes.bool,
   title: PropTypes.node,
-  thumbnail: PropTypes.string
+  thumbnail: PropTypes.string,
 };
 
 export default Card;

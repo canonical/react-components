@@ -33,7 +33,7 @@ const Textarea = ({
       <textarea
         className={classNames("p-form-validation__input", className)}
         id={id}
-        onKeyUp={evt => {
+        onKeyUp={(evt) => {
           if (grow) {
             evt.currentTarget.style.height =
               evt.currentTarget.scrollHeight + "px";
@@ -45,7 +45,7 @@ const Textarea = ({
             resize: "none",
             overflow: "hidden",
             boxSizing: "border-box",
-            ...style
+            ...style,
           }) ||
           style
         }
@@ -67,7 +67,7 @@ Textarea.propTypes = {
   required: PropTypes.bool,
   stacked: PropTypes.bool,
   style: PropTypes.object,
-  success: PropTypes.string
+  success: PropTypes.string,
 };
 
 export default Textarea;

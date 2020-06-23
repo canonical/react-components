@@ -22,14 +22,9 @@ describe("Select ", () => {
   it("should call onChange prop", () => {
     const onChangeMock = jest.fn();
     const event = {
-      event: "test-event"
+      event: "test-event",
     };
-    const component = shallow(
-      <Select
-        options={[]}
-        onChange={onChangeMock}
-      />
-    );
+    const component = shallow(<Select options={[]} onChange={onChangeMock} />);
     component.find("select").simulate("change", event);
     expect(onChangeMock).toBeCalledWith(event);
   });

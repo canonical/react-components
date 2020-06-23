@@ -57,7 +57,7 @@ const generatePaginationItems = (
   }
 
   items.push(
-    visiblePages.map(number => (
+    visiblePages.map((number) => (
       <PaginationItem
         key={number}
         number={number}
@@ -110,7 +110,7 @@ const Pagination = ({
     pageNumbers.push(i);
   }
 
-  const changePage = page => {
+  const changePage = (page) => {
     paginate(page);
     scrollToTop && scrollTop();
   };
@@ -148,7 +148,7 @@ Pagination.propTypes = {
   itemsPerPage: PropTypes.number.isRequired,
   paginate: PropTypes.func.isRequired,
   scrollToTop: PropTypes.bool,
-  totalItems: PropTypes.number.isRequired
+  totalItems: PropTypes.number.isRequired,
 };
 
 export default Pagination;

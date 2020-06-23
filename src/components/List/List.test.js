@@ -76,8 +76,8 @@ describe("List ", () => {
             title: "Test title",
             content: "test",
             className: "item-class",
-            titleElement: "h1"
-          }
+            titleElement: "h1",
+          },
         ]}
       />
     );
@@ -101,8 +101,8 @@ describe("List ", () => {
             title: "Test title",
             content: "test",
             className: "item-class",
-            titleElement: "h1"
-          }
+            titleElement: "h1",
+          },
         ]}
       />
     );

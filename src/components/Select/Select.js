@@ -4,7 +4,7 @@ import React from "react";
 
 import Field from "../Field";
 
-const generateOptions = options =>
+const generateOptions = (options) =>
   options.map(({ label, value, ...props }) => (
     <option value={value} key={value || label} {...props}>
       {label}
@@ -35,12 +35,14 @@ const Select = ({
       label={label}
       required={required}
       stacked={stacked}
-      success={success}>
+      success={success}
+    >
       <select
         className={classNames("p-form-validation__input", className)}
         id={id}
         onChange={(evt) => onChange && onChange(evt)}
-        {...props}>
+        {...props}
+      >
         {generateOptions(options)}
       </select>
     </Field>
@@ -58,12 +60,12 @@ Select.propTypes = {
   options: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     })
   ).isRequired,
   required: PropTypes.bool,
   stacked: PropTypes.bool,
-  success: PropTypes.string
+  success: PropTypes.string,
 };
 
 export default Select;

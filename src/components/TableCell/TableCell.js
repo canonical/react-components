@@ -14,7 +14,7 @@ const TableCell = ({
     role={role}
     aria-hidden={hidden}
     className={classNames(className, {
-      "p-table-expanding__panel": expanding
+      "p-table-expanding__panel": expanding,
     })}
     {...props}
   >
@@ -27,7 +27,7 @@ TableCell.propTypes = {
   className: PropTypes.string,
   expanding: PropTypes.bool,
   hidden: PropTypes.bool,
-  role: PropTypes.string
+  role: PropTypes.string,
 };
 
 export default TableCell;
