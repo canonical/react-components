@@ -10,7 +10,7 @@ const Chip = ({ value, lead = "", onDismiss }) => {
       {value}
       {onDismiss ? (
         <button className="p-chip__dismiss" onClick={onDismiss()}>
-          <i class="p-icon--close">Dismiss</i>
+          <i className="p-icon--close">Dismiss</i>
         </button>
       ) : null}
     </div>
@@ -20,7 +20,7 @@ const Chip = ({ value, lead = "", onDismiss }) => {
 Chip.propTypes = {
   value: PropTypes.string,
   lead: PropTypes.string,
-  onDismiss: PropTypes.func
+  onDismiss: PropTypes.func,
 };
 
 export default Chip;

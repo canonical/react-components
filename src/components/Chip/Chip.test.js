@@ -23,4 +23,22 @@ describe("Chip ", () => {
     const wrapper = mount(<Chip lead="Owner" value="Bob" />);
     expect(wrapper.find(".p-chip").text()).toBe("OWNER: Bob");
   });
+
+  it("displays the dismiss action", () => {
+    const onDismiss = jest.fn();
+    const wrapper = mount(
+      <Chip lead="Owner" value="Bob" onDismiss={onDismiss} />
+    );
+    expect(wrapper.find(".p-chip__dismiss").exists()).toBe(true);
+  });
+
+  it("calls onDismiss when clicked", () => {
+    const onDismiss = jest.fn();
+    const wrapper = mount(
+      <Chip lead="Owner" value="Bob" onDismiss={onDismiss} />
+    );
+    const dismissButton = wrapper.find(".p-chip__dismiss").at(0);
+    dismissButton.simulate("click");
+    expect(onDismiss).toHaveBeenCalled();
+  });
 });
