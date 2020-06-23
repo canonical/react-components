@@ -72,7 +72,7 @@ const ActionButton = ({
       "is-loading": showLoader,
       "is-success": showSuccess,
       "is-disabled": disabled,
-      "is-inline": inline
+      "is-inline": inline,
     }
   );
 
@@ -80,9 +80,9 @@ const ActionButton = ({
     "p-icon--spinner u-animation--spin": showLoader,
     "is-light": appearance === "positive" || appearance === "negative",
     "p-icon--success":
-      showSuccess && (appearance !== "positive" && appearance !== "negative"),
+      showSuccess && appearance !== "positive" && appearance !== "negative",
     "p-icon--success-positive": showSuccess && appearance === "positive",
-    "p-icon--success-negative": showSuccess && appearance === "negative"
+    "p-icon--success-negative": showSuccess && appearance === "negative",
   });
 
   return (
@@ -94,7 +94,7 @@ const ActionButton = ({
         height && width
           ? {
               height: `${height}px`,
-              width: `${width}px`
+              width: `${width}px`,
             }
           : undefined
       }
@@ -112,7 +112,7 @@ ActionButton.propTypes = {
   disabled: PropTypes.bool,
   inline: PropTypes.bool,
   loading: PropTypes.bool,
-  success: PropTypes.bool
+  success: PropTypes.bool,
 };
 
 export default ActionButton;

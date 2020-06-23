@@ -26,19 +26,16 @@ An alternative use of tooltips is to provide information on a disabled actionabl
     <div style={{ display: "flex", justifyContent: "center", padding: "3rem" }}>
       <Tooltip
         message="Tooltip message to display."
-        position={select(
-          "Position",
-          [
-            "top-left",
-            "top-center",
-            "top-right",
-            "left",
-            "right",
-            "btm-left",
-            "btm-center",
-            "btm-right"
-          ],
-        )}
+        position={select("Position", [
+          "top-left",
+          "top-center",
+          "top-right",
+          "left",
+          "right",
+          "btm-left",
+          "btm-center",
+          "btm-right",
+        ])}
       >
         <Button className="u-no-margin--bottom">Hover over me!</Button>
       </Tooltip>

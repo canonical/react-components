@@ -15,7 +15,7 @@ const Table = ({
     className={classNames(className, {
       "p-table--mobile-card": responsive,
       "p-table--sortable": sortable,
-      "p-table-expanding": expanding
+      "p-table-expanding": expanding,
     })}
     {...props}
   >
@@ -28,7 +28,7 @@ Table.propTypes = {
   className: PropTypes.string,
   expanding: PropTypes.bool,
   responsive: PropTypes.bool,
-  sortable: PropTypes.bool
+  sortable: PropTypes.bool,
 };
 
 export default Table;

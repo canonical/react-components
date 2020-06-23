@@ -6,7 +6,7 @@ const PaginationItem = ({ number, onClick, isActive = false }) => (
   <li className="p-pagination__item">
     <button
       className={classNames("p-pagination__link", {
-        "is-active": isActive
+        "is-active": isActive,
       })}
       onClick={onClick}
     >
@@ -18,7 +18,7 @@ const PaginationItem = ({ number, onClick, isActive = false }) => (
 PaginationItem.propTypes = {
   number: PropTypes.number.isRequired,
   onClick: PropTypes.func.isRequired,
-  isActive: PropTypes.bool
+  isActive: PropTypes.bool,
 };
 
 export default PaginationItem;

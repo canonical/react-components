@@ -20,15 +20,15 @@ const Button = ({
       "has-icon": hasIcon,
       "is-dense": dense,
       "is-disabled": (Component !== "button") & disabled,
-      "is-inline": inline
+      "is-inline": inline,
     },
     className
   );
-  const onClickDisabled = e => e.preventDefault();
+  const onClickDisabled = (e) => e.preventDefault();
   const commonProps = {
     ...props,
     className: classes,
-    onClick: disabled ? onClickDisabled : onClick
+    onClick: disabled ? onClickDisabled : onClick,
   };
 
   if (Component === "button") {
@@ -55,11 +55,11 @@ Button.propTypes = {
   element: PropTypes.oneOfType([
     PropTypes.func,
     PropTypes.object,
-    PropTypes.string
+    PropTypes.string,
   ]),
   hasIcon: PropTypes.bool,
   inline: PropTypes.bool,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 export default Button;

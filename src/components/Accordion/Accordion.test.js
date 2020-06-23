@@ -14,12 +14,12 @@ describe("Accordion ", () => {
         sections={[
           {
             title: "Advanced topics",
-            content: "test content"
+            content: "test content",
           },
           {
             title: "Networking",
-            content: <>More test content</>
-          }
+            content: <>More test content</>,
+          },
         ]}
       />
     );
@@ -32,22 +32,19 @@ describe("Accordion ", () => {
         sections={[
           {
             title: "Advanced topics",
-            content: "test content"
+            content: "test content",
           },
           {
             title: "Networking",
-            content: <>More test content</>
-          }
+            content: <>More test content</>,
+          },
         ]}
         titleElement="h4"
       />
     );
-    expect(
-      wrapper
-        .find("AccordionSection")
-        .at(0)
-        .prop("titleElement")
-    ).toBe("h4");
+    expect(wrapper.find("AccordionSection").at(0).prop("titleElement")).toBe(
+      "h4"
+    );
   });
 
   it("can call a function when a section is expanded", () => {
@@ -58,12 +55,12 @@ describe("Accordion ", () => {
         sections={[
           {
             title: "Advanced topics",
-            content: "test content"
+            content: "test content",
           },
           {
             title: "Networking",
-            content: <>More test content</>
-          }
+            content: <>More test content</>,
+          },
         ]}
       />
     );
@@ -82,21 +79,18 @@ describe("Accordion ", () => {
         sections={[
           {
             title: "Advanced topics",
-            content: "test content"
+            content: "test content",
           },
           {
             title: "Networking",
-            content: <>More test content</>
-          }
+            content: <>More test content</>,
+          },
         ]}
       />
     );
-    expect(
-      wrapper
-        .find("AccordionSection")
-        .at(0)
-        .prop("expanded")
-    ).toBe("networking");
+    expect(wrapper.find("AccordionSection").at(0).prop("expanded")).toBe(
+      "networking"
+    );
   });
 
   it("can add additional classes", () => {

@@ -5,7 +5,8 @@ import React from "react";
 import Label from "../Label";
 import Col from "../Col";
 
-const generateHelp = help => help && <p className="p-form-help-text">{help}</p>;
+const generateHelp = (help) =>
+  help && <p className="p-form-help-text">{help}</p>;
 
 const generateError = (error, caution, success) => {
   if (!error && !caution && !success) {
@@ -90,7 +91,7 @@ const Field = ({
         "is-error": error,
         "is-caution": caution,
         "is-success": success,
-        row: stacked
+        row: stacked,
       })}
     >
       {labelFirst && labelNode}
@@ -111,7 +112,7 @@ Field.propTypes = {
   labelFirst: PropTypes.bool,
   required: PropTypes.bool,
   stacked: PropTypes.bool,
-  success: PropTypes.string
+  success: PropTypes.string,
 };
 
 export default Field;

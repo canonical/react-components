@@ -13,7 +13,7 @@ describe("MainTable", () => {
       { content: "Status" },
       { content: "Cores", className: "u-align--right" },
       { content: "RAM", className: "u-align--right" },
-      { content: "Disks", className: "u-align--right" }
+      { content: "Disks", className: "u-align--right" },
     ];
     rows = [
       {
@@ -21,25 +21,25 @@ describe("MainTable", () => {
           { content: "Ready", role: "rowheader" },
           { content: 1, className: "u-align--right" },
           { content: "1 GiB", className: "u-align--right" },
-          { content: 2, className: "u-align--right" }
-        ]
+          { content: 2, className: "u-align--right" },
+        ],
       },
       {
         columns: [
           { content: "Waiting", role: "rowheader" },
           { content: 1, className: "u-align--right" },
           { content: "1 GiB", className: "u-align--right" },
-          { content: 2, className: "u-align--right" }
-        ]
+          { content: 2, className: "u-align--right" },
+        ],
       },
       {
         columns: [
           { content: "Idle", role: "rowheader" },
           { content: 8, className: "u-align--right" },
           { content: "3.9 GiB", className: "u-align--right" },
-          { content: 3, className: "u-align--right" }
-        ]
-      }
+          { content: 3, className: "u-align--right" },
+        ],
+      },
     ];
   });
 
@@ -54,10 +54,10 @@ describe("MainTable", () => {
         { content: "Expanding", role: "rowheader" },
         { content: 1, className: "u-align--right" },
         { content: "1.9 GiB", className: "u-align--right" },
-        { content: 2, className: "u-align--right" }
+        { content: 2, className: "u-align--right" },
       ],
       expanded: true,
-      expandedContent: <div>Expand this</div>
+      expandedContent: <div>Expand this</div>,
     });
     const wrapper = shallow(
       <MainTable expanding={true} headers={headers} rows={rows} />
@@ -67,16 +67,8 @@ describe("MainTable", () => {
     // There should be an additional hidden table header to account for the
     // expanding cell
     expect(heads.length).toEqual(headers.length + 1);
-    expect(
-      heads
-        .last()
-        .prop("className")
-        .includes("u-hide")
-    ).toBe(true);
-    const columns = wrapper
-      .find("TableRow")
-      .last()
-      .find("TableCell");
+    expect(heads.last().prop("className").includes("u-hide")).toBe(true);
+    const columns = wrapper.find("TableRow").last().find("TableCell");
     // There should be an additional table cell for the expanding content.
     expect(columns.length).toEqual(rows[rows.length - 1].columns.length + 1);
     compareJSX(
@@ -102,21 +94,13 @@ describe("MainTable", () => {
 
   it("can change the page", () => {
     const wrapper = shallow(<MainTable paginate={2} rows={rows} />);
-    wrapper
-      .find("Pagination")
-      .props()
-      .paginate(2);
+    wrapper.find("Pagination").props().paginate(2);
     wrapper.update();
     const rowItems = wrapper.find("TableRow");
     expect(rowItems.length).toEqual(1);
-    expect(
-      rowItems
-        .at(0)
-        .find("TableCell")
-        .first()
-        .children()
-        .text()
-    ).toEqual("Idle");
+    expect(rowItems.at(0).find("TableCell").first().children().text()).toEqual(
+      "Idle"
+    );
   });
 
   describe("sorting", () => {
@@ -127,17 +111,17 @@ describe("MainTable", () => {
       rows[0].sortData = {
         status: "ready",
         cores: 2,
-        ram: 1
+        ram: 1,
       };
       rows[1].sortData = {
         status: "waiting",
         cores: 1,
-        ram: 1
+        ram: 1,
       };
       rows[2].sortData = {
         status: "idle",
         cores: 8,
-        ram: 3.9
+        ram: 3.9,
       };
     });
 
@@ -146,19 +130,11 @@ describe("MainTable", () => {
         <MainTable headers={headers} rows={rows} sortable={true} />
       );
       // Sortable headers should have the sort prop set.
-      expect(
-        wrapper
-          .find("TableHeader")
-          .first()
-          .prop("sort")
-      ).toEqual("none");
+      expect(wrapper.find("TableHeader").first().prop("sort")).toEqual("none");
       // non-sortable headers should not have the sort prop set.
-      expect(
-        wrapper
-          .find("TableHeader")
-          .last()
-          .prop("sort")
-      ).toEqual(undefined);
+      expect(wrapper.find("TableHeader").last().prop("sort")).toEqual(
+        undefined
+      );
     });
 
     it("can sort when clicking on a header", () => {
@@ -168,121 +144,52 @@ describe("MainTable", () => {
       let rowItems = wrapper.find("tbody TableRow");
       // Check the initial status order.
       expect(
-        rowItems
-          .at(0)
-          .find("TableCell")
-          .first()
-          .children()
-          .text()
+        rowItems.at(0).find("TableCell").first().children().text()
       ).toEqual("Ready");
       expect(
-        rowItems
-          .at(1)
-          .find("TableCell")
-          .first()
-          .children()
-          .text()
+        rowItems.at(1).find("TableCell").first().children().text()
       ).toEqual("Waiting");
       expect(
-        rowItems
-          .at(2)
-          .find("TableCell")
-          .first()
-          .children()
-          .text()
+        rowItems.at(2).find("TableCell").first().children().text()
       ).toEqual("Idle");
-      wrapper
-        .find("TableHeader")
-        .first()
-        .simulate("click");
+      wrapper.find("TableHeader").first().simulate("click");
       wrapper.update();
       rowItems = wrapper.find("tbody TableRow");
       // The status should now be ascending.
       expect(
-        rowItems
-          .at(0)
-          .find("TableCell")
-          .first()
-          .children()
-          .text()
+        rowItems.at(0).find("TableCell").first().children().text()
       ).toEqual("Idle");
       expect(
-        rowItems
-          .at(1)
-          .find("TableCell")
-          .first()
-          .children()
-          .text()
+        rowItems.at(1).find("TableCell").first().children().text()
       ).toEqual("Ready");
       expect(
-        rowItems
-          .at(2)
-          .find("TableCell")
-          .first()
-          .children()
-          .text()
+        rowItems.at(2).find("TableCell").first().children().text()
       ).toEqual("Waiting");
-      wrapper
-        .find("TableHeader")
-        .first()
-        .simulate("click");
+      wrapper.find("TableHeader").first().simulate("click");
       wrapper.update();
       rowItems = wrapper.find("tbody TableRow");
       // The status should now be descending.
       expect(
-        rowItems
-          .at(0)
-          .find("TableCell")
-          .first()
-          .children()
-          .text()
+        rowItems.at(0).find("TableCell").first().children().text()
       ).toEqual("Waiting");
       expect(
-        rowItems
-          .at(1)
-          .find("TableCell")
-          .first()
-          .children()
-          .text()
+        rowItems.at(1).find("TableCell").first().children().text()
       ).toEqual("Ready");
       expect(
-        rowItems
-          .at(2)
-          .find("TableCell")
-          .first()
-          .children()
-          .text()
+        rowItems.at(2).find("TableCell").first().children().text()
       ).toEqual("Idle");
-      wrapper
-        .find("TableHeader")
-        .first()
-        .simulate("click");
+      wrapper.find("TableHeader").first().simulate("click");
       wrapper.update();
       rowItems = wrapper.find("tbody TableRow");
       // The status be back to the original order.
       expect(
-        rowItems
-          .at(0)
-          .find("TableCell")
-          .first()
-          .children()
-          .text()
+        rowItems.at(0).find("TableCell").first().children().text()
       ).toEqual("Ready");
       expect(
-        rowItems
-          .at(1)
-          .find("TableCell")
-          .first()
-          .children()
-          .text()
+        rowItems.at(1).find("TableCell").first().children().text()
       ).toEqual("Waiting");
       expect(
-        rowItems
-          .at(2)
-          .find("TableCell")
-          .first()
-          .children()
-          .text()
+        rowItems.at(2).find("TableCell").first().children().text()
       ).toEqual("Idle");
     });
 
@@ -296,12 +203,9 @@ describe("MainTable", () => {
           sortable={true}
         />
       );
-      expect(
-        wrapper
-          .find("TableHeader")
-          .first()
-          .prop("sort")
-      ).toEqual("descending");
+      expect(wrapper.find("TableHeader").first().prop("sort")).toEqual(
+        "descending"
+      );
     });
 
     it("updates sort when props change", () => {
@@ -319,7 +223,7 @@ describe("MainTable", () => {
       expect(heads.at(1).prop("sort")).toEqual("none");
       wrapper.setProps({
         defaultSort: "cores",
-        defaultSortDirection: "ascending"
+        defaultSortDirection: "ascending",
       });
       wrapper.update();
       heads = wrapper.find("TableHeader");

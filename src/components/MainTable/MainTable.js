@@ -175,7 +175,7 @@ const MainTable = ({
     setSortDirection(defaultSortDirection);
   }, [defaultSortDirection]);
 
-  const updateSort = newSort => {
+  const updateSort = (newSort) => {
     setSortKey(newSort);
     onUpdateSort && onUpdateSort(newSort);
   };
@@ -239,7 +239,7 @@ MainTable.propTypes = {
       content: PropTypes.node,
       className: PropTypes.string,
       // The key to sort on for this header.
-      sortKey: PropTypes.string
+      sortKey: PropTypes.string,
     })
   ),
   onUpdateSort: PropTypes.func,
@@ -252,18 +252,18 @@ MainTable.propTypes = {
           children: PropTypes.node,
           className: PropTypes.string,
           expanding: PropTypes.bool,
-          hidden: PropTypes.bool
+          hidden: PropTypes.bool,
         })
       ),
       expanded: PropTypes.bool,
       expandedContent: PropTypes.node,
       // A map of sort keys to values for this row. The keys should map the
       // sortKey values in the headers.
-      sortData: PropTypes.object
+      sortData: PropTypes.object,
     })
   ),
   sortable: PropTypes.bool,
-  sortFunction: PropTypes.func
+  sortFunction: PropTypes.func,
 };
 
 export default MainTable;

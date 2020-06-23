@@ -10,7 +10,7 @@ const TableHeader = ({ children, sort, ...props }) => {
 };
 
 TableHeader.propTypes = {
-  sort: PropTypes.oneOf(["none", "ascending", "descending"])
+  sort: PropTypes.oneOf(["none", "ascending", "descending"]),
 };
 
 export default TableHeader;

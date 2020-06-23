@@ -22,10 +22,7 @@ describe("<Spinner />", () => {
     const component = shallow(<Spinner />);
 
     expect(
-      component
-        .find("i")
-        .first()
-        .hasClass("p-icon--spinner")
+      component.find("i").first().hasClass("p-icon--spinner")
     ).toBeTruthy();
   });
 
@@ -33,22 +30,12 @@ describe("<Spinner />", () => {
     const text = "Loading...";
     const component = shallow(<Spinner text={text} />);
 
-    expect(
-      component
-        .find("span")
-        .first()
-        .text()
-    ).toEqual(text);
+    expect(component.find("span").first().text()).toEqual(text);
   });
 
   it("renders a light spinner if given isLight prop", () => {
     const component = shallow(<Spinner isLight />);
 
-    expect(
-      component
-        .find("i")
-        .first()
-        .hasClass("is-light")
-    ).toEqual(true);
+    expect(component.find("i").first().hasClass("is-light")).toEqual(true);
   });
 });

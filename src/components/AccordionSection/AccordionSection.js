@@ -9,7 +9,7 @@ const AccordionSection = ({
   sectionKey,
   setExpanded,
   title,
-  titleElement
+  titleElement,
 }) => {
   const sectionId = useRef(uuidv4());
   const key = sectionKey || sectionId.current;
@@ -22,7 +22,9 @@ const AccordionSection = ({
       <button
         aria-controls={`#${sectionId.current}`}
         aria-expanded={isExpanded ? "true" : "false"}
-        className={hasTitleElement ? "p-accordion__tab--with-title" : "p-accordion__tab"}
+        className={
+          hasTitleElement ? "p-accordion__tab--with-title" : "p-accordion__tab"
+        }
         onClick={() => {
           if (isExpanded) {
             setExpanded(null, null);
@@ -34,7 +36,11 @@ const AccordionSection = ({
         role="tab"
         type="button"
       >
-        {hasTitleElement ? <Title className="p-accordion__title">{title}</Title> : title}
+        {hasTitleElement ? (
+          <Title className="p-accordion__title">{title}</Title>
+        ) : (
+          title
+        )}
       </button>
       <section
         aria-hidden={isExpanded ? "false" : "true"}
@@ -62,7 +68,7 @@ AccordionSection.propTypes = {
   sectionKey: PropTypes.string,
   setExpanded: PropTypes.func,
   title: PropTypes.string,
-  titleElement: PropTypes.oneOf(["h2", "h3", "h4", "h5", "h6"])
+  titleElement: PropTypes.oneOf(["h2", "h3", "h4", "h5", "h6"]),
 };
 
 export default AccordionSection;

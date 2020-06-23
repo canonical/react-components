@@ -38,7 +38,7 @@ const generateItems = (items, ticked, inline, stepped) =>
           "p-list__item": !inline && !stepped,
           "p-inline-list__item": inline,
           "p-stepped-list__item": stepped,
-          "is-ticked": ticked
+          "is-ticked": ticked,
         })}
         key={i}
         {...props}
@@ -70,7 +70,7 @@ const List = ({
         "p-inline-list--middot": middot,
         "p-stepped-list": stepped && !detailed,
         "p-stepped-list--detailed": stepped && detailed,
-        "is-split": split
+        "is-split": split,
       })}
       {...props}
     >
@@ -90,14 +90,14 @@ List.propTypes = {
       PropTypes.shape({
         content: PropTypes.node,
         title: PropTypes.node,
-        titleElement: PropTypes.string
-      })
+        titleElement: PropTypes.string,
+      }),
     ])
   ).isRequired,
   middot: PropTypes.bool,
   split: PropTypes.bool,
   stepped: PropTypes.bool,
-  ticked: PropTypes.bool
+  ticked: PropTypes.bool,
 };
 
 export default List;
