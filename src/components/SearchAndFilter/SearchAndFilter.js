@@ -8,7 +8,7 @@ import "./SearchAndFilter.scss";
 
 const SearchAndFilter = ({ externallyControlled = false, onChange }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [filterPanelVisible, setFilterPanelVisible] = useState(false);
+  const [filterPanelHidden, setFilterPanelHidden] = useState(true);
   const filterPanelRef = useRef();
 
   const searchOnChange = (searchTerm) => {
@@ -22,7 +22,7 @@ const SearchAndFilter = ({ externallyControlled = false, onChange }) => {
   // anywhere else on the page or hits the escape key
   useEffect(() => {
     const closePanel = () => {
-      setFilterPanelVisible(false);
+      setFilterPanelHidden(true);
     };
 
     const mouseDown = (e) => {
@@ -58,13 +58,13 @@ const SearchAndFilter = ({ externallyControlled = false, onChange }) => {
         externallyControlled={externallyControlled}
         placeholder="Search and filter"
         onChange={(searchTerm) => searchOnChange(searchTerm)}
-        onFocus={() => setFilterPanelVisible(true)}
+        onFocus={() => setFilterPanelHidden(false)}
         value={searchTerm}
       />
       <div
         className="search-and-filter__panel"
         ref={filterPanelRef}
-        data-visible={filterPanelVisible}
+        aria-hidden={filterPanelHidden}
       >
         <ContextualMenu>Filter panel content</ContextualMenu>
       </div>

@@ -29,11 +29,11 @@ describe("Search and filter", () => {
       <SearchAndFilter externallyControlled onChange={mockOnChange} />
     );
     expect(
-      wrapper.find(".search-and-filter__panel").prop("data-visible")
-    ).toEqual(false);
+      wrapper.find(".search-and-filter__panel").prop("aria-hidden")
+    ).toEqual(true);
     wrapper.find(".p-search-box__input").simulate("focus");
     expect(
-      wrapper.find(".search-and-filter__panel").prop("data-visible")
-    ).toEqual(true);
+      wrapper.find(".search-and-filter__panel").prop("aria-hidden")
+    ).toEqual(false);
   });
 });

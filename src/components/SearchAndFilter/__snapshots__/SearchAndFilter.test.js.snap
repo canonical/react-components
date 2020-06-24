@@ -13,8 +13,8 @@ exports[`Search and filter renders 1`] = `
     value=""
   />
   <div
+    aria-hidden={true}
     className="search-and-filter__panel"
-    data-visible={false}
   >
     <ContextualMenu>
       Filter panel content
