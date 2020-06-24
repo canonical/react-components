@@ -58,6 +58,7 @@ const SearchAndFilter = ({ externallyControlled = false, onChange }) => {
         externallyControlled={externallyControlled}
         placeholder="Search and filter"
         onChange={(searchTerm) => searchOnChange(searchTerm)}
+        onClick={() => setFilterPanelHidden(false)}
         onFocus={() => setFilterPanelHidden(false)}
         value={searchTerm}
       />

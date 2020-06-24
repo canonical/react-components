@@ -8,6 +8,7 @@ exports[`Search and filter renders 1`] = `
     autocomplete="off"
     externallyControlled={false}
     onChange={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     placeholder="Search and filter"
     value=""

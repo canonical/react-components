@@ -36,4 +36,18 @@ describe("Search and filter", () => {
       wrapper.find(".search-and-filter__panel").prop("aria-hidden")
     ).toEqual(false);
   });
+
+  it("shows panel on click", () => {
+    const mockOnChange = jest.fn();
+    const wrapper = mount(
+      <SearchAndFilter externallyControlled onChange={mockOnChange} />
+    );
+    expect(
+      wrapper.find(".search-and-filter__panel").prop("aria-hidden")
+    ).toEqual(true);
+    wrapper.find(".p-search-box__input").simulate("click");
+    expect(
+      wrapper.find(".search-and-filter__panel").prop("aria-hidden")
+    ).toEqual(false);
+  });
 });
