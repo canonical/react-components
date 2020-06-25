@@ -37,6 +37,24 @@ state and the `value` from state.
       onChange={(searchTerm) => {
         console.log("onChange: ", searchTerm);
       }}
+      data={[
+        {
+          heading: "Clouds",
+          chips: [{ value: "Google" }, { value: "AWS" }, { value: "Azure" }],
+        },
+        {
+          heading: "Regions",
+          chips: [
+            { value: "us-east1" },
+            { value: "us-east2" },
+            { value: "us-east3" },
+          ],
+        },
+        {
+          heading: "Owner",
+          chips: [{ value: "foo" }, { value: "bar" }, { value: "baz" }],
+        },
+      ]}
     />
   </Story>
 </Preview>

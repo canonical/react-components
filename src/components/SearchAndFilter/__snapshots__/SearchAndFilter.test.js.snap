@@ -13,13 +13,5 @@ exports[`Search and filter renders 1`] = `
     placeholder="Search and filter"
     value=""
   />
-  <div
-    aria-hidden={true}
-    className="search-and-filter__panel"
-  >
-    <ContextualMenu>
-      Filter panel content
-    </ContextualMenu>
-  </div>
 </div>
 `;
