@@ -16,7 +16,15 @@ const FilterPanelSection = ({ data }) => (
 );
 
 FilterPanelSection.propTypes = {
-  data: PropTypes.any,
+  data: PropTypes.shape({
+    heading: PropTypes.string,
+    chips: PropTypes.arrayOf(
+      PropTypes.shape({
+        lead: PropTypes.string,
+        value: PropTypes.string,
+      })
+    ),
+  }),
 };
 
 export default FilterPanelSection;
