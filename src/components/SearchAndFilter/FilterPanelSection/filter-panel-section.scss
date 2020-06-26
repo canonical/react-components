@@ -1,0 +1,16 @@
+@import "~vanilla-framework/scss/base_placeholders";
+
+.filter-panel-section {
+  border-bottom: 1px solid $color-mid-x-light;
+  padding-bottom: 1rem;
+
+  &:last-child {
+    border: 0;
+  }
+
+  &__heading {
+    color: $color-mid-dark;
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+}
