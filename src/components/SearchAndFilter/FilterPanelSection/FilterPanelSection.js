@@ -6,7 +6,9 @@ import "./filter-panel-section.scss";
 
 const FilterPanelSection = ({ data }) => (
   <div className="filter-panel-section">
-    <h3 className="filter-panel-section__heading">{data?.heading}</h3>
+    {data?.heading && (
+      <h3 className="filter-panel-section__heading">{data.heading}</h3>
+    )}
     {data?.chips?.map((chip, i) => (
       <Chip lead={chip.lead} value={chip.value} key={i} />
     ))}
