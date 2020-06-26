@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Filter panel section renders 1`] = `
+<div
+  className="filter-panel-section"
+>
+  <h3
+    className="filter-panel-section__heading"
+  >
+    Regions
+  </h3>
+  <Chip
+    key="0"
+    value="us-east1"
+  />
+  <Chip
+    key="1"
+    value="us-east2"
+  />
+  <Chip
+    key="2"
+    value="us-east3"
+  />
+</div>
+`;

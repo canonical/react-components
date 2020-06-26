@@ -1,5 +1,3 @@
-@import "~vanilla-framework/scss/base_placeholders";
-
 .search-and-filter {
   span[class*="p-contextual-menu"],
   .p-contextual-menu__dropdown {
@@ -30,20 +28,5 @@
       opacity: 0;
       pointer-events: none;
     }
-  }
-
-  &__section {
-    border-bottom: 1px solid $color-mid-x-light;
-    padding-bottom: 1rem;
-
-    &:last-child {
-      border: 0;
-    }
-  }
-
-  &__section-header {
-    color: $color-mid-dark;
-    font-size: 1rem;
-    margin-bottom: 0;
   }
 }

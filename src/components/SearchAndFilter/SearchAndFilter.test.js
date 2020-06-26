@@ -48,7 +48,7 @@ describe("Search and filter", () => {
       <SearchAndFilter
         externallyControlled
         onChange={mockOnChange}
-        data={sampleData}
+        filterPanelData={sampleData}
       />
     );
     expect(
@@ -66,7 +66,7 @@ describe("Search and filter", () => {
       <SearchAndFilter
         externallyControlled
         onChange={mockOnChange}
-        data={sampleData}
+        filterPanelData={sampleData}
       />
     );
     expect(
@@ -76,31 +76,5 @@ describe("Search and filter", () => {
     expect(
       wrapper.find(".search-and-filter__panel").prop("aria-hidden")
     ).toEqual(false);
-  });
-
-  it("shows correct data passed as prop", () => {
-    const mockOnChange = jest.fn();
-    const wrapper = mount(
-      <SearchAndFilter
-        externallyControlled
-        onChange={mockOnChange}
-        data={sampleData}
-      />
-    );
-    expect(wrapper.find(".search-and-filter__section").length).toEqual(3);
-    // Test first section of filter panel
-    const firstSection = wrapper.find(".search-and-filter__section").at(0);
-    expect(
-      firstSection.find(".search-and-filter__section-header").text()
-    ).toEqual("Clouds");
-    const firstSectionFirstChip = firstSection.find(".p-chip").at(0);
-    expect(firstSectionFirstChip.text()).toEqual("Google");
-    // Test second section of filter panel
-    const secondSection = wrapper.find(".search-and-filter__section").at(1);
-    expect(
-      secondSection.find(".search-and-filter__section-header").text()
-    ).toEqual("Regions");
-    const secondSectionSecondChip = secondSection.find(".p-chip").at(1);
-    expect(secondSectionSecondChip.text()).toEqual("us-east2");
   });
 });

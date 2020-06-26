@@ -3,11 +3,15 @@ import PropTypes from "prop-types";
 
 import SearchBox from "../SearchBox";
 import ContextualMenu from "../ContextualMenu";
-import Chip from "../Chip";
+import FilterPanelSection from "./FilterPanelSection";
 
 import "./SearchAndFilter.scss";
 
-const SearchAndFilter = ({ externallyControlled = false, onChange, data }) => {
+const SearchAndFilter = ({
+  externallyControlled = false,
+  onChange,
+  filterPanelData,
+}) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterPanelHidden, setFilterPanelHidden] = useState(true);
   const filterPanelRef = useRef();
@@ -63,23 +67,18 @@ const SearchAndFilter = ({ externallyControlled = false, onChange, data }) => {
         onFocus={() => setFilterPanelHidden(false)}
         value={searchTerm}
       />
-      {data && (
+      {filterPanelData && (
         <div
           className="search-and-filter__panel"
           ref={filterPanelRef}
           aria-hidden={filterPanelHidden}
         >
           <ContextualMenu>
-            {data.map((group, i) => (
-              <div key={i} className="search-and-filter__section">
-                <h3 className="search-and-filter__section-header">
-                  {group.heading}
-                </h3>
-                {group.chips.map((chip, i) => (
-                  <Chip key={i} lead={chip.lead} value={chip.value} />
-                ))}
-              </div>
-            ))}
+            {filterPanelData.map((filterPanelSectionData, i) => {
+              return (
+                <FilterPanelSection data={filterPanelSectionData} key={i} />
+              );
+            })}
           </ContextualMenu>
         </div>
       )}
@@ -89,7 +88,7 @@ const SearchAndFilter = ({ externallyControlled = false, onChange, data }) => {
 
 SearchAndFilter.propTypes = {
   externallyControlled: PropTypes.bool,
-  data: PropTypes.arrayOf(
+  filterPanelData: PropTypes.arrayOf(
     PropTypes.shape({
       heading: PropTypes.string,
       chips: PropTypes.arrayOf(
