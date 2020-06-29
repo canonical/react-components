@@ -5,10 +5,12 @@ import SearchAndFilter from "./SearchAndFilter";
 
 const sampleData = [
   {
+    id: 0,
     heading: "Clouds",
     chips: [{ value: "Google" }, { value: "AWS" }, { value: "Azure" }],
   },
   {
+    id: 1,
     heading: "Regions",
     chips: [
       { value: "us-east1" },
@@ -17,6 +19,7 @@ const sampleData = [
     ],
   },
   {
+    id: 3,
     heading: "Owner",
     chips: [{ value: "foo" }, { value: "bar" }, { value: "baz" }],
   },

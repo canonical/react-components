@@ -9,8 +9,12 @@ const FilterPanelSection = ({ data }) => (
     {data?.heading && (
       <h3 className="filter-panel-section__heading">{data.heading}</h3>
     )}
-    {data?.chips?.map((chip, i) => (
-      <Chip lead={chip.lead} value={chip.value} key={i} />
+    {data?.chips?.map((chip) => (
+      <Chip
+        lead={chip.lead}
+        value={chip.value}
+        key={`${chip.lead}+${chip.value}`}
+      />
     ))}
   </div>
 );

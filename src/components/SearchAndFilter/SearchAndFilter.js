@@ -74,9 +74,11 @@ const SearchAndFilter = ({
           aria-hidden={filterPanelHidden}
         >
           <ContextualMenu>
-            {filterPanelData.map((filterPanelSectionData, i) => {
+            {filterPanelData.map((filterPanelSectionData) => {
               return (
-                <FilterPanelSection data={filterPanelSectionData} key={i} />
+                <div key={filterPanelSectionData.id}>
+                  <FilterPanelSection data={filterPanelSectionData} />
+                </div>
               );
             })}
           </ContextualMenu>
@@ -93,6 +95,7 @@ SearchAndFilter.propTypes = {
       heading: PropTypes.string,
       chips: PropTypes.arrayOf(
         PropTypes.shape({
+          id: PropTypes.number,
           lead: PropTypes.string,
           value: PropTypes.string,
         })
