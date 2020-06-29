@@ -18,6 +18,8 @@ describe("Filter panel section", () => {
     const wrapper = mount(<FilterPanelSection data={sampleData} />);
     expect(wrapper.find(".filter-panel-section").length).toEqual(1);
     const section = wrapper.find(".filter-panel-section");
+    const chips = wrapper.find(".p-chip");
+    expect(chips.length).toEqual(3);
     expect(section.find(".filter-panel-section__heading").text()).toEqual(
       "Regions"
     );
