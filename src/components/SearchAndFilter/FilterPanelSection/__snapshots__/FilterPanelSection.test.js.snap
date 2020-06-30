@@ -9,17 +9,21 @@ exports[`Filter panel section renders 1`] = `
   >
     Regions
   </h3>
-  <Chip
-    key="undefined+us-east1"
-    value="us-east1"
-  />
-  <Chip
-    key="undefined+us-east2"
-    value="us-east2"
-  />
-  <Chip
-    key="undefined+us-east3"
-    value="us-east3"
-  />
+  <div
+    className="filter-panel-section__chips"
+  >
+    <Chip
+      key="undefined+us-east1"
+      value="us-east1"
+    />
+    <Chip
+      key="undefined+us-east2"
+      value="us-east2"
+    />
+    <Chip
+      key="undefined+us-east3"
+      value="us-east3"
+    />
+  </div>
 </div>
 `;

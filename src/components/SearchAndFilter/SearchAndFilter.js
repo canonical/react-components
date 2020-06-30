@@ -76,9 +76,10 @@ const SearchAndFilter = ({
           <ContextualMenu>
             {filterPanelData.map((filterPanelSectionData) => {
               return (
-                <div key={filterPanelSectionData.id}>
-                  <FilterPanelSection data={filterPanelSectionData} />
-                </div>
+                <FilterPanelSection
+                  data={filterPanelSectionData}
+                  key={filterPanelSectionData.id}
+                />
               );
             })}
           </ContextualMenu>
