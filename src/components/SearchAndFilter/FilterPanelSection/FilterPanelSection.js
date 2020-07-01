@@ -8,12 +8,11 @@ const FilterPanelSection = ({ data }) => {
   const { chips, heading } = data;
   const [overflowCounter, setOverflowCounter] = useState(0);
   const chipWrapper = useRef(null);
-  const viewportWidth = window.innerWidth;
 
   // if the offsetTop is more than double height of a single chip, consider it
   // oveflowing
   const updateFlowCount = function () {
-    const chips = chipWrapper.current.querySelectorAll(".p-chip");
+    const chips = chipWrapper?.current.querySelectorAll(".p-chip");
     let overflowChips = 0;
     chips.forEach((chip) => {
       if (chip.offsetTop > chip.offsetHeight * 2) overflowChips++;
@@ -22,12 +21,16 @@ const FilterPanelSection = ({ data }) => {
   };
 
   useEffect(() => {
-    updateFlowCount();
-    window.addEventListener("resize", updateFlowCount);
-    return () => {
-      window.removeEventListener("resize", updateFlowCount);
-    };
-  }, [chipWrapper, viewportWidth]);
+    if (typeof ResizeObserver !== "undefined") {
+      const wrapperWidthObserver = new ResizeObserver(() => {
+        updateFlowCount();
+      });
+      const wrapper = chipWrapper.current;
+      wrapperWidthObserver.observe(wrapper);
+    } else {
+      updateFlowCount();
+    }
+  }, []);
 
   return (
     <div className="filter-panel-section">
