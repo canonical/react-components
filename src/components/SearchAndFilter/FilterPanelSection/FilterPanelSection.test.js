@@ -56,4 +56,11 @@ describe("Filter panel section", () => {
     const wrapper = mount(<FilterPanelSection data={sampleData} />);
     expect(wrapper.find(".filter-panel-section__counter").text()).toEqual("+3");
   });
+
+  it("all chips are shown when counter is clicked", () => {
+    const wrapper = mount(<FilterPanelSection data={sampleData} />);
+    expect(wrapper.find("[aria-expanded=false]").length).toEqual(1);
+    wrapper.find(".filter-panel-section__counter").simulate("click");
+    expect(wrapper.find("[aria-expanded=true]").length).toEqual(1);
+  });
 });

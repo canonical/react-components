@@ -7,6 +7,7 @@ import "./filter-panel-section.scss";
 const FilterPanelSection = ({ data }) => {
   const { chips, heading } = data;
   const [overflowCounter, setOverflowCounter] = useState(0);
+  const [expanded, setExpanded] = useState(false);
   const chipWrapper = useRef(null);
 
   // If the offsetTop is more than double height of a single chip, consider it
@@ -32,8 +33,12 @@ const FilterPanelSection = ({ data }) => {
     }
   }, []);
 
+  const showAllChips = () => {
+    setExpanded(true);
+  };
+
   return (
-    <div className="filter-panel-section">
+    <div className="filter-panel-section" aria-expanded={expanded}>
       {heading && (
         <h3 className="filter-panel-section__heading">{data.heading}</h3>
       )}
@@ -45,8 +50,13 @@ const FilterPanelSection = ({ data }) => {
             key={`${chip.lead}+${chip.value}`}
           />
         ))}
-        {overflowCounter > 0 && (
-          <span className="filter-panel-section__counter">
+        {overflowCounter > 0 && !expanded && (
+          <span
+            className="filter-panel-section__counter"
+            onClick={showAllChips}
+            onKeyPress={showAllChips}
+            tabIndex="0"
+          >
             +{overflowCounter}
           </span>
         )}
