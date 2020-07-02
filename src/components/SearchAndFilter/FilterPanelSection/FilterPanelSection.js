@@ -12,7 +12,7 @@ const FilterPanelSection = ({ data }) => {
   // If the offsetTop is more than double height of a single chip, consider it
   // overflowing
   const updateFlowCount = function () {
-    const chips = chipWrapper?.current.querySelectorAll(".p-chip");
+    const chips = chipWrapper?.current?.querySelectorAll(".p-chip");
     let overflowChips = 0;
     chips.forEach((chip) => {
       if (chip.offsetTop > chip.offsetHeight * 2) overflowChips++;
