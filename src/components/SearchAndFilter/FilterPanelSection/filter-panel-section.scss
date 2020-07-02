@@ -20,9 +20,15 @@
     padding-right: 1.25rem;
     position: relative;
     max-height: 3.25rem;
+
+    [aria-expanded="true"] & {
+      overflow: visible;
+      max-height: 100%;
+    }
   }
 
   &__counter {
+    cursor: pointer;
     color: $color-information;
     position: absolute;
     bottom: 0;
