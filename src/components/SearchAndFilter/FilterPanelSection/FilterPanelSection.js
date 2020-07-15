@@ -15,9 +15,11 @@ const FilterPanelSection = ({ data }) => {
   const updateFlowCount = function () {
     const chips = chipWrapper?.current?.querySelectorAll(".p-chip");
     let overflowChips = 0;
-    chips.forEach((chip) => {
-      if (chip.offsetTop > chip.offsetHeight * 2) overflowChips++;
-    });
+    if (chips) {
+      chips.forEach((chip) => {
+        if (chip.offsetTop > chip.offsetHeight * 2) overflowChips++;
+      });
+    }
     setOverflowCounter(overflowChips);
   };
 

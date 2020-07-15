@@ -2,8 +2,8 @@
 
 exports[`Filter panel section renders 1`] = `
 <div
-  className="filter-panel-section"
   aria-expanded={false}
+  className="filter-panel-section"
 >
   <h3
     className="filter-panel-section__heading"
