@@ -14,13 +14,15 @@
 }
 
 .p-icon--success-positive {
-  @extend %icon;
   @include maas-icon-success($color-x-light, $color-positive);
+
+  @extend %icon;
 }
 
 .p-icon--success-negative {
-  @extend %icon;
   @include maas-icon-success($color-x-light, $color-negative);
+
+  @extend %icon;
 }
 
 .p-action-button {
