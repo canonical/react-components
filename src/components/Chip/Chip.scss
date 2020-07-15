@@ -1,9 +1,11 @@
 @import "~vanilla-framework/scss/base_placeholders";
 @import "~vanilla-framework/scss/base_button";
+
 @include vf-b-placeholders;
 
 .p-chip {
   @extend %small-text;
+
   background-color: rgba($color-x-dark, 0.05);
   border-radius: 1rem;
   display: inline-flex;

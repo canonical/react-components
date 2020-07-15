@@ -2,8 +2,8 @@
 
 .filter-panel-section {
   border-bottom: 1px solid $color-mid-x-light;
-  padding-bottom: 1rem;
   margin: 0;
+  padding-bottom: 1rem;
 
   &:last-child {
     border: 0;
@@ -16,22 +16,16 @@
   }
 
   &__chips {
+    max-height: 3.25rem;
     overflow: hidden;
     padding-right: 1.25rem;
     position: relative;
-    max-height: 3.25rem;
-
-    [aria-expanded="true"] & {
-      overflow: visible;
-      max-height: 100%;
-    }
   }
 
   &__counter {
-    cursor: pointer;
+    bottom: 0;
     color: $color-information;
     position: absolute;
-    bottom: 0;
     right: 0.25rem;
   }
 }
