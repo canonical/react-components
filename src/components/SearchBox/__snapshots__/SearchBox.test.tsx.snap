@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SearchBox  renders 1`] = `
+<form
+  className="p-search-box"
+  onSubmit={[Function]}
+>
+  <label
+    className="u-off-screen"
+    htmlFor="search"
+  >
+    Search
+  </label>
+  <input
+    aria-label="search"
+    autoComplete="on"
+    className="p-search-box__input"
+    id="search"
+    name="search"
+    onChange={[Function]}
+    placeholder="Search"
+    type="search"
+  />
+  <button
+    aria-label="search"
+    className="p-search-box__button"
+    type="submit"
+  >
+    <i
+      className="p-icon--search"
+    >
+      Search
+    </i>
+  </button>
+</form>
+`;
