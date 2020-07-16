@@ -26,3 +26,6 @@ export { default as TableCell } from "./components/TableCell";
 export { default as TableHeader } from "./components/TableHeader";
 export { default as TableRow } from "./components/TableRow";
 export { default as Textarea } from "./components/Textarea";
+export { default as Tooltip } from "./components/Tooltip";
+
+export type TSFixMe = any; // eslint-disable-line @typescript-eslint/no-explicit-any
