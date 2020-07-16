@@ -7,11 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.8.0] - 2020-07-16
+
 ### Added
 
 - Added `titleElement` prop to Accordion component to allow rendering title headings for accordion tabs.
 
 ### Changed
+
+- Migrated project to TypeScript.
 
 ### Removed
 
