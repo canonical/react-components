@@ -1,8 +1,42 @@
 import PropTypes from "prop-types";
 import React, { useRef } from "react";
+import type { ReactNode } from "react";
 import usePortal from "react-useportal";
 
-const getPositionStyle = (position, el) => {
+import { TSFixMe } from "index";
+
+export type CSSPosition =
+  | "static"
+  | "absolute"
+  | "fixed"
+  | "relative"
+  | "sticky"
+  | "initial"
+  | "inherit";
+
+type PositionStyle = {
+  position: CSSPosition;
+  left: number;
+  top: number;
+};
+
+type Position =
+  | "btm-center"
+  | "btm-left"
+  | "btm-right"
+  | "left"
+  | "right"
+  | "top-center"
+  | "top-left"
+  | "top-right";
+
+type Props = {
+  children: ReactNode;
+  message?: string;
+  position?: Position;
+};
+
+const getPositionStyle = (pos: Position, el: TSFixMe): PositionStyle => {
   if (!el || !el.current) {
     return undefined;
   }
@@ -12,7 +46,7 @@ const getPositionStyle = (position, el) => {
   let left = x + window.scrollX || 0;
   let top = y + window.scrollY || 0;
 
-  switch (position) {
+  switch (pos) {
     case "btm-center":
       left += width / 2;
       top += height;
@@ -42,11 +76,14 @@ const getPositionStyle = (position, el) => {
     default:
       break;
   }
-
   return { position: "absolute", left, top };
 };
 
-const Tooltip = ({ children, message, position = "top-left" }) => {
+const Tooltip = ({
+  children,
+  message,
+  position = "top-left",
+}: Props): JSX.Element => {
   const el = useRef(null);
   const { openPortal, closePortal, isOpen, Portal } = usePortal();
   const positionStyle = getPositionStyle(position, el);
