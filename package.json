@@ -22,6 +22,7 @@
   "homepage": "/react-components/",
   "devDependencies": {
     "@babel/cli": "7.10.5",
+    "@babel/preset-typescript": "7.10.4",
     "@percy/storybook": "3.3.0",
     "@storybook/addon-docs": "5.3.19",
     "@storybook/addon-knobs": "5.3.19",
@@ -59,7 +60,8 @@
     "react-dom": "16.13.1"
   },
   "scripts": {
-    "build": "rm -rf dist && NODE_ENV=production tsc",
+    "build": "rm -rf dist && NODE_ENV=production babel src --out-dir dist --copy-files --extensions '.js,.jsx,.ts,.tsx'; yarn build declaration",
+    "build-declaration": "tsc --emitDeclarationOnly",
     "build-watch": "yarn build --watch",
     "build-docs": "build-storybook -c .storybook -o docs",
     "clean": "rm -rf node_modules dist .out",
