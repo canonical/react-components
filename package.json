@@ -60,8 +60,8 @@
     "react-dom": "16.13.1"
   },
   "scripts": {
-    "build": "rm -rf dist && NODE_ENV=production babel src --out-dir dist --copy-files --extensions '.js,.jsx,.ts,.tsx'; yarn build declaration",
-    "build-declaration": "tsc --emitDeclarationOnly",
+    "build": "rm -rf dist && NODE_ENV=production babel src --out-dir dist --copy-files --extensions '.js,.jsx,.ts,.tsx'; yarn build-declaration",
+    "build-declaration": "tsc",
     "build-watch": "yarn build --watch",
     "build-docs": "build-storybook -c .storybook -o docs",
     "clean": "rm -rf node_modules dist .out",

@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
     "baseUrl": "src",
+    "emitDeclarationOnly": true,
     "declaration": true,
     "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "outDir": "./dist",
-    "allowJs": true,
+    "allowJs": false,
     "noUnusedParameters": true,
     "noUnusedLocals": true,
     "noImplicitReturns": true,
@@ -22,5 +23,6 @@
     "isolatedModules": true,
     "jsx": "react"
   },
-  "include": ["src/**/*"]
+  "include": ["src/**/*.ts", "src/**/*.tsx"],
+  "exclude": ["src/**/*.test.ts", "src/**/*.test.tsx"]
 }
