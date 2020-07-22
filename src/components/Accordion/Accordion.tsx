@@ -25,12 +25,12 @@ type Section = {
 };
 
 type Props = {
-  className: string;
-  expanded: string;
-  externallyControlled: boolean;
   sections: Section[];
-  onExpandedChange: (id, title: string) => void;
-  titleElement: HTMLHeadElement;
+  className?: string;
+  expanded?: string;
+  externallyControlled?: boolean;
+  onExpandedChange?: (id, title: string) => void;
+  titleElement?: HTMLHeadElement;
 } & HTMLAttributes<HTMLElement>;
 
 const Accordion = ({
