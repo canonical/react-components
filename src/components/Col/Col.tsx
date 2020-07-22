@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { HTMLAttributes } from "react";
 import type { ElementType, ReactNode } from "react";
 
 export const colSizes = [
@@ -43,8 +43,7 @@ type Props = {
   large?: ColSize;
   medium?: ColSize;
   small?: ColSize;
-  [x: string]: ReactNode;
-};
+} & HTMLAttributes<HTMLElement>;
 
 const Col = ({
   children,
