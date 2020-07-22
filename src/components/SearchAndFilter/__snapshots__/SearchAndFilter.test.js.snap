@@ -4,14 +4,20 @@ exports[`Search and filter renders 1`] = `
 <div
   className="search-and-filter"
 >
-  <SearchBox
-    autocomplete="off"
-    externallyControlled={false}
-    onChange={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    placeholder="Search and filter"
-    value=""
-  />
+  <div
+    aria-expanded={false}
+    className="search-and-filter__search-container"
+  >
+    <SearchBox
+      autocomplete="off"
+      externallyControlled={false}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onSubmit={[Function]}
+      placeholder="Search and filter"
+      value=""
+    />
+  </div>
 </div>
 `;

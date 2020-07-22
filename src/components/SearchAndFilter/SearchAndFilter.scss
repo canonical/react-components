@@ -1,4 +1,69 @@
+@import "~vanilla-framework/scss/base_placeholders";
+
 .search-and-filter {
+  border: 1px solid $color-mid-dark;
+  position: relative;
+
+  &__search-container {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    height: 28px;
+    margin: 0.5rem 0.5rem 0;
+    overflow: hidden;
+    padding-right: 1rem;
+    position: relative;
+
+    &[aria-expanded="true"] {
+      height: auto;
+      overflow: visible;
+    }
+
+    .p-chip {
+      margin-bottom: 0.5rem;
+    }
+
+    .p-search-box {
+      display: inline-flex;
+      flex: 1;
+      margin: 0;
+
+      &__input {
+        border: 0;
+        box-shadow: none;
+        margin-top: -0.5rem;
+        min-width: 1rem;
+        padding: 0 0.5rem;
+        position: static;
+      }
+
+      &__input:focus {
+        outline: none;
+      }
+    }
+
+    .p-search-box__button,
+    .p-search-box__reset {
+      display: none;
+    }
+
+    .search-and-filter__selected-count {
+      color: $color-information;
+      cursor: pointer;
+      position: absolute;
+      right: 0.5rem;
+      top: -0.15rem;
+    }
+
+    &[aria-expanded="true"] .search-and-filter__selected-count {
+      display: none;
+    }
+  }
+
+  .p-icon--search {
+    display: none;
+  }
+
   [class*="p-contextual-menu"],
   .p-contextual-menu__dropdown {
     display: block;
@@ -10,10 +75,6 @@
     left: 0;
     padding: 1rem;
     top: 0;
-  }
-
-  .p-search-box {
-    margin: 0;
   }
 
   &__panel {

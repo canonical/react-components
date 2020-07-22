@@ -3,16 +3,33 @@
 exports[`Chip  renders default chip 1`] = `
 <div
   className="p-chip"
+  role="button"
 >
-  positive
+  <span
+    className="p-chip__lead"
+  />
+  <span
+    className="p-chip__value"
+  >
+    positive
+  </span>
 </div>
 `;
 
 exports[`Chip  renders lead-value chip 1`] = `
 <div
   className="p-chip"
+  role="button"
 >
-  OWNER: 
-  Bob
+  <span
+    className="p-chip__lead"
+  >
+    OWNER: 
+  </span>
+  <span
+    className="p-chip__value"
+  >
+    Bob
+  </span>
 </div>
 `;
