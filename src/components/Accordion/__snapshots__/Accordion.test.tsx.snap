@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Accordion  renders 1`] = `
+<aside
+  aria-multiselectable="true"
+  className="p-accordion"
+  role="tablist"
+>
+  <ul
+    className="p-accordion__list"
+  >
+    <AccordionSection
+      content="test content"
+      key="0"
+      setExpanded={[Function]}
+      title="Advanced topics"
+    />
+    <AccordionSection
+      content={
+        <React.Fragment>
+          More test content
+        </React.Fragment>
+      }
+      key="1"
+      setExpanded={[Function]}
+      title="Networking"
+    />
+  </ul>
+</aside>
+`;
