@@ -12,7 +12,7 @@
   height: 1.25rem;
   margin-bottom: 0;
   margin-right: $sph-inner--small;
-  padding: 0 $sph-inner map-get($nudges, nudge--small);
+  padding: 0.15rem $sph-inner map-get($nudges, nudge--small);
   user-select: none;
   white-space: nowrap;
 
@@ -20,7 +20,7 @@
     background-color: rgba($color-x-dark, 0.08);
   }
 
-  &.is-selected {
+  &[aria-pressed="true"] {
     background-color: rgba($color-x-dark, 0.2);
 
     &:hover {
@@ -30,6 +30,10 @@
 
   &:active {
     background-color: rgba($color-x-dark, 0.2);
+  }
+
+  &__lead {
+    white-space: pre;
   }
 
   .p-chip__dismiss {

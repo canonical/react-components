@@ -1,26 +1,26 @@
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Chip from "../../Chip";
+import { overflowingChipsCount } from "../shared";
 
 import "./filter-panel-section.scss";
 
-const FilterPanelSection = ({ data }) => {
+const FilterPanelSection = ({ data, addToSelected, searchData }) => {
   const { chips, heading } = data;
   const [overflowCounter, setOverflowCounter] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const chipWrapper = useRef(null);
 
+  const handleChipClick = (chip) => {
+    addToSelected(chip);
+  };
+
   // If the offsetTop is more than double height of a single chip, consider it
   // overflowing
   const updateFlowCount = function () {
     const chips = chipWrapper?.current?.querySelectorAll(".p-chip");
-    let overflowChips = 0;
-    if (chips) {
-      chips.forEach((chip) => {
-        if (chip.offsetTop > chip.offsetHeight * 2) overflowChips++;
-      });
-    }
-    setOverflowCounter(overflowChips);
+    const overflowCount = overflowingChipsCount(chips, 2);
+    setOverflowCounter(overflowCount);
   };
 
   useEffect(() => {
@@ -41,16 +41,19 @@ const FilterPanelSection = ({ data }) => {
 
   return (
     <div className="filter-panel-section" aria-expanded={expanded}>
-      {heading && (
-        <h3 className="filter-panel-section__heading">{data.heading}</h3>
-      )}
+      {heading && <h3 className="filter-panel-section__heading">{heading}</h3>}
       <div className="filter-panel-section__chips" ref={chipWrapper}>
         {chips?.map((chip) => (
-          <Chip
-            lead={chip.lead}
-            value={chip.value}
+          <span
             key={`${chip.lead}+${chip.value}`}
-          />
+            onClick={() => handleChipClick(chip)}
+          >
+            <Chip
+              lead={chip.lead}
+              value={chip.value}
+              selected={searchData?.includes(chip) ? true : false}
+            />
+          </span>
         ))}
         {overflowCounter > 0 && !expanded && (
           <span

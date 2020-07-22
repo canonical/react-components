@@ -80,4 +80,78 @@ describe("Search and filter", () => {
       wrapper.find(".search-and-filter__panel").prop("aria-hidden")
     ).toEqual(false);
   });
+
+  it("should hide chip overflow counter when none overflow", () => {
+    const mockOnChange = jest.fn();
+    // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
+    // of the chips
+    Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
+      configurable: true,
+      value: 40,
+    });
+    Object.defineProperty(HTMLElement.prototype, "offsetTop", {
+      configurable: true,
+      value: 40,
+    });
+    const wrapper = mount(
+      <SearchAndFilter
+        externallyControlled
+        onChange={mockOnChange}
+        filterPanelData={sampleData}
+      />
+    );
+    expect(wrapper.find(".search-and-filter__selected-count").length).toEqual(
+      0
+    );
+  });
+
+  it("show overflow chip counter when chips overflow", () => {
+    const mockOnChange = jest.fn();
+    // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
+    // of the chips
+    Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
+      configurable: true,
+      value: 40,
+    });
+    Object.defineProperty(HTMLElement.prototype, "offsetTop", {
+      configurable: true,
+      value: 100,
+    });
+    const wrapper = mount(
+      <SearchAndFilter
+        externallyControlled
+        onChange={mockOnChange}
+        filterPanelData={sampleData}
+      />
+    );
+    wrapper
+      .find(".filter-panel-section__chips .p-chip")
+      .first()
+      .simulate("click");
+    expect(wrapper.find(".search-and-filter__selected-count").text()).toEqual(
+      "+1"
+    );
+  });
+
+  it("all chips are shown when counter is clicked", () => {
+    const mockOnChange = jest.fn();
+    const wrapper = mount(
+      <SearchAndFilter
+        externallyControlled
+        onChange={mockOnChange}
+        filterPanelData={sampleData}
+      />
+    );
+    wrapper
+      .find(".filter-panel-section__chips .p-chip")
+      .first()
+      .simulate("click");
+    expect(
+      wrapper.find(".search-and-filter__search-container").prop("aria-expanded")
+    ).toEqual(false);
+    wrapper.find(".search-and-filter__selected-count").simulate("click");
+    expect(
+      wrapper.find(".search-and-filter__search-container").prop("aria-expanded")
+    ).toEqual(true);
+  });
 });

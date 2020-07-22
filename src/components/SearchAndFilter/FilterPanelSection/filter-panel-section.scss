@@ -9,6 +9,14 @@
     border: 0;
   }
 
+  .p-chip {
+    cursor: pointer;
+
+    &__lead {
+      display: none;
+    }
+  }
+
   &__heading {
     color: $color-mid-dark;
     font-size: 1rem;
@@ -16,7 +24,7 @@
   }
 
   &__chips {
-    max-height: 3.25rem;
+    max-height: 3.2rem;
     overflow: hidden;
     padding-right: 1.25rem;
     position: relative;
