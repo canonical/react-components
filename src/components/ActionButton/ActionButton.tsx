@@ -10,7 +10,7 @@ export const SUCCESS_DURATION = 2000; // duration (ms) success tick is displayed
 
 type ButtonAppearance = "base" | "neutral" | "positive" | "negative" | "brand";
 type Props = {
-  children: ReactNode;
+  children?: ReactNode;
   appearance?: ButtonAppearance;
   className?: string;
   disabled?: boolean;

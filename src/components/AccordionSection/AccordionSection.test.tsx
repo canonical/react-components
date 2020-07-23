@@ -28,7 +28,7 @@ describe("AccordionSection ", () => {
         expanded="abcd-1234"
         setExpanded={jest.fn()}
         title="Test section"
-        titleElement="h1"
+        titleElement="h4"
       />
     );
 

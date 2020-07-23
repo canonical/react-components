@@ -18,7 +18,7 @@ const generateSections = (
     <AccordionSection
       expanded={expanded}
       key={key || i}
-      sectionKey={key.toString()}
+      sectionKey={key?.toString()}
       setExpanded={setExpanded}
       titleElement={titleElement}
       {...props}
