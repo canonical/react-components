@@ -1,36 +1,37 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React, { useState, HTMLAttributes } from "react";
-import type { MouseEvent, ReactNode } from "react";
 
 import AccordionSection from "../AccordionSection";
+import type {
+  AccordionHeadings,
+  AccordionSectionProps,
+} from "../AccordionSection";
 
-const generateSections = (sections, setExpanded, expanded, titleElement) =>
+const generateSections = (
+  sections: AccordionSectionProps & { key?: string | number }[],
+  setExpanded,
+  expanded,
+  titleElement
+) =>
   sections.map(({ key, ...props }, i) => (
     <AccordionSection
       expanded={expanded}
       key={key || i}
-      sectionKey={key}
+      sectionKey={key.toString()}
       setExpanded={setExpanded}
       titleElement={titleElement}
       {...props}
     />
   ));
 
-type Section = {
-  content: ReactNode;
-  key?: string;
-  onTitleClick?: MouseEvent;
-  title?: string;
-};
-
 type Props = {
-  sections: Section[];
+  sections: typeof AccordionSection[];
   className?: string;
   expanded?: string;
   externallyControlled?: boolean;
   onExpandedChange?: (id, title: string) => void;
-  titleElement?: HTMLHeadElement;
+  titleElement?: AccordionHeadings;
 } & HTMLAttributes<HTMLElement>;
 
 const Accordion = ({
