@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 
-type Props = {
+export type Props = {
   children?: ReactNode;
   className?: string;
   expanding?: boolean;

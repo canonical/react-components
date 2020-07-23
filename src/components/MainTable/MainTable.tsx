@@ -1,14 +1,15 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import type { ReactNode } from "react";
-import type { SortDirection } from "types";
 
+import type { SortDirection } from "types";
 import Pagination from "../Pagination";
 import Table from "../Table";
 import type { TableProps } from "../Table";
 import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
+import type { TableCellProps } from "../TableCell";
 
 import "./MainTable.scss";
 import { TSFixMe } from "index";
@@ -19,15 +20,8 @@ type Header = {
   sortKey?: string;
 };
 
-type Column = {
-  children: ReactNode;
-  className: string;
-  expanding: boolean;
-  hidden: boolean;
-};
-
 type Row = {
-  columns?: Column[];
+  columns?: TableCellProps[];
   expanded?: boolean;
   expandedContent?: ReactNode;
   sortData?: TSFixMe;
