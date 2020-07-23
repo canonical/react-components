@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useEffect, useState, HTMLAttributes } from "react";
+import React, { useEffect, useState, HTMLProps } from "react";
 import type { ReactNode } from "react";
 
 import type { SortDirection } from "types";
@@ -26,7 +26,7 @@ type Row = {
   expanded?: boolean;
   expandedContent?: ReactNode;
   sortData?: TSFixMe;
-} & HTMLAttributes<HTMLTableRowElement>;
+} & HTMLProps<HTMLTableRowElement>;
 
 type Props = {
   defaultSort?: string;

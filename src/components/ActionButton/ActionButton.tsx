@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLProps, ReactNode } from "react";
 
 import "./ActionButton.scss";
 
@@ -17,7 +17,7 @@ type Props = {
   inline?: boolean;
   loading?: boolean;
   success?: boolean;
-} & HTMLAttributes<HTMLButtonElement>;
+} & HTMLProps<HTMLButtonElement>;
 
 const ActionButton = ({
   appearance = "neutral",

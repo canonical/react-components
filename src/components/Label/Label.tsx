@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React, { HTMLAttributes } from "react";
+import React, { HTMLProps } from "react";
 import type { ReactNode } from "react";
 
 type Props = {
@@ -8,7 +8,7 @@ type Props = {
   className?: string;
   forId?: string;
   required?: boolean;
-} & HTMLAttributes<HTMLLabelElement>;
+} & HTMLProps<HTMLLabelElement>;
 
 const Label = ({
   children,

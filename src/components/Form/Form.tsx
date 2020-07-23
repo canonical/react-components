@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLProps, ReactNode } from "react";
 
 type Form = {
   children?: ReactNode;
@@ -31,7 +31,7 @@ const Form = ({
   inline,
   stacked,
   ...formProps
-}: Props & HTMLAttributes<HTMLFormElement>): JSX.Element => (
+}: Props & HTMLProps<HTMLFormElement>): JSX.Element => (
   <form
     className={classNames(className, {
       "p-form": inline || stacked,

@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
-import React, { HTMLAttributes } from "react";
+import React, { HTMLProps } from "react";
 import type { ReactNode } from "react";
 
 type Props = {
   children: ReactNode;
-} & HTMLAttributes<HTMLTableRowElement>;
+} & HTMLProps<HTMLTableRowElement>;
 
 const TableRow = ({ children, ...trProps }: Props): JSX.Element => (
   <tr role="row" {...trProps}>

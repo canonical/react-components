@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React, { HTMLAttributes } from "react";
+import React, { HTMLProps } from "react";
 
 // Todo: Improve this type such that nextURL & nextLabel and previousURL & previousLabel
 // are required together, but mutually optional.
@@ -10,7 +10,7 @@ type Props = {
   nextLabel?: string;
   previousURL?: string;
   previousLabel?: string;
-} & HTMLAttributes<HTMLElement>;
+} & HTMLProps<HTMLElement>;
 
 const ArticlePagination = ({
   className,

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import type { ElementType, HTMLAttributes, ReactNode } from "react";
+import type { ElementType, HTMLProps, ReactNode } from "react";
 
 import Col, { colSizes } from "../Col";
 import type { ColSize } from "../Col";
@@ -21,7 +21,7 @@ type Props = {
   rowClassName?: string;
   shallow?: boolean;
   type?: "light" | "dark" | "accent" | "image";
-} & HTMLAttributes<HTMLElement>;
+} & HTMLProps<HTMLElement>;
 
 const Strip = ({
   children,

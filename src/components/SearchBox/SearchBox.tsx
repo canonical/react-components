@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import type { HTMLAttributes, FocusEvent, FormEvent, MouseEvent } from "react";
+import type { HTMLProps, FocusEvent, FormEvent, MouseEvent } from "react";
 import { TSFixMe } from "index";
 
 type Props = {
@@ -15,7 +15,7 @@ type Props = {
   onSubmit?: (evt: FormEvent) => void;
   placeholder?: string;
   value?: string;
-} & HTMLAttributes<HTMLFormElement>;
+} & HTMLProps<HTMLFormElement>;
 
 const SearchBox = ({
   autocomplete = "on",

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef } from "react";
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLProps, ReactNode } from "react";
 
 export const notificationTypes = {
   CAUTION: "caution",
@@ -19,7 +19,7 @@ type Props = {
   status: string;
   timeout: number;
   type: NotificationType;
-} & HTMLAttributes<HTMLDivElement>;
+} & HTMLProps<HTMLDivElement>;
 
 const Notification = ({
   children,

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLProps, ReactNode } from "react";
 
 export type Props = {
   children?: ReactNode;
@@ -9,7 +9,7 @@ export type Props = {
   expanding?: boolean;
   hidden?: boolean;
   role?: string;
-} & HTMLAttributes<HTMLTableCellElement>;
+} & HTMLProps<HTMLTableCellElement>;
 
 const TableCell = ({
   children,

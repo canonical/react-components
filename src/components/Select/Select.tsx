@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React, { HTMLAttributes } from "react";
+import React, { HTMLProps } from "react";
 import type { ChangeEventHandler, ReactNode } from "react";
 
 import Field from "../Field";
@@ -30,7 +30,7 @@ type Props = {
   required?: boolean;
   stacked?: boolean;
   success?: string;
-} & HTMLAttributes<HTMLSelectElement>;
+} & HTMLProps<HTMLSelectElement>;
 
 const Select = ({
   caution,

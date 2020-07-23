@@ -9,6 +9,11 @@ describe("Input ", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it("can be disabled", () => {
+    const wrapper = shallow(<Input disabled />);
+    expect(wrapper.find("input").prop("disabled")).toBeDefined();
+  });
+
   it("can add additional classes", () => {
     const wrapper = shallow(<Input type="text" className="extra-class" />);
     const className = wrapper.find("input").prop("className");

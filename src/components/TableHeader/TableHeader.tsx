@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { HTMLAttributes } from "react";
+import React, { HTMLProps } from "react";
 import type { ReactNode, MouseEvent } from "react";
 import type { SortDirection } from "types";
 
@@ -8,7 +8,7 @@ export type Props = {
   className?: string;
   sort?: SortDirection;
   onClick?: (evt: MouseEvent) => void;
-} & HTMLAttributes<HTMLTableHeaderCellElement>;
+} & HTMLProps<HTMLTableHeaderCellElement>;
 
 const TableHeader = ({
   children,

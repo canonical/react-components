@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLProps, ReactNode } from "react";
 
 import Field from "../Field";
 
@@ -17,7 +17,7 @@ type Props = {
   stacked?: boolean;
   success?: string;
   type?: string;
-} & HTMLAttributes<HTMLInputElement>;
+} & HTMLProps<HTMLInputElement>;
 
 const Input = ({
   caution,

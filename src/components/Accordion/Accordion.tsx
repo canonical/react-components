@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React, { useState, HTMLAttributes } from "react";
+import React, { useState, HTMLProps } from "react";
 
 import AccordionSection from "../AccordionSection";
 import type {
@@ -32,7 +32,7 @@ type Props = {
   externallyControlled?: boolean;
   onExpandedChange?: (id, title: string) => void;
   titleElement?: AccordionHeadings;
-} & HTMLAttributes<HTMLElement>;
+} & HTMLProps<HTMLElement>;
 
 const Accordion = ({
   className,

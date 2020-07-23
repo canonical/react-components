@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React, { HTMLAttributes } from "react";
+import React, { HTMLProps } from "react";
 import type { CSSProperties, KeyboardEvent, ReactNode } from "react";
 
 import Field from "../Field";
@@ -18,7 +18,7 @@ type Props = {
   stacked?: boolean;
   style?: CSSProperties;
   success?: string;
-} & HTMLAttributes<HTMLTextAreaElement>;
+} & HTMLProps<HTMLTextAreaElement>;
 
 const Textarea = ({
   caution,

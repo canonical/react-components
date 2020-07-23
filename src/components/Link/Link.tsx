@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React, { HTMLAttributes } from "react";
+import React, { HTMLProps } from "react";
 import type { ReactNode } from "react";
 
 type Props = {
@@ -11,7 +11,7 @@ type Props = {
   inverted?: boolean;
   soft?: boolean;
   top?: boolean;
-} & HTMLAttributes<HTMLAnchorElement>;
+} & HTMLProps<HTMLAnchorElement>;
 
 const Link = ({
   children,

@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLProps, ReactNode } from "react";
 
 type Props = {
   children?: ReactNode;
@@ -10,7 +10,7 @@ type Props = {
   overlay?: boolean;
   title?: Node | string;
   thumbnail?: string;
-} & HTMLAttributes<HTMLDivElement>;
+} & HTMLProps<HTMLDivElement>;
 
 const Card = ({
   children,
