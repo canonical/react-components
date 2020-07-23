@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React, { useRef } from "react";
-import type { HTMLProps } from "react";
+import type { AllHTMLAttributes } from "react";
 
 type Props = {
   children: string;
@@ -9,7 +9,7 @@ type Props = {
   inline?: boolean;
   copyable?: boolean;
   numbered?: boolean;
-} & HTMLProps<HTMLElement>;
+} & AllHTMLAttributes<HTMLElement>;
 
 const Code = ({
   children,

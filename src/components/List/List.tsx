@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import type { HTMLProps } from "react";
+import type { HTMLAttributes } from "react";
 import { TSFixMe } from "index";
 
 const generateItems = (
@@ -65,7 +65,7 @@ type Props = {
   split?: boolean;
   stepped?: boolean;
   ticked?: boolean;
-} & HTMLProps<HTMLOListElement | HTMLUListElement>;
+} & HTMLAttributes<HTMLOListElement | HTMLUListElement>;
 
 const List = ({
   className,

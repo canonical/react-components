@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React, { HTMLProps } from "react";
+import React, { HTMLAttributes } from "react";
 import type { ElementType, ReactNode } from "react";
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
   hasIcon?: boolean;
   inline?: boolean;
   onClick?: () => void;
-} & HTMLProps<HTMLButtonElement>;
+} & HTMLAttributes<HTMLButtonElement>;
 
 const Button = ({
   appearance = "neutral",
