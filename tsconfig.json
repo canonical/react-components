@@ -3,6 +3,7 @@
     "baseUrl": "src",
     "emitDeclarationOnly": true,
     "declaration": true,
+    "declarationMap": true,
     "target": "es6",
     "lib": ["dom", "dom.iterable", "esnext"],
     "outDir": "./dist",
