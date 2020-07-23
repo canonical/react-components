@@ -3,7 +3,7 @@ import React, { HTMLAttributes } from "react";
 import type { ReactNode, MouseEvent } from "react";
 import type { SortDirection } from "types";
 
-type Props = {
+export type Props = {
   children?: ReactNode;
   className?: string;
   sort?: SortDirection;

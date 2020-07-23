@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, HTMLAttributes } from "react";
 import type { ReactNode } from "react";
 
 import type { SortDirection } from "types";
@@ -8,6 +8,7 @@ import Table from "../Table";
 import type { TableProps } from "../Table";
 import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
+import type { TableHeaderProps } from "../TableHeader";
 import TableCell from "../TableCell";
 import type { TableCellProps } from "../TableCell";
 
@@ -18,14 +19,14 @@ type Header = {
   content?: ReactNode;
   className?: string;
   sortKey?: string;
-};
+} & TableHeaderProps;
 
 type Row = {
   columns?: TableCellProps[];
   expanded?: boolean;
   expandedContent?: ReactNode;
   sortData?: TSFixMe;
-};
+} & HTMLAttributes<HTMLTableRowElement>;
 
 type Props = {
   defaultSort?: string;
