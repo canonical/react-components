@@ -1,20 +1,38 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React, { useState } from "react";
+import React, { useState, HTMLProps } from "react";
 
 import AccordionSection from "../AccordionSection";
+import type {
+  AccordionHeadings,
+  AccordionSectionProps,
+} from "../AccordionSection";
 
-const generateSections = (sections, setExpanded, expanded, titleElement) =>
+const generateSections = (
+  sections: AccordionSectionProps & { key?: string | number }[],
+  setExpanded,
+  expanded,
+  titleElement
+) =>
   sections.map(({ key, ...props }, i) => (
     <AccordionSection
       expanded={expanded}
       key={key || i}
-      sectionKey={key}
+      sectionKey={key?.toString()}
       setExpanded={setExpanded}
       titleElement={titleElement}
       {...props}
     />
   ));
+
+type Props = {
+  sections: typeof AccordionSection[];
+  className?: string;
+  expanded?: string;
+  externallyControlled?: boolean;
+  onExpandedChange?: (id, title: string) => void;
+  titleElement?: AccordionHeadings;
+} & HTMLProps<HTMLElement>;
 
 const Accordion = ({
   className,
@@ -23,8 +41,8 @@ const Accordion = ({
   onExpandedChange,
   sections,
   titleElement,
-  ...props
-}) => {
+  ...asideProps
+}: Props): JSX.Element => {
   const [expandedSection, setExpandedSection] = useState(expanded);
   const setExpanded = (id, title) => {
     setExpandedSection(id);
@@ -33,7 +51,7 @@ const Accordion = ({
   return (
     <aside
       className={classNames(className, "p-accordion")}
-      {...props}
+      {...asideProps}
       role="tablist"
       aria-multiselectable="true"
     >
@@ -94,7 +112,7 @@ Accordion.propTypes = {
    */
   onExpandedChange: PropTypes.func,
   /**
-   * Optional string describing heading element that should be used for the secion titles.
+   * Optional string describing heading element that should be used for the section titles.
    */
   titleElement: PropTypes.oneOf(["h2", "h3", "h4", "h5", "h6"]),
 };

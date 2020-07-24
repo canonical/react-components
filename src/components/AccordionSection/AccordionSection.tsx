@@ -1,6 +1,21 @@
 import PropTypes from "prop-types";
 import React, { useRef } from "react";
+import type { ReactNode } from "react";
 import uuidv4 from "uuid/v4";
+
+import type { Headings } from "types";
+
+export type AccordionHeadings = Exclude<Headings, "h1">;
+
+export type Props = {
+  content?: ReactNode;
+  expanded?: string;
+  onTitleClick?: (expanded: boolean, key: string) => void;
+  sectionKey?: string;
+  setExpanded?: (key: string | null, title: string | null) => void;
+  title?: string;
+  titleElement?: AccordionHeadings;
+};
 
 const AccordionSection = ({
   content,
@@ -10,7 +25,7 @@ const AccordionSection = ({
   setExpanded,
   title,
   titleElement,
-}) => {
+}: Props): JSX.Element => {
   const sectionId = useRef(uuidv4());
   const key = sectionKey || sectionId.current;
   const isExpanded = expanded === key;
