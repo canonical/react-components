@@ -4,11 +4,11 @@ jobs:
   cypress-run:
     runs-on: ubuntu-16.04
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@main
       - uses: cypress-io/github-action@v1
         with:
           start: yarn run start-storybook --port 6006
-          wait-on: 'http://localhost:6006'
+          wait-on: "http://localhost:6006"
           browser: chrome
           headless: true
           env: port=6006
