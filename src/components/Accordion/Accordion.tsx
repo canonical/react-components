@@ -8,8 +8,10 @@ import type {
   AccordionSectionProps,
 } from "../AccordionSection";
 
+type Section = AccordionSectionProps & { key?: string | number };
+
 const generateSections = (
-  sections: AccordionSectionProps & { key?: string | number }[],
+  sections: Section[],
   setExpanded,
   expanded,
   titleElement
@@ -26,7 +28,7 @@ const generateSections = (
   ));
 
 type Props = {
-  sections: typeof AccordionSection[];
+  sections: Section[];
   className?: string;
   expanded?: string;
   externallyControlled?: boolean;
