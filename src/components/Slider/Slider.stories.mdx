@@ -1,0 +1,62 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { boolean, number, text, withKnobs } from "@storybook/addon-knobs";
+import { useState } from "react";
+import Slider, { FILLED_COLOR } from "./Slider";
+
+<Meta title="Slider" component={Slider} decorators={[withKnobs]} />
+
+### Slider
+
+This is the [React](https://reactjs.org/) component for the Vanilla [Slider](https://vanillaframework.io/docs/patterns/slider).
+
+Sliders should be used to let a user specify a numeric value between a defined
+minimum and maximum value, however the precise value is not especially important.
+
+### Props
+
+<Props of={Slider} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    {() => {
+      const [selectedValue, setSelectedValue] = useState(50);
+      return (
+        <Slider
+          disabled={boolean("Disabled", false)}
+          label={text("Label", "Volume")}
+          max={number("Max", 100)}
+          min={number("Min", 0)}
+          onChange={(e) => setSelectedValue(e.target.value)}
+          showInput={false}
+          value={selectedValue}
+        />
+      );
+    }}
+  </Story>
+</Preview>
+
+### With input
+
+You can also optionally provide a numeric representation of the slider value.
+
+<Preview>
+  <Story name="With input">
+    {() => {
+      const [selectedValue, setSelectedValue] = useState(50);
+      return (
+        <Slider
+          disabled={boolean("Disabled", false)}
+          inputDisabled={boolean("Input disabled", false)}
+          label={text("Label", "Volume")}
+          max={number("Max", 100)}
+          min={number("Min", 0)}
+          onChange={(e) => setSelectedValue(e.target.value)}
+          showInput
+          value={selectedValue}
+        />
+      );
+    }}
+  </Story>
+</Preview>
