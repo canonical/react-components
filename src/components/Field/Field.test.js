@@ -32,12 +32,34 @@ describe("Field ", () => {
     expect(wrapper.prop("className").includes("is-caution")).toBe(true);
   });
 
+  it("can display a caution node", () => {
+    const wrapper = shallow(<Field caution={<span>Are you sure?</span>} />);
+    compareJSX(
+      wrapper.find(".p-form-validation__message"),
+      <p className="p-form-validation__message">
+        <strong>{"Caution"}:</strong> <span>Are you sure?</span>
+      </p>
+    );
+    expect(wrapper.prop("className").includes("is-caution")).toBe(true);
+  });
+
   it("can display an error message", () => {
     const wrapper = shallow(<Field error="You can't do that" />);
     compareJSX(
       wrapper.find(".p-form-validation__message"),
       <p className="p-form-validation__message">
         <strong>{"Error"}:</strong> {"You can't do that"}
+      </p>
+    );
+    expect(wrapper.prop("className").includes("is-error")).toBe(true);
+  });
+
+  it("can display an error node", () => {
+    const wrapper = shallow(<Field error={<span>You can't do that</span>} />);
+    compareJSX(
+      wrapper.find(".p-form-validation__message"),
+      <p className="p-form-validation__message">
+        <strong>{"Error"}:</strong> <span>You can't do that</span>
       </p>
     );
     expect(wrapper.prop("className").includes("is-error")).toBe(true);
@@ -54,6 +76,17 @@ describe("Field ", () => {
     expect(wrapper.prop("className").includes("is-success")).toBe(true);
   });
 
+  it("can display a success node", () => {
+    const wrapper = shallow(<Field success={<span>You did it!</span>} />);
+    compareJSX(
+      wrapper.find(".p-form-validation__message"),
+      <p className="p-form-validation__message">
+        <strong>{"Success"}:</strong> <span>You did it!</span>
+      </p>
+    );
+    expect(wrapper.prop("className").includes("is-success")).toBe(true);
+  });
+
   it("can display a help message", () => {
     const wrapper = shallow(<Field help="This is how you do it" />);
     expect(wrapper.find(".p-form-help-text").text()).toEqual(
@@ -64,9 +97,6 @@ describe("Field ", () => {
   it("can display a help node", () => {
     const wrapper = shallow(
       <Field help={<span>This is how you do it</span>} />
-    );
-    expect(wrapper.find(".p-form-help-text").text()).toEqual(
-      "This is how you do it"
     );
     compareJSX(
       wrapper.find(".p-form-help-text"),
@@ -86,6 +116,18 @@ describe("Field ", () => {
     const wrapper = shallow(<Field labelFirst={false} label="Test label" />);
     // The label should be inside the control.
     expect(wrapper.find(".p-form__control Label").length).toBe(1);
+  });
+
+  it("can display a label node", () => {
+    const wrapper = shallow(<Field label={<span>Test label</span>} />);
+    compareJSX(wrapper.find("Label").children(), <span>Test label</span>);
+  });
+
+  it("can pass a class name to the label", () => {
+    const wrapper = shallow(
+      <Field label={<span>Test label</span>} labelClassName="custom-label" />
+    );
+    expect(wrapper.find("Label").prop("className")).toBe("custom-label");
   });
 
   it("can be required", () => {

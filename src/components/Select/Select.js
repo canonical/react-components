@@ -18,21 +18,25 @@ const Select = ({
   help,
   id,
   label,
+  labelClassName,
   onChange,
   options,
   required,
   stacked,
   success,
+  wrapperClassName,
   ...props
 }) => {
   return (
     <Field
       caution={caution}
+      className={wrapperClassName}
       error={error}
       forId={id}
       help={help}
       isSelect={true}
       label={label}
+      labelClassName={labelClassName}
       required={required}
       stacked={stacked}
       success={success}
@@ -50,12 +54,13 @@ const Select = ({
 };
 
 Select.propTypes = {
-  caution: PropTypes.string,
+  caution: PropTypes.node,
   className: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.node,
   help: PropTypes.node,
   id: PropTypes.string,
-  label: PropTypes.string,
+  label: PropTypes.node,
+  labelClassName: PropTypes.string,
   onChange: PropTypes.func,
   options: PropTypes.arrayOf(
     PropTypes.shape({
@@ -65,7 +70,8 @@ Select.propTypes = {
   ).isRequired,
   required: PropTypes.bool,
   stacked: PropTypes.bool,
-  success: PropTypes.string,
+  success: PropTypes.node,
+  wrapperClassName: PropTypes.string,
 };
 
 export default Select;
