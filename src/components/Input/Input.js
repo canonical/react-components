@@ -47,7 +47,7 @@ Input.propTypes = {
   className: PropTypes.string,
   wrapperClassName: PropTypes.string,
   error: PropTypes.string,
-  help: PropTypes.string,
+  help: PropTypes.node,
   id: PropTypes.string,
   label: PropTypes.node,
   required: PropTypes.bool,

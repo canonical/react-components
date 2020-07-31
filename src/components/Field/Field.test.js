@@ -61,6 +61,21 @@ describe("Field ", () => {
     );
   });
 
+  it("can display a help node", () => {
+    const wrapper = shallow(
+      <Field help={<span>This is how you do it</span>} />
+    );
+    expect(wrapper.find(".p-form-help-text").text()).toEqual(
+      "This is how you do it"
+    );
+    compareJSX(
+      wrapper.find(".p-form-help-text"),
+      <p className="p-form-help-text">
+        <span>This is how you do it</span>
+      </p>
+    );
+  });
+
   it("can display the label before the input", () => {
     const wrapper = shallow(<Field labelFirst={true} label="Test label" />);
     // The label should not be inside the control.

@@ -60,7 +60,7 @@ Textarea.propTypes = {
   className: PropTypes.string,
   error: PropTypes.string,
   grow: PropTypes.bool,
-  help: PropTypes.string,
+  help: PropTypes.node,
   id: PropTypes.string,
   label: PropTypes.node,
   onKeyUp: PropTypes.func,
