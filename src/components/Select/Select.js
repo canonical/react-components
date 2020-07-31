@@ -53,7 +53,7 @@ Select.propTypes = {
   caution: PropTypes.string,
   className: PropTypes.string,
   error: PropTypes.string,
-  help: PropTypes.string,
+  help: PropTypes.node,
   id: PropTypes.string,
   label: PropTypes.string,
   onChange: PropTypes.func,
