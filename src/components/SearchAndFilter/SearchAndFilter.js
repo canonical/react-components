@@ -9,11 +9,7 @@ import { overflowingChipsCount } from "./shared";
 
 import "./SearchAndFilter.scss";
 
-const SearchAndFilter = ({
-  externallyControlled = false,
-  onChange,
-  filterPanelData,
-}) => {
+const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
   const [searchData, setSearchData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterPanelHidden, setFilterPanelHidden] = useState(true);
@@ -24,9 +20,6 @@ const SearchAndFilter = ({
 
   const searchOnChange = (searchTerm) => {
     setSearchTerm(searchTerm);
-    if (externallyControlled && onChange) {
-      onChange(searchTerm);
-    }
   };
 
   // This useEffect sets up listeners so the panel will close if user clicks
@@ -160,6 +153,7 @@ const SearchAndFilter = ({
                     data={filterPanelSectionData}
                     addToSelected={addToSelected}
                     searchData={searchData}
+                    searchTerm={searchTerm}
                   />
                 </div>
               );

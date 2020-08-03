@@ -5,7 +5,12 @@ import { overflowingChipsCount } from "../shared";
 
 import "./filter-panel-section.scss";
 
-const FilterPanelSection = ({ data, addToSelected, searchData }) => {
+const FilterPanelSection = ({
+  data,
+  addToSelected,
+  searchData,
+  searchTerm,
+}) => {
   const { chips, heading } = data;
   const [overflowCounter, setOverflowCounter] = useState(0);
   const [expanded, setExpanded] = useState(false);
@@ -39,9 +44,26 @@ const FilterPanelSection = ({ data, addToSelected, searchData }) => {
     setExpanded(true);
   };
 
+  const hightlightSearchTerm = (str) => {
+    if (searchTerm === "") {
+      return str;
+    } else {
+      const newStr = str.replace(
+        searchTerm,
+        (match) => `<strong>${match}</strong>`
+      );
+      return newStr;
+    }
+  };
+
   return (
     <div className="filter-panel-section" aria-expanded={expanded}>
-      {heading && <h3 className="filter-panel-section__heading">{heading}</h3>}
+      {heading && (
+        <h3
+          className="filter-panel-section__heading"
+          dangerouslySetInnerHTML={{ __html: hightlightSearchTerm(heading) }}
+        />
+      )}
       <div className="filter-panel-section__chips" ref={chipWrapper}>
         {chips?.map((chip) => (
           <span
