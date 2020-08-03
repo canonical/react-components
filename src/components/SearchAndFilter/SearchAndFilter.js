@@ -146,6 +146,15 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
           aria-hidden={filterPanelHidden}
         >
           <ContextualMenu>
+            {searchTerm.length > 0 && (
+              <div
+                className="search-prompt"
+                onClick={() => console.log("Search for terms")}
+                role="button"
+              >
+                Search for <strong>{searchTerm}</strong>...
+              </div>
+            )}
             {filterPanelData.map((filterPanelSectionData) => {
               return (
                 <div key={filterPanelSectionData.id}>

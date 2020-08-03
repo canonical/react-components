@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Chip from "../../Chip";
 import { overflowingChipsCount } from "../shared";
+import { hightlightSearchTerm } from "../../../utils";
 
 import "./filter-panel-section.scss";
 
@@ -44,22 +45,14 @@ const FilterPanelSection = ({
     setExpanded(true);
   };
 
-  const hightlightSearchTerm = (str) => {
-    if (searchTerm === "") return str;
-    const caseInsensitiveRegex = new RegExp(searchTerm, "gi");
-    const newStr = str.replace(
-      caseInsensitiveRegex,
-      (match) => `<strong>${match}</strong>`
-    );
-    return newStr;
-  };
-
   return (
     <div className="filter-panel-section" aria-expanded={expanded}>
       {heading && (
         <h3
           className="filter-panel-section__heading"
-          dangerouslySetInnerHTML={{ __html: hightlightSearchTerm(heading) }}
+          dangerouslySetInnerHTML={{
+            __html: hightlightSearchTerm(heading, searchTerm),
+          }}
         />
       )}
       <div className="filter-panel-section__chips" ref={chipWrapper}>

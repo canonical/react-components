@@ -86,4 +86,11 @@
       pointer-events: none;
     }
   }
+
+  .search-prompt {
+    background: $color-light;
+    margin-left: -1rem;
+    margin-right: -1rem;
+    padding: 1rem;
+  }
 }
