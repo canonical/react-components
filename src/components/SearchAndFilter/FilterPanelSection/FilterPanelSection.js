@@ -45,15 +45,13 @@ const FilterPanelSection = ({
   };
 
   const hightlightSearchTerm = (str) => {
-    if (searchTerm === "") {
-      return str;
-    } else {
-      const newStr = str.replace(
-        searchTerm,
-        (match) => `<strong>${match}</strong>`
-      );
-      return newStr;
-    }
+    if (searchTerm === "") return str;
+    const caseInsensitiveRegex = new RegExp(searchTerm, "gi");
+    const newStr = str.replace(
+      caseInsensitiveRegex,
+      (match) => `<strong>${match}</strong>`
+    );
+    return newStr;
   };
 
   return (
