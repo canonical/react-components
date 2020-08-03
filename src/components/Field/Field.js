@@ -21,12 +21,12 @@ const generateError = (error, caution, success) => {
   );
 };
 
-const generateLabel = (forId, required, label, stacked) => {
+const generateLabel = (forId, required, label, labelClassName, stacked) => {
   if (!label) {
     return;
   }
   const labelNode = (
-    <Label forId={forId} required={required}>
+    <Label className={labelClassName} forId={forId} required={required}>
       {label}
     </Label>
   );
@@ -67,6 +67,7 @@ const Field = ({
   help,
   isSelect,
   label,
+  labelClassName,
   labelFirst = true,
   required,
   stacked,
@@ -74,7 +75,13 @@ const Field = ({
   type,
   ...props
 }) => {
-  const labelNode = generateLabel(forId, required, label, stacked);
+  const labelNode = generateLabel(
+    forId,
+    required,
+    label,
+    labelClassName,
+    stacked
+  );
   const content = generateContent(
     isSelect,
     children,
@@ -101,18 +108,19 @@ const Field = ({
 };
 
 Field.propTypes = {
-  caution: PropTypes.string,
+  caution: PropTypes.node,
   children: PropTypes.node,
   className: PropTypes.string,
-  error: PropTypes.string,
+  error: PropTypes.node,
   forId: PropTypes.string,
-  help: PropTypes.string,
+  help: PropTypes.node,
   isSelect: PropTypes.bool,
   label: PropTypes.node,
+  labelClassName: PropTypes.string,
   labelFirst: PropTypes.bool,
   required: PropTypes.bool,
   stacked: PropTypes.bool,
-  success: PropTypes.string,
+  success: PropTypes.node,
 };
 
 export default Field;

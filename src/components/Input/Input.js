@@ -12,6 +12,7 @@ const Input = ({
   help,
   id,
   label,
+  labelClassName,
   required,
   stacked,
   success,
@@ -27,6 +28,7 @@ const Input = ({
       forId={id}
       help={help}
       label={label}
+      labelClassName={labelClassName}
       labelFirst={labelFirst}
       required={required}
       stacked={stacked}
@@ -43,16 +45,17 @@ const Input = ({
 };
 
 Input.propTypes = {
-  caution: PropTypes.string,
+  caution: PropTypes.node,
   className: PropTypes.string,
   wrapperClassName: PropTypes.string,
-  error: PropTypes.string,
-  help: PropTypes.string,
+  error: PropTypes.node,
+  help: PropTypes.node,
   id: PropTypes.string,
   label: PropTypes.node,
+  labelClassName: PropTypes.string,
   required: PropTypes.bool,
   stacked: PropTypes.bool,
-  success: PropTypes.string,
+  success: PropTypes.node,
   type: PropTypes.string,
 };
 
