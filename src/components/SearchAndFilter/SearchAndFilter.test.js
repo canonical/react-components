@@ -97,7 +97,6 @@ describe("Search and filter", () => {
   });
 
   it("show overflow chip counter when chips overflow", () => {
-    const mockOnChange = jest.fn();
     // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
     // of the chips
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
@@ -109,11 +108,7 @@ describe("Search and filter", () => {
       value: 100,
     });
     const wrapper = mount(
-      <SearchAndFilter
-        externallyControlled
-        onChange={mockOnChange}
-        filterPanelData={sampleData}
-      />
+      <SearchAndFilter externallyControlled filterPanelData={sampleData} />
     );
     wrapper
       .find(".filter-panel-section__chips .p-chip")
@@ -125,13 +120,8 @@ describe("Search and filter", () => {
   });
 
   it("all chips are shown when counter is clicked", () => {
-    const mockOnChange = jest.fn();
     const wrapper = mount(
-      <SearchAndFilter
-        externallyControlled
-        onChange={mockOnChange}
-        filterPanelData={sampleData}
-      />
+      <SearchAndFilter externallyControlled filterPanelData={sampleData} />
     );
     wrapper
       .find(".filter-panel-section__chips .p-chip")
@@ -144,5 +134,16 @@ describe("Search and filter", () => {
     expect(
       wrapper.find(".search-and-filter__search-container").prop("aria-expanded")
     ).toEqual(true);
+  });
+
+  it("search prompt appears when search field has search term", () => {
+    const wrapper = mount(
+      <SearchAndFilter externallyControlled filterPanelData={sampleData} />
+    );
+    expect(wrapper.find(".search-prompt").length).toEqual(0);
+    wrapper
+      .find(".p-search-box__input")
+      .simulate("change", { target: { value: "My new value" } });
+    expect(wrapper.find(".search-prompt").length).toEqual(1);
   });
 });
