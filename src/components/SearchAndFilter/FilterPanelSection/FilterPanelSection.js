@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Chip from "../../Chip";
 import { overflowingChipsCount } from "../shared";
-import { hightlightSearchTerm } from "../../../utils";
+import { hightlightSubString } from "../../../utils";
 
 import "./filter-panel-section.scss";
 
@@ -51,7 +51,7 @@ const FilterPanelSection = ({
         <h3
           className="filter-panel-section__heading"
           dangerouslySetInnerHTML={{
-            __html: hightlightSearchTerm(heading, searchTerm),
+            __html: hightlightSubString(heading, searchTerm),
           }}
         />
       )}
@@ -65,6 +65,7 @@ const FilterPanelSection = ({
               lead={chip.lead}
               value={chip.value}
               selected={searchData?.includes(chip) ? true : false}
+              subString={searchTerm}
             />
           </span>
         ))}
