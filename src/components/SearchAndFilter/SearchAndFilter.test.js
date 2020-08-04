@@ -146,4 +146,43 @@ describe("Search and filter", () => {
       .simulate("change", { target: { value: "My new value" } });
     expect(wrapper.find(".search-prompt").length).toEqual(1);
   });
+
+  it("no search results appear for unknown search term", () => {
+    const wrapper = mount(
+      <SearchAndFilter externallyControlled filterPanelData={sampleData} />
+    );
+    expect(wrapper.find(".filter-panel-section").length).toEqual(3);
+    wrapper
+      .find(".p-search-box__input")
+      .simulate("change", { target: { value: "Unknown value" } });
+    expect(wrapper.find(".filter-panel-section").length).toEqual(0);
+  });
+
+  it("correct number of panels appear for matching search terms", () => {
+    const wrapper = mount(
+      <SearchAndFilter externallyControlled filterPanelData={sampleData} />
+    );
+    wrapper
+      .find(".p-search-box__input")
+      .simulate("change", { target: { value: "Google" } });
+    expect(wrapper.find(".filter-panel-section").length).toEqual(1);
+    wrapper
+      .find(".p-search-box__input")
+      .simulate("change", { target: { value: "re" } });
+    expect(wrapper.find(".filter-panel-section").length).toEqual(2);
+  });
+
+  it("Matching search terms are highlighted with strong tag", () => {
+    const wrapper = mount(
+      <SearchAndFilter externallyControlled filterPanelData={sampleData} />
+    );
+    wrapper
+      .find(".p-search-box__input")
+      .simulate("change", { target: { value: "Google" } });
+    const firstChip = wrapper.find(".p-chip").first();
+    console.log(firstChip.debug());
+    expect(firstChip.find(".p-chip__value").html()).toEqual(
+      '<span class="p-chip__value"><strong>Google</strong></span>'
+    );
+  });
 });

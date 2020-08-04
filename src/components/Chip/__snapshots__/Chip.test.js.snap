@@ -10,9 +10,12 @@ exports[`Chip  renders default chip 1`] = `
   />
   <span
     className="p-chip__value"
-  >
-    positive
-  </span>
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "positive",
+      }
+    }
+  />
 </div>
 `;
 
@@ -28,8 +31,11 @@ exports[`Chip  renders lead-value chip 1`] = `
   </span>
   <span
     className="p-chip__value"
-  >
-    Bob
-  </span>
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Bob",
+      }
+    }
+  />
 </div>
 `;
