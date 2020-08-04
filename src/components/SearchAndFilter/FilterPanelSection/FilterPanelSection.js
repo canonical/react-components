@@ -48,6 +48,7 @@ const FilterPanelSection = ({
   const panelSectionVisible =
     searchTermInHeading || searchTermInChips || searchTerm === "";
 
+  // Update overflow count when component is resized
   useEffect(() => {
     if (typeof ResizeObserver !== "undefined" && panelSectionVisible) {
       const wrapperWidthObserver = new ResizeObserver(() => {
@@ -60,6 +61,7 @@ const FilterPanelSection = ({
     }
   }, [panelSectionVisible]);
 
+  // When overlfow counter is clicked, all chips are shown
   const showAllChips = () => {
     setExpanded(true);
   };
