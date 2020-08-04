@@ -29,58 +29,81 @@ const FilterPanelSection = ({
     setOverflowCounter(overflowCount);
   };
 
+  // Check if search term characters matches any characters in panel heading
+  const searchTermInHeading = hightlightSubString(heading, searchTerm).includes(
+    "<strong>"
+  );
+
+  // Serialise chip values into string so it can be interrogated with subString
+  let chipValues = [];
+  Object.entries(chips).forEach((chipValue) => {
+    chipValues.push(chipValue[1].value);
+  });
+  // Search chips for character match with search term
+  const searchTermInChips = hightlightSubString(
+    chipValues.toString(),
+    searchTerm
+  ).includes("<strong>");
+
+  const panelSectionVisible =
+    searchTermInHeading || searchTermInChips || searchTerm === "";
+
   useEffect(() => {
-    if (typeof ResizeObserver !== "undefined") {
+    if (typeof ResizeObserver !== "undefined" && panelSectionVisible) {
       const wrapperWidthObserver = new ResizeObserver(() => {
         updateFlowCount();
       });
-      const wrapper = chipWrapper.current;
+      const wrapper = chipWrapper?.current;
       wrapperWidthObserver.observe(wrapper);
     } else {
       updateFlowCount();
     }
-  }, []);
+  }, [panelSectionVisible]);
 
   const showAllChips = () => {
     setExpanded(true);
   };
 
   return (
-    <div className="filter-panel-section" aria-expanded={expanded}>
-      {heading && (
-        <h3
-          className="filter-panel-section__heading"
-          dangerouslySetInnerHTML={{
-            __html: hightlightSubString(heading, searchTerm),
-          }}
-        />
-      )}
-      <div className="filter-panel-section__chips" ref={chipWrapper}>
-        {chips?.map((chip) => (
-          <span
-            key={`${chip.lead}+${chip.value}`}
-            onClick={() => handleChipClick(chip)}
-          >
-            <Chip
-              lead={chip.lead}
-              value={chip.value}
-              selected={searchData?.includes(chip) ? true : false}
-              subString={searchTerm}
+    <>
+      {panelSectionVisible && (
+        <div className="filter-panel-section" aria-expanded={expanded}>
+          {heading && (
+            <h3
+              className="filter-panel-section__heading"
+              dangerouslySetInnerHTML={{
+                __html: hightlightSubString(heading, searchTerm),
+              }}
             />
-          </span>
-        ))}
-        {overflowCounter > 0 && !expanded && (
-          <span
-            className="filter-panel-section__counter"
-            onClick={showAllChips}
-            onKeyPress={showAllChips}
-            tabIndex="0"
-          >
-            +{overflowCounter}
-          </span>
-        )}
-      </div>
-    </div>
+          )}
+          <div className="filter-panel-section__chips" ref={chipWrapper}>
+            {chips?.map((chip) => (
+              <span
+                key={`${chip.lead}+${chip.value}`}
+                onClick={() => handleChipClick(chip)}
+              >
+                <Chip
+                  lead={chip.lead}
+                  value={chip.value}
+                  selected={searchData?.includes(chip) ? true : false}
+                  subString={searchTerm}
+                />
+              </span>
+            ))}
+            {overflowCounter > 0 && !expanded && (
+              <span
+                className="filter-panel-section__counter"
+                onClick={showAllChips}
+                onKeyPress={showAllChips}
+                tabIndex="0"
+              >
+                +{overflowCounter}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
