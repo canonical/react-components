@@ -36,15 +36,6 @@ describe("Search and filter", () => {
     expect(wrapper.find(".p-search-box__reset").exists()).toBe(false);
   });
 
-  it("onChange handler called", () => {
-    const mockOnChange = jest.fn();
-    const wrapper = mount(
-      <SearchAndFilter externallyControlled onChange={mockOnChange} />
-    );
-    wrapper.find(".p-search-box__input").simulate("change");
-    expect(mockOnChange).toHaveBeenCalledTimes(1);
-  });
-
   it("shows panel on focus", () => {
     const mockOnChange = jest.fn();
     const wrapper = mount(
