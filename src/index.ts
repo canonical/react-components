@@ -19,12 +19,14 @@ export { default as Pagination } from "./components/Pagination";
 export { default as Row } from "./components/Row";
 export { default as SearchBox } from "./components/SearchBox";
 export { default as Select } from "./components/Select";
+export { default as Slider } from "./components/Slider";
 export { default as Spinner } from "./components/Spinner";
 export { default as Strip } from "./components/Strip";
 export { default as Table } from "./components/Table";
 export { default as TableCell } from "./components/TableCell";
 export { default as TableHeader } from "./components/TableHeader";
 export { default as TableRow } from "./components/TableRow";
+export { default as Tabs } from "./components/Tabs";
 export { default as Textarea } from "./components/Textarea";
 export { default as Tooltip } from "./components/Tooltip";
 
