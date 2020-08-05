@@ -17,6 +17,7 @@ describe("AccordionSection ", () => {
         title="Test section"
       />
     );
+
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -30,6 +31,7 @@ describe("AccordionSection ", () => {
         titleElement="h4"
       />
     );
+
     expect(wrapper.find("h4.p-accordion__title")).toHaveLength(1);
     expect(wrapper).toMatchSnapshot();
   });
@@ -49,11 +51,13 @@ describe("AccordionSection ", () => {
       />
     );
     wrapper.find(".p-accordion__tab").at(0).simulate("click");
-    expect(onTitleClick.mock.calls[0][0]).toBe(true, MOCK_UUID);
+
+    expect(onTitleClick.mock.calls[0]).toEqual([true, MOCK_UUID]);
     wrapper.setProps({ expanded });
     // Clicking the title again should close the accordion section.
     wrapper.find(".p-accordion__tab").at(0).simulate("click");
-    expect(onTitleClick.mock.calls[1][0]).toBe(false, MOCK_UUID);
+
+    expect(onTitleClick.mock.calls[1]).toEqual([false, MOCK_UUID]);
   });
 
   it("can use a key for expanded state", () => {
@@ -72,6 +76,7 @@ describe("AccordionSection ", () => {
       />
     );
     wrapper.find(".p-accordion__tab").at(0).simulate("click");
-    expect(onTitleClick.mock.calls[0][0]).toBe(true, "first-key");
+
+    expect(onTitleClick.mock.calls[0]).toEqual([true, "first-key"]);
   });
 });
