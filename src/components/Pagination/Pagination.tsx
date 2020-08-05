@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
+import type { HTMLProps } from "react";
 
 import PaginationButton from "../PaginationButton";
 import PaginationItem from "../PaginationItem";
@@ -7,10 +8,10 @@ import PaginationItem from "../PaginationItem";
 const scrollTop = () => window.scrollTo(0, 0);
 
 const generatePaginationItems = (
-  pageNumbers,
-  currentPage,
-  truncateThreshold,
-  changePage
+  pageNumbers: number[],
+  currentPage: number,
+  truncateThreshold: number,
+  changePage: (page: number) => void
 ) => {
   const lastPage = pageNumbers.length;
   const truncated = lastPage > truncateThreshold;
@@ -84,11 +85,20 @@ const generatePaginationItems = (
   return items;
 };
 
-const PaginationItemSeparator = () => (
+const PaginationItemSeparator = (): JSX.Element => (
   <li className="p-pagination__item p-pagination__item--truncation">
     &hellip;
   </li>
 );
+
+type Props = {
+  currentPage: number;
+  itemsPerPage: number;
+  paginate: (page: number) => void;
+  totalItems: number;
+  scrollToTop?: boolean;
+  truncateThreshold?: number;
+} & HTMLProps<HTMLElement>;
 
 const Pagination = ({
   itemsPerPage,
@@ -97,8 +107,8 @@ const Pagination = ({
   currentPage,
   scrollToTop,
   truncateThreshold = 10,
-  ...props
-}) => {
+  ...navProps
+}: Props): JSX.Element => {
   // return early if no pagination is required
   if (totalItems <= itemsPerPage) {
     return null;
@@ -116,7 +126,7 @@ const Pagination = ({
   };
 
   return (
-    <nav {...props}>
+    <nav {...navProps}>
       <ul className="p-pagination">
         <PaginationButton
           key="back"
@@ -147,8 +157,9 @@ Pagination.propTypes = {
   currentPage: PropTypes.number.isRequired,
   itemsPerPage: PropTypes.number.isRequired,
   paginate: PropTypes.func.isRequired,
-  scrollToTop: PropTypes.bool,
   totalItems: PropTypes.number.isRequired,
+  scrollToTop: PropTypes.bool,
+  truncateThreshold: PropTypes.number,
 };
 
 export default Pagination;

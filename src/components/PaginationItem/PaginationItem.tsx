@@ -1,8 +1,18 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { MouseEventHandler } from "react";
 
-const PaginationItem = ({ number, onClick, isActive = false }) => (
+type Props = {
+  number: number;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  isActive?: boolean;
+};
+
+const PaginationItem = ({
+  number,
+  onClick,
+  isActive = false,
+}: Props): JSX.Element => (
   <li className="p-pagination__item">
     <button
       className={classNames("p-pagination__link", {
