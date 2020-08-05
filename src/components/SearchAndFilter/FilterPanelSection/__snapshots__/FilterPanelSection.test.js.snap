@@ -19,30 +19,39 @@ exports[`Filter panel section renders 1`] = `
     >
       <span
         key="undefined+us-east1"
-        onClick={[Function]}
       >
-        <Chip
-          selected={false}
-          value="us-east1"
-        />
+        <span
+          onClick={[Function]}
+        >
+          <Chip
+            selected={false}
+            value="us-east1"
+          />
+        </span>
       </span>
       <span
         key="undefined+us-east2"
-        onClick={[Function]}
       >
-        <Chip
-          selected={false}
-          value="us-east2"
-        />
+        <span
+          onClick={[Function]}
+        >
+          <Chip
+            selected={false}
+            value="us-east2"
+          />
+        </span>
       </span>
       <span
         key="undefined+us-east3"
-        onClick={[Function]}
       >
-        <Chip
-          selected={false}
-          value="us-east3"
-        />
+        <span
+          onClick={[Function]}
+        >
+          <Chip
+            selected={false}
+            value="us-east3"
+          />
+        </span>
       </span>
     </div>
   </div>

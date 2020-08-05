@@ -79,19 +79,29 @@ const FilterPanelSection = ({
             />
           )}
           <div className="filter-panel-section__chips" ref={chipWrapper}>
-            {chips?.map((chip) => (
-              <span
-                key={`${chip.lead}+${chip.value}`}
-                onClick={() => handleChipClick(chip)}
-              >
-                <Chip
-                  lead={chip.lead}
-                  value={chip.value}
-                  selected={searchData?.includes(chip) ? true : false}
-                  subString={searchTerm}
-                />
-              </span>
-            ))}
+            {chips?.map((chip) => {
+              // If search term has been added to input, only matching chips
+              // should display
+              const searchTermInChip = hightlightSubString(
+                chip.value,
+                searchTerm
+              ).includes("<strong>");
+              const chipVisible = searchTermInChip || searchTerm === "";
+              return (
+                <span key={`${chip.lead}+${chip.value}`}>
+                  {chipVisible && (
+                    <span onClick={() => handleChipClick(chip)}>
+                      <Chip
+                        lead={chip.lead}
+                        value={chip.value}
+                        selected={searchData?.includes(chip) ? true : false}
+                        subString={searchTerm}
+                      />
+                    </span>
+                  )}
+                </span>
+              );
+            })}
             {overflowCounter > 0 && !expanded && (
               <span
                 className="filter-panel-section__counter"
