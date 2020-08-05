@@ -8,7 +8,7 @@ import "./filter-panel-section.scss";
 
 const FilterPanelSection = ({
   data,
-  addToSelected,
+  toggleSelected,
   searchData,
   searchTerm,
 }) => {
@@ -18,7 +18,7 @@ const FilterPanelSection = ({
   const chipWrapper = useRef(null);
 
   const handleChipClick = (chip) => {
-    addToSelected(chip);
+    toggleSelected(chip);
   };
 
   // If the offsetTop is more than double height of a single chip, consider it

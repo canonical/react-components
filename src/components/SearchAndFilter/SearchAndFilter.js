@@ -56,12 +56,19 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
   }, [searchTerm]);
 
   // Add passed chip to the searchData array
-  const addToSelected = (chip) => {
+  const toggleSelected = (chip) => {
     const currentSelected = [...searchData];
     if (!currentSelected.includes(chip)) {
       currentSelected.push(chip);
       setSearchData(currentSelected);
       setSearchTerm("");
+    } else {
+      const updatedCurrentSelected = currentSelected.filter(
+        (currentSelectedChip) => {
+          return currentSelectedChip.value !== chip.value;
+        }
+      );
+      setSearchData(updatedCurrentSelected);
     }
   };
 
@@ -75,9 +82,9 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = () => {
     if (searchTerm !== "") {
-      addToSelected({ value: searchTerm });
+      toggleSelected({ value: searchTerm });
       setSearchTerm("");
     }
   };
@@ -161,7 +168,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
                 <div key={filterPanelSectionData.id}>
                   <FilterPanelSection
                     data={filterPanelSectionData}
-                    addToSelected={addToSelected}
+                    toggleSelected={toggleSelected}
                     searchData={searchData}
                     searchTerm={searchTerm}
                   />
