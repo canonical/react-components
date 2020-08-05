@@ -61,6 +61,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
     if (!currentSelected.includes(chip)) {
       currentSelected.push(chip);
       setSearchData(currentSelected);
+      setSearchTerm("");
     }
   };
 
