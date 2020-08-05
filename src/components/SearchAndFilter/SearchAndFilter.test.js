@@ -180,7 +180,6 @@ describe("Search and filter", () => {
       .find(".p-search-box__input")
       .simulate("change", { target: { value: "Google" } });
     const firstChip = wrapper.find(".p-chip").first();
-    console.log(firstChip.debug());
     expect(firstChip.find(".p-chip__value").html()).toEqual(
       '<span class="p-chip__value"><strong>Google</strong></span>'
     );
