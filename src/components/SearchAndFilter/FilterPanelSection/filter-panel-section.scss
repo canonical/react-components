@@ -24,10 +24,13 @@
   }
 
   &__chips {
-    max-height: 3.2rem;
     overflow: hidden;
     padding-right: 1.25rem;
     position: relative;
+
+    &[aria-expanded="false"] {
+      max-height: 3.2rem;
+    }
   }
 
   &__counter {

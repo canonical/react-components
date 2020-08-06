@@ -14,11 +14,6 @@
     padding-right: 1rem;
     position: relative;
 
-    &[aria-expanded="true"] {
-      height: auto;
-      overflow: visible;
-    }
-
     .p-chip {
       margin-bottom: 0.5rem;
     }
@@ -32,7 +27,7 @@
         border: 0;
         box-shadow: none;
         margin-top: -0.5rem;
-        min-width: 1rem;
+        min-width: 6rem;
         padding: 0 0.5rem;
         position: static;
       }
@@ -55,8 +50,19 @@
       top: -0.15rem;
     }
 
-    &[aria-expanded="true"] .search-and-filter__selected-count {
-      display: none;
+    &[aria-expanded="false"] {
+      .p-chip {
+        margin-bottom: 0.75rem;
+      }
+    }
+
+    &[aria-expanded="true"] {
+      height: auto;
+      overflow: visible;
+
+      .search-and-filter__selected-count {
+        display: none;
+      }
     }
   }
 

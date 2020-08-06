@@ -69,7 +69,7 @@ const FilterPanelSection = ({
   return (
     <>
       {panelSectionVisible && (
-        <div className="filter-panel-section" aria-expanded={expanded}>
+        <div className="filter-panel-section">
           {heading && (
             <h3
               className="filter-panel-section__heading"
@@ -78,7 +78,11 @@ const FilterPanelSection = ({
               }}
             />
           )}
-          <div className="filter-panel-section__chips" ref={chipWrapper}>
+          <div
+            className="filter-panel-section__chips"
+            aria-expanded={expanded}
+            ref={chipWrapper}
+          >
             {chips?.map((chip) => {
               // If search term has been added to input, only matching chips
               // should display

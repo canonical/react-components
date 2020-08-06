@@ -3,7 +3,6 @@
 exports[`Filter panel section renders 1`] = `
 <Fragment>
   <div
-    aria-expanded={false}
     className="filter-panel-section"
   >
     <h3
@@ -15,6 +14,7 @@ exports[`Filter panel section renders 1`] = `
       }
     />
     <div
+      aria-expanded={false}
       className="filter-panel-section__chips"
     >
       <span
