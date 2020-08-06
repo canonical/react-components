@@ -172,6 +172,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
             onClick={() => setSearchBoxExpanded(true)}
             onKeyDown={() => setSearchBoxExpanded(true)}
             role="button"
+            tabIndex="0"
           >
             +{overflowSearchTermCounter}
           </span>
