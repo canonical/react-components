@@ -4,9 +4,35 @@ import { hightlightSubString } from "../../utils";
 
 import "./Chip.scss";
 
-const Chip = ({ value, lead = "", onDismiss, selected, subString = "" }) => {
+const Chip = ({
+  value,
+  lead = "",
+  onClick,
+  onDismiss,
+  selected,
+  subString = "",
+}) => {
+  // When user tabs over chip and presses Enter or Space key, chip will trigger
+  // click functionality
+  const onKeyPress = (e) => {
+    // charCode 32 = Space key
+    // charCode 13 = Enter key
+    if (e.charCode === 32 || e.charCode === 13) {
+      if (onClick instanceof Function) {
+        onClick({ lead: lead, cloud: value });
+      }
+    }
+  };
+
   return (
-    <div className="p-chip" aria-pressed={selected} role="button">
+    <div
+      className="p-chip"
+      aria-pressed={selected}
+      role="button"
+      tabIndex="0"
+      onClick={onClick}
+      onKeyPress={(e) => onKeyPress(e)}
+    >
       <span className="p-chip__lead">
         {lead ? `${lead.toUpperCase()}: ` : null}
       </span>

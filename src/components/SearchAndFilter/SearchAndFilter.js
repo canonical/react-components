@@ -104,7 +104,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
   }, []);
 
   const handleSubmit = () => {
-    if (searchTerm !== "") {
+    if (searchTerm.trim() !== "") {
       toggleSelected({ value: searchTerm });
       setSearchTerm("");
     }
@@ -118,6 +118,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
     setOverflowSearchTermCounter(overflowCount);
   };
 
+  // Watch for container resize and recalculate overflow count accordingly
   useEffect(() => {
     if (typeof ResizeObserver !== "undefined") {
       const wrapperWidthObserver = new ResizeObserver(() => {

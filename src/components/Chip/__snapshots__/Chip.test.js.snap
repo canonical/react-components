@@ -3,7 +3,9 @@
 exports[`Chip  renders default chip 1`] = `
 <div
   className="p-chip"
+  onKeyPress={[Function]}
   role="button"
+  tabIndex="0"
 >
   <span
     className="p-chip__lead"
@@ -22,7 +24,9 @@ exports[`Chip  renders default chip 1`] = `
 exports[`Chip  renders lead-value chip 1`] = `
 <div
   className="p-chip"
+  onKeyPress={[Function]}
   role="button"
+  tabIndex="0"
 >
   <span
     className="p-chip__lead"

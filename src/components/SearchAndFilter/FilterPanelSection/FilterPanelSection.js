@@ -18,6 +18,7 @@ const FilterPanelSection = ({
   const chipWrapper = useRef(null);
 
   const handleChipClick = (chip) => {
+    console.log(chip);
     toggleSelected(chip);
   };
 
@@ -61,7 +62,7 @@ const FilterPanelSection = ({
     }
   }, [panelSectionVisible]);
 
-  // When overlfow counter is clicked, all chips are shown
+  // When overflow counter is clicked, all chips are shown
   const showAllChips = () => {
     setExpanded(true);
   };
@@ -90,14 +91,13 @@ const FilterPanelSection = ({
               return (
                 <span key={`${chip.lead}+${chip.value}`}>
                   {chipVisible && (
-                    <span onClick={() => handleChipClick(chip)}>
-                      <Chip
-                        lead={chip.lead}
-                        value={chip.value}
-                        selected={searchData?.includes(chip) ? true : false}
-                        subString={searchTerm}
-                      />
-                    </span>
+                    <Chip
+                      lead={chip.lead}
+                      value={chip.value}
+                      selected={searchData?.includes(chip) ? true : false}
+                      subString={searchTerm}
+                      onClick={() => handleChipClick(chip)}
+                    />
                   )}
                 </span>
               );
