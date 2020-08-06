@@ -29,7 +29,7 @@ const Chip = ({
       className="p-chip"
       aria-pressed={selected}
       role="button"
-      tabIndex="0"
+      tabIndex={!onDismiss ? "0" : null}
       onClick={onClick}
       onKeyPress={(e) => onKeyPress(e)}
     >
