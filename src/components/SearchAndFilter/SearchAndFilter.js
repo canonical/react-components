@@ -157,7 +157,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
             {searchTerm.length > 0 && (
               <div
                 className="search-prompt"
-                onClick={() => console.log("Search for terms")}
+                onClick={() => handleSubmit()}
                 role="button"
               >
                 Search for <strong>{searchTerm}</strong>...
