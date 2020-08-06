@@ -18,7 +18,6 @@ const FilterPanelSection = ({
   const chipWrapper = useRef(null);
 
   const handleChipClick = (chip) => {
-    console.log(chip);
     toggleSelected(chip);
   };
 
