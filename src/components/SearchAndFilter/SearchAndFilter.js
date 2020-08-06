@@ -82,6 +82,27 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
     }
   };
 
+  // When overflow chips are shown, clicking anywhere outside search area
+  // or clicking on a chip should hide them again
+  useEffect(() => {
+    const hideOverflowChips = (e) => {
+      if (
+        !e.target.closest(".search-and-filter__search-container") &&
+        !e.target.closest(".p-chip")
+      ) {
+        setSearchBoxExpanded(false);
+      }
+    };
+    document.addEventListener("click", (e) => {
+      hideOverflowChips(e);
+    });
+    return () => {
+      document.removeEventListener("click", (e) => {
+        hideOverflowChips(e);
+      });
+    };
+  }, []);
+
   const handleSubmit = () => {
     if (searchTerm !== "") {
       toggleSelected({ value: searchTerm });
