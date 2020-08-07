@@ -30,9 +30,7 @@ const FilterPanelSection = ({
   };
 
   // Check if search term characters matches any characters in panel heading
-  const searchTermInHeading = hightlightSubString(heading, searchTerm).includes(
-    "<strong>"
-  );
+  const searchTermInHeading = hightlightSubString(heading, searchTerm).match;
 
   // Serialise chip values into string so it can be interrogated with subString
   let chipValues = [];
@@ -43,7 +41,7 @@ const FilterPanelSection = ({
   const searchTermInChips = hightlightSubString(
     chipValues.toString(),
     searchTerm
-  ).includes("<strong>");
+  ).match;
 
   const panelSectionVisible =
     searchTermInHeading || searchTermInChips || searchTerm === "";
@@ -74,7 +72,7 @@ const FilterPanelSection = ({
             <h3
               className="filter-panel-section__heading"
               dangerouslySetInnerHTML={{
-                __html: hightlightSubString(heading, searchTerm),
+                __html: hightlightSubString(heading, searchTerm).text,
               }}
             />
           )}
@@ -89,7 +87,7 @@ const FilterPanelSection = ({
               const searchTermInChip = hightlightSubString(
                 chip.value,
                 searchTerm
-              ).includes("<strong>");
+              ).match;
               const chipVisible = searchTermInChip || searchTerm === "";
               return (
                 <span key={`${chip.lead}+${chip.value}`}>

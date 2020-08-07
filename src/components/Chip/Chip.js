@@ -39,7 +39,7 @@ const Chip = ({
       <span
         className="p-chip__value"
         dangerouslySetInnerHTML={{
-          __html: hightlightSubString(value, subString),
+          __html: hightlightSubString(value, subString).text,
         }}
       />
 
