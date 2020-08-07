@@ -1,8 +1,20 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import type { MouseEventHandler } from "react";
 
-const PaginationButton = ({ direction, onClick, disabled = false }) => {
+type PaginationDirection = "forward" | "back";
+type Props = {
+  direction: PaginationDirection;
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+};
+
+const PaginationButton = ({
+  direction,
+  onClick,
+  disabled = false,
+}: Props): JSX.Element => {
   const label = direction === "back" ? "Previous page" : "Next page";
   return (
     <li className="p-pagination__item">
@@ -21,7 +33,7 @@ const PaginationButton = ({ direction, onClick, disabled = false }) => {
 };
 
 PaginationButton.propTypes = {
-  direction: PropTypes.oneOf(["forward", "back"]),
+  direction: PropTypes.oneOf(["forward", "back"]).isRequired,
   onClick: PropTypes.func.isRequired,
   disabled: PropTypes.bool,
 };
