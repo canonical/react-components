@@ -1,8 +1,9 @@
 module.exports = {
   parser: "babel-eslint",
-  plugins: ["react", "@typescript-eslint", "prettier"],
+  plugins: ["react", "@typescript-eslint", "prettier", "cypress"],
   extends: [
     "react-app", // Use the recommended rules from CRA.
+    "plugin:cypress/recommended",
     "plugin:prettier/recommended", // Ensure this is last in the list.
   ],
   parserOptions: {
