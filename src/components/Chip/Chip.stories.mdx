@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import Chip from "./Chip";
 
@@ -10,32 +10,32 @@ This is a not an existing Vanilla component. It can be used to display a small v
 
 ### Props
 
-<Props of={Chip} />
+<ArgsTable of={Chip} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <Chip
       value="positive"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Key-value
 
-<Preview>
+<Canvas>
   <Story name="Lead-value">
     <Chip
       lead="Owner"
       value="Bob"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Dismissible
 
-<Preview>
+<Canvas>
   <Story name="Dismissible">
     <Chip
       lead="Owner"
@@ -45,4 +45,4 @@ This is a not an existing Vanilla component. It can be used to display a small v
       }}
     />
   </Story>
-</Preview>
+</Canvas>

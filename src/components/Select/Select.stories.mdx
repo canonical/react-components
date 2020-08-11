@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import { useState } from "react";
 import Select from "./Select";
@@ -13,11 +13,11 @@ Use the Select component to create a drop-down list.
 
 ### Props
 
-<Props of={Select} />
+<ArgsTable of={Select} />
 
 ### Select
 
-<Preview>
+<Canvas>
   <Story name="Select">
     {() => {
       const [selectedValue, setSelectedValue] = useState();
@@ -38,11 +38,11 @@ Use the Select component to create a drop-down list.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Select multiple
 
-<Preview>
+<Canvas>
   <Story name="Select multiple">
     <Select
       name="exampleSelectMulti"
@@ -57,4 +57,4 @@ Use the Select component to create a drop-down list.
       multiple
     />
   </Story>
-</Preview>
+</Canvas>

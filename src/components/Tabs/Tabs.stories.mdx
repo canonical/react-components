@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { boolean, withKnobs } from "@storybook/addon-knobs";
 import Row from "../Row";
 import Tabs from "./Tabs";
@@ -14,11 +14,11 @@ of hierarchy.
 
 ### Props
 
-<Props of={Tabs} />
+<ArgsTable of={Tabs} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <Tabs
       links={[
@@ -41,14 +41,14 @@ of hierarchy.
       ]}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Horizontally aligned
 
 To horizontally align the Tabs with other content, they can be contained within a Row component to
 provide correct gutters.
 
-<Preview>
+<Canvas>
   <Story name="Horizontally aligned">
     <Row>
       <Tabs
@@ -74,4 +74,4 @@ provide correct gutters.
       <p>There should be gutters and the text should be horizontally aligned</p>
     </Row>
   </Story>
-</Preview>
+</Canvas>

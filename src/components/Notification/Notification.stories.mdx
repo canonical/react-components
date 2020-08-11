@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import Notification from "./Notification";
 
@@ -12,55 +12,55 @@ Notifications are used to display global information, our notification variants 
 
 ### Props
 
-<Props of={Notification} />
+<ArgsTable of={Notification} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <Notification close={() => {}}>
       We use cookies to improve your experience. By your continued use of this
       site you accept such use.
     </Notification>
   </Story>
-</Preview>
+</Canvas>
 
 ### Caution
 
-<Preview>
+<Canvas>
   <Story name="Caution">
     <Notification type="caution" status="Blocked:">
       Custom storage configuration is only supported on Ubuntu, CentOS and RHEL.
     </Notification>
   </Story>
-</Preview>
+</Canvas>
 
 ### Negative
 
-<Preview>
+<Canvas>
   <Story name="Negative">
     <Notification type="negative" status="Error:">
       Node must be connected to a network.
     </Notification>
   </Story>
-</Preview>
+</Canvas>
 
 ### Positive
 
-<Preview>
+<Canvas>
   <Story name="Positive">
     <Notification type="positive" status="Success:">
       Code successfully reformatted.
     </Notification>
   </Story>
-</Preview>
+</Canvas>
 
 ### Information
 
-<Preview>
+<Canvas>
   <Story name="Information">
     <Notification type="information" status="Information:">
       Anyone with access can view your invited users.
     </Notification>
   </Story>
-</Preview>
+</Canvas>

@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import Button from "./Button";
 
@@ -12,109 +12,109 @@ Buttons are clickable elements used to perform an action, they can be used for b
 
 ### Props
 
-<Props of={Button} />
+<ArgsTable of={Button} />
 
 ### Base
 
-<Preview>
+<Canvas>
   <Story name="Base">
     <Button appearance="base">Base button</Button>
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="Base disabled">
     <Button appearance="base" disabled>
       Base button disabled
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
 ### Link
 
-<Preview>
+<Canvas>
   <Story name="Link">
     <Button element="a" href="#test" appearance="base">
       Link button
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="Link disabled">
     <Button element="a" href="#test" appearance="base" disabled>
       Link button disabled
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
 ### Neutral
 
-<Preview>
+<Canvas>
   <Story name="Neutral">
     <Button appearance="neutral">Neutral button</Button>
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="Neutral disabled">
     <Button appearance="neutral" disabled>
       Neutral button disabled
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
 ### Positive
 
-<Preview>
+<Canvas>
   <Story name="Positive">
     <Button appearance="positive">Positive button</Button>
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="Positive disabled">
     <Button appearance="positive" disabled>
       Positive button disabled
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
 ### Negative
 
-<Preview>
+<Canvas>
   <Story name="Negative">
     <Button appearance="negative">Negative button</Button>
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="Negative disabled">
     <Button appearance="negative" disabled>
       Negative button disabled
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
 ### Brand
 
-<Preview>
+<Canvas>
   <Story name="Brand">
     <Button appearance="brand">Brand button</Button>
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="Brand disabled">
     <Button appearance="brand" disabled>
       Brand button disabled
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
 ### Inline
 
-<Preview>
+<Canvas>
   <Story name="Inline">
     <>
       <span>Everything you need to get started with Vanilla. </span>
@@ -123,33 +123,33 @@ Buttons are clickable elements used to perform an action, they can be used for b
       </Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### Dense
 
-<Preview>
+<Canvas>
   <Story name="Dense">
     <>
       <span>Everything you need to get started with Vanilla. </span>
       <Button dense>Dense button</Button>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### Icon
 
-<Preview>
+<Canvas>
   <Story name="Icon">
     <Button hasIcon>
       <i className="p-icon--plus"></i>
     </Button>
   </Story>
-</Preview>
+</Canvas>
 
-<Preview>
+<Canvas>
   <Story name="Icon & text">
     <Button hasIcon>
       <i className="p-icon--plus"></i> <span>Button with icon & text</span>
     </Button>
   </Story>
-</Preview>
+</Canvas>

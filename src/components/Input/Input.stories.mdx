@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import Input from "./Input";
 
@@ -12,11 +12,11 @@ An input field where the user can enter data, which can vary in many ways, depen
 
 ### Props
 
-<Props of={Input} />
+<ArgsTable of={Input} />
 
 ### Text input
 
-<Preview>
+<Canvas>
   <Story name="Text input">
     <Input
       type="text"
@@ -25,11 +25,11 @@ An input field where the user can enter data, which can vary in many ways, depen
       label="Email address"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Stacked
 
-<Preview>
+<Canvas>
   <Story name="Stacked">
     <Input
       type="text"
@@ -39,11 +39,11 @@ An input field where the user can enter data, which can vary in many ways, depen
       label="Email address"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="Disabled">
     <Input
       type="text"
@@ -53,11 +53,11 @@ An input field where the user can enter data, which can vary in many ways, depen
       label="Email address"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Error
 
-<Preview>
+<Canvas>
   <Story name="Error">
     <Input
       type="text"
@@ -67,11 +67,11 @@ An input field where the user can enter data, which can vary in many ways, depen
       label="Email address"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Success
 
-<Preview>
+<Canvas>
   <Story name="Success">
     <Input
       type="text"
@@ -81,11 +81,11 @@ An input field where the user can enter data, which can vary in many ways, depen
       label="Email address"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Caution
 
-<Preview>
+<Canvas>
   <Story name="Caution">
     <Input
       type="text"
@@ -95,11 +95,11 @@ An input field where the user can enter data, which can vary in many ways, depen
       label="Email address"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Required
 
-<Preview>
+<Canvas>
   <Story name="Required">
     <Input
       type="text"
@@ -109,11 +109,11 @@ An input field where the user can enter data, which can vary in many ways, depen
       label="Email address"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Checkbox
 
-<Preview>
+<Canvas>
   <Story name="Checkbox">
     <Input type="checkbox" id="checkExample12" defaultChecked label="HTML" />
     <Input type="checkbox" id="checkExample22" label="CSS" />
@@ -124,11 +124,11 @@ An input field where the user can enter data, which can vary in many ways, depen
       label="PHP"
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Radio button
 
-<Preview>
+<Canvas>
   <Story name="Radio button">
     <Input
       label="Linux"
@@ -154,4 +154,4 @@ An input field where the user can enter data, which can vary in many ways, depen
       disabled="disabled"
     />
   </Story>
-</Preview>
+</Canvas>

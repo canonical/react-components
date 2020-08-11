@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import Pagination from "./Pagination";
 
@@ -12,11 +12,11 @@ The pagination component should be used to navigate between pages of content. De
 
 ### Props
 
-<Props of={Pagination} />
+<ArgsTable of={Pagination} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <Pagination
       itemsPerPage={20}
@@ -25,11 +25,11 @@ The pagination component should be used to navigate between pages of content. De
       currentPage={3}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Truncated
 
-<Preview>
+<Canvas>
   <Story name="Truncated">
     <Pagination
       itemsPerPage={10}
@@ -38,11 +38,11 @@ The pagination component should be used to navigate between pages of content. De
       currentPage={34}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled controls
 
-<Preview>
+<Canvas>
   <Story name="Disabled controls">
     <Pagination
       itemsPerPage={20}
@@ -51,4 +51,4 @@ The pagination component should be used to navigate between pages of content. De
       currentPage={1}
     />
   </Story>
-</Preview>
+</Canvas>

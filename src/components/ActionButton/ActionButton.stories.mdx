@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import ActionButton from "./ActionButton";
 
@@ -10,22 +10,22 @@ This is a not an existing Vanilla component. It can be used to display submittin
 
 ### Props
 
-<Props of={ActionButton} />
+<ArgsTable of={ActionButton} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <ActionButton appearance="positive">Click me!</ActionButton>
   </Story>
-</Preview>
+</Canvas>
 
 ### Loading
 
-<Preview>
+<Canvas>
   <Story name="Loading">
     <ActionButton appearance="positive" loading>
       Click me!
     </ActionButton>
   </Story>
-</Preview>
+</Canvas>
