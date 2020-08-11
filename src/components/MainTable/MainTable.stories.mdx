@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import MainTable from "./MainTable";
 import Row from "../Row";
@@ -12,11 +12,11 @@ This is a [React](https://reactjs.org/) component to support many table use case
 
 ### Props
 
-<Props of={MainTable} />
+<ArgsTable of={MainTable} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <MainTable
       headers={[
@@ -52,11 +52,11 @@ This is a [React](https://reactjs.org/) component to support many table use case
       ]}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Sortable
 
-<Preview>
+<Canvas>
   <Story name="Sortable">
     <MainTable
       headers={[
@@ -112,11 +112,11 @@ This is a [React](https://reactjs.org/) component to support many table use case
       sortable
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Expanding
 
-<Preview>
+<Canvas>
   <Story name="Expanding">
     <MainTable
       expanding
@@ -249,11 +249,11 @@ This is a [React](https://reactjs.org/) component to support many table use case
       ]}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Responsive
 
-<Preview>
+<Canvas>
   <Story name="Responsive">
     <MainTable
       headers={[
@@ -299,11 +299,11 @@ This is a [React](https://reactjs.org/) component to support many table use case
       responsive
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Paginated
 
-<Preview>
+<Canvas>
   <Story name="Paginated">
     <MainTable
       headers={[{ content: "Status" }, { content: "Cores" }]}
@@ -330,11 +330,11 @@ This is a [React](https://reactjs.org/) component to support many table use case
       ]}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Empty
 
-<Preview>
+<Canvas>
   <Story name="Empty">
     <MainTable
       headers={[
@@ -345,4 +345,4 @@ This is a [React](https://reactjs.org/) component to support many table use case
       rows={[]}
     />
   </Story>
-</Preview>
+</Canvas>

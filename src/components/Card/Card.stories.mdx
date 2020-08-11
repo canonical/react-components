@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import Card from "./Card";
 import Col from "../Col";
@@ -14,22 +14,22 @@ There are four card styles available to use in Vanilla: default, header, highlig
 
 ### Props
 
-<Props of={Card} />
+<ArgsTable of={Card} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <Card title="We'd love to have you join us as a partner.">
       If you are an independent software vendor or bundle author, it's easy to
       apply. You can find out more below.
     </Card>
   </Story>
-</Preview>
+</Canvas>
 
 ### Header
 
-<Preview>
+<Canvas>
   <Story name="Header">
     <Card
       title="Raspberry Pi2 and Pi3"
@@ -40,22 +40,22 @@ There are four card styles available to use in Vanilla: default, header, highlig
       Ubuntu Core supports the world’s most beloved board.
     </Card>
   </Story>
-</Preview>
+</Canvas>
 
 ### Highlighted
 
-<Preview>
+<Canvas>
   <Story name="Highlighted">
     <Card title="We'd love to have you join us as a partner." highlighted>
       If you are an independent software vendor or bundle author, it's easy to
       apply. You can find out more below.
     </Card>
   </Story>
-</Preview>
+</Canvas>
 
 ### Overlay
 
-<Preview>
+<Canvas>
   <Story name="Overlay">
     <section
       className="p-strip--image is-light"
@@ -76,4 +76,4 @@ There are four card styles available to use in Vanilla: default, header, highlig
       </Row>
     </section>
   </Story>
-</Preview>
+</Canvas>

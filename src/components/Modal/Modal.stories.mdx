@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import Modal from "./Modal";
 
@@ -12,9 +12,9 @@ The modal component can be used to overlay an area of the screen which can conta
 
 ### Props
 
-<Props of={Modal} />
+<ArgsTable of={Modal} />
 
-<Preview>
+<Canvas>
   <Story name="Default">
     // This containing div is only required for the component demo.
     <div style={{ height: "100vh", position: "relative" }}>
@@ -35,4 +35,4 @@ The modal component can be used to overlay an area of the screen which can conta
       </Modal>
     </div>
   </Story>
-</Preview>
+</Canvas>

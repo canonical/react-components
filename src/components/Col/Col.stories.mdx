@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import Col from "./Col";
 import Row from "../Row";
@@ -13,11 +13,11 @@ Vanilla has a responsive grid using a combination of rows and columns.
 
 ### Props
 
-<Props of={Col} />
+<ArgsTable of={Col} />
 
 ### Grid
 
-<Preview>
+<Canvas>
   <Story name="Grid">
     <div className="grid-demo">
       <Row>
@@ -115,11 +115,11 @@ Vanilla has a responsive grid using a combination of rows and columns.
       </Row>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Nested columns
 
-<Preview>
+<Canvas>
   <Story name="Nested columns">
     <div className="grid-demo">
       <Row>
@@ -148,11 +148,11 @@ Vanilla has a responsive grid using a combination of rows and columns.
       </Row>
     </div>
   </Story>
-</Preview>
+</Canvas>
 
 ### Empty columns
 
-<Preview>
+<Canvas>
   <Story name="Empty columns">
     <div className="grid-demo">
       <Row>
@@ -179,4 +179,4 @@ Vanilla has a responsive grid using a combination of rows and columns.
       </Row>
     </div>
   </Story>
-</Preview>
+</Canvas>

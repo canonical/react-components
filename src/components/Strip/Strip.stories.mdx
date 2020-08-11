@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import Col from "../Col";
 import Row from "../Row";
@@ -14,31 +14,31 @@ The strip pattern provides a full width strip container in which to wrap a row.
 
 ### Props
 
-<Props of={Strip} />
+<ArgsTable of={Strip} />
 
 ### Light strip
 
-<Preview>
+<Canvas>
   <Story name="Light strip">
     <Strip type="light">
       <p>This is a light row</p>
     </Strip>
   </Story>
-</Preview>
+</Canvas>
 
 ### Dark strip
 
-<Preview>
+<Canvas>
   <Story name="Dark strip">
     <Strip type="dark">
       <p>This is a dark row</p>
     </Strip>
   </Story>
-</Preview>
+</Canvas>
 
 ### Accent strip
 
-<Preview>
+<Canvas>
   <Story name="Accent strip">
     <Strip type="accent" element="section" includeCol={false}>
       <Col size="8">
@@ -56,11 +56,11 @@ The strip pattern provides a full width strip container in which to wrap a row.
       </Col>
     </Strip>
   </Story>
-</Preview>
+</Canvas>
 
 ### Image strip
 
-<Preview>
+<Canvas>
   <Story name="Image strip">
     <>
       <Strip
@@ -113,11 +113,11 @@ The strip pattern provides a full width strip container in which to wrap a row.
       </Strip>
     </>
   </Story>
-</Preview>
+</Canvas>
 
 ### Bordered strip
 
-<Preview>
+<Canvas>
   <Story name="Bordered strip">
     <Strip bordered colSize="8" element="section">
       <h2>The node lifecycle</h2>
@@ -130,11 +130,11 @@ The strip pattern provides a full width strip container in which to wrap a row.
       </p>
     </Strip>
   </Story>
-</Preview>
+</Canvas>
 
 ### Deep strip
 
-<Preview>
+<Canvas>
   <Story name="Deep strip">
     <Strip
       deep
@@ -158,11 +158,11 @@ The strip pattern provides a full width strip container in which to wrap a row.
       </Col>
     </Strip>
   </Story>
-</Preview>
+</Canvas>
 
 ### Shallow strip
 
-<Preview>
+<Canvas>
   <Story name="Shallow strip">
     <Strip
       shallow
@@ -186,4 +186,4 @@ The strip pattern provides a full width strip container in which to wrap a row.
       </Col>
     </Strip>
   </Story>
-</Preview>
+</Canvas>
