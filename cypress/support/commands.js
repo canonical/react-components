@@ -23,3 +23,18 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+/**
+ * Visit a page on Storybook
+ * @param { string } storybookUrl
+ * @param { string } page
+ * @param { string } variant - variant of component, e.g. "Highlighted"
+ */
+Cypress.Commands.add("visitPage", (storybookUrl, page, variant) => {
+  const baseUrl = `${storybookUrl}/iframe.html?id=`;
+  if (variant) {
+    cy.visit(`${baseUrl}${page.toLowerCase()}--${variant.toLowerCase()}`);
+  } else {
+    cy.visit(`${baseUrl}${page.toLowerCase()}--default-story`);
+  }
+});
