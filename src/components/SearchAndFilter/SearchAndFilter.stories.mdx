@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import SearchAndFilter from "./SearchAndFilter";
 
@@ -14,15 +14,15 @@ This component is used to search and filter large datasets.
 
 ### Props
 
-<Props of={SearchAndFilter} />
+<ArgsTable of={SearchAndFilter} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <SearchAndFilter />
   </Story>
-</Preview>
+</Canvas>
 
 ### External state
 
@@ -30,7 +30,7 @@ If you wish to control the value of the data set via external state you can set
 the `externallyControlled` prop and provide an `onChange` method to update the
 state and the `value` from state.
 
-<Preview>
+<Canvas>
   <Story name="External state">
     <SearchAndFilter
       externallyControlled
@@ -75,4 +75,4 @@ state and the `value` from state.
       ]}
     />
   </Story>
-</Preview>
+</Canvas>

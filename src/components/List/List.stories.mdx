@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import List from "./List";
 
@@ -12,19 +12,19 @@ If you want to display lists in a way that is more visually distinctive than the
 
 ### Props
 
-<Props of={List} />
+<ArgsTable of={List} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <List items={["Digital signage", "Robotics", "Gateways"]} />
   </Story>
-</Preview>
+</Canvas>
 
 ### Ticked
 
-<Preview>
+<Canvas>
   <Story name="Ticked">
     <List
       items={[
@@ -35,11 +35,11 @@ If you want to display lists in a way that is more visually distinctive than the
       ticked
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Horizontal divider
 
-<Preview>
+<Canvas>
   <Story name="Horizontal divider">
     <List
       items={[
@@ -50,11 +50,11 @@ If you want to display lists in a way that is more visually distinctive than the
       divided
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Ticked with horizontal divider
 
-<Preview>
+<Canvas>
   <Story name="Ticked with horizontal divider">
     <List
       items={[
@@ -66,30 +66,30 @@ If you want to display lists in a way that is more visually distinctive than the
       ticked
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Inline
 
-<Preview>
+<Canvas>
   <Story name="Inline">
     <List items={["Community", "Careers", "Press centre"]} inline />
   </Story>
-</Preview>
+</Canvas>
 
 ### Middot
 
-<Preview>
+<Canvas>
   <Story name="Middot">
     <List
       items={["Legal information", "Data privacy", "Report a bug on this site"]}
       middot
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Vertical stepped
 
-<Preview>
+<Canvas>
   <Story name="Vertical stepped">
     <List
       items={[
@@ -135,11 +135,11 @@ If you want to display lists in a way that is more visually distinctive than the
       stepped
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Horizontal stepped
 
-<Preview>
+<Canvas>
   <Story name="Horizontal stepped">
     <List
       items={[
@@ -158,11 +158,11 @@ If you want to display lists in a way that is more visually distinctive than the
       detailed
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### Split
 
-<Preview>
+<Canvas>
   <Story name="Split">
     <List
       items={[
@@ -178,4 +178,4 @@ If you want to display lists in a way that is more visually distinctive than the
       ticked
     />
   </Story>
-</Preview>
+</Canvas>

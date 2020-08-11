@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import Textarea from "./Textarea";
 
@@ -12,9 +12,9 @@ The Textarea component defines a multi-line text input control.
 
 ### Props
 
-<Props of={Textarea} />
+<ArgsTable of={Textarea} />
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <Textarea
       label="Tell us about your project or interest"
@@ -23,4 +23,4 @@ The Textarea component defines a multi-line text input control.
       defaultValue="Ubuntu"
     />
   </Story>
-</Preview>
+</Canvas>

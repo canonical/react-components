@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import Spinner from "./Spinner";
 
@@ -10,12 +10,12 @@ This is a [React](https://reactjs.org/) component for the Vanilla [Spin](https:/
 
 ### Props
 
-<Props of={Spinner} />
+<ArgsTable of={Spinner} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <Spinner text="Loading..." />
   </Story>
-</Preview>
+</Canvas>

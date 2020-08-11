@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs, object } from "@storybook/addon-knobs";
 import { useState } from "react";
 import Accordion from "./Accordion";
@@ -13,11 +13,11 @@ The sidebar accordion, used in listing pages or as navigation, can hold multiple
 
 ### Props
 
-<Props of={Accordion} />
+<ArgsTable of={Accordion} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <Accordion
       sections={[
@@ -59,13 +59,13 @@ The sidebar accordion, used in listing pages or as navigation, can hold multiple
       ]}
     />
   </Story>
-</Preview>
+</Canvas>
 
 ### External state
 
 The expanded accordion section can be controlled by external state.
 
-<Preview>
+<Canvas>
   <Story name="External state">
     {() => {
       const [expandedSection, setExpandedSection] = useState();
@@ -118,13 +118,13 @@ The expanded accordion section can be controlled by external state.
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### Headings
 
 `titleElement` prop can be used to define heading element for section titles.
 
-<Preview>
+<Canvas>
   <Story name="Headings">
     <Accordion
       sections={[
@@ -167,4 +167,4 @@ The expanded accordion section can be controlled by external state.
       titleElement="h3"
     />
   </Story>
-</Preview>
+</Canvas>

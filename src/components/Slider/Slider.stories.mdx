@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { boolean, number, text, withKnobs } from "@storybook/addon-knobs";
 import { useState } from "react";
 import Slider, { FILLED_COLOR } from "./Slider";
@@ -14,11 +14,11 @@ minimum and maximum value, however the precise value is not especially important
 
 ### Props
 
-<Props of={Slider} />
+<ArgsTable of={Slider} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     {() => {
       const [selectedValue, setSelectedValue] = useState(50);
@@ -35,13 +35,13 @@ minimum and maximum value, however the precise value is not especially important
       );
     }}
   </Story>
-</Preview>
+</Canvas>
 
 ### With input
 
 You can also optionally provide a numeric representation of the slider value.
 
-<Preview>
+<Canvas>
   <Story name="With input">
     {() => {
       const [selectedValue, setSelectedValue] = useState(50);
@@ -59,4 +59,4 @@ You can also optionally provide a numeric representation of the slider value.
       );
     }}
   </Story>
-</Preview>
+</Canvas>

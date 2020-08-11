@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import Code from "./Code";
 
@@ -12,37 +12,37 @@ Vanilla gives you multiple ways to display code using the standard HTML elements
 
 ### Props
 
-<Props of={Code} />
+<ArgsTable of={Code} />
 
 ### Inline
 
-<Preview>
+<Canvas>
   <Story name="Inline">
     <p>
       The quick brown <Code inline>fox jumps</Code> over the lazy dog
     </p>
   </Story>
-</Preview>
+</Canvas>
 
 ### Block
 
-<Preview>
+<Canvas>
   <Story name="Block">
     <Code>Mode: all Settings: maas_url=http://192.168.122.1:5240/MAAS</Code>
   </Story>
-</Preview>
+</Canvas>
 
 ### Copyable
 
-<Preview>
+<Canvas>
   <Story name="Copyable">
     <Code copyable>sudo apt-get update</Code>
   </Story>
-</Preview>
+</Canvas>
 
 ### Numbered
 
-<Preview>
+<Canvas>
   <Story name="Numbered">
     <Code numbered>
       #!/bin/bash set -eu . $CONJURE_UP_SPELLSDIR/sdk/common.sh if [[
@@ -53,4 +53,4 @@ Vanilla gives you multiple ways to display code using the standard HTML elements
       "Successful pre-deploy." 0 "true"
     </Code>
   </Story>
-</Preview>
+</Canvas>

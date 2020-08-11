@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { select, withKnobs } from "@storybook/addon-knobs";
 import Button from "../Button";
 import Tooltip from "./Tooltip";
@@ -17,11 +17,11 @@ An alternative use of tooltips is to provide information on a disabled actionabl
 
 ### Props
 
-<Props of={Tooltip} />
+<ArgsTable of={Tooltip} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <div style={{ display: "flex", justifyContent: "center", padding: "3rem" }}>
       <Tooltip
@@ -41,4 +41,4 @@ An alternative use of tooltips is to provide information on a disabled actionabl
       </Tooltip>
     </div>
   </Story>
-</Preview>
+</Canvas>
