@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import ArticlePagination from "./ArticlePagination";
 
@@ -16,11 +16,11 @@ The article pagination component should be used to navigate from one article to 
 
 ### Props
 
-<Props of={ArticlePagination} />
+<ArgsTable of={ArticlePagination} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <ArticlePagination
       nextLabel="Consectetur adipisicing elit"
@@ -29,4 +29,4 @@ The article pagination component should be used to navigate from one article to 
       previousURL="#previous"
     />
   </Story>
-</Preview>
+</Canvas>

@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { withKnobs } from "@storybook/addon-knobs";
 import SearchBox from "./SearchBox";
 
@@ -12,23 +12,23 @@ Search boxes enable search functionality on a page and are typically used in a n
 
 ### Props
 
-<Props of={SearchBox} />
+<ArgsTable of={SearchBox} />
 
 ### Default
 
-<Preview>
+<Canvas>
   <Story name="Default">
     <SearchBox />
   </Story>
-</Preview>
+</Canvas>
 
 ### Disabled
 
-<Preview>
+<Canvas>
   <Story name="Disabled">
     <SearchBox disabled />
   </Story>
-</Preview>
+</Canvas>
 
 ### External state
 
@@ -36,15 +36,15 @@ If you wish to control the value of the input via external state you can set
 the `externallyControlled` prop and provide an `onChange` method to update the
 state and the `value` from state.
 
-<Preview>
+<Canvas>
   <Story name="External state">
     <SearchBox externallyControlled onChange={() => {}} value="..." />
   </Story>
-</Preview>
+</Canvas>
 
 ### Navigation
 
-<Preview>
+<Canvas>
   <Story name="Navigation">
     <header id="navigation" className="p-navigation">
       <div className="p-navigation__banner">
@@ -98,4 +98,4 @@ state and the `value` from state.
       </nav>
     </header>
   </Story>
-</Preview>
+</Canvas>
