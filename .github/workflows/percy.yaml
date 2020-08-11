@@ -1,4 +1,4 @@
-name: CI
+name: Percy
 on: [push]
 jobs:
   default:
