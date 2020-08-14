@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import Field from "../Field";
 
@@ -24,9 +24,18 @@ const Select = ({
   required,
   stacked,
   success,
+  takeFocus,
   wrapperClassName,
   ...props
 }) => {
+  const selectRef = useRef();
+
+  useEffect(() => {
+    if (takeFocus) {
+      selectRef.current.focus();
+    }
+  }, [takeFocus]);
+
   return (
     <Field
       caution={caution}
@@ -45,6 +54,7 @@ const Select = ({
         className={classNames("p-form-validation__input", className)}
         id={id}
         onChange={(evt) => onChange && onChange(evt)}
+        ref={selectRef}
         {...props}
       >
         {generateOptions(options)}
@@ -71,6 +81,10 @@ Select.propTypes = {
   required: PropTypes.bool,
   stacked: PropTypes.bool,
   success: PropTypes.node,
+  /**
+   * Focus on the select box on first render.
+   */
+  takeFocus: PropTypes.bool,
   wrapperClassName: PropTypes.string,
 };
 

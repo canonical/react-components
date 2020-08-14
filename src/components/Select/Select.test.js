@@ -1,4 +1,4 @@
-import { shallow } from "enzyme";
+import { mount, shallow } from "enzyme";
 import React from "react";
 
 import Select from "./Select";
@@ -34,5 +34,10 @@ describe("Select ", () => {
     const className = wrapper.find("select").prop("className");
     expect(className.includes("p-form-validation__input")).toBe(true);
     expect(className.includes("extra-class")).toBe(true);
+  });
+
+  it("can take focus on first render", () => {
+    const wrapper = mount(<Select options={[]} takeFocus />);
+    expect(wrapper.find("select").getDOMNode()).toBe(document.activeElement);
   });
 });

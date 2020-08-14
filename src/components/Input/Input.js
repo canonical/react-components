@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import Field from "../Field";
 
@@ -16,10 +16,19 @@ const Input = ({
   required,
   stacked,
   success,
+  takeFocus,
   type,
   ...props
 }) => {
+  const inputRef = useRef();
   const labelFirst = !["checkbox", "radio"].includes(type);
+
+  useEffect(() => {
+    if (takeFocus) {
+      inputRef.current.focus();
+    }
+  }, [takeFocus]);
+
   return (
     <Field
       caution={caution}
@@ -37,6 +46,7 @@ const Input = ({
       <input
         className={classNames("p-form-validation__input", className)}
         id={id}
+        ref={inputRef}
         type={type}
         {...props}
       />
@@ -56,6 +66,10 @@ Input.propTypes = {
   required: PropTypes.bool,
   stacked: PropTypes.bool,
   success: PropTypes.node,
+  /**
+   * Focus on the input on first render.
+   */
+  takeFocus: PropTypes.bool,
   type: PropTypes.string,
 };
 

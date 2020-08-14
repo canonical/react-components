@@ -1,4 +1,4 @@
-import { shallow } from "enzyme";
+import { mount, shallow } from "enzyme";
 import React from "react";
 
 import Input from "./Input";
@@ -24,5 +24,10 @@ describe("Input ", () => {
   it("moves the label for checkboxes", () => {
     const wrapper = shallow(<Input type="checkbox" />);
     expect(wrapper.prop("labelFirst")).toBe(false);
+  });
+
+  it("can take focus on first render", () => {
+    const wrapper = mount(<Input takeFocus />);
+    expect(wrapper.find("input").getDOMNode()).toBe(document.activeElement);
   });
 });
