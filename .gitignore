@@ -12,6 +12,7 @@ yarn-debug.log*
 yarn-error.log*
 
 storybook-static/
+*.fuse*
 
 cypress/screenshots/
 cypress/videos

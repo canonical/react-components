@@ -1,9 +1,19 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
-import { boolean, number, text, withKnobs } from "@storybook/addon-knobs";
 import { useState } from "react";
 import Slider, { FILLED_COLOR } from "./Slider";
 
-<Meta title="Slider" component={Slider} decorators={[withKnobs]} />
+<Meta title="Slider" component={Slider} />
+
+export const Template = (args) => {
+  const [selectedValue, setSelectedValue] = useState(50);
+  return (
+    <Slider
+      {...args}
+      onChange={(e) => setSelectedValue(e.target.value)}
+      value={selectedValue}
+    />
+  );
+};
 
 ### Slider
 
@@ -19,21 +29,17 @@ minimum and maximum value, however the precise value is not especially important
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    {() => {
-      const [selectedValue, setSelectedValue] = useState(50);
-      return (
-        <Slider
-          disabled={boolean("Disabled", false)}
-          label={text("Label", "Volume")}
-          max={number("Max", 100)}
-          min={number("Min", 0)}
-          onChange={(e) => setSelectedValue(e.target.value)}
-          showInput={false}
-          value={selectedValue}
-        />
-      );
+  <Story
+    name="Default"
+    args={{
+      disabled: false,
+      label: "Volume",
+      max: 100,
+      min: 0,
+      showInput: false,
     }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
@@ -42,21 +48,17 @@ minimum and maximum value, however the precise value is not especially important
 You can also optionally provide a numeric representation of the slider value.
 
 <Canvas>
-  <Story name="With input">
-    {() => {
-      const [selectedValue, setSelectedValue] = useState(50);
-      return (
-        <Slider
-          disabled={boolean("Disabled", false)}
-          inputDisabled={boolean("Input disabled", false)}
-          label={text("Label", "Volume")}
-          max={number("Max", 100)}
-          min={number("Min", 0)}
-          onChange={(e) => setSelectedValue(e.target.value)}
-          showInput
-          value={selectedValue}
-        />
-      );
+  <Story
+    name="With input"
+    args={{
+      disabled: false,
+      inputDisabled: false,
+      label: "Volume",
+      max: 100,
+      min: 0,
+      showInput: true,
     }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>

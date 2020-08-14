@@ -1,14 +1,14 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
-import { boolean, withKnobs } from "@storybook/addon-knobs";
 import Row from "../Row";
 import Tabs from "./Tabs";
 
-<Meta title="Tabs" component={Tabs} decorators={[withKnobs]} />
+<Meta title="Tabs" component={Tabs} />
+
+export const Template = (args) => <Tabs {...args} />;
 
 ### Tabs
 
 This is the [React](https://reactjs.org/) component for Vanilla [Tabs](https://vanillaframework.io/docs/patterns/tabs).
-
 Tabs organise and allow navigation between groups of content that are related and at the same level
 of hierarchy.
 
@@ -19,27 +19,30 @@ of hierarchy.
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <Tabs
-      links={[
+  <Story
+    name="Default"
+    args={{
+      links: [
         {
-          active: boolean("Summary active", true),
+          active: true,
           label: "Summary",
         },
         {
-          active: boolean("Network active", false),
+          active: false,
           label: "Network",
         },
         {
-          active: boolean("Storage active", false),
+          active: false,
           label: "Storage",
         },
         {
-          active: boolean("Settings active", false),
+          active: false,
           label: "Settings",
         },
-      ]}
-    />
+      ],
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
@@ -54,19 +57,19 @@ provide correct gutters.
       <Tabs
         links={[
           {
-            active: boolean("Summary active", true),
+            active: true,
             label: "Summary",
           },
           {
-            active: boolean("Network active", false),
+            active: false,
             label: "Network",
           },
           {
-            active: boolean("Storage active", false),
+            active: false,
             label: "Storage",
           },
           {
-            active: boolean("Settings active", false),
+            active: false,
             label: "Settings",
           },
         ]}
