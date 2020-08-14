@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 
 import Field from "../Field";
 
@@ -18,9 +18,18 @@ const Textarea = ({
   stacked,
   style,
   success,
+  takeFocus,
   wrapperClassName,
   ...props
 }) => {
+  const textareaRef = useRef();
+
+  useEffect(() => {
+    if (takeFocus) {
+      textareaRef.current.focus();
+    }
+  }, [takeFocus]);
+
   return (
     <Field
       caution={caution}
@@ -43,6 +52,7 @@ const Textarea = ({
               evt.currentTarget.scrollHeight + "px";
           }
         }}
+        ref={textareaRef}
         style={
           (grow && {
             minHeight: "5rem",
@@ -73,6 +83,10 @@ Textarea.propTypes = {
   stacked: PropTypes.bool,
   style: PropTypes.object,
   success: PropTypes.node,
+  /**
+   * Focus on the textarea on first render.
+   */
+  takeFocus: PropTypes.bool,
   wrapperClassName: PropTypes.string,
 };
 
