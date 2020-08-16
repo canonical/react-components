@@ -27,7 +27,9 @@ describe("Input ", () => {
   });
 
   it("can take focus on first render", () => {
-    const wrapper = mount(<Input takeFocus />);
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    const wrapper = mount(<Input takeFocus />, { attachTo: container });
     expect(wrapper.find("input").getDOMNode()).toBe(document.activeElement);
   });
 });

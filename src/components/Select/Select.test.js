@@ -37,7 +37,11 @@ describe("Select ", () => {
   });
 
   it("can take focus on first render", () => {
-    const wrapper = mount(<Select options={[]} takeFocus />);
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    const wrapper = mount(<Select options={[]} takeFocus />, {
+      attachTo: container,
+    });
     expect(wrapper.find("select").getDOMNode()).toBe(document.activeElement);
   });
 });

@@ -17,7 +17,9 @@ describe("Textarea ", () => {
   });
 
   it("can take focus on first render", () => {
-    const wrapper = mount(<Textarea takeFocus />);
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    const wrapper = mount(<Textarea takeFocus />, { attachTo: container });
     expect(wrapper.find("textarea").getDOMNode()).toBe(document.activeElement);
   });
 });
