@@ -4,3 +4,4 @@
   - src/**/*
 Maintenance 🔨:
   - package.json
+  - .gitignore
