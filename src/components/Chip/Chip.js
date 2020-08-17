@@ -56,6 +56,9 @@ Chip.propTypes = {
   value: PropTypes.string,
   lead: PropTypes.string,
   onDismiss: PropTypes.func,
+  onClick: PropTypes.func,
+  selected: PropTypes.bool,
+  subString: PropTypes.string,
 };
 
 export default Chip;
