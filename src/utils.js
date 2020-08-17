@@ -15,6 +15,6 @@ export const hightlightSubString = (str, subString) => {
 
   return {
     text: subString === "" ? str : newStr,
-    match: newStr === str ? false : true,
+    match: newStr !== str,
   };
 };
