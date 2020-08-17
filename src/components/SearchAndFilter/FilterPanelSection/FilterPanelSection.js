@@ -130,6 +130,9 @@ FilterPanelSection.propTypes = {
       })
     ),
   }),
+  searchData: PropTypes.array,
+  searchTerm: PropTypes.array,
+  toggleSelected: PropTypes.func,
 };
 
 export default FilterPanelSection;
