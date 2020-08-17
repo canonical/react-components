@@ -1,6 +1,7 @@
 node_modules
 dist
 .env.local
+.DS_Store
 
 .docker-project
 .yarn.*
@@ -11,3 +12,6 @@ yarn-debug.log*
 yarn-error.log*
 
 storybook-static/
+
+cypress/screenshots/
+cypress/videos
