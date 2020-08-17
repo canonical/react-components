@@ -95,7 +95,7 @@ const FilterPanelSection = ({
                     <Chip
                       lead={chip.lead}
                       value={chip.value}
-                      selected={searchData?.includes(chip) ? true : false}
+                      selected={searchData?.includes(chip)}
                       subString={searchTerm}
                       onClick={() => handleChipClick(chip)}
                     />
