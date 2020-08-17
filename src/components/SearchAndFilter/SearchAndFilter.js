@@ -15,8 +15,8 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
   const [filterPanelHidden, setFilterPanelHidden] = useState(true);
   const [searchBoxExpanded, setSearchBoxExpanded] = useState(false);
   const [overflowSearchTermCounter, setOverflowSearchTermCounter] = useState(0);
-  const filterPanelRef = useRef();
-  const searchContainerRef = useRef();
+  const filterPanelRef = useRef(null);
+  const searchContainerRef = useRef(null);
 
   const searchOnChange = (searchTerm) => {
     setSearchTerm(searchTerm);

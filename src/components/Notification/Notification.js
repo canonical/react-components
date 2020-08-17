@@ -18,7 +18,7 @@ const Notification = ({
   type,
   ...props
 }) => {
-  const timeoutId = useRef();
+  const timeoutId = useRef(null);
 
   useEffect(() => {
     if (timeout && close) {
