@@ -3,7 +3,49 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
 import Select from "./Select";
 
-<Meta title="Select" component={Select} />
+<Meta
+  title="Select"
+  component={Select}
+  argTypes={{
+    caution: {
+      control: {
+        type: "text",
+      },
+    },
+    error: {
+      control: {
+        type: "text",
+      },
+    },
+    help: {
+      control: {
+        type: "text",
+      },
+    },
+    label: {
+      control: {
+        type: "text",
+      },
+    },
+    success: {
+      control: {
+        type: "text",
+      },
+    },
+    id: {
+      control: {
+        disable: true,
+      },
+    },
+    options: {
+      control: {
+        disable: true,
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <Select {...args} />;
 
 ### Select
 
@@ -18,25 +60,22 @@ Use the Select component to create a drop-down list.
 ### Select
 
 <Canvas>
-  <Story name="Select">
-    {() => {
-      const [selectedValue, setSelectedValue] = useState();
-      return (
-        <Select
-          name="exampleSelect"
-          id="exampleSelect2"
-          defaultValue=""
-          options={[
-            { value: "", disabled: "disabled", label: "Select an option" },
-            { value: "1", label: "Cosmic Cuttlefish" },
-            { value: "2", label: "Bionic Beaver" },
-            { value: "3", label: "Xenial Xerus" },
-          ]}
-          label="Ubuntu releases"
-          onChange={(selected) => setSelectedValue(selected)}
-        />
-      );
+  <Story
+    name="Select"
+    args={{
+      name: "exampleSelect",
+      id: "exampleSelect2",
+      defaultValue: "",
+      options: [
+        { value: "", disabled: "disabled", label: "Select an option" },
+        { value: "1", label: "Cosmic Cuttlefish" },
+        { value: "2", label: "Bionic Beaver" },
+        { value: "3", label: "Xenial Xerus" },
+      ],
+      label: "Ubuntu releases",
     }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 

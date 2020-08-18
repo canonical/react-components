@@ -2,7 +2,44 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import Textarea from "./Textarea";
 
-<Meta title="Textarea" component={Textarea} />
+<Meta
+  title="Textarea"
+  component={Textarea}
+  argTypes={{
+    caution: {
+      control: {
+        type: "text",
+      },
+    },
+    error: {
+      control: {
+        type: "text",
+      },
+    },
+    help: {
+      control: {
+        type: "text",
+      },
+    },
+    label: {
+      control: {
+        type: "text",
+      },
+    },
+    success: {
+      control: {
+        type: "text",
+      },
+    },
+    id: {
+      control: {
+        disable: true,
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <Textarea {...args} />;
 
 ### Textarea
 
@@ -15,12 +52,15 @@ The Textarea component defines a multi-line text input control.
 <ArgsTable of={Textarea} />
 
 <Canvas>
-  <Story name="Default">
-    <Textarea
-      label="Tell us about your project or interest"
-      id="textarea2"
-      rows="3"
-      defaultValue="Ubuntu"
-    />
+  <Story
+    name="Default"
+    args={{
+      label: "Tell us about your project or interest",
+      id: "textarea2",
+      rows: "3",
+      defaultValue: "Ubuntu",
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>

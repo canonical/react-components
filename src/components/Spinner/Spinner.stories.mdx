@@ -4,6 +4,8 @@ import Spinner from "./Spinner";
 
 <Meta title="Spinner" component={Spinner} />
 
+export const Template = (args) => <Spinner {...args} />;
+
 ### Spinner
 
 This is a [React](https://reactjs.org/) component for the Vanilla [Spin](https://docs.vanillaframework.io/settings/animation-settings/#spin) animation.
@@ -15,7 +17,7 @@ This is a [React](https://reactjs.org/) component for the Vanilla [Spin](https:/
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <Spinner text="Loading..." />
+  <Story name="Default" args={{ text: "Loading..." }}>
+    {Template.bind({})}
   </Story>
 </Canvas>

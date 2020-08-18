@@ -3,7 +3,27 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import Col from "./Col";
 import Row from "../Row";
 
-<Meta title="Col" component={Col} />
+<Meta
+  title="Col"
+  component={Col}
+  argTypes={{
+    children: {
+      control: {
+        type: "text",
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => {
+  return (
+    <div className="grid-demo">
+      <Row>
+        <Col {...args} />
+      </Row>
+    </div>
+  );
+};
 
 ### Col
 
@@ -14,6 +34,14 @@ Vanilla has a responsive grid using a combination of rows and columns.
 ### Props
 
 <ArgsTable of={Col} />
+
+### Default
+
+<Canvas>
+  <Story name="Default" args={{ children: "Hi, I'm Col.", size: 12 }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
 
 ### Grid
 

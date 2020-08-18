@@ -4,6 +4,8 @@ import Chip from "./Chip";
 
 <Meta title="Chip" component={Chip} />
 
+export const Template = (args) => <Chip {...args} />;
+
 ### Chip
 
 This is a not an existing Vanilla component. It can be used to display a small value attached to a component.
@@ -15,10 +17,13 @@ This is a not an existing Vanilla component. It can be used to display a small v
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <Chip
-      value="positive"
-    />
+  <Story
+    name="Default"
+    args={{
+      value: "positive",
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
@@ -26,10 +31,7 @@ This is a not an existing Vanilla component. It can be used to display a small v
 
 <Canvas>
   <Story name="Lead-value">
-    <Chip
-      lead="Owner"
-      value="Bob"
-    />
+    <Chip lead="Owner" value="Bob" />
   </Story>
 </Canvas>
 

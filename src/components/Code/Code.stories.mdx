@@ -2,7 +2,19 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import Code from "./Code";
 
-<Meta title="Code" component={Code} />
+<Meta
+  title="Code"
+  component={Code}
+  argTypes={{
+    children: {
+      control: {
+        type: "text",
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <Code {...args} />;
 
 ### Code
 
@@ -13,6 +25,19 @@ Vanilla gives you multiple ways to display code using the standard HTML elements
 ### Props
 
 <ArgsTable of={Code} />
+
+### Default
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      children: "Mode: all Settings: maas_url=http://192.168.122.1:5240/MAAS",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
 
 ### Inline
 

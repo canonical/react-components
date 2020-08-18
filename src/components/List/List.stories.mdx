@@ -2,7 +2,24 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import List from "./List";
 
-<Meta title="List" component={List} />
+<Meta
+  title="List"
+  component={List}
+  argTypes={{
+    items: {
+      control: {
+        disable: true,
+      },
+    },
+    stepped: {
+      control: {
+        disable: true,
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <List {...args} />;
 
 ### List
 
@@ -17,8 +34,11 @@ If you want to display lists in a way that is more visually distinctive than the
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <List items={["Digital signage", "Robotics", "Gateways"]} />
+  <Story
+    name="Default"
+    args={{ items: ["Digital signage", "Robotics", "Gateways"] }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 

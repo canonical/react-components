@@ -4,7 +4,24 @@ import MainTable from "./MainTable";
 import Row from "../Row";
 import Col from "../Col";
 
-<Meta title="MainTable" component={MainTable} />
+<Meta
+  title="MainTable"
+  component={MainTable}
+  argTypes={{
+    headers: {
+      control: {
+        disable: true,
+      },
+    },
+    rows: {
+      control: {
+        disable: true,
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <MainTable {...args} />;
 
 ### MainTable
 
@@ -17,14 +34,15 @@ This is a [React](https://reactjs.org/) component to support many table use case
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <MainTable
-      headers={[
+  <Story
+    name="Default"
+    args={{
+      headers: [
         { content: null },
         { content: "Foundation Cloud" },
         { content: "Foundation Cloud Plus" },
-      ]}
-      rows={[
+      ],
+      rows: [
         {
           columns: [
             {
@@ -49,8 +67,10 @@ This is a [React](https://reactjs.org/) component to support many table use case
             { content: "$150,000" },
           ],
         },
-      ]}
-    />
+      ],
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 

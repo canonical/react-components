@@ -2,11 +2,9 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import ArticlePagination from "./ArticlePagination";
 
-<Meta
-  title="ArticlePagination"
-  component={ArticlePagination}
- 
-/>
+<Meta title="ArticlePagination" component={ArticlePagination} />
+
+export const Template = (args) => <ArticlePagination {...args} />;
 
 ### ArticlePagination
 
@@ -21,12 +19,15 @@ The article pagination component should be used to navigate from one article to 
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <ArticlePagination
-      nextLabel="Consectetur adipisicing elit"
-      nextURL="#next"
-      previousLabel="Lorem ipsum dolor sit amet"
-      previousURL="#previous"
-    />
+  <Story
+    name="Default"
+    args={{
+      nextLabel: "Consectetur adipisicing elit",
+      nextURL: "#next",
+      previousLabel: "Lorem ipsum dolor sit amet",
+      previousURL: "#previous",
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>

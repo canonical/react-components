@@ -4,7 +4,19 @@ import Form from "./Form";
 import Input from "../Input";
 import Select from "../Select";
 
-<Meta title="Form" component={Form} />
+<Meta
+  title="Form"
+  component={Form}
+  argTypes={{
+    children: {
+      control: {
+        disable: true,
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <Form {...args} />;
 
 ### Form
 
@@ -19,27 +31,34 @@ Form controls have global styling defined at the HTML element level. Labels and 
 ### Forms
 
 <Canvas>
-  <Story name="Default">
-    <Form>
-      <Input
-        type="text"
-        id="exampleInputEmail12"
-        placeholder="example@canonical.com"
-        label="Email address"
-      />
-      <Input
-        type="password"
-        id="exampleInputPassword12"
-        placeholder="******"
-        label="Password"
-      />
-      <Input type="file" id="exampleInputFile2" label="File input" />
-      <Input
-        type="checkbox"
-        id="CheckMe2"
-        label="I agree to receive information about Canonical’s products and services."
-      />
-    </Form>
+  <Story
+    name="Default"
+    args={{
+      children: (
+        <>
+          <Input
+            type="text"
+            id="exampleInputEmail12"
+            placeholder="example@canonical.com"
+            label="Email address"
+          />
+          <Input
+            type="password"
+            id="exampleInputPassword12"
+            placeholder="******"
+            label="Password"
+          />
+          <Input type="file" id="exampleInputFile2" label="File input" />
+          <Input
+            type="checkbox"
+            id="CheckMe2"
+            label="I agree to receive information about Canonical’s products and services."
+          />
+        </>
+      ),
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 

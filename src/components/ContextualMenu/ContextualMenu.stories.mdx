@@ -5,8 +5,16 @@ import ContextualMenu from "./ContextualMenu";
 <Meta
   title="ContextualMenu"
   component={ContextualMenu}
- 
+  argTypes={{
+    children: {
+      control: {
+        disable: true,
+      },
+    },
+  }}
 />
+
+export const Template = (args) => <ContextualMenu {...args} />;
 
 ### Contextual Menu
 
@@ -23,11 +31,19 @@ A contextual menu can be used in conjunction with any page element to provide a 
 The contextual menu will provide a visual wrapper to any provided children. Visbility can be toggled via the `visible` prop.
 
 <Canvas>
-  <Story name="Default">
-    <ContextualMenu visible={true}>
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </ContextualMenu>
+  <Story
+    name="Default"
+    args={{
+      children: (
+        <>
+          <a href="#">Link 1</a>
+          <a href="#">Link 2</a>
+          <a href="#">Link 3</a>
+        </>
+      ),
+      visible: true,
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
