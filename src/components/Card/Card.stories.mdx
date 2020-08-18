@@ -4,7 +4,24 @@ import Card from "./Card";
 import Col from "../Col";
 import Row from "../Row";
 
-<Meta title="Card" component={Card} />
+<Meta
+  title="Card"
+  component={Card}
+  argTypes={{
+    children: {
+      control: {
+        type: "text",
+      },
+    },
+    title: {
+      control: {
+        type: "text",
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <Card {...args} />;
 
 ### Card
 
@@ -19,11 +36,15 @@ There are four card styles available to use in Vanilla: default, header, highlig
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <Card title="We'd love to have you join us as a partner.">
-      If you are an independent software vendor or bundle author, it's easy to
-      apply. You can find out more below.
-    </Card>
+  <Story
+    name="Default"
+    args={{
+      children:
+        "If you are an independent software vendor or bundle author, it's easy to apply. You can find out more below.",
+      title: "We'd love to have you join us as a partner.",
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 

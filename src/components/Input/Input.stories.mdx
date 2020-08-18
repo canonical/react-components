@@ -2,7 +2,49 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import Input from "./Input";
 
-<Meta title="Input" component={Input} />
+<Meta
+  title="Input"
+  component={Input}
+  argTypes={{
+    caution: {
+      control: {
+        type: "text",
+      },
+    },
+    error: {
+      control: {
+        type: "text",
+      },
+    },
+    help: {
+      control: {
+        type: "text",
+      },
+    },
+    label: {
+      control: {
+        type: "text",
+      },
+    },
+    success: {
+      control: {
+        type: "text",
+      },
+    },
+    id: {
+      control: {
+        disable: true,
+      },
+    },
+    placeholder: {
+      control: {
+        type: "text",
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <Input {...args} />;
 
 ### Input
 
@@ -17,13 +59,16 @@ An input field where the user can enter data, which can vary in many ways, depen
 ### Text input
 
 <Canvas>
-  <Story name="Text input">
-    <Input
-      type="text"
-      id="exampleTextInput2"
-      placeholder="example@canonical.com"
-      label="Email address"
-    />
+  <Story
+    name="Text input"
+    args={{
+      type: "text",
+      id: "exampleTextInput2",
+      placeholder: "example@canonical.com",
+      label: "Email address",
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 

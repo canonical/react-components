@@ -2,7 +2,24 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
 import Accordion from "./Accordion";
 
-<Meta title="Accordion" component={Accordion} />
+<Meta
+  title="Accordion"
+  component={Accordion}
+  argTypes={{
+    sections: {
+      control: {
+        disable: true,
+      },
+    },
+    externallyControlled: {
+      control: {
+        disable: true,
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <Accordion {...args} />;
 
 ### Accordion
 
@@ -17,9 +34,10 @@ The sidebar accordion, used in listing pages or as navigation, can hold multiple
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <Accordion
-      sections={[
+  <Story
+    name="Default"
+    args={{
+      sections: [
         {
           title: "Advanced topics",
           content: (
@@ -55,8 +73,10 @@ The sidebar accordion, used in listing pages or as navigation, can hold multiple
             </>
           ),
         },
-      ]}
-    />
+      ],
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
@@ -124,9 +144,10 @@ The expanded accordion section can be controlled by external state.
 `titleElement` prop can be used to define heading element for section titles.
 
 <Canvas>
-  <Story name="Headings">
-    <Accordion
-      sections={[
+  <Story
+    name="Headings"
+    args={{
+      sections: [
         {
           title: "Advanced topics",
           content: (
@@ -162,8 +183,10 @@ The expanded accordion section can be controlled by external state.
             </>
           ),
         },
-      ]}
-      titleElement="h3"
-    />
+      ],
+      titleElement: "h3",
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>

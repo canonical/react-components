@@ -2,7 +2,20 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import Button from "./Button";
 
-<Meta title="Button" component={Button} />
+<Meta
+  title="Button"
+  component={Button}
+  argTypes={{
+    children: {
+      control: {
+        type: "text",
+      },
+      defaultValue: "Click me!",
+    },
+  }}
+/>
+
+export const Template = (args) => <Button {...args} />;
 
 ### Button
 
@@ -17,9 +30,7 @@ Buttons are clickable elements used to perform an action, they can be used for b
 ### Base
 
 <Canvas>
-  <Story name="Base">
-    <Button appearance="base">Base button</Button>
-  </Story>
+  <Story name="Base">{Template.bind({})}</Story>
 </Canvas>
 
 <Canvas>

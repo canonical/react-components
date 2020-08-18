@@ -2,7 +2,25 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import Modal from "./Modal";
 
-<Meta title="Modal" component={Modal} />
+<Meta
+  title="Modal"
+  component={Modal}
+  argTypes={{
+    children: {
+      control: {
+        disable: true,
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => {
+  return (
+    <div style={{ height: "100vh", position: "relative" }}>
+      <Modal {...args} />
+    </div>
+  );
+};
 
 ### Modal
 
@@ -15,24 +33,30 @@ The modal component can be used to overlay an area of the screen which can conta
 <ArgsTable of={Modal} />
 
 <Canvas>
-  <Story name="Default">
-    // This containing div is only required for the component demo.
-    <div style={{ height: "100vh", position: "relative" }}>
-      <Modal close={() => {}} title="Confirm delete">
-        <p>
-          Are you sure you want to delete user "Simon"? This action is permanent
-          and can not be undone.
-        </p>
-        <hr />
-        <div className="u-align--right">
-          <button onClick={() => {}} className="u-no-margin--bottom">
-            Cancel
-          </button>
-          <button className="p-button--negative u-no-margin--bottom">
-            Delete
-          </button>
-        </div>
-      </Modal>
-    </div>
+  <Story
+    name="Default"
+    args={{
+      close: () => {},
+      title: "Confirm delete",
+      children: (
+        <>
+          <p>
+            Are you sure you want to delete user "Simon"? This action is
+            permanent and can not be undone.
+          </p>
+          <hr />
+          <div className="u-align--right">
+            <button onClick={() => {}} className="u-no-margin--bottom">
+              Cancel
+            </button>
+            <button className="p-button--negative u-no-margin--bottom">
+              Delete
+            </button>
+          </div>
+        </>
+      ),
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>

@@ -2,11 +2,9 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import SearchAndFilter from "./SearchAndFilter";
 
-<Meta
-  title="SearchAndFilter"
-  component={SearchAndFilter}
- 
-/>
+<Meta title="SearchAndFilter" component={SearchAndFilter} />
+
+export const Template = (args) => <SearchAndFilter {...args} />;
 
 ### Search And Filter
 
@@ -19,9 +17,7 @@ This component is used to search and filter large datasets.
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <SearchAndFilter />
-  </Story>
+  <Story name="Default">{Template.bind({})}</Story>
 </Canvas>
 
 ### External state

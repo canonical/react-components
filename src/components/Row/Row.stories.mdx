@@ -2,7 +2,19 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import Row from "./Row";
 
-<Meta title="Row" component={Row} />
+<Meta
+  title="Row"
+  component={Row}
+  argTypes={{
+    children: {
+      control: {
+        type: "text",
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <Row {...args} />;
 
 ### Row
 
@@ -17,8 +29,8 @@ Vanilla has a responsive grid using a combination of rows and columns.
 ### Row
 
 <Canvas>
-  <Story name="Default">
-    <Row>children...</Row>
+  <Story name="Default" args={{ children: "children..." }}>
+    {Template.bind({})}
   </Story>
 </Canvas>
 

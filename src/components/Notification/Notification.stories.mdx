@@ -2,7 +2,19 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import Notification from "./Notification";
 
-<Meta title="Notification" component={Notification} />
+<Meta
+  title="Notification"
+  component={Notification}
+  argTypes={{
+    children: {
+      control: {
+        type: "text",
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <Notification {...args} />;
 
 ### Notification
 
@@ -17,11 +29,15 @@ Notifications are used to display global information, our notification variants 
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <Notification close={() => {}}>
-      We use cookies to improve your experience. By your continued use of this
-      site you accept such use.
-    </Notification>
+  <Story
+    name="Default"
+    args={{
+      children:
+        "We use cookies to improve your experience. By your continued use of this site you accept such use.",
+      close: () => {},
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 

@@ -2,7 +2,19 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import ActionButton from "./ActionButton";
 
-<Meta title="ActionButton" component={ActionButton} />
+<Meta
+  title="ActionButton"
+  component={ActionButton}
+  argTypes={{
+    children: {
+      control: {
+        type: "text",
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <ActionButton {...args} />;
 
 ### ActionButton
 
@@ -15,17 +27,21 @@ This is a not an existing Vanilla component. It can be used to display submittin
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <ActionButton appearance="positive">Click me!</ActionButton>
+  <Story
+    name="Default"
+    args={{ appearance: "positive", children: "Click me!" }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
 ### Loading
 
 <Canvas>
-  <Story name="Loading">
-    <ActionButton appearance="positive" loading>
-      Click me!
-    </ActionButton>
+  <Story
+    name="Loading"
+    args={{ appearance: "positive", children: "Click me!", loading: true }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>

@@ -4,6 +4,8 @@ import Pagination from "./Pagination";
 
 <Meta title="Pagination" component={Pagination} />
 
+export const Template = (args) => <Pagination {...args} />;
+
 ### Pagination
 
 This is a [React](https://reactjs.org/) component for the Vanilla [Pagination](https://docs.vanillaframework.io/patterns/pagination/).
@@ -17,13 +19,16 @@ The pagination component should be used to navigate between pages of content. De
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <Pagination
-      itemsPerPage={20}
-      totalItems={100}
-      paginate={() => {}}
-      currentPage={3}
-    />
+  <Story
+    name="Default"
+    args={{
+      itemsPerPage: 20,
+      totalItems: 100,
+      paginate: () => {},
+      currentPage: 3,
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 

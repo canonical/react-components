@@ -3,7 +3,19 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import Link from "./Link";
 import Strip from "../Strip";
 
-<Meta title="Link" component={Link} />
+<Meta
+  title="Link"
+  component={Link}
+  argTypes={{
+    children: {
+      control: {
+        type: "text",
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <Link {...args} />;
 
 ### Link
 
@@ -18,10 +30,14 @@ Links are used to embed actions or pathways to more information, allowing users 
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <Link>
-      Fast, secure and simple, Ubuntu powers millions of PCs worldwide
-    </Link>
+  <Story
+    name="Default"
+    args={{
+      children:
+        "Fast, secure and simple, Ubuntu powers millions of PCs worldwide",
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 

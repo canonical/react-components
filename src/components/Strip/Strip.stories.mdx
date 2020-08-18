@@ -4,7 +4,19 @@ import Col from "../Col";
 import Row from "../Row";
 import Strip from "./Strip";
 
-<Meta title="Strip" component={Strip} />
+<Meta
+  title="Strip"
+  component={Strip}
+  argTypes={{
+    children: {
+      control: {
+        disable: true,
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <Strip {...args} />;
 
 ### Strip
 
@@ -19,10 +31,14 @@ The strip pattern provides a full width strip container in which to wrap a row.
 ### Light strip
 
 <Canvas>
-  <Story name="Light strip">
-    <Strip type="light">
-      <p>This is a light row</p>
-    </Strip>
+  <Story
+    name="Light strip"
+    args={{
+      type: "light",
+      children: <p>This is a light row</p>,
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
