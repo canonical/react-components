@@ -2,7 +2,27 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
 import Slider, { FILLED_COLOR } from "./Slider";
 
-<Meta title="Slider" component={Slider} />
+<Meta
+  title="Slider"
+  component={Slider}
+  argTypes={{
+    caution: {
+      control: {
+        type: "text",
+      },
+    },
+    error: {
+      control: {
+        type: "text",
+      },
+    },
+    help: {
+      control: {
+        type: "text",
+      },
+    },
+  }}
+/>
 
 export const Template = (args) => {
   const [selectedValue, setSelectedValue] = useState(50);
