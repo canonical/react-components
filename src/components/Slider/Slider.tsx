@@ -51,7 +51,13 @@ export const Slider = ({
     };
   }
   return (
-    <Field error={error} help={help} label={label} required={required}>
+    <Field
+      caution={caution}
+      error={error}
+      help={help}
+      label={label}
+      required={required}
+    >
       <div className="p-slider__wrapper">
         <input
           className="p-slider"
