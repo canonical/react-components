@@ -6,6 +6,8 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - uses: cypress-io/github-action@v2
+        env:
+          CYPRESS_INSTALL_BINARY: 1
         with:
           start: yarn run start-storybook --port 6006
           wait-on: "http://localhost:6006"
