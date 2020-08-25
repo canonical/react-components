@@ -9,7 +9,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- Updated Input, Select and Textarea to have a takeFocus prop which sets the focus to the input on first render.
+### Changed
+
+### Removed
+
+# [0.9.0] - 2020-08-25
+
+### Added
+
+- Added Slider component.
+- Added a takeFocus prop to Input, Select and Textarea which sets the focus to the input on first render.
+
+### Changed
+
+- Updated the caution, error, success and help props for Input, Select and Textarea to be of type `node`.
+- Update Chip to be dismissible inside a text input and make them truncatable.
+- Updated to Vanilla 2.16.0.
+- Storybook stories updated to use Controls.
+- Storybook theme updated with Vanilla colours.
+- CRA replaced with manual setup.
+
+### Removed
 
 ## [0.8.1] - 2020-07-16
 
