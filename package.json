@@ -25,6 +25,7 @@
     "@babel/cli": "7.11.5",
     "@babel/preset-typescript": "7.10.4",
     "@percy/storybook": "3.3.1",
+    "@storybook/addon-a11y": "6.0.19",
     "@storybook/addon-controls": "6.0.21",
     "@storybook/addon-docs": "6.0.21",
     "@storybook/addons": "6.0.21",
