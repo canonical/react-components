@@ -56,7 +56,7 @@
     "npm-package-json-lint": "5.1.0",
     "prettier": "2.1.1",
     "react-docgen-typescript-loader": "3.7.2",
-    "sass-loader": "9.0.3",
+    "sass-loader": "10.0.1",
     "style-loader": "1.2.1",
     "stylelint": "13.7.0",
     "stylelint-config-prettier": "8.0.2",
