@@ -88,7 +88,10 @@ const FilterPanelSection = ({
                 chip.value,
                 searchTerm
               ).match;
-              const chipVisible = searchTermInChip || searchTerm === "";
+              const chipVisible =
+                searchTermInChip ||
+                searchTerm === "" ||
+                hightlightSubString(heading, searchTerm).match;
               return (
                 <span key={`${chip.lead}+${chip.value}`}>
                   {chipVisible && (
