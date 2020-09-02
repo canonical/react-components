@@ -98,6 +98,9 @@
     cursor: pointer;
     margin-left: -1rem;
     margin-right: -1rem;
+    overflow: hidden;
     padding: 1rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
