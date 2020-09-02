@@ -131,7 +131,7 @@ FilterPanelSection.propTypes = {
     ),
   }),
   searchData: PropTypes.array,
-  searchTerm: PropTypes.array,
+  searchTerm: PropTypes.string,
   toggleSelected: PropTypes.func,
 };
 
