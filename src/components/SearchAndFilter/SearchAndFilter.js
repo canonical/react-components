@@ -131,9 +131,9 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
     }
   }, [searchData]);
 
-  // Add search prompt value to search on Enter key (code: 32) press
-  const searchPromptKeyPress = (e) => {
-    if (e.charCode === 32) {
+  // Add search prompt value to search on Enter key
+  const searchPromptKeyDown = (e) => {
+    if (e.key === "Enter") {
       handleSubmit();
     }
   };
@@ -188,7 +188,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
               <div
                 className="search-prompt"
                 onClick={() => handleSubmit()}
-                onKeyPress={(e) => searchPromptKeyPress(e)}
+                onKeyDown={(e) => searchPromptKeyDown(e)}
                 role="button"
                 tabIndex="0"
               >

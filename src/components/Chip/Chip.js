@@ -14,10 +14,9 @@ const Chip = ({
 }) => {
   // When user tabs over chip and presses Enter or Space key, chip will trigger
   // click functionality
-  const onKeyPress = (e) => {
-    // charCode 32 = Space key
-    // charCode 13 = Enter key
-    if (e.charCode === 32 || e.charCode === 13) {
+  const onKeyDown = (e) => {
+    // The " " value is what is returned for the spacebar
+    if (e.key === " " || e.key === "Enter") {
       if (onClick instanceof Function) {
         onClick({ lead: lead, cloud: value });
       }
@@ -31,7 +30,7 @@ const Chip = ({
       role="button"
       tabIndex={!onDismiss ? "0" : null}
       onClick={onClick}
-      onKeyPress={(e) => onKeyPress(e)}
+      onKeyDown={(e) => onKeyDown(e)}
     >
       <span className="p-chip__lead">
         {lead ? `${lead.toUpperCase()}: ` : null}
