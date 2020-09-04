@@ -75,8 +75,10 @@
     "@types/node": "14.10.1",
     "@types/react": "16.9.49",
     "@types/react-dom": "16.9.8",
+    "@types/react-table": "7.0.22",
     "classnames": "2.2.6",
     "prop-types": "15.7.2",
+    "react-table": "7.5.0",
     "react-useportal": "1.0.13",
     "vanilla-framework": "2.18.0"
   },
