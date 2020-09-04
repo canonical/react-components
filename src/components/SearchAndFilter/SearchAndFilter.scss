@@ -6,10 +6,8 @@
 
   &__search-container {
     align-items: center;
-    display: flex;
-    flex-wrap: wrap;
     margin: 0;
-    max-height: 40px;
+    min-height: 40px;
     overflow: hidden;
     padding: 0 2rem 0 0.5rem;
     position: relative;
@@ -42,7 +40,6 @@
 
     &[aria-expanded="true"] {
       max-height: 100%;
-      overflow: visible;
 
       .search-and-filter__selected-count {
         display: none;
@@ -92,6 +89,7 @@
     border: none;
     height: 2rem;
     margin: 0;
+    max-width: 48px;
     position: absolute;
     right: 3px;
     top: 3px;

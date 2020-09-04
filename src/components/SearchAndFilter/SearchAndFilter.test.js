@@ -120,13 +120,26 @@ describe("Search and filter", () => {
   });
 
   it("all chips are shown when counter is clicked", () => {
+    // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
+    // of the chips
+    Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
+      configurable: true,
+      value: 40,
+    });
+    Object.defineProperty(HTMLElement.prototype, "offsetTop", {
+      configurable: true,
+      value: 100,
+    });
     const wrapper = mount(
       <SearchAndFilter externallyControlled filterPanelData={sampleData} />
     );
-
     expect(
       wrapper.find(".search-and-filter__search-container").prop("aria-expanded")
     ).toEqual(false);
+    wrapper
+      .find(".filter-panel-section__chips .p-chip")
+      .first()
+      .simulate("click");
     wrapper.find(".search-and-filter__selected-count").simulate("click");
     expect(
       wrapper.find(".search-and-filter__search-container").prop("aria-expanded")

@@ -9,9 +9,11 @@
     box-shadow: none;
     margin-left: -0.5rem;
     margin-right: -2rem;
+    min-height: 36px;
     min-width: 6rem;
     padding: 0.5rem;
-    position: static;
+    position: relative;
+    top: 3px;
   }
 }
 
