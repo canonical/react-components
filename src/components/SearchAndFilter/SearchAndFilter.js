@@ -15,12 +15,29 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
   const [filterPanelHidden, setFilterPanelHidden] = useState(true);
   const [searchBoxExpanded, setSearchBoxExpanded] = useState(false);
   const [overflowSearchTermCounter, setOverflowSearchTermCounter] = useState(0);
-  const filterPanelRef = useRef(null);
+  const searchAndFilterRef = useRef(null);
   const searchContainerRef = useRef(null);
+  const searchBoxRef = useRef(null);
+  const [searchContainerActive, setSearchContainerActive] = useState(false);
 
   const searchOnChange = (searchTerm) => {
     setSearchTerm(searchTerm);
   };
+
+  // Hide manual input form field when search container is inactive
+  useEffect(() => {
+    const searchContainerClickCheck = document.addEventListener(
+      "click",
+      (e) => {
+        const clickInContainer =
+          e.target?.closest(".search-and-filter__search-container") !== null;
+        setSearchContainerActive(clickInContainer);
+      }
+    );
+    return () => {
+      document.removeEventListener("click", searchContainerClickCheck);
+    };
+  }, [searchContainerActive]);
 
   // This useEffect sets up listeners so the panel will close if user clicks
   // anywhere else on the page or hits the escape key
@@ -31,7 +48,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
 
     const mouseDown = (e) => {
       // Check if click is outside of filter panel
-      if (!filterPanelRef?.current?.contains(e.target)) {
+      if (!searchAndFilterRef?.current?.contains(e.target)) {
         // If so, close the panel
         closePanel();
       }
@@ -138,11 +155,25 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
     }
   };
 
+  const searchBox = searchBoxRef.current;
+  const searchContainer = searchContainerRef.current;
+  if (
+    !searchBoxExpanded &&
+    searchBox &&
+    searchContainer &&
+    overflowSearchTermCounter === 0
+  ) {
+    if (searchBox.offsetTop > searchContainer.offsetHeight) {
+      setSearchBoxExpanded(true);
+    }
+  }
+
   return (
-    <div className="search-and-filter" ref={filterPanelRef}>
+    <div className="search-and-filter" ref={searchAndFilterRef}>
       <div
         className="search-and-filter__search-container"
         aria-expanded={searchBoxExpanded}
+        data-active={searchContainerActive}
         ref={searchContainerRef}
       >
         {Object.values(searchData).map((chip) => {
@@ -165,6 +196,8 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
           onFocus={() => setFilterPanelHidden(false)}
           onSubmit={(e) => handleSubmit(e)}
           value={searchTerm}
+          ref={searchBoxRef}
+          data-overflowing={searchBoxExpanded}
         />
         {overflowSearchTermCounter > 0 && (
           <span
