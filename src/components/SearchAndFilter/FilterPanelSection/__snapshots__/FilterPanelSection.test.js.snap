@@ -22,7 +22,6 @@ exports[`Filter panel section renders 1`] = `
       >
         <Chip
           onClick={[Function]}
-          selected={false}
           value="us-east1"
         />
       </span>
@@ -31,7 +30,6 @@ exports[`Filter panel section renders 1`] = `
       >
         <Chip
           onClick={[Function]}
-          selected={false}
           value="us-east2"
         />
       </span>
@@ -40,7 +38,6 @@ exports[`Filter panel section renders 1`] = `
       >
         <Chip
           onClick={[Function]}
-          selected={false}
           value="us-east3"
         />
       </span>

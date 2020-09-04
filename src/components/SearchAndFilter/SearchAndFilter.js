@@ -174,8 +174,6 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
     setSearchTerm("");
   };
 
-  console.log(searchData.length);
-
   const resetVisible = searchData.length > 0 || searchTerm !== "";
 
   return (
