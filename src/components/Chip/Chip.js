@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { hightlightSubString } from "../../utils";
+import { highlightSubString } from "../../utils";
 
 import "./Chip.scss";
 
@@ -38,7 +38,7 @@ const Chip = ({
       <span
         className="p-chip__value"
         dangerouslySetInnerHTML={{
-          __html: hightlightSubString(value, subString).text,
+          __html: highlightSubString(value, subString).text,
         }}
       />
 

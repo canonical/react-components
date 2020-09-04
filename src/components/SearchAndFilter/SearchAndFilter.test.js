@@ -123,10 +123,7 @@ describe("Search and filter", () => {
     const wrapper = mount(
       <SearchAndFilter externallyControlled filterPanelData={sampleData} />
     );
-    wrapper
-      .find(".filter-panel-section__chips .p-chip")
-      .first()
-      .simulate("click");
+
     expect(
       wrapper.find(".search-and-filter__search-container").prop("aria-expanded")
     ).toEqual(false);

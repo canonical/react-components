@@ -177,7 +177,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
     <div className="search-and-filter" ref={searchAndFilterRef}>
       <div
         className="search-and-filter__search-container"
-        aria-expanded={searchBoxExpanded}
+        aria-expanded={searchBoxExpanded || searchContainerActive}
         data-active={searchContainerActive}
         ref={searchContainerRef}
       >

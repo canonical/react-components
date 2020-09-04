@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Chip from "../../Chip";
 import { overflowingChipsCount } from "../shared";
-import { hightlightSubString } from "../../../utils";
+import { highlightSubString } from "../../../utils";
 
 import "./filter-panel-section.scss";
 
@@ -30,7 +30,7 @@ const FilterPanelSection = ({
   };
 
   // Check if search term characters matches any characters in panel heading
-  const searchTermInHeading = hightlightSubString(heading, searchTerm).match;
+  const searchTermInHeading = highlightSubString(heading, searchTerm).match;
 
   // Serialise chip values into string so it can be interrogated with subString
   let chipValues = [];
@@ -38,7 +38,7 @@ const FilterPanelSection = ({
     chipValues.push(chipValue[1].value);
   });
   // Search chips for character match with search term
-  const searchTermInChips = hightlightSubString(
+  const searchTermInChips = highlightSubString(
     chipValues.toString(),
     searchTerm
   ).match;
@@ -72,7 +72,7 @@ const FilterPanelSection = ({
             <h3
               className="filter-panel-section__heading"
               dangerouslySetInnerHTML={{
-                __html: hightlightSubString(heading, searchTerm).text,
+                __html: highlightSubString(heading, searchTerm).text,
               }}
             />
           )}
@@ -84,14 +84,14 @@ const FilterPanelSection = ({
             {chips?.map((chip) => {
               // If search term has been added to input, only matching chips
               // should display
-              const searchTermInChip = hightlightSubString(
+              const searchTermInChip = highlightSubString(
                 chip.value,
                 searchTerm
               ).match;
               const chipVisible =
                 searchTermInChip ||
                 searchTerm === "" ||
-                hightlightSubString(heading, searchTerm).match;
+                highlightSubString(heading, searchTerm).match;
               return (
                 <span key={`${chip.lead}+${chip.value}`}>
                   {chipVisible && (
