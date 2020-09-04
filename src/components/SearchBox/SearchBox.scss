@@ -1,7 +1,8 @@
 .p-search-box {
   display: inline-flex;
   flex: 1;
-  margin: 0;
+  margin: -3px 0 0;
+  position: relative;
 
   &__input {
     border: 0;
@@ -16,7 +17,6 @@
 
 .p-chip + .p-search-box {
   margin-left: 0.5rem;
-  margin-top: -3px;
 }
 
 .p-search-box__button,
