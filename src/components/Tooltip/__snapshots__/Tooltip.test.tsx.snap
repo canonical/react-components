@@ -8,7 +8,15 @@ exports[`<Tooltip /> renders and matches the snapshot 1`] = `
     onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
-    Child
+    <span
+      style={
+        Object {
+          "display": "inline-block",
+        }
+      }
+    >
+      Child
+    </span>
   </span>
 </Fragment>
 `;
