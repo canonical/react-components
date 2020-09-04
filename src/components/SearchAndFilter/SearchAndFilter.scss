@@ -8,10 +8,10 @@
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    height: 38px;
-    margin: 0 0.5rem;
+    height: 40px;
+    margin: 0;
     overflow: hidden;
-    padding-right: 1rem;
+    padding: 0 1rem 0 0.5rem;
     position: relative;
 
     // if search container is not active
@@ -24,30 +24,6 @@
 
     .p-chip {
       margin-bottom: 0.5rem;
-    }
-
-    .p-search-box {
-      display: inline-flex;
-      flex: 1;
-      margin: 0;
-
-      &__input {
-        border: 0;
-        box-shadow: none;
-        margin-top: -0.5rem;
-        min-width: 6rem;
-        padding: 0.5rem 0.5rem 0;
-        position: static;
-      }
-
-      &__input:focus {
-        outline: none;
-      }
-    }
-
-    .p-search-box__button,
-    .p-search-box__reset {
-      display: none;
     }
 
     .search-and-filter__selected-count {

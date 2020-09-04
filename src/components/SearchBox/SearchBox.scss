@@ -1,0 +1,25 @@
+.p-search-box {
+  display: inline-flex;
+  flex: 1;
+  margin: 0;
+
+  &__input {
+    border: 0;
+    box-shadow: none;
+    margin-left: -0.5rem;
+    margin-right: -1rem;
+    min-width: 6rem;
+    padding: 0.5rem;
+    position: static;
+  }
+}
+
+.p-chip + .p-search-box {
+  margin-left: 0.5rem;
+  margin-top: -3px;
+}
+
+.p-search-box__button,
+.p-search-box__reset {
+  display: none;
+}
