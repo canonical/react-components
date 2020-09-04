@@ -87,4 +87,14 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  &__clear {
+    border: none;
+    height: 2rem;
+    margin: 0;
+    position: absolute;
+    right: 3px;
+    top: 3px;
+    z-index: 999;
+  }
 }

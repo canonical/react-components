@@ -168,6 +168,16 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
     }
   }
 
+  // If chips or input field contains values, clear 'em out
+  const clearAllSearchTerms = () => {
+    setSearchData([]);
+    setSearchTerm("");
+  };
+
+  console.log(searchData.length);
+
+  const resetVisible = searchData.length > 0 || searchTerm !== "";
+
   return (
     <div className="search-and-filter" ref={searchAndFilterRef}>
       <div
@@ -176,6 +186,14 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
         data-active={searchContainerActive}
         ref={searchContainerRef}
       >
+        {resetVisible && (
+          <button
+            className="search-and-filter__clear"
+            onClick={() => clearAllSearchTerms()}
+          >
+            <i className="p-icon--close" />
+          </button>
+        )}
         {Object.values(searchData).map((chip) => {
           return (
             <Chip
