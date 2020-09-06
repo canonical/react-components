@@ -2,6 +2,7 @@
 
 exports[`TableCell renders 1`] = `
 <td
+  aria-hidden={false}
   className=""
   role="gridcell"
 >

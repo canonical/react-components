@@ -14,7 +14,11 @@ describe("TableHeader", () => {
   });
 
   it("can set a sort", () => {
-    const wrapper = shallow(<TableHeader sort="ascending" />);
+    const wrapper = shallow(
+      <TableHeader sort="ascending">
+        <tr></tr>
+      </TableHeader>
+    );
     expect(wrapper.prop("aria-sort")).toEqual("ascending");
   });
 });
