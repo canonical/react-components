@@ -9,6 +9,10 @@ See the [component docs](https://canonical-web-and-design.github.io/react-compon
 ![CI](https://github.com/canonical-web-and-design/react-components/workflows/CI/badge.svg?branch=master)
 ![Cypress chrome headless](https://github.com/canonical-web-and-design/react-components/workflows/Cypress%20chrome%20headless/badge.svg)
 
+## Requirements
+
+Canonical react components currently require that your build is configured with [sass-loader](https://github.com/webpack-contrib/sass-loader) (or equivalent), to compile sass.
+
 ## Install
 
 To use the [NPM package](https://www.npmjs.com/package/@canonical/react-components) do:
