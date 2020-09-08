@@ -2,73 +2,73 @@ import { useCallback, useEffect, useRef } from "react";
 
 import { useListener } from "./useListener";
 
-export type FitsScreen = {
+export type WindowFitment = {
   fromTop: {
     // Whether the target element fits between the top edge of the reference
-    // element and the top edge of the screen.
+    // element and the top edge of the window.
     fitsAbove: boolean;
     // Whether the target element fits between the top edge of the reference
-    // element and the bottom edge of the screen.
+    // element and the bottom edge of the window.
     fitsBelow: boolean;
   };
   fromBottom: {
     // Whether the target element fits between the bottom edge of the reference
-    // element and the top edge of the screen.
+    // element and the top edge of the window.
     fitsAbove: boolean;
     // Whether the target element fits between the bottom edge of the reference
-    // element and the bottom edge of the screen.
+    // element and the bottom edge of the window.
     fitsBelow: boolean;
   };
   fromLeft: {
     // Whether the target element fits between the left edge of the reference
-    // element and the left edge of the screen.
+    // element and the left edge of the window.
     fitsLeft: boolean;
     // Whether the target element fits between the left edge of the reference
-    // element and the right edge of the screen.
+    // element and the right edge of the window.
     fitsRight: boolean;
   };
   fromRight: {
     // Whether the target element fits between the right edge of the reference
-    // element and the left edge of the screen.
+    // element and the left edge of the window.
     fitsLeft: boolean;
     // Whether the target element fits between the right edge of the reference
-    // element and the right edge of the screen.
+    // element and the right edge of the window.
     fitsRight: boolean;
   };
   fromCenter: {
     // Whether the target element fits between the horizontal center of the
-    // reference element and the left edge of the screen.
+    // reference element and the left edge of the window.
     fitsLeft: boolean;
     // Whether the target element fits between the horizontal center of the
-    // reference element and the right edge of the screen.
+    // reference element and the right edge of the window.
     fitsRight: boolean;
     // Whether the target element fits between the vertical center of the
-    // reference element and the top edge of the screen.
+    // reference element and the top edge of the window.
     fitsAbove: boolean;
     // Whether the target element fits between the vertical center of the
-    // reference element and the bottom edge of the screen.
+    // reference element and the bottom edge of the window.
     fitsBelow: boolean;
     fitsCentered: {
       // Whether the top half of the target element fits between the vertical
-      // center of the reference element and the top edge of the screen.
+      // center of the reference element and the top edge of the window.
       fitsAbove: boolean;
       // Whether the bottom half of the target element fits between the vertical
-      // center of the reference element and the bottom edge of the screen.
+      // center of the reference element and the bottom edge of the window.
       fitsBelow: boolean;
       // Whether the left half of the target element fits between the horizontal
-      // center of the reference element and the left edge of the screen.
+      // center of the reference element and the left edge of the window.
       fitsLeft: boolean;
       // Whether the right half of the target element fits between the
       // horizontal center of the reference element and the right edge of
-      // the screen.
+      // the window.
       fitsRight: boolean;
     };
   };
 };
 
 /**
- * A hook to determine if an element fits on the screen.
- * @param targetNode The element to try and fit on the screen.
+ * A hook to determine if an element fits on the window.
+ * @param targetNode The element to try and fit on the window.
  * @param referenceNode The element to use to position the target.
  * @param callback The function to call when updating fitment info.
  * @param spacer An additional space to leave between the target and reference.
@@ -77,10 +77,10 @@ export type FitsScreen = {
  *                  to the mouse. In this case refernceNode will be used to
  *                  listen for mouseover events.
  */
-export const useFitsScreen = (
+export const useWindowFitment = (
   targetNode: HTMLElement,
   referenceNode: HTMLElement,
-  callback: (fitsScreen: FitsScreen) => void,
+  callback: (fitsWindow: WindowFitment) => void,
   spacer = 0,
   shouldCheck = true,
   fromMouse = false
@@ -123,10 +123,10 @@ export const useFitsScreen = (
         const referenceRight = referenceLeft + referenceWidth;
         const referenceCenterX = referenceLeft + referenceWidth / 2;
         const referenceCenterY = referenceTop + referenceHeight / 2;
-        const screenLeft = htmlRef.current.scrollLeft;
-        const screenRight = window.innerWidth - htmlRef.current.scrollLeft;
-        const screenTop = 0;
-        const screenBottom = window.innerHeight;
+        const windowLeft = htmlRef.current.scrollLeft;
+        const windowRight = window.innerWidth - htmlRef.current.scrollLeft;
+        const windowTop = 0;
+        const windowBottom = window.innerHeight;
         const heightIncludingSpace = targetHeight + spacer;
         const widthIncludingSpace = targetHeight + spacer;
         const widthFromCenter = targetWidth / 2;
@@ -134,31 +134,31 @@ export const useFitsScreen = (
 
         callback({
           fromTop: {
-            fitsAbove: referenceTop - heightIncludingSpace > screenTop,
-            fitsBelow: referenceTop + heightIncludingSpace < screenBottom,
+            fitsAbove: referenceTop - heightIncludingSpace > windowTop,
+            fitsBelow: referenceTop + heightIncludingSpace < windowBottom,
           },
           fromBottom: {
-            fitsAbove: referenceBottom - heightIncludingSpace > screenTop,
-            fitsBelow: referenceBottom + heightIncludingSpace < screenBottom,
+            fitsAbove: referenceBottom - heightIncludingSpace > windowTop,
+            fitsBelow: referenceBottom + heightIncludingSpace < windowBottom,
           },
           fromLeft: {
-            fitsLeft: referenceLeft - widthIncludingSpace > screenLeft,
-            fitsRight: referenceLeft + widthIncludingSpace < screenRight,
+            fitsLeft: referenceLeft - widthIncludingSpace > windowLeft,
+            fitsRight: referenceLeft + widthIncludingSpace < windowRight,
           },
           fromRight: {
-            fitsLeft: referenceRight - widthIncludingSpace > screenLeft,
-            fitsRight: referenceRight + widthIncludingSpace < screenRight,
+            fitsLeft: referenceRight - widthIncludingSpace > windowLeft,
+            fitsRight: referenceRight + widthIncludingSpace < windowRight,
           },
           fromCenter: {
-            fitsLeft: referenceCenterX - widthIncludingSpace > screenLeft,
-            fitsRight: referenceCenterX + widthIncludingSpace < screenRight,
-            fitsAbove: referenceCenterY - heightIncludingSpace > screenTop,
-            fitsBelow: referenceCenterY + heightIncludingSpace < screenBottom,
+            fitsLeft: referenceCenterX - widthIncludingSpace > windowLeft,
+            fitsRight: referenceCenterX + widthIncludingSpace < windowRight,
+            fitsAbove: referenceCenterY - heightIncludingSpace > windowTop,
+            fitsBelow: referenceCenterY + heightIncludingSpace < windowBottom,
             fitsCentered: {
-              fitsLeft: referenceCenterX - widthFromCenter > screenLeft,
-              fitsRight: referenceCenterX + widthFromCenter < screenRight,
-              fitsAbove: referenceCenterY - heightFromCenter > screenTop,
-              fitsBelow: referenceCenterY + heightFromCenter < screenBottom,
+              fitsLeft: referenceCenterX - widthFromCenter > windowLeft,
+              fitsRight: referenceCenterX + widthFromCenter < windowRight,
+              fitsAbove: referenceCenterY - heightFromCenter > windowTop,
+              fitsBelow: referenceCenterY + heightFromCenter < windowBottom,
             },
           },
         });

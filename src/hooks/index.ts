@@ -1,5 +1,5 @@
-export { useFitsScreen } from "./useFitsScreen";
+export { useWindowFitment } from "./useWindowFitment";
 export { useListener } from "./useListener";
 export { usePrevious } from "./usePrevious";
 export { useThrottle } from "./useThrottle";
-export type { FitsScreen } from "./useFitsScreen";
+export type { WindowFitment } from "./useWindowFitment";

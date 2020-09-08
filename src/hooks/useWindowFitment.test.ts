@@ -1,12 +1,12 @@
 import { renderHook } from "@testing-library/react-hooks";
 
-import { FitsScreen, useFitsScreen } from "./useFitsScreen";
+import { WindowFitment, useWindowFitment } from "./useWindowFitment";
 
-describe("useFitsScreen", () => {
+describe("useWindowFitment", () => {
   let callback: jest.Mock;
   let targetNode: HTMLElement;
   let referenceNode: HTMLElement;
-  let fits: FitsScreen;
+  let fits: WindowFitment;
 
   beforeEach(() => {
     callback = jest.fn();
@@ -33,13 +33,13 @@ describe("useFitsScreen", () => {
   });
 
   it("can respond with the fitment info", () => {
-    renderHook(() => useFitsScreen(targetNode, referenceNode, callback));
+    renderHook(() => useWindowFitment(targetNode, referenceNode, callback));
     expect(callback).toHaveBeenCalledWith(fits);
   });
 
   it("does not respond when not checking", () => {
     renderHook(() =>
-      useFitsScreen(targetNode, referenceNode, callback, 0, false)
+      useWindowFitment(targetNode, referenceNode, callback, 0, false)
     );
     expect(callback).not.toHaveBeenCalled();
   });
@@ -52,7 +52,7 @@ describe("useFitsScreen", () => {
         top: 20,
         width: 10,
       } as DOMRect);
-    renderHook(() => useFitsScreen(targetNode, referenceNode, callback));
+    renderHook(() => useWindowFitment(targetNode, referenceNode, callback));
     expect(callback).toHaveBeenCalledWith({
       fromTop: { fitsAbove: true, fitsBelow: true },
       fromBottom: { fitsAbove: true, fitsBelow: true },
@@ -83,7 +83,7 @@ describe("useFitsScreen", () => {
       } as DOMRect);
     global.innerHeight = 10;
     global.innerWidth = 10;
-    renderHook(() => useFitsScreen(targetNode, referenceNode, callback));
+    renderHook(() => useWindowFitment(targetNode, referenceNode, callback));
     expect(callback).toHaveBeenCalledWith({
       fromTop: { fitsAbove: false, fitsBelow: false },
       fromBottom: { fitsAbove: false, fitsBelow: false },
