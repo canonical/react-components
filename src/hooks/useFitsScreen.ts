@@ -127,34 +127,38 @@ export const useFitsScreen = (
         const screenRight = window.innerWidth - htmlRef.current.scrollLeft;
         const screenTop = 0;
         const screenBottom = window.innerHeight;
+        const heightIncludingSpace = targetHeight + spacer;
+        const widthIncludingSpace = targetHeight + spacer;
+        const widthFromCenter = targetWidth / 2;
+        const heightFromCenter = targetHeight / 2;
 
         callback({
           fromTop: {
-            fitsAbove: referenceTop - targetHeight - spacer > screenTop,
-            fitsBelow: referenceTop + targetHeight + spacer < screenBottom,
+            fitsAbove: referenceTop - heightIncludingSpace > screenTop,
+            fitsBelow: referenceTop + heightIncludingSpace < screenBottom,
           },
           fromBottom: {
-            fitsAbove: referenceBottom - targetHeight - spacer > screenTop,
-            fitsBelow: referenceBottom + targetHeight + spacer < screenBottom,
+            fitsAbove: referenceBottom - heightIncludingSpace > screenTop,
+            fitsBelow: referenceBottom + heightIncludingSpace < screenBottom,
           },
           fromLeft: {
-            fitsLeft: referenceLeft - targetWidth - spacer > screenLeft,
-            fitsRight: referenceLeft + targetWidth + spacer < screenRight,
+            fitsLeft: referenceLeft - widthIncludingSpace > screenLeft,
+            fitsRight: referenceLeft + widthIncludingSpace < screenRight,
           },
           fromRight: {
-            fitsLeft: referenceRight - targetWidth - spacer > screenLeft,
-            fitsRight: referenceRight + targetWidth + spacer < screenRight,
+            fitsLeft: referenceRight - widthIncludingSpace > screenLeft,
+            fitsRight: referenceRight + widthIncludingSpace < screenRight,
           },
           fromCenter: {
-            fitsLeft: referenceCenterX - targetWidth - spacer > screenLeft,
-            fitsRight: referenceCenterX + targetWidth + spacer < screenRight,
-            fitsAbove: referenceCenterY - targetHeight - spacer > screenTop,
-            fitsBelow: referenceCenterY + targetHeight + spacer < screenBottom,
+            fitsLeft: referenceCenterX - widthIncludingSpace > screenLeft,
+            fitsRight: referenceCenterX + widthIncludingSpace < screenRight,
+            fitsAbove: referenceCenterY - heightIncludingSpace > screenTop,
+            fitsBelow: referenceCenterY + heightIncludingSpace < screenBottom,
             fitsCentered: {
-              fitsLeft: referenceCenterX - targetWidth / 2 > screenLeft,
-              fitsRight: referenceCenterX + targetWidth / 2 < screenRight,
-              fitsAbove: referenceCenterY - targetHeight / 2 > screenTop,
-              fitsBelow: referenceCenterY + targetHeight / 2 < screenBottom,
+              fitsLeft: referenceCenterX - widthFromCenter > screenLeft,
+              fitsRight: referenceCenterX + widthFromCenter < screenRight,
+              fitsAbove: referenceCenterY - heightFromCenter > screenTop,
+              fitsBelow: referenceCenterY + heightFromCenter < screenBottom,
             },
           },
         });
