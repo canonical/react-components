@@ -34,33 +34,12 @@ export type Position =
   | "top-right";
 
 export type Props = {
-  /**
-   * Whether the tooltip should adjust to fit in the screen.
-   */
   autoAdjust?: boolean;
-  /**
-   * An optional class to apply to the wrapping element.
-   */
   className?: string;
-  /**
-   * Element on which to apply the tooltip.
-   */
   children: ReactNode;
-  /**
-   * Whether the tooltip should follow the mouse.
-   */
   followMouse?: boolean;
-  /**
-   * Message to display when the element is hovered.
-   */
   message?: string;
-  /**
-   * Position of the tooltip relative to the element.
-   */
   position?: Position;
-  /**
-   * An optional class to apply to the tooltip message element.
-   */
   tooltipClassName?: string;
 };
 
@@ -157,6 +136,16 @@ export const adjustForWindow = (
   return newPosition as Position;
 };
 
+/**
+ * A React component for Vanilla tooltips.
+ * @param [autoAdjust=true] Whether the tooltip should adjust to fit in the screen.
+ * @param children Element on which to apply the tooltip.
+ * @param className An optional class to apply to the wrapping element.
+ * @param [followMouse=false] Whether the tooltip should follow the mouse.
+ * @param message Message to display when the element is hovered.
+ * @param [position="top-left"] Position of the tooltip relative to the element.
+ * @param tooltipClassName An optional class to apply to the tooltip message element.
+ */
 const Tooltip = ({
   autoAdjust = true,
   children,
