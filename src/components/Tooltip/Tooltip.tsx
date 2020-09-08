@@ -4,8 +4,8 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import usePortal from "react-useportal";
 
-import { useFitsScreen, useListener } from "../../hooks";
-import type { FitsScreen } from "../../hooks";
+import { useWindowFitment, useListener } from "../../hooks";
+import type { WindowFitment } from "../../hooks";
 
 export type CSSPosition =
   | "static"
@@ -91,30 +91,30 @@ const getPositionStyle = (
 
 export const adjustForWindow = (
   position: Position,
-  fitsScreen: FitsScreen
+  fitsWindow: WindowFitment
 ): Position => {
   let newPosition: string = position;
-  if (!fitsScreen.fromLeft.fitsLeft && newPosition === "left") {
+  if (!fitsWindow.fromLeft.fitsLeft && newPosition === "left") {
     newPosition = "top-right";
   }
-  if (!fitsScreen.fromRight.fitsRight && newPosition === "right") {
+  if (!fitsWindow.fromRight.fitsRight && newPosition === "right") {
     newPosition = "top-left";
   }
-  if (!fitsScreen.fromRight.fitsLeft && newPosition.endsWith("-right")) {
+  if (!fitsWindow.fromRight.fitsLeft && newPosition.endsWith("-right")) {
     newPosition = newPosition.replace("right", "left");
   }
-  if (!fitsScreen.fromLeft.fitsRight && newPosition.endsWith("-left")) {
+  if (!fitsWindow.fromLeft.fitsRight && newPosition.endsWith("-left")) {
     newPosition = newPosition.replace("left", "right");
   }
-  if (!fitsScreen.fromTop.fitsAbove && newPosition.startsWith("top")) {
+  if (!fitsWindow.fromTop.fitsAbove && newPosition.startsWith("top")) {
     newPosition = newPosition.replace("top", "btm");
   }
-  if (!fitsScreen.fromBottom.fitsBelow && newPosition.startsWith("btm")) {
+  if (!fitsWindow.fromBottom.fitsBelow && newPosition.startsWith("btm")) {
     newPosition = newPosition.replace("btm", "top");
   }
   if (
-    !fitsScreen.fromLeft.fitsRight &&
-    !fitsScreen.fromRight.fitsLeft &&
+    !fitsWindow.fromLeft.fitsRight &&
+    !fitsWindow.fromRight.fitsLeft &&
     (newPosition.endsWith("-left") || newPosition.endsWith("-right"))
   ) {
     newPosition = newPosition
@@ -123,13 +123,13 @@ export const adjustForWindow = (
   }
   if (
     newPosition.endsWith("center") &&
-    (fitsScreen.fromCenter.fitsCentered.fitsRight ||
-      fitsScreen.fromCenter.fitsCentered.fitsLeft)
+    (fitsWindow.fromCenter.fitsCentered.fitsRight ||
+      fitsWindow.fromCenter.fitsCentered.fitsLeft)
   ) {
-    if (!fitsScreen.fromCenter.fitsCentered.fitsRight) {
+    if (!fitsWindow.fromCenter.fitsCentered.fitsRight) {
       newPosition = newPosition.replace("center", "right");
     }
-    if (!fitsScreen.fromCenter.fitsCentered.fitsLeft) {
+    if (!fitsWindow.fromCenter.fitsCentered.fitsLeft) {
       newPosition = newPosition.replace("center", "left");
     }
   }
@@ -185,9 +185,9 @@ const Tooltip = ({
     });
   }, []);
 
-  const onUpdateFitsScreen = useCallback(
-    (fitsScreen) => {
-      setAdjustedPosition(adjustForWindow(position, fitsScreen));
+  const onUpdateWindowFitment = useCallback(
+    (fitsWindow) => {
+      setAdjustedPosition(adjustForWindow(position, fitsWindow));
     },
     [setAdjustedPosition, position]
   );
@@ -202,10 +202,10 @@ const Tooltip = ({
   );
 
   // Handle adjusting the position of the tooltip so that it remains on screen.
-  useFitsScreen(
+  useWindowFitment(
     messageRef.current,
     wrapperRef.current,
-    onUpdateFitsScreen,
+    onUpdateWindowFitment,
     20,
     isOpen,
     autoAdjust && followMouse
