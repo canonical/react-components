@@ -32,9 +32,7 @@ const Chip = ({
       onClick={onClick}
       onKeyDown={(e) => onKeyDown(e)}
     >
-      <span className="p-chip__lead">
-        {lead ? `${lead.toUpperCase()}: ` : null}
-      </span>
+      {lead && <span className="p-chip__lead">{lead.toUpperCase()}</span>}
       <span
         className="p-chip__value"
         dangerouslySetInnerHTML={{

@@ -8,9 +8,6 @@ exports[`Chip  renders default chip 1`] = `
   tabIndex="0"
 >
   <span
-    className="p-chip__lead"
-  />
-  <span
     className="p-chip__value"
     dangerouslySetInnerHTML={
       Object {
@@ -31,7 +28,7 @@ exports[`Chip  renders lead-value chip 1`] = `
   <span
     className="p-chip__lead"
   >
-    OWNER: 
+    OWNER
   </span>
   <span
     className="p-chip__value"
