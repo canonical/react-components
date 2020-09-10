@@ -8,7 +8,9 @@ import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
 
-function ModularTable({ data, columns }) {
+import { TSFixMe } from "../../index";
+
+function ModularTable({ data, columns }: TSFixMe): JSX.Element {
   const {
     getTableProps,
     getTableBodyProps,
