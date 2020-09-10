@@ -1,16 +1,22 @@
 import React from "react";
-// TODO:
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { useTable } from "react-table";
+import type { Column } from "react-table";
 
 import Table from "../Table";
 import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
 
-import { TSFixMe } from "../../index";
+export type Props<D extends Record<string, unknown>> = {
+  columns: Column<D>[];
+  data: D[];
+};
 
-function ModularTable({ data, columns }: TSFixMe): JSX.Element {
+function ModularTable({
+  data,
+  columns,
+}: Props<Record<string, unknown>>): JSX.Element {
   const {
     getTableProps,
     getTableBodyProps,
@@ -63,5 +69,16 @@ function ModularTable({ data, columns }: TSFixMe): JSX.Element {
     </Table>
   );
 }
+
+ModularTable.propTypes = {
+  columns: PropTypes.arrayOf(
+    PropTypes.shape({
+      Header: PropTypes.node,
+      accessor: PropTypes.string,
+      className: PropTypes.string,
+    })
+  ),
+  data: PropTypes.arrayOf(PropTypes.object),
+};
 
 export default ModularTable;
