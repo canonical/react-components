@@ -1,0 +1,68 @@
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import ModularTable from "./ModularTable";
+
+<Meta title="ModularTable" component={ModularTable} />
+
+### ModularTable
+
+This is a [React](https://reactjs.org/) component to support many table use cases.
+
+### Props
+
+<Props of={ModularTable} />
+
+### Default
+
+<Preview>
+  <Story name="Default">
+    <ModularTable
+      columns={React.useMemo(
+        () => [
+          {
+            Header: "ID",
+            accessor: "buildId",
+          },
+          {
+            Header: "Architecture",
+            accessor: "arch",
+          },
+          {
+            Header: "Build Duration",
+            accessor: "duration",
+            className: "u-hide--small",
+          },
+          {
+            Header: "Result",
+            accessor: "result",
+            className: "has-icon",
+          },
+          {
+            Header: "Build Finished",
+            accessor: "finished",
+            className: "u-align-text--right",
+          },
+        ],
+        []
+      )}
+      data={React.useMemo(
+        () => [
+          {
+            buildId: "#5432",
+            arch: "arm64",
+            duration: "5 minutes",
+            result: <><i class="p-icon--success"></i> Released</>,
+            finished: "10 minutes ago",
+          },
+          {
+            buildId: "#1234",
+            arch: "armhf",
+            duration: "5 minutes",
+            result: <><i class="p-icon--error"></i> Failed to build</>,
+            finished: "over 1 year ago",
+          },
+        ],
+        []
+      )}
+    />
+  </Story>
+</Preview>
