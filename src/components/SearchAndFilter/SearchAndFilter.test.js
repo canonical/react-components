@@ -1,5 +1,5 @@
 import { shallow, mount } from "enzyme";
-import React from "react";
+import React, { cloneElement } from "react";
 
 import SearchAndFilter from "./SearchAndFilter";
 
@@ -110,6 +110,7 @@ describe("Search and filter", () => {
     const wrapper = mount(
       <SearchAndFilter externallyControlled filterPanelData={sampleData} />
     );
+    wrapper.find(".p-search-box__input").simulate("click");
     wrapper
       .find(".filter-panel-section__chips .p-chip")
       .first()
@@ -136,6 +137,7 @@ describe("Search and filter", () => {
     expect(
       wrapper.find(".search-and-filter__search-container").prop("aria-expanded")
     ).toEqual(false);
+    wrapper.find(".p-search-box__input").simulate("click");
     wrapper
       .find(".filter-panel-section__chips .p-chip")
       .first()
@@ -186,6 +188,7 @@ describe("Search and filter", () => {
     const wrapper = mount(
       <SearchAndFilter externallyControlled filterPanelData={sampleData} />
     );
+    wrapper.find(".p-search-box__input").simulate("click");
     wrapper
       .find(".p-search-box__input")
       .simulate("change", { target: { value: "Google" } });

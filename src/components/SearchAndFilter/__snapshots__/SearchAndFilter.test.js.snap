@@ -7,7 +7,7 @@ exports[`Search and filter renders 1`] = `
   <div
     aria-expanded={false}
     className="search-and-filter__search-container"
-    data-active={false}
+    data-active={true}
   >
     <ForwardRef
       autocomplete="off"
