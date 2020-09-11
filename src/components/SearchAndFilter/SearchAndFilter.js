@@ -249,6 +249,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
                     toggleSelected={toggleSelected}
                     searchData={searchData}
                     searchTerm={searchTerm}
+                    sectionHidden={filterPanelHidden}
                   />
                 </div>
               );

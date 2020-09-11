@@ -11,6 +11,7 @@ const FilterPanelSection = ({
   toggleSelected,
   searchData,
   searchTerm,
+  sectionHidden,
 }) => {
   const { chips, heading } = data;
   const [overflowCounter, setOverflowCounter] = useState(0);
@@ -94,7 +95,7 @@ const FilterPanelSection = ({
                 highlightSubString(heading, searchTerm).match;
               return (
                 <span key={`${chip.lead}+${chip.value}`}>
-                  {chipVisible && (
+                  {chipVisible && !sectionHidden && (
                     <Chip
                       lead={chip.lead}
                       value={chip.value}
