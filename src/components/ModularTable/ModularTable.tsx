@@ -76,9 +76,9 @@ ModularTable.propTypes = {
       Header: PropTypes.node,
       accessor: PropTypes.string,
       className: PropTypes.string,
-    })
+    }).isRequired
   ),
-  data: PropTypes.arrayOf(PropTypes.object),
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
 
 export default ModularTable;
