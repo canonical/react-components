@@ -124,7 +124,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
 
   const handleSubmit = () => {
     if (searchTerm.trim() !== "") {
-      toggleSelected({ value: searchTerm });
+      toggleSelected({ value: `'${searchTerm}'` });
       setSearchTerm("");
     }
   };
