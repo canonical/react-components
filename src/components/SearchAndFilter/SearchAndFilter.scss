@@ -8,11 +8,16 @@
     align-items: center;
     display: flex;
     flex-wrap: wrap;
-    height: 40px;
+    height: auto;
     margin: 0;
+    min-height: 40px;
     overflow: hidden;
     padding: 0 2rem 0 0.5rem;
     position: relative;
+
+    &[data-empty="false"] {
+      height: 40px;
+    }
 
     &[data-active="true"] {
       height: auto;

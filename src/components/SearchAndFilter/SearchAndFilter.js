@@ -178,6 +178,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
         className="search-and-filter__search-container"
         aria-expanded={searchBoxExpanded || searchContainerActive}
         data-active={searchContainerActive || searchData.length === 0}
+        data-empty={searchData.length <= 0}
         ref={searchContainerRef}
       >
         {searchTerm !== "" && (
