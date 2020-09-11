@@ -30,10 +30,12 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
       "click",
       (e) => {
         const clickInContainer =
-          e.target?.closest(".search-and-filter__search-container") !== null;
+          e.target?.closest(".search-and-filter__search-container") !== null ||
+          e.target.classList.contains("p-icon--close");
         setSearchContainerActive(clickInContainer);
       }
     );
+
     return () => {
       document.removeEventListener("click", searchContainerClickCheck);
     };
@@ -178,7 +180,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
       <div
         className="search-and-filter__search-container"
         aria-expanded={searchBoxExpanded || searchContainerActive}
-        data-active={searchContainerActive}
+        data-active={searchContainerActive || searchData.length === 0}
         ref={searchContainerRef}
       >
         {searchTerm !== "" && (
