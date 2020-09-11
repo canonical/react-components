@@ -45,6 +45,7 @@
     }
 
     &[aria-expanded="true"] {
+      height: auto;
       max-height: 100%;
 
       .search-and-filter__selected-count {

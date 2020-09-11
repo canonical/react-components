@@ -105,10 +105,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
   // or clicking on a chip should hide them again
   useEffect(() => {
     const hideOverflowChips = (e) => {
-      if (
-        !e.target.closest(".search-and-filter__search-container") &&
-        !e.target.closest(".p-chip")
-      ) {
+      if (!e.target.closest(".search-and-filter")) {
         setSearchBoxExpanded(false);
       }
     };
