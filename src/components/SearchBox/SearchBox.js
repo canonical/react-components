@@ -24,9 +24,9 @@ const SearchBox = React.forwardRef(
       onChange && onChange("");
       input.current.value = "";
     };
-    const submit = (evt) => {
-      evt.preventDefault();
-      onSubmit && onSubmit(evt);
+    const submit = (e) => {
+      e.preventDefault();
+      onSubmit && onSubmit(e);
     };
     return (
       <form
