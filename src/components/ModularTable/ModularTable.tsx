@@ -46,6 +46,9 @@ function ModularTable({
       </thead>
       <tbody {...getTableBodyProps()}>
         {rows.map((row) => {
+          // This function is responsible for lazily preparing a row for rendering.
+          // Any row that you intend to render in your table needs to be passed to this function before every render.
+          // see: https://react-table.tanstack.com/docs/api/useTable#instance-properties
           prepareRow(row);
           return (
             <TableRow {...row.getRowProps()}>

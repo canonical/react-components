@@ -1,5 +1,7 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import ModularTable from "./ModularTable";
+import Notification from "../Notification";
+
 
 <Meta title="ModularTable" component={ModularTable} />
 
@@ -10,6 +12,17 @@ This is a [React](https://reactjs.org/) component to support many table use case
 ### Props
 
 <Props of={ModularTable} />
+
+ModularTable components accepts `columns` and `data` arguments in the same format as [`useTable`](https://react-table.tanstack.com/docs/api/useTable) hook of the ReactTable library.
+
+- `columns` - The core columns configuration object for the entire table. https://react-table.tanstack.com/docs/api/useTable#column-options
+- `data` - The data array that you want to display on the table.
+
+<Notification type="caution" status="Important:">
+  Values passed to both of these params have to me memoized (for example via <code>React.useMemo</code>).
+  Memoization ensures that our data isn't recreated on every render. If we didn't use <code>React.useMemo</code>,
+  the table would think it was receiving new data on every render and attempt to recalulate a lot of logic every single time.
+</Notification>
 
 ### Default
 
@@ -50,14 +63,14 @@ This is a [React](https://reactjs.org/) component to support many table use case
             buildId: "#5432",
             arch: "arm64",
             duration: "5 minutes",
-            result: <><i class="p-icon--success"></i> Released</>,
+            result: <><i className="p-icon--success"></i> Released</>,
             finished: "10 minutes ago",
           },
           {
             buildId: "#1234",
             arch: "armhf",
             duration: "5 minutes",
-            result: <><i class="p-icon--error"></i> Failed to build</>,
+            result: <><i className="p-icon--error"></i> Failed to build</>,
             finished: "over 1 year ago",
           },
         ],
