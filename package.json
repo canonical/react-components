@@ -78,7 +78,7 @@
     "classnames": "2.2.6",
     "prop-types": "15.7.2",
     "react-useportal": "1.0.13",
-    "vanilla-framework": "2.17.0"
+    "vanilla-framework": "2.18.0"
   },
   "peerDependencies": {
     "react": "16.13.1",
