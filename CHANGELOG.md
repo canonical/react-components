@@ -13,6 +13,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+# 0.10.0 - 2020-09-18
+
+### Added
+
+- Added ModularTable component.
+- Added a11y StoryBook plugin.
+
+### Changed
+
+- Added search with pattern matching functionality to the SearchAndFilter component.
+- Updated Tooltip component to automatically adjust tooltip position to keep it on screen.
+- Migrated table components to TypeScript.
+- Updated to Vanilla 2.18.0.
+
+### Removed
+
 # [0.9.0] - 2020-08-25
 
 ### Added
