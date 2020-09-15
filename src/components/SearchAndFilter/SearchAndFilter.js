@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
@@ -45,39 +46,6 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
       document.removeEventListener("click", searchContainerClickCheck);
     };
   }, [searchContainerActive]);
-
-  // This useEffect sets up listeners so the panel will close if user clicks
-  // anywhere else on the page or hits the escape key
-  useEffect(() => {
-    const closePanel = () => {
-      setFilterPanelHidden(true);
-    };
-
-    const mouseDown = (e) => {
-      // Check if click is outside of filter panel
-      if (!searchAndFilterRef?.current?.contains(e.target)) {
-        // If so, close the panel
-        closePanel();
-      }
-    };
-
-    const keyDown = (e) => {
-      if (e.code === "Escape") {
-        // Close panel if Esc keydown detected
-        closePanel();
-      }
-    };
-
-    // Add listener on document to capture click events
-    document.addEventListener("mousedown", mouseDown);
-    // Add listener on document to capture keydown events
-    document.addEventListener("keydown", keyDown);
-    // return function to be called when unmounted
-    return () => {
-      document.removeEventListener("mousedown", mouseDown);
-      document.removeEventListener("keydown", keyDown);
-    };
-  }, [searchTerm]);
 
   // Add passed chip to the searchData array
   const toggleSelected = (chip) => {
@@ -235,7 +203,17 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
           className="search-and-filter__panel"
           aria-hidden={filterPanelHidden}
         >
-          <ContextualMenu>
+          <ContextualMenu
+            autoAdjust={false}
+            className={classNames("search-and-filter__contextual-menu", {
+              "search-and-filter__contextual-menu--open": !filterPanelHidden,
+            })}
+            constrainPanelWidth
+            onToggleMenu={(visible) => setFilterPanelHidden(!visible)}
+            position="left"
+            visible={!filterPanelHidden}
+            dropdownClassName="search-and-filter__dropdown"
+          >
             {searchTerm.length > 0 && (
               <div
                 className="search-prompt"
