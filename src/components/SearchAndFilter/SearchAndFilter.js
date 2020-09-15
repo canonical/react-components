@@ -121,7 +121,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
 
   const handleSubmit = () => {
     if (searchTerm.trim() !== "") {
-      toggleSelected({ value: `'${searchTerm}'` });
+      toggleSelected({ value: searchTerm, quoteValue: true });
       setSearchTerm("");
     }
   };
@@ -197,6 +197,7 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
               key={`search-${chip.lead}+${chip.value}`}
               onDismiss={() => removeFromSelected(chip)}
               selected={true}
+              quoteValue={chip.quoteValue}
             />
           );
         })}

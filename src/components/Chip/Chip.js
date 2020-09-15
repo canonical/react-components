@@ -11,6 +11,7 @@ const Chip = ({
   onDismiss,
   selected,
   subString = "",
+  quoteValue,
 }) => {
   // When user tabs over chip and presses Enter or Space key, chip will trigger
   // click functionality
@@ -23,6 +24,7 @@ const Chip = ({
     }
   };
 
+  const chipValue = highlightSubString(value, subString).text;
   return (
     <div
       className="p-chip"
@@ -36,7 +38,7 @@ const Chip = ({
       <span
         className="p-chip__value"
         dangerouslySetInnerHTML={{
-          __html: highlightSubString(value, subString).text,
+          __html: quoteValue ? `'${chipValue}'` : chipValue,
         }}
       />
 
