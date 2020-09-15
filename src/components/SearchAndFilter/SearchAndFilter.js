@@ -9,7 +9,11 @@ import { overflowingChipsCount } from "./shared";
 
 import "./SearchAndFilter.scss";
 
-const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
+const SearchAndFilter = ({
+  externallyControlled = false,
+  filterPanelData,
+  returnSearchData,
+}) => {
   const [searchData, setSearchData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterPanelHidden, setFilterPanelHidden] = useState(true);
@@ -19,6 +23,11 @@ const SearchAndFilter = ({ externallyControlled = false, filterPanelData }) => {
   const searchContainerRef = useRef(null);
   const searchBoxRef = useRef(null);
   const [searchContainerActive, setSearchContainerActive] = useState(false);
+
+  // Return searchData to parent component
+  useEffect(() => {
+    returnSearchData(searchData);
+  }, [searchData, returnSearchData]);
 
   const searchOnChange = (searchTerm) => {
     setSearchTerm(searchTerm);

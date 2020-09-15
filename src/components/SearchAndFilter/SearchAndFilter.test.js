@@ -1,5 +1,5 @@
 import { shallow, mount } from "enzyme";
-import React, { cloneElement } from "react";
+import React from "react";
 
 import SearchAndFilter from "./SearchAndFilter";
 
@@ -27,22 +27,30 @@ const sampleData = [
 
 describe("Search and filter", () => {
   it("renders", () => {
-    const wrapper = shallow(<SearchAndFilter />);
+    const returnSearchData = jest.fn();
+    const wrapper = shallow(
+      <SearchAndFilter returnSearchData={returnSearchData} />
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
   it("hide the clear button when there is no value in search box", () => {
-    const wrapper = mount(<SearchAndFilter />);
+    const returnSearchData = jest.fn();
+    const wrapper = mount(
+      <SearchAndFilter returnSearchData={returnSearchData} />
+    );
     expect(wrapper.find(".p-search-box__reset").exists()).toBe(false);
   });
 
   it("shows panel on focus", () => {
     const mockOnChange = jest.fn();
+    const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
         externallyControlled
         onChange={mockOnChange}
         filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
       />
     );
     expect(
@@ -56,11 +64,13 @@ describe("Search and filter", () => {
 
   it("shows panel on click", () => {
     const mockOnChange = jest.fn();
+    const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
         externallyControlled
         onChange={mockOnChange}
         filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
       />
     );
     expect(
@@ -74,6 +84,7 @@ describe("Search and filter", () => {
 
   it("should hide chip overflow counter when none overflow", () => {
     const mockOnChange = jest.fn();
+    const returnSearchData = jest.fn();
     // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
     // of the chips
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
@@ -89,6 +100,7 @@ describe("Search and filter", () => {
         externallyControlled
         onChange={mockOnChange}
         filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
       />
     );
     expect(wrapper.find(".search-and-filter__selected-count").length).toEqual(
@@ -107,8 +119,13 @@ describe("Search and filter", () => {
       configurable: true,
       value: 100,
     });
+    const returnSearchData = jest.fn();
     const wrapper = mount(
-      <SearchAndFilter externallyControlled filterPanelData={sampleData} />
+      <SearchAndFilter
+        externallyControlled
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+      />
     );
     wrapper.find(".p-search-box__input").simulate("click");
     wrapper
@@ -131,8 +148,13 @@ describe("Search and filter", () => {
       configurable: true,
       value: 100,
     });
+    const returnSearchData = jest.fn();
     const wrapper = mount(
-      <SearchAndFilter externallyControlled filterPanelData={sampleData} />
+      <SearchAndFilter
+        externallyControlled
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+      />
     );
     expect(
       wrapper.find(".search-and-filter__search-container").prop("aria-expanded")
@@ -149,8 +171,13 @@ describe("Search and filter", () => {
   });
 
   it("search prompt appears when search field has search term", () => {
+    const returnSearchData = jest.fn();
     const wrapper = mount(
-      <SearchAndFilter externallyControlled filterPanelData={sampleData} />
+      <SearchAndFilter
+        externallyControlled
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+      />
     );
     expect(wrapper.find(".search-prompt").length).toEqual(0);
     wrapper
@@ -160,8 +187,13 @@ describe("Search and filter", () => {
   });
 
   it("no search results appear for unknown search term", () => {
+    const returnSearchData = jest.fn();
     const wrapper = mount(
-      <SearchAndFilter externallyControlled filterPanelData={sampleData} />
+      <SearchAndFilter
+        externallyControlled
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+      />
     );
     expect(wrapper.find(".filter-panel-section").length).toEqual(3);
     wrapper
@@ -171,8 +203,13 @@ describe("Search and filter", () => {
   });
 
   it("correct number of panels appear for matching search terms", () => {
+    const returnSearchData = jest.fn();
     const wrapper = mount(
-      <SearchAndFilter externallyControlled filterPanelData={sampleData} />
+      <SearchAndFilter
+        externallyControlled
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+      />
     );
     wrapper
       .find(".p-search-box__input")
@@ -185,8 +222,13 @@ describe("Search and filter", () => {
   });
 
   it("Matching search terms are highlighted with strong tag", () => {
+    const returnSearchData = jest.fn();
     const wrapper = mount(
-      <SearchAndFilter externallyControlled filterPanelData={sampleData} />
+      <SearchAndFilter
+        externallyControlled
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+      />
     );
     wrapper.find(".p-search-box__input").simulate("click");
     wrapper
