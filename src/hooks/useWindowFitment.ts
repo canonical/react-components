@@ -128,7 +128,7 @@ export const useWindowFitment = (
         const windowTop = 0;
         const windowBottom = window.innerHeight;
         const heightIncludingSpace = targetHeight + spacer;
-        const widthIncludingSpace = targetHeight + spacer;
+        const widthIncludingSpace = targetWidth + spacer;
         const widthFromCenter = targetWidth / 2;
         const heightFromCenter = targetHeight / 2;
 

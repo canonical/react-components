@@ -11,10 +11,19 @@ import ContextualMenu from "./ContextualMenu";
         disable: true,
       },
     },
+    links: {
+      control: {
+        disable: true,
+      },
+    },
   }}
 />
 
-export const Template = (args) => <ContextualMenu {...args} />;
+export const Template = (args) => (
+  <div className="u-align--center">
+    <ContextualMenu {...args} />
+  </div>
+);
 
 ### Contextual Menu
 
@@ -28,20 +37,42 @@ A contextual menu can be used in conjunction with any page element to provide a 
 
 ### Default
 
-The contextual menu will provide a visual wrapper to any provided children. Visbility can be toggled via the `visible` prop.
+The contextual menu will provide a visual wrapper to any provided children. Visibility can be toggled via the `visible` prop.
 
 <Canvas>
   <Story
     name="Default"
     args={{
-      children: (
-        <>
-          <a href="#">Link 1</a>
-          <a href="#">Link 2</a>
-          <a href="#">Link 3</a>
-        </>
-      ),
+      children: <span style={{ padding: "1rem" }}>This is a menu.</span>,
+      closeOnOutsideClick: false,
+      constrainPanelWidth: false,
+      position: "left",
       visible: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Toggle
+
+<Canvas>
+  <Story
+    name="Toggle"
+    args={{
+      links: [
+        {
+          children: "Link 1",
+          onClick: () => {},
+        },
+        {
+          children: "Link 2",
+          onClick: () => {},
+        },
+      ],
+      hasToggleIcon: true,
+      position: "right",
+      toggleLabel: "Click me!",
     }}
   >
     {Template.bind({})}
