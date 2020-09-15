@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ContextualMenu  renders 1`] = `
+<ContextualMenu
+  links={Array []}
+>
+  <span
+    className="p-contextual-menu"
+    style={
+      Object {
+        "position": "relative",
+      }
+    }
+  >
+    <span
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    />
+  </span>
+</ContextualMenu>
+`;
