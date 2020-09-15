@@ -1,4 +1,15 @@
 @import "~vanilla-framework/scss/base_placeholders";
+@import "~vanilla-framework/scss/settings_animations";
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
 
 .search-and-filter {
   border: 1px solid $color-mid-dark;
@@ -67,22 +78,8 @@
     display: none;
   }
 
-  [class*="p-contextual-menu"],
-  .p-contextual-menu__dropdown {
-    display: block;
-    max-width: 100%;
-    width: 100%;
-  }
-
-  .p-contextual-menu__dropdown {
-    left: 0;
-    padding: 1rem;
-    top: 0;
-  }
-
   &__panel {
     padding: 0;
-    transition: opacity 0.25s;
 
     &[aria-hidden="true"] {
       opacity: 0;
@@ -138,5 +135,19 @@
   .p-search-box__button,
   .p-search-box__reset {
     display: none;
+  }
+}
+
+.search-and-filter__contextual-menu {
+  animation: fade map-get($animation-duration, brisk);
+  animation-direction: reverse;
+  display: block;
+
+  .p-contextual-menu__dropdown {
+    padding: 1rem;
+  }
+
+  &--open {
+    animation: fade map-get($animation-duration, brisk);
   }
 }
