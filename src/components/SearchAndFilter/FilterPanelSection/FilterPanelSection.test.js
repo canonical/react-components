@@ -58,7 +58,9 @@ describe("Filter panel section", () => {
   });
 
   it("all chips are shown when counter is clicked", () => {
-    const wrapper = mount(<FilterPanelSection data={sampleData} />);
+    const wrapper = mount(
+      <FilterPanelSection data={sampleData} sectionHidden={false} />
+    );
     expect(wrapper.find("[aria-expanded=false]").length).toEqual(1);
     wrapper.find(".filter-panel-section__counter").simulate("click");
     expect(wrapper.find("[aria-expanded=true]").length).toEqual(1);

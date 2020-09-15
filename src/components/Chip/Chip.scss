@@ -7,12 +7,13 @@
   @extend %small-text;
 
   background-color: rgba($color-x-dark, 0.05);
+  border: 1px solid transparent;
   border-radius: 1rem;
+  box-sizing: border-box;
   display: inline-flex;
-  height: 1.25rem;
   margin-bottom: 0;
   margin-right: $sph-inner--small;
-  padding: 0.15rem $sph-inner map-get($nudges, nudge--small);
+  padding: calc(0.15rem - 1px) $sph-inner map-get($nudges, nudge--small);
   user-select: none;
   white-space: nowrap;
 
@@ -50,5 +51,11 @@
     margin-bottom: 0;
     padding: 0 $sp-xx-small;
     position: relative;
+  }
+
+  &:focus {
+    background-color: #0080ff23;
+    border-color: #2e96ff;
+    outline: none;
   }
 }

@@ -30,9 +30,6 @@ state and the `value` from state.
   <Story name="External state">
     <SearchAndFilter
       externallyControlled
-      onChange={(searchTerm) => {
-        console.log("onChange: ", searchTerm);
-      }}
       filterPanelData={[
         {
           id: 0,
@@ -69,6 +66,11 @@ state and the `value` from state.
           ],
         },
       ]}
+      returnSearchData={(searchData) => {
+        if (searchData.length > 0) {
+          console.info(searchData);
+        }
+      }}
     />
   </Story>
 </Canvas>

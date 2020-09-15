@@ -2,17 +2,24 @@ import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Chip from "../../Chip";
 import { overflowingChipsCount } from "../shared";
+import { highlightSubString } from "../../../utils";
 
 import "./filter-panel-section.scss";
 
-const FilterPanelSection = ({ data, addToSelected, searchData }) => {
+const FilterPanelSection = ({
+  data,
+  toggleSelected,
+  searchData,
+  searchTerm,
+  sectionHidden,
+}) => {
   const { chips, heading } = data;
   const [overflowCounter, setOverflowCounter] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const chipWrapper = useRef(null);
 
   const handleChipClick = (chip) => {
-    addToSelected(chip);
+    toggleSelected(chip);
   };
 
   // If the offsetTop is more than double height of a single chip, consider it
@@ -23,50 +30,97 @@ const FilterPanelSection = ({ data, addToSelected, searchData }) => {
     setOverflowCounter(overflowCount);
   };
 
+  // Check if search term characters matches any characters in panel heading
+  const searchTermInHeading = highlightSubString(heading, searchTerm).match;
+
+  // Serialise chip values into string so it can be interrogated with subString
+  let chipValues = [];
+  Object.entries(chips).forEach((chipValue) => {
+    chipValues.push(chipValue[1].value);
+  });
+  // Search chips for character match with search term
+  const searchTermInChips = highlightSubString(
+    chipValues.toString(),
+    searchTerm
+  ).match;
+
+  const panelSectionVisible =
+    searchTermInHeading || searchTermInChips || searchTerm === "";
+
+  // Update overflow count when component is resized
   useEffect(() => {
-    if (typeof ResizeObserver !== "undefined") {
+    if (typeof ResizeObserver !== "undefined" && panelSectionVisible) {
       const wrapperWidthObserver = new ResizeObserver(() => {
         updateFlowCount();
       });
-      const wrapper = chipWrapper.current;
+      const wrapper = chipWrapper?.current;
       wrapperWidthObserver.observe(wrapper);
     } else {
       updateFlowCount();
     }
-  }, []);
+  }, [panelSectionVisible]);
 
+  // When overflow counter is clicked, all chips are shown
   const showAllChips = () => {
     setExpanded(true);
   };
 
   return (
-    <div className="filter-panel-section" aria-expanded={expanded}>
-      {heading && <h3 className="filter-panel-section__heading">{heading}</h3>}
-      <div className="filter-panel-section__chips" ref={chipWrapper}>
-        {chips?.map((chip) => (
-          <span
-            key={`${chip.lead}+${chip.value}`}
-            onClick={() => handleChipClick(chip)}
-          >
-            <Chip
-              lead={chip.lead}
-              value={chip.value}
-              selected={searchData?.includes(chip) ? true : false}
+    <>
+      {panelSectionVisible && (
+        <div className="filter-panel-section">
+          {heading && (
+            <h3
+              className="filter-panel-section__heading"
+              dangerouslySetInnerHTML={{
+                __html: highlightSubString(heading, searchTerm).text,
+              }}
             />
-          </span>
-        ))}
-        {overflowCounter > 0 && !expanded && (
-          <span
-            className="filter-panel-section__counter"
-            onClick={showAllChips}
-            onKeyPress={showAllChips}
-            tabIndex="0"
+          )}
+          <div
+            className="filter-panel-section__chips"
+            aria-expanded={expanded}
+            ref={chipWrapper}
           >
-            +{overflowCounter}
-          </span>
-        )}
-      </div>
-    </div>
+            {chips?.map((chip) => {
+              // If search term has been added to input, only matching chips
+              // should display
+              const searchTermInChip = highlightSubString(
+                chip.value,
+                searchTerm
+              ).match;
+              const chipVisible =
+                searchTermInChip ||
+                searchTerm === "" ||
+                highlightSubString(heading, searchTerm).match;
+              return (
+                <span key={`${chip.lead}+${chip.value}`}>
+                  {chipVisible && !sectionHidden && (
+                    <Chip
+                      lead={chip.lead}
+                      value={chip.value}
+                      selected={searchData?.includes(chip)}
+                      subString={searchTerm}
+                      onClick={() => handleChipClick(chip)}
+                    />
+                  )}
+                </span>
+              );
+            })}
+            {overflowCounter > 0 && !expanded && (
+              <span
+                className="filter-panel-section__counter"
+                onClick={showAllChips}
+                onKeyPress={showAllChips}
+                tabIndex="0"
+              >
+                +{overflowCounter}
+              </span>
+            )}
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
@@ -80,6 +134,9 @@ FilterPanelSection.propTypes = {
       })
     ),
   }),
+  searchData: PropTypes.array,
+  searchTerm: PropTypes.string,
+  toggleSelected: PropTypes.func,
 };
 
 export default FilterPanelSection;

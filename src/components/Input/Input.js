@@ -20,7 +20,7 @@ const Input = ({
   type,
   ...props
 }) => {
-  const inputRef = useRef();
+  const inputRef = useRef(null);
   const labelFirst = !["checkbox", "radio"].includes(type);
 
   useEffect(() => {

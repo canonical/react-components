@@ -28,7 +28,7 @@ const Select = ({
   wrapperClassName,
   ...props
 }) => {
-  const selectRef = useRef();
+  const selectRef = useRef(null);
 
   useEffect(() => {
     if (takeFocus) {

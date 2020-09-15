@@ -21,7 +21,7 @@ describe("Chip ", () => {
 
   it("displays the lead-value", () => {
     const wrapper = mount(<Chip lead="Owner" value="Bob" />);
-    expect(wrapper.find(".p-chip").text()).toBe("OWNER: Bob");
+    expect(wrapper.find(".p-chip").text()).toBe("OWNERBob"); // Colon and space added with CSS
   });
 
   it("displays the dismiss action", () => {

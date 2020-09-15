@@ -11,23 +11,44 @@ import "./SearchAndFilter.scss";
 
 const SearchAndFilter = ({
   externallyControlled = false,
-  onChange,
   filterPanelData,
+  returnSearchData,
 }) => {
   const [searchData, setSearchData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterPanelHidden, setFilterPanelHidden] = useState(true);
   const [searchBoxExpanded, setSearchBoxExpanded] = useState(false);
   const [overflowSearchTermCounter, setOverflowSearchTermCounter] = useState(0);
-  const filterPanelRef = useRef();
-  const searchContainerRef = useRef();
+  const searchAndFilterRef = useRef(null);
+  const searchContainerRef = useRef(null);
+  const searchBoxRef = useRef(null);
+  const [searchContainerActive, setSearchContainerActive] = useState(false);
+
+  // Return searchData to parent component
+  useEffect(() => {
+    returnSearchData(searchData);
+  }, [searchData, returnSearchData]);
 
   const searchOnChange = (searchTerm) => {
     setSearchTerm(searchTerm);
-    if (externallyControlled && onChange) {
-      onChange(searchTerm);
-    }
   };
+
+  // Hide manual input form field when search container is inactive
+  useEffect(() => {
+    const searchContainerClickCheck = document.addEventListener(
+      "click",
+      (e) => {
+        const clickInContainer =
+          e.target?.closest(".search-and-filter__search-container") !== null ||
+          e.target.classList.contains("p-icon--close");
+        setSearchContainerActive(clickInContainer);
+      }
+    );
+
+    return () => {
+      document.removeEventListener("click", searchContainerClickCheck);
+    };
+  }, [searchContainerActive]);
 
   // This useEffect sets up listeners so the panel will close if user clicks
   // anywhere else on the page or hits the escape key
@@ -38,7 +59,7 @@ const SearchAndFilter = ({
 
     const mouseDown = (e) => {
       // Check if click is outside of filter panel
-      if (!filterPanelRef?.current?.contains(e.target)) {
+      if (!searchAndFilterRef?.current?.contains(e.target)) {
         // If so, close the panel
         closePanel();
       }
@@ -63,11 +84,19 @@ const SearchAndFilter = ({
   }, [searchTerm]);
 
   // Add passed chip to the searchData array
-  const addToSelected = (chip) => {
+  const toggleSelected = (chip) => {
     const currentSelected = [...searchData];
     if (!currentSelected.includes(chip)) {
       currentSelected.push(chip);
       setSearchData(currentSelected);
+      setSearchTerm("");
+    } else {
+      const updatedCurrentSelected = currentSelected.filter(
+        (currentSelectedChip) => {
+          return currentSelectedChip.value !== chip.value;
+        }
+      );
+      setSearchData(updatedCurrentSelected);
     }
   };
 
@@ -81,9 +110,27 @@ const SearchAndFilter = ({
     }
   };
 
-  const handleSubmit = (e) => {
-    if (searchTerm !== "") {
-      addToSelected({ value: searchTerm });
+  // When overflow chips are shown, clicking anywhere outside search area
+  // or clicking on a chip should hide them again
+  useEffect(() => {
+    const hideOverflowChips = (e) => {
+      if (!e.target.closest(".search-and-filter")) {
+        setSearchBoxExpanded(false);
+      }
+    };
+    document.addEventListener("click", (e) => {
+      hideOverflowChips(e);
+    });
+    return () => {
+      document.removeEventListener("click", (e) => {
+        hideOverflowChips(e);
+      });
+    };
+  }, []);
+
+  const handleSubmit = () => {
+    if (searchTerm.trim() !== "") {
+      toggleSelected({ value: searchTerm, quoteValue: true });
       setSearchTerm("");
     }
   };
@@ -96,6 +143,7 @@ const SearchAndFilter = ({
     setOverflowSearchTermCounter(overflowCount);
   };
 
+  // Watch for container resize and recalculate overflow count accordingly
   useEffect(() => {
     if (typeof ResizeObserver !== "undefined") {
       const wrapperWidthObserver = new ResizeObserver(() => {
@@ -108,13 +156,48 @@ const SearchAndFilter = ({
     }
   }, [searchData]);
 
+  // Add search prompt value to search on Enter key
+  const searchPromptKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit();
+    }
+  };
+
+  const searchBox = searchBoxRef.current;
+  const searchContainer = searchContainerRef.current;
+  if (
+    !searchBoxExpanded &&
+    searchBox &&
+    searchContainer &&
+    overflowSearchTermCounter === 0
+  ) {
+    if (searchBox.offsetTop > searchContainer.offsetHeight) {
+      setSearchBoxExpanded(true);
+    }
+  }
+
+  // If chips or input field contains values, clear 'em out
+  const clearAllSearchTerms = () => {
+    setSearchTerm("");
+  };
+
   return (
-    <div className="search-and-filter" ref={filterPanelRef}>
+    <div className="search-and-filter" ref={searchAndFilterRef}>
       <div
         className="search-and-filter__search-container"
-        aria-expanded={searchBoxExpanded}
+        aria-expanded={searchBoxExpanded || searchContainerActive}
+        data-active={searchContainerActive || searchData.length === 0}
+        data-empty={searchData.length <= 0}
         ref={searchContainerRef}
       >
+        {searchTerm !== "" && (
+          <button
+            className="search-and-filter__clear"
+            onClick={() => clearAllSearchTerms()}
+          >
+            <i className="p-icon--close" />
+          </button>
+        )}
         {Object.values(searchData).map((chip) => {
           return (
             <Chip
@@ -123,6 +206,7 @@ const SearchAndFilter = ({
               key={`search-${chip.lead}+${chip.value}`}
               onDismiss={() => removeFromSelected(chip)}
               selected={true}
+              quoteValue={chip.quoteValue}
             />
           );
         })}
@@ -135,6 +219,8 @@ const SearchAndFilter = ({
           onFocus={() => setFilterPanelHidden(false)}
           onSubmit={(e) => handleSubmit(e)}
           value={searchTerm}
+          ref={searchBoxRef}
+          data-overflowing={searchBoxExpanded}
         />
         {overflowSearchTermCounter > 0 && (
           <span
@@ -142,6 +228,7 @@ const SearchAndFilter = ({
             onClick={() => setSearchBoxExpanded(true)}
             onKeyDown={() => setSearchBoxExpanded(true)}
             role="button"
+            tabIndex="0"
           >
             +{overflowSearchTermCounter}
           </span>
@@ -153,13 +240,26 @@ const SearchAndFilter = ({
           aria-hidden={filterPanelHidden}
         >
           <ContextualMenu>
+            {searchTerm.length > 0 && (
+              <div
+                className="search-prompt"
+                onClick={() => handleSubmit()}
+                onKeyDown={(e) => searchPromptKeyDown(e)}
+                role="button"
+                tabIndex="0"
+              >
+                Search for <strong>{searchTerm}</strong>...
+              </div>
+            )}
             {filterPanelData.map((filterPanelSectionData) => {
               return (
                 <div key={filterPanelSectionData.id}>
                   <FilterPanelSection
                     data={filterPanelSectionData}
-                    addToSelected={addToSelected}
+                    toggleSelected={toggleSelected}
                     searchData={searchData}
+                    searchTerm={searchTerm}
+                    sectionHidden={filterPanelHidden}
                   />
                 </div>
               );

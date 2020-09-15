@@ -3,33 +3,40 @@
 exports[`Chip  renders default chip 1`] = `
 <div
   className="p-chip"
+  onKeyDown={[Function]}
   role="button"
+  tabIndex="0"
 >
   <span
-    className="p-chip__lead"
-  />
-  <span
     className="p-chip__value"
-  >
-    positive
-  </span>
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "positive",
+      }
+    }
+  />
 </div>
 `;
 
 exports[`Chip  renders lead-value chip 1`] = `
 <div
   className="p-chip"
+  onKeyDown={[Function]}
   role="button"
+  tabIndex="0"
 >
   <span
     className="p-chip__lead"
   >
-    OWNER: 
+    OWNER
   </span>
   <span
     className="p-chip__value"
-  >
-    Bob
-  </span>
+    dangerouslySetInnerHTML={
+      Object {
+        "__html": "Bob",
+      }
+    }
+  />
 </div>
 `;

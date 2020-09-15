@@ -22,7 +22,7 @@ const Textarea = ({
   wrapperClassName,
   ...props
 }) => {
-  const textareaRef = useRef();
+  const textareaRef = useRef(null);
 
   useEffect(() => {
     if (takeFocus) {

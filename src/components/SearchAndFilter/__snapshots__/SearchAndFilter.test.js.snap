@@ -7,9 +7,12 @@ exports[`Search and filter renders 1`] = `
   <div
     aria-expanded={false}
     className="search-and-filter__search-container"
+    data-active={true}
+    data-empty={true}
   >
-    <SearchBox
+    <ForwardRef
       autocomplete="off"
+      data-overflowing={false}
       externallyControlled={false}
       onChange={[Function]}
       onClick={[Function]}

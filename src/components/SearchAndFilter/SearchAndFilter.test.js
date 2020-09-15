@@ -27,31 +27,30 @@ const sampleData = [
 
 describe("Search and filter", () => {
   it("renders", () => {
-    const wrapper = shallow(<SearchAndFilter />);
+    const returnSearchData = jest.fn();
+    const wrapper = shallow(
+      <SearchAndFilter returnSearchData={returnSearchData} />
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
   it("hide the clear button when there is no value in search box", () => {
-    const wrapper = mount(<SearchAndFilter />);
-    expect(wrapper.find(".p-search-box__reset").exists()).toBe(false);
-  });
-
-  it("onChange handler called", () => {
-    const mockOnChange = jest.fn();
+    const returnSearchData = jest.fn();
     const wrapper = mount(
-      <SearchAndFilter externallyControlled onChange={mockOnChange} />
+      <SearchAndFilter returnSearchData={returnSearchData} />
     );
-    wrapper.find(".p-search-box__input").simulate("change");
-    expect(mockOnChange).toHaveBeenCalledTimes(1);
+    expect(wrapper.find(".p-search-box__reset").exists()).toBe(false);
   });
 
   it("shows panel on focus", () => {
     const mockOnChange = jest.fn();
+    const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
         externallyControlled
         onChange={mockOnChange}
         filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
       />
     );
     expect(
@@ -65,11 +64,13 @@ describe("Search and filter", () => {
 
   it("shows panel on click", () => {
     const mockOnChange = jest.fn();
+    const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
         externallyControlled
         onChange={mockOnChange}
         filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
       />
     );
     expect(
@@ -83,6 +84,7 @@ describe("Search and filter", () => {
 
   it("should hide chip overflow counter when none overflow", () => {
     const mockOnChange = jest.fn();
+    const returnSearchData = jest.fn();
     // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
     // of the chips
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
@@ -98,6 +100,7 @@ describe("Search and filter", () => {
         externallyControlled
         onChange={mockOnChange}
         filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
       />
     );
     expect(wrapper.find(".search-and-filter__selected-count").length).toEqual(
@@ -106,7 +109,6 @@ describe("Search and filter", () => {
   });
 
   it("show overflow chip counter when chips overflow", () => {
-    const mockOnChange = jest.fn();
     // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
     // of the chips
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
@@ -117,13 +119,15 @@ describe("Search and filter", () => {
       configurable: true,
       value: 100,
     });
+    const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
         externallyControlled
-        onChange={mockOnChange}
         filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
       />
     );
+    wrapper.find(".p-search-box__input").simulate("click");
     wrapper
       .find(".filter-panel-section__chips .p-chip")
       .first()
@@ -134,24 +138,105 @@ describe("Search and filter", () => {
   });
 
   it("all chips are shown when counter is clicked", () => {
-    const mockOnChange = jest.fn();
+    // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
+    // of the chips
+    Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
+      configurable: true,
+      value: 40,
+    });
+    Object.defineProperty(HTMLElement.prototype, "offsetTop", {
+      configurable: true,
+      value: 100,
+    });
+    const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
         externallyControlled
-        onChange={mockOnChange}
         filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
       />
     );
+    expect(
+      wrapper.find(".search-and-filter__search-container").prop("aria-expanded")
+    ).toEqual(false);
+    wrapper.find(".p-search-box__input").simulate("click");
     wrapper
       .find(".filter-panel-section__chips .p-chip")
       .first()
       .simulate("click");
-    expect(
-      wrapper.find(".search-and-filter__search-container").prop("aria-expanded")
-    ).toEqual(false);
     wrapper.find(".search-and-filter__selected-count").simulate("click");
     expect(
       wrapper.find(".search-and-filter__search-container").prop("aria-expanded")
     ).toEqual(true);
+  });
+
+  it("search prompt appears when search field has search term", () => {
+    const returnSearchData = jest.fn();
+    const wrapper = mount(
+      <SearchAndFilter
+        externallyControlled
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+      />
+    );
+    expect(wrapper.find(".search-prompt").length).toEqual(0);
+    wrapper
+      .find(".p-search-box__input")
+      .simulate("change", { target: { value: "My new value" } });
+    expect(wrapper.find(".search-prompt").length).toEqual(1);
+  });
+
+  it("no search results appear for unknown search term", () => {
+    const returnSearchData = jest.fn();
+    const wrapper = mount(
+      <SearchAndFilter
+        externallyControlled
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+      />
+    );
+    expect(wrapper.find(".filter-panel-section").length).toEqual(3);
+    wrapper
+      .find(".p-search-box__input")
+      .simulate("change", { target: { value: "Unknown value" } });
+    expect(wrapper.find(".filter-panel-section").length).toEqual(0);
+  });
+
+  it("correct number of panels appear for matching search terms", () => {
+    const returnSearchData = jest.fn();
+    const wrapper = mount(
+      <SearchAndFilter
+        externallyControlled
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+      />
+    );
+    wrapper
+      .find(".p-search-box__input")
+      .simulate("change", { target: { value: "Google" } });
+    expect(wrapper.find(".filter-panel-section").length).toEqual(1);
+    wrapper
+      .find(".p-search-box__input")
+      .simulate("change", { target: { value: "re" } });
+    expect(wrapper.find(".filter-panel-section").length).toEqual(2);
+  });
+
+  it("Matching search terms are highlighted with strong tag", () => {
+    const returnSearchData = jest.fn();
+    const wrapper = mount(
+      <SearchAndFilter
+        externallyControlled
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+      />
+    );
+    wrapper.find(".p-search-box__input").simulate("click");
+    wrapper
+      .find(".p-search-box__input")
+      .simulate("change", { target: { value: "Google" } });
+    const firstChip = wrapper.find(".p-chip").first();
+    expect(firstChip.find(".p-chip__value").html()).toEqual(
+      '<span class="p-chip__value"><strong>Google</strong></span>'
+    );
   });
 });
