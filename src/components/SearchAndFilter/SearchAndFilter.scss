@@ -1,15 +1,4 @@
 @import "~vanilla-framework/scss/base_placeholders";
-@import "~vanilla-framework/scss/settings_animations";
-
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
 
 .search-and-filter {
   border: 1px solid $color-mid-dark;
@@ -136,18 +125,32 @@
   .p-search-box__reset {
     display: none;
   }
-}
 
-.search-and-filter__contextual-menu {
-  animation: fade map-get($animation-duration, brisk);
-  animation-direction: reverse;
-  display: block;
+  &__contextual-menu {
+    display: block;
 
-  .p-contextual-menu__dropdown {
-    padding: 1rem;
-  }
+    .p-contextual-menu__dropdown {
+      padding: 1rem;
+    }
 
-  &--open {
-    animation: fade map-get($animation-duration, brisk);
+    &-enter,
+    &-appear {
+      opacity: 0;
+    }
+
+    &-enter-active,
+    &-appear-active {
+      opacity: 1;
+      transition: opacity 0.25s;
+    }
+
+    &-exit {
+      opacity: 1;
+    }
+
+    &-exit-active {
+      opacity: 0;
+      transition: opacity 0.25s;
+    }
   }
 }

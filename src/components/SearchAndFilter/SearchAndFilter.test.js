@@ -185,6 +185,7 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
+    wrapper.find(".p-search-box__input").simulate("focus");
     expect(wrapper.find(".search-prompt").length).toEqual(0);
     wrapper
       .find(".p-search-box__input")
@@ -201,6 +202,7 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
+    wrapper.find(".p-search-box__input").simulate("focus");
     expect(wrapper.find(".filter-panel-section").length).toEqual(3);
     wrapper
       .find(".p-search-box__input")
@@ -217,6 +219,7 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
+    wrapper.find(".p-search-box__input").simulate("focus");
     wrapper
       .find(".p-search-box__input")
       .simulate("change", { target: { value: "Google" } });
