@@ -1,4 +1,4 @@
-import classNames from "classnames";
+import { CSSTransition } from "react-transition-group";
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
@@ -23,7 +23,7 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
 
   // Return searchData to parent component
   useEffect(() => {
-    returnSearchData(searchData);
+    returnSearchData && returnSearchData(searchData);
   }, [searchData, returnSearchData]);
 
   const searchOnChange = (searchTerm) => {
@@ -205,39 +205,46 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
         >
           <ContextualMenu
             autoAdjust={false}
-            className={classNames("search-and-filter__contextual-menu", {
-              "search-and-filter__contextual-menu--open": !filterPanelHidden,
-            })}
+            className="search-and-filter__contextual-menu"
             constrainPanelWidth
             onToggleMenu={(visible) => setFilterPanelHidden(!visible)}
             position="left"
             visible={!filterPanelHidden}
             dropdownClassName="search-and-filter__dropdown"
           >
-            {searchTerm.length > 0 && (
-              <div
-                className="search-prompt"
-                onClick={() => handleSubmit()}
-                onKeyDown={(e) => searchPromptKeyDown(e)}
-                role="button"
-                tabIndex="0"
-              >
-                Search for <strong>{searchTerm}</strong>...
-              </div>
-            )}
-            {filterPanelData.map((filterPanelSectionData) => {
-              return (
-                <div key={filterPanelSectionData.id}>
-                  <FilterPanelSection
-                    data={filterPanelSectionData}
-                    toggleSelected={toggleSelected}
-                    searchData={searchData}
-                    searchTerm={searchTerm}
-                    sectionHidden={filterPanelHidden}
-                  />
-                </div>
-              );
-            })}
+            <CSSTransition
+              appear={true}
+              in={true}
+              timeout={200}
+              classNames="search-and-filter__contextual-menu"
+            >
+              <>
+                {searchTerm.length > 0 && (
+                  <div
+                    className="search-prompt"
+                    onClick={() => handleSubmit()}
+                    onKeyDown={(e) => searchPromptKeyDown(e)}
+                    role="button"
+                    tabIndex="0"
+                  >
+                    Search for <strong>{searchTerm}</strong>...
+                  </div>
+                )}
+                {filterPanelData.map((filterPanelSectionData) => {
+                  return (
+                    <div key={filterPanelSectionData.id}>
+                      <FilterPanelSection
+                        data={filterPanelSectionData}
+                        toggleSelected={toggleSelected}
+                        searchData={searchData}
+                        searchTerm={searchTerm}
+                        sectionHidden={filterPanelHidden}
+                      />
+                    </div>
+                  );
+                })}
+              </>
+            </CSSTransition>
           </ContextualMenu>
         </div>
       )}
