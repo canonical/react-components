@@ -13,7 +13,7 @@ exports[`Search and filter renders 1`] = `
     <ForwardRef
       autocomplete="off"
       data-overflowing={false}
-      externallyControlled={false}
+      externallyControlled={true}
       onChange={[Function]}
       onClick={[Function]}
       onFocus={[Function]}

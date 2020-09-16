@@ -9,11 +9,7 @@ import { overflowingChipsCount } from "./shared";
 
 import "./SearchAndFilter.scss";
 
-const SearchAndFilter = ({
-  externallyControlled = false,
-  filterPanelData,
-  returnSearchData,
-}) => {
+const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
   const [searchData, setSearchData] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterPanelHidden, setFilterPanelHidden] = useState(true);
@@ -212,7 +208,7 @@ const SearchAndFilter = ({
         })}
         <SearchBox
           autocomplete="off"
-          externallyControlled={externallyControlled}
+          externallyControlled={true}
           placeholder={searchData.length ? "Add filter" : "Search and filter"}
           onChange={(searchTerm) => searchOnChange(searchTerm)}
           onClick={() => setFilterPanelHidden(false)}
@@ -272,18 +268,6 @@ const SearchAndFilter = ({
 };
 
 SearchAndFilter.propTypes = {
-  externallyControlled: PropTypes.bool,
-  searchData: PropTypes.arrayOf(
-    PropTypes.shape({
-      chips: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number,
-          lead: PropTypes.string,
-          value: PropTypes.string,
-        })
-      ),
-    })
-  ),
   filterPanelData: PropTypes.arrayOf(
     PropTypes.shape({
       heading: PropTypes.string,
@@ -295,9 +279,8 @@ SearchAndFilter.propTypes = {
         })
       ),
     })
-  ),
-  onChange: PropTypes.func,
-  onSubmit: PropTypes.func,
+  ).isRequired,
+  returnSearchData: PropTypes.func.isRequired,
 };
 
 export default SearchAndFilter;
