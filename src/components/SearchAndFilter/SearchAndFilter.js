@@ -214,9 +214,25 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
           >
             <CSSTransition
               appear={true}
+              classNames={{
+                appear: "search-and-filter__contextual-menu--transition-appear",
+                appearActive:
+                  "search-and-filter__contextual-menu--transition-appear-active",
+                appearDone:
+                  "search-and-filter__contextual-menu--transition-appear-done",
+                enter: "search-and-filter__contextual-menu--transition-enter",
+                enterActive:
+                  "search-and-filter__contextual-menu--transition-enter-active",
+                enterDone:
+                  "search-and-filter__contextual-menu--transition-enter-done",
+                exit: "search-and-filter__contextual-menu--transition-exit",
+                exitActive:
+                  "search-and-filter__contextual-menu--transition-exit-active",
+                exitDone:
+                  "search-and-filter__contextual-menu--transition-exit-done",
+              }}
               in={true}
               timeout={200}
-              classNames="search-and-filter__contextual-menu"
             >
               <>
                 {searchTerm.length > 0 && (
