@@ -133,24 +133,28 @@
       padding: 1rem;
     }
 
-    &-enter,
-    &-appear {
-      opacity: 0;
-    }
+    // These class names are manually provided to the CSSTransition component
+    // in SearchAndFilter.
+    &--transition {
+      &-enter,
+      &-appear {
+        opacity: 0;
+      }
 
-    &-enter-active,
-    &-appear-active {
-      opacity: 1;
-      transition: opacity 0.25s;
-    }
+      &-enter-active,
+      &-appear-active {
+        opacity: 1;
+        transition: opacity 0.25s;
+      }
 
-    &-exit {
-      opacity: 1;
-    }
+      &-exit {
+        opacity: 1;
+      }
 
-    &-exit-active {
-      opacity: 0;
-      transition: opacity 0.25s;
+      &-exit-active {
+        opacity: 0;
+        transition: opacity 0.25s;
+      }
     }
   }
 }
