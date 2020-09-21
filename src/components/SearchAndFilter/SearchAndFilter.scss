@@ -111,4 +111,32 @@
     top: 3px;
     z-index: 999;
   }
+
+  .p-search-box {
+    display: inline-flex;
+    flex: 1;
+    margin: -6px 0 0;
+    position: relative;
+
+    &__input {
+      border: 0;
+      box-shadow: none;
+      margin-left: -0.5rem;
+      margin-right: -2rem;
+      min-height: 36px;
+      min-width: 6rem;
+      padding: 0.5rem;
+      position: relative;
+      top: 3px;
+    }
+  }
+
+  .p-chip + .p-search-box {
+    margin-left: 0.5rem;
+  }
+
+  .p-search-box__button,
+  .p-search-box__reset {
+    display: none;
+  }
 }

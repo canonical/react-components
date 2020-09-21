@@ -2,8 +2,6 @@ import classNames from "classnames";
 import React from "react";
 import PropTypes from "prop-types";
 
-import "./SearchBox.scss";
-
 const SearchBox = React.forwardRef(
   (
     {
