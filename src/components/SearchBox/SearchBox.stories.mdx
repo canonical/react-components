@@ -47,55 +47,57 @@ state and the `value` from state.
 <Canvas>
   <Story name="Navigation">
     <header id="navigation" className="p-navigation">
-      <div className="p-navigation__banner">
-        <div className="p-navigation__logo">
-          <a className="p-navigation__link" href="#">
-            <img
-              className="p-navigation__image"
-              src="https://assets.ubuntu.com/v1/5d6da5c4-logo-canonical-aubergine.svg"
-              alt=""
-              width="95"
-            />
+      <div className="p-navigation__row--full-width">
+        <div className="p-navigation__banner">
+          <div className="p-navigation__logo">
+            <a className="p-navigation__link" href="#">
+              <img
+                className="p-navigation__image"
+                src="https://assets.ubuntu.com/v1/5d6da5c4-logo-canonical-aubergine.svg"
+                alt=""
+                width="95"
+              />
+            </a>
+          </div>
+          <a
+            href="#navigation"
+            className="p-navigation__toggle--open"
+            title="menu"
+          >
+            Menu
+          </a>
+          <a
+            href="#navigation-closed"
+            className="p-navigation__toggle--close"
+            title="close menu"
+          >
+            Close menu
           </a>
         </div>
-        <a
-          href="#navigation"
-          className="p-navigation__toggle--open"
-          title="menu"
-        >
-          Menu
-        </a>
-        <a
-          href="#navigation-closed"
-          className="p-navigation__toggle--close"
-          title="close menu"
-        >
-          Close menu
-        </a>
+        <nav className="p-navigation__nav">
+          <span className="u-off-screen">
+            <a href="#main-content">Jump to main content</a>
+          </span>
+          <ul className="p-navigation__links" role="menu">
+            <li className="p-navigation__link" role="menuitem">
+              <a href="#">Products</a>
+            </li>
+            <li className="p-navigation__link" role="menuitem">
+              <a href="#">Services</a>
+            </li>
+            <li className="p-navigation__link" role="menuitem">
+              <a href="#">Partners</a>
+            </li>
+            <li className="p-navigation__link" role="menuitem">
+              <a href="#">About</a>
+            </li>
+            <li className="p-navigation__link" role="menuitem">
+              <a href="#">Partners</a>
+            </li>
+          </ul>
+          <SearchBox />
+        </nav>
       </div>
-      <nav className="p-navigation__nav">
-        <span className="u-off-screen">
-          <a href="#main-content">Jump to main content</a>
-        </span>
-        <ul className="p-navigation__links" role="menu">
-          <li className="p-navigation__link" role="menuitem">
-            <a href="#">Products</a>
-          </li>
-          <li className="p-navigation__link" role="menuitem">
-            <a href="#">Services</a>
-          </li>
-          <li className="p-navigation__link" role="menuitem">
-            <a href="#">Partners</a>
-          </li>
-          <li className="p-navigation__link" role="menuitem">
-            <a href="#">About</a>
-          </li>
-          <li className="p-navigation__link" role="menuitem">
-            <a href="#">Partners</a>
-          </li>
-        </ul>
-        <SearchBox />
-      </nav>
     </header>
   </Story>
 </Canvas>
