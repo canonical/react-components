@@ -34,6 +34,7 @@ ModularTable components accepts `columns` and `data` arguments in the same forma
           {
             Header: "ID",
             accessor: "buildId",
+            Cell: ({ value }) => <a href="#">#{ value }</a>,
           },
           {
             Header: "Architecture",
@@ -47,6 +48,16 @@ ModularTable components accepts `columns` and `data` arguments in the same forma
           {
             Header: "Result",
             accessor: "result",
+            Cell: ({ value }) => {
+              switch (value) {
+                case "released":
+                  return <><i className="p-icon--success"></i> Released</>;
+                case "failed":
+                  return <><i className="p-icon--success"></i> Released</>;
+                default:
+                  return "Unknown";
+              }
+            },
             className: "has-icon",
           },
           {
@@ -60,17 +71,17 @@ ModularTable components accepts `columns` and `data` arguments in the same forma
       data={React.useMemo(
         () => [
           {
-            buildId: "#5432",
+            buildId: "5432",
             arch: "arm64",
             duration: "5 minutes",
-            result: <><i className="p-icon--success"></i> Released</>,
+            result: "released",
             finished: "10 minutes ago",
           },
           {
-            buildId: "#1234",
+            buildId: "1234",
             arch: "armhf",
             duration: "5 minutes",
-            result: <><i className="p-icon--error"></i> Failed to build</>,
+            result: "failed",
             finished: "over 1 year ago",
           },
         ],
