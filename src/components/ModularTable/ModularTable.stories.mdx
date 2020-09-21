@@ -51,14 +51,14 @@ ModularTable components accepts `columns` and `data` arguments in the same forma
             Cell: ({ value }) => {
               switch (value) {
                 case "released":
-                  return <><i className="p-icon--success"></i> Released</>;
+                  return <><i className="p-icon--success"></i>Released</>;
                 case "failed":
-                  return <><i className="p-icon--success"></i> Released</>;
+                  return <><i className="p-icon--error"></i>Failed</>;
                 default:
                   return "Unknown";
               }
             },
-            className: "has-icon",
+            className: "p-table__cell--icon-placeholder",
           },
           {
             Header: "Build Finished",
