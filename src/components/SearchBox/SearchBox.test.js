@@ -1,4 +1,4 @@
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import React from "react";
 
 import SearchBox from "./SearchBox";
@@ -24,5 +24,15 @@ describe("SearchBox ", () => {
     wrapper.setProps({ value: "new-admin" });
     input = wrapper.find(".p-search-box__input");
     expect(input.prop("value")).toBe("new-admin");
+  });
+
+  it("can be found using the component name", () => {
+    const WrappingComponent = () => (
+      <div>
+        <SearchBox />
+      </div>
+    );
+    const wrapper = mount(<WrappingComponent />);
+    expect(wrapper.find("SearchBox").exists()).toBe(true);
   });
 });

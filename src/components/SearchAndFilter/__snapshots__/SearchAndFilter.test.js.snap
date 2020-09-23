@@ -10,7 +10,7 @@ exports[`Search and filter renders 1`] = `
     data-active={true}
     data-empty={true}
   >
-    <ForwardRef
+    <SearchBox
       autocomplete="off"
       data-overflowing={false}
       externallyControlled={true}
@@ -21,6 +21,12 @@ exports[`Search and filter renders 1`] = `
       placeholder="Search and filter"
       value=""
     />
+  </div>
+  <div
+    aria-hidden={true}
+    className="search-and-filter__panel"
+  >
+    <ContextualMenu />
   </div>
 </div>
 `;
