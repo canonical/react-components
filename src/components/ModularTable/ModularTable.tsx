@@ -7,6 +7,7 @@ import Table from "../Table";
 import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
+import Icon from "../Icon";
 
 export type Props<D extends Record<string, unknown>> = {
   columns: Column<D>[];
@@ -74,7 +75,7 @@ function ModularTable({
                       },
                     ])}
                   >
-                    {iconName && <i className={`p-icon--${iconName}`}></i>}
+                    {iconName && <Icon name={iconName} />}
                     {cell.render("Cell")}
                   </TableCell>
                 );
