@@ -24,6 +24,41 @@ ModularTable components accepts `columns` and `data` arguments in the same forma
   the table would think it was receiving new data on every render and attempt to recalulate a lot of logic every single time.
 </Notification>
 
+
+#### Custom column options
+
+In addition to standard column propeties from [`useTable`](https://react-table.tanstack.com/docs/api/useTable) `ModularTable` accepts some custom properties.
+
+##### Class names
+
+Custom `className` can be used to provide a specific CSS class name that will be added to all cells in given column.
+
+```js
+columns = {
+  Header: "Hidden on mobile",
+  accessor: "example",
+  className: "u-hide--small"
+}
+```
+
+##### Icons
+
+To show an icon in the cells of a column `getCellIcon` function should be defined. The function takes a cell data as an argument and should return a string with the icon name (or `false` if no icon should be shown).
+
+The icon name should be one of [the Vanilla built in icons](https://vanillaframework.io/docs/patterns/icons) such as "plus", "minus", "success", "error", etc.
+
+Product specific icons can be used as well, assuming that the product provides the necessary CSS styling and the icon follows the Vanilla naming convention `p-icon--{name}`.
+
+```js
+columns = {
+  Header: "With icons",
+  accessor: "status",
+  getCellIcon: ({ value }) => {
+    return value === "success" ? "success" : false;
+  }
+}
+```
+
 ### Default
 
 <Preview>
