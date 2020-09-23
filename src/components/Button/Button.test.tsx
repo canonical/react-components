@@ -8,6 +8,7 @@ describe("Button ", () => {
     const wrapper = shallow(<Button>Test content</Button>);
     expect(wrapper).toMatchSnapshot();
   });
+
   it("renders as a link", () => {
     const wrapper = shallow(<Button element="a">Test content</Button>);
     expect(wrapper).toMatchSnapshot();
