@@ -29,7 +29,10 @@ describe("Search and filter", () => {
   it("renders", () => {
     const returnSearchData = jest.fn();
     const wrapper = shallow(
-      <SearchAndFilter returnSearchData={returnSearchData} />
+      <SearchAndFilter
+        filterPanelData={[]}
+        returnSearchData={returnSearchData}
+      />
     );
     expect(wrapper).toMatchSnapshot();
   });
@@ -37,7 +40,10 @@ describe("Search and filter", () => {
   it("hide the clear button when there is no value in search box", () => {
     const returnSearchData = jest.fn();
     const wrapper = mount(
-      <SearchAndFilter returnSearchData={returnSearchData} />
+      <SearchAndFilter
+        filterPanelData={[]}
+        returnSearchData={returnSearchData}
+      />
     );
     expect(wrapper.find(".p-search-box__reset").exists()).toBe(false);
   });

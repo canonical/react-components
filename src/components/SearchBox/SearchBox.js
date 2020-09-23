@@ -87,4 +87,6 @@ SearchBox.propTypes = {
   value: PropTypes.string,
 };
 
+SearchBox.displayName = "SearchBox";
+
 export default SearchBox;
