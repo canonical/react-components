@@ -13,6 +13,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+# 0.11.0 - 2020-09-23
+
+### Changed
+
+- BUGFIX: The SearchBox styling has been fixed and the component no longer shows up as ForwardRef.
+- Vanilla has been updated to 2.19.0.
+- ModularTable has updated the `columns.accessor` prop to be either a string or component.
+- ContextualMenu has been rebuilt with many new features (ported from maas-ui).
+
 # 0.10.0 - 2020-09-18
 
 ### Added
