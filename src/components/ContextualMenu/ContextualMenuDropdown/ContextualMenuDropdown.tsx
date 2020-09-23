@@ -31,9 +31,9 @@ export type Props = {
 
 /**
  * Calculate the styles for the menu.
- * @param position The menu position.
- * @param positionCoords The coordinates of the position node.
- * @param constrainPanelWidth Whether the menu width should be constrained to the position width.
+ * @param position - The menu position.
+ * @param positionCoords - The coordinates of the position node.
+ * @param constrainPanelWidth - Whether the menu width should be constrained to the position width.
  */
 const getPositionStyle = (
   position: Position,
@@ -72,8 +72,8 @@ const getPositionStyle = (
 
 /**
  * Calculate the adjusted position in relation to the window.
- * @param position The requested position.
- * @param fitsWindow The window fitment info.
+ * @param position - The requested position.
+ * @param fitsWindow - The window fitment info.
  * @return The new position.
  */
 export const adjustForWindow = (
@@ -113,9 +113,9 @@ export const adjustForWindow = (
 
 /**
  * Generate a menu link
- * @param link A button
- * @param key A key for the DOM.
- * @param closePortal The function to close the portal.
+ * @param link - A button
+ * @param key - A key for the DOM.
+ * @param closePortal - The function to close the portal.
  */
 const generateLink = (
   link: ButtonProps,

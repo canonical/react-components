@@ -1,12 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import type {
-  HTMLAttributes,
-  ElementType,
-  MouseEventHandler,
-  ReactNode,
-} from "react";
+import type { HTMLAttributes, ElementType, ReactNode } from "react";
 
 export type Props = {
   appearance?: string;
@@ -17,10 +12,8 @@ export type Props = {
   element?: ElementType;
   hasIcon?: boolean;
   inline?: boolean;
-  onClick?: (
-    evt: MouseEvent | React.MouseEvent | MouseEventHandler<HTMLButtonElement>
-  ) => void;
-} & HTMLAttributes<HTMLButtonElement>;
+  onClick?: (evt: React.MouseEvent) => void;
+} & HTMLAttributes<HTMLElement>;
 
 const Button = ({
   appearance = "neutral",
