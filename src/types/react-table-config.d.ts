@@ -7,5 +7,6 @@ declare module "react-table" {
   export interface UseTableColumnOptions<D extends Record<string, unknown>>
     extends UseTableColumnOptions<D> {
     className?: string;
+    getCellIcon?: (cell: Cell<D>) => string | false;
   }
 }
