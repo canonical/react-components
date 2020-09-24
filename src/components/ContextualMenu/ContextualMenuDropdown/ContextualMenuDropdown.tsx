@@ -8,11 +8,19 @@ import Button from "../../Button";
 import type { Props as ButtonProps } from "../../Button";
 import type { WindowFitment } from "../../../hooks";
 
-export type MenuLink = string | ButtonProps | ButtonProps[];
+/**
+ * The type of the menu links.
+ * @template L - The type of the link props.
+ */
+export type MenuLink<L = null> = string | ButtonProps<L> | ButtonProps<L>[];
 
 export type Position = "left" | "center" | "right";
 
-export type Props = {
+/**
+ * The props for the ContextualMenuDropdown component.
+ * @template L - The type of the link props.
+ */
+export type Props<L = null> = {
   adjustedPosition?: Position;
   autoAdjust?: boolean;
   closePortal?: (evt?: MouseEvent) => void;
@@ -21,7 +29,7 @@ export type Props = {
   dropdownContent?: ReactNode;
   id?: string;
   isOpen?: boolean;
-  links?: MenuLink[];
+  links?: MenuLink<L>[];
   position?: Position;
   positionCoords?: ClientRect;
   positionNode?: HTMLElement;
@@ -113,18 +121,19 @@ export const adjustForWindow = (
 
 /**
  * Generate a menu link
+ * @template L - The type of the link props.
  * @param link - A button
  * @param key - A key for the DOM.
  * @param closePortal - The function to close the portal.
  */
-const generateLink = (
+function generateLink<L>(
   link: ButtonProps,
   key: React.Key,
   closePortal: Props["closePortal"]
-) => {
+) {
   const { children, className, onClick, ...props } = link;
   return (
-    <Button
+    <Button<L>
       className={classNames("p-contextual-menu__link", className)}
       key={key}
       onClick={
@@ -140,9 +149,9 @@ const generateLink = (
       {children}
     </Button>
   );
-};
+}
 
-const ContextualMenuDropdown = ({
+function ContextualMenuDropdown<L>({
   adjustedPosition,
   autoAdjust,
   closePortal,
@@ -157,7 +166,7 @@ const ContextualMenuDropdown = ({
   positionNode,
   setAdjustedPosition,
   wrapperClass,
-}: Props): JSX.Element => {
+}: Props<L>): JSX.Element {
   const dropdown = useRef();
   const [positionStyle, setPositionStyle] = useState(
     getPositionStyle(adjustedPosition, positionCoords, constrainPanelWidth)
@@ -212,7 +221,9 @@ const ContextualMenuDropdown = ({
               if (Array.isArray(item)) {
                 return (
                   <span className="p-contextual-menu__group" key={i}>
-                    {item.map((link, j) => generateLink(link, j, closePortal))}
+                    {item.map((link, j) =>
+                      generateLink<L>(link, j, closePortal)
+                    )}
                   </span>
                 );
               } else if (typeof item === "string") {
@@ -222,12 +233,12 @@ const ContextualMenuDropdown = ({
                   </div>
                 );
               }
-              return generateLink(item, i, closePortal);
+              return generateLink<L>(item, i, closePortal);
             })}
       </span>
     </span>
   );
-};
+}
 
 ContextualMenuDropdown.propTypes = {
   adjustedPosition: PropTypes.string,
