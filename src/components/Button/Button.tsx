@@ -1,21 +1,29 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import type { HTMLAttributes, ElementType, ReactNode } from "react";
+import type { HTMLProps, ElementType, ReactNode, ComponentType } from "react";
 
-export type Props = {
+/**
+ * The type of the Button props.
+ * @template P - The type of the props if providing a component to `element`
+ */
+export type Props<P = null> = {
   appearance?: string;
   children?: ReactNode;
   className?: string;
   dense?: boolean;
   disabled?: boolean;
-  element?: ElementType;
+  element?: ElementType | ComponentType<P>;
   hasIcon?: boolean;
   inline?: boolean;
   onClick?: (evt: React.MouseEvent) => void;
-} & HTMLAttributes<HTMLElement>;
+} & (HTMLProps<HTMLElement> | P);
 
-const Button = ({
+/**
+ * A component for the Vanilla button.
+ * @template P - The type of the props if providing a component to `element`
+ */
+function Button<P>({
   appearance = "neutral",
   children,
   className,
@@ -26,7 +34,7 @@ const Button = ({
   inline,
   onClick,
   ...buttonProps
-}: Props): JSX.Element => {
+}: Props<P>): JSX.Element {
   const classes = classNames(
     `p-button--${appearance}`,
     {
@@ -51,7 +59,8 @@ const Button = ({
       {children}
     </Component>
   );
-};
+}
+
 Button.propTypes = {
   appearance: PropTypes.string,
   children: PropTypes.node,

@@ -10,7 +10,11 @@ import ContextualMenuDropdown from "./ContextualMenuDropdown";
 import Button from "../Button";
 import type { MenuLink, Position } from "./ContextualMenuDropdown";
 
-export type Props = {
+/**
+ * The props for the ContextualMenu component.
+ * @template L - The type of the link props.
+ */
+export type Props<L> = {
   autoAdjust?: boolean;
   children?: ReactNode;
   className?: string;
@@ -19,7 +23,7 @@ export type Props = {
   constrainPanelWidth?: boolean;
   dropdownClassName?: string;
   hasToggleIcon?: boolean;
-  links?: MenuLink[];
+  links?: MenuLink<L>[];
   onToggleMenu?: (isOpen: boolean) => void;
   position?: Position;
   positionNode?: HTMLElement;
@@ -30,6 +34,7 @@ export type Props = {
   toggleLabelFirst?: boolean;
   visible?: boolean;
 };
+
 /**
  * Get the node to use for positioning the menu.
  * @param wrapper - The component's wrapping element.
@@ -63,6 +68,7 @@ const getPositionNodeVisible = (positionNode: HTMLElement) => {
 
 /**
  * A component for the Vanilla contextual menu.
+ * @template L - The type of the link props.
  * @param [autoAdjust=true] - Whether the menu should adjust to fit in the screen.
  * @param children - The menu content (if the links prop is not supplied).
  * @param className - An optional class to apply to the wrapping element.
@@ -82,7 +88,7 @@ const getPositionNodeVisible = (positionNode: HTMLElement) => {
  * @param [toggleLabelFirst=true] - Whether the toggle lable or icon should appear first.
  * @param [visible=false] - Whether the menu should be visible.
  */
-const ContextualMenu = ({
+function ContextualMenu<L>({
   autoAdjust = true,
   children,
   className,
@@ -101,7 +107,7 @@ const ContextualMenu = ({
   toggleLabel,
   toggleLabelFirst = true,
   visible = false,
-}: Props): JSX.Element => {
+}: Props<L>): JSX.Element {
   const id = useRef(uuidv4());
   const wrapper = useRef();
   const [positionCoords, setPositionCoords] = useState<ClientRect>();
@@ -234,7 +240,7 @@ const ContextualMenu = ({
       )}
       {isOpen && (
         <Portal>
-          <ContextualMenuDropdown
+          <ContextualMenuDropdown<L>
             adjustedPosition={adjustedPosition}
             autoAdjust={autoAdjust}
             closePortal={closePortal}
@@ -254,7 +260,7 @@ const ContextualMenu = ({
       )}
     </span>
   );
-};
+}
 
 ContextualMenu.propTypes = {
   /**

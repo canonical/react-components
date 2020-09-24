@@ -196,4 +196,20 @@ describe("ContextualMenu ", () => {
       wrapper.find("button.p-contextual-menu__toggle").prop("aria-expanded")
     ).toBe("false");
   });
+
+  it("can use a custom link component", () => {
+    type LinkProps = {
+      /** An address */
+      to: string;
+      children: React.ReactNode;
+    };
+    const Link = ({ children, to }: LinkProps) => <a href={to}>{children}</a>;
+    const wrapper = mount(
+      <ContextualMenu
+        links={[{ children: "Link1", element: Link, to: "http://example.com" }]}
+        visible
+      />
+    );
+    expect(wrapper.find("Link.p-contextual-menu__link").exists()).toBe(true);
+  });
 });

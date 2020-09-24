@@ -82,4 +82,28 @@ describe("Button ", () => {
       "p-button--neutral is-dense extra-class"
     );
   });
+
+  it("handles base button props", () => {
+    const wrapper = shallow(<Button type="button" />);
+    wrapper.simulate("click");
+    expect(wrapper.prop("type")).toBe("button");
+  });
+
+  it("handles alternate element props", () => {
+    const wrapper = shallow(<Button element="a" href="http://example.com" />);
+    wrapper.simulate("click");
+    expect(wrapper.prop("href")).toBe("http://example.com");
+  });
+
+  it("handles supplied component props", () => {
+    type LinkProps = {
+      /** An address */
+      to: string;
+      children: React.ReactNode;
+    };
+    const Link = ({ children, to }: LinkProps) => <a href={to}>{children}</a>;
+    const wrapper = shallow(<Button element={Link} to="http://example.com" />);
+    wrapper.simulate("click");
+    expect(wrapper.prop("to")).toBe("http://example.com");
+  });
 });
