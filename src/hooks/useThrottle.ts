@@ -14,7 +14,7 @@ export const useThrottle = (
   callback: Callback,
   delay = THROTTLE_DELAY
 ): Callback => {
-  const timeout = useRef<NodeJS.Timeout>();
+  const timeout = useRef<number>();
   const lastCall = useRef<number>();
   const lastArgs = useRef(null);
 
@@ -28,7 +28,7 @@ export const useThrottle = (
       };
 
       const createTimeout = () => {
-        timeout.current = setTimeout(() => {
+        timeout.current = window.setTimeout(() => {
           callCallback();
           timeout.current = null;
         }, delay);
