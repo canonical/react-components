@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+# 0.11.1 - 2020-09-25
+
+### Changed
+
+- Update Button and ContextualMenu types to allow for passing a custom component.
+
 # 0.11.0 - 2020-09-23
 
 ### Changed
