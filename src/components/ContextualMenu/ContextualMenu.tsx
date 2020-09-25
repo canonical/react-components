@@ -88,7 +88,7 @@ const getPositionNodeVisible = (positionNode: HTMLElement) => {
  * @param [toggleLabelFirst=true] - Whether the toggle lable or icon should appear first.
  * @param [visible=false] - Whether the menu should be visible.
  */
-function ContextualMenu<L>({
+const ContextualMenu = <L,>({
   autoAdjust = true,
   children,
   className,
@@ -107,7 +107,7 @@ function ContextualMenu<L>({
   toggleLabel,
   toggleLabelFirst = true,
   visible = false,
-}: Props<L>): JSX.Element {
+}: Props<L>): JSX.Element => {
   const id = useRef(uuidv4());
   const wrapper = useRef();
   const [positionCoords, setPositionCoords] = useState<ClientRect>();
@@ -260,7 +260,7 @@ function ContextualMenu<L>({
       )}
     </span>
   );
-}
+};
 
 ContextualMenu.propTypes = {
   /**
