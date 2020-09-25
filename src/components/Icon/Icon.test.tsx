@@ -1,11 +1,11 @@
 import { shallow } from "enzyme";
 import React from "react";
 
-import Icon from "./Icon";
+import Icon, { ICONS } from "./Icon";
 
 describe("Icon", () => {
   it("renders", () => {
-    const wrapper = shallow(<Icon name="success" />);
+    const wrapper = shallow(<Icon name={ICONS.success} />);
     expect(wrapper).toMatchSnapshot();
   });
 
