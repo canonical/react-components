@@ -141,3 +141,41 @@ columns = {
     />
   </Story>
 </Preview>
+
+### Empty
+
+<Preview>
+  <Story name="Empty">
+    <ModularTable
+      columns={React.useMemo(
+        () => [
+          {
+            Header: "ID",
+            accessor: "buildId",
+          },
+          {
+            Header: "Architecture",
+            accessor: "arch",
+          },
+          {
+            Header: "Build Duration",
+            accessor: "duration",
+            className: "u-hide--small",
+          },
+          {
+            Header: "Result",
+            accessor: "result",
+          },
+          {
+            Header: "Build Finished",
+            accessor: "finished",
+            className: "u-align-text--right",
+          },
+        ],
+        []
+      )}
+      data={[]}
+      emptyMsg="Waiting for data..."
+    />
+  </Story>
+</Preview>

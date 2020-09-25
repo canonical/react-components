@@ -12,11 +12,13 @@ import Icon from "../Icon";
 export type Props<D extends Record<string, unknown>> = {
   columns: Column<D>[];
   data: D[];
+  emptyMsg?: string;
 };
 
 function ModularTable({
   data,
   columns,
+  emptyMsg,
 }: Props<Record<string, unknown>>): JSX.Element {
   const {
     getTableProps,
@@ -25,6 +27,8 @@ function ModularTable({
     rows,
     prepareRow,
   } = useTable({ columns, data });
+
+  const showEmpty: boolean = emptyMsg && (!rows || rows.length === 0);
 
   return (
     <Table {...getTableProps()}>
@@ -83,6 +87,15 @@ function ModularTable({
             </TableRow>
           );
         })}
+        {showEmpty && (
+          <TableRow>
+            {/* TODO:
+              ideally this should span across whole table, but currently we don't know if any columns hides on small screens
+              so this needs to wait until we implement some centralised mechanism for hiding columns
+            */}
+            <TableCell>{emptyMsg}</TableCell>
+          </TableRow>
+        )}
       </tbody>
     </Table>
   );
@@ -99,6 +112,7 @@ ModularTable.propTypes = {
     }).isRequired
   ),
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  emptyMsg: PropTypes.string,
 };
 
 export default ModularTable;
