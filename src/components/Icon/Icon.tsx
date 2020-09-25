@@ -1,8 +1,33 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+export enum ICONS {
+  plus = "plus",
+  minus = "minus",
+  expand = "expand",
+  collapse = "collapse",
+  spinner = "spinner",
+  drag = "drag",
+  close = "close",
+  help = "help",
+  information = "information",
+  delete = "delete",
+  externalLink = "external-link",
+  contextualMenu = "contextual-menu",
+  menu = "menu",
+  code = "code",
+  copy = "copy",
+  search = "search",
+  share = "share",
+  user = "user",
+  anchor = "anchor",
+  success = "success",
+  warning = "warning",
+  error = "error",
+}
+
 type Props = {
-  name: string;
+  name: ICONS | string;
 };
 
 /**

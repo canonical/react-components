@@ -9,6 +9,7 @@ export { default as Col } from "./components/Col";
 export { default as ContextualMenu } from "./components/ContextualMenu";
 export { default as Field } from "./components/Field";
 export { default as Form } from "./components/Form";
+export { default as Icon, ICONS } from "./components/Icon";
 export { default as Input } from "./components/Input";
 export { default as Label } from "./components/Label";
 export { default as Link } from "./components/Link";

@@ -1,7 +1,7 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import ModularTable from "./ModularTable";
 import Notification from "../Notification";
-
+import { ICONS } from "../Icon";
 
 <Meta title="ModularTable" component={ModularTable} />
 
@@ -43,9 +43,9 @@ columns = {
 
 ##### Icons
 
-To show an icon in the cells of a column `getCellIcon` function should be defined. The function takes a cell data as an argument and should return a string with the icon name (or `false` if no icon should be shown).
+To show an icon in the cells of a column `getCellIcon` function should be defined. The function takes a cell data as an argument and should return one of built in icons (from the `ICONS` enum), a string with a custom icon name, or `false` if no icon should be shown.
 
-The icon name should be one of [the Vanilla built in icons](https://vanillaframework.io/docs/patterns/icons) such as "plus", "minus", "success", "error", etc.
+The `ICONS` enum contains all [the Vanilla built in icons](https://vanillaframework.io/docs/patterns/icons) such as "plus", "minus", "success", "error", etc.
 
 Product specific icons can be used as well, assuming that the product provides the necessary CSS styling and the icon follows the Vanilla naming convention `p-icon--{name}`.
 
@@ -54,7 +54,7 @@ columns = {
   Header: "With icons",
   accessor: "status",
   getCellIcon: ({ value }) => {
-    return value === "success" ? "success" : false;
+    return value === "released" ? ICONS.success : false;
   }
 }
 ```
@@ -96,9 +96,9 @@ columns = {
             getCellIcon: ({ value }) => {
                switch (value) {
                 case "released":
-                  return "success";
+                  return ICONS.success;
                 case "failed":
-                  return "error";
+                  return ICONS.error;
                 default:
                   return false;
               }
