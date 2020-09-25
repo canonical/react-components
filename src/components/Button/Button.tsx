@@ -23,7 +23,7 @@ export type Props<P = null> = {
  * A component for the Vanilla button.
  * @template P - The type of the props if providing a component to `element`
  */
-function Button<P>({
+const Button = <P,>({
   appearance = "neutral",
   children,
   className,
@@ -34,7 +34,7 @@ function Button<P>({
   inline,
   onClick,
   ...buttonProps
-}: Props<P>): JSX.Element {
+}: Props<P>): JSX.Element => {
   const classes = classNames(
     `p-button--${appearance}`,
     {
@@ -59,7 +59,7 @@ function Button<P>({
       {children}
     </Component>
   );
-}
+};
 
 Button.propTypes = {
   appearance: PropTypes.string,

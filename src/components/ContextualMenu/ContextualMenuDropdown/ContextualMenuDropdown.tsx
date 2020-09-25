@@ -126,11 +126,11 @@ export const adjustForWindow = (
  * @param key - A key for the DOM.
  * @param closePortal - The function to close the portal.
  */
-function generateLink<L>(
+const generateLink = <L,>(
   link: ButtonProps,
   key: React.Key,
   closePortal: Props["closePortal"]
-) {
+) => {
   const { children, className, onClick, ...props } = link;
   return (
     <Button<L>
@@ -149,9 +149,9 @@ function generateLink<L>(
       {children}
     </Button>
   );
-}
+};
 
-function ContextualMenuDropdown<L>({
+const ContextualMenuDropdown = <L,>({
   adjustedPosition,
   autoAdjust,
   closePortal,
@@ -166,7 +166,7 @@ function ContextualMenuDropdown<L>({
   positionNode,
   setAdjustedPosition,
   wrapperClass,
-}: Props<L>): JSX.Element {
+}: Props<L>): JSX.Element => {
   const dropdown = useRef();
   const [positionStyle, setPositionStyle] = useState(
     getPositionStyle(adjustedPosition, positionCoords, constrainPanelWidth)
@@ -238,7 +238,7 @@ function ContextualMenuDropdown<L>({
       </span>
     </span>
   );
-}
+};
 
 ContextualMenuDropdown.propTypes = {
   adjustedPosition: PropTypes.string,
