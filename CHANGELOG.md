@@ -13,6 +13,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+# 0.12.0 - 2020-09-28
+
+### Added
+
+- Icon component
+
+### Changed
+
+- Updated ModularTable component to support showing icons in cells
+- Updated ModularTable component to support empty state message
+
+### Removed
+
 # 0.11.1 - 2020-09-25
 
 ### Changed
