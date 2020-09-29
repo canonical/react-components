@@ -10,6 +10,7 @@ type Props = {
   caution?: ReactNode;
   disabled?: boolean;
   error?: ReactNode;
+  id?: string;
   help?: ReactNode;
   inputDisabled?: boolean;
   label?: ReactNode;
@@ -25,6 +26,7 @@ export const Slider = ({
   disabled = false,
   error,
   help,
+  id,
   inputDisabled = false,
   label,
   max,
@@ -62,6 +64,7 @@ export const Slider = ({
         <input
           className="p-slider"
           disabled={disabled}
+          id={id}
           max={max}
           min={min}
           onChange={onChange}
@@ -103,6 +106,10 @@ Slider.propTypes = {
    * Field help message.
    */
   help: PropTypes.node,
+  /**
+   * Field id. Only passed to range input, not to number input.
+   */
+  id: PropTypes.string,
   /**
    * Whether to disable only the input, but not the slider.
    */
