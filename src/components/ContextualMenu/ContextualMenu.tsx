@@ -216,6 +216,7 @@ const ContextualMenu = <L,>({
               closePortal(evt);
             }
           }}
+          type="button"
         >
           {toggleLabelFirst ? labelNode : null}
           {hasToggleIcon ? (
