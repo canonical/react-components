@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updated ModularTable component to support showing icons in cells
 - Updated ModularTable component to support empty state message
+- The toggle button for ContextualMenu now has `type="button"` to prevent it from submitting forms.
 
 ### Removed
 
