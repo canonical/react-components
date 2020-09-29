@@ -1,0 +1,13 @@
+@import "~vanilla-framework/scss/settings";
+@import "~vanilla-framework/scss/base_placeholders";
+@include vf-b-placeholders;
+
+@import "~vanilla-framework/scss/base_icon-definitions";
+@import "~vanilla-framework/scss/patterns_icons";
+@include vf-p-icons-common;
+
+.p-icon--custom {
+  @extend %icon;
+
+  background-image: url(#{$assets-path}a4d31b28-icon-quote.svg);
+}

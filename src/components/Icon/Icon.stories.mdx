@@ -1,0 +1,59 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+
+import Icon, { ICONS } from "./Icon";
+
+import "./Icon.stories.scss";
+
+<Meta
+  title="Icon"
+  component={Icon}
+/>
+
+### Icon
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Icon](https://docs.vanillaframework.io/patterns/icons/).
+
+Icons provide visual context and enhance usability.
+
+### Props
+
+<ArgsTable of={Icon} />
+
+### Default
+
+<Canvas>
+  <Story name="Default" >
+    <Icon name={ICONS.plus} />
+    <Icon name={ICONS.minus} />
+    <Icon name={ICONS.expand} />
+    <Icon name={ICONS.collapse} />
+    <Icon name={ICONS.spinner} />
+    <Icon name={ICONS.drag} />
+    <Icon name={ICONS.close} />
+    <Icon name={ICONS.help} />
+    <Icon name={ICONS.information} />
+    <Icon name={ICONS.delete} />
+    <Icon name={ICONS.externalLink} />
+    <Icon name={ICONS.contextualMenu} />
+    <Icon name={ICONS.menu} />
+    <Icon name={ICONS.code} />
+    <Icon name={ICONS.copy} />
+    <Icon name={ICONS.search} />
+    <Icon name={ICONS.share} />
+    <Icon name={ICONS.user} />
+    <Icon name={ICONS.anchor} />
+    <Icon name={ICONS.success} />
+    <Icon name={ICONS.warning} />
+    <Icon name={ICONS.error} />
+  </Story>
+</Canvas>
+
+### Custom
+
+To use custom icons that are not included in Vanilla you need to provide your own icon styling following the `.p-icon--{name}` convention.
+
+<Canvas>
+  <Story name="Custom" >
+    <Icon name="custom" />
+  </Story>
+</Canvas>

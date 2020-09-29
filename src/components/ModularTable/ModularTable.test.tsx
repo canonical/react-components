@@ -34,11 +34,31 @@ describe("ModularTable", () => {
       },
     ];
   });
+
   it("renders all rows and columns", () => {
     const wrapper = shallow(<ModularTable columns={columns} data={data} />);
 
     const rowItems = wrapper.find("tbody TableRow");
     expect(rowItems.length).toEqual(3);
     expect(rowItems.at(0).find("TableCell").length).toEqual(4);
+  });
+
+  it("renders no rows when data is empty", () => {
+    const wrapper = shallow(<ModularTable columns={columns} data={[]} />);
+
+    const rowItems = wrapper.find("tbody TableRow");
+    expect(rowItems.length).toEqual(0);
+  });
+
+  it("renders empty message when data is empty", () => {
+    const wrapper = shallow(
+      <ModularTable columns={columns} data={[]} emptyMsg="Nothing here" />
+    );
+
+    const rowItems = wrapper.find("tbody TableRow");
+    expect(rowItems.length).toEqual(1);
+    expect(rowItems.at(0).find("TableCell").first().children().text()).toEqual(
+      "Nothing here"
+    );
   });
 });

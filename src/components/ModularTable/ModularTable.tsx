@@ -7,15 +7,18 @@ import Table from "../Table";
 import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
+import Icon from "../Icon";
 
 export type Props<D extends Record<string, unknown>> = {
   columns: Column<D>[];
   data: D[];
+  emptyMsg?: string;
 };
 
 function ModularTable({
   data,
   columns,
+  emptyMsg,
 }: Props<Record<string, unknown>>): JSX.Element {
   const {
     getTableProps,
@@ -24,6 +27,8 @@ function ModularTable({
     rows,
     prepareRow,
   } = useTable({ columns, data });
+
+  const showEmpty: boolean = emptyMsg && (!rows || rows.length === 0);
 
   return (
     <Table {...getTableProps()}>
@@ -35,6 +40,11 @@ function ModularTable({
                 {...column.getHeaderProps([
                   {
                     className: column.className,
+                  },
+                  {
+                    className: column.getCellIcon
+                      ? "p-table__cell--icon-placeholder"
+                      : "",
                   },
                 ])}
               >
@@ -53,14 +63,23 @@ function ModularTable({
           return (
             <TableRow {...row.getRowProps()}>
               {row.cells.map((cell) => {
+                const hasColumnIcon = cell.column.getCellIcon;
+                const iconName = hasColumnIcon && cell.column.getCellIcon(cell);
+
                 return (
                   <TableCell
                     {...cell.getCellProps([
                       {
                         className: cell.column.className,
                       },
+                      {
+                        className: hasColumnIcon
+                          ? "p-table__cell--icon-placeholder"
+                          : "",
+                      },
                     ])}
                   >
+                    {iconName && <Icon name={iconName} />}
                     {cell.render("Cell")}
                   </TableCell>
                 );
@@ -68,6 +87,15 @@ function ModularTable({
             </TableRow>
           );
         })}
+        {showEmpty && (
+          <TableRow>
+            {/* TODO:
+              ideally this should span across whole table, but currently we don't know if any columns hides on small screens
+              so this needs to wait until we implement some centralised mechanism for hiding columns
+            */}
+            <TableCell>{emptyMsg}</TableCell>
+          </TableRow>
+        )}
       </tbody>
     </Table>
   );
@@ -78,10 +106,13 @@ ModularTable.propTypes = {
     PropTypes.shape({
       Header: PropTypes.node,
       accessor: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+      Cell: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
       className: PropTypes.string,
+      getCellIcon: PropTypes.func,
     }).isRequired
   ),
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  emptyMsg: PropTypes.string,
 };
 
 export default ModularTable;

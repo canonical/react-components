@@ -1,7 +1,7 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import ModularTable from "./ModularTable";
 import Notification from "../Notification";
-
+import { ICONS } from "../Icon";
 
 <Meta title="ModularTable" component={ModularTable} />
 
@@ -23,6 +23,41 @@ ModularTable components accepts `columns` and `data` arguments in the same forma
   Memoization ensures that our data isn't recreated on every render. If we didn't use <code>React.useMemo</code>,
   the table would think it was receiving new data on every render and attempt to recalulate a lot of logic every single time.
 </Notification>
+
+
+#### Custom column options
+
+In addition to standard column propeties from [`useTable`](https://react-table.tanstack.com/docs/api/useTable) `ModularTable` accepts some custom properties.
+
+##### Class names
+
+Custom `className` can be used to provide a specific CSS class name that will be added to all cells in given column.
+
+```js
+columns = {
+  Header: "Hidden on mobile",
+  accessor: "example",
+  className: "u-hide--small"
+}
+```
+
+##### Icons
+
+To show an icon in the cells of a column `getCellIcon` function should be defined. The function takes a cell data as an argument and should return one of built in icons (from the `ICONS` enum), a string with a custom icon name, or `false` if no icon should be shown.
+
+The `ICONS` enum contains all [the Vanilla built in icons](https://vanillaframework.io/docs/patterns/icons) such as "plus", "minus", "success", "error", etc.
+
+Product specific icons can be used as well, assuming that the product provides the necessary CSS styling and the icon follows the Vanilla naming convention `p-icon--{name}`.
+
+```js
+columns = {
+  Header: "With icons",
+  accessor: "status",
+  getCellIcon: ({ value }) => {
+    return value === "released" ? ICONS.success : false;
+  }
+}
+```
 
 ### Default
 
@@ -51,14 +86,23 @@ ModularTable components accepts `columns` and `data` arguments in the same forma
             Cell: ({ value }) => {
               switch (value) {
                 case "released":
-                  return <><i className="p-icon--success"></i>Released</>;
+                  return "Released";
                 case "failed":
-                  return <><i className="p-icon--error"></i>Failed</>;
+                  return "Failed";
                 default:
                   return "Unknown";
               }
             },
-            className: "p-table__cell--icon-placeholder",
+            getCellIcon: ({ value }) => {
+               switch (value) {
+                case "released":
+                  return ICONS.success;
+                case "failed":
+                  return ICONS.error;
+                default:
+                  return false;
+              }
+            }
           },
           {
             Header: "Build Finished",
@@ -84,9 +128,54 @@ ModularTable components accepts `columns` and `data` arguments in the same forma
             result: "failed",
             finished: "over 1 year ago",
           },
+          {
+            buildId: "1111",
+            arch: "test64",
+            duration: "1 minute",
+            result: "other",
+            finished: "ages ago",
+          },
         ],
         []
       )}
+    />
+  </Story>
+</Preview>
+
+### Empty
+
+<Preview>
+  <Story name="Empty">
+    <ModularTable
+      columns={React.useMemo(
+        () => [
+          {
+            Header: "ID",
+            accessor: "buildId",
+          },
+          {
+            Header: "Architecture",
+            accessor: "arch",
+          },
+          {
+            Header: "Build Duration",
+            accessor: "duration",
+            className: "u-hide--small",
+          },
+          {
+            Header: "Result",
+            accessor: "result",
+          },
+          {
+            Header: "Build Finished",
+            accessor: "finished",
+            className: "u-align-text--right",
+          },
+        ],
+        []
+      )}
+      data={[]}
+      emptyMsg="Waiting for data..."
     />
   </Story>
 </Preview>
