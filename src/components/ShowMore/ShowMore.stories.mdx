@@ -1,0 +1,78 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
+
+import ShowMore from "./ShowMore";
+import ModularTable from "../ModularTable";
+
+<Meta title="ShowMore" component={ShowMore} />
+
+## ShowMore
+
+By default component renders as a button with a label.
+
+### Props
+
+<ArgsTable of={ShowMore} />
+
+### Default
+
+export const doNothing = () => {};
+
+<Canvas>
+  <Story name="Default">
+    <ShowMore label="Show more items" onClick={doNothing} />
+  </Story>
+</Canvas>
+
+### Loading
+
+When data is loaded asynchronusly `isLoading` prop should be set to `true` to shows a spinner animation.
+
+<Canvas>
+  <Story name="Loading">
+    <ShowMore label="Show more items" isLoading onClick={doNothing} />
+  </Story>
+</Canvas>
+
+
+### Complete example with ModularTable
+
+Example below shows a basic `ModularTable` with `ShowMore` component below.
+
+export const getRandomData = () => [
+  { data: Math.random() * 1000 },
+  { data: Math.random() * 1000 },
+  { data: Math.random() * 1000 },
+  { data: Math.random() * 1000 },
+  { data: Math.random() * 1000 },
+]
+
+<Canvas>
+  <Story name="Click event">
+    {() => {
+      const [data, setData] = useState(getRandomData());
+      const hasMore = data.length < 20;
+      const loadMore = () => {
+        setData(data.concat(getRandomData()));
+      };
+      const columns = [
+        {
+          Header: "Id",
+          accessor: (d, i) => i,
+        },
+        {
+          Header: "Data",
+          accessor: "data",
+        }
+      ];
+      return (
+        <>
+          <ModularTable data={data} columns={columns} />
+          { hasMore &&
+            <ShowMore label="Load more" onClick={loadMore} />
+          }
+        </>
+      )
+    }}
+  </Story>
+</Canvas>

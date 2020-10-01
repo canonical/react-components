@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ShowMore /> renders and matches the snapshot 1`] = `
+<div
+  className="p-show-more__container"
+>
+  <button
+    className="p-show-more__button p-button--base"
+    onClick={[Function]}
+  >
+    Show more
+  </button>
+</div>
+`;
