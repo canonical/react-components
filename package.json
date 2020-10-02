@@ -83,7 +83,7 @@
     "react-table": "7.5.1",
     "react-transition-group": "4.4.1",
     "react-useportal": "1.0.13",
-    "vanilla-framework": "2.19.0"
+    "vanilla-framework": "2.19.1"
   },
   "peerDependencies": {
     "react": "16.13.1",
