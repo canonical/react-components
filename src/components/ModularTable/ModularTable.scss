@@ -1,0 +1,33 @@
+@import "~vanilla-framework/scss/settings";
+
+// we specifically need to target table cells and use width: 0 instead of display: none
+// to correctly support colspan
+
+// stylelint-disable selector-no-qualifying-type
+td.u-hide,
+th.u-hide {
+  display: table-cell !important;
+  width: 0 !important;
+
+  &--small {
+    @media screen and (max-width: $breakpoint-medium) {
+      display: table-cell !important;
+      width: 0 !important;
+    }
+  }
+
+  &--medium {
+    @media (min-width: $breakpoint-medium) and (max-width: $breakpoint-large) {
+      display: table-cell !important;
+      width: 0 !important;
+    }
+  }
+
+  &--large {
+    @media screen and (min-width: $breakpoint-large) {
+      display: table-cell !important;
+      width: 0 !important;
+    }
+  }
+}
+// stylelint-enable selector-no-qualifying-type

@@ -9,6 +9,8 @@ import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
 import Icon from "../Icon";
 
+import "./ModularTable.scss";
+
 export type Props<D extends Record<string, unknown>> = {
   columns: Column<D>[];
   data: D[];
@@ -89,11 +91,7 @@ function ModularTable({
         })}
         {showEmpty && (
           <TableRow>
-            {/* TODO:
-              ideally this should span across whole table, but currently we don't know if any columns hides on small screens
-              so this needs to wait until we implement some centralised mechanism for hiding columns
-            */}
-            <TableCell>{emptyMsg}</TableCell>
+            <TableCell colSpan={columns.length}>{emptyMsg}</TableCell>
           </TableRow>
         )}
       </tbody>
