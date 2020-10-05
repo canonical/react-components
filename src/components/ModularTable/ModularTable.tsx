@@ -1,4 +1,4 @@
-import React from "react";
+import React, { SyntheticEvent } from "react";
 import PropTypes from "prop-types";
 import { useTable } from "react-table";
 import type { Column } from "react-table";
@@ -8,6 +8,7 @@ import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
 import Icon from "../Icon";
+import ShowMore from "../ShowMore";
 
 import "./ModularTable.scss";
 
@@ -15,12 +16,25 @@ export type Props<D extends Record<string, unknown>> = {
   columns: Column<D>[];
   data: D[];
   emptyMsg?: string;
+
+  // ShowMore props
+  hasShowMore?: boolean;
+  showMoreSummary?: string;
+  showMoreLabel?: string;
+  showMoreIsLoading?: boolean;
+  showMoreClick?: (event: SyntheticEvent) => void;
 };
 
 function ModularTable({
   data,
   columns,
   emptyMsg,
+
+  hasShowMore,
+  showMoreSummary,
+  showMoreLabel,
+  showMoreIsLoading,
+  showMoreClick,
 }: Props<Record<string, unknown>>): JSX.Element {
   const {
     getTableProps,
@@ -89,6 +103,19 @@ function ModularTable({
             </TableRow>
           );
         })}
+        {hasShowMore && (
+          <TableRow>
+            <TableCell colSpan={columns.length}>
+              <ShowMore
+                className="u-float-right"
+                summary={showMoreSummary}
+                label={showMoreLabel}
+                isLoading={showMoreIsLoading}
+                onClick={showMoreClick}
+              />
+            </TableCell>
+          </TableRow>
+        )}
         {showEmpty && (
           <TableRow>
             <TableCell colSpan={columns.length}>{emptyMsg}</TableCell>
@@ -111,6 +138,12 @@ ModularTable.propTypes = {
   ),
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   emptyMsg: PropTypes.string,
+
+  hasShowMore: PropTypes.bool,
+  showMoreSummary: PropTypes.string,
+  showMoreLabel: PropTypes.string,
+  showMoreClick: PropTypes.func,
+  showMoreIsLoading: PropTypes.bool,
 };
 
 export default ModularTable;

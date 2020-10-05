@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import "./ShowMore.scss";
 
 type Props = {
+  className?: string;
   label: string;
   onClick: (event: SyntheticEvent) => void;
   summary?: string;
@@ -11,6 +12,7 @@ type Props = {
 };
 
 const ShowMore = ({
+  className,
   isLoading,
   summary,
   label,
@@ -23,7 +25,7 @@ const ShowMore = ({
   };
 
   return (
-    <span>
+    <span className={className}>
       {summary && (
         <>
           <span>{summary}</span>{" "}
@@ -41,6 +43,7 @@ const ShowMore = ({
 };
 
 ShowMore.propTypes = {
+  className: PropTypes.string,
   summary: PropTypes.string,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
