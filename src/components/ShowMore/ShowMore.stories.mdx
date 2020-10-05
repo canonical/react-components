@@ -76,10 +76,14 @@ export const getRandomData = () => [
       ];
       return (
         <>
-          <ModularTable data={data} columns={columns} />
-          { hasMore &&
-            <ShowMore label="Load more" onClick={loadMore} />
-          }
+          <ModularTable
+            data={data}
+            columns={columns}
+            hasShowMore={hasMore}
+            showMoreSummary={`Showing ${data.length} of 20 items.`}
+            showMoreLabel="Load more"
+            showMoreClick={loadMore}
+          />
         </>
       )
     }}
