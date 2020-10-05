@@ -6,24 +6,42 @@ import "./ShowMore.scss";
 type Props = {
   label: string;
   onClick: (event: SyntheticEvent) => void;
+  summary?: string;
   isLoading?: boolean;
 };
 
-const ShowMore = ({ isLoading, label, onClick }: Props): JSX.Element => (
-  <div className="p-show-more__container">
-    {isLoading ? (
-      <span className="p-show-more__button">
+const ShowMore = ({
+  isLoading,
+  summary,
+  label,
+  onClick,
+}: Props): JSX.Element => {
+  // prevent browser from changing the URL
+  const handleClick = (event: SyntheticEvent) => {
+    event.preventDefault();
+    onClick(event);
+  };
+
+  return (
+    <span>
+      {summary && (
+        <>
+          <span>{summary}</span>{" "}
+        </>
+      )}
+      {isLoading ? (
         <i className="p-icon--spinner u-animation--spin" />
-      </span>
-    ) : (
-      <button className="p-show-more__button p-button--base" onClick={onClick}>
-        {label}
-      </button>
-    )}
-  </div>
-);
+      ) : (
+        <a href="#show-more" onClick={handleClick}>
+          {label}
+        </a>
+      )}
+    </span>
+  );
+};
 
 ShowMore.propTypes = {
+  summary: PropTypes.string,
   label: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
   isLoading: PropTypes.bool,
