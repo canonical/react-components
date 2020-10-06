@@ -1,6 +1,9 @@
 import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
-import ModularTable from "./ModularTable";
+import { useState } from "react";
 import Notification from "../Notification";
+
+import ShowMore from "../ShowMore";
+import ModularTable from "./ModularTable";
 import { ICONS } from "../Icon";
 
 <Meta title="ModularTable" component={ModularTable} />
@@ -179,3 +182,52 @@ columns = {
     />
   </Story>
 </Preview>
+
+### Load more items
+
+Example below shows a basic `ModularTable` with `ShowMore` component in the footer.
+
+export const getRandomData = () => [
+  { data: Math.random() * 1000 },
+  { data: Math.random() * 1000 },
+  { data: Math.random() * 1000 },
+  { data: Math.random() * 1000 },
+  { data: Math.random() * 1000 },
+]
+
+<Canvas>
+  <Story name="ShowMore">
+    {() => {
+      const [data, setData] = useState(getRandomData());
+      const hasMore = data.length < 20;
+      const loadMore = () => {
+        setData(data.concat(getRandomData()));
+      };
+      const columns = [
+        {
+          Header: "Id",
+          accessor: (d, i) => i,
+        },
+        {
+          Header: "Data",
+          accessor: "data",
+        }
+      ];
+      const footer= hasMore ? (
+        <ShowMore
+          className="u-float-right"
+          summary={`Showing ${data.length} of 20 items.`}
+          label="Show 5 more"
+          onClick={loadMore}
+        />
+      ) : null;
+      return (
+        <ModularTable
+          data={data}
+          columns={columns}
+          footer={footer}
+        />
+      )
+    }}
+  </Story>
+</Canvas>
