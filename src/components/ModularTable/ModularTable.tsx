@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from "react";
+import React, { ReactNode } from "react";
 import PropTypes from "prop-types";
 import { useTable } from "react-table";
 import type { Column } from "react-table";
@@ -8,7 +8,6 @@ import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
 import Icon from "../Icon";
-import ShowMore from "../ShowMore";
 
 import "./ModularTable.scss";
 
@@ -16,25 +15,14 @@ export type Props<D extends Record<string, unknown>> = {
   columns: Column<D>[];
   data: D[];
   emptyMsg?: string;
-
-  // ShowMore props
-  hasShowMore?: boolean;
-  showMoreSummary?: string;
-  showMoreLabel?: string;
-  showMoreIsLoading?: boolean;
-  showMoreClick?: (event: SyntheticEvent) => void;
+  footer?: ReactNode;
 };
 
 function ModularTable({
   data,
   columns,
   emptyMsg,
-
-  hasShowMore,
-  showMoreSummary,
-  showMoreLabel,
-  showMoreIsLoading,
-  showMoreClick,
+  footer,
 }: Props<Record<string, unknown>>): JSX.Element {
   const {
     getTableProps,
@@ -103,25 +91,19 @@ function ModularTable({
             </TableRow>
           );
         })}
-        {hasShowMore && (
-          <TableRow>
-            <TableCell colSpan={columns.length}>
-              <ShowMore
-                className="u-float-right"
-                summary={showMoreSummary}
-                label={showMoreLabel}
-                isLoading={showMoreIsLoading}
-                onClick={showMoreClick}
-              />
-            </TableCell>
-          </TableRow>
-        )}
         {showEmpty && (
           <TableRow>
             <TableCell colSpan={columns.length}>{emptyMsg}</TableCell>
           </TableRow>
         )}
       </tbody>
+      {footer && (
+        <tfoot>
+          <TableRow>
+            <TableCell colSpan={columns.length}>{footer}</TableCell>
+          </TableRow>
+        </tfoot>
+      )}
     </Table>
   );
 }
@@ -138,12 +120,7 @@ ModularTable.propTypes = {
   ),
   data: PropTypes.arrayOf(PropTypes.object).isRequired,
   emptyMsg: PropTypes.string,
-
-  hasShowMore: PropTypes.bool,
-  showMoreSummary: PropTypes.string,
-  showMoreLabel: PropTypes.string,
-  showMoreClick: PropTypes.func,
-  showMoreIsLoading: PropTypes.bool,
+  footer: PropTypes.node,
 };
 
 export default ModularTable;

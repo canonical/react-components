@@ -61,4 +61,16 @@ describe("ModularTable", () => {
       "Nothing here"
     );
   });
+
+  it("renders a footer if provided", () => {
+    const wrapper = shallow(
+      <ModularTable columns={columns} data={data} footer="This is a footer" />
+    );
+
+    const rowItems = wrapper.find("tfoot TableRow");
+    expect(rowItems.length).toEqual(1);
+    expect(rowItems.at(0).find("TableCell").first().children().text()).toEqual(
+      "This is a footer"
+    );
+  });
 });
