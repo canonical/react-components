@@ -74,17 +74,20 @@ export const getRandomData = () => [
           accessor: "data",
         }
       ];
+      const footer= hasMore ? (
+        <ShowMore
+          className="u-float-right"
+          summary={`Showing ${data.length} of 20 items.`}
+          label="Show 5 more"
+          onClick={loadMore}
+        />
+      ) : null;
       return (
-        <>
-          <ModularTable
-            data={data}
-            columns={columns}
-            hasShowMore={hasMore}
-            showMoreSummary={`Showing ${data.length} of 20 items.`}
-            showMoreLabel="Load more"
-            showMoreClick={loadMore}
-          />
-        </>
+        <ModularTable
+          data={data}
+          columns={columns}
+          footer={footer}
+        />
       )
     }}
   </Story>
