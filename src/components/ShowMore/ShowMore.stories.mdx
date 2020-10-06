@@ -57,7 +57,7 @@ export const getRandomData = () => [
 ]
 
 <Canvas>
-  <Story name="ModularTable">
+  <Story name="ShowMore">
     {() => {
       const [data, setData] = useState(getRandomData());
       const hasMore = data.length < 20;
@@ -75,12 +75,13 @@ export const getRandomData = () => [
         }
       ];
       const footer= hasMore ? (
-        <ShowMore
-          className="u-float-right"
-          summary={`Showing ${data.length} of 20 items.`}
-          label="Show 5 more"
-          onClick={loadMore}
-        />
+        <div className="u-align--right">
+          <ShowMore
+            summary={`Showing ${data.length} of 20 items.`}
+            label="Show 5 more"
+            onClick={loadMore}
+          />
+        </div>
       ) : null;
       return (
         <ModularTable

@@ -96,14 +96,12 @@ function ModularTable({
             <TableCell colSpan={columns.length}>{emptyMsg}</TableCell>
           </TableRow>
         )}
-      </tbody>
-      {footer && (
-        <tfoot>
+        {footer && (
           <TableRow>
             <TableCell colSpan={columns.length}>{footer}</TableCell>
           </TableRow>
-        </tfoot>
-      )}
+        )}
+      </tbody>
     </Table>
   );
 }
