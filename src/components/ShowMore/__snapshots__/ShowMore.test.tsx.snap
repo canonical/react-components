@@ -1,7 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ShowMore /> renders and matches the snapshot 1`] = `
-<span>
+<small
+  className="u-text--muted"
+>
   <span>
     Showing some items
   </span>
@@ -12,5 +14,5 @@ exports[`<ShowMore /> renders and matches the snapshot 1`] = `
   >
     Show more
   </a>
-</span>
+</small>
 `;

@@ -1,7 +1,6 @@
 import React, { SyntheticEvent } from "react";
 import PropTypes from "prop-types";
-
-import "./ShowMore.scss";
+import classNames from "classnames";
 
 type Props = {
   className?: string;
@@ -25,7 +24,7 @@ const ShowMore = ({
   };
 
   return (
-    <span className={className}>
+    <small className={classNames("u-text--muted", className)}>
       {summary && (
         <>
           <span>{summary}</span>{" "}
@@ -38,7 +37,7 @@ const ShowMore = ({
           {label}
         </a>
       )}
-    </span>
+    </small>
   );
 };
 
