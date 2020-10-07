@@ -1,13 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SummaryButton /> renders and matches the snapshot 1`] = `
-<small
-  className="u-text--muted"
->
-  <span>
+<small>
+  <span
+    className="p-summary__text u-text--muted"
+  >
     Showing some items
   </span>
-   
   <ActionButton
     appearance="neutral"
     className="is-small is-dense"
