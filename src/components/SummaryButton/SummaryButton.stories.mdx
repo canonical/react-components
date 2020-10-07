@@ -7,7 +7,7 @@ import SummaryButton from "./SummaryButton";
 
 ## SummaryButton
 
-By default component renders as a button with a label.
+`SummaryButton` is a component to render a short summary with an action button. It's initial use case is a summary of table contents with action to load more items.
 
 ### Props
 
@@ -19,27 +19,36 @@ export const doNothing = () => {};
 
 <Canvas>
   <Story name="Default">
+    <SummaryButton summary="Showing 15 out of 100 items." label="Show more" onClick={doNothing} />
+  </Story>
+</Canvas>
+
+### Action only
+
+Summary text is optional.
+
+<Canvas>
+  <Story name="Action only">
     <SummaryButton label="Show more items" onClick={doNothing} />
+  </Story>
+</Canvas>
+
+### Summary only
+
+Action is optional as well. When `onClick` prop is not provided component will render just the summary text.
+
+<Canvas>
+  <Story name="Summary only">
+    <SummaryButton summary="Showing 100 out of 100 items." label="Show more items" />
   </Story>
 </Canvas>
 
 ### Loading
 
-When data is loaded asynchronusly `isLoading` prop should be set to `true` to shows a spinner animation.
+When data is loaded asynchronusly `isLoading` prop should be set to `true` to shows a spinner animation in place of the action button.
 
 <Canvas>
   <Story name="Loading">
-    <SummaryButton label="Show more items" isLoading onClick={doNothing} />
+    <SummaryButton summary="Showing 15 out of 100 items." label="Show more items" isLoading onClick={doNothing} />
   </Story>
 </Canvas>
-
-### Summary
-
-Text summary of the already visible data can be provided via `summary` prop.
-
-<Canvas>
-  <Story name="Summary">
-    <SummaryButton summary="Showing 12 out of 30 items." label="Show more" onClick={doNothing} />
-  </Story>
-</Canvas>
-
