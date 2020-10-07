@@ -20,7 +20,9 @@ const SummaryButton = ({
   // prevent browser from changing the URL
   const handleClick = (event: SyntheticEvent) => {
     event.preventDefault();
-    onClick(event);
+    if (onClick) {
+      onClick(event);
+    }
   };
 
   return (
@@ -33,9 +35,11 @@ const SummaryButton = ({
       {isLoading ? (
         <i className="p-icon--spinner u-animation--spin" />
       ) : (
-        <a href="#show-more" onClick={handleClick}>
-          {label}
-        </a>
+        onClick && (
+          <a href="#show-more" onClick={handleClick}>
+            {label}
+          </a>
+        )
       )}
     </small>
   );
@@ -44,8 +48,8 @@ const SummaryButton = ({
 SummaryButton.propTypes = {
   className: PropTypes.string,
   summary: PropTypes.string,
-  label: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired,
+  label: PropTypes.string,
+  onClick: PropTypes.func,
   isLoading: PropTypes.bool,
 };
 
