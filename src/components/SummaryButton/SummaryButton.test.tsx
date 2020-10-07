@@ -1,13 +1,13 @@
 import { shallow } from "enzyme";
 import React from "react";
 
-import ShowMore from "./ShowMore";
+import SummaryButton from "./SummaryButton";
 
-describe("<ShowMore />", () => {
+describe("<SummaryButton />", () => {
   // snapshot tests
   it("renders and matches the snapshot", () => {
     const component = shallow(
-      <ShowMore
+      <SummaryButton
         summary="Showing some items"
         label="Show more"
         onClick={() => false}
@@ -20,7 +20,7 @@ describe("<ShowMore />", () => {
   // unit tests
   it("renders a spinner icon", () => {
     const component = shallow(
-      <ShowMore label="Show more" onClick={() => false} isLoading />
+      <SummaryButton label="Show more" onClick={() => false} isLoading />
     );
 
     expect(
@@ -30,7 +30,9 @@ describe("<ShowMore />", () => {
 
   it("can handle click events", () => {
     const onClick = jest.fn();
-    const component = shallow(<ShowMore label="Show more" onClick={onClick} />);
+    const component = shallow(
+      <SummaryButton label="Show more" onClick={onClick} />
+    );
 
     component
       .find("a")

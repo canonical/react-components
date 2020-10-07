@@ -2,7 +2,7 @@ import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
 import Notification from "../Notification";
 
-import ShowMore from "../ShowMore";
+import SummaryButton from "../SummaryButton";
 import ModularTable from "./ModularTable";
 import { ICONS } from "../Icon";
 
@@ -185,7 +185,7 @@ columns = {
 
 ### Load more items
 
-Example below shows a basic `ModularTable` with `ShowMore` component in the footer.
+Example below shows a basic `ModularTable` with `SummaryButton` component in the footer.
 
 export const getRandomData = () => [
   { data: Math.random() * 1000 },
@@ -196,7 +196,7 @@ export const getRandomData = () => [
 ]
 
 <Canvas>
-  <Story name="ShowMore">
+  <Story name="Load more">
     {() => {
       const [data, setData] = useState(getRandomData());
       const hasMore = data.length < 20;
@@ -215,7 +215,7 @@ export const getRandomData = () => [
       ];
       const footer= hasMore ? (
         <div className="u-align--right">
-          <ShowMore
+          <SummaryButton
             summary={`Showing ${data.length} of 20 items.`}
             label="Show 5 more"
             onClick={loadMore}

@@ -2,6 +2,7 @@
 
 // we specifically need to target table cells and use width: 0 instead of display: none
 // to correctly support colspan
+// Vanilla issue: https://github.com/canonical-web-and-design/vanilla-framework/issues/3337
 
 // stylelint-disable selector-no-qualifying-type
 td.u-hide,
