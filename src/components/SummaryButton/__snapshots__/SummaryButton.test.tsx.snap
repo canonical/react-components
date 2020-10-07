@@ -8,11 +8,12 @@ exports[`<SummaryButton /> renders and matches the snapshot 1`] = `
     Showing some items
   </span>
    
-  <a
-    href="#show-more"
+  <ActionButton
+    appearance="neutral"
+    className="is-small is-dense"
     onClick={[Function]}
   >
     Show more
-  </a>
+  </ActionButton>
 </small>
 `;

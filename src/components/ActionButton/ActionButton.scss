@@ -2,6 +2,7 @@
 @import "~vanilla-framework/scss/base_placeholders";
 @import "~vanilla-framework/scss/settings_animations";
 @import "~vanilla-framework/scss/settings_colors";
+@import "~vanilla-framework/scss/settings_spacing";
 @import "~vanilla-framework/scss/patterns_icons";
 @import "~vanilla-framework/scss/base_icon-definitions";
 
@@ -39,4 +40,22 @@
   &.is-success {
     opacity: 1 !important; // Override Vanilla disabled opacity - too much colour changing otherwise
   }
+}
+
+// custom small button styles
+// should be upstreamed into Vanilla in https://github.com/canonical-web-and-design/vanilla-framework/issues/3341
+
+// stylelint-disable-next-line selector-no-qualifying-type
+button.is-small {
+  font-size: #{map-get($font-sizes, small)}rem;
+  line-height: map-get($line-heights, small);
+  margin: 0 0 $input-margin-bottom - $sp-unit 0;
+  padding: calc(#{map-get($nudges, nudge--small)} - 1px) $sph-inner--small;
+}
+
+// stylelint-disable-next-line selector-no-qualifying-type
+button.is-small.is-dense {
+  margin-bottom: $spv-nudge-compensation;
+  padding-bottom: calc(#{$spv-nudge - $sp-unit * 0.5} - 1px);
+  padding-top: calc(#{$spv-nudge - $sp-unit * 0.5} - 1px);
 }
