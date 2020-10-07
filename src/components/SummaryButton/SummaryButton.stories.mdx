@@ -1,0 +1,45 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
+
+import SummaryButton from "./SummaryButton";
+
+<Meta title="SummaryButton" component={SummaryButton} />
+
+## SummaryButton
+
+By default component renders as a button with a label.
+
+### Props
+
+<ArgsTable of={SummaryButton} />
+
+### Default
+
+export const doNothing = () => {};
+
+<Canvas>
+  <Story name="Default">
+    <SummaryButton label="Show more items" onClick={doNothing} />
+  </Story>
+</Canvas>
+
+### Loading
+
+When data is loaded asynchronusly `isLoading` prop should be set to `true` to shows a spinner animation.
+
+<Canvas>
+  <Story name="Loading">
+    <SummaryButton label="Show more items" isLoading onClick={doNothing} />
+  </Story>
+</Canvas>
+
+### Summary
+
+Text summary of the already visible data can be provided via `summary` prop.
+
+<Canvas>
+  <Story name="Summary">
+    <SummaryButton summary="Showing 12 out of 30 items." label="Show more" onClick={doNothing} />
+  </Story>
+</Canvas>
+

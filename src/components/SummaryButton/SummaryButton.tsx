@@ -10,7 +10,7 @@ type Props = {
   isLoading?: boolean;
 };
 
-const ShowMore = ({
+const SummaryButton = ({
   className,
   isLoading,
   summary,
@@ -41,7 +41,7 @@ const ShowMore = ({
   );
 };
 
-ShowMore.propTypes = {
+SummaryButton.propTypes = {
   className: PropTypes.string,
   summary: PropTypes.string,
   label: PropTypes.string.isRequired,
@@ -49,4 +49,4 @@ ShowMore.propTypes = {
   isLoading: PropTypes.bool,
 };
 
-export default ShowMore;
+export default SummaryButton;
