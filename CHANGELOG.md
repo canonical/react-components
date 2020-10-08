@@ -9,9 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Removed
+
+# 0.13.0 - 2020-10-08
+
+### Added
+
 - Added new SummaryButton component
 
 ### Changed
+
+- Only pass Slider id prop to range input, not to number input
 
 ### Removed
 
