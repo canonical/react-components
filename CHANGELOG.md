@@ -13,6 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+# 0.13.1 - 2020-10-15
+
+### Changed
+
+- BUGFIX: Updated MainTable so that the table headers aren't squashed when `expanding` is `true`.
+
 # 0.13.0 - 2020-10-08
 
 ### Added
