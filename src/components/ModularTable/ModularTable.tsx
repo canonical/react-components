@@ -35,7 +35,7 @@ function ModularTable({
   const showEmpty: boolean = emptyMsg && (!rows || rows.length === 0);
 
   return (
-    <Table {...getTableProps()}>
+    <Table {...getTableProps({ className: "p-modular-table" })}>
       <thead>
         {headerGroups.map((headerGroup) => (
           <TableRow {...headerGroup.getHeaderGroupProps()}>
