@@ -5,31 +5,29 @@
 // Vanilla issue: https://github.com/canonical-web-and-design/vanilla-framework/issues/3337
 
 // stylelint-disable selector-no-qualifying-type
-.p-modular-table {
-  td.u-hide,
-  th.u-hide {
-    display: table-cell !important;
-    width: 0 !important;
+td.u-hide,
+th.u-hide {
+  display: table-cell !important;
+  width: 0 !important;
 
-    &--small {
-      @media screen and (max-width: $breakpoint-medium) {
-        display: table-cell !important;
-        width: 0 !important;
-      }
+  &--small {
+    @media screen and (max-width: $breakpoint-medium) {
+      display: table-cell !important;
+      width: 0 !important;
     }
+  }
 
-    &--medium {
-      @media (min-width: $breakpoint-medium) and (max-width: $breakpoint-large) {
-        display: table-cell !important;
-        width: 0 !important;
-      }
+  &--medium {
+    @media (min-width: $breakpoint-medium) and (max-width: $breakpoint-large) {
+      display: table-cell !important;
+      width: 0 !important;
     }
+  }
 
-    &--large {
-      @media screen and (min-width: $breakpoint-large) {
-        display: table-cell !important;
-        width: 0 !important;
-      }
+  &--large {
+    @media screen and (min-width: $breakpoint-large) {
+      display: table-cell !important;
+      width: 0 !important;
     }
   }
 }
