@@ -16,10 +16,11 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
   const [filterPanelHidden, setFilterPanelHidden] = useState(true);
   const [searchBoxExpanded, setSearchBoxExpanded] = useState(false);
   const [overflowSearchTermCounter, setOverflowSearchTermCounter] = useState(0);
+  const [searchContainerActive, setSearchContainerActive] = useState(false);
+
   const searchAndFilterRef = useRef(null);
   const searchContainerRef = useRef(null);
   const searchBoxRef = useRef(null);
-  const [searchContainerActive, setSearchContainerActive] = useState(false);
 
   // Return searchData to parent component
   useEffect(() => {
