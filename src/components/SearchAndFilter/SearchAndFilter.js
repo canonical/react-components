@@ -32,18 +32,18 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
 
   // Hide manual input form field when search container is inactive
   useEffect(() => {
-    const searchContainerClickCheck = document.addEventListener(
-      "click",
-      (e) => {
-        const clickInContainer =
-          e.target?.closest(".search-and-filter__search-container") !== null ||
-          e.target.classList.contains("p-icon--close");
-        setSearchContainerActive(clickInContainer);
-      }
-    );
+    const searchContainerClickCheck = (e) => {
+      const clickInContainer = e.target?.closest(".search-and-filter") !== null;
+      console.log(e.target?.closest(".search-and-filter"));
+      setSearchContainerActive(clickInContainer);
+    };
+
+    document.addEventListener("click", (e) => searchContainerClickCheck(e));
 
     return () => {
-      document.removeEventListener("click", searchContainerClickCheck);
+      document.removeEventListener("click", (e) =>
+        searchContainerClickCheck(e)
+      );
     };
   }, [searchContainerActive]);
 
