@@ -109,15 +109,18 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
 
   // Watch for container resize and recalculate overflow count accordingly
   useEffect(() => {
-    if (typeof ResizeObserver !== "undefined") {
-      const wrapperWidthObserver = new ResizeObserver(() => {
-        updateFlowCount();
-      });
-      const wrapper = searchContainerRef.current;
+    const wrapperWidthObserver = new ResizeObserver(() => {
+      updateFlowCount();
+    });
+    const wrapper = searchContainerRef.current;
+    if (wrapper && typeof ResizeObserver !== "undefined") {
       wrapperWidthObserver.observe(wrapper);
     } else {
       updateFlowCount();
     }
+    return () => {
+      wrapperWidthObserver.disconnect();
+    };
   }, [searchData]);
 
   // Add search prompt value to search on Enter key
