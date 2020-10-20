@@ -38,6 +38,7 @@ const FilterPanelSection = ({
   Object.entries(chips).forEach((chipValue) => {
     chipValues.push(chipValue[1].value);
   });
+
   // Search chips for character match with search term
   const searchTermInChips = highlightSubString(
     chipValues.toString(),
@@ -49,15 +50,18 @@ const FilterPanelSection = ({
 
   // Update overflow count when component is resized
   useEffect(() => {
+    const wrapper = chipWrapper?.current;
+    const wrapperWidthObserver = new ResizeObserver(() => {
+      updateFlowCount();
+    });
     if (typeof ResizeObserver !== "undefined" && panelSectionVisible) {
-      const wrapperWidthObserver = new ResizeObserver(() => {
-        updateFlowCount();
-      });
-      const wrapper = chipWrapper?.current;
       wrapperWidthObserver.observe(wrapper);
     } else {
       updateFlowCount();
     }
+    return () => {
+      wrapperWidthObserver.disconnect();
+    };
   }, [panelSectionVisible]);
 
   // When overflow counter is clicked, all chips are shown
