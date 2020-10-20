@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updated expanding MainTable to use aria-hidden instead of .u-hide utility class
 - Updated Vanilla framework to version 2.19.2
+- Added class names to the wrapping elements for the Tooltip component.
 
 ### Removed
 

@@ -215,13 +215,17 @@ const Tooltip = ({
     <>
       {message ? (
         <span
-          className={className}
+          className={classNames("p-tooltip--wrapper", className)}
           onBlur={closePortal}
           onFocus={openPortal}
           onMouseOut={closePortal}
           onMouseOver={openPortal}
         >
-          <span ref={wrapperRef} style={{ display: "inline-block" }}>
+          <span
+            className="p-tooltip--wrapper-inner"
+            ref={wrapperRef}
+            style={{ display: "inline-block" }}
+          >
             {children}
           </span>
           {isOpen && (
@@ -246,7 +250,9 @@ const Tooltip = ({
           )}
         </span>
       ) : (
-        <span className={className}>{children}</span>
+        <span className={classNames("p-tooltip--wrapper", className)}>
+          {children}
+        </span>
       )}
     </>
   );

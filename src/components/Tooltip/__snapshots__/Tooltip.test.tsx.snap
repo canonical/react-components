@@ -3,12 +3,14 @@
 exports[`<Tooltip /> renders and matches the snapshot 1`] = `
 <Fragment>
   <span
+    className="p-tooltip--wrapper"
     onBlur={[Function]}
     onFocus={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
     <span
+      className="p-tooltip--wrapper-inner"
       style={
         Object {
           "display": "inline-block",
