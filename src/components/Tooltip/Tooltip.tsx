@@ -40,6 +40,7 @@ export type Props = {
   followMouse?: boolean;
   message?: string;
   position?: Position;
+  positionElementClassName?: string;
   tooltipClassName?: string;
 };
 
@@ -144,6 +145,7 @@ export const adjustForWindow = (
  * @param [followMouse=false] Whether the tooltip should follow the mouse.
  * @param message Message to display when the element is hovered.
  * @param [position="top-left"] Position of the tooltip relative to the element.
+ * @param positionElementClassName An optional class to apply to the element that wraps the children.
  * @param tooltipClassName An optional class to apply to the tooltip message element.
  */
 const Tooltip = ({
@@ -153,6 +155,7 @@ const Tooltip = ({
   followMouse = false,
   message,
   position = "top-left",
+  positionElementClassName,
   tooltipClassName,
 }: Props): JSX.Element => {
   const wrapperRef = useRef<HTMLElement>(null);
@@ -215,14 +218,14 @@ const Tooltip = ({
     <>
       {message ? (
         <span
-          className={classNames("p-tooltip--wrapper", className)}
+          className={className}
           onBlur={closePortal}
           onFocus={openPortal}
           onMouseOut={closePortal}
           onMouseOver={openPortal}
         >
           <span
-            className="p-tooltip--wrapper-inner"
+            className={positionElementClassName}
             ref={wrapperRef}
             style={{ display: "inline-block" }}
           >
@@ -250,9 +253,7 @@ const Tooltip = ({
           )}
         </span>
       ) : (
-        <span className={classNames("p-tooltip--wrapper", className)}>
-          {children}
-        </span>
+        <span className={className}>{children}</span>
       )}
     </>
   );
@@ -292,6 +293,10 @@ Tooltip.propTypes = {
     "top-left",
     "top-right",
   ]),
+  /**
+   * An optional class to apply to the element that wraps the children.
+   */
+  positionElementClassName: PropTypes.node,
   /**
    * An optional class to apply to the tooltip message element.
    */
