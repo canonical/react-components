@@ -50,17 +50,19 @@ const FilterPanelSection = ({
 
   // Update overflow count when component is resized
   useEffect(() => {
+    const resizeObserverSupported = typeof ResizeObserver !== "undefined";
     const wrapper = chipWrapper?.current;
-    const wrapperWidthObserver = new ResizeObserver(() => {
-      updateFlowCount();
-    });
-    if (typeof ResizeObserver !== "undefined" && panelSectionVisible) {
+    let wrapperWidthObserver;
+    if (resizeObserverSupported && panelSectionVisible) {
+      wrapperWidthObserver = new ResizeObserver(() => {
+        updateFlowCount();
+      });
       wrapperWidthObserver.observe(wrapper);
     } else {
       updateFlowCount();
     }
     return () => {
-      wrapperWidthObserver.disconnect();
+      resizeObserverSupported && wrapperWidthObserver.disconnect();
     };
   }, [panelSectionVisible]);
 
