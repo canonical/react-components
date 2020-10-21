@@ -113,17 +113,19 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
 
   // Watch for container resize and recalculate overflow count accordingly
   useEffect(() => {
-    const wrapperWidthObserver = new ResizeObserver(() => {
-      updateFlowCount();
-    });
+    const resizeObserverSupported = typeof ResizeObserver !== "undefined";
     const wrapper = searchContainerRef.current;
-    if (wrapper && typeof ResizeObserver !== "undefined") {
+    let wrapperWidthObserver;
+    if (resizeObserverSupported && wrapper) {
+      wrapperWidthObserver = new ResizeObserver(() => {
+        updateFlowCount();
+      });
       wrapperWidthObserver.observe(wrapper);
     } else {
       updateFlowCount();
     }
     return () => {
-      wrapperWidthObserver.disconnect();
+      resizeObserverSupported && wrapperWidthObserver.disconnect();
     };
   }, [searchData]);
 
