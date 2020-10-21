@@ -62,7 +62,7 @@ describe("Search and filter", () => {
     expect(
       wrapper.find(".search-and-filter__panel").prop("aria-hidden")
     ).toEqual(true);
-    wrapper.find(".p-search-box__input").simulate("focus");
+    wrapper.find(".search-and-filter").simulate("click");
     expect(
       wrapper.find(".search-and-filter__panel").prop("aria-hidden")
     ).toEqual(false);
@@ -185,7 +185,7 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
-    wrapper.find(".p-search-box__input").simulate("focus");
+    wrapper.find(".search-and-filter").simulate("click");
     expect(wrapper.find(".search-prompt").length).toEqual(0);
     wrapper
       .find(".p-search-box__input")
@@ -202,7 +202,7 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
-    wrapper.find(".p-search-box__input").simulate("focus");
+    wrapper.find(".search-and-filter").simulate("click");
     expect(wrapper.find(".filter-panel-section").length).toEqual(3);
     wrapper
       .find(".p-search-box__input")
@@ -219,7 +219,7 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
-    wrapper.find(".p-search-box__input").simulate("focus");
+    wrapper.find(".search-and-filter").simulate("click");
     wrapper
       .find(".p-search-box__input")
       .simulate("change", { target: { value: "Google" } });
