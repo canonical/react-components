@@ -24,7 +24,11 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
 
   // Return searchData to parent component
   useEffect(() => {
-    returnSearchData && returnSearchData(searchData);
+    let mounted = true;
+    returnSearchData && mounted && returnSearchData(searchData);
+    return () => {
+      mounted = false;
+    };
   }, [searchData, returnSearchData]);
 
   const searchOnChange = (searchTerm) => {
@@ -35,7 +39,6 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
   useEffect(() => {
     const searchContainerClickCheck = (e) => {
       const clickInContainer = e.target?.closest(".search-and-filter") !== null;
-      console.log(e.target?.closest(".search-and-filter"));
       setSearchContainerActive(clickInContainer);
     };
 
@@ -150,7 +153,11 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
   };
 
   return (
-    <div className="search-and-filter" ref={searchAndFilterRef}>
+    <div
+      className="search-and-filter"
+      ref={searchAndFilterRef}
+      onClick={() => filterPanelHidden && setFilterPanelHidden(false)}
+    >
       <div
         className="search-and-filter__search-container"
         aria-expanded={searchBoxExpanded || searchContainerActive}
@@ -183,8 +190,6 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
           externallyControlled={true}
           placeholder={searchData.length ? "Add filter" : "Search and filter"}
           onChange={(searchTerm) => searchOnChange(searchTerm)}
-          onClick={() => setFilterPanelHidden(false)}
-          onFocus={() => setFilterPanelHidden(false)}
           onSubmit={(e) => handleSubmit(e)}
           value={searchTerm}
           ref={searchBoxRef}
@@ -202,72 +207,68 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
           </span>
         )}
       </div>
-      {filterPanelData && (
-        <div
-          className="search-and-filter__panel"
-          aria-hidden={filterPanelHidden}
+
+      <div className="search-and-filter__panel" aria-hidden={filterPanelHidden}>
+        <ContextualMenu
+          autoAdjust={false}
+          className="search-and-filter__contextual-menu"
+          constrainPanelWidth
+          onToggleMenu={(visible) => setFilterPanelHidden(!visible)}
+          position="left"
+          visible={!filterPanelHidden}
+          dropdownClassName="search-and-filter__dropdown"
         >
-          <ContextualMenu
-            autoAdjust={false}
-            className="search-and-filter__contextual-menu"
-            constrainPanelWidth
-            onToggleMenu={(visible) => setFilterPanelHidden(!visible)}
-            position="left"
-            visible={!filterPanelHidden}
-            dropdownClassName="search-and-filter__dropdown"
+          <CSSTransition
+            appear={true}
+            classNames={{
+              appear: "search-and-filter__contextual-menu--transition-appear",
+              appearActive:
+                "search-and-filter__contextual-menu--transition-appear-active",
+              appearDone:
+                "search-and-filter__contextual-menu--transition-appear-done",
+              enter: "search-and-filter__contextual-menu--transition-enter",
+              enterActive:
+                "search-and-filter__contextual-menu--transition-enter-active",
+              enterDone:
+                "search-and-filter__contextual-menu--transition-enter-done",
+              exit: "search-and-filter__contextual-menu--transition-exit",
+              exitActive:
+                "search-and-filter__contextual-menu--transition-exit-active",
+              exitDone:
+                "search-and-filter__contextual-menu--transition-exit-done",
+            }}
+            in={true}
+            timeout={200}
           >
-            <CSSTransition
-              appear={true}
-              classNames={{
-                appear: "search-and-filter__contextual-menu--transition-appear",
-                appearActive:
-                  "search-and-filter__contextual-menu--transition-appear-active",
-                appearDone:
-                  "search-and-filter__contextual-menu--transition-appear-done",
-                enter: "search-and-filter__contextual-menu--transition-enter",
-                enterActive:
-                  "search-and-filter__contextual-menu--transition-enter-active",
-                enterDone:
-                  "search-and-filter__contextual-menu--transition-enter-done",
-                exit: "search-and-filter__contextual-menu--transition-exit",
-                exitActive:
-                  "search-and-filter__contextual-menu--transition-exit-active",
-                exitDone:
-                  "search-and-filter__contextual-menu--transition-exit-done",
-              }}
-              in={true}
-              timeout={200}
-            >
-              <>
-                {searchTerm.length > 0 && (
-                  <div
-                    className="search-prompt"
-                    onClick={() => handleSubmit()}
-                    onKeyDown={(e) => searchPromptKeyDown(e)}
-                    role="button"
-                    tabIndex="0"
-                  >
-                    Search for <strong>{searchTerm}</strong>...
+            <>
+              {searchTerm.length > 0 && (
+                <div
+                  className="search-prompt"
+                  onClick={() => handleSubmit()}
+                  onKeyDown={(e) => searchPromptKeyDown(e)}
+                  role="button"
+                  tabIndex="0"
+                >
+                  Search for <strong>{searchTerm}</strong>...
+                </div>
+              )}
+              {filterPanelData.map((filterPanelSectionData) => {
+                return (
+                  <div key={filterPanelSectionData.id}>
+                    <FilterPanelSection
+                      data={filterPanelSectionData}
+                      toggleSelected={toggleSelected}
+                      searchData={searchData}
+                      searchTerm={searchTerm}
+                      sectionHidden={filterPanelHidden}
+                    />
                   </div>
-                )}
-                {filterPanelData.map((filterPanelSectionData) => {
-                  return (
-                    <div key={filterPanelSectionData.id}>
-                      <FilterPanelSection
-                        data={filterPanelSectionData}
-                        toggleSelected={toggleSelected}
-                        searchData={searchData}
-                        searchTerm={searchTerm}
-                        sectionHidden={filterPanelHidden}
-                      />
-                    </div>
-                  );
-                })}
-              </>
-            </CSSTransition>
-          </ContextualMenu>
-        </div>
-      )}
+                );
+              })}
+            </>
+          </CSSTransition>
+        </ContextualMenu>
+      </div>
     </div>
   );
 };
