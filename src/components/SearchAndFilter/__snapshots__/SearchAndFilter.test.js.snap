@@ -3,6 +3,7 @@
 exports[`Search and filter renders 1`] = `
 <div
   className="search-and-filter"
+  onClick={[Function]}
 >
   <div
     aria-expanded={false}
@@ -15,8 +16,6 @@ exports[`Search and filter renders 1`] = `
       data-overflowing={false}
       externallyControlled={true}
       onChange={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
       onSubmit={[Function]}
       placeholder="Search and filter"
       value=""
