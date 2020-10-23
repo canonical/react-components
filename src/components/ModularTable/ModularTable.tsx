@@ -9,8 +9,6 @@ import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
 import Icon from "../Icon";
 
-import "./ModularTable.scss";
-
 export type Props<D extends Record<string, unknown>> = {
   columns: Column<D>[];
   data: D[];

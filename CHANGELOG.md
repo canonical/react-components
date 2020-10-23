@@ -11,7 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Updated expanding MainTable to use aria-hidden instead of .u-hide utility class
+- Updated Vanilla framework to version 2.19.2
+
 ### Removed
+
+- Removed custom styling for u-hide utility in ModularTable (as this is currently fixed upstream in Vanilla)
 
 # 0.13.0 - 2020-10-08
 

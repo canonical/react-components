@@ -66,7 +66,7 @@ const generateHeaders = (
     <thead>
       <TableRow>
         {headerItems}
-        {expanding && <TableHeader className="u-hide"></TableHeader>}
+        {expanding && <TableHeader aria-hidden="true"></TableHeader>}
       </TableRow>
     </thead>
   );
