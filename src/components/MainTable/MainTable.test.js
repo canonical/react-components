@@ -67,7 +67,7 @@ describe("MainTable", () => {
     // There should be an additional hidden table header to account for the
     // expanding cell
     expect(heads.length).toEqual(headers.length + 1);
-    expect(heads.last().prop("className").includes("u-hide")).toBe(true);
+    expect(heads.last().prop("aria-hidden")).toBe("true");
     const columns = wrapper.find("TableRow").last().find("TableCell");
     // There should be an additional table cell for the expanding content.
     expect(columns.length).toEqual(rows[rows.length - 1].columns.length + 1);
