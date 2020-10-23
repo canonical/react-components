@@ -42,12 +42,10 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
       setSearchContainerActive(clickInContainer);
     };
 
-    document.addEventListener("click", (e) => searchContainerClickCheck(e));
+    document.addEventListener("click", searchContainerClickCheck);
 
     return () => {
-      document.removeEventListener("click", (e) =>
-        searchContainerClickCheck(e)
-      );
+      document.removeEventListener("click", searchContainerClickCheck);
     };
   }, [searchContainerActive]);
 
