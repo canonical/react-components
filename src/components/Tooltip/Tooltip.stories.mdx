@@ -50,3 +50,22 @@ An alternative use of tooltips is to provide information on a disabled actionabl
     {Template.bind({})}
   </Story>
 </Canvas>
+
+### Targeting elements
+
+The tooltip elements are displayed inside a [Portal](https://reactjs.org/docs/portals.html) so that the tooltip is not constrained by its current position in the DOM.
+Sometimes however, you need to target the tooltip elements. This can be achieved by passing class names to the tooltip elements. You can also pass classes to the elements that trigger and position the tooltip.
+
+<Canvas>
+  <Story
+    name="Targeting elements"
+    args={{
+      className: "custom-wrapping-class",
+      positionElementClassName: "custom-position-class",
+      tooltipClassName: "custom-tooltip-class",
+      message: "Tooltip message to display.",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
