@@ -128,10 +128,6 @@
 
   &__contextual-menu {
     display: block;
-    // Important styles needed to override inline styles in ContextualMenu
-    left: 0 !important;
-    position: relative !important;
-    top: 0 !important;
 
     .p-contextual-menu__dropdown {
       padding: 1rem;
