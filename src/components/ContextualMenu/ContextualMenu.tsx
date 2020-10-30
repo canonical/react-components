@@ -1,9 +1,9 @@
+import { nanoid } from "nanoid";
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import usePortal from "react-useportal";
-import uuidv4 from "uuid/v4";
 
 import { useListener, usePrevious } from "../../hooks";
 import ContextualMenuDropdown from "./ContextualMenuDropdown";
@@ -108,7 +108,7 @@ const ContextualMenu = <L,>({
   toggleLabelFirst = true,
   visible = false,
 }: Props<L>): JSX.Element => {
-  const id = useRef(uuidv4());
+  const id = useRef(nanoid());
   const wrapper = useRef();
   const [positionCoords, setPositionCoords] = useState<ClientRect>();
   const [adjustedPosition, setAdjustedPosition] = useState(position);

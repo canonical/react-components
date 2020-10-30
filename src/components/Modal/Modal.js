@@ -1,10 +1,10 @@
+import { nanoid } from "nanoid";
 import PropTypes from "prop-types";
 import React, { useRef } from "react";
-import uuidv4 from "uuid/v4";
 
 export const Modal = ({ children, close, title }) => {
-  const descriptionId = useRef(uuidv4());
-  const titleId = useRef(uuidv4());
+  const descriptionId = useRef(nanoid());
+  const titleId = useRef(nanoid());
   return (
     <div className="p-modal" onClick={close}>
       <div

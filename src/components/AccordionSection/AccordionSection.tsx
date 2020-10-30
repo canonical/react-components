@@ -1,7 +1,7 @@
+import { nanoid } from "nanoid";
 import PropTypes from "prop-types";
 import React, { useRef } from "react";
 import type { ReactNode } from "react";
-import uuidv4 from "uuid/v4";
 
 import type { Headings } from "types";
 
@@ -26,7 +26,7 @@ const AccordionSection = ({
   title,
   titleElement,
 }: Props): JSX.Element => {
-  const sectionId = useRef(uuidv4());
+  const sectionId = useRef(nanoid());
   const key = sectionKey || sectionId.current;
   const isExpanded = expanded === key;
   const Title = titleElement || null;
