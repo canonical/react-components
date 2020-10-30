@@ -1,11 +1,8 @@
 import { shallow } from "enzyme";
 import React from "react";
 
+import { MOCK_UUID } from "../../setupTests";
 import AccordionSection from "./AccordionSection";
-
-const MOCK_UUID = "00000000-0000-0000-0000-000000000000";
-
-jest.mock("uuid/v4", () => jest.fn(() => MOCK_UUID));
 
 describe("AccordionSection ", () => {
   it("renders", () => {

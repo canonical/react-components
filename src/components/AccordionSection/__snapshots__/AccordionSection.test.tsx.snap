@@ -5,7 +5,7 @@ exports[`AccordionSection  renders 1`] = `
   className="p-accordion__group"
 >
   <button
-    aria-controls="#00000000-0000-0000-0000-000000000000"
+    aria-controls="#Uakgb_J5m9g-0JDMbcJqLJ"
     aria-expanded="false"
     className="p-accordion__tab"
     onClick={[Function]}
@@ -16,9 +16,9 @@ exports[`AccordionSection  renders 1`] = `
   </button>
   <section
     aria-hidden="true"
-    aria-labelledby="00000000-0000-0000-0000-000000000000"
+    aria-labelledby="Uakgb_J5m9g-0JDMbcJqLJ"
     className="p-accordion__panel"
-    id="00000000-0000-0000-0000-000000000000"
+    id="Uakgb_J5m9g-0JDMbcJqLJ"
     role="tabpanel"
   >
     <span>
@@ -33,7 +33,7 @@ exports[`AccordionSection  renders headings for titles 1`] = `
   className="p-accordion__group"
 >
   <button
-    aria-controls="#00000000-0000-0000-0000-000000000000"
+    aria-controls="#Uakgb_J5m9g-0JDMbcJqLJ"
     aria-expanded="false"
     className="p-accordion__tab--with-title"
     onClick={[Function]}
@@ -48,9 +48,9 @@ exports[`AccordionSection  renders headings for titles 1`] = `
   </button>
   <section
     aria-hidden="true"
-    aria-labelledby="00000000-0000-0000-0000-000000000000"
+    aria-labelledby="Uakgb_J5m9g-0JDMbcJqLJ"
     className="p-accordion__panel"
-    id="00000000-0000-0000-0000-000000000000"
+    id="Uakgb_J5m9g-0JDMbcJqLJ"
     role="tabpanel"
   >
     <span>
