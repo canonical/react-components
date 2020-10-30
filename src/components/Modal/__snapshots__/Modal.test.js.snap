@@ -6,8 +6,8 @@ exports[`Modal  renders 1`] = `
   onClick={[MockFunction]}
 >
   <div
-    aria-describedby="00000000-0000-0000-0000-000000000000"
-    aria-labelledby="00000000-0000-0000-0000-000000000000"
+    aria-describedby="Uakgb_J5m9g-0JDMbcJqLJ"
+    aria-labelledby="Uakgb_J5m9g-0JDMbcJqLJ"
     className="p-modal__dialog"
     onClick={[Function]}
     role="dialog"
@@ -17,7 +17,7 @@ exports[`Modal  renders 1`] = `
     >
       <h2
         className="p-modal__title"
-        id="00000000-0000-0000-0000-000000000000"
+        id="Uakgb_J5m9g-0JDMbcJqLJ"
       >
         Confirm delete
       </h2>
@@ -30,7 +30,7 @@ exports[`Modal  renders 1`] = `
       </button>
     </header>
     <div
-      id="00000000-0000-0000-0000-000000000000"
+      id="Uakgb_J5m9g-0JDMbcJqLJ"
     >
       Are you sure?
     </div>
