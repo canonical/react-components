@@ -38,7 +38,7 @@ export type Props = {
   className?: string;
   children: ReactNode;
   followMouse?: boolean;
-  message?: string;
+  message?: string | null;
   position?: Position;
   positionElementClassName?: string;
   tooltipClassName?: string;
