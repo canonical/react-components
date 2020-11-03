@@ -1,9 +1,7 @@
-import { CSSTransition } from "react-transition-group";
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 import SearchBox from "../SearchBox";
-import ContextualMenu from "../ContextualMenu";
 import FilterPanelSection from "./FilterPanelSection";
 import Chip from "../Chip";
 import { overflowingChipsCount } from "./shared";
@@ -49,6 +47,39 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
     };
   }, [searchContainerActive]);
 
+  // This useEffect sets up listeners so the panel will close if user clicks
+  // anywhere else on the page or hits the escape key
+  useEffect(() => {
+    const closePanel = () => {
+      setFilterPanelHidden(true);
+    };
+
+    const mouseDown = (e) => {
+      // Check if click is outside of filter panel
+      if (!searchAndFilterRef?.current?.contains(e.target)) {
+        // If so, close the panel
+        closePanel();
+      }
+    };
+
+    const keyDown = (e) => {
+      if (e.code === "Escape") {
+        // Close panel if Esc keydown detected
+        closePanel();
+      }
+    };
+
+    // Add listener on document to capture click events
+    document.addEventListener("mousedown", mouseDown);
+    // Add listener on document to capture keydown events
+    document.addEventListener("keydown", keyDown);
+    // return function to be called when unmounted
+    return () => {
+      document.removeEventListener("mousedown", mouseDown);
+      document.removeEventListener("keydown", keyDown);
+    };
+  }, []);
+
   // Add passed chip to the searchData array
   const toggleSelected = (chip) => {
     const currentSelected = [...searchData];
@@ -80,7 +111,10 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
   // or clicking on a chip should hide them again
   useEffect(() => {
     const hideOverflowChips = (e) => {
-      if (!e.target.closest(".search-and-filter")) {
+      if (
+        !e.target.closest(".search-and-filter") &&
+        e.target.className !== "p-icon--close"
+      ) {
         setSearchBoxExpanded(false);
       }
     };
@@ -123,7 +157,7 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
       updateFlowCount();
     }
     return () => {
-      resizeObserverSupported && wrapperWidthObserver.disconnect();
+      resizeObserverSupported && wrapperWidthObserver?.disconnect();
     };
   }, [searchData]);
 
@@ -160,7 +194,7 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
     >
       <div
         className="search-and-filter__search-container"
-        aria-expanded={searchBoxExpanded || searchContainerActive}
+        aria-expanded={searchBoxExpanded}
         data-active={searchContainerActive || searchData.length === 0}
         data-empty={searchData.length <= 0}
         ref={searchContainerRef}
@@ -209,65 +243,31 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
       </div>
 
       <div className="search-and-filter__panel" aria-hidden={filterPanelHidden}>
-        <ContextualMenu
-          autoAdjust={false}
-          className="search-and-filter__contextual-menu"
-          constrainPanelWidth
-          onToggleMenu={(visible) => setFilterPanelHidden(!visible)}
-          position="left"
-          visible={!filterPanelHidden}
-          dropdownClassName="search-and-filter__dropdown"
-        >
-          <CSSTransition
-            appear={true}
-            classNames={{
-              appear: "search-and-filter__contextual-menu--transition-appear",
-              appearActive:
-                "search-and-filter__contextual-menu--transition-appear-active",
-              appearDone:
-                "search-and-filter__contextual-menu--transition-appear-done",
-              enter: "search-and-filter__contextual-menu--transition-enter",
-              enterActive:
-                "search-and-filter__contextual-menu--transition-enter-active",
-              enterDone:
-                "search-and-filter__contextual-menu--transition-enter-done",
-              exit: "search-and-filter__contextual-menu--transition-exit",
-              exitActive:
-                "search-and-filter__contextual-menu--transition-exit-active",
-              exitDone:
-                "search-and-filter__contextual-menu--transition-exit-done",
-            }}
-            in={true}
-            timeout={200}
-          >
-            <>
-              {searchTerm.length > 0 && (
-                <div
-                  className="search-prompt"
-                  onClick={() => handleSubmit()}
-                  onKeyDown={(e) => searchPromptKeyDown(e)}
-                  role="button"
-                  tabIndex="0"
-                >
-                  Search for <strong>{searchTerm}</strong>...
-                </div>
-              )}
-              {filterPanelData.map((filterPanelSectionData) => {
-                return (
-                  <div key={filterPanelSectionData.id}>
-                    <FilterPanelSection
-                      data={filterPanelSectionData}
-                      toggleSelected={toggleSelected}
-                      searchData={searchData}
-                      searchTerm={searchTerm}
-                      sectionHidden={filterPanelHidden}
-                    />
-                  </div>
-                );
-              })}
-            </>
-          </CSSTransition>
-        </ContextualMenu>
+        <div>
+          {searchTerm.length > 0 && (
+            <div
+              className="search-prompt"
+              onClick={() => handleSubmit()}
+              onKeyDown={(e) => searchPromptKeyDown(e)}
+              role="button"
+              tabIndex="0"
+            >
+              Search for <strong>{searchTerm}</strong>...
+            </div>
+          )}
+          {filterPanelData.map((filterPanelSectionData) => {
+            return (
+              <div key={filterPanelSectionData.id}>
+                <FilterPanelSection
+                  data={filterPanelSectionData}
+                  toggleSelected={toggleSelected}
+                  searchData={searchData}
+                  searchTerm={searchTerm}
+                />
+              </div>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

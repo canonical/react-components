@@ -62,7 +62,7 @@ const FilterPanelSection = ({
       updateFlowCount();
     }
     return () => {
-      resizeObserverSupported && wrapperWidthObserver.disconnect();
+      resizeObserverSupported && wrapperWidthObserver?.disconnect();
     };
   }, [panelSectionVisible]);
 

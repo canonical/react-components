@@ -6,6 +6,7 @@
 
   &__search-container {
     align-items: center;
+    background-color: $color-x-light;
     display: flex;
     flex-wrap: wrap;
     height: auto;
@@ -15,20 +16,13 @@
     padding: 0 2rem 0 0.5rem;
     position: relative;
 
-    &[data-empty="false"] {
-      height: 40px;
-    }
-
     &[data-active="true"] {
       height: auto;
     }
 
-    // if search container is not active
-    &[data-active="false"] {
-      // hide the overflowing input field
-      [data-overflowing="true"] {
-        display: none;
-      }
+    &[data-empty="false"],
+    &[aria-expanded="false"] {
+      height: 40px;
     }
 
     .p-chip {
@@ -68,7 +62,14 @@
   }
 
   &__panel {
-    padding: 0;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+    opacity: 1;
+    padding: 0.5rem 1rem 0;
+    position: absolute;
+    transition: opacity 0.25s;
+    width: 100%;
+    z-index: 9999;
 
     &[aria-hidden="true"] {
       opacity: 0;
@@ -95,7 +96,7 @@
     position: absolute;
     right: 3px;
     top: 3px;
-    z-index: 999;
+    z-index: 9999;
   }
 
   .p-search-box {
@@ -124,37 +125,5 @@
   .p-search-box__button,
   .p-search-box__reset {
     display: none;
-  }
-
-  &__contextual-menu {
-    display: block;
-
-    .p-contextual-menu__dropdown {
-      padding: 1rem;
-    }
-
-    // These class names are manually provided to the CSSTransition component
-    // in SearchAndFilter.
-    &--transition {
-      &-enter,
-      &-appear {
-        opacity: 0;
-      }
-
-      &-enter-active,
-      &-appear-active {
-        opacity: 1;
-        transition: opacity 0.25s;
-      }
-
-      &-exit {
-        opacity: 1;
-      }
-
-      &-exit-active {
-        opacity: 0;
-        transition: opacity 0.25s;
-      }
-    }
   }
 }

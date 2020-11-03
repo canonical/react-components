@@ -25,34 +25,7 @@ exports[`Search and filter renders 1`] = `
     aria-hidden={true}
     className="search-and-filter__panel"
   >
-    <ContextualMenu
-      autoAdjust={false}
-      className="search-and-filter__contextual-menu"
-      constrainPanelWidth={true}
-      dropdownClassName="search-and-filter__dropdown"
-      onToggleMenu={[Function]}
-      position="left"
-      visible={false}
-    >
-      <CSSTransition
-        appear={true}
-        classNames={
-          Object {
-            "appear": "search-and-filter__contextual-menu--transition-appear",
-            "appearActive": "search-and-filter__contextual-menu--transition-appear-active",
-            "appearDone": "search-and-filter__contextual-menu--transition-appear-done",
-            "enter": "search-and-filter__contextual-menu--transition-enter",
-            "enterActive": "search-and-filter__contextual-menu--transition-enter-active",
-            "enterDone": "search-and-filter__contextual-menu--transition-enter-done",
-            "exit": "search-and-filter__contextual-menu--transition-exit",
-            "exitActive": "search-and-filter__contextual-menu--transition-exit-active",
-            "exitDone": "search-and-filter__contextual-menu--transition-exit-done",
-          }
-        }
-        in={true}
-        timeout={200}
-      />
-    </ContextualMenu>
+    <div />
   </div>
 </div>
 `;
