@@ -11,7 +11,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+### Removed
+
+# 0.14.1
+
+### Changed
+
 - Replaced uuid with nanoid.
+- Decouple ContextualMenu from SearchAndFilter
+- Remove CSSTransition component/dep
+- Make Vanilla Framework a peer dependency
 
 # 0.14.0 - 2020-10-27
 
