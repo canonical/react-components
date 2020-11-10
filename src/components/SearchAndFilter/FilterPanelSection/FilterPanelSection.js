@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Chip from "../../Chip";
-import { overflowingChipsCount } from "../shared";
+import { overflowingChipsCount, isChipInArray } from "../shared";
 import { highlightSubString } from "../../../utils";
 
 import "./filter-panel-section.scss";
@@ -105,7 +105,7 @@ const FilterPanelSection = ({
                     <Chip
                       lead={chip.lead}
                       value={chip.value}
-                      selected={searchData?.includes(chip)}
+                      selected={isChipInArray(chip, searchData)}
                       subString={searchTerm}
                       onClick={() => handleChipClick(chip)}
                     />
