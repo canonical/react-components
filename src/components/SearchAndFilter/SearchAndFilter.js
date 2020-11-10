@@ -4,12 +4,16 @@ import PropTypes from "prop-types";
 import SearchBox from "../SearchBox";
 import FilterPanelSection from "./FilterPanelSection";
 import Chip from "../Chip";
-import { overflowingChipsCount } from "./shared";
+import { overflowingChipsCount, isChipInArray } from "./shared";
 
 import "./SearchAndFilter.scss";
 
-const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
-  const [searchData, setSearchData] = useState([]);
+const SearchAndFilter = ({
+  filterPanelData,
+  returnSearchData,
+  existingSearchData = [],
+}) => {
+  const [searchData, setSearchData] = useState(existingSearchData);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterPanelHidden, setFilterPanelHidden] = useState(true);
   const [searchBoxExpanded, setSearchBoxExpanded] = useState(false);
@@ -83,7 +87,7 @@ const SearchAndFilter = ({ filterPanelData, returnSearchData }) => {
   // Add passed chip to the searchData array
   const toggleSelected = (chip) => {
     const currentSelected = [...searchData];
-    if (!currentSelected.includes(chip)) {
+    if (!isChipInArray(chip, currentSelected)) {
       currentSelected.push(chip);
       setSearchData(currentSelected);
       setSearchTerm("");
@@ -287,6 +291,7 @@ SearchAndFilter.propTypes = {
     })
   ).isRequired,
   returnSearchData: PropTypes.func.isRequired,
+  existingSearchData: PropTypes.array,
 };
 
 export default SearchAndFilter;
