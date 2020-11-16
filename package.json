@@ -92,7 +92,7 @@
   },
   "scripts": {
     "build": "rm -rf dist && NODE_ENV=production babel src --out-dir dist --copy-files --extensions '.js,.jsx,.ts,.tsx'; yarn build-declaration",
-    "build-local": "NODE_ENV=production babel src --out-dir dist --copy-files --extensions '.js,.jsx,.tsx'",
+    "build-local": "NODE_ENV=production babel src --out-dir dist --copy-files --extensions '.js,.jsx,.ts,.tsx'",
     "build-declaration": "tsc",
     "build-watch": "watch 'yarn run build-local' ./src",
     "build-docs": "build-storybook -c .storybook -o docs",
