@@ -248,4 +248,24 @@ describe("Search and filter", () => {
       '<span class="p-chip__value"><strong>Google</strong></span>'
     );
   });
+
+  it("Existing search data displays correctly", () => {
+    const returnSearchData = jest.fn();
+    const wrapper = mount(
+      <SearchAndFilter
+        externallyControlled
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+        existingSearchData={[{ lead: "Cloud", value: "Google" }]}
+      />
+    );
+    const lead = wrapper
+      .find(".search-and-filter__search-container .p-chip__lead")
+      .text();
+    const value = wrapper
+      .find(".search-and-filter__search-container .p-chip__value")
+      .text();
+    expect(lead).toBe("CLOUD");
+    expect(value).toBe("Google");
+  });
 });
