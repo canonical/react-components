@@ -268,4 +268,27 @@ describe("Search and filter", () => {
     expect(lead).toBe("CLOUD");
     expect(value).toBe("Google");
   });
+
+  it("Existing search data displays correctly if two search items present", () => {
+    const returnSearchData = jest.fn();
+    const wrapper = mount(
+      <SearchAndFilter
+        externallyControlled
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+        existingSearchData={[
+          { lead: "Cloud", value: "Google" },
+          { lead: "Region", value: "eu-west-1" },
+        ]}
+      />
+    );
+    const chips = wrapper.find(".search-and-filter__search-container .p-chip");
+    expect(chips.length).toBe(2);
+
+    const chip1Value = chips.at(0).find(".p-chip__value").text();
+    expect(chip1Value).toEqual("Google");
+
+    const chip2Value = chips.at(1).find(".p-chip__value").text();
+    expect(chip2Value).toEqual("eu-west-1");
+  });
 });
