@@ -53,49 +53,25 @@ git clone https://github.com/canonical-web-and-design/react-components
 If you then drop into that folder and run;
 
 ```shell
-yarn link
+yarn run link-packages
 ```
 
-...this will add the project to a local yarn registry.
+...this will add this project, `react` and `react-dom` to a local yarn registry.
 
 Switching back to the project you are developing, run;
 
 ```shell
+yarn install
+yarn link @canonical/react
+yarn link @canonical/react-dom
 yarn link @canonical/react-components
-yarn install
 ```
 
-...to pull the linked project from the local registry. If you now run `yarn build-watch` in your `react-components` folder, your project should pick up any changes on refresh or hot module reload.
-
-### Known issue: Invalid hook call (Issue [#327](https://github.com/canonical-web-and-design/react-components/issues/327))
-
-If you have followed the instructions above and see an "Invalid hooks call" in your local project, it's probably because your project is now trying to run two different versions of React.
-
-To work around this, you'll also have to do the following to link `react` and `react-dom` in this project to the local registry;
-
-```
-cd react-components
-yarn install
-cd node_modules/react
-yarn link
-cd ../../node_modules/react-dom
-yarn link
-cd YOUR_PROJECT
-yarn link react
-yarn link react-dom
-```
+...to pull the linked deps from the local registry. If you now run `yarn build-watch` in your `react-components` folder, your project should pick up any changes on refresh or hot module reload.
 
 **Note:** When you're finished working locally - don't forget to go back and unlink;
 
 ```
 cd react-components
-yarn unlink
-cd node_modules/react
-yarn unlink
-cd ../../node_modules/react-dom
-yarn unlink
-cd YOUR_PROJECT
-yarn unlink @canonical/react-components
-yarn link react
-yarn link react-dom
+yarn run unlink-packages
 ```
