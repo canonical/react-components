@@ -98,7 +98,7 @@
     "build-docs": "build-storybook -c .storybook -o docs",
     "clean": "rm -rf node_modules dist .out",
     "docs": "start-storybook --port ${PORT}",
-    "link-package": "yarn install && yarn build && yarn link && cd node_modules/react && yarn link",
+    "link-packages": "yarn install && yarn build && yarn link && cd node_modules/react && yarn link && ../react-dom && yarn link",
     "lint-js": "eslint src",
     "lint-style": "stylelint src",
     "lint-package-json": "npmPkgJsonLint .",
@@ -108,7 +108,7 @@
     "start": "yarn docs",
     "test": "jest",
     "test-cypress": "concurrently 'yarn run docs' 'yarn run cypress:test' -k -s first",
-    "unlink-package": "yarn unlink && cd node_modules/react && yarn unlink",
+    "unlink-packages": "yarn unlink && cd node_modules/react && yarn unlink && cd ../react-dom && yarn unlink",
     "cypress:test": "wait-on http://localhost:${PORT} && cypress run --env port=${PORT}",
     "cypress:run": "cypress run",
     "cypress:open": "cypress open"
