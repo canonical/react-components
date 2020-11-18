@@ -21,11 +21,5 @@ exports[`Search and filter renders 1`] = `
       value=""
     />
   </div>
-  <div
-    aria-hidden={true}
-    className="search-and-filter__panel"
-  >
-    <div />
-  </div>
 </div>
 `;
