@@ -245,34 +245,38 @@ const SearchAndFilter = ({
           </span>
         )}
       </div>
-
-      <div className="search-and-filter__panel" aria-hidden={filterPanelHidden}>
-        <div>
-          {searchTerm.length > 0 && (
-            <div
-              className="search-prompt"
-              onClick={() => handleSubmit()}
-              onKeyDown={(e) => searchPromptKeyDown(e)}
-              role="button"
-              tabIndex="0"
-            >
-              Search for <strong>{searchTerm}</strong>...
-            </div>
-          )}
-          {filterPanelData.map((filterPanelSectionData) => {
-            return (
-              <div key={filterPanelSectionData.id}>
-                <FilterPanelSection
-                  data={filterPanelSectionData}
-                  toggleSelected={toggleSelected}
-                  searchData={searchData}
-                  searchTerm={searchTerm}
-                />
+      {(filterPanelData.length > 0 || searchTerm.length > 0) && (
+        <div
+          className="search-and-filter__panel"
+          aria-hidden={filterPanelHidden}
+        >
+          <div>
+            {searchTerm.length > 0 && (
+              <div
+                className="search-prompt"
+                onClick={() => handleSubmit()}
+                onKeyDown={(e) => searchPromptKeyDown(e)}
+                role="button"
+                tabIndex="0"
+              >
+                Search for <strong>{searchTerm}</strong>...
               </div>
-            );
-          })}
+            )}
+            {filterPanelData.map((filterPanelSectionData) => {
+              return (
+                <div key={filterPanelSectionData.id}>
+                  <FilterPanelSection
+                    data={filterPanelSectionData}
+                    toggleSelected={toggleSelected}
+                    searchData={searchData}
+                    searchTerm={searchTerm}
+                  />
+                </div>
+              );
+            })}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };

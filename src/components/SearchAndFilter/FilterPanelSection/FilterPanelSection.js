@@ -75,7 +75,7 @@ const FilterPanelSection = ({
     <>
       {panelSectionVisible && (
         <div className="filter-panel-section">
-          {heading && (
+          {heading && chips.length > 0 && (
             <h3
               className="filter-panel-section__heading"
               dangerouslySetInnerHTML={{
