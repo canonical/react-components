@@ -13,11 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
-# 0.14.2 - 2020-11-13
+# 0.14.2 - 2020-11-18
 
 ### Changed
 
-- Bug fixes for Search & Filter
+- Bug fixes for Search and Filter
 - Added instructions for developing using this lib as a local dependency
 
 # 0.14.1 - 2020-11-04
