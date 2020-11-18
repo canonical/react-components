@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { highlightSubString } from "../../utils";
 
-import "./Chip.scss";
-
 const Chip = ({
   value,
   lead = "",
