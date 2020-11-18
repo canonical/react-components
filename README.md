@@ -36,7 +36,7 @@ Please file any issues at [GitHub](https://github.com/canonical-web-and-design/r
 You might want to:
 
 - [View the source](https://github.com/canonical-web-and-design/react-components) on GitHub.
-- Read abut [developing components](https://github.com/canonical-web-and-design/react-components/blob/master/HACKING.md).
+- Read about [developing components](https://github.com/canonical-web-and-design/react-components/blob/master/HACKING.md).
 - Find out how to [publish to NPM](https://github.com/canonical-web-and-design/react-components/blob/master/PUBLISH-NPM-PACKAGE.md).
 - Know how to [publish the docs](https://github.com/canonical-web-and-design/react-components/blob/master/PUBLISHING-DOCS.md) to GitHub Pages.
 
