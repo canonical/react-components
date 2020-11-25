@@ -2,8 +2,6 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 
-import "./ActionButton.scss";
-
 export const LOADER_MIN_DURATION = 400; // minimium duration (ms) loader displays
 export const SUCCESS_DURATION = 2000; // duration (ms) success tick is displayed
 
@@ -69,8 +67,7 @@ const ActionButton = ({
     "p-action-button",
     `p-button--${appearance}`,
     {
-      "is-loading": showLoader,
-      "is-success": showSuccess,
+      "is-active": showLoader || showSuccess,
       "is-disabled": disabled,
       "is-inline": inline,
     }
@@ -79,10 +76,7 @@ const ActionButton = ({
   const iconClasses = classNames({
     "p-icon--spinner u-animation--spin": showLoader,
     "is-light": appearance === "positive" || appearance === "negative",
-    "p-icon--success":
-      showSuccess && appearance !== "positive" && appearance !== "negative",
-    "p-icon--success-positive": showSuccess && appearance === "positive",
-    "p-icon--success-negative": showSuccess && appearance === "negative",
+    "p-icon--success": showSuccess,
   });
 
   return (

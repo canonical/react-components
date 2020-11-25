@@ -17,6 +17,7 @@ export type Props<P = null> = {
   hasIcon?: boolean;
   inline?: boolean;
   onClick?: (evt: React.MouseEvent) => void;
+  small?: boolean;
 } & (HTMLProps<HTMLElement> | P);
 
 /**
@@ -33,6 +34,7 @@ const Button = <P,>({
   hasIcon,
   inline,
   onClick,
+  small,
   ...buttonProps
 }: Props<P>): JSX.Element => {
   const classes = classNames(
@@ -42,6 +44,7 @@ const Button = <P,>({
       "is-dense": dense,
       "is-disabled": Component !== "button" && disabled,
       "is-inline": inline,
+      "is-small": small,
     },
     className
   );
@@ -71,6 +74,7 @@ Button.propTypes = {
   hasIcon: PropTypes.bool,
   inline: PropTypes.bool,
   onClick: PropTypes.func,
+  small: PropTypes.bool,
 };
 
 export default Button;

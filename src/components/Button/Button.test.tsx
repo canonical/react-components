@@ -69,6 +69,11 @@ describe("Button ", () => {
     expect(wrapper.prop("className").includes("is-dense")).toBe(true);
   });
 
+  it("can be small", () => {
+    const wrapper = shallow(<Button small />);
+    expect(wrapper.prop("className").includes("is-small")).toBe(true);
+  });
+
   it("can add additional classes", () => {
     const wrapper = shallow(<Button className="extra-class" />);
     const className = wrapper.prop("className");
