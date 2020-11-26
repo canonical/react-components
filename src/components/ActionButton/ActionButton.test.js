@@ -58,38 +58,4 @@ describe("ActionButton", () => {
     });
     expect(wrapper.find(".p-icon--success").exists()).toBe(false);
   });
-
-  it("shows the positive success icon if appearance is positive", () => {
-    const wrapper = mount(
-      <ActionButton appearance="positive" loading>
-        Click me
-      </ActionButton>
-    );
-
-    act(() => {
-      wrapper.setProps({ loading: false, success: true });
-      jest.advanceTimersByTime(LOADER_MIN_DURATION);
-      wrapper.update();
-    });
-    expect(wrapper.find(".p-icon--success-positive").exists()).toBe(true);
-    expect(wrapper.find(".p-icon--success-negative").exists()).toBe(false);
-    expect(wrapper.find(".p-icon--success").exists()).toBe(false);
-  });
-
-  it("shows the negative success icon if appearance is negative", () => {
-    const wrapper = mount(
-      <ActionButton appearance="negative" loading>
-        Click me
-      </ActionButton>
-    );
-
-    act(() => {
-      wrapper.setProps({ loading: false, success: true });
-      jest.advanceTimersByTime(LOADER_MIN_DURATION);
-      wrapper.update();
-    });
-    expect(wrapper.find(".p-icon--success-negative").exists()).toBe(true);
-    expect(wrapper.find(".p-icon--success-positive").exists()).toBe(false);
-    expect(wrapper.find(".p-icon--success").exists()).toBe(false);
-  });
 });

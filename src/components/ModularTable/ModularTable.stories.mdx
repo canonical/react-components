@@ -187,21 +187,21 @@ columns = {
 
 Example below shows a basic `ModularTable` with `SummaryButton` component in the footer.
 
-export const getRandomData = () => [
-  { data: Math.random() * 1000 },
-  { data: Math.random() * 1000 },
-  { data: Math.random() * 1000 },
-  { data: Math.random() * 1000 },
-  { data: Math.random() * 1000 },
+export const getDummyData = (i = 0) => [
+  { data: ++i * 100 + i },
+  { data: ++i * 100 + i },
+  { data: ++i * 100 + i },
+  { data: ++i * 100 + i },
+  { data: ++i * 100 + i },
 ]
 
 <Canvas>
   <Story name="Load more">
     {() => {
-      const [data, setData] = useState(getRandomData());
+      const [data, setData] = useState(getDummyData());
       const hasMore = data.length < 20;
       const loadMore = () => {
-        setData(data.concat(getRandomData()));
+        setData(data.concat(getDummyData(data.length)));
       };
       const columns = [
         {
