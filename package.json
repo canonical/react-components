@@ -104,6 +104,7 @@
     "lint-style": "stylelint src",
     "lint-package-json": "npmPkgJsonLint .",
     "lint": "yarn lint-package-json && yarn lint-js && yarn lint-style",
+    "percy": "yarn build-docs && percy-storybook --build_dir=docs --widths=1280",
     "prepublishOnly": "yarn clean && yarn install && yarn build",
     "serve": "yarn docs",
     "start": "yarn docs",
