@@ -2,11 +2,13 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import SearchAndFilter from "./SearchAndFilter";
 
-<Meta title="SearchAndFilter" component={SearchAndFilter} />
+<Meta title="Search and Filter" component={SearchAndFilter} />
+
+export const Template = (args) => <SearchAndFilter {...args} />;
 
 ### Search And Filter
 
-This component is used to search and filter large datasets.
+This component allows searching and filtering of large datasets.
 
 ### Props
 
@@ -15,9 +17,11 @@ This component is used to search and filter large datasets.
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <SearchAndFilter
-      filterPanelData={[
+  <Story
+    name="Default"
+    args={{
+      returnSearchData: () => {},
+      filterPanelData: [
         {
           id: 0,
           heading: "Cloud",
@@ -52,13 +56,108 @@ This component is used to search and filter large datasets.
             { lead: "Owner", value: "baz" },
           ],
         },
-      ]}
-      existingSearchData={[{ lead: "Cloud", value: "Google" }]}
-      returnSearchData={(searchData) => {
-        if (searchData.length > 0) {
-          // do something
-        }
-      }}
-    />
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### With dataset
+
+<Canvas>
+  <Story
+    name="With data set"
+    args={{
+      filterPanelData: [
+        {
+          id: 0,
+          heading: "Cloud",
+          chips: [
+            { lead: "Cloud", value: "Google" },
+            { lead: "Cloud", value: "AWS" },
+            { lead: "Cloud", value: "Azure" },
+          ],
+        },
+        {
+          id: 1,
+          heading: "Region",
+          chips: [
+            { lead: "Region", value: "us-east1" },
+            { lead: "Region", value: "us-north2" },
+            { lead: "Region", value: "us-south3" },
+            { lead: "Region", value: "us-north4" },
+            { lead: "Region", value: "us-east5" },
+            { lead: "Region", value: "us-south6" },
+            { lead: "Region", value: "us-east7" },
+            { lead: "Region", value: "us-east8" },
+            { lead: "Region", value: "us-east9" },
+            { lead: "Region", value: "us-east10" },
+          ],
+        },
+        {
+          id: 2,
+          heading: "Owner",
+          chips: [
+            { lead: "Owner", value: "foo" },
+            { lead: "Owner", value: "bar" },
+            { lead: "Owner", value: "baz" },
+          ],
+        },
+      ],
+      returnSearchData: () => {},
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### With existing search data
+
+<Canvas>
+  <Story
+    name="With existing search data"
+    args={{
+      existingSearchData: [{ lead: "Cloud", value: "Google" }],
+      filterPanelData: [
+        {
+          id: 0,
+          heading: "Cloud",
+          chips: [
+            { lead: "Cloud", value: "Google" },
+            { lead: "Cloud", value: "AWS" },
+            { lead: "Cloud", value: "Azure" },
+          ],
+        },
+        {
+          id: 1,
+          heading: "Region",
+          chips: [
+            { lead: "Region", value: "us-east1" },
+            { lead: "Region", value: "us-north2" },
+            { lead: "Region", value: "us-south3" },
+            { lead: "Region", value: "us-north4" },
+            { lead: "Region", value: "us-east5" },
+            { lead: "Region", value: "us-south6" },
+            { lead: "Region", value: "us-east7" },
+            { lead: "Region", value: "us-east8" },
+            { lead: "Region", value: "us-east9" },
+            { lead: "Region", value: "us-east10" },
+          ],
+        },
+        {
+          id: 2,
+          heading: "Owner",
+          chips: [
+            { lead: "Owner", value: "foo" },
+            { lead: "Owner", value: "bar" },
+            { lead: "Owner", value: "baz" },
+          ],
+        },
+      ],
+      returnSearchData: () => {},
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
