@@ -9,7 +9,7 @@ import { overflowingChipsCount, isChipInArray } from "./shared";
 import "./SearchAndFilter.scss";
 
 const SearchAndFilter = ({
-  filterPanelData,
+  filterPanelData = [],
   returnSearchData,
   existingSearchData = [],
 }) => {
