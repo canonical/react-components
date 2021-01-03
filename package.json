@@ -71,7 +71,7 @@
     "stylelint-scss": "3.18.0",
     "ts-jest": "26.4.4",
     "typescript": "4.1.2",
-    "vanilla-framework": "2.20.0",
+    "vanilla-framework": "2.21.0",
     "wait-on": "5.2.0"
   },
   "dependencies": {
@@ -89,7 +89,7 @@
   "peerDependencies": {
     "react": "16.14.0",
     "react-dom": "16.14.0",
-    "vanilla-framework": "2.20.0"
+    "vanilla-framework": "2.21.0"
   },
   "scripts": {
     "build": "rm -rf dist && NODE_ENV=production babel src --out-dir dist --copy-files --extensions '.js,.jsx,.ts,.tsx'; yarn build-declaration",
