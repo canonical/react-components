@@ -46,7 +46,7 @@
     "enzyme-to-json": "3.6.1",
     "eslint": "7.17.0",
     "eslint-config-prettier": "7.1.0",
-    "eslint-config-react-app": "5.2.1",
+    "eslint-config-react-app": "6.0.0",
     "eslint-plugin-cypress": "2.11.2",
     "eslint-plugin-flowtype": "5.2.0",
     "eslint-plugin-import": "2.22.1",
