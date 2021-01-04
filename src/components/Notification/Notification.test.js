@@ -1,3 +1,4 @@
+import { act } from "react-dom/test-utils";
 import { mount, shallow } from "enzyme";
 import React from "react";
 
@@ -24,7 +25,10 @@ describe("Notification", () => {
 
   it("can stop a timer", () => {
     const wrapper = mount(<Notification close={jest.fn()} timeout={1000} />);
-    wrapper.unmount();
+
+    act(() => {
+      wrapper.unmount();
+    });
     expect(clearTimeout).toHaveBeenCalled();
   });
 
