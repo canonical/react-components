@@ -30,7 +30,7 @@ describe("<Spinner />", () => {
     const text = "Loading...";
     const component = shallow(<Spinner text={text} />);
 
-    expect(component.find("span").first().text()).toEqual(text);
+    expect(component.find("span").first().text()).toContain(text);
   });
 
   it("renders a light spinner if given isLight prop", () => {

@@ -17,7 +17,15 @@ This is a [React](https://reactjs.org/) component for the Vanilla [Spin](https:/
 ### Default
 
 <Canvas>
-  <Story name="Default" args={{ text: "Loading..." }}>
+  <Story name="Default">
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Spinner with text
+
+<Canvas>
+  <Story name="Text" args={{ text: "Loading..." }}>
     {Template.bind({})}
   </Story>
 </Canvas>
