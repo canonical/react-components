@@ -1,9 +1,8 @@
 import React, { SyntheticEvent } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import ActionButton from "../ActionButton";
-
-import "./SummaryButton.scss";
 
 type Props = {
   className?: string;
@@ -21,13 +20,13 @@ const SummaryButton = ({
   onClick,
 }: Props): JSX.Element => (
   <small className={className}>
-    {summary && (
-      <span className="p-summary__text u-text--muted">{summary}</span>
-    )}
+    {summary && <span className="u-text--muted">{summary}</span>}
     {onClick && (
       <ActionButton
         appearance="neutral"
-        className="is-small is-dense"
+        className={classNames("is-small", "is-dense", {
+          "is-inline": summary,
+        })}
         onClick={onClick}
         loading={isLoading}
         disabled={isLoading}
