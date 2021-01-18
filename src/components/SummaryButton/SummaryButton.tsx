@@ -1,5 +1,6 @@
 import React, { SyntheticEvent } from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 
 import ActionButton from "../ActionButton";
 
@@ -23,7 +24,9 @@ const SummaryButton = ({
     {onClick && (
       <ActionButton
         appearance="neutral"
-        className="is-small is-dense is-inline"
+        className={classNames("is-small", "is-dense", {
+          "is-inline": summary,
+        })}
         onClick={onClick}
         loading={isLoading}
         disabled={isLoading}
