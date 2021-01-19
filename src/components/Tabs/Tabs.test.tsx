@@ -70,7 +70,7 @@ describe("Tabs", () => {
     );
   });
 
-  it("can set custom components as links", () => {
+  it("can use custom elements as links", () => {
     const wrapper = shallow(
       <Tabs
         links={[
@@ -84,6 +84,27 @@ describe("Tabs", () => {
     );
     expect(wrapper.find("a[data-test='tab-link-label1']").exists()).toBe(false);
     expect(wrapper.find("div[data-test='tab-link-label1']").exists()).toBe(
+      true
+    );
+  });
+
+  it("can use custom components as links", () => {
+    const TestLink = ({ children, ...props }) => (
+      <span {...props}>{children}</span>
+    );
+    const wrapper = shallow(
+      <Tabs
+        links={[
+          {
+            component: TestLink,
+            label: "label1",
+            to: "/path",
+          },
+        ]}
+      />
+    );
+    expect(wrapper.find("a[data-test='tab-link-label1']").exists()).toBe(false);
+    expect(wrapper.find("TestLink[data-test='tab-link-label1']").exists()).toBe(
       true
     );
   });
