@@ -13,6 +13,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Removed
 
+# 0.14.3 - 2021-01-20
+
+### Added
+
+### Changed
+
+- Removed custom styling from SummaryButton component
+- Removed custom styling from ActionButton component
+- Improved docs for SearchAndFilter
+- Run Percy on CircleCI
+- Updated Vanilla to 2.22.0
+- Update React (and related dependencies) to v17
+- Update dependency node-sass to v5
+
+### Removed
+
 # 0.14.2 - 2020-11-18
 
 ### Changed
