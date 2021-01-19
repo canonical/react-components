@@ -9,7 +9,7 @@ exports[`Tabs renders 1`] = `
   >
     <li
       className="p-tabs__item"
-      key="label1"
+      key="0"
     >
       <a
         aria-selected={true}
@@ -22,7 +22,7 @@ exports[`Tabs renders 1`] = `
     </li>
     <li
       className="p-tabs__item"
-      key="label2"
+      key="1"
     >
       <a
         aria-selected={false}
