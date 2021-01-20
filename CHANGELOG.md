@@ -11,7 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Removed custom styling from Spinner component
+
 ### Removed
+
+- Removed `inline` prop from Spinner component. Any additional spacing for Spinner should be provided by parent wrapper.
+
 
 # 0.14.3 - 2021-01-20
 
