@@ -13,4 +13,9 @@ describe("Icon", () => {
     const wrapper = shallow(<Icon name="test" />);
     expect(wrapper.prop("className").includes("p-icon--test")).toBe(true);
   });
+
+  it("can be given a custom class name", () => {
+    const wrapper = shallow(<Icon className="custom-class" name="test" />);
+    expect(wrapper.prop("className")).toBe("custom-class p-icon--test");
+  });
 });
