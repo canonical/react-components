@@ -1,0 +1,81 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+
+import CodeSnippet from "./CodeSnippet";
+
+<Meta
+  title="CodeSnippet"
+  component={CodeSnippet}
+  argTypes={{
+    className: {
+      control: {
+        type: "text",
+      },
+    },
+  }}
+/>
+
+### Code
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Code snippet](https://docs.vanillaframework.io/base/code#code-snippet/).
+
+### Props
+
+<ArgsTable of={CodeSnippet} />
+
+### Default
+
+<Canvas>
+  <Story name="Default">
+    <CodeSnippet blocks={[ {code: "Mode: all Settings: maas_url=http://192.168.122.1:5240/MAAS"} ]} />
+  </Story>
+</Canvas>
+
+### Title
+
+<Canvas>
+  <Story name="Title">
+    <CodeSnippet blocks={[ { title: "Output", code: "Mode: all Settings: maas_url=http://192.168.122.1:5240/MAAS"} ]} />
+  </Story>
+</Canvas>
+
+### Multiple blocks
+
+<Canvas>
+  <Story name="Multiple blocks">
+    <CodeSnippet blocks={[
+      { title: "JavaScript", code: "console.log('Vanilla');"},
+      { title: "Output", code: "Vanilla" },
+    ]} />
+  </Story>
+</Canvas>
+
+
+### Icon / Prompt
+
+<Canvas>
+  <Story name="Icon">
+    <CodeSnippet blocks={[
+       { title: "Install on Linux", icon: "linuxPrompt", code: "snap install toto"},
+       { title: "Install on Windows", icon: "windowsPrompt", code: "snap install toto"},
+       { title: "Get from the Store", icon: "url", code: "http://snapcraft.io/toto"} ,
+     ]}/>
+  </Story>
+</Canvas>
+
+### Numbered
+
+<Canvas>
+  <Story name="Numbered">
+    <CodeSnippet blocks={[
+       { numbered: true,
+         code: `#!/bin/bash
+set -eu . $CONJURE_UP_SPELLSDIR/sdk/common.sh
+if [[ "$JUJU_PROVIDERTYPE" == "lxd" ]]; then
+  debug "Running pre-deploy for $CONJURE_UP_SPELL"
+  sed "s/##MODEL##/$JUJU_MODEL/" $(scriptPath)/lxd-profile.yaml | lxc profile edit "juju-$JUJU_MODEL" || exposeResult "Failed to set profile" $? "false"
+fi
+exposeResult "Successful pre-deploy." 0 "true"`
+       },
+     ]}/>
+  </Story>
+</Canvas>
