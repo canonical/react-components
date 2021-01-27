@@ -5,6 +5,7 @@ export { default as Button } from "./components/Button";
 export { default as Card } from "./components/Card";
 export { default as Chip } from "./components/Chip";
 export { default as Code } from "./components/Code";
+export { default as CodeSnippet } from "./components/CodeSnippet";
 export { default as Col } from "./components/Col";
 export { default as ContextualMenu } from "./components/ContextualMenu";
 export { default as Field } from "./components/Field";
