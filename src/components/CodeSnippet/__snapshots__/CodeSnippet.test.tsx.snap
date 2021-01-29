@@ -6,7 +6,10 @@ exports[`CodeSnippet  can render 1`] = `
 >
   <CodeSnippetBlock
     code="Test"
+    icon={null}
+    isWrapped={false}
     key="code-snippet-block-0"
+    numbered={false}
   />
 </div>
 `;
@@ -17,7 +20,10 @@ exports[`CodeSnippet  can render snippet with title 1`] = `
 >
   <CodeSnippetBlock
     code="Test"
+    icon={null}
+    isWrapped={false}
     key="code-snippet-block-0"
+    numbered={false}
     title="Title"
   />
 </div>
