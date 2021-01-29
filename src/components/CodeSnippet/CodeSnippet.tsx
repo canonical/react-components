@@ -3,12 +3,12 @@ import PropTypes from "prop-types";
 import React from "react";
 import type { ReactNode } from "react";
 
-const CodeSnippetBlock = ({
-  title,
+export const CodeSnippetBlock = ({
   code,
-  numbered,
-  icon,
-  isWrapped,
+  title,
+  numbered = false,
+  icon = null,
+  isWrapped = false,
 }: CodeSnippetBlockProps): JSX.Element => {
   let className = "p-code-snippet__block";
   let numberedCode;
@@ -48,15 +48,23 @@ const CodeSnippetBlock = ({
   );
 };
 
+CodeSnippetBlock.props = {
+  code: PropTypes.string.isRequired,
+  title: PropTypes.string,
+  numbered: PropTypes.bool,
+  icon: PropTypes.oneOf(["linuxPrompt", "windowsPrompt", "url"]),
+  isWrapped: PropTypes.bool,
+};
+
 export type Props = {
   className?: string;
   children?: ReactNode;
-  blocks?: Array<CodeSnippetBlockProps>;
+  blocks: Array<CodeSnippetBlockProps>;
 };
 
 type CodeSnippetBlockProps = {
-  title?: string;
   code: string;
+  title?: string;
   numbered?: boolean;
   icon?: "linuxPrompt" | "windowsPrompt" | "url";
   isWrapped?: boolean;
