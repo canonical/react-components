@@ -100,7 +100,7 @@
     "build-docs": "build-storybook -c .storybook -o docs",
     "clean": "rm -rf node_modules dist .out",
     "docs": "start-storybook --port ${PORT}",
-    "link-packages": "yarn install && yarn build && yarn link && cd node_modules/react && yarn link && ../react-dom && yarn link",
+    "link-packages": "yarn install && yarn build && yarn link && cd node_modules/react && yarn link && cd ../react-dom && yarn link",
     "lint-js": "eslint src",
     "lint-style": "stylelint src",
     "lint-package-json": "npmPkgJsonLint .",

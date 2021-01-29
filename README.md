@@ -62,8 +62,8 @@ Switching back to the project you are developing, run;
 
 ```shell
 yarn install
-yarn link @canonical/react
-yarn link @canonical/react-dom
+yarn link react
+yarn link react-dom
 yarn link @canonical/react-components
 ```
 
