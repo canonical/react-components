@@ -2,8 +2,22 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import Modal from "./Modal";
 
-<Meta title="Modal" component={Modal} />
-
+<Meta
+  title="Modal"
+  component={Modal}
+  argTypes={{
+    buttonRow: {
+      control: {
+        disable: true
+      }
+    },
+    children: {
+      control: {
+        disable: true,
+      },
+    },
+  }}
+/>
 export const Template = (args) => {
   return (
     <div style={{ height: "100vh", position: "relative" }}>
@@ -28,9 +42,13 @@ The modal component can be used to overlay an area of the screen which can conta
     args={{
       close: () => {},
       title: "Confirm delete",
-      buttons: [
-        <button onClick={() => {}}>Cancel</button>,
-        <button className="p-button--negative">Delete</button>,
+      buttonRow: [
+        <button onClick={() => {}} key="cancel">
+          Cancel
+        </button>,
+        <button className="p-button--negative" key="delete">
+          Delete
+        </button>,
       ],
       children: (
         <p>
