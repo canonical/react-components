@@ -1,18 +1,18 @@
 import { nanoid } from "nanoid";
 import PropTypes from "prop-types";
-import React, { ReactElement, useRef } from "react";
+import React, { ReactElement, ReactNode, useRef } from "react";
 
 import "./modal.scss";
 
 type Props = {
-  buttons?: ReactElement[];
-  children?: ReactElement;
-  close?: () => void;
-  title?: string;
+  buttonRow?: ReactNode | ReactNode[] | null;
+  children: ReactNode;
+  close?: () => void | null;
+  title?: ReactNode | null;
 };
 
 export const Modal = ({
-  buttons,
+  buttonRow,
   children,
   close,
   title,
@@ -28,12 +28,12 @@ export const Modal = ({
         aria-describedby={descriptionId.current}
         onClick={(evt) => evt.stopPropagation()}
       >
-        {title && (
+        {!!title && (
           <header className="p-modal__header">
             <h2 className="p-modal__title" id={titleId.current}>
               {title}
             </h2>
-            {close && (
+            {!!close && (
               <button
                 className="p-modal__close"
                 aria-label="Close active modal"
@@ -45,17 +45,17 @@ export const Modal = ({
           </header>
         )}
         <div id={descriptionId.current}>{children}</div>
-        {buttons && <div className="p-modal__button-row">{buttons}</div>}
+        {!!buttonRow && <div className="p-modal__button-row">{buttonRow}</div>}
       </div>
     </div>
   );
 };
 
 Modal.propTypes = {
-  buttons: PropTypes.array,
+  buttonRow: PropTypes.node,
   children: PropTypes.node.isRequired,
   close: PropTypes.func,
-  title: PropTypes.string,
+  title: PropTypes.node,
 };
 
 export default Modal;

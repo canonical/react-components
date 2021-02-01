@@ -1,5 +1,32 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Modal  displays any content in the button row 1`] = `
+<div
+  className="p-modal"
+>
+  <div
+    aria-describedby="Uakgb_J5m9g-0JDMbcJqLJ"
+    aria-labelledby="Uakgb_J5m9g-0JDMbcJqLJ"
+    className="p-modal__dialog"
+    onClick={[Function]}
+    role="dialog"
+  >
+    <div
+      id="Uakgb_J5m9g-0JDMbcJqLJ"
+    >
+      Button tester
+    </div>
+    <div
+      className="p-modal__button-row"
+    >
+      <div>
+        I am not a button
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Modal  displays buttons that have been supplied 1`] = `
 <div
   className="p-modal"

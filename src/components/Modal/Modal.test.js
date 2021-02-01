@@ -16,13 +16,20 @@ describe("Modal ", () => {
   it("displays buttons that have been supplied", () => {
     const wrapper = shallow(
       <Modal
-        buttons={[
+        buttonRow={[
           <button key={1}>Button 1</button>,
           <button key={2}>Button 2</button>,
         ]}
       >
         Button tester
       </Modal>
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it("displays any content in the button row", () => {
+    const wrapper = shallow(
+      <Modal buttonRow={<div>I am not a button</div>}>Button tester</Modal>
     );
     expect(wrapper).toMatchSnapshot();
   });
