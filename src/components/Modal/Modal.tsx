@@ -5,7 +5,7 @@ import React, { ReactElement, ReactNode, useRef } from "react";
 import "./modal.scss";
 
 type Props = {
-  buttonRow?: ReactNode | ReactNode[] | null;
+  buttonRow?: ReactNode | null;
   children: ReactNode;
   close?: () => void | null;
   title?: ReactNode | null;

@@ -43,14 +43,12 @@ The modal component can be used to overlay an area of the screen which can conta
     args={{
       close: () => {},
       title: "Confirm delete",
-      buttonRow: [
-        <button onClick={() => {}} key="cancel">
-          Cancel
-        </button>,
-        <button className="p-button--negative" key="delete">
-          Delete
-        </button>,
-      ],
+      buttonRow: (
+        <>
+          <button onClick={() => {}}>Cancel</button>
+          <button className="p-button--negative">Delete</button>
+        </>
+      ),
       children: (
         <p>
           Are you sure you want to delete user "Simon"? This action is permanent
