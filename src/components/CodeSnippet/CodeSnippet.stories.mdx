@@ -1,4 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
 
 import CodeSnippet, { CodeSnippetBlock } from "./CodeSnippet";
 
@@ -104,3 +105,33 @@ exposeResult "Successful pre-deploy." 0 "true"`
      ]}/>
   </Story>
 </Canvas>
+
+### Dropdowns
+
+<Canvas>
+  <Story name="Dropdowns">
+  {() => {
+    const [lang, setLang] = useState("js");
+    const code = {
+      js: `console.log("Example 1");`,
+      css: `.p-heading--two { color: red; }`,
+      html: `<h1 class="p-heading--two">How to use code snippets</h1>`,
+    };
+    return <CodeSnippet blocks={[
+       {
+         code: code[lang],
+         dropdowns: [
+           { options: [
+              { value: "js", label: "JS" },
+              { value: "css", label: "CSS" },
+              { value: "html", label: "HTML" },
+            ],
+            onChange: (event) => { setLang(event.target.value) }
+           }
+         ]
+       },
+     ]} />;
+  }}
+  </Story>
+</Canvas>
+

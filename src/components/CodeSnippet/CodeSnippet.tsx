@@ -3,12 +3,48 @@ import PropTypes from "prop-types";
 import React from "react";
 import type { ReactNode } from "react";
 
+export type DropdownOptionPros = {
+  label: string;
+  value: string | number;
+};
+
+export type CodeSnippetDropdownProps = {
+  onChange?: (evt: React.SyntheticEvent) => void;
+  options: Array<DropdownOptionPros>;
+};
+
+export const CodeSnippetDropdown = ({
+  options,
+  onChange,
+}: CodeSnippetDropdownProps): JSX.Element => {
+  return (
+    <select className="p-code-snippet__dropdown" onChange={onChange}>
+      {options.map(({ label, value, ...props }) => (
+        <option value={value} key={value || label} {...props}>
+          {label}
+        </option>
+      ))}
+    </select>
+  );
+};
+
+CodeSnippetDropdown.props = {
+  onChange: PropTypes.func,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    })
+  ).isRequired,
+};
+
 export const CodeSnippetBlock = ({
   code,
   title,
   numbered = false,
   icon = null,
   isWrapped = false,
+  dropdowns,
 }: CodeSnippetBlockProps): JSX.Element => {
   let className = "p-code-snippet__block";
   let numberedCode;
@@ -34,11 +70,23 @@ export const CodeSnippetBlock = ({
     "is-wrapped": isWrapped,
   });
 
+  const hasDropdowns = dropdowns && dropdowns.length;
+
   return (
     <>
-      {title && (
+      {(title || hasDropdowns) && (
         <div className="p-code-snippet__header">
           <h5 className="p-code-snippet__title">{title}</h5>
+          {hasDropdowns && (
+            <div className="p-code-snippet__dropdowns">
+              {dropdowns.map((dropdown, i) => (
+                <CodeSnippetDropdown
+                  {...dropdown}
+                  key={`code-snippet-dropdown-${i}`}
+                />
+              ))}
+            </div>
+          )}
         </div>
       )}
       <pre className={className}>
@@ -54,6 +102,7 @@ CodeSnippetBlock.props = {
   numbered: PropTypes.bool,
   icon: PropTypes.oneOf(["linuxPrompt", "windowsPrompt", "url"]),
   isWrapped: PropTypes.bool,
+  dropdowns: PropTypes.array,
 };
 
 export type Props = {
@@ -68,6 +117,7 @@ type CodeSnippetBlockProps = {
   numbered?: boolean;
   icon?: "linuxPrompt" | "windowsPrompt" | "url";
   isWrapped?: boolean;
+  dropdowns?: Array<CodeSnippetDropdownProps>;
 };
 
 const CodeSnippet = ({ className, blocks }: Props): JSX.Element => {
