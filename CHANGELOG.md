@@ -11,7 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Updated `ActionButton` to use `is-processing` classname instead of deprecated `is-active`.
+
 ### Removed
+
+- Removed `p-action-button` class from `ActionButton`, as this is not a separate pattern in Vanilla. If any additional classname needs to be provided for custom styling it can be added via `className` prop.
 
 # 0.15.0 - 2021-02-02
 

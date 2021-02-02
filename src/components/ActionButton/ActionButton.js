@@ -62,16 +62,11 @@ const ActionButton = ({
     return () => clearTimeout(successTimeout);
   }, [showSuccess]);
 
-  const buttonClasses = classNames(
-    className,
-    "p-action-button",
-    `p-button--${appearance}`,
-    {
-      "is-active": showLoader || showSuccess,
-      "is-disabled": disabled,
-      "is-inline": inline,
-    }
-  );
+  const buttonClasses = classNames(className, `p-button--${appearance}`, {
+    "is-processing": showLoader || showSuccess,
+    "is-disabled": disabled,
+    "is-inline": inline,
+  });
 
   const iconClasses = classNames({
     "p-icon--spinner u-animation--spin": showLoader,

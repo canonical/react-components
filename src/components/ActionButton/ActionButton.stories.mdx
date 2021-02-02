@@ -14,8 +14,6 @@ import ActionButton from "./ActionButton";
   }}
 />
 
-export const Template = (args) => <ActionButton {...args} />;
-
 ### ActionButton
 
 This is a not an existing Vanilla component. It can be used to display submitting states for forms or other actions.
@@ -27,21 +25,15 @@ This is a not an existing Vanilla component. It can be used to display submittin
 ### Default
 
 <Canvas>
-  <Story
-    name="Default"
-    args={{ appearance: "positive", children: "Click me!" }}
-  >
-    {Template.bind({})}
+  <Story name="Default">
+    <ActionButton appearance="positive">Click me!</ActionButton>
   </Story>
 </Canvas>
 
 ### Loading
 
 <Canvas>
-  <Story
-    name="Loading"
-    args={{ appearance: "positive", children: "Click me!", loading: true }}
-  >
-    {Template.bind({})}
+  <Story name="Loading">
+    <ActionButton appearance="positive" loading disabled>Click me!</ActionButton>
   </Story>
 </Canvas>

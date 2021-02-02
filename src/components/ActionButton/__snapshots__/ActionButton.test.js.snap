@@ -5,7 +5,7 @@ exports[`ActionButton matches loading snapshot 1`] = `
   loading={true}
 >
   <button
-    className="p-action-button p-button--neutral is-active"
+    className="p-button--neutral is-processing"
   >
     <i
       className="p-icon--spinner u-animation--spin"
@@ -20,7 +20,7 @@ exports[`ActionButton matches success snapshot 1`] = `
   success={true}
 >
   <button
-    className="p-action-button p-button--neutral is-active"
+    className="p-button--neutral is-processing"
   >
     <i
       className="p-icon--success"
