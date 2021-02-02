@@ -6,6 +6,11 @@ import Modal from "./Modal";
   title="Modal"
   component={Modal}
   argTypes={{
+    buttonRow: {
+      control: {
+        disable: true,
+      },
+    },
     children: {
       control: {
         disable: true,
@@ -38,22 +43,21 @@ The modal component can be used to overlay an area of the screen which can conta
     args={{
       close: () => {},
       title: "Confirm delete",
-      children: (
+      buttonRow: (
         <>
-          <p>
-            Are you sure you want to delete user "Simon"? This action is
-            permanent and can not be undone.
-          </p>
-          <hr />
-          <div className="u-align--right">
-            <button onClick={() => {}} className="u-no-margin--bottom">
-              Cancel
-            </button>
-            <button className="p-button--negative u-no-margin--bottom">
-              Delete
-            </button>
-          </div>
+          <button className="u-no-margin--bottom" onClick={() => {}}>
+            Cancel
+          </button>
+          <button className="p-button--negative u-no-margin--bottom">
+            Delete
+          </button>
         </>
+      ),
+      children: (
+        <p>
+          Are you sure you want to delete user "Simon"? This action is permanent
+          and can not be undone.
+        </p>
       ),
     }}
   >
