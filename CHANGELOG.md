@@ -9,16 +9,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+### Changed
+
+### Removed
+
+# 0.15.0 - 2021-02-02
+
+### Added
+
 - Added `classNames` prop to Icon component
 
 ### Changed
 
 - Removed custom styling from Spinner component
+- Migrated Modal to TypeScript. The `close` and `title` props are now optional, and the title and close button are not shown if the props aren't provided. Added a `buttonRow` prop to display the modal buttons if provided.
+- Migrated Tabs to TypeScript. Added `component` prop to allow for setting the element or component to use for the tab.
 
 ### Removed
 
 - Removed `inline` prop from Spinner component. Any additional spacing for Spinner should be provided by parent wrapper.
-
 
 # 0.14.3 - 2021-01-20
 
