@@ -6,6 +6,8 @@ import type { ReactNode } from "react";
 export type DropdownOptionPros = {
   label: string;
   value: string | number;
+  selected?: boolean;
+  disabled?: boolean;
 };
 
 export type CodeSnippetDropdownProps = {
