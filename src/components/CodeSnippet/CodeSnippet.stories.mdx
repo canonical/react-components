@@ -1,7 +1,7 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
 
-import CodeSnippet, { CodeSnippetBlock } from "./CodeSnippet";
+import CodeSnippet, { CodeSnippetBlock, CodeSnippetDropdown } from "./CodeSnippet";
 
 <Meta
   title="CodeSnippet"
@@ -17,7 +17,7 @@ import CodeSnippet, { CodeSnippetBlock } from "./CodeSnippet";
 
 ### Code snippet
 
-This is a [React](https://reactjs.org/) component for the Vanilla [Code snippet](https://docs.vanillaframework.io/base/code#code-snippet/).
+This is a [React](https://reactjs.org/) component for the Vanilla [Code snippet](https://docs.vanillaframework.io/base/code#code-snippet).
 
 ### Props
 
@@ -108,10 +108,17 @@ exposeResult "Successful pre-deploy." 0 "true"`
 
 ### Dropdowns
 
+Dropdown select menus can be added to the headers of code blocks to allow users to choose one of the options. The dropdowns options are passed via `dropdowns` property in the block options object.
+
+Dropdown configuration object is structured as follows:
+<ArgsTable of={CodeSnippetDropdown} />
+
+With the `options` being an array of option properties compatible with the `Select` options (`[{ label: string, value: string | number }]`).
+
 <Canvas>
   <Story name="Dropdowns">
   {() => {
-    const [lang, setLang] = useState("js");
+    const [lang, setLang] = useState("html");
     const code = {
       js: `console.log("Example 1");`,
       css: `.p-heading--two { color: red; }`,
@@ -124,7 +131,7 @@ exposeResult "Successful pre-deploy." 0 "true"`
            { options: [
               { value: "js", label: "JS" },
               { value: "css", label: "CSS" },
-              { value: "html", label: "HTML" },
+              { value: "html", label: "HTML", selected: true },
             ],
             onChange: (event) => { setLang(event.target.value) }
            }

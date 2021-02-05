@@ -11,7 +11,7 @@ exports[`CodeSnippet  can render 1`] = `
 </div>
 `;
 
-exports[`CodeSnippet  can render snippet with title 1`] = `
+exports[`CodeSnippet  can render snippet with a title 1`] = `
 <div
   className="p-code-snippet"
 >
