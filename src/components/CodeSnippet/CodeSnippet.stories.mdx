@@ -39,6 +39,8 @@ Single `CodeSnippet` component can render multiple separate code blocks. Blocks 
 
 ### Title
 
+Use the `title` prop to add a title to a code block.
+
 <Canvas>
   <Story name="Title">
     <CodeSnippet blocks={[ { title: "Output", code: "Mode: all Settings: maas_url=http://192.168.122.1:5240/MAAS"} ]} />
@@ -46,6 +48,8 @@ Single `CodeSnippet` component can render multiple separate code blocks. Blocks 
 </Canvas>
 
 ### Multiple blocks
+
+Pass an array of `blocks` to render multiple code blocks (for example input and output) within a single code snippet.
 
 <Canvas>
   <Story name="Multiple blocks">
@@ -57,22 +61,18 @@ Single `CodeSnippet` component can render multiple separate code blocks. Blocks 
 </Canvas>
 
 
-### Icon / Prompt
+### Appearance
+
+Use `appearance` to control the visual aspects of the code block. `"numbered"` appearance will add line numbers in the code blocks.
+Values of `"linuxPrompt"`, `"windowsPrompt"`, `"url"` will add a relevant icon in the code block.
 
 <Canvas>
-  <Story name="Icon">
+  <Story name="Appearance">
     <CodeSnippet blocks={[
        { title: "Install on Linux", appearance: "linuxPrompt", code: "snap install toto"},
        { title: "Install on Windows", appearance: "windowsPrompt", code: "snap install toto"},
        { title: "Get from the Store", appearance: "url", code: "http://snapcraft.io/toto"} ,
      ]}/>
-  </Story>
-</Canvas>
-
-### Numbered
-
-<Canvas>
-  <Story name="Numbered">
     <CodeSnippet blocks={[
        { appearance: "numbered",
          code: `#!/bin/bash
@@ -88,6 +88,8 @@ exposeResult "Successful pre-deploy." 0 "true"`
 </Canvas>
 
 ### Wrap lines
+
+Set `wrapLines` prop to `true` to enable line wrapping inside the code block.
 
 <Canvas>
   <Story name="Wrap lines">
