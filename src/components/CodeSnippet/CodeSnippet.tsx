@@ -28,24 +28,27 @@ CodeSnippet.propTypes = {
 type CodeSnippetBlockProps = {
   code: string;
   title?: string;
-  numbered?: boolean;
-  icon?: "linuxPrompt" | "windowsPrompt" | "url";
-  isWrapped?: boolean;
+  appearance?: "numbered" | "linuxPrompt" | "windowsPrompt" | "url";
+  wrapLines?: boolean;
   dropdowns?: Array<CodeSnippetDropdownProps>;
 };
 
 export const CodeSnippetBlock = ({
   code,
   title,
-  numbered = false,
-  icon = null,
-  isWrapped = false,
+  appearance = null,
+  wrapLines = false,
   dropdowns,
 }: CodeSnippetBlockProps): JSX.Element => {
   let className = "p-code-snippet__block";
+  const isNumbered = appearance === "numbered";
+  const hasIcon =
+    appearance === "linuxPrompt" ||
+    appearance === "windowsPrompt" ||
+    appearance === "url";
   let numberedCode;
 
-  if (numbered) {
+  if (isNumbered) {
     className += "--numbered";
 
     // wrap code lines in spans (and preserve the whitespace)
@@ -56,14 +59,14 @@ export const CodeSnippetBlock = ({
         {"\n"}
       </React.Fragment>
     ));
-  } else if (icon) {
+  } else if (hasIcon) {
     className += "--icon";
   }
 
   className = classNames(className, {
-    "is-windows-prompt": icon === "windowsPrompt",
-    "is-url": icon === "url",
-    "is-wrapped": isWrapped,
+    "is-windows-prompt": appearance === "windowsPrompt",
+    "is-url": appearance === "url",
+    "is-wrapped": wrapLines,
   });
 
   const hasDropdowns = dropdowns && dropdowns.length;
@@ -86,7 +89,7 @@ export const CodeSnippetBlock = ({
         </div>
       )}
       <pre className={className}>
-        <code>{numbered ? numberedCode : code}</code>
+        <code>{isNumbered ? numberedCode : code}</code>
       </pre>
     </>
   );
@@ -95,9 +98,13 @@ export const CodeSnippetBlock = ({
 CodeSnippetBlock.props = {
   code: PropTypes.string.isRequired,
   title: PropTypes.string,
-  numbered: PropTypes.bool,
-  icon: PropTypes.oneOf(["linuxPrompt", "windowsPrompt", "url"]),
-  isWrapped: PropTypes.bool,
+  appearance: PropTypes.oneOf([
+    "numbered",
+    "linuxPrompt",
+    "windowsPrompt",
+    "url",
+  ]),
+  wrapLines: PropTypes.bool,
   dropdowns: PropTypes.array,
 };
 
