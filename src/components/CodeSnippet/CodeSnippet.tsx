@@ -1,43 +1,37 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-import type { ReactNode } from "react";
 
-export type DropdownOptionPros = {
-  label: string;
-  value: string | number;
-  selected?: boolean;
-  disabled?: boolean;
+export type Props = {
+  className?: string;
+  blocks: Array<CodeSnippetBlockProps>;
 };
 
-export type CodeSnippetDropdownProps = {
-  onChange?: (evt: React.SyntheticEvent) => void;
-  options: Array<DropdownOptionPros>;
-};
-
-export const CodeSnippetDropdown = ({
-  options,
-  onChange,
-}: CodeSnippetDropdownProps): JSX.Element => {
+export default function CodeSnippet({ className, blocks }: Props): JSX.Element {
   return (
-    <select className="p-code-snippet__dropdown" onChange={onChange}>
-      {options.map(({ label, value, ...props }) => (
-        <option value={value} key={value || label} {...props}>
-          {label}
-        </option>
+    <div className={classNames("p-code-snippet", className)}>
+      {blocks.map((props, i) => (
+        <CodeSnippetBlock
+          key={`code-snippet-block-${i}`}
+          {...props}
+        ></CodeSnippetBlock>
       ))}
-    </select>
+    </div>
   );
+}
+
+CodeSnippet.propTypes = {
+  blocks: PropTypes.array.isRequired,
+  className: PropTypes.string,
 };
 
-CodeSnippetDropdown.props = {
-  onChange: PropTypes.func,
-  options: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    })
-  ).isRequired,
+type CodeSnippetBlockProps = {
+  code: string;
+  title?: string;
+  numbered?: boolean;
+  icon?: "linuxPrompt" | "windowsPrompt" | "url";
+  isWrapped?: boolean;
+  dropdowns?: Array<CodeSnippetDropdownProps>;
 };
 
 export const CodeSnippetBlock = ({
@@ -107,37 +101,39 @@ CodeSnippetBlock.props = {
   dropdowns: PropTypes.array,
 };
 
-export type Props = {
-  className?: string;
-  children?: ReactNode;
-  blocks: Array<CodeSnippetBlockProps>;
+type DropdownOptionProps = {
+  label: string;
+  value: string | number;
+  selected?: boolean;
+  disabled?: boolean;
 };
 
-type CodeSnippetBlockProps = {
-  code: string;
-  title?: string;
-  numbered?: boolean;
-  icon?: "linuxPrompt" | "windowsPrompt" | "url";
-  isWrapped?: boolean;
-  dropdowns?: Array<CodeSnippetDropdownProps>;
+type CodeSnippetDropdownProps = {
+  onChange: (evt: React.SyntheticEvent) => void;
+  options: Array<DropdownOptionProps>;
 };
 
-const CodeSnippet = ({ className, blocks }: Props): JSX.Element => {
+export const CodeSnippetDropdown = ({
+  options,
+  onChange,
+}: CodeSnippetDropdownProps): JSX.Element => {
   return (
-    <div className={classNames("p-code-snippet", className)}>
-      {blocks.map((props, i) => (
-        <CodeSnippetBlock
-          key={`code-snippet-block-${i}`}
-          {...props}
-        ></CodeSnippetBlock>
+    <select className="p-code-snippet__dropdown" onChange={onChange}>
+      {options.map(({ label, value, ...props }) => (
+        <option value={value} key={value || label} {...props}>
+          {label}
+        </option>
       ))}
-    </div>
+    </select>
   );
 };
 
-CodeSnippet.propTypes = {
-  className: PropTypes.string,
-  blocks: PropTypes.array,
+CodeSnippetDropdown.props = {
+  onChange: PropTypes.func.isRequired,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    })
+  ).isRequired,
 };
-
-export default CodeSnippet;
