@@ -131,8 +131,9 @@ With the `options` being an array of option properties compatible with the `Sele
            { options: [
               { value: "js", label: "JS" },
               { value: "css", label: "CSS" },
-              { value: "html", label: "HTML", selected: true },
+              { value: "html", label: "HTML" },
             ],
+            value: "html",
             onChange: (event) => { setLang(event.target.value) }
            }
          ]

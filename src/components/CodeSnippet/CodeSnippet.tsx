@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import type { HTMLProps } from "react";
 
 export type Props = {
   className?: string;
@@ -110,24 +111,22 @@ CodeSnippetBlock.props = {
 
 type DropdownOptionProps = {
   label: string;
-  value: string | number;
-  selected?: boolean;
-  disabled?: boolean;
-};
+} & HTMLProps<HTMLOptionElement>;
 
 type CodeSnippetDropdownProps = {
   onChange: (evt: React.SyntheticEvent) => void;
   options: Array<DropdownOptionProps>;
-};
+} & HTMLProps<HTMLSelectElement>;
 
 export const CodeSnippetDropdown = ({
   options,
   onChange,
+  ...props
 }: CodeSnippetDropdownProps): JSX.Element => {
   return (
-    <select className="p-code-snippet__dropdown" onChange={onChange}>
+    <select className="p-code-snippet__dropdown" onChange={onChange} {...props}>
       {options.map(({ label, value, ...props }) => (
-        <option value={value} key={value || label} {...props}>
+        <option value={value} key={value + "" || label} {...props}>
           {label}
         </option>
       ))}
