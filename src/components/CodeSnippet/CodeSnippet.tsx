@@ -5,7 +5,7 @@ import type { HTMLProps } from "react";
 
 export type Props = {
   className?: string;
-  blocks: Array<CodeSnippetBlockProps>;
+  blocks: CodeSnippetBlockProps[];
 };
 
 export default function CodeSnippet({ className, blocks }: Props): JSX.Element {
@@ -26,12 +26,19 @@ CodeSnippet.propTypes = {
   className: PropTypes.string,
 };
 
+export enum CodeSnippetBlockAppearance {
+  LINUX_PROMPT = "linuxPrompt",
+  NUMBERED = "numbered",
+  URL = "url",
+  WINDOWS_PROMPT = "windowsPrompt",
+}
+
 type CodeSnippetBlockProps = {
   code: string;
   title?: string;
-  appearance?: "numbered" | "linuxPrompt" | "windowsPrompt" | "url";
+  appearance?: CodeSnippetBlockAppearance; //"numbered" | "linuxPrompt" | "windowsPrompt" | "url";
   wrapLines?: boolean;
-  dropdowns?: Array<CodeSnippetDropdownProps>;
+  dropdowns?: CodeSnippetDropdownProps[];
 };
 
 export const CodeSnippetBlock = ({
@@ -42,11 +49,11 @@ export const CodeSnippetBlock = ({
   dropdowns,
 }: CodeSnippetBlockProps): JSX.Element => {
   let className = "p-code-snippet__block";
-  const isNumbered = appearance === "numbered";
+  const isNumbered = appearance === CodeSnippetBlockAppearance.NUMBERED;
   const hasIcon =
-    appearance === "linuxPrompt" ||
-    appearance === "windowsPrompt" ||
-    appearance === "url";
+    appearance === CodeSnippetBlockAppearance.LINUX_PROMPT ||
+    appearance === CodeSnippetBlockAppearance.WINDOWS_PROMPT ||
+    appearance === CodeSnippetBlockAppearance.URL;
   let numberedCode;
 
   if (isNumbered) {
@@ -65,8 +72,9 @@ export const CodeSnippetBlock = ({
   }
 
   className = classNames(className, {
-    "is-windows-prompt": appearance === "windowsPrompt",
-    "is-url": appearance === "url",
+    "is-windows-prompt":
+      appearance === CodeSnippetBlockAppearance.WINDOWS_PROMPT,
+    "is-url": appearance === CodeSnippetBlockAppearance.URL,
     "is-wrapped": wrapLines,
   });
 
@@ -100,10 +108,10 @@ CodeSnippetBlock.props = {
   code: PropTypes.string.isRequired,
   title: PropTypes.string,
   appearance: PropTypes.oneOf([
-    "numbered",
-    "linuxPrompt",
-    "windowsPrompt",
-    "url",
+    CodeSnippetBlockAppearance.NUMBERED,
+    CodeSnippetBlockAppearance.LINUX_PROMPT,
+    CodeSnippetBlockAppearance.WINDOWS_PROMPT,
+    CodeSnippetBlockAppearance.URL,
   ]),
   wrapLines: PropTypes.bool,
   dropdowns: PropTypes.array,
@@ -115,7 +123,7 @@ type DropdownOptionProps = {
 
 type CodeSnippetDropdownProps = {
   onChange: (evt: React.SyntheticEvent) => void;
-  options: Array<DropdownOptionProps>;
+  options: DropdownOptionProps[];
 } & HTMLProps<HTMLSelectElement>;
 
 export const CodeSnippetDropdown = ({

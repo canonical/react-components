@@ -1,7 +1,7 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
 
-import CodeSnippet, { CodeSnippetBlock, CodeSnippetDropdown } from "./CodeSnippet";
+import CodeSnippet, { CodeSnippetBlock, CodeSnippetDropdown, CodeSnippetBlockAppearance } from "./CodeSnippet";
 
 <Meta
   title="CodeSnippet"
@@ -69,12 +69,12 @@ Values of `"linuxPrompt"`, `"windowsPrompt"`, `"url"` will add a relevant icon i
 <Canvas>
   <Story name="Appearance">
     <CodeSnippet blocks={[
-       { title: "Install on Linux", appearance: "linuxPrompt", code: "snap install toto"},
-       { title: "Install on Windows", appearance: "windowsPrompt", code: "snap install toto"},
-       { title: "Get from the Store", appearance: "url", code: "http://snapcraft.io/toto"} ,
+       { title: "Install on Linux", appearance: CodeSnippetBlockAppearance.LINUX_PROMPT, code: "snap install toto"},
+       { title: "Install on Windows", appearance: CodeSnippetBlockAppearance.WINDOWS_PROMPT, code: "snap install toto"},
+       { title: "Get from the Store", appearance: CodeSnippetBlockAppearance.URL, code: "http://snapcraft.io/toto"} ,
      ]}/>
     <CodeSnippet blocks={[
-       { appearance: "numbered",
+       { appearance: CodeSnippetBlockAppearance.NUMBERED,
          code: `#!/bin/bash
 set -eu . $CONJURE_UP_SPELLSDIR/sdk/common.sh
 if [[ "$JUJU_PROVIDERTYPE" == "lxd" ]]; then
@@ -94,7 +94,7 @@ Set `wrapLines` prop to `true` to enable line wrapping inside the code block.
 <Canvas>
   <Story name="Wrap lines">
     <CodeSnippet blocks={[
-       { numbered: true,
+       { appearance: CodeSnippetBlockAppearance.NUMBERED,
          wrapLines: true,
          code: `#!/bin/bash
 set -eu . $CONJURE_UP_SPELLSDIR/sdk/common.sh
