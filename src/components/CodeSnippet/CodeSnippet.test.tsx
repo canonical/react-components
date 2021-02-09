@@ -1,7 +1,7 @@
 import { mount } from "enzyme";
 import React from "react";
 
-import CodeSnippet from "./CodeSnippet";
+import CodeSnippet, { CodeSnippetBlockAppearance } from "./CodeSnippet";
 
 describe("CodeSnippet ", () => {
   it("renders a code block", () => {
@@ -35,7 +35,14 @@ describe("CodeSnippet ", () => {
     Test line 3;`;
 
     const wrapper = mount(
-      <CodeSnippet blocks={[{ appearance: "numbered", code: multilineCode }]} />
+      <CodeSnippet
+        blocks={[
+          {
+            appearance: CodeSnippetBlockAppearance.NUMBERED,
+            code: multilineCode,
+          },
+        ]}
+      />
     );
     const lines = wrapper.find(
       ".p-code-snippet__block--numbered .p-code-snippet__line"
@@ -46,14 +53,25 @@ describe("CodeSnippet ", () => {
 
   it("renders default linux prompt icon", () => {
     const wrapper = mount(
-      <CodeSnippet blocks={[{ appearance: "linuxPrompt", code: "Test" }]} />
+      <CodeSnippet
+        blocks={[
+          { appearance: CodeSnippetBlockAppearance.LINUX_PROMPT, code: "Test" },
+        ]}
+      />
     );
     expect(wrapper.find(".p-code-snippet__block--icon").length).toBe(1);
   });
 
   it("renders windows prompt icon", () => {
     const wrapper = mount(
-      <CodeSnippet blocks={[{ appearance: "windowsPrompt", code: "Test" }]} />
+      <CodeSnippet
+        blocks={[
+          {
+            appearance: CodeSnippetBlockAppearance.WINDOWS_PROMPT,
+            code: "Test",
+          },
+        ]}
+      />
     );
     expect(
       wrapper.find(".p-code-snippet__block--icon.is-windows-prompt").length
@@ -62,7 +80,9 @@ describe("CodeSnippet ", () => {
 
   it("renders url icon", () => {
     const wrapper = mount(
-      <CodeSnippet blocks={[{ appearance: "url", code: "Test" }]} />
+      <CodeSnippet
+        blocks={[{ appearance: CodeSnippetBlockAppearance.URL, code: "Test" }]}
+      />
     );
     expect(wrapper.find(".p-code-snippet__block--icon.is-url").length).toBe(1);
   });
