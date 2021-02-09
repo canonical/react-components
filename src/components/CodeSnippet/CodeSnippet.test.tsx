@@ -1,7 +1,7 @@
 import { mount } from "enzyme";
 import React from "react";
 
-import CodeSnippet, { CodeSnippetBlockAppearance } from "./CodeSnippet";
+import CodeSnippet, { CodeSnippetBlockAppearance } from "./index";
 
 describe("CodeSnippet ", () => {
   it("renders a code block", () => {
