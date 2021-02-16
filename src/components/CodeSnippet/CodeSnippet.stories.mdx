@@ -120,7 +120,7 @@ Dropdown configuration object is structured as follows:
 With the `options` being an array of option properties compatible with the `Select` options (`[{ label: string, value: string | number }]`).
 
 <Canvas>
-  <Story name="Dropdowns">
+  <Story name="Dropdown">
   {() => {
     const [lang, setLang] = useState("html");
     const code = {
@@ -137,7 +137,7 @@ With the `options` being an array of option properties compatible with the `Sele
               { value: "css", label: "CSS" },
               { value: "html", label: "HTML" },
             ],
-            value: "html",
+            value: lang,
             onChange: (event) => { setLang(event.target.value) }
            }
          ]
@@ -147,3 +147,77 @@ With the `options` being an array of option properties compatible with the `Sele
   </Story>
 </Canvas>
 
+Multiple dropdowns can be passed in if needed.
+
+<Canvas>
+  <Story name="Dropdowns">
+  {() => {
+    const [channel, setChannel] = useState("stable");
+    const [snap, setSnap] = useState("firefox");
+    const code = `sudo snap install ${snap} ${channel !== 'stable' ? "--"+channel : ""}`;
+    return <CodeSnippet blocks={[
+       {
+         title: "Install snap",
+         code: code,
+         dropdowns: [
+           { options: [
+              { value: "stable", label: "stable" },
+              { value: "candidate", label: "candidate" },
+              { value: "beta", label: "beta" },
+              { value: "edge", label: "edge" },
+            ],
+            value: channel,
+            onChange: (event) => { setChannel(event.target.value) }
+           },
+           { options: [
+              { value: "firefox", label: "Firefox" },
+              { value: "gimp", label: "Gimp" },
+              { value: "vlc", label: "VLC" },
+            ],
+            value: snap,
+            onChange: (event) => { setSnap(event.target.value) }
+           }
+         ]
+       },
+     ]} />;
+  }}
+  </Story>
+</Canvas>
+
+If multiple dropdowns may overlap with long title you can use `stacked` variant, by setting the relevant property on code block options.
+
+<Canvas>
+  <Story name="DropdownsStacked">
+  {() => {
+    const [channel, setChannel] = useState("stable");
+    const [snap, setSnap] = useState("firefox");
+    const code = `sudo snap install ${snap} ${channel !== 'stable' ? "--"+channel : ""}`;
+    return <CodeSnippet blocks={[
+       {
+         title: "Install Firefox, Gimp or VLC as a snap from different channels using command line",
+         code: code,
+         stacked: true,
+         dropdowns: [
+           { options: [
+              { value: "stable", label: "stable" },
+              { value: "candidate", label: "candidate" },
+              { value: "beta", label: "beta" },
+              { value: "edge", label: "edge" },
+            ],
+            value: channel,
+            onChange: (event) => { setChannel(event.target.value) }
+           },
+           { options: [
+              { value: "firefox", label: "Firefox" },
+              { value: "gimp", label: "Gimp" },
+              { value: "vlc", label: "VLC" },
+            ],
+            value: snap,
+            onChange: (event) => { setSnap(event.target.value) }
+           }
+         ]
+       },
+     ]} />;
+  }}
+  </Story>
+</Canvas>
