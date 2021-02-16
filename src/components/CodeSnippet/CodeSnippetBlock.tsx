@@ -18,6 +18,7 @@ export type CodeSnippetBlockProps = {
   appearance?: CodeSnippetBlockAppearance; //"numbered" | "linuxPrompt" | "windowsPrompt" | "url";
   wrapLines?: boolean;
   dropdowns?: CodeSnippetDropdownProps[];
+  stacked?: boolean;
 };
 
 export default function CodeSnippetBlock({
@@ -26,6 +27,7 @@ export default function CodeSnippetBlock({
   appearance = null,
   wrapLines = false,
   dropdowns,
+  stacked = false,
 }: CodeSnippetBlockProps): JSX.Element {
   let className = "p-code-snippet__block";
   const isNumbered = appearance === CodeSnippetBlockAppearance.NUMBERED;
@@ -62,7 +64,9 @@ export default function CodeSnippetBlock({
   return (
     <>
       {(title || hasDropdowns) && (
-        <div className="p-code-snippet__header">
+        <div
+          className={`p-code-snippet__header ${stacked ? "is-stacked" : ""}`}
+        >
           <h5 className="p-code-snippet__title">{title}</h5>
           {hasDropdowns && (
             <div className="p-code-snippet__dropdowns">
@@ -94,4 +98,5 @@ CodeSnippetBlock.props = {
   ]),
   wrapLines: PropTypes.bool,
   dropdowns: PropTypes.array,
+  stacked: PropTypes.bool,
 };
