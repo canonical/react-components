@@ -2,6 +2,9 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React, { useRef } from "react";
 
+/**
+ * @deprecated Code component is deprecated. Use CodeSnippet component or inline `<code>` instead.
+ */
 const Code = ({
   children,
   className,

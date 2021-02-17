@@ -9,9 +9,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- Added new `CodeSnippet` component, the `Code` component is considered deprecated.
+
 ### Changed
 
 - Updated `ActionButton` to use `is-processing` classname instead of deprecated `is-active`.
+
+### Deprecated
+
+- `Code` component is deprecated. Use `CodeSnippet` component or inline `<code>` instead.
 
 ### Removed
 
