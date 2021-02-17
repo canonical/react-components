@@ -154,7 +154,7 @@ Multiple dropdowns can be passed in if needed.
   {() => {
     const [channel, setChannel] = useState("stable");
     const [snap, setSnap] = useState("firefox");
-    const code = `sudo snap install ${snap} ${channel !== 'stable' ? "--"+channel : ""}`;
+    const code = `sudo snap install ${snap} ${channel === 'stable' ? "" : "--"+channel}`;
     return <CodeSnippet blocks={[
        {
          title: "Install snap",
@@ -191,7 +191,7 @@ If multiple dropdowns may overlap with long title you can use `stacked` variant,
   {() => {
     const [channel, setChannel] = useState("stable");
     const [snap, setSnap] = useState("firefox");
-    const code = `sudo snap install ${snap} ${channel !== 'stable' ? "--"+channel : ""}`;
+    const code = `sudo snap install ${snap} ${channel === 'stable' ? "" : "--"+channel}`;
     return <CodeSnippet blocks={[
        {
          title: "Install Firefox, Gimp or VLC as a snap from different channels using command line",
