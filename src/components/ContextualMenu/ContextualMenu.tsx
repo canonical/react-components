@@ -205,6 +205,7 @@ const ContextualMenu = <L,>({
           appearance={toggleAppearance}
           aria-controls={id.current}
           aria-expanded={isOpen ? "true" : "false"}
+          aria-pressed={isOpen ? "true" : "false"}
           aria-haspopup="true"
           className={classNames("p-contextual-menu__toggle", toggleClassName)}
           disabled={toggleDisabled}
