@@ -11,6 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+### Removed
+
+# 0.16.1 - 2021-03-02
+
+### Added
+
+### Changed
+
+- Updated Vanilla to 2.25.1
 - Added support for `aria-pressed` in the ContextualMenu button
 
 ### Removed
