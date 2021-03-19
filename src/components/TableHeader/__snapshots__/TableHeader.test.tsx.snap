@@ -2,7 +2,6 @@
 
 exports[`TableHeader renders 1`] = `
 <th
-  aria-sort="none"
   role="columnheader"
 >
   <tr />

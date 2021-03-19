@@ -20,11 +20,7 @@ type Props = {
  * @param sort - sort direction
  * @returns TableHeader
  */
-const TableHeader = ({
-  children,
-  sort = "none",
-  ...props
-}: Props): JSX.Element => {
+const TableHeader = ({ children, sort, ...props }: Props): JSX.Element => {
   return (
     <th role="columnheader" aria-sort={sort} {...props}>
       {children}

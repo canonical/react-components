@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-### Removed
+- Remove `aria-sort` from tables when they are not sortable
+- Updated Vanilla to 2.26.0
 
 # 0.16.1 - 2021-03-02
 
