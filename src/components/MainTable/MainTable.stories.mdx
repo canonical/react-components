@@ -1,4 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
 
 import MainTable from "./MainTable";
 import Row from "../Row";
@@ -138,136 +139,129 @@ This is a [React](https://reactjs.org/) component to support many table use case
 
 <Canvas>
   <Story name="Expanding">
-    <MainTable
-      expanding
-      headers={[
-        { content: "Name" },
-        { content: "Mac address" },
-        { content: "IP" },
-        { content: "Rack" },
-        { content: "Last seen" },
-        { content: "Actions", className: "u-align--right" },
-      ]}
-      rows={[
-        {
-          columns: [
-            { content: "Unknown", role: "rowheader" },
-            { content: "2c:44:fd:80:3f:25" },
-            { content: "10.249.0.1" },
-            { content: "karura" },
-            { content: "Thu, 25 Oct. 2018 13:55:21" },
+    {() => {
+      let [expandedRow, setExpandedRow] = useState(1);
+      return (
+        <MainTable
+          expanding
+          headers={[
+            { content: "Name" },
+            { content: "Mac address" },
+            { content: "IP" },
+            { content: "Rack" },
+            { content: "Last seen" },
+            { content: "Actions", className: "u-align--right" },
+          ]}
+          rows={[
             {
-              content: (
-                <button
-                  className="u-toggle"
-                  onClick={() =>
-                    setState({
-                      expandedRow: 1,
-                    })
-                  }
-                >
-                  Show
-                </button>
+              columns: [
+                { content: "Unknown", role: "rowheader" },
+                { content: "2c:44:fd:80:3f:25" },
+                { content: "10.249.0.1" },
+                { content: "karura" },
+                { content: "Thu, 25 Oct. 2018 13:55:21" },
+                {
+                  content: (
+                    <button
+                      className="u-toggle"
+                      onClick={() => setExpandedRow(1)}
+                    >
+                      Show
+                    </button>
+                  ),
+                  className: "u-align--right",
+                },
+              ],
+              expanded: expandedRow === 1,
+              expandedContent: (
+                <Row>
+                  <Col size="8">
+                    <h4>Expanding table cell</h4>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Consequuntur cum dicta beatae nostrum eligendi similique
+                      earum, dolorem fuga quis, sequi voluptates architecto ipsa
+                      dolorum eaque rem expedita inventore voluptas odit
+                      aspernatur alias molestias facere.
+                    </p>
+                  </Col>
+                </Row>
               ),
-              className: "u-align--right",
             },
-          ],
-          expanded: true,
-          expandedContent: (
-            <Row>
-              <Col size="8">
-                <h4>Expanding table cell</h4>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Consequuntur cum dicta beatae nostrum eligendi similique
-                  earum, dolorem fuga quis, sequi voluptates architecto ipsa
-                  dolorum eaque rem expedita inventore voluptas odit aspernatur
-                  alias molestias facere.
-                </p>
-              </Col>
-            </Row>
-          ),
-        },
-        {
-          columns: [
-            { content: "Unknown", role: "rowheader" },
-            { content: "52:54:00:3a:fe:e9" },
-            { content: "172.16.99.191" },
-            { content: "karura" },
-            { content: "Wed, 3 Oct. 2018 23:08:06" },
             {
-              content: (
-                <button
-                  className="u-toggle"
-                  onClick={() =>
-                    setState({
-                      expandedRow: 2,
-                    })
-                  }
-                >
-                  Show
-                </button>
+              columns: [
+                { content: "Unknown", role: "rowheader" },
+                { content: "52:54:00:3a:fe:e9" },
+                { content: "172.16.99.191" },
+                { content: "karura" },
+                { content: "Wed, 3 Oct. 2018 23:08:06" },
+                {
+                  content: (
+                    <button
+                      className="u-toggle"
+                      onClick={() => setExpandedRow(2)}
+                    >
+                      Show
+                    </button>
+                  ),
+                  className: "u-align--right",
+                },
+              ],
+              expanded: expandedRow === 2,
+              expandedContent: (
+                <Row>
+                  <Col size="8">
+                    <h4>Expanding table cell</h4>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Consequuntur cum dicta beatae nostrum eligendi similique
+                      earum, dolorem fuga quis, sequi voluptates architecto ipsa
+                      dolorum eaque rem expedita inventore voluptas odit
+                      aspernatur alias molestias facere.
+                    </p>
+                  </Col>
+                </Row>
               ),
-              className: "u-align--right",
             },
-          ],
-          expanded: false,
-          expandedContent: (
-            <Row>
-              <Col size="8">
-                <h4>Expanding table cell</h4>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Consequuntur cum dicta beatae nostrum eligendi similique
-                  earum, dolorem fuga quis, sequi voluptates architecto ipsa
-                  dolorum eaque rem expedita inventore voluptas odit aspernatur
-                  alias molestias facere.
-                </p>
-              </Col>
-            </Row>
-          ),
-        },
-        {
-          columns: [
-            { content: "Unknown", role: "rowheader" },
-            { content: "52:54:00:74:c2:10" },
-            { content: "172.16.99.192" },
-            { content: "karura" },
-            { content: "Wed, 17 Oct. 2018 12:18:18" },
             {
-              content: (
-                <button
-                  className="u-toggle"
-                  onClick={() =>
-                    setState({
-                      expandedRow: 3,
-                    })
-                  }
-                >
-                  Show
-                </button>
+              columns: [
+                { content: "Unknown", role: "rowheader" },
+                { content: "52:54:00:74:c2:10" },
+                { content: "172.16.99.192" },
+                { content: "karura" },
+                { content: "Wed, 17 Oct. 2018 12:18:18" },
+                {
+                  content: (
+                    <button
+                      className="u-toggle"
+                      onClick={() => setExpandedRow(3)}
+                    >
+                      Show
+                    </button>
+                  ),
+                  className: "u-align--right",
+                },
+              ],
+              expanded: expandedRow === 3,
+              expandedContent: (
+                <Row>
+                  <Col size="8">
+                    <h4>Expanding table cell</h4>
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                      Consequuntur cum dicta beatae nostrum eligendi similique
+                      earum, dolorem fuga quis, sequi voluptates architecto ipsa
+                      dolorum eaque rem expedita inventore voluptas odit
+                      aspernatur alias molestias facere.
+                    </p>
+                  </Col>
+                </Row>
               ),
-              className: "u-align--right",
             },
-          ],
-          expanded: false,
-          expandedContent: (
-            <Row>
-              <Col size="8">
-                <h4>Expanding table cell</h4>
-                <p>
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                  Consequuntur cum dicta beatae nostrum eligendi similique
-                  earum, dolorem fuga quis, sequi voluptates architecto ipsa
-                  dolorum eaque rem expedita inventore voluptas odit aspernatur
-                  alias molestias facere.
-                </p>
-              </Col>
-            </Row>
-          ),
-        },
-      ]}
-    />
+          ]}
+        />
+      );
+    }}
   </Story>
 </Canvas>
 
