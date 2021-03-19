@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Remove unneeded `p-table--sortable`, update class name of `p-table--expanding`
 - Remove `aria-sort` from tables when they are not sortable
 - Updated Vanilla to 2.26.0
 

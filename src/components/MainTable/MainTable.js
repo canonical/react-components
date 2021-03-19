@@ -185,7 +185,6 @@ const MainTable = ({
       <Table
         className="p-main-table"
         expanding={expanding}
-        sortable={sortable}
         responsive={responsive}
         {...props}
       >
