@@ -45,7 +45,7 @@ const TableCell = ({
     role={role}
     aria-hidden={hidden}
     className={classNames(className, {
-      "p-table-expanding__panel": expanding,
+      "p-table__expanding-panel": expanding,
     })}
     {...props}
   >

@@ -13,10 +13,6 @@ type Props = {
    * @defaultValue false
    */
   responsive?: boolean;
-  /**
-   * @defaultValue false
-   */
-  sortable?: boolean;
 } & HTMLProps<HTMLTableElement>;
 
 /**
@@ -38,15 +34,13 @@ const Table = ({
   className,
   expanding = false,
   responsive = false,
-  sortable = false,
   ...props
 }: Props): JSX.Element => (
   <table
     role="grid"
     className={classNames(className, {
       "p-table--mobile-card": responsive,
-      "p-table--sortable": sortable,
-      "p-table-expanding": expanding,
+      "p-table--expanding": expanding,
     })}
     {...props}
   >
@@ -59,7 +53,6 @@ Table.propTypes = {
   className: PropTypes.string,
   expanding: PropTypes.bool,
   responsive: PropTypes.bool,
-  sortable: PropTypes.bool,
 };
 
 export default Table;
