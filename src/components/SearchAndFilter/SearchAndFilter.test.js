@@ -45,7 +45,7 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
-    expect(wrapper.find(".p-search-box__reset").exists()).toBe(false);
+    expect(wrapper.find(".p-search-and-filter__clear").exists()).toBe(false);
   });
 
   it("shows panel on focus", () => {
@@ -60,11 +60,11 @@ describe("Search and filter", () => {
       />
     );
     expect(
-      wrapper.find(".search-and-filter__panel").prop("aria-hidden")
+      wrapper.find(".p-search-and-filter__panel").prop("aria-hidden")
     ).toEqual(true);
-    wrapper.find(".search-and-filter").simulate("click");
+    wrapper.find(".p-search-and-filter").simulate("click");
     expect(
-      wrapper.find(".search-and-filter__panel").prop("aria-hidden")
+      wrapper.find(".p-search-and-filter__panel").prop("aria-hidden")
     ).toEqual(false);
   });
 
@@ -80,11 +80,11 @@ describe("Search and filter", () => {
       />
     );
     expect(
-      wrapper.find(".search-and-filter__panel").prop("aria-hidden")
+      wrapper.find(".p-search-and-filter__panel").prop("aria-hidden")
     ).toEqual(true);
-    wrapper.find(".p-search-box__input").simulate("click");
+    wrapper.find(".p-search-and-filter__input").simulate("click");
     expect(
-      wrapper.find(".search-and-filter__panel").prop("aria-hidden")
+      wrapper.find(".p-search-and-filter__panel").prop("aria-hidden")
     ).toEqual(false);
   });
 
@@ -109,7 +109,7 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
-    expect(wrapper.find(".search-and-filter__selected-count").length).toEqual(
+    expect(wrapper.find(".p-search-and-filter__selected-count").length).toEqual(
       0
     );
   });
@@ -133,12 +133,12 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
-    wrapper.find(".p-search-box__input").simulate("click");
+    wrapper.find(".p-search-and-filter__input").simulate("click");
     wrapper
       .find(".p-filter-panel-section__chips .p-chip")
       .first()
       .simulate("click");
-    expect(wrapper.find(".search-and-filter__selected-count").text()).toEqual(
+    expect(wrapper.find(".p-search-and-filter__selected-count").text()).toEqual(
       "+1"
     );
   });
@@ -163,16 +163,20 @@ describe("Search and filter", () => {
       />
     );
     expect(
-      wrapper.find(".search-and-filter__search-container").prop("aria-expanded")
+      wrapper
+        .find(".p-search-and-filter__search-container")
+        .prop("aria-expanded")
     ).toEqual(false);
-    wrapper.find(".p-search-box__input").simulate("click");
+    wrapper.find(".p-search-and-filter__input").simulate("click");
     wrapper
       .find(".p-filter-panel-section__chips .p-chip")
       .first()
       .simulate("click");
-    wrapper.find(".search-and-filter__selected-count").simulate("click");
+    wrapper.find(".p-search-and-filter__selected-count").simulate("click");
     expect(
-      wrapper.find(".search-and-filter__search-container").prop("aria-expanded")
+      wrapper
+        .find(".p-search-and-filter__search-container")
+        .prop("aria-expanded")
     ).toEqual(true);
   });
 
@@ -185,12 +189,16 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
-    wrapper.find(".search-and-filter").simulate("click");
-    expect(wrapper.find(".search-prompt").length).toEqual(0);
+    wrapper.find(".p-search-and-filter").simulate("click");
+    expect(wrapper.find(".p-search-and-filter__search-prompt").length).toEqual(
+      0
+    );
     wrapper
-      .find(".p-search-box__input")
+      .find(".p-search-and-filter__input")
       .simulate("change", { target: { value: "My new value" } });
-    expect(wrapper.find(".search-prompt").length).toEqual(1);
+    expect(wrapper.find(".p-search-and-filter__search-prompt").length).toEqual(
+      1
+    );
   });
 
   it("no search results appear for unknown search term", () => {
@@ -202,10 +210,10 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
-    wrapper.find(".search-and-filter").simulate("click");
+    wrapper.find(".p-search-and-filter").simulate("click");
     expect(wrapper.find(".p-filter-panel-section").length).toEqual(3);
     wrapper
-      .find(".p-search-box__input")
+      .find(".p-search-and-filter__input")
       .simulate("change", { target: { value: "Unknown value" } });
     expect(wrapper.find(".p-filter-panel-section").length).toEqual(0);
   });
@@ -219,13 +227,13 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
-    wrapper.find(".search-and-filter").simulate("click");
+    wrapper.find(".p-search-and-filter").simulate("click");
     wrapper
-      .find(".p-search-box__input")
+      .find(".p-search-and-filter__input")
       .simulate("change", { target: { value: "Google" } });
     expect(wrapper.find(".p-filter-panel-section").length).toEqual(1);
     wrapper
-      .find(".p-search-box__input")
+      .find(".p-search-and-filter__input")
       .simulate("change", { target: { value: "re" } });
     expect(wrapper.find(".p-filter-panel-section").length).toEqual(2);
   });
@@ -239,9 +247,9 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
-    wrapper.find(".p-search-box__input").simulate("click");
+    wrapper.find(".p-search-and-filter__input").simulate("click");
     wrapper
-      .find(".p-search-box__input")
+      .find(".p-search-and-filter__input")
       .simulate("change", { target: { value: "Google" } });
     const firstChip = wrapper.find(".p-chip").first();
     expect(firstChip.find(".p-chip__value").html()).toEqual(
@@ -260,10 +268,10 @@ describe("Search and filter", () => {
       />
     );
     const lead = wrapper
-      .find(".search-and-filter__search-container .p-chip__lead")
+      .find(".p-search-and-filter__search-container .p-chip__lead")
       .text();
     const value = wrapper
-      .find(".search-and-filter__search-container .p-chip__value")
+      .find(".p-search-and-filter__search-container .p-chip__value")
       .text();
     expect(lead).toBe("CLOUD");
     expect(value).toBe("Google");
@@ -282,7 +290,9 @@ describe("Search and filter", () => {
         ]}
       />
     );
-    const chips = wrapper.find(".search-and-filter__search-container .p-chip");
+    const chips = wrapper.find(
+      ".p-search-and-filter__search-container .p-chip"
+    );
     expect(chips.length).toBe(2);
 
     const chip1Value = chips.at(0).find(".p-chip__value").text();

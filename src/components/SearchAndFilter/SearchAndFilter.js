@@ -1,12 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
-import SearchBox from "../SearchBox";
 import FilterPanelSection from "./FilterPanelSection";
 import Chip from "../Chip";
 import { overflowingChipsCount, isChipInArray } from "./shared";
-
-import "./SearchAndFilter.scss";
 
 const SearchAndFilter = ({
   filterPanelData = [],
@@ -40,7 +37,8 @@ const SearchAndFilter = ({
   // Hide manual input form field when search container is inactive
   useEffect(() => {
     const searchContainerClickCheck = (e) => {
-      const clickInContainer = e.target?.closest(".search-and-filter") !== null;
+      const clickInContainer =
+        e.target?.closest(".p-search-and-filter") !== null;
       setSearchContainerActive(clickInContainer);
     };
 
@@ -116,7 +114,7 @@ const SearchAndFilter = ({
   useEffect(() => {
     const hideOverflowChips = (e) => {
       if (
-        !e.target.closest(".search-and-filter") &&
+        !e.target.closest(".p-search-and-filter") &&
         e.target.className !== "p-icon--close"
       ) {
         setSearchBoxExpanded(false);
@@ -190,14 +188,16 @@ const SearchAndFilter = ({
     setSearchTerm("");
   };
 
+  const placeholder = searchData.length ? "Add filter" : "Search and filter";
+
   return (
     <div
-      className="search-and-filter"
+      className="p-search-and-filter"
       ref={searchAndFilterRef}
       onClick={() => filterPanelHidden && setFilterPanelHidden(false)}
     >
       <div
-        className="search-and-filter__search-container"
+        className="p-search-and-filter__search-container"
         aria-expanded={searchBoxExpanded}
         data-active={searchContainerActive || searchData.length === 0}
         data-empty={searchData.length <= 0}
@@ -205,7 +205,7 @@ const SearchAndFilter = ({
       >
         {searchTerm !== "" && (
           <button
-            className="search-and-filter__clear"
+            className="p-search-and-filter__clear"
             onClick={() => clearAllSearchTerms()}
           >
             <i className="p-icon--close" />
@@ -223,19 +223,35 @@ const SearchAndFilter = ({
             />
           );
         })}
-        <SearchBox
-          autocomplete="off"
-          externallyControlled={true}
-          placeholder={searchData.length ? "Add filter" : "Search and filter"}
-          onChange={(searchTerm) => searchOnChange(searchTerm)}
-          onSubmit={(e) => handleSubmit(e)}
-          value={searchTerm}
-          ref={searchBoxRef}
+        <form
+          className="p-search-and-filter__box"
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit(e);
+          }}
           data-overflowing={searchBoxExpanded}
-        />
+          ref={searchBoxRef}
+        >
+          <label className="u-off-screen" htmlFor="search-and-filter-input">
+            {searchData.length ? "Add filter" : "Search and filter"}
+          </label>
+          <input
+            autoComplete="off"
+            className="p-search-and-filter__input"
+            id="search-and-filter-input"
+            name="search"
+            onChange={(e) => searchOnChange(e.target.value)}
+            placeholder={placeholder}
+            type="search"
+            value={searchTerm}
+          />
+          <button className="u-off-screen" type="submit">
+            Search
+          </button>
+        </form>
         {overflowSearchTermCounter > 0 && (
           <span
-            className="search-and-filter__selected-count"
+            className="p-search-and-filter__selected-count"
             onClick={() => setSearchBoxExpanded(true)}
             onKeyDown={() => setSearchBoxExpanded(true)}
             role="button"
@@ -247,13 +263,13 @@ const SearchAndFilter = ({
       </div>
       {(filterPanelData.length > 0 || searchTerm.length > 0) && (
         <div
-          className="search-and-filter__panel"
+          className="p-search-and-filter__panel"
           aria-hidden={filterPanelHidden}
         >
           <div>
             {searchTerm.length > 0 && (
               <div
-                className="search-prompt"
+                className="p-search-and-filter__search-prompt"
                 onClick={() => handleSubmit()}
                 onKeyDown={(e) => searchPromptKeyDown(e)}
                 role="button"
