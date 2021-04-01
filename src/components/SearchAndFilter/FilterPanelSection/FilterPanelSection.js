@@ -4,8 +4,6 @@ import Chip from "../../Chip";
 import { overflowingChipsCount, isChipInArray } from "../shared";
 import { highlightSubString } from "../../../utils";
 
-import "./filter-panel-section.scss";
-
 const FilterPanelSection = ({
   data,
   toggleSelected,
@@ -74,17 +72,17 @@ const FilterPanelSection = ({
   return (
     <>
       {panelSectionVisible && (
-        <div className="filter-panel-section">
+        <div className="p-filter-panel-section">
           {heading && chips.length > 0 && (
             <h3
-              className="filter-panel-section__heading"
+              className="p-filter-panel-section__heading"
               dangerouslySetInnerHTML={{
                 __html: highlightSubString(heading, searchTerm).text,
               }}
             />
           )}
           <div
-            className="filter-panel-section__chips"
+            className="p-filter-panel-section__chips"
             aria-expanded={expanded}
             ref={chipWrapper}
           >
@@ -115,7 +113,7 @@ const FilterPanelSection = ({
             })}
             {overflowCounter > 0 && !expanded && (
               <span
-                className="filter-panel-section__counter"
+                className="p-filter-panel-section__counter"
                 onClick={showAllChips}
                 onKeyPress={showAllChips}
                 tabIndex="0"

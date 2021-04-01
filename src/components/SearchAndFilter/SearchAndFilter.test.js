@@ -135,7 +135,7 @@ describe("Search and filter", () => {
     );
     wrapper.find(".p-search-box__input").simulate("click");
     wrapper
-      .find(".filter-panel-section__chips .p-chip")
+      .find(".p-filter-panel-section__chips .p-chip")
       .first()
       .simulate("click");
     expect(wrapper.find(".search-and-filter__selected-count").text()).toEqual(
@@ -167,7 +167,7 @@ describe("Search and filter", () => {
     ).toEqual(false);
     wrapper.find(".p-search-box__input").simulate("click");
     wrapper
-      .find(".filter-panel-section__chips .p-chip")
+      .find(".p-filter-panel-section__chips .p-chip")
       .first()
       .simulate("click");
     wrapper.find(".search-and-filter__selected-count").simulate("click");
@@ -203,11 +203,11 @@ describe("Search and filter", () => {
       />
     );
     wrapper.find(".search-and-filter").simulate("click");
-    expect(wrapper.find(".filter-panel-section").length).toEqual(3);
+    expect(wrapper.find(".p-filter-panel-section").length).toEqual(3);
     wrapper
       .find(".p-search-box__input")
       .simulate("change", { target: { value: "Unknown value" } });
-    expect(wrapper.find(".filter-panel-section").length).toEqual(0);
+    expect(wrapper.find(".p-filter-panel-section").length).toEqual(0);
   });
 
   it("correct number of panels appear for matching search terms", () => {
@@ -223,11 +223,11 @@ describe("Search and filter", () => {
     wrapper
       .find(".p-search-box__input")
       .simulate("change", { target: { value: "Google" } });
-    expect(wrapper.find(".filter-panel-section").length).toEqual(1);
+    expect(wrapper.find(".p-filter-panel-section").length).toEqual(1);
     wrapper
       .find(".p-search-box__input")
       .simulate("change", { target: { value: "re" } });
-    expect(wrapper.find(".filter-panel-section").length).toEqual(2);
+    expect(wrapper.find(".p-filter-panel-section").length).toEqual(2);
   });
 
   it("Matching search terms are highlighted with strong tag", () => {
