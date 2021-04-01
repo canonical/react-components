@@ -264,14 +264,13 @@ const SearchAndFilter = ({
             )}
             {filterPanelData.map((filterPanelSectionData) => {
               return (
-                <div key={filterPanelSectionData.id}>
-                  <FilterPanelSection
-                    data={filterPanelSectionData}
-                    toggleSelected={toggleSelected}
-                    searchData={searchData}
-                    searchTerm={searchTerm}
-                  />
-                </div>
+                <FilterPanelSection
+                  key={filterPanelSectionData.id}
+                  data={filterPanelSectionData}
+                  toggleSelected={toggleSelected}
+                  searchData={searchData}
+                  searchTerm={searchTerm}
+                />
               );
             })}
           </div>
