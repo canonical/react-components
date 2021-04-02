@@ -2,8 +2,6 @@ import { nanoid } from "nanoid";
 import PropTypes from "prop-types";
 import React, { ReactElement, ReactNode, useRef } from "react";
 
-import "./modal.scss";
-
 type Props = {
   buttonRow?: ReactNode | null;
   children: ReactNode;
@@ -21,7 +19,7 @@ export const Modal = ({
   const titleId = useRef(nanoid());
   return (
     <div className="p-modal" onClick={close}>
-      <div
+      <section
         className="p-modal__dialog"
         role="dialog"
         aria-labelledby={titleId.current}
@@ -45,8 +43,10 @@ export const Modal = ({
           </header>
         )}
         <div id={descriptionId.current}>{children}</div>
-        {!!buttonRow && <div className="p-modal__button-row">{buttonRow}</div>}
-      </div>
+        {!!buttonRow && (
+          <footer className="p-modal__footer">{buttonRow}</footer>
+        )}
+      </section>
     </div>
   );
 };
