@@ -7,8 +7,6 @@ import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
 
-import "./MainTable.scss";
-
 const updateSort = (setSortKey, setSortDirection, sortKey, sortDirection) => {
   let newDirection = null;
   if (sortDirection === "none") {
@@ -182,12 +180,7 @@ const MainTable = ({
 
   return (
     <>
-      <Table
-        className="p-main-table"
-        expanding={expanding}
-        responsive={responsive}
-        {...props}
-      >
+      <Table expanding={expanding} responsive={responsive} {...props}>
         {headers &&
           generateHeaders(
             currentSortKey,
