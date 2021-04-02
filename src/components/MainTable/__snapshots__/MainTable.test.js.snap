@@ -2,9 +2,7 @@
 
 exports[`MainTable renders 1`] = `
 <Fragment>
-  <Table
-    className="p-main-table"
-  >
+  <Table>
     <thead>
       <TableRow>
         <TableHeader

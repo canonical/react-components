@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated SearchAndFilter component to remove custom styling
+- Updated SearchAndFilter, Modal and MainTable components to remove custom styling
+- Update to Vanilla v2.28.0-rc1
 
 ### Removed
 

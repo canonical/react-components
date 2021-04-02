@@ -4,7 +4,7 @@ exports[`Modal  displays any content in the button row 1`] = `
 <div
   className="p-modal"
 >
-  <div
+  <section
     aria-describedby="Uakgb_J5m9g-0JDMbcJqLJ"
     aria-labelledby="Uakgb_J5m9g-0JDMbcJqLJ"
     className="p-modal__dialog"
@@ -16,14 +16,14 @@ exports[`Modal  displays any content in the button row 1`] = `
     >
       Button tester
     </div>
-    <div
-      className="p-modal__button-row"
+    <footer
+      className="p-modal__footer"
     >
       <div>
         I am not a button
       </div>
-    </div>
-  </div>
+    </footer>
+  </section>
 </div>
 `;
 
@@ -31,7 +31,7 @@ exports[`Modal  displays buttons that have been supplied 1`] = `
 <div
   className="p-modal"
 >
-  <div
+  <section
     aria-describedby="Uakgb_J5m9g-0JDMbcJqLJ"
     aria-labelledby="Uakgb_J5m9g-0JDMbcJqLJ"
     className="p-modal__dialog"
@@ -43,8 +43,8 @@ exports[`Modal  displays buttons that have been supplied 1`] = `
     >
       Button tester
     </div>
-    <div
-      className="p-modal__button-row"
+    <footer
+      className="p-modal__footer"
     >
       <button
         key="1"
@@ -56,8 +56,8 @@ exports[`Modal  displays buttons that have been supplied 1`] = `
       >
         Button 2
       </button>
-    </div>
-  </div>
+    </footer>
+  </section>
 </div>
 `;
 
@@ -66,7 +66,7 @@ exports[`Modal  renders 1`] = `
   className="p-modal"
   onClick={[MockFunction]}
 >
-  <div
+  <section
     aria-describedby="Uakgb_J5m9g-0JDMbcJqLJ"
     aria-labelledby="Uakgb_J5m9g-0JDMbcJqLJ"
     className="p-modal__dialog"
@@ -95,6 +95,6 @@ exports[`Modal  renders 1`] = `
     >
       Are you sure?
     </div>
-  </div>
+  </section>
 </div>
 `;
