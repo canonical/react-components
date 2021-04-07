@@ -236,16 +236,13 @@ const Tooltip = ({
               <span
                 className={classNames(
                   `p-tooltip--${adjustedPosition}`,
+                  "is-detached",
                   tooltipClassName
                 )}
                 data-test="tooltip-portal"
                 style={positionStyle as React.CSSProperties}
               >
-                <span
-                  className="p-tooltip__message"
-                  ref={messageRef}
-                  style={{ display: "inline" }}
-                >
+                <span className="p-tooltip__message" ref={messageRef}>
                   {message}
                 </span>
               </span>

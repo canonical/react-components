@@ -14002,7 +14002,7 @@ validate-npm-package-license@^3.0.1:
     spdx-correct "^3.0.0"
     spdx-expression-parse "^3.0.0"
 
-vanilla-framework@^2.28.0-rc1:
+vanilla-framework@2.28.0-rc1:
   version "2.28.0-rc1"
   resolved "https://registry.yarnpkg.com/vanilla-framework/-/vanilla-framework-2.28.0-rc1.tgz#78a63e6115eac989a1c012f975771a504b59d275"
   integrity sha512-aXAGTSxaIevF2vjtWsZwvzm2xHBCi37JciXuEitPeealgTWoyuiTCQBOx9q5hx5axfuAhTBRI0vEWxBYKTMo4g==
