@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Updated SearchAndFilter, Modal and MainTable components to remove custom styling
 - Update to Vanilla v2.28.0-rc1
+- Updated Tooltip component with new `is-detached` utility class
 
 ### Removed
 
