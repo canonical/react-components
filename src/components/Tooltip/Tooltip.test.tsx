@@ -52,7 +52,7 @@ describe("<Tooltip />", () => {
     global.innerWidth = 20;
     wrapper.simulate("mouseover");
     expect(wrapper.find("[data-test='tooltip-portal']").prop("className")).toBe(
-      "p-tooltip--btm-left"
+      "p-tooltip--btm-left is-detached"
     );
   });
 
