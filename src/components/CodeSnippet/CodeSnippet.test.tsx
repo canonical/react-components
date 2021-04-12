@@ -122,4 +122,9 @@ describe("CodeSnippet ", () => {
     dropdowns.first().simulate("change");
     expect(onChange).toHaveBeenCalled();
   });
+
+  it("renders code snippet with a border", () => {
+    const wrapper = mount(<CodeSnippet bordered blocks={[{ code: "Test" }]} />);
+    expect(wrapper.find(".p-code-snippet.is-bordered").length).toBe(1);
+  });
 });

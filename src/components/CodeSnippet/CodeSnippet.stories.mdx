@@ -120,6 +120,22 @@ exposeResult "Successful pre-deploy." 0 "true"`,
   </Story>
 </Canvas>
 
+### Bordered
+
+Set `bordered` prop to `true` to add a border around the entire code snippet.
+
+<Canvas>
+  <Story name="Bordered">
+    <CodeSnippet
+      blocks={[
+        { title: "JavaScript", code: "console.log('Vanilla');" },
+        { title: "Output", code: "Vanilla" },
+      ]}
+      bordered
+    />
+  </Story>
+</Canvas>
+
 ### Wrap lines
 
 Set `wrapLines` prop to `true` to enable line wrapping inside the code block.
