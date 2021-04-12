@@ -2,7 +2,9 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
 
 import CodeSnippet from "./CodeSnippet";
-import CodeSnippetBlock, { CodeSnippetBlockAppearance } from "./CodeSnippetBlock";
+import CodeSnippetBlock, {
+  CodeSnippetBlockAppearance,
+} from "./CodeSnippetBlock";
 import CodeSnippetDropdown from "./CodeSnippetDropdown";
 
 <Meta
@@ -35,7 +37,11 @@ Single `CodeSnippet` component can render multiple separate code blocks. Blocks 
 
 <Canvas>
   <Story name="Default">
-    <CodeSnippet blocks={[ {code: "Mode: all Settings: maas_url=http://192.168.122.1:5240/MAAS"} ]} />
+    <CodeSnippet
+      blocks={[
+        { code: "Mode: all Settings: maas_url=http://192.168.122.1:5240/MAAS" },
+      ]}
+    />
   </Story>
 </Canvas>
 
@@ -45,7 +51,14 @@ Use the `title` prop to add a title to a code block.
 
 <Canvas>
   <Story name="Title">
-    <CodeSnippet blocks={[ { title: "Output", code: "Mode: all Settings: maas_url=http://192.168.122.1:5240/MAAS"} ]} />
+    <CodeSnippet
+      blocks={[
+        {
+          title: "Output",
+          code: "Mode: all Settings: maas_url=http://192.168.122.1:5240/MAAS",
+        },
+      ]}
+    />
   </Story>
 </Canvas>
 
@@ -55,13 +68,14 @@ Pass an array of `blocks` to render multiple code blocks (for example input and 
 
 <Canvas>
   <Story name="Multiple blocks">
-    <CodeSnippet blocks={[
-      { title: "JavaScript", code: "console.log('Vanilla');"},
-      { title: "Output", code: "Vanilla" },
-    ]} />
+    <CodeSnippet
+      blocks={[
+        { title: "JavaScript", code: "console.log('Vanilla');" },
+        { title: "Output", code: "Vanilla" },
+      ]}
+    />
   </Story>
 </Canvas>
-
 
 ### Appearance
 
@@ -70,22 +84,39 @@ Values of `"linuxPrompt"`, `"windowsPrompt"`, `"url"` will add a relevant icon i
 
 <Canvas>
   <Story name="Appearance">
-    <CodeSnippet blocks={[
-       { title: "Install on Linux", appearance: CodeSnippetBlockAppearance.LINUX_PROMPT, code: "snap install toto"},
-       { title: "Install on Windows", appearance: CodeSnippetBlockAppearance.WINDOWS_PROMPT, code: "snap install toto"},
-       { title: "Get from the Store", appearance: CodeSnippetBlockAppearance.URL, code: "http://snapcraft.io/toto"} ,
-     ]}/>
-    <CodeSnippet blocks={[
-       { appearance: CodeSnippetBlockAppearance.NUMBERED,
-         code: `#!/bin/bash
+    <CodeSnippet
+      blocks={[
+        {
+          title: "Install on Linux",
+          appearance: CodeSnippetBlockAppearance.LINUX_PROMPT,
+          code: "snap install toto",
+        },
+        {
+          title: "Install on Windows",
+          appearance: CodeSnippetBlockAppearance.WINDOWS_PROMPT,
+          code: "snap install toto",
+        },
+        {
+          title: "Get from the Store",
+          appearance: CodeSnippetBlockAppearance.URL,
+          code: "http://snapcraft.io/toto",
+        },
+      ]}
+    />
+    <CodeSnippet
+      blocks={[
+        {
+          appearance: CodeSnippetBlockAppearance.NUMBERED,
+          code: `#!/bin/bash
 set -eu . $CONJURE_UP_SPELLSDIR/sdk/common.sh
 if [[ "$JUJU_PROVIDERTYPE" == "lxd" ]]; then
   debug "Running pre-deploy for $CONJURE_UP_SPELL"
   sed "s/##MODEL##/$JUJU_MODEL/" $(scriptPath)/lxd-profile.yaml | lxc profile edit "juju-$JUJU_MODEL" || exposeResult "Failed to set profile" $? "false"
 fi
-exposeResult "Successful pre-deploy." 0 "true"`
-       },
-     ]}/>
+exposeResult "Successful pre-deploy." 0 "true"`,
+        },
+      ]}
+    />
   </Story>
 </Canvas>
 
@@ -95,18 +126,21 @@ Set `wrapLines` prop to `true` to enable line wrapping inside the code block.
 
 <Canvas>
   <Story name="Wrap lines">
-    <CodeSnippet blocks={[
-       { appearance: CodeSnippetBlockAppearance.NUMBERED,
-         wrapLines: true,
-         code: `#!/bin/bash
+    <CodeSnippet
+      blocks={[
+        {
+          appearance: CodeSnippetBlockAppearance.NUMBERED,
+          wrapLines: true,
+          code: `#!/bin/bash
 set -eu . $CONJURE_UP_SPELLSDIR/sdk/common.sh
 if [[ "$JUJU_PROVIDERTYPE" == "lxd" ]]; then
   debug "Running pre-deploy for $CONJURE_UP_SPELL"
   sed "s/##MODEL##/$JUJU_MODEL/" $(scriptPath)/lxd-profile.yaml | lxc profile edit "juju-$JUJU_MODEL" || exposeResult "Failed to set profile" $? "false"
 fi
-exposeResult "Successful pre-deploy." 0 "true"`
-       },
-     ]}/>
+exposeResult "Successful pre-deploy." 0 "true"`,
+        },
+      ]}
+    />
   </Story>
 </Canvas>
 
@@ -115,35 +149,43 @@ exposeResult "Successful pre-deploy." 0 "true"`
 Dropdown select menus can be added to the headers of code blocks to allow users to choose one of the options. The dropdowns options are passed via `dropdowns` property in the block options object.
 
 Dropdown configuration object is structured as follows:
+
 <ArgsTable of={CodeSnippetDropdown} />
 
 With the `options` being an array of option properties compatible with the `Select` options (`[{ label: string, value: string | number }]`).
 
 <Canvas>
   <Story name="Dropdown">
-  {() => {
-    const [lang, setLang] = useState("html");
-    const code = {
-      js: `console.log("Example 1");`,
-      css: `.p-heading--two { color: red; }`,
-      html: `<h1 class="p-heading--two">How to use code snippets</h1>`,
-    };
-    return <CodeSnippet blocks={[
-       {
-         code: code[lang],
-         dropdowns: [
-           { options: [
-              { value: "js", label: "JS" },
-              { value: "css", label: "CSS" },
-              { value: "html", label: "HTML" },
-            ],
-            value: lang,
-            onChange: (event) => { setLang(event.target.value) }
-           }
-         ]
-       },
-     ]} />;
-  }}
+    {() => {
+      const [lang, setLang] = useState("html");
+      const code = {
+        js: `console.log("Example 1");`,
+        css: `.p-heading--2 { color: red; }`,
+        html: `<h1 class="p-heading--2">How to use code snippets</h1>`,
+      };
+      return (
+        <CodeSnippet
+          blocks={[
+            {
+              code: code[lang],
+              dropdowns: [
+                {
+                  options: [
+                    { value: "js", label: "JS" },
+                    { value: "css", label: "CSS" },
+                    { value: "html", label: "HTML" },
+                  ],
+                  value: lang,
+                  onChange: (event) => {
+                    setLang(event.target.value);
+                  },
+                },
+              ],
+            },
+          ]}
+        />
+      );
+    }}
   </Story>
 </Canvas>
 
@@ -151,36 +193,48 @@ Multiple dropdowns can be passed in if needed.
 
 <Canvas>
   <Story name="Dropdowns">
-  {() => {
-    const [channel, setChannel] = useState("stable");
-    const [snap, setSnap] = useState("firefox");
-    const code = `sudo snap install ${snap} ${channel === 'stable' ? "" : "--"+channel}`;
-    return <CodeSnippet blocks={[
-       {
-         title: "Install snap",
-         code: code,
-         dropdowns: [
-           { options: [
-              { value: "stable", label: "stable" },
-              { value: "candidate", label: "candidate" },
-              { value: "beta", label: "beta" },
-              { value: "edge", label: "edge" },
-            ],
-            value: channel,
-            onChange: (event) => { setChannel(event.target.value) }
-           },
-           { options: [
-              { value: "firefox", label: "Firefox" },
-              { value: "gimp", label: "Gimp" },
-              { value: "vlc", label: "VLC" },
-            ],
-            value: snap,
-            onChange: (event) => { setSnap(event.target.value) }
-           }
-         ]
-       },
-     ]} />;
-  }}
+    {() => {
+      const [channel, setChannel] = useState("stable");
+      const [snap, setSnap] = useState("firefox");
+      const code = `sudo snap install ${snap} ${
+        channel === "stable" ? "" : "--" + channel
+      }`;
+      return (
+        <CodeSnippet
+          blocks={[
+            {
+              title: "Install snap",
+              code: code,
+              dropdowns: [
+                {
+                  options: [
+                    { value: "stable", label: "stable" },
+                    { value: "candidate", label: "candidate" },
+                    { value: "beta", label: "beta" },
+                    { value: "edge", label: "edge" },
+                  ],
+                  value: channel,
+                  onChange: (event) => {
+                    setChannel(event.target.value);
+                  },
+                },
+                {
+                  options: [
+                    { value: "firefox", label: "Firefox" },
+                    { value: "gimp", label: "Gimp" },
+                    { value: "vlc", label: "VLC" },
+                  ],
+                  value: snap,
+                  onChange: (event) => {
+                    setSnap(event.target.value);
+                  },
+                },
+              ],
+            },
+          ]}
+        />
+      );
+    }}
   </Story>
 </Canvas>
 
@@ -188,36 +242,49 @@ If multiple dropdowns may overlap with long title you can use `stacked` variant,
 
 <Canvas>
   <Story name="DropdownsStacked">
-  {() => {
-    const [channel, setChannel] = useState("stable");
-    const [snap, setSnap] = useState("firefox");
-    const code = `sudo snap install ${snap} ${channel === 'stable' ? "" : "--"+channel}`;
-    return <CodeSnippet blocks={[
-       {
-         title: "Install Firefox, Gimp or VLC as a snap from different channels using command line",
-         code: code,
-         stacked: true,
-         dropdowns: [
-           { options: [
-              { value: "stable", label: "stable" },
-              { value: "candidate", label: "candidate" },
-              { value: "beta", label: "beta" },
-              { value: "edge", label: "edge" },
-            ],
-            value: channel,
-            onChange: (event) => { setChannel(event.target.value) }
-           },
-           { options: [
-              { value: "firefox", label: "Firefox" },
-              { value: "gimp", label: "Gimp" },
-              { value: "vlc", label: "VLC" },
-            ],
-            value: snap,
-            onChange: (event) => { setSnap(event.target.value) }
-           }
-         ]
-       },
-     ]} />;
-  }}
+    {() => {
+      const [channel, setChannel] = useState("stable");
+      const [snap, setSnap] = useState("firefox");
+      const code = `sudo snap install ${snap} ${
+        channel === "stable" ? "" : "--" + channel
+      }`;
+      return (
+        <CodeSnippet
+          blocks={[
+            {
+              title:
+                "Install Firefox, Gimp or VLC as a snap from different channels using command line",
+              code: code,
+              stacked: true,
+              dropdowns: [
+                {
+                  options: [
+                    { value: "stable", label: "stable" },
+                    { value: "candidate", label: "candidate" },
+                    { value: "beta", label: "beta" },
+                    { value: "edge", label: "edge" },
+                  ],
+                  value: channel,
+                  onChange: (event) => {
+                    setChannel(event.target.value);
+                  },
+                },
+                {
+                  options: [
+                    { value: "firefox", label: "Firefox" },
+                    { value: "gimp", label: "Gimp" },
+                    { value: "vlc", label: "VLC" },
+                  ],
+                  value: snap,
+                  onChange: (event) => {
+                    setSnap(event.target.value);
+                  },
+                },
+              ],
+            },
+          ]}
+        />
+      );
+    }}
   </Story>
 </Canvas>
