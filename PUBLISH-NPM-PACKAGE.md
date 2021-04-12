@@ -8,14 +8,6 @@ Check out a new release branch from master
 git checkout -b prepare-0.1.1-release master
 ```
 
-#### Update the changelog
-
-Update CHANGELOG.md, changing the `[Unreleased]` section to the version number from above e.g. `[0.1.1] - 2019-11-06`. Consider looking at `git log` and adding any missed changes.
-
-```shell
-git commit -m "Update changelog for 0.1.1."
-```
-
 #### Build the docs
 
 Build and Commit the docs for this version.
@@ -37,7 +29,21 @@ yarn version --new-version [0.1.1]
 
 Push your branch to GitHub, create a PR and land it (this might require approval).
 
-### Publish to NPM
+### Publish the release
+
+#### Review release notes
+
+Make sure that the [release notes draft](https://github.com/canonical-web-and-design/react-components/releases) created automatically by release-drafter is up to date.
+
+#### Publish
+
+Publish the [latest release on Github](https://github.com/canonical-web-and-design/react-components/releases) with the new version number and add the release notes you created earlier.
+
+#### Publish to NPM
+
+This should happen automatically after publishing the release on GH (thanks to [GH actions workflow](https://github.com/canonical-web-and-design/react-components/blob/master/.github/workflows/publish-on-release.yml)).
+
+In case it fails and you need to publish manually, here are manual steps:
 
 Get a fresh copy of master
 
@@ -53,19 +59,3 @@ npm publish --access public
 ```
 
 You should now see the new version on [NPM](https://www.npmjs.com/package/@canonical/react-components)
-
-### Tag the release
-
-- Get the released package link.
-
-```shell
-npm view @canonical/react-components dist.tarball
-```
-
-Download the package from the link.
-
-Create a [new release](https://github.com/canonical-web-and-design/react-components/releases/new) on GitHub, remembering to:
-
-- Add the tag against against the correct commit using the new version number.
-- Copy the [changelog](https://raw.githubusercontent.com/canonical-web-and-design/react-components/master/CHANGELOG.md) section for this release into the description.
-- Upload the package (downloaded above).
