@@ -123,15 +123,9 @@ describe("CodeSnippet ", () => {
     expect(onChange).toHaveBeenCalled();
   });
 
-  it("renders code snippet with a border", () => {
-    const wrapper = mount(<CodeSnippet bordered blocks={[{ code: "Test" }]} />);
-    expect(wrapper.find(".p-code-snippet.is-bordered").length).toBe(1);
-  });
-
-  it("renders code snippet with a border", () => {
+  it("renders code snippets with a border when it also has custom content", () => {
     const wrapper = mount(
       <CodeSnippet
-        bordered
         blocks={[
           {
             code: "Test",
@@ -145,5 +139,6 @@ describe("CodeSnippet ", () => {
       />
     );
     expect(wrapper.find(".test").length).toBe(1);
+    expect(wrapper.find(".p-code-snippet.is-bordered").length).toBe(1);
   });
 });

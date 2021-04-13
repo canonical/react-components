@@ -8,19 +8,14 @@ import type { CodeSnippetBlockProps } from "./CodeSnippetBlock";
 export type Props = {
   className?: string;
   blocks: CodeSnippetBlockProps[];
-  bordered?: boolean;
 };
 
-export default function CodeSnippet({
-  className,
-  blocks,
-  bordered,
-}: Props): JSX.Element {
+export default function CodeSnippet({ className, blocks }: Props): JSX.Element {
   return (
     <div
       className={classNames(
         "p-code-snippet",
-        { "is-bordered": bordered },
+        { "is-bordered": blocks.some((block) => block.content) },
         className
       )}
     >
@@ -36,6 +31,5 @@ export default function CodeSnippet({
 
 CodeSnippet.propTypes = {
   blocks: PropTypes.array.isRequired,
-  bordered: PropTypes.bool,
   className: PropTypes.string,
 };
