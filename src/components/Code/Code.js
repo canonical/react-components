@@ -1,6 +1,7 @@
-import classNames from "classnames";
 import PropTypes from "prop-types";
-import React, { useRef } from "react";
+import React from "react";
+
+import CodeSnippet, { CodeSnippetBlockAppearance } from "../CodeSnippet";
 
 /**
  * @deprecated Code component is deprecated. Use CodeSnippet component or inline `<code>` instead.
@@ -13,53 +14,29 @@ const Code = ({
   numbered,
   ...props
 }) => {
-  const input = useRef(null);
   if (inline) {
     return (
       <code className={className} {...props}>
         {children}
       </code>
     );
-  } else if (copyable) {
-    const handleClick = (evt) => {
-      input.current.focus();
-      input.current.select();
-      try {
-        document.execCommand("copy");
-      } catch (err) {
-        console.error("Copy was unsuccessful");
-      }
-    };
-    return (
-      <div className={classNames(className, "p-code-copyable")} {...props}>
-        <input
-          className="p-code-copyable__input"
-          readOnly="readonly"
-          ref={input}
-          value={children}
-        />
-        <button className="p-code-copyable__action" onClick={handleClick}>
-          Copy to clipboard
-        </button>
-      </div>
-    );
-  } else if (numbered) {
-    const lines = children.split(/\r?\n/);
-    const content = lines.map((line, i) => (
-      <span className="p-code-numbered__line" key={i}>
-        {line}
-      </span>
-    ));
-    return (
-      <pre className={classNames(className, "p-code-numbered")} {...props}>
-        <code>{content}</code>
-      </pre>
-    );
   } else {
+    let appearance = null;
+
+    if (numbered) {
+      appearance = CodeSnippetBlockAppearance.NUMBERED;
+    } else if (copyable) {
+      appearance = CodeSnippetBlockAppearance.LINUX_PROMPT;
+    }
     return (
-      <pre className={className} {...props}>
-        <code>{children}</code>
-      </pre>
+      <CodeSnippet
+        blocks={[
+          {
+            appearance,
+            code: children,
+          },
+        ]}
+      />
     );
   }
 };
