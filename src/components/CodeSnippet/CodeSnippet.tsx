@@ -12,7 +12,13 @@ export type Props = {
 
 export default function CodeSnippet({ className, blocks }: Props): JSX.Element {
   return (
-    <div className={classNames("p-code-snippet", className)}>
+    <div
+      className={classNames(
+        "p-code-snippet",
+        { "is-bordered": blocks.some((block) => block.content) },
+        className
+      )}
+    >
       {blocks.map((props, i) => (
         <CodeSnippetBlock
           key={`code-snippet-block-${i}`}

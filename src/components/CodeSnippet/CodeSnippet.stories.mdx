@@ -288,3 +288,26 @@ If multiple dropdowns may overlap with long title you can use `stacked` variant,
     }}
   </Story>
 </Canvas>
+
+### Content
+
+Custom elements can be passed to a CodeBlock via the `content` prop. In these cases, a border will be added around the entire code snippet to visually associate the content with the code block.
+
+<Canvas>
+  <Story name="Content">
+    <CodeSnippet
+      blocks={[
+        {
+          title: "With embedded iframe",
+          code:
+            "<iframe src='/iframe.html?id=button--base&viewMode=story'></iframe>",
+          content: (
+            <>
+              <iframe src="/iframe.html?id=button--base&viewMode=story"></iframe>
+            </>
+          ),
+        },
+      ]}
+    />
+  </Story>
+</Canvas>

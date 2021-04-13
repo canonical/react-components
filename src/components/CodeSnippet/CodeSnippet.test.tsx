@@ -122,4 +122,23 @@ describe("CodeSnippet ", () => {
     dropdowns.first().simulate("change");
     expect(onChange).toHaveBeenCalled();
   });
+
+  it("renders code snippets with a border when it also has custom content", () => {
+    const wrapper = mount(
+      <CodeSnippet
+        blocks={[
+          {
+            code: "Test",
+            content: (
+              <>
+                <span className="test"></span>
+              </>
+            ),
+          },
+        ]}
+      />
+    );
+    expect(wrapper.find(".test").length).toBe(1);
+    expect(wrapper.find(".p-code-snippet.is-bordered").length).toBe(1);
+  });
 });
