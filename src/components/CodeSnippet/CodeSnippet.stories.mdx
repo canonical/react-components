@@ -120,22 +120,6 @@ exposeResult "Successful pre-deploy." 0 "true"`,
   </Story>
 </Canvas>
 
-### Bordered
-
-Set `bordered` prop to `true` to add a border around the entire code snippet.
-
-<Canvas>
-  <Story name="Bordered">
-    <CodeSnippet
-      blocks={[
-        { title: "JavaScript", code: "console.log('Vanilla');" },
-        { title: "Output", code: "Vanilla" },
-      ]}
-      bordered
-    />
-  </Story>
-</Canvas>
-
 ### Wrap lines
 
 Set `wrapLines` prop to `true` to enable line wrapping inside the code block.
@@ -302,5 +286,31 @@ If multiple dropdowns may overlap with long title you can use `stacked` variant,
         />
       );
     }}
+  </Story>
+</Canvas>
+
+### Content
+
+Custom elements can be passed to a CodeBlock via the `content` prop.
+
+In these cases, it may be preferable to add a border around the entire code snippet to visually associate the content with the code block, which can be achieved by setting the CodeSnippet's `bordered` prop to `true`.
+
+<Canvas>
+  <Story name="Content">
+    <CodeSnippet
+      blocks={[
+        {
+          title: "With embedded iframe",
+          code:
+            "<iframe src='/iframe.html?id=button--base&viewMode=story'></iframe>",
+          content: (
+            <>
+              <iframe src="/iframe.html?id=button--base&viewMode=story"></iframe>
+            </>
+          ),
+        },
+      ]}
+      bordered
+    />
   </Story>
 </Canvas>

@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import type { ReactNode } from "react";
 
 import CodeSnippetDropdown from "./CodeSnippetDropdown";
 import type { CodeSnippetDropdownProps } from "./CodeSnippetDropdown";
@@ -19,6 +20,7 @@ export type CodeSnippetBlockProps = {
   wrapLines?: boolean;
   dropdowns?: CodeSnippetDropdownProps[];
   stacked?: boolean;
+  content?: ReactNode;
 };
 
 export default function CodeSnippetBlock({
@@ -28,6 +30,7 @@ export default function CodeSnippetBlock({
   wrapLines = false,
   dropdowns,
   stacked = false,
+  content,
 }: CodeSnippetBlockProps): JSX.Element {
   let className = "p-code-snippet__block";
   const isNumbered = appearance === CodeSnippetBlockAppearance.NUMBERED;
@@ -83,6 +86,7 @@ export default function CodeSnippetBlock({
       <pre className={className}>
         <code>{isNumbered ? numberedCode : code}</code>
       </pre>
+      {content}
     </>
   );
 }
@@ -99,4 +103,5 @@ CodeSnippetBlock.props = {
   wrapLines: PropTypes.bool,
   dropdowns: PropTypes.array,
   stacked: PropTypes.bool,
+  content: PropTypes.node,
 };

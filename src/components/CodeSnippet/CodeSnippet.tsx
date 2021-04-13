@@ -36,5 +36,6 @@ export default function CodeSnippet({
 
 CodeSnippet.propTypes = {
   blocks: PropTypes.array.isRequired,
+  bordered: PropTypes.bool,
   className: PropTypes.string,
 };

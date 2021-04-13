@@ -127,4 +127,23 @@ describe("CodeSnippet ", () => {
     const wrapper = mount(<CodeSnippet bordered blocks={[{ code: "Test" }]} />);
     expect(wrapper.find(".p-code-snippet.is-bordered").length).toBe(1);
   });
+
+  it("renders code snippet with a border", () => {
+    const wrapper = mount(
+      <CodeSnippet
+        bordered
+        blocks={[
+          {
+            code: "Test",
+            content: (
+              <>
+                <span className="test"></span>
+              </>
+            ),
+          },
+        ]}
+      />
+    );
+    expect(wrapper.find(".test").length).toBe(1);
+  });
 });
