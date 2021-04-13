@@ -4,10 +4,7 @@ import Icon, { ICONS } from "./Icon";
 
 import "./Icon.stories.scss";
 
-<Meta
-  title="Icon"
-  component={Icon}
-/>
+<Meta title="Icon" component={Icon} />
 
 ### Icon
 
@@ -22,7 +19,7 @@ Icons provide visual context and enhance usability.
 ### Default
 
 <Canvas>
-  <Story name="Default" >
+  <Story name="Default">
     <Icon name={ICONS.plus} />
     <Icon name={ICONS.minus} />
     <Icon name={ICONS.expand} />
@@ -34,7 +31,8 @@ Icons provide visual context and enhance usability.
     <Icon name={ICONS.information} />
     <Icon name={ICONS.delete} />
     <Icon name={ICONS.externalLink} />
-    <Icon name={ICONS.contextualMenu} />
+    <Icon name={ICONS.chevronUp} />
+    <Icon name={ICONS.chevronDown} />
     <Icon name={ICONS.menu} />
     <Icon name={ICONS.code} />
     <Icon name={ICONS.copy} />
@@ -53,7 +51,7 @@ Icons provide visual context and enhance usability.
 To use custom icons that are not included in Vanilla you need to provide your own icon styling following the `.p-icon--{name}` convention.
 
 <Canvas>
-  <Story name="Custom" >
+  <Story name="Custom">
     <Icon name="custom" />
   </Story>
 </Canvas>
