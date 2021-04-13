@@ -1,29 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Code  can render 1`] = `
-<pre>
-  <code>
-    Test content
-  </code>
-</pre>
+<CodeSnippet
+  blocks={
+    Array [
+      Object {
+        "appearance": null,
+        "code": "Test content",
+      },
+    ]
+  }
+/>
 `;
 
 exports[`Code  can render as copyable 1`] = `
-<div
-  className="p-code-copyable"
->
-  <input
-    className="p-code-copyable__input"
-    readOnly="readonly"
-    value="Test content"
-  />
-  <button
-    className="p-code-copyable__action"
-    onClick={[Function]}
-  >
-    Copy to clipboard
-  </button>
-</div>
+<CodeSnippet
+  blocks={
+    Array [
+      Object {
+        "appearance": "linuxPrompt",
+        "code": "Test content",
+      },
+    ]
+  }
+/>
 `;
 
 exports[`Code  can render inline 1`] = `
@@ -33,16 +33,14 @@ exports[`Code  can render inline 1`] = `
 `;
 
 exports[`Code  can render with line numbers 1`] = `
-<pre
-  className="p-code-numbered"
->
-  <code>
-    <span
-      className="p-code-numbered__line"
-      key="0"
-    >
-      Test content
-    </span>
-  </code>
-</pre>
+<CodeSnippet
+  blocks={
+    Array [
+      Object {
+        "appearance": "numbered",
+        "code": "Test content",
+      },
+    ]
+  }
+/>
 `;

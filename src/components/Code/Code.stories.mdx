@@ -20,7 +20,9 @@ export const Template = (args) => <Code {...args} />;
 
 <div class="p-notification--caution">
   <div class="p-notification__response" role="status">
-    <span class="p-notification__status">Deprecated:</span><code>Code</code> component is deprecated. Use <code>CodeSnippet</code> component or inline <code>&lt;code&gt;</code> instead.
+    <span class="p-notification__status">Deprecated:</span>
+    <code>Code</code> component is deprecated. Use <code>CodeSnippet</code> component
+    or inline <code>&lt;code&gt;</code> instead.
   </div>
 </div>
 
@@ -76,12 +78,15 @@ Vanilla gives you multiple ways to display code using the standard HTML elements
 <Canvas>
   <Story name="Numbered">
     <Code numbered>
-      #!/bin/bash set -eu . $CONJURE_UP_SPELLSDIR/sdk/common.sh if [[
-      "$JUJU_PROVIDERTYPE" == "lxd" ]]; then debug "Running pre-deploy for
-      $CONJURE_UP_SPELL" sed "s/##MODEL##/$JUJU_MODEL/"
-      $(scriptPath)/lxd-profile.yaml | lxc profile edit "juju-$JUJU_MODEL" ||
-      exposeResult "Failed to set profile" $? "false" fi exposeResult
-      "Successful pre-deploy." 0 "true"
+      {`#!/bin/bash
+set -eu
+. $CONJURE_UP_SPELLSDIR/sdk/common.sh
+if [["$JUJU_PROVIDERTYPE" == "lxd"]]; then
+    debug "Running pre-deploy for $CONJURE_UP_SPELL"
+    sed "s/##MODEL##/$JUJU_MODEL/" $(scriptPath)/lxd-profile.yaml | lxc profile edit "juju-$JUJU_MODEL" ||
+    exposeResult "Failed to set profile" $? "false"
+fi
+exposeResult "Successful pre-deploy." 0 "true"`}
     </Code>
   </Story>
 </Canvas>
