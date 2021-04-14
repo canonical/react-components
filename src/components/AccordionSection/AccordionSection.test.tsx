@@ -29,7 +29,7 @@ describe("AccordionSection ", () => {
       />
     );
 
-    expect(wrapper.find("h4.p-accordion__title")).toHaveLength(1);
+    expect(wrapper.find("h4.p-accordion__heading")).toHaveLength(1);
     expect(wrapper).toMatchSnapshot();
   });
 
