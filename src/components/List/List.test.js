@@ -51,6 +51,15 @@ describe("List ", () => {
     expect(wrapper.find(".p-inline-list__item").exists()).toBe(true);
   });
 
+  it("can be inline stretch", () => {
+    const wrapper = shallow(<List stretch={true} items={items} />);
+    expect(wrapper.prop("className").includes("p-inline-list--stretch")).toBe(
+      true
+    );
+    expect(wrapper.find(".p-inline-list__item").exists()).toBe(true);
+    expect(wrapper.prop("className").includes("p-list")).toBe(false);
+  });
+
   it("can be split", () => {
     const wrapper = shallow(<List split={true} items={items} />);
     expect(wrapper.prop("className").includes("is-split")).toBe(true);

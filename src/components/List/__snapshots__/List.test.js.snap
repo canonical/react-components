@@ -2,7 +2,7 @@
 
 exports[`List  renders 1`] = `
 <ul
-  className="p-list p-list"
+  className="p-list"
 >
   <li
     className="p-list__item"
