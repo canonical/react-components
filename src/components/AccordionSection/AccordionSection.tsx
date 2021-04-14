@@ -29,34 +29,29 @@ const AccordionSection = ({
   const sectionId = useRef(nanoid());
   const key = sectionKey || sectionId.current;
   const isExpanded = expanded === key;
-  const Title = titleElement || null;
-  const hasTitleElement = !!Title;
+  const Title = titleElement || "div";
 
   return (
     <li className="p-accordion__group">
-      <button
-        aria-controls={`#${sectionId.current}`}
-        aria-expanded={isExpanded ? "true" : "false"}
-        className={
-          hasTitleElement ? "p-accordion__tab--with-title" : "p-accordion__tab"
-        }
-        onClick={() => {
-          if (isExpanded) {
-            setExpanded(null, null);
-          } else {
-            setExpanded(key, title);
-          }
-          onTitleClick && onTitleClick(!isExpanded, key);
-        }}
-        role="tab"
-        type="button"
-      >
-        {hasTitleElement ? (
-          <Title className="p-accordion__title">{title}</Title>
-        ) : (
-          title
-        )}
-      </button>
+      <Title role="heading" className="p-accordion__heading">
+        <button
+          aria-controls={`#${sectionId.current}`}
+          aria-expanded={isExpanded ? "true" : "false"}
+          className="p-accordion__tab"
+          onClick={() => {
+            if (isExpanded) {
+              setExpanded(null, null);
+            } else {
+              setExpanded(key, title);
+            }
+            onTitleClick && onTitleClick(!isExpanded, key);
+          }}
+          role="tab"
+          type="button"
+        >
+          {title}
+        </button>
+      </Title>
       <section
         aria-hidden={isExpanded ? "false" : "true"}
         aria-labelledby={sectionId.current}

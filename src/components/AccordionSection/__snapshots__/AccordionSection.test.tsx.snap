@@ -4,16 +4,21 @@ exports[`AccordionSection  renders 1`] = `
 <li
   className="p-accordion__group"
 >
-  <button
-    aria-controls="#Uakgb_J5m9g-0JDMbcJqLJ"
-    aria-expanded="false"
-    className="p-accordion__tab"
-    onClick={[Function]}
-    role="tab"
-    type="button"
+  <div
+    className="p-accordion__heading"
+    role="heading"
   >
-    Test section
-  </button>
+    <button
+      aria-controls="#Uakgb_J5m9g-0JDMbcJqLJ"
+      aria-expanded="false"
+      className="p-accordion__tab"
+      onClick={[Function]}
+      role="tab"
+      type="button"
+    >
+      Test section
+    </button>
+  </div>
   <section
     aria-hidden="true"
     aria-labelledby="Uakgb_J5m9g-0JDMbcJqLJ"
@@ -32,20 +37,21 @@ exports[`AccordionSection  renders headings for titles 1`] = `
 <li
   className="p-accordion__group"
 >
-  <button
-    aria-controls="#Uakgb_J5m9g-0JDMbcJqLJ"
-    aria-expanded="false"
-    className="p-accordion__tab--with-title"
-    onClick={[Function]}
-    role="tab"
-    type="button"
+  <h4
+    className="p-accordion__heading"
+    role="heading"
   >
-    <h4
-      className="p-accordion__title"
+    <button
+      aria-controls="#Uakgb_J5m9g-0JDMbcJqLJ"
+      aria-expanded="false"
+      className="p-accordion__tab"
+      onClick={[Function]}
+      role="tab"
+      type="button"
     >
       Test section
-    </h4>
-  </button>
+    </button>
+  </h4>
   <section
     aria-hidden="true"
     aria-labelledby="Uakgb_J5m9g-0JDMbcJqLJ"
