@@ -55,6 +55,7 @@ const List = ({
   inline,
   items,
   middot,
+  stretch,
   split,
   stepped,
   ticked,
@@ -63,18 +64,19 @@ const List = ({
   const Component = stepped ? "ol" : "ul";
   return (
     <Component
-      className={classNames("p-list", className, {
-        "p-list": !divided && !inline && !middot && !stepped,
+      className={classNames(className, {
+        "p-list": !divided && !inline && !middot && !stretch && !stepped,
         "p-list--divided": divided,
         "p-inline-list": inline,
         "p-inline-list--middot": middot,
+        "p-inline-list--stretch": stretch,
         "p-stepped-list": stepped && !detailed,
         "p-stepped-list--detailed": stepped && detailed,
         "is-split": split,
       })}
       {...props}
     >
-      {generateItems(items, ticked, inline || middot, stepped)}
+      {generateItems(items, ticked, inline || middot || stretch, stepped)}
     </Component>
   );
 };
@@ -95,6 +97,7 @@ List.propTypes = {
     ])
   ).isRequired,
   middot: PropTypes.bool,
+  stretch: PropTypes.bool,
   split: PropTypes.bool,
   stepped: PropTypes.bool,
   ticked: PropTypes.bool,
