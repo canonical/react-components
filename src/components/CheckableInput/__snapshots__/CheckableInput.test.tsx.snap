@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CheckableInput  renders 1`] = `
+exports[`CheckableInput  renders a checkable input 1`] = `
 <label
   className="p-checkbox"
 >

@@ -2,7 +2,10 @@
 
 exports[`Radio  renders 1`] = `
 <CheckableInput
+  disabled={false}
   label="Test radio"
+  name="Radio test"
+  required={false}
   type="radio"
 />
 `;

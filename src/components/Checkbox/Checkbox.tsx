@@ -5,13 +5,25 @@ import CheckableInput from "../CheckableInput";
 
 type Props = {
   label: string;
+  disabled?: boolean;
+  indeterminate?: boolean;
+  required?: boolean;
 } & HTMLProps<HTMLElement>;
 
-const Checkbox = ({ type, label, ...checkboxProps }: Props): JSX.Element => {
+const Checkbox = ({
+  label,
+  disabled = false,
+  indeterminate = false,
+  required = false,
+  ...checkboxProps
+}: Props): JSX.Element => {
   return (
     <CheckableInput
       type="checkbox"
       label={label}
+      disabled={disabled}
+      indeterminate={indeterminate}
+      required={required}
       {...checkboxProps}
     ></CheckableInput>
   );
@@ -19,6 +31,9 @@ const Checkbox = ({ type, label, ...checkboxProps }: Props): JSX.Element => {
 
 Checkbox.propTypes = {
   label: PropTypes.string.isRequired,
+  disabled: PropTypes.bool,
+  indeterminate: PropTypes.bool,
+  required: PropTypes.bool,
 };
 
 export default Checkbox;

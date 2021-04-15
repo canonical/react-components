@@ -1,8 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Checkbox  renders 1`] = `
+exports[`Checkbox  renders a checkbox 1`] = `
 <CheckableInput
+  disabled={false}
+  indeterminate={false}
   label="Test checkbox"
+  required={false}
   type="checkbox"
 />
 `;
