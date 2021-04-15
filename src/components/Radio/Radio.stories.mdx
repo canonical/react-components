@@ -1,0 +1,63 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
+import Radio from "./Radio";
+
+<Meta
+  title="Radio"
+  component={Radio}
+  argTypes={{
+    label: {
+      control: {
+        type: "text",
+      },
+      defaultValue: "Radio",
+    },
+    disabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    required: {
+      control: {
+        type: "boolean",
+      },
+    },
+    indeterminate: {
+      control: {
+        type: "boolean",
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <Radio {...args} />;
+
+### Radio
+
+TODO: add description.
+
+### Props
+
+<ArgsTable of={Radio} />{" "}
+
+### Default
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+### Disabled
+
+<Canvas>
+  <Story name="Disabled">
+    <Radio label="Disabled" name="Radio" disabled></Radio>
+  </Story>
+</Canvas>
+
+### Required
+
+<Canvas>
+  <Story name="Required">
+    <Radio label="Required" name="Radio" required></Radio>
+  </Story>
+</Canvas>
