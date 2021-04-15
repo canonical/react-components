@@ -30,6 +30,7 @@ describe("AccordionSection ", () => {
     );
 
     expect(wrapper.find("h4.p-accordion__heading")).toHaveLength(1);
+    expect(wrapper.find("h4").first().prop("aria-level")).toBeNull();
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -55,6 +56,26 @@ describe("AccordionSection ", () => {
     wrapper.find(".p-accordion__tab").at(0).simulate("click");
 
     expect(onTitleClick.mock.calls[1]).toEqual([false, MOCK_UUID]);
+  });
+
+  it("can use a key for expanded state", () => {
+    const onTitleClick = jest.fn();
+    let expanded = null;
+    const wrapper = shallow(
+      <AccordionSection
+        content={<span>Test</span>}
+        expanded={expanded}
+        sectionKey="first-key"
+        onTitleClick={onTitleClick}
+        setExpanded={(id) => {
+          expanded = id;
+        }}
+        title="Test section"
+      />
+    );
+    wrapper.find(".p-accordion__tab").at(0).simulate("click");
+
+    expect(onTitleClick.mock.calls[0]).toEqual([true, "first-key"]);
   });
 
   it("can use a key for expanded state", () => {

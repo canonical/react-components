@@ -15,6 +15,7 @@ export type Props = {
   setExpanded?: (key: string | null, title: string | null) => void;
   title?: string;
   titleElement?: AccordionHeadings;
+  headingLevel?: number;
 };
 
 const AccordionSection = ({
@@ -25,6 +26,7 @@ const AccordionSection = ({
   setExpanded,
   title,
   titleElement,
+  headingLevel = 3,
 }: Props): JSX.Element => {
   const sectionId = useRef(nanoid());
   const key = sectionKey || sectionId.current;
@@ -33,7 +35,11 @@ const AccordionSection = ({
 
   return (
     <li className="p-accordion__group">
-      <Title role="heading" className="p-accordion__heading">
+      <Title
+        role={titleElement ? null : "heading"}
+        aria-level={titleElement ? null : headingLevel}
+        className="p-accordion__heading"
+      >
         <button
           aria-controls={`#${sectionId.current}`}
           aria-expanded={isExpanded ? "true" : "false"}
@@ -79,6 +85,7 @@ AccordionSection.propTypes = {
   setExpanded: PropTypes.func,
   title: PropTypes.string,
   titleElement: PropTypes.oneOf(["h2", "h3", "h4", "h5", "h6"]),
+  headingLevel: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
 };
 
 export default AccordionSection;
