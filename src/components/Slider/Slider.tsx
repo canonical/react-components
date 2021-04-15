@@ -62,7 +62,6 @@ export const Slider = ({
     >
       <div className="p-slider__wrapper">
         <input
-          className="p-slider"
           disabled={disabled}
           id={id}
           max={max}
