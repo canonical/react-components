@@ -5,6 +5,7 @@ exports[`AccordionSection  renders 1`] = `
   className="p-accordion__group"
 >
   <div
+    aria-level={3}
     className="p-accordion__heading"
     role="heading"
   >
@@ -38,8 +39,9 @@ exports[`AccordionSection  renders headings for titles 1`] = `
   className="p-accordion__group"
 >
   <h4
+    aria-level={null}
     className="p-accordion__heading"
-    role="heading"
+    role={null}
   >
     <button
       aria-controls="#Uakgb_J5m9g-0JDMbcJqLJ"
