@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CheckableInput  renders 1`] = `
+<label
+  className="p-checkbox"
+>
+  <input
+    aria-labelledby="Uakgb_J5m9g-0JDMbcJqLJ"
+    className="p-checkbox__input"
+    type="checkbox"
+  />
+  <span
+    className="p-checkbox__label"
+    id="Uakgb_J5m9g-0JDMbcJqLJ"
+  >
+    Test label
+  </span>
+</label>
+`;
