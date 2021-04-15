@@ -85,7 +85,7 @@ AccordionSection.propTypes = {
   setExpanded: PropTypes.func,
   title: PropTypes.string,
   titleElement: PropTypes.oneOf(["h2", "h3", "h4", "h5", "h6"]),
-  headingLevel: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
+  headingLevel: PropTypes.oneOf([2, 3, 4, 5, 6]),
 };
 
 export default AccordionSection;
