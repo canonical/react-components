@@ -1,0 +1,71 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
+import Checkbox from "./Checkbox";
+
+<Meta
+  title="Checkbox"
+  component={Checkbox}
+  argTypes={{
+    label: {
+      control: {
+        type: "text",
+      },
+      defaultValue: "Checkbox",
+    },
+    disabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    required: {
+      control: {
+        type: "boolean",
+      },
+    },
+    indeterminate: {
+      control: {
+        type: "boolean",
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <Checkbox {...args} />;
+
+### Checkbox
+
+TODO: add description.
+
+### Props
+
+<ArgsTable of={Checkbox} />{" "}
+
+### Default
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+### Disabled
+
+<Canvas>
+  <Story name="Disabled">
+    <Checkbox label="Disabled" disabled></Checkbox>
+  </Story>
+</Canvas>
+
+### Required
+
+<Canvas>
+  <Story name="Required">
+    <Checkbox label="Required" required></Checkbox>
+  </Story>
+</Canvas>
+
+### Indeterminate
+
+<Canvas>
+  <Story name="Indeterminate">
+    <Checkbox label="Indeterminate" indeterminate></Checkbox>
+  </Story>
+</Canvas>
