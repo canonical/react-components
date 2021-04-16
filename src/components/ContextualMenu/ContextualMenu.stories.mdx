@@ -1,4 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
 
 import ContextualMenu from "./ContextualMenu";
 
@@ -19,12 +20,6 @@ import ContextualMenu from "./ContextualMenu";
   }}
 />
 
-export const Template = (args) => (
-  <div className="u-align--center">
-    <ContextualMenu {...args} />
-  </div>
-);
-
 ### Contextual Menu
 
 This is a [React](https://reactjs.org/) component for the Vanilla [Contextual menu](https://docs.vanillaframework.io/patterns//contextual-menu/).
@@ -40,41 +35,63 @@ A contextual menu can be used in conjunction with any page element to provide a 
 The contextual menu will provide a visual wrapper to any provided children. Visibility can be toggled via the `visible` prop.
 
 <Canvas>
-  <Story
-    name="Default"
-    args={{
-      children: <span style={{ padding: "1rem" }}>This is a menu.</span>,
-      closeOnOutsideClick: false,
-      constrainPanelWidth: false,
-      position: "left",
-      visible: true,
-    }}
-  >
-    {Template.bind({})}
+  <Story name="Default">
+    <div className="u-align--center">
+      <ContextualMenu
+        closeOnOutsideClick={false}
+        constrainPanelWidth={false}
+        position="left"
+        visible
+      >
+        <span style={{ padding: "1rem" }}>This is a menu.</span>
+      </ContextualMenu>
+    </div>
   </Story>
 </Canvas>
 
 ### Toggle
 
 <Canvas>
-  <Story
-    name="Toggle"
-    args={{
-      links: [
-        {
-          children: "Link 1",
-          onClick: () => {},
-        },
-        {
-          children: "Link 2",
-          onClick: () => {},
-        },
-      ],
-      hasToggleIcon: true,
-      position: "right",
-      toggleLabel: "Click me!",
-    }}
-  >
-    {Template.bind({})}
+  <Story name="Toggle">
+    <div className="u-align--center">
+      <ContextualMenu
+        links={[
+          {
+            children: "Link 1",
+            onClick: () => {},
+          },
+          {
+            children: "Link 2",
+            onClick: () => {},
+          },
+        ]}
+        hasToggleIcon
+        position="right"
+        toggleLabel="Click me!"
+      />
+    </div>
+  </Story>
+</Canvas>
+
+### Dark
+
+Set `dark` prop to `true` to use the dark theme of the contextual menu dropdown.
+
+<Canvas>
+  <Story name="Dark">
+    <div className="u-align--center">
+      <ContextualMenu
+        closeOnOutsideClick={false}
+        constrainPanelWidth={false}
+        position="left"
+        toggleLabel="Toggle dark menu"
+        visible
+        dark
+      >
+        <a href="#" className="p-contextual-menu__link">
+          This is a menu.
+        </a>
+      </ContextualMenu>
+    </div>
   </Story>
 </Canvas>

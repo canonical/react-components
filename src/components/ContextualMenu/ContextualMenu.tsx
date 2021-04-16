@@ -21,6 +21,7 @@ export type Props<L> = {
   closeOnEsc?: boolean;
   closeOnOutsideClick?: boolean;
   constrainPanelWidth?: boolean;
+  dark?: boolean;
   dropdownClassName?: string;
   hasToggleIcon?: boolean;
   links?: MenuLink<L>[];
@@ -95,6 +96,7 @@ const ContextualMenu = <L,>({
   closeOnEsc = true,
   closeOnOutsideClick = true,
   constrainPanelWidth,
+  dark = false,
   dropdownClassName,
   hasToggleIcon,
   links,
@@ -142,6 +144,7 @@ const ContextualMenu = <L,>({
   const labelNode = toggleLabel ? <span>{toggleLabel}</span> : null;
   const wrapperClass = classNames(className, "p-contextual-menu", {
     [`p-contextual-menu--${adjustedPosition}`]: adjustedPosition !== "right",
+    "is-dark": dark,
   });
 
   // Update the coordinates of the wrapper once it mounts to the dom. This uses
@@ -289,6 +292,10 @@ ContextualMenu.propTypes = {
    * Whether the menu's width should match the toggle's width.
    */
   constrainPanelWidth: PropTypes.bool,
+  /**
+   * Whether the menu should use the dark theme
+   */
+  dark: PropTypes.bool,
   /**
    * An optional class to apply to the dropdown.
    */
