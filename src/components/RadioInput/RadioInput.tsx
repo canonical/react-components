@@ -5,22 +5,13 @@ import CheckableInput from "../CheckableInput";
 
 type Props = {
   label: string;
-  disabled?: boolean;
-  required?: boolean;
 } & HTMLProps<HTMLInputElement>;
 
-const RadioInput = ({
-  label,
-  disabled = false,
-  required = false,
-  ...radioProps
-}: Props): JSX.Element => {
+const RadioInput = ({ label, ...radioProps }: Props): JSX.Element => {
   return (
     <CheckableInput
       inputType="radio"
       label={label}
-      disabled={disabled}
-      required={required}
       {...radioProps}
     ></CheckableInput>
   );
@@ -28,8 +19,6 @@ const RadioInput = ({
 
 RadioInput.propTypes = {
   label: PropTypes.string.isRequired,
-  disabled: PropTypes.bool,
-  required: PropTypes.bool,
 };
 
 export default RadioInput;
