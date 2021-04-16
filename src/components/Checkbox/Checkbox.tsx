@@ -8,7 +8,7 @@ type Props = {
   disabled?: boolean;
   indeterminate?: boolean;
   required?: boolean;
-} & HTMLProps<HTMLElement>;
+} & HTMLProps<HTMLInputElement>;
 
 const Checkbox = ({
   label,
@@ -19,7 +19,7 @@ const Checkbox = ({
 }: Props): JSX.Element => {
   return (
     <CheckableInput
-      type="checkbox"
+      inputType="checkbox"
       label={label}
       disabled={disabled}
       indeterminate={indeterminate}

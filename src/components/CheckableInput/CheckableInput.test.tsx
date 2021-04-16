@@ -6,15 +6,15 @@ import CheckableInput from "./CheckableInput";
 describe("CheckableInput ", () => {
   it("renders a checkable input", () => {
     const wrapper = shallow(
-      <CheckableInput type="checkbox" label="Test label"></CheckableInput>
+      <CheckableInput inputType="checkbox" label="Test label"></CheckableInput>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.find("input.p-checkbox__input").length).toBe(1);
   });
 
   it("can disable an input", () => {
     const wrapper = shallow(
       <CheckableInput
-        type="checkbox"
+        inputType="checkbox"
         label="Test disabled"
         disabled
       ></CheckableInput>
@@ -25,7 +25,7 @@ describe("CheckableInput ", () => {
   it("can apply the is-required class", () => {
     const wrapper = shallow(
       <CheckableInput
-        type="radio"
+        inputType="radio"
         label="Test required"
         required
       ></CheckableInput>
@@ -38,7 +38,7 @@ describe("CheckableInput ", () => {
     document.body.appendChild(container);
     const wrapper = mount(
       <CheckableInput
-        type="checkbox"
+        inputType="checkbox"
         label="Test label"
         indeterminate
       ></CheckableInput>,

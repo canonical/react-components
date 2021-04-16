@@ -5,14 +5,14 @@ import PropTypes from "prop-types";
 import React, { useEffect, useRef, HTMLProps } from "react";
 
 type Props = {
-  type: string;
+  inputType: "radio" | "checkbox";
   label: string;
   required?: boolean;
   indeterminate?: boolean;
-} & HTMLProps<HTMLElement>;
+} & HTMLProps<HTMLInputElement>;
 
 const CheckableInput = ({
-  type,
+  inputType,
   label,
   required = false,
   indeterminate = false,
@@ -27,15 +27,17 @@ const CheckableInput = ({
   }, [indeterminate]);
 
   return (
-    <label className={classNames(`p-${type}`, { "is-required": required })}>
+    <label
+      className={classNames(`p-${inputType}`, { "is-required": required })}
+    >
       <input
         ref={inputRef}
-        type={type}
+        type={inputType}
         aria-labelledby={inputId.current}
-        className={classNames(`p-${type}__input`)}
+        className={`p-${inputType}__input`}
         {...checkboxProps}
       />
-      <span className={classNames(`p-${type}__label`)} id={inputId.current}>
+      <span className={`p-${inputType}__label`} id={inputId.current}>
         {label}
       </span>
     </label>
@@ -43,7 +45,7 @@ const CheckableInput = ({
 };
 
 CheckableInput.propTypes = {
-  type: PropTypes.oneOf(["checkbox", "radio"]).isRequired,
+  inputType: PropTypes.oneOf(["checkbox", "radio"]).isRequired,
   label: PropTypes.string.isRequired,
   required: PropTypes.bool,
   indeterminate: PropTypes.bool,
