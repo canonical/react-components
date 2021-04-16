@@ -1,16 +1,16 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
-import Radio from "./Radio";
+import RadioInput from "./RadioInput";
 
 <Meta
-  title="Radio"
-  component={Radio}
+  title="RadioInput"
+  component={RadioInput}
   argTypes={{
     label: {
       control: {
         type: "text",
       },
-      defaultValue: "Radio",
+      defaultValue: "RadioInput",
     },
     disabled: {
       control: {
@@ -30,17 +30,17 @@ import Radio from "./Radio";
   }}
 />
 
-export const Template = (args) => <Radio {...args} />;
+export const Template = (args) => <RadioInput {...args} />;
 
-### Radio
+### RadioInput
 
-This is a [React](https://reactjs.org/) component for the Vanilla [Radio button](https://docs.vanillaframework.io/docs/base/forms#radio-button).
+This is a [React](https://reactjs.org/) component for the Vanilla [Radio input](https://docs.vanillaframework.io/docs/base/forms#radio-button).
 
 Use radio buttons to select one of the given set of options.
 
 ### Props
 
-<ArgsTable of={Radio} />{" "}
+<ArgsTable of={RadioInput} />{" "}
 
 ### Default
 
@@ -52,7 +52,7 @@ Use radio buttons to select one of the given set of options.
 
 <Canvas>
   <Story name="Disabled">
-    <Radio label="Disabled" name="Radio" disabled></Radio>
+    <RadioInput label="Disabled" name="RadioInput" disabled></RadioInput>
   </Story>
 </Canvas>
 
@@ -60,6 +60,6 @@ Use radio buttons to select one of the given set of options.
 
 <Canvas>
   <Story name="Required">
-    <Radio label="Required" name="Radio" required></Radio>
+    <RadioInput label="Required" name="RadioInput" required></RadioInput>
   </Story>
 </Canvas>
