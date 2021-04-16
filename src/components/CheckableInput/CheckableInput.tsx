@@ -7,14 +7,12 @@ import React, { useEffect, useRef, HTMLProps } from "react";
 type Props = {
   inputType: "radio" | "checkbox";
   label: string;
-  required?: boolean;
   indeterminate?: boolean;
 } & HTMLProps<HTMLInputElement>;
 
 const CheckableInput = ({
   inputType,
   label,
-  required = false,
   indeterminate = false,
   ...checkboxProps
 }: Props): JSX.Element => {
@@ -28,7 +26,9 @@ const CheckableInput = ({
 
   return (
     <label
-      className={classNames(`p-${inputType}`, { "is-required": required })}
+      className={classNames(`p-${inputType}`, {
+        "is-required": checkboxProps.required,
+      })}
     >
       <input
         ref={inputRef}
@@ -47,7 +47,6 @@ const CheckableInput = ({
 CheckableInput.propTypes = {
   inputType: PropTypes.oneOf(["checkbox", "radio"]).isRequired,
   label: PropTypes.string.isRequired,
-  required: PropTypes.bool,
   indeterminate: PropTypes.bool,
 };
 

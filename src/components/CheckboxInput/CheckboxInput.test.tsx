@@ -1,11 +1,13 @@
 import { mount } from "enzyme";
 import React from "react";
 
-import Checkbox from "./Checkbox";
+import CheckboxInput from "./CheckboxInput";
 
-describe("Checkbox ", () => {
+describe("CheckboxInput ", () => {
   it("renders a checkbox", () => {
-    const wrapper = mount(<Checkbox label="Test checkbox"></Checkbox>);
+    const wrapper = mount(
+      <CheckboxInput label="Test checkbox"></CheckboxInput>
+    );
     expect(wrapper.find("input.p-checkbox__input").length).toBe(1);
   });
 });

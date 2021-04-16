@@ -1,16 +1,16 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
-import Checkbox from "./Checkbox";
+import CheckboxInput from "./CheckboxInput";
 
 <Meta
-  title="Checkbox"
-  component={Checkbox}
+  title="CheckboxInput"
+  component={CheckboxInput}
   argTypes={{
     label: {
       control: {
         type: "text",
       },
-      defaultValue: "Checkbox",
+      defaultValue: "CheckboxInput",
     },
     disabled: {
       control: {
@@ -30,17 +30,17 @@ import Checkbox from "./Checkbox";
   }}
 />
 
-export const Template = (args) => <Checkbox {...args} />;
+export const Template = (args) => <CheckboxInput {...args} />;
 
-### Checkbox
+### CheckboxInput
 
-This is a [React](https://reactjs.org/) component for the Vanilla [Checkbox](https://docs.vanillaframework.io/docs/base/forms#checkbox).
+This is a [React](https://reactjs.org/) component for the Vanilla [Checkbox input](https://docs.vanillaframework.io/docs/base/forms#checkbox).
 
 Use the checkbox component to select one or more options.
 
 ### Props
 
-<ArgsTable of={Checkbox} />{" "}
+<ArgsTable of={CheckboxInput} />{" "}
 
 ### Default
 
@@ -52,7 +52,7 @@ Use the checkbox component to select one or more options.
 
 <Canvas>
   <Story name="Disabled">
-    <Checkbox label="Disabled" disabled></Checkbox>
+    <CheckboxInput label="Disabled" disabled></CheckboxInput>
   </Story>
 </Canvas>
 
@@ -60,7 +60,7 @@ Use the checkbox component to select one or more options.
 
 <Canvas>
   <Story name="Required">
-    <Checkbox label="Required" required></Checkbox>
+    <CheckboxInput label="Required" required></CheckboxInput>
   </Story>
 </Canvas>
 
@@ -68,6 +68,6 @@ Use the checkbox component to select one or more options.
 
 <Canvas>
   <Story name="Indeterminate">
-    <Checkbox label="Indeterminate" indeterminate></Checkbox>
+    <CheckboxInput label="Indeterminate" indeterminate></CheckboxInput>
   </Story>
 </Canvas>
