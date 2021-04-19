@@ -1,0 +1,73 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
+import CheckboxInput from "./CheckboxInput";
+
+<Meta
+  title="CheckboxInput"
+  component={CheckboxInput}
+  argTypes={{
+    label: {
+      control: {
+        type: "text",
+      },
+      defaultValue: "CheckboxInput",
+    },
+    disabled: {
+      control: {
+        type: "boolean",
+      },
+    },
+    required: {
+      control: {
+        type: "boolean",
+      },
+    },
+    indeterminate: {
+      control: {
+        type: "boolean",
+      },
+    },
+  }}
+/>
+
+export const Template = (args) => <CheckboxInput {...args} />;
+
+### CheckboxInput
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Checkbox input](https://docs.vanillaframework.io/docs/base/forms#checkbox).
+
+Use the checkbox component to select one or more options.
+
+### Props
+
+<ArgsTable of={CheckboxInput} />{" "}
+
+### Default
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>
+
+### Disabled
+
+<Canvas>
+  <Story name="Disabled">
+    <CheckboxInput label="Disabled" disabled></CheckboxInput>
+  </Story>
+</Canvas>
+
+### Required
+
+<Canvas>
+  <Story name="Required">
+    <CheckboxInput label="Required" required></CheckboxInput>
+  </Story>
+</Canvas>
+
+### Indeterminate
+
+<Canvas>
+  <Story name="Indeterminate">
+    <CheckboxInput label="Indeterminate" indeterminate></CheckboxInput>
+  </Story>
+</Canvas>
