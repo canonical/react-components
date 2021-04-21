@@ -22,6 +22,7 @@ export const Modal = ({
       <section
         className="p-modal__dialog"
         role="dialog"
+        aria-modal="true"
         aria-labelledby={titleId.current}
         aria-describedby={descriptionId.current}
         onClick={(evt) => evt.stopPropagation()}

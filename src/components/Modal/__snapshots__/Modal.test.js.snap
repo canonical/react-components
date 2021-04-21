@@ -7,6 +7,7 @@ exports[`Modal  displays any content in the button row 1`] = `
   <section
     aria-describedby="Uakgb_J5m9g-0JDMbcJqLJ"
     aria-labelledby="Uakgb_J5m9g-0JDMbcJqLJ"
+    aria-modal="true"
     className="p-modal__dialog"
     onClick={[Function]}
     role="dialog"
@@ -34,6 +35,7 @@ exports[`Modal  displays buttons that have been supplied 1`] = `
   <section
     aria-describedby="Uakgb_J5m9g-0JDMbcJqLJ"
     aria-labelledby="Uakgb_J5m9g-0JDMbcJqLJ"
+    aria-modal="true"
     className="p-modal__dialog"
     onClick={[Function]}
     role="dialog"
@@ -69,6 +71,7 @@ exports[`Modal  renders 1`] = `
   <section
     aria-describedby="Uakgb_J5m9g-0JDMbcJqLJ"
     aria-labelledby="Uakgb_J5m9g-0JDMbcJqLJ"
+    aria-modal="true"
     className="p-modal__dialog"
     onClick={[Function]}
     role="dialog"
