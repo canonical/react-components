@@ -1,6 +1,6 @@
 import { nanoid } from "nanoid";
 import PropTypes from "prop-types";
-import React, { ReactElement, ReactNode, useRef } from "react";
+import React, { ReactElement, ReactNode, useRef, useEffect } from "react";
 
 type Props = {
   buttonRow?: ReactNode | null;
@@ -17,6 +17,27 @@ export const Modal = ({
 }: Props): ReactElement => {
   const descriptionId = useRef(nanoid());
   const titleId = useRef(nanoid());
+
+  // This useEffect sets up listeners so the panel will close if user clicks
+  // anywhere else on the page or hits the escape key
+  useEffect(() => {
+    const keyDown = (e) => {
+      if (e.code === "Escape") {
+        // Close panel if Esc keydown detected
+        if (close) {
+          close();
+        }
+      }
+    };
+
+    // Add listener on document to capture keydown events
+    document.addEventListener("keydown", keyDown);
+    // return function to be called when unmounted
+    return () => {
+      document.removeEventListener("keydown", keyDown);
+    };
+  }, [close]);
+
   return (
     <div className="p-modal" onClick={close}>
       <section
