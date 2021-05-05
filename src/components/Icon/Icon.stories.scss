@@ -1,9 +1,9 @@
 @import "~vanilla-framework/scss/settings";
 @import "~vanilla-framework/scss/base_placeholders";
-@include vf-b-placeholders;
-
 @import "~vanilla-framework/scss/base_icon-definitions";
 @import "~vanilla-framework/scss/patterns_icons";
+
+@include vf-b-placeholders;
 @include vf-p-icons-common;
 
 .p-icon--custom {
