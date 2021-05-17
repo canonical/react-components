@@ -22,13 +22,8 @@ function ModularTable({
   emptyMsg,
   footer,
 }: Props<Record<string, unknown>>): JSX.Element {
-  const {
-    getTableProps,
-    getTableBodyProps,
-    headerGroups,
-    rows,
-    prepareRow,
-  } = useTable({ columns, data });
+  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
+    useTable({ columns, data });
 
   const showEmpty: boolean = emptyMsg && (!rows || rows.length === 0);
 

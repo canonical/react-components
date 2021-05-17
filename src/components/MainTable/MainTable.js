@@ -158,9 +158,8 @@ const MainTable = ({
   ...props
 }) => {
   const [currentSortKey, setSortKey] = useState(defaultSort);
-  const [currentSortDirection, setSortDirection] = useState(
-    defaultSortDirection
-  );
+  const [currentSortDirection, setSortDirection] =
+    useState(defaultSortDirection);
   const [currentPage, setCurrentPage] = useState(1);
 
   // Update the current sort state if the prop changes.

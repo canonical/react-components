@@ -109,10 +109,8 @@ export const useWindowFitment = (
         referenceCoordinates = referenceNode.getBoundingClientRect();
       }
       if (shouldCheck && targetNode && referenceCoordinates) {
-        const {
-          height: targetHeight,
-          width: targetWidth,
-        } = targetNode.getBoundingClientRect();
+        const { height: targetHeight, width: targetWidth } =
+          targetNode.getBoundingClientRect();
         const {
           height: referenceHeight,
           left: referenceLeft,
