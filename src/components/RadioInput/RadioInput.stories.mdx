@@ -30,8 +30,6 @@ import RadioInput from "./RadioInput";
   }}
 />
 
-export const Template = (args) => <RadioInput {...args} />;
-
 ### RadioInput
 
 This is a [React](https://reactjs.org/) component for the Vanilla [Radio input](https://docs.vanillaframework.io/docs/base/forms#radio-button).
@@ -45,7 +43,24 @@ Use radio buttons to select one of the given set of options.
 ### Default
 
 <Canvas>
-  <Story name="Default">{Template.bind({})}</Story>
+  <Story name="Default">
+    <RadioInput label="RadioInput" />
+  </Story>
+</Canvas>
+
+### Label with child elements
+
+<Canvas>
+  <Story name="Children">
+    <RadioInput
+      label={
+        <>
+          I agree to <a href="http://ubuntu.com/legal">Terms and Conditions</a>
+        </>
+      }
+      name="RadioInput"
+    ></RadioInput>
+  </Story>
 </Canvas>
 
 ### Disabled

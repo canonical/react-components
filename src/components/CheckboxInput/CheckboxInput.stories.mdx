@@ -48,6 +48,21 @@ Use the checkbox component to select one or more options.
   <Story name="Default">{Template.bind({})}</Story>
 </Canvas>
 
+### Label with child elements
+
+<Canvas>
+  <Story name="Children">
+    <CheckboxInput
+      label={
+        <>
+          I agree to <a href="http://ubuntu.com/legal">Terms and Conditions</a>
+        </>
+      }
+      name="CheckboxInput"
+    ></CheckboxInput>
+  </Story>
+</Canvas>
+
 ### Disabled
 
 <Canvas>

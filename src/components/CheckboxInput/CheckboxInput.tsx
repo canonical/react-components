@@ -1,10 +1,11 @@
 import PropTypes from "prop-types";
 import React, { HTMLProps } from "react";
+import type { ReactNode } from "react";
 
 import CheckableInput from "../CheckableInput";
 
 type Props = {
-  label: string;
+  label: ReactNode;
   indeterminate?: boolean;
 } & HTMLProps<HTMLInputElement>;
 
@@ -24,7 +25,7 @@ const CheckboxInput = ({
 };
 
 CheckboxInput.propTypes = {
-  label: PropTypes.string.isRequired,
+  label: PropTypes.node.isRequired,
   indeterminate: PropTypes.bool,
 };
 

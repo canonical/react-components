@@ -3,10 +3,11 @@ import { TSFixMe } from "index";
 import { nanoid } from "nanoid";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, HTMLProps } from "react";
+import type { ReactNode } from "react";
 
 type Props = {
   inputType: "radio" | "checkbox";
-  label: string;
+  label: ReactNode;
   indeterminate?: boolean;
 } & HTMLProps<HTMLInputElement>;
 
@@ -46,7 +47,7 @@ const CheckableInput = ({
 
 CheckableInput.propTypes = {
   inputType: PropTypes.oneOf(["checkbox", "radio"]).isRequired,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.node.isRequired,
   indeterminate: PropTypes.bool,
 };
 
