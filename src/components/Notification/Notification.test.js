@@ -6,7 +6,7 @@ import Notification from "./Notification";
 
 describe("Notification", () => {
   beforeEach(() => {
-    jest.useFakeTimers();
+    jest.useFakeTimers("legacy");
   });
 
   it("renders", () => {

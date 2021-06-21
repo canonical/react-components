@@ -8,7 +8,7 @@ import ActionButton, {
 } from "./ActionButton";
 
 describe("ActionButton", () => {
-  jest.useFakeTimers();
+  jest.useFakeTimers("legacy");
 
   it("matches loading snapshot", () => {
     const wrapper = mount(<ActionButton loading>Click me</ActionButton>);
