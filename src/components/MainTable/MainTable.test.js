@@ -48,6 +48,18 @@ describe("MainTable", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it("renders rows with provided keys", () => {
+    rows[0].key = 2;
+    rows[1].key = 1;
+    rows[2].key = 0; // we explicitly want to test 0 as a falsy value provided as a key
+
+    const wrapper = shallow(<MainTable headers={headers} rows={rows} />);
+
+    expect(wrapper.find("tbody TableRow").at(0).key()).toBe("2");
+    expect(wrapper.find("tbody TableRow").at(1).key()).toBe("1");
+    expect(wrapper.find("tbody TableRow").at(2).key()).toBe("0");
+  });
+
   it("can be expanding", () => {
     rows.push({
       columns: [
