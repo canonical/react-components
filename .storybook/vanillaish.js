@@ -33,7 +33,7 @@ export default create({
   inputBorderRadius: ".125rem",
 
   brandTitle: "Vanilla React Library",
-  brandUrl: "/react-components",
+  brandUrl: "https://vanillaframework.io",
   brandImage:
     "https://assets.ubuntu.com/v1/746e552e-vanilla_black-orange_hex.svg",
 });
