@@ -126,10 +126,16 @@ const generateRows = (
           {content}
         </TableCell>
       ));
+
+      // if key was not provided as a prop, use row's index instead
+      if (key === null || typeof key === "undefined") {
+        key = index;
+      }
+
       // The expanding cell is alway created to match the correct number of
       // table cells in rows that do have expanding content.
       return (
-        <TableRow key={key || index} {...rowProps}>
+        <TableRow key={key} {...rowProps}>
           {cellItems}
           {expanding && (
             <TableCell expanding={true} hidden={!expanded}>
