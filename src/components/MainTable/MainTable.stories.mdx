@@ -4,6 +4,7 @@ import { useState } from "react";
 import MainTable from "./MainTable";
 import Row from "../Row";
 import Col from "../Col";
+import ContextualMenu from "../ContextualMenu";
 
 <Meta
   title="MainTable"
@@ -257,6 +258,119 @@ This is a [React](https://reactjs.org/) component to support many table use case
                   </Col>
                 </Row>
               ),
+            },
+          ]}
+        />
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Overflow
+
+If the table cell may have overflowing content (such as contextual menu) use `hasOverflow` prop to avoid cropping it.
+
+<Canvas>
+  <Story name="Overflow">
+    {() => {
+      let [expandedRow, setExpandedRow] = useState(1);
+      return (
+        <MainTable
+          headers={[
+            { content: "Name" },
+            { content: "Mac address" },
+            { content: "IP" },
+            { content: "Rack" },
+            { content: "Last seen" },
+            { content: "Actions", className: "u-align--right" },
+          ]}
+          rows={[
+            {
+              columns: [
+                { content: "Unknown", role: "rowheader" },
+                { content: "2c:44:fd:80:3f:25" },
+                { content: "10.249.0.1" },
+                { content: "karura" },
+                { content: "Thu, 25 Oct. 2018 13:55:21" },
+                {
+                  content: (
+                    <ContextualMenu
+                      links={[
+                        {
+                          children: "Link 1",
+                          onClick: () => {},
+                        },
+                        {
+                          children: "Link 2",
+                          onClick: () => {},
+                        },
+                      ]}
+                      hasToggleIcon
+                      position="right"
+                    />
+                  ),
+                  className: "u-align--right",
+                  hasOverflow: true,
+                },
+              ],
+            },
+            {
+              columns: [
+                { content: "Unknown", role: "rowheader" },
+                { content: "52:54:00:3a:fe:e9" },
+                { content: "172.16.99.191" },
+                { content: "karura" },
+                { content: "Wed, 3 Oct. 2018 23:08:06" },
+                {
+                  content: (
+                    <ContextualMenu
+                      links={[
+                        {
+                          children: "Link 1",
+                          onClick: () => {},
+                        },
+                        {
+                          children: "Link 2",
+                          onClick: () => {},
+                        },
+                      ]}
+                      hasToggleIcon
+                      position="right"
+                    />
+                  ),
+                  className: "u-align--right",
+                  hasOverflow: true,
+                },
+              ],
+            },
+            {
+              columns: [
+                { content: "Unknown", role: "rowheader" },
+                { content: "52:54:00:74:c2:10" },
+                { content: "172.16.99.192" },
+                { content: "karura" },
+                { content: "Wed, 17 Oct. 2018 12:18:18" },
+                {
+                  content: (
+                    <ContextualMenu
+                      links={[
+                        {
+                          children: "Link 1",
+                          onClick: () => {},
+                        },
+                        {
+                          children: "Link 2",
+                          onClick: () => {},
+                        },
+                      ]}
+                      hasToggleIcon
+                      position="right"
+                    />
+                  ),
+                  className: "u-align--right",
+                  hasOverflow: true,
+                },
+              ],
             },
           ]}
         />

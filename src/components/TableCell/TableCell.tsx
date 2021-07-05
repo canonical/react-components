@@ -8,6 +8,10 @@ type Props = {
   /**
    * @defaultValue false
    */
+  hasOverflow?: boolean;
+  /**
+   * @defaultValue false
+   */
   expanding?: boolean;
   /**
    * @defaultValue false
@@ -36,6 +40,7 @@ type Props = {
 const TableCell = ({
   children,
   className,
+  hasOverflow = false,
   expanding = false,
   hidden = false,
   role = "gridcell",
@@ -46,6 +51,7 @@ const TableCell = ({
     aria-hidden={hidden}
     className={classNames(className, {
       "p-table__expanding-panel": expanding,
+      "has-overflow": hasOverflow,
     })}
     {...props}
   >
