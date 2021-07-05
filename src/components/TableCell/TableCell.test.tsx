@@ -19,11 +19,16 @@ describe("TableCell", () => {
     expect(wrapper.prop("aria-hidden")).toBe(true);
   });
 
-  it("can add be expanding", () => {
+  it("can be expanding", () => {
     const wrapper = shallow(<TableCell expanding={true} />);
     expect(wrapper.prop("className").includes("p-table__expanding-panel")).toBe(
       true
     );
+  });
+
+  it("can have overflow", () => {
+    const wrapper = shallow(<TableCell hasOverflow={true} />);
+    expect(wrapper.prop("className").includes("has-overflow")).toBe(true);
   });
 
   it("can add additional classes", () => {
