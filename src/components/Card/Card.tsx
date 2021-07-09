@@ -1,16 +1,25 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { ReactNode } from "react";
+
+export type Props = {
+  children?: ReactNode;
+  className?: string;
+  highlighted?: boolean;
+  overlay?: boolean;
+  thumbnail?: string;
+  title?: ReactNode;
+};
 
 const Card = ({
   children,
   className,
   highlighted,
   overlay,
-  title,
   thumbnail,
+  title,
   ...props
-}) => (
+}: Props): JSX.Element => (
   <div
     className={classNames(className, {
       "p-card": !highlighted && !overlay,
