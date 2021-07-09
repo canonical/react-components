@@ -1,19 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { highlightSubString } from "../../utils";
+import type { KeyboardEvent, MouseEvent } from "react";
+
+export type Props = {
+  lead?: string;
+  onClick: (
+    event: MouseEvent<HTMLDivElement> | { lead: string; cloud: string }
+  ) => void;
+  onDismiss?: () => void;
+  selected?: boolean;
+  subString?: string;
+  quoteValue?: boolean;
+  value: string;
+};
 
 const Chip = ({
-  value,
   lead = "",
   onClick,
   onDismiss,
+  quoteValue,
   selected,
   subString = "",
-  quoteValue,
-}) => {
+  value,
+}: Props): JSX.Element => {
   // When user tabs over chip and presses Enter or Space key, chip will trigger
   // click functionality
-  const onKeyDown = (e) => {
+  const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     // The " " value is what is returned for the spacebar
     if (e.key === " " || e.key === "Enter") {
       if (onClick instanceof Function) {
@@ -28,7 +41,7 @@ const Chip = ({
       className="p-chip"
       aria-pressed={selected}
       role="button"
-      tabIndex={!onDismiss ? "0" : null}
+      tabIndex={!onDismiss ? 0 : null}
       onClick={onClick}
       onKeyDown={(e) => onKeyDown(e)}
     >
@@ -50,12 +63,13 @@ const Chip = ({
 };
 
 Chip.propTypes = {
-  value: PropTypes.string,
   lead: PropTypes.string,
-  onDismiss: PropTypes.func,
   onClick: PropTypes.func,
+  onDismiss: PropTypes.func,
   selected: PropTypes.bool,
   subString: PropTypes.string,
+  quoteValue: PropTypes.bool,
+  value: PropTypes.string,
 };
 
 export default Chip;

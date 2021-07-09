@@ -3,9 +3,10 @@
 exports[`Chip  renders default chip 1`] = `
 <div
   className="p-chip"
+  onClick={[MockFunction]}
   onKeyDown={[Function]}
   role="button"
-  tabIndex="0"
+  tabIndex={0}
 >
   <span
     className="p-chip__value"
@@ -21,9 +22,10 @@ exports[`Chip  renders default chip 1`] = `
 exports[`Chip  renders lead-value chip 1`] = `
 <div
   className="p-chip"
+  onClick={[MockFunction]}
   onKeyDown={[Function]}
   role="button"
-  tabIndex="0"
+  tabIndex={0}
 >
   <span
     className="p-chip__lead"
