@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 import ActionButton from "../ActionButton";
 
-type Props = {
+export type Props = {
   className?: string;
   label: string;
   onClick: (event: SyntheticEvent) => void;

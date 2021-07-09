@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 
 import CheckableInput from "../CheckableInput";
 
-type Props = {
+export type Props = {
   label: ReactNode;
   indeterminate?: boolean;
 } & HTMLProps<HTMLInputElement>;

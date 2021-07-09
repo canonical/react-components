@@ -4,16 +4,40 @@ import React from "react";
 import type { HTMLProps, ElementType, ReactNode, ComponentType } from "react";
 
 export type TabLink<P = null> = {
+  /**
+   * Whether the tab link should have active styling.
+   */
   active?: boolean;
+  /**
+   * Optional classes applied to the link element.
+   */
   className?: string;
+  /**
+   * Optional component to be used instead of the default "a" element.
+   */
   component?: ElementType | ComponentType<P>;
+  /**
+   * Label to be displayed inside the tab link.
+   */
   label: ReactNode;
+  /**
+   * Optional classes applied to the "li" element.
+   */
   listItemClassName?: string;
 } & (HTMLProps<HTMLElement> | P);
 
-type Props<P = null> = {
-  links: TabLink<P>[];
+export type Props<P = null> = {
+  /**
+   * Optional classes applied to the parent "nav" element.
+   */
   className?: string;
+  /**
+   * An array of tab link objects.
+   */
+  links: TabLink<P>[];
+  /**
+   * Optional classes applied to the "ul" element.
+   */
   listClassName?: string;
 };
 

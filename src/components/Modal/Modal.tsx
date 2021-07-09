@@ -2,7 +2,7 @@ import { nanoid } from "nanoid";
 import PropTypes from "prop-types";
 import React, { ReactElement, ReactNode, useRef, useEffect } from "react";
 
-type Props = {
+export type Props = {
   buttonRow?: ReactNode | null;
   children: ReactNode;
   close?: () => void | null;

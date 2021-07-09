@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import type { HTMLProps, ReactNode } from "react";
 import React from "react";
 
-type Props = {
+export type Props = {
   children: ReactNode;
 } & HTMLProps<HTMLTableRowElement>;
 

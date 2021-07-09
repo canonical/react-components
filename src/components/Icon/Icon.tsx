@@ -29,7 +29,7 @@ export enum ICONS {
   error = "error",
 }
 
-type Props = {
+export type Props = {
   className?: string;
   name: ICONS | string;
 } & HTMLProps<HTMLElement>;

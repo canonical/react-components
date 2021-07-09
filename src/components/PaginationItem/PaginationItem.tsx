@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import type { MouseEventHandler } from "react";
 
-type Props = {
+export type Props = {
   number: number;
   onClick: MouseEventHandler<HTMLButtonElement>;
   isActive?: boolean;

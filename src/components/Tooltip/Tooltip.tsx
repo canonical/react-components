@@ -17,9 +17,9 @@ export type CSSPosition =
   | "inherit";
 
 export type PositionStyle = {
+  left: number;
   pointerEvents?: string;
   position: CSSPosition;
-  left: number;
   top: number;
 };
 
@@ -34,13 +34,37 @@ export type Position =
   | "top-right";
 
 export type Props = {
+  /**
+   * Whether the tooltip should adjust to fit in the screen.
+   */
   autoAdjust?: boolean;
-  className?: string;
+  /**
+   * Element on which to apply the tooltip.
+   */
   children: ReactNode;
+  /**
+   * An optional class to apply to the wrapping element.
+   */
+  className?: string;
+  /**
+   * Whether the tooltip should follow the mouse.
+   */
   followMouse?: boolean;
+  /**
+   * Message to display when the element is hovered.
+   */
   message?: string | null;
+  /**
+   * Position of the tooltip relative to the element.
+   */
   position?: Position;
+  /**
+   * An optional class to apply to the element that wraps the children.
+   */
   positionElementClassName?: string;
+  /**
+   * An optional class to apply to the tooltip message element.
+   */
   tooltipClassName?: string;
 };
 

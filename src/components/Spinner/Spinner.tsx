@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import classNames from "classnames";
 
-type Props = {
+export type Props = {
   className?: string;
   text?: string;
   isLight?: boolean;

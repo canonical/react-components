@@ -91,7 +91,7 @@ const PaginationItemSeparator = (): JSX.Element => (
   </li>
 );
 
-type Props = {
+export type Props = {
   currentPage: number;
   itemsPerPage: number;
   paginate: (page: number) => void;

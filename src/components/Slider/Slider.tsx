@@ -6,18 +6,54 @@ import Field from "../Field";
 
 export const FILLED_COLOR = "#0066CC";
 
-type Props = {
+export type Props = {
+  /**
+   * Field caution message.
+   */
   caution?: ReactNode;
+  /**
+   * Whether to disable the slider and input (if showInput is true).
+   */
   disabled?: boolean;
+  /**
+   * Field error message.
+   */
   error?: ReactNode;
-  id?: string;
+  /**
+   * Field help message.
+   */
   help?: ReactNode;
+  /**
+   * Field id. Only passed to range input, not to number input.
+   */
+  id?: string;
+  /**
+   * Whether to disable only the input, but not the slider.
+   */
   inputDisabled?: boolean;
+  /**
+   * Field label.
+   */
   label?: ReactNode;
+  /**
+   * Maximum value of the slider.
+   */
   max: number;
+  /**
+   * Minimum value of the slider.
+   */
   min: number;
+  /**
+   * Change event handler.
+   */
   onChange: ChangeEventHandler;
+  /**
+   * Whether the field is required for the form to submit.
+   */
   required?: boolean;
+  /**
+   * Whether to show a number input with the numerical value next to the slider.
+   */
   showInput?: boolean;
 } & HTMLProps<HTMLInputElement>;
 
