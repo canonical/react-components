@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
+import type { HTMLProps } from "react";
 import React from "react";
 
 export enum ICONS {
@@ -31,7 +32,7 @@ export enum ICONS {
 type Props = {
   className?: string;
   name: ICONS | string;
-};
+} & HTMLProps<HTMLElement>;
 
 /**
  * Icon
@@ -39,8 +40,8 @@ type Props = {
  * @param name One of built-in Vanilla icons or a name of a custom icon that follows `p-icon--{name}` convention.
  * @returns Icon
  */
-const Icon = ({ className, name }: Props): JSX.Element => (
-  <i className={classNames(className, `p-icon--${name}`)} />
+const Icon = ({ className, name, ...props }: Props): JSX.Element => (
+  <i className={classNames(className, `p-icon--${name}`)} {...props} />
 );
 
 Icon.propTypes = {
