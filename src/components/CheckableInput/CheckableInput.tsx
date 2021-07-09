@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 import React, { useEffect, useRef, HTMLProps } from "react";
 import type { ReactNode } from "react";
 
-type Props = {
+export type Props = {
   inputType: "radio" | "checkbox";
   label: ReactNode;
   indeterminate?: boolean;

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { HTMLProps, ReactNode } from "react";
 
-type Props = {
+export type Props = {
   children: ReactNode;
   /**
    * @defaultValue none

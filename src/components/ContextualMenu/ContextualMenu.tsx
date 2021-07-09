@@ -15,23 +15,77 @@ import type { MenuLink, Position } from "./ContextualMenuDropdown";
  * @template L - The type of the link props.
  */
 export type Props<L> = {
+  /**
+   * Whether the menu should adjust to fit in the screen.
+   */
   autoAdjust?: boolean;
+  /**
+   * The menu content (if the links prop is not supplied).
+   */
   children?: ReactNode;
+  /**
+   * An optional class to apply to the wrapping element.
+   */
   className?: string;
+  /**
+   * Whether the menu should close when the escape key is pressed.
+   */
   closeOnEsc?: boolean;
+  /**
+   * Whether the menu should close when clicking outside the menu.
+   */
   closeOnOutsideClick?: boolean;
+  /**
+   * Whether the menu's width should match the toggle's width.
+   */
   constrainPanelWidth?: boolean;
+  /**
+   * An optional class to apply to the dropdown.
+   */
   dropdownClassName?: string;
+  /**
+   * Whether the toggle should display a chevron icon.
+   */
   hasToggleIcon?: boolean;
+  /**
+   * A list of links to display in the menu (if the children prop is not supplied.)
+   */
   links?: MenuLink<L>[];
+  /**
+   * A function to call when the menu is toggled.
+   */
   onToggleMenu?: (isOpen: boolean) => void;
+  /**
+   * The position of the menu.
+   */
   position?: Position;
+  /**
+   * An element to make the menu relative to.
+   */
   positionNode?: HTMLElement;
+  /**
+   * The appearance of the toggle button.
+   */
   toggleAppearance?: string;
+  /**
+   * A class to apply to the toggle button.
+   */
   toggleClassName?: string;
+  /**
+   * Whether the toggle button should be disabled.
+   */
   toggleDisabled?: boolean;
+  /**
+   * The toggle button's label.
+   */
   toggleLabel?: string;
+  /**
+   * Whether the toggle lable or icon should appear first.
+   */
   toggleLabelFirst?: boolean;
+  /**
+   * Whether the menu should be visible.
+   */
   visible?: boolean;
 };
 

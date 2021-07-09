@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import React from "react";
 import type { MouseEventHandler } from "react";
 
-type PaginationDirection = "forward" | "back";
-type Props = {
+export type PaginationDirection = "forward" | "back";
+export type Props = {
   direction: PaginationDirection;
   onClick: MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;

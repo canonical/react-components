@@ -8,14 +8,33 @@ import type { Headings } from "types";
 export type AccordionHeadings = Exclude<Headings, "h1">;
 
 export type Props = {
+  /**
+   * The content of the section.
+   */
   content?: ReactNode;
+  /**
+   * An optional value to set the expanded section. The value must match a
+   * section key.
+   */
   expanded?: string;
+  headingLevel?: number;
+  /**
+   * An optional click event when the title is clicked.
+   */
   onTitleClick?: (expanded: boolean, key: string) => void;
+  /**
+   * An optional key to be used to track which section is selected.
+   */
   sectionKey?: string;
   setExpanded?: (key: string | null, title: string | null) => void;
+  /**
+   * The title of the section.
+   */
   title?: string;
+  /**
+   * Optional string describing heading element that should be used for the section titles.
+   */
   titleElement?: AccordionHeadings;
-  headingLevel?: number;
 };
 
 const AccordionSection = ({

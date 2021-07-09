@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import type { HTMLProps } from "react";
 
-type DropdownOptionProps = {
+export type DropdownOptionProps = {
   label: string;
 } & HTMLProps<HTMLOptionElement>;
 
