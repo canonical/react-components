@@ -87,8 +87,7 @@ const ActionButton = ({
     "p-action-button",
     `p-button--${appearance}`,
     {
-      "is-loading": showLoader,
-      "is-success": showSuccess,
+      "is-processing": showLoader || showSuccess,
       "is-disabled": disabled,
       "is-inline": inline,
     }
