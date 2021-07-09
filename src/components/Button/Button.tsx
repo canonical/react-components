@@ -3,12 +3,21 @@ import PropTypes from "prop-types";
 import React from "react";
 import type { HTMLProps, ElementType, ReactNode, ComponentType } from "react";
 
+export enum ButtonAppearance {
+  BASE = "base",
+  BRAND = "brand",
+  LINK = "link",
+  NEGATIVE = "negative",
+  NEUTRAL = "neutral",
+  POSITIVE = "positive",
+}
+
 /**
  * The type of the Button props.
  * @template P - The type of the props if providing a component to `element`
  */
 export type Props<P = null> = {
-  appearance?: string;
+  appearance?: ButtonAppearance | string;
   children?: ReactNode;
   className?: string;
   dense?: boolean;
