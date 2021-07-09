@@ -5,13 +5,13 @@ import Col from "./Col";
 
 describe("Col ", () => {
   it("renders", () => {
-    const wrapper = shallow(<Col size="3">Test content</Col>);
+    const wrapper = shallow(<Col size={3}>Test content</Col>);
     expect(wrapper).toMatchSnapshot();
   });
 
   it("can set a size for small screens", () => {
     const wrapper = shallow(
-      <Col size="3" small="1">
+      <Col size={3} small={1}>
         Test content
       </Col>
     );
@@ -20,7 +20,7 @@ describe("Col ", () => {
 
   it("can set a size for medium screens", () => {
     const wrapper = shallow(
-      <Col size="3" medium="1">
+      <Col size={3} medium={1}>
         Test content
       </Col>
     );
@@ -29,7 +29,7 @@ describe("Col ", () => {
 
   it("can set a size for large screens", () => {
     const wrapper = shallow(
-      <Col size="3" large="1">
+      <Col size={3} large={1}>
         Test content
       </Col>
     );
@@ -38,7 +38,7 @@ describe("Col ", () => {
 
   it("can set empty cols for small screens", () => {
     const wrapper = shallow(
-      <Col size="3" emptySmall="1">
+      <Col size={3} emptySmall={1}>
         Test content
       </Col>
     );
@@ -47,7 +47,7 @@ describe("Col ", () => {
 
   it("can set empty cols for medium screens", () => {
     const wrapper = shallow(
-      <Col size="3" emptyMedium="1">
+      <Col size={3} emptyMedium={1}>
         Test content
       </Col>
     );
@@ -56,7 +56,7 @@ describe("Col ", () => {
 
   it("can set empty cols for large screens", () => {
     const wrapper = shallow(
-      <Col size="3" emptyLarge="1">
+      <Col size={3} emptyLarge={1}>
         Test content
       </Col>
     );
@@ -64,7 +64,7 @@ describe("Col ", () => {
   });
 
   it("can add additional classes", () => {
-    const wrapper = shallow(<Col size="3" className="extra-class" />);
+    const wrapper = shallow(<Col size={3} className="extra-class"></Col>);
     const className = wrapper.prop("className");
     expect(className.includes("col-3")).toBe(true);
     expect(className.includes("extra-class")).toBe(true);

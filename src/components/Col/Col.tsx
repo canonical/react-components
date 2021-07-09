@@ -1,6 +1,8 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React from "react";
+import React, { ElementType, ReactNode } from "react";
+
+export type ColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export const colSizes = [
   1,
@@ -29,6 +31,19 @@ export const colSizes = [
   "12",
 ];
 
+export type Props = {
+  children?: ReactNode;
+  className?: string;
+  element?: ElementType;
+  emptyLarge?: ColSize;
+  emptyMedium?: ColSize;
+  emptySmall?: ColSize;
+  large?: ColSize;
+  medium?: ColSize;
+  size: ColSize;
+  small?: ColSize;
+};
+
 const Col = ({
   children,
   className,
@@ -41,7 +56,7 @@ const Col = ({
   size,
   small,
   ...props
-}) => (
+}: Props): JSX.Element => (
   <Component
     className={classNames(className, `col-${size}`, {
       [`col-small-${small}`]: !!small,
