@@ -5,7 +5,7 @@ import type { KeyboardEvent, MouseEvent } from "react";
 
 export type Props = {
   lead?: string;
-  onClick: (
+  onClick?: (
     event: MouseEvent<HTMLDivElement> | { lead: string; cloud: string }
   ) => void;
   onDismiss?: () => void;
