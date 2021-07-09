@@ -1,6 +1,30 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import type { HTMLProps } from "react";
+
+export type Props = {
+  /**
+   * Optional classes to add to the wrapping element.
+   */
+  className?: string;
+  /**
+   * The URL for the next link.
+   */
+  nextURL?: string;
+  /**
+   * The label for the next link.
+   */
+  nextLabel?: string;
+  /**
+   * The URL for the previous link.
+   */
+  previousURL?: string;
+  /**
+   * The label for the previous link.
+   */
+  previousLabel?: string;
+} & HTMLProps<HTMLElement>;
 
 const ArticlePagination = ({
   className,
@@ -9,7 +33,7 @@ const ArticlePagination = ({
   previousURL,
   previousLabel,
   ...props
-}) => {
+}: Props): JSX.Element => {
   return (
     <footer
       className={classNames(className, "p-article-pagination")}
