@@ -9,7 +9,7 @@ exports[`Filter panel section renders 1`] = `
       className="p-filter-panel-section__heading"
       dangerouslySetInnerHTML={
         Object {
-          "__html": "<strong></strong>R<strong></strong>e<strong></strong>g<strong></strong>i<strong></strong>o<strong></strong>n<strong></strong>s<strong></strong>",
+          "__html": "Regions",
         }
       }
     />
@@ -22,6 +22,7 @@ exports[`Filter panel section renders 1`] = `
       >
         <Chip
           onClick={[Function]}
+          subString=""
           value="us-east1"
         />
       </span>
@@ -30,6 +31,7 @@ exports[`Filter panel section renders 1`] = `
       >
         <Chip
           onClick={[Function]}
+          subString=""
           value="us-east2"
         />
       </span>
@@ -38,6 +40,7 @@ exports[`Filter panel section renders 1`] = `
       >
         <Chip
           onClick={[Function]}
+          subString=""
           value="us-east3"
         />
       </span>
