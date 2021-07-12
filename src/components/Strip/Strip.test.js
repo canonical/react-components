@@ -52,8 +52,8 @@ describe("Strip ", () => {
   });
 
   it("can set a col size", () => {
-    const wrapper = shallow(<Strip colSize="4" />);
-    expect(wrapper.find("Col").first().prop("size")).toEqual("4");
+    const wrapper = shallow(<Strip colSize={4} />);
+    expect(wrapper.find("Col").first().prop("size")).toEqual(4);
   });
 
   it("can not include a col", () => {
