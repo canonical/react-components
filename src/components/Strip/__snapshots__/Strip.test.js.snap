@@ -6,7 +6,7 @@ exports[`Strip  renders 1`] = `
 >
   <Row>
     <Col
-      size="12"
+      size={12}
     >
       Test content
     </Col>

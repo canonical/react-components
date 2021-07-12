@@ -10,7 +10,7 @@ const Strip = ({
   bordered,
   children,
   className,
-  colSize = "12",
+  colSize = 12,
   dark,
   deep,
   includeCol = true,

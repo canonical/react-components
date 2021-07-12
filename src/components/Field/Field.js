@@ -31,7 +31,7 @@ const generateLabel = (forId, required, label, labelClassName, stacked) => {
     </Label>
   );
   if (stacked) {
-    return <Col size="4">{labelNode}</Col>;
+    return <Col size={4}>{labelNode}</Col>;
   }
   return labelNode;
 };
@@ -102,7 +102,7 @@ const Field = ({
       })}
     >
       {labelFirst && labelNode}
-      {stacked ? <Col size="8">{content}</Col> : content}
+      {stacked ? <Col size={8}>{content}</Col> : content}
     </div>
   );
 };

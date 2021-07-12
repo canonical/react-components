@@ -140,11 +140,11 @@ describe("Field ", () => {
     // The Label should be inside a col-4.
     const labelCol = wrapper.find("Label").parent();
     expect(labelCol.is("Col")).toBe(true);
-    expect(labelCol.prop("size")).toEqual("4");
+    expect(labelCol.prop("size")).toEqual(4);
     // The control should be inside a col-8.
     const inputCol = wrapper.find(".p-form__control").parent();
     expect(inputCol.is("Col")).toBe(true);
-    expect(inputCol.prop("size")).toEqual("8");
+    expect(inputCol.prop("size")).toEqual(8);
     expect(wrapper.prop("className").includes("row")).toBe(true);
   });
 });
