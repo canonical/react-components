@@ -10,16 +10,12 @@ const sampleData = {
 
 describe("Filter panel section", () => {
   it("renders", () => {
-    const wrapper = shallow(
-      <FilterPanelSection data={sampleData} searchTerm="" />
-    );
+    const wrapper = shallow(<FilterPanelSection data={sampleData} />);
     expect(wrapper).toMatchSnapshot();
   });
 
   it("shows correct data passed as prop", () => {
-    const wrapper = mount(
-      <FilterPanelSection data={sampleData} searchTerm="" />
-    );
+    const wrapper = mount(<FilterPanelSection data={sampleData} />);
     expect(wrapper.find(".p-filter-panel-section").length).toEqual(1);
     const section = wrapper.find(".p-filter-panel-section");
     const chips = wrapper.find(".p-chip");
@@ -57,9 +53,7 @@ describe("Filter panel section", () => {
       configurable: true,
       value: 100,
     });
-    const wrapper = mount(
-      <FilterPanelSection data={sampleData} searchTerm="" />
-    );
+    const wrapper = mount(<FilterPanelSection data={sampleData} />);
     expect(wrapper.find(".p-filter-panel-section__counter").text()).toEqual(
       "+3"
     );
@@ -67,11 +61,7 @@ describe("Filter panel section", () => {
 
   it("all chips are shown when counter is clicked", () => {
     const wrapper = mount(
-      <FilterPanelSection
-        data={sampleData}
-        sectionHidden={false}
-        searchTerm=""
-      />
+      <FilterPanelSection data={sampleData} sectionHidden={false} />
     );
     expect(wrapper.find("[aria-expanded=false]").length).toEqual(1);
     wrapper.find(".p-filter-panel-section__counter").simulate("click");
