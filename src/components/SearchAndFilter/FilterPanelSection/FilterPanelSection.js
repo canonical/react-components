@@ -8,7 +8,7 @@ const FilterPanelSection = ({
   data,
   toggleSelected,
   searchData,
-  searchTerm,
+  searchTerm = "",
   sectionHidden,
 }) => {
   const { chips, heading } = data;

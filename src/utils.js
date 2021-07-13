@@ -7,6 +7,12 @@ export const IS_DEV = process.env.NODE_ENV === "development";
  * @return {Obj} newStr - Object with text and match bool
  */
 export const highlightSubString = (str, subString) => {
+  if (typeof str !== "string" || typeof subString !== "string") {
+    return {
+      text: str || "",
+      match: false,
+    };
+  }
   const caseInsensitiveRegex = new RegExp(subString, "gi");
   const newStr = str.replace(
     caseInsensitiveRegex,
