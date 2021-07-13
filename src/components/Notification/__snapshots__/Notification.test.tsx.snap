@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notification renders 1`] = `
+<div
+  className="p-notification--information"
+>
+  <div
+    className="p-notification__content"
+  >
+    <h5
+      className="p-notification__title"
+      data-test="notification-title"
+    >
+      Permissions changed
+    </h5>
+    <p
+      className="p-notification__message"
+    >
+      Anyone with access can view your invited users.
+    </p>
+  </div>
+</div>
+`;

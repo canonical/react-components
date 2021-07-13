@@ -1,4 +1,5 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { useState } from "react";
 
 import Notification from "./Notification";
 
@@ -7,6 +8,16 @@ import Notification from "./Notification";
   component={Notification}
   argTypes={{
     children: {
+      control: {
+        type: "text",
+      },
+    },
+    timestamp: {
+      control: {
+        type: "text",
+      },
+    },
+    title: {
       control: {
         type: "text",
       },
@@ -26,15 +37,17 @@ Notifications are used to display global information, our notification variants 
 
 <ArgsTable of={Notification} />
 
-### Default
+### Information
+
+The information severity should be used to convey an information message.
 
 <Canvas>
   <Story
-    name="Default"
+    name="Information"
     args={{
-      children:
-        "We use cookies to improve your experience. By your continued use of this site you accept such use.",
-      close: () => {},
+      children: "Anyone with access can view your invited users.",
+      severity: "information",
+      title: "Permissions changed",
     }}
   >
     {Template.bind({})}
@@ -43,40 +56,215 @@ Notifications are used to display global information, our notification variants 
 
 ### Caution
 
+The caution severity should be used to convey information that is not critical but the user should be aware of.
+
 <Canvas>
-  <Story name="Caution">
-    <Notification type="caution" status="Blocked:">
-      Custom storage configuration is only supported on Ubuntu, CentOS and RHEL.
-    </Notification>
+  <Story
+    name="Caution"
+    args={{
+      children:
+        "Custom storage configuration is only supported on Ubuntu, CentOS and RHEL.",
+      severity: "caution",
+      title: "Blocked",
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
 ### Negative
 
+The negative severity should be used to convey information that is critical and the user should take action.
+
 <Canvas>
-  <Story name="Negative">
-    <Notification type="negative" status="Error:">
-      Node must be connected to a network.
-    </Notification>
+  <Story
+    name="Negative"
+    args={{
+      children: "Node must be connected to a network.",
+      severity: "negative",
+      title: "Error",
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
 ### Positive
 
+The positive severity should be used to convey success or completion.
+
 <Canvas>
-  <Story name="Positive">
-    <Notification type="positive" status="Success:">
-      Code successfully reformatted.
-    </Notification>
+  <Story
+    name="Positive"
+    args={{
+      children: "Code successfully reformatted.",
+      severity: "positive",
+      title: "Success",
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
-### Information
+### Inline
+
+When vertical space is limited, you can use the inline variant.
 
 <Canvas>
-  <Story name="Information">
-    <Notification type="information" status="Information:">
-      Anyone with access can view your invited users.
-    </Notification>
+  <Story
+    name="Inline"
+    args={{
+      children: "Not enough space.",
+      inline: true,
+      severity: "negative",
+      title: "Error: ",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Borderless
+
+In cases where a notification sits inside another component, such as a table cell or a card, it may be useful to remove the outer border and highlight bar.
+
+<Canvas>
+  <Story
+    name="Borderless"
+    args={{
+      appearance: "borderless",
+      children: "Only 8GB storage remaining.",
+      severity: "caution",
+      title: "Warning",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Modal
+
+Modal notifications should occupy the full width of the page.
+
+<Canvas>
+  <Story
+    name="Modal"
+    args={{
+      appearance: "modal",
+      children: "Your session has expired. Please log in again to continue.",
+      severity: "caution",
+      title: "Signed out",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Raised
+
+Raised notifications should be used when they are overlapping another panel.
+
+<Canvas>
+  <Story
+    name="Raised"
+    args={{
+      appearance: "raised",
+      children:
+        "Body lorem ipsum dolor sit amet consequiteor. Lorem ipsum dolor sit amet consequiteor.",
+      severity: "information",
+      title: "Title",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Actions
+
+Actions will appear below the notification message.
+
+<Canvas>
+  <Story
+    name="Actions"
+    args={{
+      actions: [
+        { label: "Action 1", onClick: () => null },
+        { label: "Action 2", onClick: () => null },
+      ],
+      children:
+        "Body lorem ipsum dolor sit amet consequiteor. Lorem ipsum dolor sit amet consequiteor.",
+      severity: "information",
+      title: "Title",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Dismissible
+
+Notifications that can be dismissed should be given an onDismiss function.
+
+<Canvas>
+  <Story name="Dismissible">
+    {() => {
+      const [show, setShow] = useState(true);
+      if (!show) {
+        return null;
+      }
+      return (
+        <Notification
+          onDismiss={() => setShow(false)}
+          title="Dismissible"
+        >
+          Click the dismiss button to get rid of me.
+        </Notification>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Timeout
+
+Notifications can be automatically dismissed after a timeout interval.
+
+<Canvas>
+  <Story name="Timeout">
+    {() => {
+      const [show, setShow] = useState(true);
+      const [timer, setTimer] = useState(0);
+      if (!show) {
+        return null;
+      }
+      return (
+        <Notification
+          actions={[{ label: "Start timer", onClick: () => setTimer(3000) }]}
+          onDismiss={() => setShow(false)}
+          timeout={timer}
+          title="Timeout"
+        >
+          Click the action to start a 3 second timer.
+        </Notification>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Timestamp
+
+For notifications in which recency is important, you can include a section for time.
+
+<Canvas>
+  <Story
+    name="Timestamp"
+    args={{
+      children:
+        "Body lorem ipsum dolor sit amet consequiteor. Lorem ipsum dolor sit amet consequiteor.",
+      severity: "information",
+      timestamp: "1h ago",
+      title: "Title",
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
