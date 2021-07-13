@@ -41,4 +41,13 @@ describe("Chip ", () => {
     dismissButton.simulate("click");
     expect(onDismiss).toHaveBeenCalledTimes(1);
   });
+
+  it("calls onKeyDown when key pressed", () => {
+    const onClick = jest.fn();
+    const wrapper = mount(<Chip lead="Owner" value="Bob" onClick={onClick} />);
+    const chip = wrapper.find(".p-chip");
+    chip.simulate("keydown", { key: "Enter" });
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(onClick.mock.calls[0]).toEqual([{ lead: "Owner", value: "Bob" }]);
+  });
 });

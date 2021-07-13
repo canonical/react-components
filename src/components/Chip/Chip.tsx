@@ -29,7 +29,7 @@ const Chip = ({
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     // The " " value is what is returned for the spacebar
     if (e.key === " " || e.key === "Enter") {
-      if (onClick instanceof Function) {
+      if (typeof onClick === "function") {
         onClick({ lead: lead, value: value });
       }
     }
