@@ -6,7 +6,7 @@ import type { KeyboardEvent, MouseEvent } from "react";
 export type Props = {
   lead?: string;
   onClick?: (
-    event: MouseEvent<HTMLDivElement> | { lead: string; cloud: string }
+    event: MouseEvent<HTMLDivElement> | { lead: string; value: string }
   ) => void;
   onDismiss?: () => void;
   selected?: boolean;
@@ -29,8 +29,8 @@ const Chip = ({
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     // The " " value is what is returned for the spacebar
     if (e.key === " " || e.key === "Enter") {
-      if (onClick instanceof Function) {
-        onClick({ lead: lead, cloud: value });
+      if (typeof onClick === "function") {
+        onClick({ lead: lead, value: value });
       }
     }
   };
