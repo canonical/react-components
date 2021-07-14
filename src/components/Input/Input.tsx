@@ -1,14 +1,72 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef } from "react";
+import type { InputHTMLAttributes, ReactNode } from "react";
 
 import Field from "../Field";
+
+/**
+ * The props for the Input component.
+ */
+export type Props = {
+  /**
+   * The content for caution validation.
+   */
+  caution?: ReactNode;
+  /**
+   * Optional class(es) to pass to the input element.
+   */
+  className?: string;
+  /**
+   * The content for error validation.
+   */
+  error?: ReactNode;
+  /**
+   * Help text to show below the field.
+   */
+  help?: ReactNode;
+  /**
+   * The id of the input.
+   */
+  id?: string;
+  /**
+   * The label for the field.
+   */
+  label?: ReactNode;
+  /**
+   * Optional class(es) to pass to the label component.
+   */
+  labelClassName?: string;
+  /**
+   * Whether the field is required.
+   */
+  required?: boolean;
+  /**
+   * Whether the form field should have a stacked appearance.
+   */
+  stacked?: boolean;
+  /**
+   * The content for success validation.
+   */
+  success?: ReactNode;
+  /**
+   * Whether to focus on the input on initial render.
+   */
+  takeFocus?: boolean;
+  /**
+   * The type of the input element.
+   */
+  type?: InputHTMLAttributes<HTMLInputElement>["type"];
+  /**
+   * Optional class(es) to pass to the wrapping Field component
+   */
+  wrapperClassName?: string;
+} & InputHTMLAttributes<HTMLInputElement>;
 
 const Input = ({
   caution,
   className,
   error,
-  wrapperClassName,
   help,
   id,
   label,
@@ -18,8 +76,9 @@ const Input = ({
   success,
   takeFocus,
   type,
-  ...props
-}) => {
+  wrapperClassName,
+  ...inputProps
+}: Props): JSX.Element => {
   const inputRef = useRef(null);
   const labelFirst = !["checkbox", "radio"].includes(type);
 
@@ -48,7 +107,7 @@ const Input = ({
         id={id}
         ref={inputRef}
         type={type}
-        {...props}
+        {...inputProps}
       />
     </Field>
   );
@@ -66,9 +125,6 @@ Input.propTypes = {
   required: PropTypes.bool,
   stacked: PropTypes.bool,
   success: PropTypes.node,
-  /**
-   * Focus on the input on first render.
-   */
   takeFocus: PropTypes.bool,
   type: PropTypes.string,
 };

@@ -9,7 +9,7 @@ describe("Select ", () => {
       <Select
         id="test-id"
         options={[
-          { value: "", disabled: "disabled", label: "Select an option" },
+          { value: "", disabled: true, label: "Select an option" },
           { value: "1", label: "Cosmic Cuttlefish" },
           { value: "2", label: "Bionic Beaver" },
           { value: "3", label: "Xenial Xerus" },
