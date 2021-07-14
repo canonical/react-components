@@ -22,7 +22,6 @@ export { default as ModularTable } from "./components/ModularTable";
 export { default as Modal } from "./components/Modal";
 export {
   default as Notification,
-  NotificationAppearance,
   NotificationSeverity,
 } from "./components/Notification";
 export { default as Pagination } from "./components/Pagination";

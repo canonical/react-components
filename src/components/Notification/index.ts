@@ -1,5 +1,1 @@
-export {
-  default,
-  NotificationAppearance,
-  NotificationSeverity,
-} from "./Notification";
+export { default, NotificationSeverity } from "./Notification";

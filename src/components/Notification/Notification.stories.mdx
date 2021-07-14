@@ -2,7 +2,6 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
 
 import Notification, {
-  NotificationAppearance,
   NotificationSeverity,
 } from "./Notification";
 
@@ -10,12 +9,11 @@ import Notification, {
   title="Notification"
   component={Notification}
   argTypes={{
-    appearance: {
+    borderless: {
       control: {
-        type: "radio",
+        type: "boolean",
       },
-      defaultValue: NotificationAppearance.DEFAULT,
-      options: Object.values(NotificationAppearance),
+      defaultValue: false,
     },
     children: {
       control: {
@@ -155,47 +153,10 @@ In cases where a notification sits inside another component, such as a table cel
   <Story
     name="Borderless"
     args={{
-      appearance: "borderless",
+      borderless: true,
       children: "Only 8GB storage remaining.",
       severity: "caution",
       title: "Warning",
-    }}
-  >
-    {Template.bind({})}
-  </Story>
-</Canvas>
-
-### Modal
-
-Modal notifications should occupy the full width of the page.
-
-<Canvas>
-  <Story
-    name="Modal"
-    args={{
-      appearance: "modal",
-      children: "Your session has expired. Please log in again to continue.",
-      severity: "caution",
-      title: "Signed out",
-    }}
-  >
-    {Template.bind({})}
-  </Story>
-</Canvas>
-
-### Raised
-
-Raised notifications should be used when they are overlapping another panel.
-
-<Canvas>
-  <Story
-    name="Raised"
-    args={{
-      appearance: "raised",
-      children:
-        "Body lorem ipsum dolor sit amet consequiteor. Lorem ipsum dolor sit amet consequiteor.",
-      severity: "information",
-      title: "Title",
     }}
   >
     {Template.bind({})}

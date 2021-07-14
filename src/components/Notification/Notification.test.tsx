@@ -1,10 +1,7 @@
 import { mount, shallow } from "enzyme";
 import React from "react";
 
-import Notification, {
-  NotificationAppearance,
-  NotificationSeverity,
-} from "./Notification";
+import Notification, { NotificationSeverity } from "./Notification";
 
 describe("Notification", () => {
   beforeEach(() => {
@@ -53,24 +50,8 @@ describe("Notification", () => {
     const wrapper = shallow(<Notification />);
     expect(wrapper.prop("className").includes("is-borderless")).toBe(false);
 
-    wrapper.setProps({ appearance: NotificationAppearance.BORDERLESS });
+    wrapper.setProps({ borderless: true });
     expect(wrapper.prop("className").includes("is-borderless")).toBe(true);
-  });
-
-  it("can have a modal appearance", () => {
-    const wrapper = shallow(<Notification />);
-    expect(wrapper.prop("className").includes("is-modal")).toBe(false);
-
-    wrapper.setProps({ appearance: NotificationAppearance.MODAL });
-    expect(wrapper.prop("className").includes("is-modal")).toBe(true);
-  });
-
-  it("can have a raised appearance", () => {
-    const wrapper = shallow(<Notification />);
-    expect(wrapper.prop("className").includes("is-raised")).toBe(false);
-
-    wrapper.setProps({ appearance: NotificationAppearance.RAISED });
-    expect(wrapper.prop("className").includes("is-raised")).toBe(true);
   });
 
   it("can be made dismissible", () => {

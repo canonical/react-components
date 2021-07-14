@@ -7,13 +7,6 @@ import Button, { ButtonAppearance } from "../Button";
 
 import type { Values } from "types";
 
-export const NotificationAppearance = {
-  BORDERLESS: "borderless",
-  DEFAULT: "default",
-  MODAL: "modal",
-  RAISED: "raised",
-} as const;
-
 export const NotificationSeverity = {
   CAUTION: "caution",
   INFORMATION: "information",
@@ -35,9 +28,9 @@ export type Props = {
    */
   actions?: readonly [NotificationAction?, NotificationAction?];
   /**
-   * The appearance that the notification should take.
+   * Whether the notification should not have a border.
    */
-  appearance?: Values<typeof NotificationAppearance>;
+  borderless?: boolean;
   /**
    * The notification message content.
    */
@@ -74,7 +67,7 @@ export type Props = {
 
 const Notification = ({
   actions,
-  appearance = NotificationAppearance.DEFAULT,
+  borderless = false,
   children,
   className,
   inline = false,
@@ -101,10 +94,8 @@ const Notification = ({
       className={classNames(className, {
         [`p-notification--${severity}`]: !!severity,
         "p-notification": !severity,
-        "is-borderless": appearance === NotificationAppearance.BORDERLESS,
+        "is-borderless": borderless,
         "is-inline": inline,
-        "is-modal": appearance === NotificationAppearance.MODAL,
-        "is-raised": appearance === NotificationAppearance.RAISED,
       })}
       {...props}
     >
@@ -167,7 +158,7 @@ Notification.propTypes = {
       onClick: PropTypes.func,
     })
   ),
-  appearance: PropTypes.oneOf(Object.values(NotificationAppearance)),
+  borderless: PropTypes.bool,
   children: PropTypes.node,
   className: PropTypes.string,
   inline: PropTypes.bool,
