@@ -1,2 +1,5 @@
-export { default } from "./Notification";
-export { notificationTypes } from "./Notification";
+export {
+  default,
+  NotificationAppearance,
+  NotificationSeverity,
+} from "./Notification";

@@ -4,13 +4,27 @@ import React, { useEffect, useRef } from "react";
 import type { HTMLProps, ReactNode } from "react";
 
 import Button, { ButtonAppearance } from "../Button";
-import type { Props as ButtonProps } from "../Button";
 
-export const notificationTypes = {
+import type { Values } from "types";
+
+export const NotificationAppearance = {
+  BORDERLESS: "borderless",
+  DEFAULT: "default",
+  MODAL: "modal",
+  RAISED: "raised",
+} as const;
+
+export const NotificationSeverity = {
   CAUTION: "caution",
   INFORMATION: "information",
   NEGATIVE: "negative",
   POSITIVE: "positive",
+} as const;
+
+type NotificationAction = {
+  className?: string;
+  label: string;
+  onClick: () => void;
 };
 
 /**
@@ -18,18 +32,13 @@ export const notificationTypes = {
  */
 export type Props = {
   /**
-   * The list of actions that the notification can perform.
+   * A list of up to two actions that the notification can perform.
    */
-  actions?: {
-    appearance?: ButtonProps["appearance"];
-    className?: string;
-    label: string;
-    onClick: () => void;
-  }[];
+  actions?: readonly [NotificationAction?, NotificationAction?];
   /**
-   * Whether the notification should not show a border.
+   * The appearance that the notification should take.
    */
-  appearance?: "borderless" | "default" | "modal" | "raised";
+  appearance?: Values<typeof NotificationAppearance>;
   /**
    * The notification message content.
    */
@@ -49,7 +58,7 @@ export type Props = {
   /**
    * The severity of the notification.
    */
-  severity?: "caution" | "information" | "negative" | "positive";
+  severity?: Values<typeof NotificationSeverity>;
   /**
    * The amount of time (in ms) until the notification is automatically dismissed.
    */
@@ -66,12 +75,12 @@ export type Props = {
 
 const Notification = ({
   actions,
-  appearance = "default",
+  appearance = NotificationAppearance.DEFAULT,
   children,
   className,
   inline = false,
   onDismiss,
-  severity = "information",
+  severity = NotificationSeverity.INFORMATION,
   timeout,
   timestamp,
   title,
@@ -93,10 +102,10 @@ const Notification = ({
       className={classNames(className, {
         [`p-notification--${severity}`]: !!severity,
         "p-notification": !severity,
-        "is-borderless": appearance === "borderless",
+        "is-borderless": appearance === NotificationAppearance.BORDERLESS,
         "is-inline": inline,
-        "is-modal": appearance === "modal",
-        "is-raised": appearance === "raised",
+        "is-modal": appearance === NotificationAppearance.MODAL,
+        "is-raised": appearance === NotificationAppearance.RAISED,
       })}
       {...props}
     >
@@ -106,6 +115,7 @@ const Notification = ({
             {title}
           </h5>
         )}
+        {inline && <>&ensp;</>}
         <p className="p-notification__message">{children}</p>
         {onDismiss && (
           <button
@@ -132,7 +142,7 @@ const Notification = ({
             <div className="p-notification__actions">
               {actions.map((action, i) => (
                 <Button
-                  appearance={action.appearance || ButtonAppearance.LINK}
+                  appearance={ButtonAppearance.LINK}
                   className={classNames(
                     action.className,
                     "p-notification__action"
@@ -161,12 +171,12 @@ Notification.propTypes = {
       onClick: PropTypes.func,
     })
   ),
-  appearance: PropTypes.oneOf(["borderless", "default", "modal", "raised"]),
+  appearance: PropTypes.oneOf(Object.values(NotificationAppearance)),
   children: PropTypes.node,
   className: PropTypes.string,
   inline: PropTypes.bool,
   onDismiss: PropTypes.func,
-  severity: PropTypes.oneOf(["caution", "negative", "positive", "information"]),
+  severity: PropTypes.oneOf(Object.values(NotificationSeverity)),
   timeout: PropTypes.number,
   timestamp: PropTypes.node,
   title: PropTypes.node,

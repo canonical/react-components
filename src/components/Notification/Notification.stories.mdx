@@ -1,16 +1,39 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import { useState } from "react";
 
-import Notification from "./Notification";
+import Notification, {
+  NotificationAppearance,
+  NotificationSeverity,
+} from "./Notification";
 
 <Meta
   title="Notification"
   component={Notification}
   argTypes={{
+    appearance: {
+      control: {
+        type: "radio",
+      },
+      defaultValue: NotificationAppearance.DEFAULT,
+      options: Object.values(NotificationAppearance),
+    },
     children: {
       control: {
         type: "text",
       },
+    },
+    inline: {
+      control: {
+        type: "boolean",
+      },
+      defaultValue: false,
+    },
+    severity: {
+      control: {
+        type: "radio",
+      },
+      defaultValue: NotificationSeverity.INFORMATION,
+      options: Object.values(NotificationSeverity),
     },
     timestamp: {
       control: {
@@ -117,7 +140,7 @@ When vertical space is limited, you can use the inline variant.
       children: "Not enough space.",
       inline: true,
       severity: "negative",
-      title: "Error: ",
+      title: "Error:",
     }}
   >
     {Template.bind({})}
@@ -213,10 +236,7 @@ Notifications that can be dismissed should be given an onDismiss function.
         return null;
       }
       return (
-        <Notification
-          onDismiss={() => setShow(false)}
-          title="Dismissible"
-        >
+        <Notification onDismiss={() => setShow(false)} title="Dismissible">
           Click the dismiss button to get rid of me.
         </Notification>
       );
@@ -268,3 +288,17 @@ For notifications in which recency is important, you can include a section for t
     {Template.bind({})}
   </Story>
 </Canvas>
+
+### Deprecated
+
+The Notification API has changed since v0.18 in order to support new variants
+and align with our component prop naming conventions.
+
+| Deprecated prop names    | Replaced by            |
+| ------------------------ | -----------------------|
+| `type`                   | `severity`             |
+| `status`                 | `title`                |
+| `close`                  | `onDismiss`            |
+
+The `notificationTypes` const has also been replaced with `NotificationSeverity`
+to reflect the new prop name.

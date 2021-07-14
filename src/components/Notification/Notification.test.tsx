@@ -1,7 +1,10 @@
 import { mount, shallow } from "enzyme";
 import React from "react";
 
-import Notification from "./Notification";
+import Notification, {
+  NotificationAppearance,
+  NotificationSeverity,
+} from "./Notification";
 
 describe("Notification", () => {
   beforeEach(() => {
@@ -10,7 +13,10 @@ describe("Notification", () => {
 
   it("renders", () => {
     const wrapper = shallow(
-      <Notification title="Permissions changed">
+      <Notification
+        severity={NotificationSeverity.INFORMATION}
+        title="Permissions changed"
+      >
         Anyone with access can view your invited users.
       </Notification>
     );
@@ -47,7 +53,7 @@ describe("Notification", () => {
     const wrapper = shallow(<Notification />);
     expect(wrapper.prop("className").includes("is-borderless")).toBe(false);
 
-    wrapper.setProps({ appearance: "borderless" });
+    wrapper.setProps({ appearance: NotificationAppearance.BORDERLESS });
     expect(wrapper.prop("className").includes("is-borderless")).toBe(true);
   });
 
@@ -55,7 +61,7 @@ describe("Notification", () => {
     const wrapper = shallow(<Notification />);
     expect(wrapper.prop("className").includes("is-modal")).toBe(false);
 
-    wrapper.setProps({ appearance: "modal" });
+    wrapper.setProps({ appearance: NotificationAppearance.MODAL });
     expect(wrapper.prop("className").includes("is-modal")).toBe(true);
   });
 
@@ -63,7 +69,7 @@ describe("Notification", () => {
     const wrapper = shallow(<Notification />);
     expect(wrapper.prop("className").includes("is-raised")).toBe(false);
 
-    wrapper.setProps({ appearance: "raised" });
+    wrapper.setProps({ appearance: NotificationAppearance.RAISED });
     expect(wrapper.prop("className").includes("is-raised")).toBe(true);
   });
 
