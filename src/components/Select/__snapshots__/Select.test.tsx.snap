@@ -11,7 +11,7 @@ exports[`Select  renders 1`] = `
     onChange={[Function]}
   >
     <option
-      disabled="disabled"
+      disabled={true}
       key="Select an option"
       value=""
     >

@@ -1,18 +1,81 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import type { ReactNode } from "react";
 
 import Label from "../Label";
 import Col from "../Col";
 
-const generateHelp = (help) =>
+/**
+ * The props for the Field component.
+ */
+export type Props = {
+  /**
+   * The content for caution validation.
+   */
+  caution?: ReactNode;
+  /**
+   * The content of the Field component.
+   */
+  children?: ReactNode;
+  /**
+   * Optional class(es) to pass to the Field wrapper div.
+   */
+  className?: string;
+  /**
+   * The content for error validation.
+   */
+  error?: ReactNode;
+  /**
+   * The id of the input this Field component is controlling.
+   */
+  forId?: string;
+  /**
+   * Help text to show below the field.
+   */
+  help?: ReactNode;
+  /**
+   * Whether the component is wrapping a select element.
+   */
+  isSelect?: boolean;
+  /**
+   * The label for the field.
+   */
+  label?: ReactNode;
+  /**
+   * Optional class(es) to pass to the label component.
+   */
+  labelClassName?: string;
+  /**
+   * Whether the label should show before the input.
+   */
+  labelFirst?: boolean;
+  /**
+   * Whether the field is required.
+   */
+  required?: boolean;
+  /**
+   * Whether the form field should have a stacked appearance.
+   */
+  stacked?: boolean;
+  /**
+   * The content for success validation.
+   */
+  success?: ReactNode;
+};
+
+const generateHelp = (help: Props["help"]) =>
   help && <p className="p-form-help-text">{help}</p>;
 
-const generateError = (error, caution, success) => {
+const generateError = (
+  error: Props["error"],
+  caution: Props["caution"],
+  success: Props["success"]
+) => {
   if (!error && !caution && !success) {
-    return;
+    return null;
   }
-  let messageType =
+  const messageType =
     (error && "Error") || (caution && "Caution") || (success && "Success");
   return (
     <p className="p-form-validation__message">
@@ -21,9 +84,15 @@ const generateError = (error, caution, success) => {
   );
 };
 
-const generateLabel = (forId, required, label, labelClassName, stacked) => {
+const generateLabel = (
+  forId: Props["forId"],
+  required: Props["required"],
+  label: Props["label"],
+  labelClassName: Props["labelClassName"],
+  stacked: Props["stacked"]
+) => {
   if (!label) {
-    return;
+    return null;
   }
   const labelNode = (
     <Label className={labelClassName} forId={forId} required={required}>
@@ -37,14 +106,14 @@ const generateLabel = (forId, required, label, labelClassName, stacked) => {
 };
 
 const generateContent = (
-  isSelect,
-  children,
-  labelFirst,
-  labelNode,
-  help,
-  error,
-  caution,
-  success
+  isSelect: Props["isSelect"],
+  children: Props["children"],
+  labelFirst: Props["labelFirst"],
+  labelNode: JSX.Element | null,
+  help: Props["help"],
+  error: Props["error"],
+  caution: Props["caution"],
+  success: Props["success"]
 ) => (
   <div className="p-form__control u-clearfix">
     {isSelect ? (
@@ -72,9 +141,7 @@ const Field = ({
   required,
   stacked,
   success,
-  type,
-  ...props
-}) => {
+}: Props): JSX.Element => {
   const labelNode = generateLabel(
     forId,
     required,
