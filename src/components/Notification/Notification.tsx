@@ -22,7 +22,6 @@ export const NotificationSeverity = {
 } as const;
 
 type NotificationAction = {
-  className?: string;
   label: string;
   onClick: () => void;
 };
@@ -143,10 +142,7 @@ const Notification = ({
               {actions.map((action, i) => (
                 <Button
                   appearance={ButtonAppearance.LINK}
-                  className={classNames(
-                    action.className,
-                    "p-notification__action"
-                  )}
+                  className="p-notification__action"
                   data-test="notification-action"
                   key={`${action.label}-${i}`}
                   onClick={action.onClick}
