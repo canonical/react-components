@@ -5,7 +5,7 @@ import { compareJSX } from "../../testing/utils";
 import List from "./List";
 
 describe("List ", () => {
-  let items;
+  let items: string[];
 
   beforeEach(() => {
     items = ["test", "items", "here"];

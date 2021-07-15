@@ -21,15 +21,14 @@ exports[`SearchBox  renders 1`] = `
     type="search"
   />
   <button
-    alt="search"
     className="p-search-box__button"
     type="submit"
   >
-    <i
-      className="p-icon--search"
+    <Icon
+      name="search"
     >
       Search
-    </i>
+    </Icon>
   </button>
 </form>
 `;

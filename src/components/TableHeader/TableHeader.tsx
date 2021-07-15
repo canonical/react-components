@@ -1,12 +1,14 @@
 import PropTypes from "prop-types";
 import React, { HTMLProps, ReactNode } from "react";
 
+import { SortDirection } from "types";
+
 export type Props = {
-  children: ReactNode;
+  children?: ReactNode;
   /**
    * @defaultValue none
    */
-  sort?: "none" | "ascending" | "descending";
+  sort?: SortDirection;
 } & HTMLProps<HTMLTableHeaderCellElement>;
 
 /**

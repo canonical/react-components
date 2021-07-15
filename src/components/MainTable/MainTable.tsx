@@ -1,13 +1,112 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
+import type { HTMLProps, ReactNode } from "react";
 
+import type { SortDirection } from "types";
 import Pagination from "../Pagination";
 import Table from "../Table";
+import type { Props as TableProps } from "../Table/Table";
 import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
+import type { Props as TableCellProps } from "../TableCell/TableCell";
 
-const updateSort = (setSortKey, setSortDirection, sortKey, sortDirection) => {
+export type MainTableHeader = {
+  /**
+   * The content of the table header.
+   */
+  content?: ReactNode;
+  /**
+   * Optional classes to apply to the table header.
+   */
+  className?: string;
+  /**
+   * A key to sort the rows by. It should match a key given to the row `sortData`.
+   */
+  sortKey?: string;
+} & HTMLProps<HTMLTableHeaderCellElement>;
+
+export type MainTableCell = {
+  /**
+   * The content of the table cell.
+   */
+  content?: ReactNode;
+} & Omit<TableCellProps, "children" | "content">;
+
+export type MainTableRow = {
+  /**
+   * The columns in this row.
+   */
+  columns?: MainTableCell[];
+  /**
+   * Whether this row should display as expanded.
+   */
+  expanded?: boolean;
+  /**
+   * The content to display when this column is expanded.
+   */
+  expandedContent?: ReactNode;
+  /**
+   * An optional key to identify this table row.
+   */
+  key?: number | string;
+  /**
+   * An object of data for use when sorting the rows. The keys of this object
+   * should match the header sort keys.
+   */
+  sortData?: Record<MainTableHeader["sortKey"], unknown>;
+} & HTMLProps<HTMLTableRowElement>;
+
+export type Props = {
+  /**
+   * The default key to sort the rows by.
+   */
+  defaultSort?: MainTableHeader["sortKey"];
+  /**
+   * The default direction the row data should be sorted by.
+   */
+  defaultSortDirection?: SortDirection;
+  /**
+   * A message to display when there are no table rows.
+   */
+  emptyStateMsg?: ReactNode;
+  /**
+   * The header columns for this table.
+   */
+  headers?: MainTableHeader[];
+  /**
+   * A function that is called when the sort key is changed.
+   */
+  onUpdateSort?: (sortKey: MainTableHeader["sortKey"]) => void;
+  /**
+   * A number of rows to paginate by.
+   */
+  paginate?: number;
+  /**
+   * The rows to display in the table.
+   */
+  rows?: MainTableRow[];
+  /**
+   * Whether this table should be sortable.
+   */
+  sortable?: boolean;
+  /**
+   * A function to be used when sorting.
+   */
+  sortFunction?: (
+    a: MainTableRow,
+    b: MainTableRow,
+    currentSortDirection: SortDirection,
+    currentSortKey: MainTableHeader["sortKey"]
+  ) => -1 | 0 | 1;
+} & Omit<TableProps, "children" | "headers" | "rows">;
+
+const updateSort = (
+  setSortKey: (sortKey: MainTableHeader["sortKey"]) => void,
+  setSortDirection: (direction: SortDirection) => void,
+  sortKey: MainTableHeader["sortKey"],
+  sortDirection: SortDirection
+) => {
   let newDirection = null;
   if (sortDirection === "none") {
     newDirection = "ascending";
@@ -21,16 +120,16 @@ const updateSort = (setSortKey, setSortDirection, sortKey, sortDirection) => {
 };
 
 const generateHeaders = (
-  currentSortKey,
-  currentSortDirection,
-  expanding,
-  headers,
-  sortable,
-  setSortKey,
-  setSortDirection
+  currentSortKey: MainTableHeader["sortKey"],
+  currentSortDirection: SortDirection,
+  expanding: Props["expanding"],
+  headers: Props["headers"],
+  sortable: Props["sortable"],
+  setSortKey: (sortKey: MainTableHeader["sortKey"]) => void,
+  setSortDirection: (direction: SortDirection) => void
 ) => {
   const headerItems = headers.map(({ content, sortKey, ...props }, index) => {
-    let sortDirection;
+    let sortDirection: SortDirection;
     if (sortable && sortKey) {
       if (currentSortKey === sortKey) {
         sortDirection = currentSortDirection;
@@ -71,16 +170,16 @@ const generateHeaders = (
 };
 
 const generateRows = (
-  currentSortDirection,
-  currentSortKey,
-  emptyStateMsg,
-  expanding,
-  paginate,
-  rows,
-  currentPage,
-  setCurrentPage,
-  sortable,
-  sortFunction
+  currentSortDirection: SortDirection,
+  currentSortKey: MainTableHeader["sortKey"],
+  emptyStateMsg: ReactNode,
+  expanding: Props["expanding"],
+  paginate: Props["paginate"],
+  rows: Props["rows"],
+  currentPage: number,
+  setCurrentPage: (page: number) => void,
+  sortable: Props["sortable"],
+  sortFunction: Props["sortFunction"]
 ) => {
   // If the table has no rows, return empty state message
   if (Object.entries(rows).length === 0 && emptyStateMsg) {
@@ -108,7 +207,7 @@ const generateRows = (
   }
   let slicedRows = sortedRows;
   if (paginate) {
-    let startIndex = (currentPage - 1) * paginate;
+    const startIndex = (currentPage - 1) * paginate;
     if (startIndex > rows.length) {
       // If the rows have changed e.g. when filtering and the user is on a page
       // that no longer exists then send them to the start.
@@ -162,7 +261,7 @@ const MainTable = ({
   sortable,
   sortFunction,
   ...props
-}) => {
+}: Props): JSX.Element => {
   const [currentSortKey, setSortKey] = useState(defaultSort);
   const [currentSortDirection, setSortDirection] =
     useState(defaultSortDirection);
@@ -178,7 +277,7 @@ const MainTable = ({
     setSortDirection(defaultSortDirection);
   }, [defaultSortDirection]);
 
-  const updateSort = (newSort) => {
+  const updateSort = (newSort: MainTableHeader["sortKey"]) => {
     setSortKey(newSort);
     onUpdateSort && onUpdateSort(newSort);
   };
@@ -186,7 +285,7 @@ const MainTable = ({
   return (
     <>
       <Table expanding={expanding} responsive={responsive} {...props}>
-        {headers &&
+        {!!headers &&
           generateHeaders(
             currentSortKey,
             currentSortDirection,
@@ -196,7 +295,7 @@ const MainTable = ({
             updateSort,
             setSortDirection
           )}
-        {rows &&
+        {!!rows &&
           generateRows(
             currentSortDirection,
             currentSortKey,

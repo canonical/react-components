@@ -1,8 +1,14 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import type { HTMLProps, ReactNode } from "react";
 
-const Row = ({ children, className, ...props }) => (
+type Props = {
+  children: ReactNode;
+  className?: string;
+} & HTMLProps<HTMLDivElement>;
+
+const Row = ({ children, className, ...props }: Props): JSX.Element => (
   <div className={classNames(className, "row")} {...props}>
     {children}
   </div>
