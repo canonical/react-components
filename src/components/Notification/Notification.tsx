@@ -41,7 +41,7 @@ export type Props = {
    */
   className?: string;
   /**
-   * Deprecated. Use `onDismiss` instead.
+   * **Deprecated**. Use `onDismiss` instead.
    */
   close?: never;
   /**
@@ -57,7 +57,7 @@ export type Props = {
    */
   severity?: ValueOf<typeof NotificationSeverity>;
   /**
-   * Deprecated. Use `title` instead.
+   * **Deprecated**. Use `title` instead.
    */
   status?: never;
   /**
@@ -73,7 +73,7 @@ export type Props = {
    */
   title?: ReactNode;
   /**
-   * Deprecated. Use `severity` instead.
+   * **Deprecated**. Use `severity` instead.
    */
   type?: never;
 } & HTMLProps<HTMLDivElement>;
