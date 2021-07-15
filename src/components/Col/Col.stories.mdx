@@ -12,6 +12,14 @@ import Row from "../Row";
         type: "text",
       },
     },
+    size: {
+      control: {
+        type: "range",
+        min: 1,
+        max: 12,
+        step: 1,
+      },
+    },
   }}
 />
 
@@ -191,7 +199,7 @@ Vanilla has a responsive grid using a combination of rows and columns.
         <Col size={7}>.col-7</Col>
         <Col size={4}>
           <Row>
-            <Col size={3} emptyLarge="2">
+            <Col size={3} emptyLarge={2}>
               col-3 col-start-large-2 inside col-4
             </Col>
           </Row>

@@ -1,17 +1,27 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import type { HTMLProps, ReactNode } from "react";
+
+export type Props = {
+  children: ReactNode;
+  className?: string;
+  external?: boolean;
+  inverted?: boolean;
+  soft?: boolean;
+  top?: boolean;
+} & HTMLProps<HTMLAnchorElement>;
 
 const Link = ({
   children,
   className,
-  external,
+  external = false,
   href = "#",
-  inverted,
-  soft,
-  top,
+  inverted = false,
+  soft = false,
+  top = false,
   ...props
-}) => {
+}: Props): JSX.Element => {
   const link = (
     <a
       className={classNames(className, {

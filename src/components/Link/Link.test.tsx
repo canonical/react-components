@@ -10,17 +10,17 @@ describe("Link ", () => {
   });
 
   it("can be an external link", () => {
-    const wrapper = shallow(<Link external={true} />);
+    const wrapper = shallow(<Link external={true}>Test content</Link>);
     expect(wrapper.prop("className").includes("p-link--external")).toBe(true);
   });
 
   it("can be an inverted link", () => {
-    const wrapper = shallow(<Link inverted={true} />);
+    const wrapper = shallow(<Link inverted={true}>Test content</Link>);
     expect(wrapper.prop("className").includes("p-link--inverted")).toBe(true);
   });
 
   it("can be a soft link", () => {
-    const wrapper = shallow(<Link soft={true} />);
+    const wrapper = shallow(<Link soft={true}>Test content</Link>);
     expect(wrapper.prop("className").includes("p-link--soft")).toBe(true);
   });
 
@@ -30,7 +30,11 @@ describe("Link ", () => {
   });
 
   it("can add additional classes", () => {
-    const wrapper = shallow(<Link soft={true} className="extra-class" />);
+    const wrapper = shallow(
+      <Link soft={true} className="extra-class">
+        Test content
+      </Link>
+    );
     const className = wrapper.prop("className");
     expect(className.includes("p-link--soft")).toBe(true);
     expect(className.includes("extra-class")).toBe(true);
