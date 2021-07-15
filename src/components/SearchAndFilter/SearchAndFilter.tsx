@@ -3,13 +3,29 @@ import PropTypes from "prop-types";
 
 import FilterPanelSection from "./FilterPanelSection";
 import Chip from "../Chip";
-import { overflowingChipsCount, isChipInArray } from "./shared";
+import { overflowingChipsCount, isChipInArray } from "./utils";
+import type { SearchAndFilterChip, SearchAndFilterData } from "./types";
+
+export type Props = {
+  /**
+   * A list of chips to initialise inside the input.
+   */
+  existingSearchData?: SearchAndFilterChip[];
+  /**
+   * The data for the filter panel.
+   */
+  filterPanelData: SearchAndFilterData[];
+  /**
+   * A function that is called when the search data changes.
+   */
+  returnSearchData: (searchData: SearchAndFilterChip[]) => void;
+};
 
 const SearchAndFilter = ({
-  filterPanelData = [],
-  returnSearchData,
   existingSearchData = [],
-}) => {
+  filterPanelData,
+  returnSearchData,
+}: Props): JSX.Element => {
   const [searchData, setSearchData] = useState(existingSearchData);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterPanelHidden, setFilterPanelHidden] = useState(true);
@@ -83,7 +99,7 @@ const SearchAndFilter = ({
   }, []);
 
   // Add passed chip to the searchData array
-  const toggleSelected = (chip) => {
+  const toggleSelected = (chip: SearchAndFilterChip) => {
     const currentSelected = [...searchData];
     if (!isChipInArray(chip, currentSelected)) {
       currentSelected.push(chip);
@@ -100,7 +116,7 @@ const SearchAndFilter = ({
   };
 
   // Remove passed chip from the searchData array
-  const removeFromSelected = (chip) => {
+  const removeFromSelected = (chip: SearchAndFilterChip) => {
     if (searchData.includes(chip)) {
       const updatedSelected = searchData.filter(
         (searchDataChip) => searchDataChip !== chip
@@ -227,7 +243,7 @@ const SearchAndFilter = ({
           className="p-search-and-filter__box"
           onSubmit={(e) => {
             e.preventDefault();
-            handleSubmit(e);
+            handleSubmit();
           }}
           data-overflowing={searchBoxExpanded}
           ref={searchBoxRef}
@@ -255,7 +271,7 @@ const SearchAndFilter = ({
             onClick={() => setSearchBoxExpanded(true)}
             onKeyDown={() => setSearchBoxExpanded(true)}
             role="button"
-            tabIndex="0"
+            tabIndex={0}
           >
             +{overflowSearchTermCounter}
           </span>
@@ -273,7 +289,7 @@ const SearchAndFilter = ({
                 onClick={() => handleSubmit()}
                 onKeyDown={(e) => searchPromptKeyDown(e)}
                 role="button"
-                tabIndex="0"
+                tabIndex={0}
               >
                 Search for <strong>{searchTerm}</strong>...
               </div>
