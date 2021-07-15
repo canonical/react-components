@@ -174,10 +174,8 @@ const Notification = ({
 Notification.propTypes = {
   actions: PropTypes.arrayOf(
     PropTypes.shape({
-      appearance: PropTypes.string,
-      className: PropTypes.string,
-      label: PropTypes.string,
-      onClick: PropTypes.func,
+      label: PropTypes.string.isRequired,
+      onClick: PropTypes.func.isRequired,
     })
   ),
   borderless: PropTypes.bool,
