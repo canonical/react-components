@@ -2,11 +2,13 @@ import { mount, shallow } from "enzyme";
 import React from "react";
 
 import MainTable from "./MainTable";
+import type { MainTableHeader, MainTableRow } from "./MainTable";
 import TableCell from "../TableCell";
 import { compareJSX } from "../../testing/utils";
 
 describe("MainTable", () => {
-  let headers, rows;
+  let headers: MainTableHeader[];
+  let rows: MainTableRow[];
 
   beforeEach(() => {
     headers = [
