@@ -8,18 +8,57 @@ import type { ColSize } from "../Col/Col";
 import Row from "../Row";
 
 export type Props = {
+  /**
+   * The content of the strip.
+   */
   children: ReactNode;
+  /**
+   * A background images for the strip.
+   */
   background?: string;
+  /**
+   * Whether the strip should display borders.
+   */
   bordered?: boolean;
+  /**
+   * Optional classes for the strip.
+   */
   className?: string;
+  /**
+   * The width of the column if `includeCol` has been set.
+   */
   colSize?: ColSize;
+  /**
+   * Whether the strip should be dark.
+   */
   dark?: boolean;
+  /**
+   * Whether the strip should be deep.
+   */
   deep?: boolean;
+  /**
+   * The base HTML element of the strip.
+   */
   element?: ElementType;
+  /**
+   * Whether the strip should wrap the content in a column.
+   */
   includeCol?: boolean;
+  /**
+   * Whether the strip should be light.
+   */
   light?: boolean;
+  /**
+   * Optional classes to apply to the row.
+   */
   rowClassName?: string;
+  /**
+   * Whether the strip should be shallow.
+   */
   shallow?: boolean;
+  /**
+   * The type of the strip (e.g. "accent" or "image").
+   */
   type?: string;
 } & HTMLProps<HTMLElement>;
 
