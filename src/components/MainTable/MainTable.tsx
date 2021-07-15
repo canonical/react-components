@@ -12,32 +12,87 @@ import TableCell from "../TableCell";
 import type { Props as TableCellProps } from "../TableCell/TableCell";
 
 export type MainTableHeader = {
+  /**
+   * The content of the table header.
+   */
   content?: ReactNode;
+  /**
+   * Optional classes to apply to the table header.
+   */
   className?: string;
+  /**
+   * A key to sort the rows by. It should match a key given to the row `sortData`.
+   */
   sortKey?: string;
 } & HTMLProps<HTMLTableHeaderCellElement>;
 
 export type MainTableCell = {
+  /**
+   * The content of the table cell.
+   */
   content?: ReactNode;
 } & Omit<TableCellProps, "children" | "content">;
 
 export type MainTableRow = {
+  /**
+   * The columns in this row.
+   */
   columns?: MainTableCell[];
+  /**
+   * Whether this row should display as expanded.
+   */
   expanded?: boolean;
+  /**
+   * The content to display when this column is expanded.
+   */
   expandedContent?: ReactNode;
+  /**
+   * An optional key to identify this table row.
+   */
   key?: number | string;
+  /**
+   * An object of data for use when sorting the rows. The keys of this object
+   * should match the header sort keys.
+   */
   sortData?: Record<MainTableHeader["sortKey"], unknown>;
 } & HTMLProps<HTMLTableRowElement>;
 
 export type Props = {
+  /**
+   * The default key to sort the rows by.
+   */
   defaultSort?: MainTableHeader["sortKey"];
+  /**
+   * The default direction the row data should be sorted by.
+   */
   defaultSortDirection?: SortDirection;
+  /**
+   * A message to display when there are no table rows.
+   */
   emptyStateMsg?: ReactNode;
+  /**
+   * The header columns for this table.
+   */
   headers?: MainTableHeader[];
-  onUpdateSort?: (newSort: SortDirection) => void;
+  /**
+   * A function that is called when the sort key is changed.
+   */
+  onUpdateSort?: (sortKey: MainTableHeader["sortKey"]) => void;
+  /**
+   * A number of rows to paginate by.
+   */
   paginate?: number;
+  /**
+   * The rows to display in the table.
+   */
   rows?: MainTableRow[];
+  /**
+   * Whether this table should be sortable.
+   */
   sortable?: boolean;
+  /**
+   * A function to be used when sorting.
+   */
   sortFunction?: (
     a: MainTableRow,
     b: MainTableRow,
@@ -222,7 +277,7 @@ const MainTable = ({
     setSortDirection(defaultSortDirection);
   }, [defaultSortDirection]);
 
-  const updateSort = (newSort) => {
+  const updateSort = (newSort: MainTableHeader["sortKey"]) => {
     setSortKey(newSort);
     onUpdateSort && onUpdateSort(newSort);
   };
