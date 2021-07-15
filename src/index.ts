@@ -20,8 +20,10 @@ export { default as Loader } from "./components/Loader";
 export { default as MainTable } from "./components/MainTable";
 export { default as ModularTable } from "./components/ModularTable";
 export { default as Modal } from "./components/Modal";
-export { default as Notification } from "./components/Notification";
-export { notificationTypes } from "./components/Notification";
+export {
+  default as Notification,
+  NotificationSeverity,
+} from "./components/Notification";
 export { default as Pagination } from "./components/Pagination";
 export { default as RadioInput } from "./components/RadioInput";
 export { default as Row } from "./components/Row";
