@@ -1,26 +1,44 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
+import type { ElementType, HTMLProps, ReactNode } from "react";
 
 import Col, { colSizes } from "../Col";
+import type { ColSize } from "../Col/Col";
 import Row from "../Row";
+
+export type Props = {
+  children: ReactNode;
+  background?: string;
+  bordered?: boolean;
+  className?: string;
+  colSize?: ColSize;
+  dark?: boolean;
+  deep?: boolean;
+  element?: ElementType;
+  includeCol?: boolean;
+  light?: boolean;
+  rowClassName?: string;
+  shallow?: boolean;
+  type?: string;
+} & HTMLProps<HTMLElement>;
 
 const Strip = ({
   background,
-  bordered,
+  bordered = false,
   children,
   className,
   colSize = 12,
-  dark,
-  deep,
+  dark = false,
+  deep = false,
   includeCol = true,
   element: Component = "div",
-  light,
+  light = false,
   rowClassName,
-  shallow,
+  shallow = false,
   type,
   ...props
-}) => (
+}: Props): JSX.Element => (
   <Component
     className={classNames(className, {
       [`p-strip--${type}`]: !!type,
