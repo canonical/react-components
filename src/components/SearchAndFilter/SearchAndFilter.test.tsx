@@ -49,12 +49,9 @@ describe("Search and filter", () => {
   });
 
   it("shows panel on focus", () => {
-    const mockOnChange = jest.fn();
     const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
-        externallyControlled
-        onChange={mockOnChange}
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
@@ -69,12 +66,9 @@ describe("Search and filter", () => {
   });
 
   it("shows panel on click", () => {
-    const mockOnChange = jest.fn();
     const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
-        externallyControlled
-        onChange={mockOnChange}
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
@@ -89,7 +83,6 @@ describe("Search and filter", () => {
   });
 
   it("should hide chip overflow counter when none overflow", () => {
-    const mockOnChange = jest.fn();
     const returnSearchData = jest.fn();
     // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
     // of the chips
@@ -103,8 +96,6 @@ describe("Search and filter", () => {
     });
     const wrapper = mount(
       <SearchAndFilter
-        externallyControlled
-        onChange={mockOnChange}
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
@@ -128,7 +119,6 @@ describe("Search and filter", () => {
     const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
-        externallyControlled
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
@@ -157,7 +147,6 @@ describe("Search and filter", () => {
     const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
-        externallyControlled
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
@@ -184,7 +173,6 @@ describe("Search and filter", () => {
     const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
-        externallyControlled
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
@@ -205,7 +193,6 @@ describe("Search and filter", () => {
     const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
-        externallyControlled
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
@@ -222,7 +209,6 @@ describe("Search and filter", () => {
     const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
-        externallyControlled
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
@@ -242,7 +228,6 @@ describe("Search and filter", () => {
     const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
-        externallyControlled
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
@@ -261,7 +246,6 @@ describe("Search and filter", () => {
     const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
-        externallyControlled
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
         existingSearchData={[{ lead: "Cloud", value: "Google" }]}
@@ -281,7 +265,6 @@ describe("Search and filter", () => {
     const returnSearchData = jest.fn();
     const wrapper = mount(
       <SearchAndFilter
-        externallyControlled
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
         existingSearchData={[

@@ -1,16 +1,40 @@
 import React, { useEffect, useRef, useState } from "react";
 import PropTypes from "prop-types";
 import Chip from "../../Chip";
-import { overflowingChipsCount, isChipInArray } from "../shared";
+import { overflowingChipsCount, isChipInArray } from "../utils";
 import { highlightSubString } from "../../../utils";
+import type { SearchAndFilterChip, SearchAndFilterData } from "../types";
+
+export type Props = {
+  /**
+   * The chip data to display in the panel.
+   */
+  data: SearchAndFilterData;
+  /**
+   * The current search chips.
+   */
+  searchData: SearchAndFilterChip[];
+  /**
+   * A search string.
+   */
+  searchTerm: string;
+  /**
+   * Whether the chips should be hidden.
+   */
+  sectionHidden?: boolean;
+  /**
+   * A function to toggle whether a chip is selected.
+   */
+  toggleSelected: (chip: SearchAndFilterChip) => void;
+};
 
 const FilterPanelSection = ({
   data,
-  toggleSelected,
   searchData,
   searchTerm = "",
   sectionHidden,
-}) => {
+  toggleSelected,
+}: Props): JSX.Element => {
   const { chips, heading } = data;
   const [overflowCounter, setOverflowCounter] = useState(0);
   const [expanded, setExpanded] = useState(false);
@@ -32,7 +56,7 @@ const FilterPanelSection = ({
   const searchTermInHeading = highlightSubString(heading, searchTerm).match;
 
   // Serialise chip values into string so it can be interrogated with subString
-  let chipValues = [];
+  const chipValues = [];
   Object.entries(chips).forEach((chipValue) => {
     chipValues.push(chipValue[1].value);
   });
@@ -50,7 +74,7 @@ const FilterPanelSection = ({
   useEffect(() => {
     const resizeObserverSupported = typeof ResizeObserver !== "undefined";
     const wrapper = chipWrapper?.current;
-    let wrapperWidthObserver;
+    let wrapperWidthObserver: ResizeObserver;
     if (resizeObserverSupported && panelSectionVisible) {
       wrapperWidthObserver = new ResizeObserver(() => {
         updateFlowCount();
@@ -116,7 +140,7 @@ const FilterPanelSection = ({
                 className="p-filter-panel-section__counter"
                 onClick={showAllChips}
                 onKeyPress={showAllChips}
-                tabIndex="0"
+                tabIndex={0}
               >
                 +{overflowCounter}
               </span>

@@ -4,18 +4,33 @@ import React from "react";
 import FilterPanelSection from "./FilterPanelSection";
 
 const sampleData = {
+  id: 1,
   heading: "Regions",
   chips: [{ value: "us-east1" }, { value: "us-east2" }, { value: "us-east3" }],
 };
 
 describe("Filter panel section", () => {
   it("renders", () => {
-    const wrapper = shallow(<FilterPanelSection data={sampleData} />);
+    const wrapper = shallow(
+      <FilterPanelSection
+        searchData={[]}
+        searchTerm=""
+        toggleSelected={jest.fn()}
+        data={sampleData}
+      />
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
   it("shows correct data passed as prop", () => {
-    const wrapper = mount(<FilterPanelSection data={sampleData} />);
+    const wrapper = mount(
+      <FilterPanelSection
+        searchData={[]}
+        searchTerm=""
+        toggleSelected={jest.fn()}
+        data={sampleData}
+      />
+    );
     expect(wrapper.find(".p-filter-panel-section").length).toEqual(1);
     const section = wrapper.find(".p-filter-panel-section");
     const chips = wrapper.find(".p-chip");
@@ -38,7 +53,14 @@ describe("Filter panel section", () => {
       configurable: true,
       value: 40,
     });
-    const wrapper = mount(<FilterPanelSection data={sampleData} />);
+    const wrapper = mount(
+      <FilterPanelSection
+        searchData={[]}
+        searchTerm=""
+        toggleSelected={jest.fn()}
+        data={sampleData}
+      />
+    );
     expect(wrapper.find(".p-filter-panel-section__counter").length).toEqual(0);
   });
 
@@ -53,7 +75,14 @@ describe("Filter panel section", () => {
       configurable: true,
       value: 100,
     });
-    const wrapper = mount(<FilterPanelSection data={sampleData} />);
+    const wrapper = mount(
+      <FilterPanelSection
+        searchData={[]}
+        searchTerm=""
+        toggleSelected={jest.fn()}
+        data={sampleData}
+      />
+    );
     expect(wrapper.find(".p-filter-panel-section__counter").text()).toEqual(
       "+3"
     );
@@ -61,7 +90,13 @@ describe("Filter panel section", () => {
 
   it("all chips are shown when counter is clicked", () => {
     const wrapper = mount(
-      <FilterPanelSection data={sampleData} sectionHidden={false} />
+      <FilterPanelSection
+        searchData={[]}
+        searchTerm=""
+        toggleSelected={jest.fn()}
+        data={sampleData}
+        sectionHidden={false}
+      />
     );
     expect(wrapper.find("[aria-expanded=false]").length).toEqual(1);
     wrapper.find(".p-filter-panel-section__counter").simulate("click");
