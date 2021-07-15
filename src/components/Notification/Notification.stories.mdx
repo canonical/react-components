@@ -58,6 +58,20 @@ Notifications are used to display global information, our notification variants 
 
 <ArgsTable of={Notification} />
 
+#### Deprecated
+
+The Notification API has changed since v0.18 in order to support new variants
+and align with our component prop naming conventions.
+
+| Deprecated prop names    | Replaced by            |
+| ------------------------ | -----------------------|
+| `type`                   | `severity`             |
+| `status`                 | `title`                |
+| `close`                  | `onDismiss`            |
+
+The `notificationTypes` const has also been replaced with `NotificationSeverity`
+to reflect the new prop name.
+
 ### Information
 
 The information severity should be used to convey an information message.
@@ -249,17 +263,3 @@ For notifications in which recency is important, you can include a section for t
     {Template.bind({})}
   </Story>
 </Canvas>
-
-### Deprecated
-
-The Notification API has changed since v0.18 in order to support new variants
-and align with our component prop naming conventions.
-
-| Deprecated prop names    | Replaced by            |
-| ------------------------ | -----------------------|
-| `type`                   | `severity`             |
-| `status`                 | `title`                |
-| `close`                  | `onDismiss`            |
-
-The `notificationTypes` const has also been replaced with `NotificationSeverity`
-to reflect the new prop name.
