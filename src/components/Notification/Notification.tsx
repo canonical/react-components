@@ -4,8 +4,9 @@ import React, { useEffect, useRef } from "react";
 import type { HTMLProps, ReactNode } from "react";
 
 import Button, { ButtonAppearance } from "../Button";
+import { IS_DEV } from "../../utils";
 
-import type { Values } from "types";
+import type { ValueOf } from "types";
 
 export const NotificationSeverity = {
   CAUTION: "caution",
@@ -40,6 +41,10 @@ export type Props = {
    */
   className?: string;
   /**
+   * Deprecated. Use `onDismiss` instead.
+   */
+  close?: never;
+  /**
    * Whether the title should display inline with the message.
    */
   inline?: boolean;
@@ -50,7 +55,11 @@ export type Props = {
   /**
    * The severity of the notification.
    */
-  severity?: Values<typeof NotificationSeverity>;
+  severity?: ValueOf<typeof NotificationSeverity>;
+  /**
+   * Deprecated. Use `title` instead.
+   */
+  status?: never;
   /**
    * The amount of time (in ms) until the notification is automatically dismissed.
    */
@@ -63,6 +72,10 @@ export type Props = {
    * The title of the notification.
    */
   title?: ReactNode;
+  /**
+   * Deprecated. Use `severity` instead.
+   */
+  type?: never;
 } & HTMLProps<HTMLDivElement>;
 
 const Notification = ({
@@ -70,12 +83,15 @@ const Notification = ({
   borderless = false,
   children,
   className,
+  close,
   inline = false,
   onDismiss,
   severity = NotificationSeverity.INFORMATION,
+  status,
   timeout,
   timestamp,
   title,
+  type,
   ...props
 }: Props): JSX.Element => {
   const timeoutId = useRef(null);
@@ -88,6 +104,12 @@ const Notification = ({
     }
     return () => clearTimeout(timeoutId.current);
   }, [onDismiss, timeout]);
+
+  if (IS_DEV && (close || status || type)) {
+    console.warn(
+      "The Notification component is using deprecated props. Refer to the deprecated list for details: https://canonical-web-and-design.github.io/react-components/?path=/docs/notification--information#deprecated"
+    );
+  }
 
   return (
     <div
@@ -161,12 +183,15 @@ Notification.propTypes = {
   borderless: PropTypes.bool,
   children: PropTypes.node,
   className: PropTypes.string,
+  close: PropTypes.func, // Deprecated
   inline: PropTypes.bool,
   onDismiss: PropTypes.func,
   severity: PropTypes.oneOf(Object.values(NotificationSeverity)),
+  status: PropTypes.node, // Deprecated
   timeout: PropTypes.number,
   timestamp: PropTypes.node,
   title: PropTypes.node,
+  type: PropTypes.oneOf(Object.values(NotificationSeverity)), // Deprecated
 };
 
 export default Notification;
