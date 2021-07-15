@@ -1,6 +1,6 @@
 {
   "name": "@canonical/react-components",
-  "version": "0.18.0",
+  "version": "0.18.0-demo",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "author": "Huw Wilkins <huw.wilkins@canonical.com>",
