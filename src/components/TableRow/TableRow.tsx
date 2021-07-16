@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import type { HTMLProps, ReactNode } from "react";
 import React from "react";
 
@@ -14,9 +13,5 @@ const TableRow = ({ children, ...trProps }: Props): JSX.Element => (
     {children}
   </tr>
 );
-
-TableRow.propTypes = {
-  children: PropTypes.node,
-};
 
 export default TableRow;

@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React, { useEffect, useRef } from "react";
 import type { HTMLProps, ReactNode } from "react";
 
@@ -169,27 +168,6 @@ const Notification = ({
       )}
     </div>
   );
-};
-
-Notification.propTypes = {
-  actions: PropTypes.arrayOf(
-    PropTypes.shape({
-      label: PropTypes.string.isRequired,
-      onClick: PropTypes.func.isRequired,
-    })
-  ),
-  borderless: PropTypes.bool,
-  children: PropTypes.node,
-  className: PropTypes.string,
-  close: PropTypes.func, // Deprecated
-  inline: PropTypes.bool,
-  onDismiss: PropTypes.func,
-  severity: PropTypes.oneOf(Object.values(NotificationSeverity)),
-  status: PropTypes.node, // Deprecated
-  timeout: PropTypes.number,
-  timestamp: PropTypes.node,
-  title: PropTypes.node,
-  type: PropTypes.oneOf(Object.values(NotificationSeverity)), // Deprecated
 };
 
 export default Notification;

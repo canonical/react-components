@@ -1,5 +1,4 @@
 import { nanoid } from "nanoid";
-import PropTypes from "prop-types";
 import React, { useRef } from "react";
 import type { ReactNode } from "react";
 
@@ -88,23 +87,6 @@ const AccordionSection = ({
       </section>
     </li>
   );
-};
-
-AccordionSection.propTypes = {
-  content: PropTypes.node,
-  expanded: PropTypes.string,
-  /**
-   * An optional click event when the title is clicked.
-   */
-  onTitleClick: PropTypes.func,
-  /**
-   * An optional key to be used to track which section is selected.
-   */
-  sectionKey: PropTypes.string,
-  setExpanded: PropTypes.func,
-  title: PropTypes.string,
-  titleElement: PropTypes.oneOf(["h2", "h3", "h4", "h5", "h6"]),
-  headingLevel: PropTypes.oneOf([2, 3, 4, 5, 6]),
 };
 
 export default AccordionSection;

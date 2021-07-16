@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import type { HTMLProps, ReactNode } from "react";
 
@@ -50,12 +49,5 @@ const Form = ({
     {children}
   </form>
 );
-
-Form.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  inline: PropTypes.bool,
-  stacked: PropTypes.bool,
-};
 
 export default Form;

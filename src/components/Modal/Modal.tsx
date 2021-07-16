@@ -1,5 +1,4 @@
 import { nanoid } from "nanoid";
-import PropTypes from "prop-types";
 import React, { ReactElement, ReactNode, useRef, useEffect } from "react";
 
 export type Props = {
@@ -83,13 +82,6 @@ export const Modal = ({
       </section>
     </div>
   );
-};
-
-Modal.propTypes = {
-  buttonRow: PropTypes.node,
-  children: PropTypes.node.isRequired,
-  close: PropTypes.func,
-  title: PropTypes.node,
 };
 
 export default Modal;

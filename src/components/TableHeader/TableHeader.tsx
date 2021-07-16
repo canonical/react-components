@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { HTMLProps, ReactNode } from "react";
 
 import { SortDirection } from "types";
@@ -20,10 +19,6 @@ const TableHeader = ({ children, sort, ...props }: Props): JSX.Element => {
       {children}
     </th>
   );
-};
-
-TableHeader.propTypes = {
-  sort: PropTypes.oneOf(["none", "ascending", "descending"]),
 };
 
 export default TableHeader;

@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 
@@ -178,28 +177,6 @@ const List = ({
       {generateItems(items, ticked, inline || middot || stretch, stepped)}
     </Component>
   );
-};
-
-List.propTypes = {
-  className: PropTypes.string,
-  detailed: PropTypes.bool,
-  divided: PropTypes.bool,
-  inline: PropTypes.bool,
-  items: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.shape({
-        content: PropTypes.node,
-        title: PropTypes.node,
-        titleElement: PropTypes.string,
-      }),
-    ])
-  ).isRequired,
-  middot: PropTypes.bool,
-  stretch: PropTypes.bool,
-  split: PropTypes.bool,
-  stepped: PropTypes.bool,
-  ticked: PropTypes.bool,
 };
 
 export default List;

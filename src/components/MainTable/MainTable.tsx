@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { useEffect, useState } from "react";
 import type { HTMLProps, ReactNode } from "react";
 
@@ -320,46 +319,6 @@ const MainTable = ({
       )}
     </>
   );
-};
-
-MainTable.propTypes = {
-  defaultSort: PropTypes.string,
-  defaultSortDirection: PropTypes.oneOf(["ascending", "descending"]),
-  /**
-   * A state that will be shown when no rows are passed to the table.
-   */
-  emptyStateMsg: PropTypes.node,
-  expanding: PropTypes.bool,
-  headers: PropTypes.arrayOf(
-    PropTypes.shape({
-      content: PropTypes.node,
-      className: PropTypes.string,
-      // The key to sort on for this header.
-      sortKey: PropTypes.string,
-    })
-  ),
-  onUpdateSort: PropTypes.func,
-  paginate: PropTypes.number,
-  responsive: PropTypes.bool,
-  rows: PropTypes.arrayOf(
-    PropTypes.shape({
-      columns: PropTypes.arrayOf(
-        PropTypes.shape({
-          children: PropTypes.node,
-          className: PropTypes.string,
-          expanding: PropTypes.bool,
-          hidden: PropTypes.bool,
-        })
-      ),
-      expanded: PropTypes.bool,
-      expandedContent: PropTypes.node,
-      // A map of sort keys to values for this row. The keys should map the
-      // sortKey values in the headers.
-      sortData: PropTypes.object,
-    })
-  ),
-  sortable: PropTypes.bool,
-  sortFunction: PropTypes.func,
 };
 
 export default MainTable;

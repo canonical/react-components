@@ -1,6 +1,5 @@
 import { nanoid } from "nanoid";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import usePortal from "react-useportal";
@@ -317,87 +316,6 @@ const ContextualMenu = <L,>({
       )}
     </span>
   );
-};
-
-ContextualMenu.propTypes = {
-  /**
-   * Whether the menu should adjust to fit in the screen.
-   */
-  autoAdjust: PropTypes.bool,
-  /**
-   * The menu content (if the links prop is not supplied).
-   */
-  children: PropTypes.node,
-  /**
-   * An optional class to apply to the wrapping element.
-   */
-  className: PropTypes.string,
-  /**
-   * Whether the menu should close when the escape key is pressed.
-   */
-  closeOnEsc: PropTypes.bool,
-  /**
-   * Whether the menu should close when clicking outside the menu.
-   */
-  closeOnOutsideClick: PropTypes.bool,
-  /**
-   * Whether the menu's width should match the toggle's width.
-   */
-  constrainPanelWidth: PropTypes.bool,
-  /**
-   * An optional class to apply to the dropdown.
-   */
-  dropdownClassName: PropTypes.string,
-  /**
-   * Whether the toggle should display a chevron icon.
-   */
-  hasToggleIcon: PropTypes.bool,
-  /**
-   * A list of links to display in the menu (if the children prop is not supplied.)
-   */
-  links: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.shape(Button.propTypes),
-      PropTypes.arrayOf(PropTypes.shape(Button.propTypes)),
-    ])
-  ),
-  /**
-   * A function to call when the menu is toggled.
-   */
-  onToggleMenu: PropTypes.func,
-  /**
-   * An element to make the menu relative to.
-   */
-  positionNode: PropTypes.object,
-  /**
-   * The position of the menu.
-   */
-  position: PropTypes.oneOf(["left", "center", "right"]),
-  /**
-   * The appearance of the toggle button.
-   */
-  toggleAppearance: PropTypes.string,
-  /**
-   * An class to apply to the toggle button.
-   */
-  toggleClassName: PropTypes.string,
-  /**
-   * Whether the toggle button should be disabled.
-   */
-  toggleDisabled: PropTypes.bool,
-  /**
-   * The toggle button's label.
-   */
-  toggleLabel: PropTypes.string,
-  /**
-   * Whether the toggle lable or icon should appear first.
-   */
-  toggleLabelFirst: PropTypes.bool,
-  /**
-   * Whether the menu should be visible.
-   */
-  visible: PropTypes.bool,
 };
 
 export default ContextualMenu;

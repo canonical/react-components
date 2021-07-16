@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React, { useEffect, useRef } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 
@@ -127,24 +126,6 @@ const Textarea = ({
       />
     </Field>
   );
-};
-
-Textarea.propTypes = {
-  caution: PropTypes.node,
-  className: PropTypes.string,
-  error: PropTypes.node,
-  grow: PropTypes.bool,
-  help: PropTypes.node,
-  id: PropTypes.string,
-  label: PropTypes.node,
-  labelClassName: PropTypes.string,
-  onKeyUp: PropTypes.func,
-  required: PropTypes.bool,
-  stacked: PropTypes.bool,
-  style: PropTypes.object,
-  success: PropTypes.node,
-  takeFocus: PropTypes.bool,
-  wrapperClassName: PropTypes.string,
 };
 
 export default Textarea;

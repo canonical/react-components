@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import type { HTMLProps } from "react";
 
@@ -53,25 +52,6 @@ const ArticlePagination = ({
       )}
     </footer>
   );
-};
-
-ArticlePagination.propTypes = {
-  /**
-   * The URL for the next link.
-   */
-  nextURL: PropTypes.string,
-  /**
-   * The label for the next link.
-   */
-  nextLabel: PropTypes.string,
-  /**
-   * The URL for the previous link.
-   */
-  previousURL: PropTypes.string,
-  /**
-   * The label for the previous link.
-   */
-  previousLabel: PropTypes.string,
 };
 
 export default ArticlePagination;

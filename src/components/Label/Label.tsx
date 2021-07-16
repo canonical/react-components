@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import type { LabelHTMLAttributes, ReactNode } from "react";
 
@@ -42,12 +41,5 @@ const Label = ({
     {children}
   </label>
 );
-
-Label.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  forId: PropTypes.string,
-  required: PropTypes.bool,
-};
 
 export default Label;

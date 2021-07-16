@@ -1,9 +1,8 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import type { ElementType, HTMLProps, ReactNode } from "react";
 
-import Col, { colSizes } from "../Col";
+import Col from "../Col";
 import type { ColSize } from "../Col/Col";
 import Row from "../Row";
 
@@ -100,21 +99,5 @@ const Strip = ({
     </Row>
   </Component>
 );
-
-Strip.propTypes = {
-  background: PropTypes.string,
-  bordered: PropTypes.bool,
-  children: PropTypes.node,
-  className: PropTypes.string,
-  colSize: PropTypes.oneOf(colSizes),
-  dark: PropTypes.bool,
-  deep: PropTypes.bool,
-  element: PropTypes.string,
-  includeCol: PropTypes.bool,
-  light: PropTypes.bool,
-  rowClassName: PropTypes.string,
-  shallow: PropTypes.bool,
-  type: PropTypes.string,
-};
 
 export default Strip;

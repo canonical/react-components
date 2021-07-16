@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from "react";
 import classNames from "classnames";
 
@@ -32,11 +31,5 @@ const Spinner = ({ className, text, isLight = false }: Props): JSX.Element => (
     )}
   </span>
 );
-
-Spinner.propTypes = {
-  className: PropTypes.string,
-  text: PropTypes.string,
-  isLight: PropTypes.bool,
-};
 
 export default Spinner;

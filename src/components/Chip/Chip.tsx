@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import { highlightSubString } from "../../utils";
 import type { KeyboardEvent, MouseEvent } from "react";
 
@@ -82,16 +81,6 @@ const Chip = ({
       ) : null}
     </div>
   );
-};
-
-Chip.propTypes = {
-  lead: PropTypes.string,
-  onClick: PropTypes.func,
-  onDismiss: PropTypes.func,
-  selected: PropTypes.bool,
-  subString: PropTypes.string,
-  quoteValue: PropTypes.bool,
-  value: PropTypes.string,
 };
 
 export default Chip;

@@ -1,6 +1,5 @@
 import React from "react";
 import type { MouseEventHandler } from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import ActionButton from "../ActionButton";
@@ -53,13 +52,5 @@ const SummaryButton = ({
     )}
   </small>
 );
-
-SummaryButton.propTypes = {
-  className: PropTypes.string,
-  summary: PropTypes.string,
-  label: PropTypes.string,
-  onClick: PropTypes.func,
-  isLoading: PropTypes.bool,
-};
 
 export default SummaryButton;

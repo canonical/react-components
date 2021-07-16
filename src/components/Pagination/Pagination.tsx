@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from "react";
 import type { HTMLProps } from "react";
 
@@ -169,15 +168,6 @@ const Pagination = ({
       </ul>
     </nav>
   );
-};
-
-Pagination.propTypes = {
-  currentPage: PropTypes.number.isRequired,
-  itemsPerPage: PropTypes.number.isRequired,
-  paginate: PropTypes.func.isRequired,
-  totalItems: PropTypes.number.isRequired,
-  scrollToTop: PropTypes.bool,
-  truncateThreshold: PropTypes.number,
 };
 
 export default Pagination;

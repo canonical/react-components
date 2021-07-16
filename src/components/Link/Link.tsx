@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import type { HTMLProps, ReactNode } from "react";
 
@@ -58,16 +57,6 @@ const Link = ({
     return <div className="p-top">{link}</div>;
   }
   return link;
-};
-
-Link.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  external: PropTypes.bool,
-  href: PropTypes.string,
-  inverted: PropTypes.bool,
-  soft: PropTypes.bool,
-  top: PropTypes.bool,
 };
 
 export default Link;

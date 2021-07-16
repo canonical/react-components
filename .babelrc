@@ -4,5 +4,8 @@
     "@babel/preset-react",
     "@babel/preset-typescript"
   ],
-  "plugins": ["@babel/plugin-proposal-class-properties"]
+  "plugins": [
+    "@babel/plugin-proposal-class-properties",
+    "babel-plugin-typescript-to-proptypes"
+  ]
 }

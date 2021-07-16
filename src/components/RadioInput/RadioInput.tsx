@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { HTMLProps } from "react";
 import type { ReactNode } from "react";
 
@@ -19,10 +18,6 @@ const RadioInput = ({ label, ...radioProps }: Props): JSX.Element => {
       {...radioProps}
     ></CheckableInput>
   );
-};
-
-RadioInput.propTypes = {
-  label: PropTypes.node.isRequired,
 };
 
 export default RadioInput;

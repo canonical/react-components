@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import type { HTMLProps } from "react";
 import React from "react";
 
@@ -60,11 +59,5 @@ const Icon = ({ className, light, name, ...props }: Props): JSX.Element => (
     {...props}
   />
 );
-
-Icon.propTypes = {
-  className: PropTypes.string,
-  light: PropTypes.bool,
-  name: PropTypes.string.isRequired,
-};
 
 export default Icon;

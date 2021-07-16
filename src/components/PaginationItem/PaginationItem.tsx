@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import type { MouseEventHandler } from "react";
 
@@ -34,11 +33,5 @@ const PaginationItem = ({
     </button>
   </li>
 );
-
-PaginationItem.propTypes = {
-  number: PropTypes.number.isRequired,
-  onClick: PropTypes.func.isRequired,
-  isActive: PropTypes.bool,
-};
 
 export default PaginationItem;

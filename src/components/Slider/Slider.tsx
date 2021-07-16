@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from "react";
 import type { ChangeEventHandler, HTMLProps, ReactNode } from "react";
 
@@ -122,57 +121,6 @@ export const Slider = ({
       </div>
     </Field>
   );
-};
-
-Slider.propTypes = {
-  /**
-   * Field caution message.
-   */
-  caution: PropTypes.node,
-  /**
-   * Whether to disable the slider and input (if showInput is true).
-   */
-  disabled: PropTypes.bool,
-  /**
-   * Field error message.
-   */
-  error: PropTypes.node,
-  /**
-   * Field help message.
-   */
-  help: PropTypes.node,
-  /**
-   * Field id. Only passed to range input, not to number input.
-   */
-  id: PropTypes.string,
-  /**
-   * Whether to disable only the input, but not the slider.
-   */
-  inputDisabled: PropTypes.bool,
-  /**
-   * Field label.
-   */
-  label: PropTypes.node,
-  /**
-   * Maximum value of the slider.
-   */
-  max: PropTypes.number.isRequired,
-  /**
-   * Minimum value of the slider.
-   */
-  min: PropTypes.number.isRequired,
-  /**
-   * Change event handler.
-   */
-  onChange: PropTypes.func.isRequired,
-  /**
-   * Whether the field is required for the form to submit.
-   */
-  required: PropTypes.bool,
-  /**
-   * Whether to show a number input with the numerical value next to the slider.
-   */
-  showInput: PropTypes.bool,
 };
 
 export default Slider;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Accordion  renders 1`] = `
+exports[`Accordion renders 1`] = `
 <aside
   aria-multiselectable="true"
   className="p-accordion"
