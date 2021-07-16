@@ -1,15 +1,31 @@
-import React, { SyntheticEvent } from "react";
+import React from "react";
+import type { MouseEventHandler } from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import ActionButton from "../ActionButton";
 
 export type Props = {
+  /**
+   * Optional class(es) to pass to the wrapping element.
+   */
   className?: string;
-  label: string;
-  onClick: (event: SyntheticEvent) => void;
-  summary?: string;
+  /**
+   * Whether the summary button is loading.
+   */
   isLoading?: boolean;
+  /**
+   * The label of the summary button.
+   */
+  label: string;
+  /**
+   * Function to handle clicking the summary button.
+   */
+  onClick: MouseEventHandler<HTMLButtonElement>;
+  /**
+   * The summary content.
+   */
+  summary?: string;
 };
 
 const SummaryButton = ({

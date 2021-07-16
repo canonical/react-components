@@ -3,31 +3,33 @@ import PropTypes from "prop-types";
 import type { HTMLProps } from "react";
 import React from "react";
 
-export enum ICONS {
-  plus = "plus",
-  minus = "minus",
-  expand = "expand",
-  collapse = "collapse",
-  spinner = "spinner",
-  drag = "drag",
-  close = "close",
-  help = "help",
-  information = "information",
-  delete = "delete",
-  externalLink = "external-link",
-  chevronDown = "chevron-down",
-  chevronUp = "chevron-up",
-  menu = "menu",
-  code = "code",
-  copy = "copy",
-  search = "search",
-  share = "share",
-  user = "user",
-  anchor = "anchor",
-  success = "success",
-  warning = "warning",
-  error = "error",
-}
+import type { ValueOf } from "../../types";
+
+export const ICONS = {
+  anchor: "anchor",
+  chevronDown: "chevron-down",
+  chevronUp: "chevron-up",
+  close: "close",
+  code: "code",
+  collapse: "collapse",
+  copy: "copy",
+  delete: "delete",
+  drag: "drag",
+  error: "error",
+  expand: "expand",
+  externalLink: "external-link",
+  help: "help",
+  information: "information",
+  menu: "menu",
+  minus: "minus",
+  plus: "plus",
+  search: "search",
+  share: "share",
+  spinner: "spinner",
+  success: "success",
+  user: "user",
+  warning: "warning",
+} as const;
 
 export type Props = {
   /**
@@ -41,7 +43,7 @@ export type Props = {
   /**
    * The name of the icon.
    */
-  name: ICONS | string;
+  name: ValueOf<typeof ICONS> | string;
 } & HTMLProps<HTMLElement>;
 
 /**

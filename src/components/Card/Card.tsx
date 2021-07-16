@@ -3,11 +3,29 @@ import PropTypes from "prop-types";
 import React, { ReactNode } from "react";
 
 export type Props = {
+  /**
+   * The content of the card.
+   */
   children?: ReactNode;
+  /**
+   * Optional class(es) to pass to the wrapping div element.
+   */
   className?: string;
+  /**
+   * Whether the card should have highlighted styling.
+   */
   highlighted?: boolean;
+  /**
+   * Whether the card should have overlay styling.
+   */
   overlay?: boolean;
+  /**
+   * The path to a thumbnail image.
+   */
   thumbnail?: string;
+  /**
+   * The title of the card.
+   */
   title?: ReactNode;
 };
 

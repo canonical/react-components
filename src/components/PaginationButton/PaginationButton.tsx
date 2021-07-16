@@ -5,9 +5,18 @@ import type { MouseEventHandler } from "react";
 
 export type PaginationDirection = "forward" | "back";
 export type Props = {
+  /**
+   * The direction of the pagination.
+   */
   direction: PaginationDirection;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  /**
+   * Whether the pagination button should be disabled.
+   */
   disabled?: boolean;
+  /**
+   * Function to handle clicking the pagination button.
+   */
+  onClick: MouseEventHandler<HTMLButtonElement>;
 };
 
 const PaginationButton = ({

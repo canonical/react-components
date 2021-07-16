@@ -4,14 +4,36 @@ import { highlightSubString } from "../../utils";
 import type { KeyboardEvent, MouseEvent } from "react";
 
 export type Props = {
+  /**
+   * The lead for the chip.
+   */
   lead?: string;
+  /**
+   * Function for handling chip div click event.
+   */
   onClick?: (
     event: MouseEvent<HTMLDivElement> | { lead: string; value: string }
   ) => void;
+  /**
+   * Function for handling dismissing a chip.
+   */
   onDismiss?: () => void;
+  /**
+   * Whether the chip is selected.
+   */
   selected?: boolean;
+  /**
+   * A substring to emphasise if it is part of the chip's value,
+   * e.g. "sit" => poSITive
+   */
   subString?: string;
+  /**
+   * Whether to wrap the value in quotation marks.
+   */
   quoteValue?: boolean;
+  /**
+   * The value of the chip.
+   */
   value: string;
 };
 

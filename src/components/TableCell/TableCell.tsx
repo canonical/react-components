@@ -3,40 +3,28 @@ import PropTypes from "prop-types";
 import React, { HTMLProps, ReactNode } from "react";
 
 export type Props = {
+  /**
+   * The content of the table cell.
+   */
   children?: ReactNode;
+  /**
+   * Optional class(es) to pass to the wrapping td element.
+   */
   className?: string;
   /**
-   * @defaultValue false
-   */
-  hasOverflow?: boolean;
-  /**
-   * @defaultValue false
+   * Whether the cell is an expanded cell.
    */
   expanding?: boolean;
   /**
-   * @defaultValue false
+   * Whether content of the cell should be able to overflow, e.g. a dropdown.
+   */
+  hasOverflow?: boolean;
+  /**
+   * Whether the cell is currently hidden.
    */
   hidden?: boolean;
-  /**
-   * @defaultValue gridcell
-   */
-  role?: string;
 } & HTMLProps<HTMLTableCellElement>;
 
-/**
- * TableCell
- *
- * @remarks
- * Implementation of TableCell for Table
- * https://vanillaframework.io/docs/base/tables
- *
- * @param children
- * @param className
- * @param expanding - enable expanding and hidden table cells
- * @param hidden - whether cell displays
- * @param role - aria role
- * @returns TableCell
- */
 const TableCell = ({
   children,
   className,

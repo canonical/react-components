@@ -6,8 +6,9 @@ import type { ReactNode } from "react";
 import usePortal from "react-useportal";
 
 import { useListener, usePrevious } from "../../hooks";
-import ContextualMenuDropdown from "./ContextualMenuDropdown";
 import Button from "../Button";
+import type { Props as ButtonProps } from "../Button";
+import ContextualMenuDropdown from "./ContextualMenuDropdown";
 import type { MenuLink, Position } from "./ContextualMenuDropdown";
 
 /**
@@ -66,7 +67,7 @@ export type Props<L> = {
   /**
    * The appearance of the toggle button.
    */
-  toggleAppearance?: string;
+  toggleAppearance?: ButtonProps["appearance"];
   /**
    * A class to apply to the toggle button.
    */

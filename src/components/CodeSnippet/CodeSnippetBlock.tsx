@@ -5,32 +5,54 @@ import type { ReactNode } from "react";
 
 import CodeSnippetDropdown from "./CodeSnippetDropdown";
 import type { CodeSnippetDropdownProps } from "./CodeSnippetDropdown";
+import type { ValueOf } from "../../types";
 
-export enum CodeSnippetBlockAppearance {
-  LINUX_PROMPT = "linuxPrompt",
-  NUMBERED = "numbered",
-  URL = "url",
-  WINDOWS_PROMPT = "windowsPrompt",
-}
+export const CodeSnippetBlockAppearance = {
+  LINUX_PROMPT: "linuxPrompt",
+  NUMBERED: "numbered",
+  URL: "url",
+  WINDOWS_PROMPT: "windowsPrompt",
+} as const;
 
 export type CodeSnippetBlockProps = {
+  /**
+   * The appearance of the code block.
+   */
+  appearance?: ValueOf<typeof CodeSnippetBlockAppearance>;
+  /**
+   * The code snippet to display.
+   */
   code: string;
-  title?: string;
-  appearance?: CodeSnippetBlockAppearance; //"numbered" | "linuxPrompt" | "windowsPrompt" | "url";
-  wrapLines?: boolean;
-  dropdowns?: CodeSnippetDropdownProps[];
-  stacked?: boolean;
+  /**
+   * Content to show below the code snippet.
+   */
   content?: ReactNode;
+  /**
+   * A list of dropdowns to display in the header.
+   */
+  dropdowns?: CodeSnippetDropdownProps[];
+  /**
+   * Whether the title should display stacked on top of the dropdowns.
+   */
+  stacked?: boolean;
+  /**
+   * The title of the code block.
+   */
+  title?: string;
+  /**
+   * Whether to enable line wrapping inside the code block.
+   */
+  wrapLines?: boolean;
 };
 
 export default function CodeSnippetBlock({
+  appearance,
   code,
-  title,
-  appearance = null,
-  wrapLines = false,
+  content,
   dropdowns,
   stacked = false,
-  content,
+  title,
+  wrapLines = false,
 }: CodeSnippetBlockProps): JSX.Element {
   let className = "p-code-snippet__block";
   const isNumbered = appearance === CodeSnippetBlockAppearance.NUMBERED;
@@ -38,7 +60,7 @@ export default function CodeSnippetBlock({
     appearance === CodeSnippetBlockAppearance.LINUX_PROMPT ||
     appearance === CodeSnippetBlockAppearance.WINDOWS_PROMPT ||
     appearance === CodeSnippetBlockAppearance.URL;
-  let numberedCode;
+  let numberedCode: JSX.Element[];
 
   if (isNumbered) {
     className += "--numbered";

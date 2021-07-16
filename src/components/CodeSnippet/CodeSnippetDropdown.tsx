@@ -1,13 +1,22 @@
 import PropTypes from "prop-types";
 import React from "react";
-import type { HTMLProps } from "react";
+import type { ChangeEventHandler, HTMLProps } from "react";
 
 export type DropdownOptionProps = {
+  /**
+   * The label of the dropdown option.
+   */
   label: string;
 } & HTMLProps<HTMLOptionElement>;
 
 export type CodeSnippetDropdownProps = {
-  onChange: (evt: React.SyntheticEvent) => void;
+  /**
+   * Function for handling the select value changing.
+   */
+  onChange: ChangeEventHandler<HTMLSelectElement>;
+  /**
+   * Options to pass to the select.
+   */
   options: DropdownOptionProps[];
 } & HTMLProps<HTMLSelectElement>;
 

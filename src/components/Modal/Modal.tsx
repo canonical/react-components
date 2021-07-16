@@ -3,9 +3,21 @@ import PropTypes from "prop-types";
 import React, { ReactElement, ReactNode, useRef, useEffect } from "react";
 
 export type Props = {
+  /**
+   * Buttons to display underneath the main modal content.
+   */
   buttonRow?: ReactNode | null;
+  /**
+   * The content of the modal.
+   */
   children: ReactNode;
+  /**
+   * Function to handle closing the modal.
+   */
   close?: () => void | null;
+  /**
+   * The title of the modal.
+   */
   title?: ReactNode | null;
 };
 

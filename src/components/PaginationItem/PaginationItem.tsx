@@ -4,9 +4,18 @@ import React from "react";
 import type { MouseEventHandler } from "react";
 
 export type Props = {
-  number: number;
-  onClick: MouseEventHandler<HTMLButtonElement>;
+  /**
+   * Whether the pagination item is active, i.e. the current page is this page.
+   */
   isActive?: boolean;
+  /**
+   * The page number.
+   */
+  number: number;
+  /**
+   * Function to handle clicking the pagination item.
+   */
+  onClick: MouseEventHandler<HTMLButtonElement>;
 };
 
 const PaginationItem = ({

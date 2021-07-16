@@ -5,7 +5,13 @@ import type { ReactNode } from "react";
 import CheckableInput from "../CheckableInput";
 
 export type Props = {
+  /**
+   * The label for the checkbox.
+   */
   label: ReactNode;
+  /**
+   * Whether the checkbox should display in indeterminate state.
+   */
   indeterminate?: boolean;
 } & HTMLProps<HTMLInputElement>;
 
