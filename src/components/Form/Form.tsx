@@ -4,7 +4,13 @@ import React from "react";
 import type { HTMLProps, ReactNode } from "react";
 
 export type BaseForm = {
+  /**
+   * The content of the form.
+   */
   children?: ReactNode;
+  /**
+   * Optional class(es) to pass to the form element.
+   */
   className?: string;
 };
 
@@ -19,8 +25,8 @@ export type InlineForm = BaseForm & {
 };
 
 export type StackedForm = BaseForm & {
-  stacked: boolean;
   inline?: false;
+  stacked: boolean;
 };
 
 export type Props = (OrderedForm | InlineForm | StackedForm) &

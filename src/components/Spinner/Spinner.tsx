@@ -3,9 +3,18 @@ import React from "react";
 import classNames from "classnames";
 
 export type Props = {
+  /**
+   * Optional class(es) to pass to the wrapping span element.
+   */
   className?: string;
-  text?: string;
+  /**
+   * Whether the spinner should have a light appearance.
+   */
   isLight?: boolean;
+  /**
+   * Text to display next to the spinner.
+   */
+  text?: string;
 };
 
 const Spinner = ({ className, text, isLight = false }: Props): JSX.Element => (

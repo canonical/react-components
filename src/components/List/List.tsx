@@ -18,7 +18,13 @@ export type SteppedListItem = {
 } & HTMLAttributes<HTMLLIElement>;
 
 export type BaseProps = {
+  /**
+   * Optional class(es) to pass to the wrapping element.
+   */
   className?: string;
+  /**
+   * The list's items.
+   */
   items: ListItem[];
 };
 

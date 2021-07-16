@@ -3,29 +3,61 @@ import PropTypes from "prop-types";
 import React from "react";
 import type { HTMLProps, ElementType, ReactNode, ComponentType } from "react";
 
-export enum ButtonAppearance {
-  BASE = "base",
-  BRAND = "brand",
-  LINK = "link",
-  NEGATIVE = "negative",
-  NEUTRAL = "neutral",
-  POSITIVE = "positive",
-}
+import type { ValueOf } from "../../types";
+
+export const ButtonAppearance = {
+  BASE: "base",
+  BRAND: "brand",
+  LINK: "link",
+  NEGATIVE: "negative",
+  NEUTRAL: "neutral",
+  POSITIVE: "positive",
+} as const;
 
 /**
  * The type of the Button props.
  * @template P - The type of the props if providing a component to `element`
  */
 export type Props<P = null> = {
-  appearance?: ButtonAppearance | string;
+  /**
+   * The appearance of the button.
+   */
+  appearance?: ValueOf<typeof ButtonAppearance> | string;
+  /**
+   * The content of the button.
+   */
   children?: ReactNode;
+  /**
+   * Optional class(es) to pass to the button element.
+   */
   className?: string;
+  /**
+   * Whether the button should have dense padding.
+   */
   dense?: boolean;
+  /**
+   * Whether the button should be disabled.
+   */
   disabled?: boolean;
+  /**
+   * Optional element or component to use instead of <button>.
+   */
   element?: ElementType | ComponentType<P>;
+  /**
+   * Whether the button has an icon in the content.
+   */
   hasIcon?: boolean;
+  /**
+   * Whether the button should display inline.
+   */
   inline?: boolean;
+  /**
+   * Function for handling button click event.
+   */
   onClick?: (evt: React.MouseEvent) => void;
+  /**
+   * Whether the button should be small.
+   */
   small?: boolean;
 } & (HTMLProps<HTMLElement> | P);
 
@@ -34,7 +66,7 @@ export type Props<P = null> = {
  * @template P - The type of the props if providing a component to `element`
  */
 const Button = <P,>({
-  appearance = "neutral",
+  appearance = ButtonAppearance.NEUTRAL,
   children,
   className,
   dense,

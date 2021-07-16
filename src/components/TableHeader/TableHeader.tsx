@@ -4,24 +4,16 @@ import React, { HTMLProps, ReactNode } from "react";
 import { SortDirection } from "types";
 
 export type Props = {
+  /**
+   * The content of the table header.
+   */
   children?: ReactNode;
   /**
-   * @defaultValue none
+   * The direction of sorting, if applicable.
    */
   sort?: SortDirection;
 } & HTMLProps<HTMLTableHeaderCellElement>;
 
-/**
- * TableHeader
- *
- * @remarks
- * Implementation of TableHeader for Table
- * https://vanillaframework.io/docs/base/tables
- *
- * @param children
- * @param sort - sort direction
- * @returns TableHeader
- */
 const TableHeader = ({ children, sort, ...props }: Props): JSX.Element => {
   return (
     <th role="columnheader" aria-sort={sort} {...props}>

@@ -92,11 +92,29 @@ const PaginationItemSeparator = (): JSX.Element => (
 );
 
 export type Props = {
+  /**
+   * The current page being viewed.
+   */
   currentPage: number;
+  /**
+   * The number of items to show per page.
+   */
   itemsPerPage: number;
+  /**
+   * Function to handle paginating the items.
+   */
   paginate: (page: number) => void;
+  /**
+   * The total number of items.
+   */
   totalItems: number;
+  /**
+   * Whether to scroll to the top of the list on page change.
+   */
   scrollToTop?: boolean;
+  /**
+   * The number of pages at which to truncate the pagination items.
+   */
   truncateThreshold?: number;
 } & HTMLProps<HTMLElement>;
 

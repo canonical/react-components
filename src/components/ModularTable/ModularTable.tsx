@@ -10,9 +10,21 @@ import TableCell from "../TableCell";
 import Icon from "../Icon";
 
 export type Props<D extends Record<string, unknown>> = {
+  /**
+   * The columns of the table.
+   */
   columns: Column<D>[];
+  /**
+   * The data of the table.
+   */
   data: D[];
+  /**
+   * A message to display if data is empty.
+   */
   emptyMsg?: string;
+  /**
+   * Optional extra row to display underneath the main table content.
+   */
   footer?: ReactNode;
 };
 

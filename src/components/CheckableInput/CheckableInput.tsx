@@ -1,13 +1,21 @@
 import classNames from "classnames";
-import { TSFixMe } from "index";
 import { nanoid } from "nanoid";
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, HTMLProps } from "react";
 import type { ReactNode } from "react";
 
 export type Props = {
+  /**
+   * The type of the input element.
+   */
   inputType: "radio" | "checkbox";
+  /**
+   * The label for the input element.
+   */
   label: ReactNode;
+  /**
+   * Whether the input element should display in indeterminate state.
+   */
   indeterminate?: boolean;
 } & HTMLProps<HTMLInputElement>;
 
@@ -18,8 +26,7 @@ const CheckableInput = ({
   ...checkboxProps
 }: Props): JSX.Element => {
   const inputId = useRef(nanoid());
-  // setting this type as any for now, otherwise it causes linting errors
-  const inputRef: TSFixMe = useRef(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     inputRef.current.indeterminate = indeterminate;
@@ -32,10 +39,10 @@ const CheckableInput = ({
       })}
     >
       <input
-        ref={inputRef}
-        type={inputType}
         aria-labelledby={inputId.current}
         className={`p-${inputType}__input`}
+        ref={inputRef}
+        type={inputType}
         {...checkboxProps}
       />
       <span className={`p-${inputType}__label`} id={inputId.current}>

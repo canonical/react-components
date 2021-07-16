@@ -3,32 +3,24 @@ import PropTypes from "prop-types";
 import React, { HTMLProps, ReactNode } from "react";
 
 export type Props = {
+  /**
+   * The content of the table.
+   */
   children?: ReactNode;
+  /**
+   * Optional class(es) to pass to the wrapping table element.
+   */
   className?: string;
   /**
-   * @defaultValue false
+   * Whether the table can expand hidden cells.
    */
   expanding?: boolean;
   /**
-   * @defaultValue false
+   * Whether the table should show card styling on smaller screens.
    */
   responsive?: boolean;
 } & HTMLProps<HTMLTableElement>;
 
-/**
- * Table
- *
- * @remarks
- * Implementation of Table
- * https://vanillaframework.io/docs/base/tables
- *
- * @param children
- * @param className
- * @param expanding - enable expanding and hidden table cells
- * @param responsive - provide responsive card view on smaller screens
- * @param sortable - enable sorting of table columns
- * @returns Table component
- */
 const Table = ({
   children,
   className,

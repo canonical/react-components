@@ -5,15 +5,31 @@ import type { HTMLAttributes, ReactNode } from "react";
 
 import Icon from "../Icon";
 import { ButtonAppearance } from "../Button/Button";
+import type { ValueOf } from "../../types";
 
 export const LOADER_MIN_DURATION = 400; // minimium duration (ms) loader displays
 export const SUCCESS_DURATION = 2000; // duration (ms) success tick is displayed
 
 export type Props = {
-  appearance?: ButtonAppearance;
+  /**
+   * The appearance of the button.
+   */
+  appearance?: ValueOf<typeof ButtonAppearance>;
+  /**
+   * The content of the button.
+   */
   children?: ReactNode;
+  /**
+   * Optional class(es) to pass to the button element.
+   */
   className?: string;
+  /**
+   * Whether the button should be disabled.
+   */
   disabled?: boolean;
+  /**
+   * Whether the button should display inline.
+   */
   inline?: boolean;
   /**
    * Whether the button should be in the loading state.

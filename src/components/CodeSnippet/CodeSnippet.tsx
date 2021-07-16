@@ -6,7 +6,13 @@ import CodeSnippetBlock from "./CodeSnippetBlock";
 import type { CodeSnippetBlockProps } from "./CodeSnippetBlock";
 
 export type Props = {
+  /**
+   * Optional class(es) to pass to the wrapping div element.
+   */
   className?: string;
+  /**
+   * A list of code blocks to display.
+   */
   blocks: CodeSnippetBlockProps[];
 };
 
