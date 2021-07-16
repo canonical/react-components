@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React from "react";
 
 import CodeSnippet, { CodeSnippetBlockAppearance } from "../CodeSnippet";
@@ -53,14 +52,6 @@ const Code = ({
       />
     );
   }
-};
-
-Code.propTypes = {
-  children: PropTypes.string,
-  className: PropTypes.string,
-  inline: PropTypes.bool,
-  copyable: PropTypes.bool,
-  numbered: PropTypes.bool,
 };
 
 export default Code;
