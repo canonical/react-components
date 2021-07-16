@@ -8,7 +8,9 @@ import { useListener, usePrevious } from "../../hooks";
 import Button from "../Button";
 import type { Props as ButtonProps } from "../Button";
 import ContextualMenuDropdown from "./ContextualMenuDropdown";
+import type { Props as ContextualMenuDropdownProps } from "./ContextualMenuDropdown/ContextualMenuDropdown";
 import type { MenuLink, Position } from "./ContextualMenuDropdown";
+import { SubComponentProps } from "types";
 
 /**
  * The props for the ContextualMenu component.
@@ -42,7 +44,11 @@ export type Props<L> = {
   /**
    * An optional class to apply to the dropdown.
    */
-  dropdownClassName?: string;
+  dropdownClassName?: string | null;
+  /**
+   * Additional props to pass to the dropdown.
+   */
+  dropdownProps?: SubComponentProps<ContextualMenuDropdownProps>;
   /**
    * Whether the toggle should display a chevron icon.
    */
@@ -50,27 +56,27 @@ export type Props<L> = {
   /**
    * A list of links to display in the menu (if the children prop is not supplied.)
    */
-  links?: MenuLink<L>[];
+  links?: MenuLink<L>[] | null;
   /**
    * A function to call when the menu is toggled.
    */
-  onToggleMenu?: (isOpen: boolean) => void;
+  onToggleMenu?: (isOpen: boolean) => void | null;
   /**
    * The position of the menu.
    */
-  position?: Position;
+  position?: Position | null;
   /**
    * An element to make the menu relative to.
    */
-  positionNode?: HTMLElement;
+  positionNode?: HTMLElement | null;
   /**
    * The appearance of the toggle button.
    */
-  toggleAppearance?: ButtonProps["appearance"];
+  toggleAppearance?: ButtonProps["appearance"] | null;
   /**
    * A class to apply to the toggle button.
    */
-  toggleClassName?: string;
+  toggleClassName?: string | null;
   /**
    * Whether the toggle button should be disabled.
    */
@@ -78,11 +84,15 @@ export type Props<L> = {
   /**
    * The toggle button's label.
    */
-  toggleLabel?: string;
+  toggleLabel?: string | null;
   /**
    * Whether the toggle lable or icon should appear first.
    */
   toggleLabelFirst?: boolean;
+  /**
+   * Additional props to pass to the toggle button.
+   */
+  toggleProps?: SubComponentProps<ButtonProps>;
   /**
    * Whether the menu should be visible.
    */
@@ -150,6 +160,7 @@ const ContextualMenu = <L,>({
   closeOnOutsideClick = true,
   constrainPanelWidth,
   dropdownClassName,
+  dropdownProps,
   hasToggleIcon,
   links,
   onToggleMenu,
@@ -160,7 +171,9 @@ const ContextualMenu = <L,>({
   toggleDisabled,
   toggleLabel,
   toggleLabelFirst = true,
+  toggleProps,
   visible = false,
+  ...wrapperProps
 }: Props<L>): JSX.Element => {
   const id = useRef(nanoid());
   const wrapper = useRef();
@@ -253,6 +266,7 @@ const ContextualMenu = <L,>({
               position: "relative",
             }
       }
+      {...wrapperProps}
     >
       {hasToggle ? (
         <Button
@@ -272,6 +286,7 @@ const ContextualMenu = <L,>({
             }
           }}
           type="button"
+          {...toggleProps}
         >
           {toggleLabelFirst ? labelNode : null}
           {hasToggleIcon ? (
@@ -311,6 +326,7 @@ const ContextualMenu = <L,>({
             positionNode={getPositionNode(wrapper.current, positionNode)}
             setAdjustedPosition={setAdjustedPosition}
             wrapperClass={wrapperClass}
+            {...dropdownProps}
           />
         </Portal>
       )}

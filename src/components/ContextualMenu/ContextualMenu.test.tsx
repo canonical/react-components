@@ -212,4 +212,42 @@ describe("ContextualMenu ", () => {
     );
     expect(wrapper.find("Link.p-contextual-menu__link").exists()).toBe(true);
   });
+
+  it("can pass props to the contextual menu", () => {
+    const wrapper = mount(<ContextualMenu links={[]} data-test="extra-prop" />);
+    expect(wrapper.prop("data-test")).toBe("extra-prop");
+  });
+
+  it("can pass props to the toggle button", () => {
+    const wrapper = mount(
+      <ContextualMenu
+        links={[]}
+        toggleLabel="Toggle"
+        toggleProps={{
+          appearance: "negative",
+          "data-test": "extra-prop",
+        }}
+      />
+    );
+    const button = wrapper.find("Button.p-contextual-menu__toggle");
+    expect(button.prop("appearance")).toBe("negative");
+    expect(button.prop("data-test")).toBe("extra-prop");
+  });
+
+  it("can pass props to the contextual menu dropdown", () => {
+    const wrapper = mount(
+      <ContextualMenu
+        links={[]}
+        toggleLabel="Toggle"
+        dropdownProps={{
+          "data-test": "extra-prop",
+        }}
+      />
+    );
+    // Open the menu.
+    wrapper.find("Button.p-contextual-menu__toggle").simulate("click");
+    expect(wrapper.find("ContextualMenuDropdown").prop("data-test")).toBe(
+      "extra-prop"
+    );
+  });
 });

@@ -165,6 +165,7 @@ const ContextualMenuDropdown = <L,>({
   positionNode,
   setAdjustedPosition,
   wrapperClass,
+  ...props
 }: Props<L>): JSX.Element => {
   const dropdown = useRef();
   const [positionStyle, setPositionStyle] = useState(
@@ -201,7 +202,11 @@ const ContextualMenuDropdown = <L,>({
   }, [adjustedPosition, updatePositionStyle]);
 
   return (
-    <span className={wrapperClass} style={positionStyle as React.CSSProperties}>
+    <span
+      className={wrapperClass}
+      style={positionStyle as React.CSSProperties}
+      {...props}
+    >
       <span
         className={classNames("p-contextual-menu__dropdown", dropdownClassName)}
         id={id}
