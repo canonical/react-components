@@ -1,7 +1,3 @@
-"Review: Code needed":
-  - src/**/*
-"Review: QA needed":
-  - src/**/*
 Maintenance 🔨:
   - package.json
   - .gitignore
