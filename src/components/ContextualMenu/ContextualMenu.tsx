@@ -1,8 +1,7 @@
 import { nanoid } from "nanoid";
 import classNames from "classnames";
 import { useCallback, useEffect, useRef, useState } from "react";
-import * as React from "react";
-import type { ReactNode } from "react";
+import type { ReactNode, MouseEvent as ReactMouseEvent } from "react";
 import usePortal from "react-useportal";
 
 import { useListener, usePrevious } from "../../hooks";
@@ -279,7 +278,7 @@ const ContextualMenu = <L,>({
           className={classNames("p-contextual-menu__toggle", toggleClassName)}
           disabled={toggleDisabled}
           hasIcon={hasToggleIcon}
-          onClick={(evt: React.MouseEvent) => {
+          onClick={(evt: ReactMouseEvent) => {
             if (!isOpen) {
               openPortal(evt);
             } else {
