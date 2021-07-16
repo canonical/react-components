@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import PropTypes from "prop-types";
 import Chip from "../../Chip";
 import { overflowingChipsCount, isChipInArray } from "../utils";
 import { highlightSubString } from "../../../utils";
@@ -150,21 +149,6 @@ const FilterPanelSection = ({
       )}
     </>
   );
-};
-
-FilterPanelSection.propTypes = {
-  data: PropTypes.shape({
-    heading: PropTypes.string,
-    chips: PropTypes.arrayOf(
-      PropTypes.shape({
-        lead: PropTypes.string,
-        value: PropTypes.string,
-      })
-    ),
-  }),
-  searchData: PropTypes.array,
-  searchTerm: PropTypes.string,
-  toggleSelected: PropTypes.func,
 };
 
 export default FilterPanelSection;
