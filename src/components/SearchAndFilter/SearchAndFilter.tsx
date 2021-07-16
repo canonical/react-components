@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
 
 import FilterPanelSection from "./FilterPanelSection";
 import Chip from "../Chip";
@@ -310,23 +309,6 @@ const SearchAndFilter = ({
       )}
     </div>
   );
-};
-
-SearchAndFilter.propTypes = {
-  filterPanelData: PropTypes.arrayOf(
-    PropTypes.shape({
-      heading: PropTypes.string,
-      chips: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number,
-          lead: PropTypes.string,
-          value: PropTypes.string,
-        })
-      ),
-    })
-  ).isRequired,
-  returnSearchData: PropTypes.func.isRequired,
-  existingSearchData: PropTypes.array,
 };
 
 export default SearchAndFilter;
