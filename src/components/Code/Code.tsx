@@ -2,6 +2,15 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import CodeSnippet, { CodeSnippetBlockAppearance } from "../CodeSnippet";
+import { IS_DEV } from "../../utils";
+
+export type Props = {
+  children: string;
+  className?: string;
+  inline?: boolean;
+  copyable?: boolean;
+  numbered?: boolean;
+};
 
 /**
  * @deprecated Code component is deprecated. Use CodeSnippet component or inline `<code>` instead.
@@ -13,7 +22,12 @@ const Code = ({
   copyable,
   numbered,
   ...props
-}) => {
+}: Props): JSX.Element => {
+  if (IS_DEV) {
+    console.warn(
+      "Code component is deprecated. Use CodeSnippet component or inline `<code>` instead."
+    );
+  }
   if (inline) {
     return (
       <code className={className} {...props}>
@@ -42,7 +56,7 @@ const Code = ({
 };
 
 Code.propTypes = {
-  children: PropTypes.node,
+  children: PropTypes.string,
   className: PropTypes.string,
   inline: PropTypes.bool,
   copyable: PropTypes.bool,
