@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 
 import ActionButton from "../ActionButton";
+import { ButtonAppearance } from "../Button/Button";
 
 export type Props = {
   className?: string;
@@ -23,7 +24,7 @@ const SummaryButton = ({
     {summary && <span className="u-text--muted">{summary}</span>}
     {onClick && (
       <ActionButton
-        appearance="neutral"
+        appearance={ButtonAppearance.NEUTRAL}
         className={classNames("is-small", "is-dense", {
           "is-inline": summary,
         })}

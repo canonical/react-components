@@ -1,4 +1,5 @@
 import { shallow } from "enzyme";
+import type { ShallowWrapper } from "enzyme";
 import React from "react";
 
 /**
@@ -6,7 +7,10 @@ import React from "react";
  * @param {Object} actual - Some JSX from Enzyme.
  * @param {Object} expected - Some JSX provided in the test.
  */
-export const compareJSX = (actual, expected) => {
+export const compareJSX = (
+  actual: ShallowWrapper,
+  expected: JSX.Element
+): void => {
   const actualOutput = actual.debug();
   // If the very first child of a component is another component then this
   // will render that components markup, but we want to shallow render it.
