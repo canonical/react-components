@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import type { HTMLProps, ReactNode } from "react";
 
@@ -19,10 +18,5 @@ const Row = ({ children, className, ...props }: Props): JSX.Element => (
     {children}
   </div>
 );
-
-Row.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-};
 
 export default Row;

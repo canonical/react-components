@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 
@@ -238,33 +237,6 @@ const ContextualMenuDropdown = <L,>({
       </span>
     </span>
   );
-};
-
-ContextualMenuDropdown.propTypes = {
-  adjustedPosition: PropTypes.string,
-  autoAdjust: PropTypes.bool,
-  closePortal: PropTypes.func,
-  constrainPanelWidth: PropTypes.bool,
-  dropdownClassName: PropTypes.string,
-  dropdownContent: PropTypes.node,
-  id: PropTypes.string,
-  isOpen: PropTypes.bool,
-  links: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.shape(Button.propTypes),
-      PropTypes.arrayOf(PropTypes.shape(Button.propTypes)),
-    ])
-  ),
-  position: PropTypes.oneOf(["left", "center", "right"]),
-  positionCoords: PropTypes.shape({
-    height: PropTypes.number.isRequired,
-    left: PropTypes.number.isRequired,
-    top: PropTypes.number.isRequired,
-    width: PropTypes.number,
-  }),
-  positionNode: PropTypes.object,
-  wrapperClass: PropTypes.string,
 };
 
 export default ContextualMenuDropdown;

@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React, { HTMLProps, ReactNode } from "react";
 
 export type Props = {
@@ -39,12 +38,5 @@ const Table = ({
     {children}
   </table>
 );
-
-Table.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  expanding: PropTypes.bool,
-  responsive: PropTypes.bool,
-};
 
 export default Table;

@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import type { MouseEventHandler } from "react";
 
@@ -39,12 +38,6 @@ const PaginationButton = ({
       </button>
     </li>
   );
-};
-
-PaginationButton.propTypes = {
-  direction: PropTypes.oneOf(["forward", "back"]).isRequired,
-  onClick: PropTypes.func.isRequired,
-  disabled: PropTypes.bool,
 };
 
 export default PaginationButton;

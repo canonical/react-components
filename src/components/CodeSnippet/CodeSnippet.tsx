@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 
 import CodeSnippetBlock from "./CodeSnippetBlock";
@@ -34,8 +33,3 @@ export default function CodeSnippet({ className, blocks }: Props): JSX.Element {
     </div>
   );
 }
-
-CodeSnippet.propTypes = {
-  blocks: PropTypes.array.isRequired,
-  className: PropTypes.string,
-};

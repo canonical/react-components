@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import React from "react";
-import PropTypes from "prop-types";
 import type { HTMLProps, FormEvent } from "react";
 
 import Icon from "../Icon";
@@ -110,17 +109,6 @@ const SearchBox = React.forwardRef<HTMLFormElement, Props>(
     );
   }
 );
-
-SearchBox.propTypes = {
-  autocomplete: PropTypes.oneOf(["on", "off"]),
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  externallyControlled: PropTypes.bool,
-  onChange: PropTypes.func,
-  onSubmit: PropTypes.func,
-  placeholder: PropTypes.string,
-  value: PropTypes.string,
-};
 
 SearchBox.displayName = "SearchBox";
 

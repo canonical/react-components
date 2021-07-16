@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import type { HTMLProps, ElementType, ReactNode, ComponentType } from "react";
 
@@ -103,19 +102,6 @@ const Button = <P,>({
       {children}
     </Component>
   );
-};
-
-Button.propTypes = {
-  appearance: PropTypes.string,
-  children: PropTypes.node,
-  className: PropTypes.string,
-  dense: PropTypes.bool,
-  disabled: PropTypes.bool,
-  element: PropTypes.elementType,
-  hasIcon: PropTypes.bool,
-  inline: PropTypes.bool,
-  onClick: PropTypes.func,
-  small: PropTypes.bool,
 };
 
 export default Button;

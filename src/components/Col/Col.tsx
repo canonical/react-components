@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import type { ElementType, HTMLProps, ReactNode } from "react";
 
@@ -77,18 +76,5 @@ const Col = ({
     {children}
   </Component>
 );
-
-Col.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  element: PropTypes.string,
-  emptyLarge: PropTypes.oneOf(colSizes),
-  emptyMedium: PropTypes.oneOf(colSizes),
-  emptySmall: PropTypes.oneOf(colSizes),
-  large: PropTypes.oneOf(colSizes),
-  medium: PropTypes.oneOf(colSizes),
-  size: PropTypes.oneOf(colSizes).isRequired,
-  small: PropTypes.oneOf(colSizes),
-};
 
 export default Col;

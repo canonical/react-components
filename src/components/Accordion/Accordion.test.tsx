@@ -4,7 +4,7 @@ import React from "react";
 import { MOCK_UUID } from "../../setupTests";
 import Accordion from "./Accordion";
 
-describe("Accordion ", () => {
+describe("Accordion", () => {
   it("renders", () => {
     const wrapper = shallow(
       <Accordion

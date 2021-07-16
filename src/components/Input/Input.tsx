@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React, { useEffect, useRef } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
 
@@ -111,22 +110,6 @@ const Input = ({
       />
     </Field>
   );
-};
-
-Input.propTypes = {
-  caution: PropTypes.node,
-  className: PropTypes.string,
-  wrapperClassName: PropTypes.string,
-  error: PropTypes.node,
-  help: PropTypes.node,
-  id: PropTypes.string,
-  label: PropTypes.node,
-  labelClassName: PropTypes.string,
-  required: PropTypes.bool,
-  stacked: PropTypes.bool,
-  success: PropTypes.node,
-  takeFocus: PropTypes.bool,
-  type: PropTypes.string,
 };
 
 export default Input;

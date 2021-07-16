@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 
@@ -141,16 +140,6 @@ const ActionButton = ({
       )}
     </button>
   );
-};
-
-ActionButton.propTypes = {
-  appearance: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  inline: PropTypes.bool,
-  loading: PropTypes.bool,
-  success: PropTypes.bool,
 };
 
 export default ActionButton;

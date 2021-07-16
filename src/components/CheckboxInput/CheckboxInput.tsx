@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import React, { HTMLProps } from "react";
 import type { ReactNode } from "react";
 
@@ -28,11 +27,6 @@ const CheckboxInput = ({
       {...checkboxProps}
     ></CheckableInput>
   );
-};
-
-CheckboxInput.propTypes = {
-  label: PropTypes.node.isRequired,
-  indeterminate: PropTypes.bool,
 };
 
 export default CheckboxInput;

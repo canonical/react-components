@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import type { ReactNode } from "react";
 
@@ -112,18 +111,3 @@ export default function CodeSnippetBlock({
     </>
   );
 }
-
-CodeSnippetBlock.props = {
-  code: PropTypes.string.isRequired,
-  title: PropTypes.string,
-  appearance: PropTypes.oneOf([
-    CodeSnippetBlockAppearance.NUMBERED,
-    CodeSnippetBlockAppearance.LINUX_PROMPT,
-    CodeSnippetBlockAppearance.WINDOWS_PROMPT,
-    CodeSnippetBlockAppearance.URL,
-  ]),
-  wrapLines: PropTypes.bool,
-  dropdowns: PropTypes.array,
-  stacked: PropTypes.bool,
-  content: PropTypes.node,
-};

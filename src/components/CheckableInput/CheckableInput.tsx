@@ -1,6 +1,5 @@
 import classNames from "classnames";
 import { nanoid } from "nanoid";
-import PropTypes from "prop-types";
 import React, { useEffect, useRef, HTMLProps } from "react";
 import type { ReactNode } from "react";
 
@@ -50,12 +49,6 @@ const CheckableInput = ({
       </span>
     </label>
   );
-};
-
-CheckableInput.propTypes = {
-  inputType: PropTypes.oneOf(["checkbox", "radio"]).isRequired,
-  label: PropTypes.node.isRequired,
-  indeterminate: PropTypes.bool,
 };
 
 export default CheckableInput;

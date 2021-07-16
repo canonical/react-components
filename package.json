@@ -38,6 +38,7 @@
     "babel-eslint": "10.1.0",
     "babel-jest": "27.0.6",
     "babel-loader": "8.2.2",
+    "babel-plugin-typescript-to-proptypes": "1.4.2",
     "concurrently": "6.2.0",
     "css-loader": "5.2.6",
     "cypress": "7.6.0",

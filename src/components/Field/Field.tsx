@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import React from "react";
 import type { ReactNode } from "react";
 
@@ -172,22 +171,6 @@ const Field = ({
       {stacked ? <Col size={8}>{content}</Col> : content}
     </div>
   );
-};
-
-Field.propTypes = {
-  caution: PropTypes.node,
-  children: PropTypes.node,
-  className: PropTypes.string,
-  error: PropTypes.node,
-  forId: PropTypes.string,
-  help: PropTypes.node,
-  isSelect: PropTypes.bool,
-  label: PropTypes.node,
-  labelClassName: PropTypes.string,
-  labelFirst: PropTypes.bool,
-  required: PropTypes.bool,
-  stacked: PropTypes.bool,
-  success: PropTypes.node,
 };
 
 export default Field;
