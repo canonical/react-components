@@ -1,6 +1,7 @@
 import { nanoid } from "nanoid";
 import classNames from "classnames";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import * as React from "react";
 import type { ReactNode } from "react";
 import usePortal from "react-useportal";
 

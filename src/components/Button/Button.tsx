@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import type { HTMLProps, ElementType, ReactNode, ComponentType } from "react";
 
 import type { ValueOf } from "../../types";
