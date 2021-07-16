@@ -8,7 +8,7 @@ import ActionButton, {
 } from "./ActionButton";
 
 describe("ActionButton", () => {
-  jest.useFakeTimers("legacy");
+  jest.useFakeTimers("modern");
 
   it("matches loading snapshot", () => {
     const wrapper = mount(<ActionButton loading>Click me</ActionButton>);
@@ -19,7 +19,7 @@ describe("ActionButton", () => {
     const wrapper = mount(<ActionButton loading>Click me</ActionButton>);
     act(() => {
       wrapper.setProps({ loading: false, success: true });
-      jest.advanceTimersByTime(LOADER_MIN_DURATION);
+      jest.advanceTimersByTime(LOADER_MIN_DURATION + 1);
       wrapper.update();
     });
     expect(wrapper).toMatchSnapshot();
@@ -30,7 +30,7 @@ describe("ActionButton", () => {
 
     act(() => {
       wrapper.setProps({ loading: false, success: true });
-      jest.advanceTimersByTime(LOADER_MIN_DURATION - 1);
+      jest.advanceTimersByTime(LOADER_MIN_DURATION);
       wrapper.update();
     });
     expect(wrapper.find(".p-icon--spinner").exists()).toBe(true);
@@ -47,13 +47,13 @@ describe("ActionButton", () => {
 
     act(() => {
       wrapper.setProps({ loading: false, success: true });
-      jest.advanceTimersByTime(LOADER_MIN_DURATION);
+      jest.advanceTimersByTime(LOADER_MIN_DURATION + 1);
       wrapper.update();
     });
     expect(wrapper.find(".p-icon--success").exists()).toBe(true);
 
     act(() => {
-      jest.advanceTimersByTime(SUCCESS_DURATION);
+      jest.advanceTimersByTime(SUCCESS_DURATION + 1);
       wrapper.update();
     });
     expect(wrapper.find(".p-icon--success").exists()).toBe(false);

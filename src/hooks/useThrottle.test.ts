@@ -2,7 +2,7 @@ import { renderHook } from "@testing-library/react-hooks";
 
 import { THROTTLE_DELAY, useThrottle } from "./useThrottle";
 
-jest.useFakeTimers("legacy");
+jest.useFakeTimers("modern");
 
 describe("useThrottle", () => {
   let callback: jest.Mock;
@@ -38,7 +38,8 @@ describe("useThrottle", () => {
 
   it("cleans up when unmounting", () => {
     const clear = jest.spyOn(global, "clearTimeout");
-    const { unmount } = renderHook(() => useThrottle(callback));
+    const { result, unmount } = renderHook(() => useThrottle(callback));
+    result.current();
     unmount();
     expect(clear).toHaveBeenCalled();
   });
