@@ -18,12 +18,12 @@ export type MainTableHeader = {
   /**
    * Optional classes to apply to the table header.
    */
-  className?: string;
+  className?: string | null;
   /**
    * A key to sort the rows by. It should match a key given to the row `sortData`.
    */
-  sortKey?: string;
-} & HTMLProps<HTMLTableHeaderCellElement>;
+  sortKey?: string | null;
+} & Omit<HTMLProps<HTMLTableHeaderCellElement>, "content">;
 
 export type MainTableCell = {
   /**
@@ -33,6 +33,10 @@ export type MainTableCell = {
 } & Omit<TableCellProps, "children" | "content">;
 
 export type MainTableRow = {
+  /**
+   * Optional class(es) to apply to the row.
+   */
+  className?: string | null;
   /**
    * The columns in this row.
    */
@@ -48,13 +52,13 @@ export type MainTableRow = {
   /**
    * An optional key to identify this table row.
    */
-  key?: number | string;
+  key?: number | string | null;
   /**
    * An object of data for use when sorting the rows. The keys of this object
    * should match the header sort keys.
    */
-  sortData?: Record<MainTableHeader["sortKey"], unknown>;
-} & HTMLProps<HTMLTableRowElement>;
+  sortData?: Record<string, unknown>;
+} & Omit<HTMLProps<HTMLTableRowElement>, "className">;
 
 export type Props = {
   /**
@@ -80,7 +84,7 @@ export type Props = {
   /**
    * A number of rows to paginate by.
    */
-  paginate?: number;
+  paginate?: number | null;
   /**
    * The rows to display in the table.
    */
