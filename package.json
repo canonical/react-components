@@ -40,7 +40,7 @@
     "babel-loader": "8.2.2",
     "babel-plugin-typescript-to-proptypes": "1.4.2",
     "concurrently": "6.2.0",
-    "css-loader": "5.2.6",
+    "css-loader": "5.2.7",
     "cypress": "7.6.0",
     "deepmerge": "4.2.2",
     "enzyme": "3.11.0",
