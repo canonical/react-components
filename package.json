@@ -71,7 +71,7 @@
     "stylelint-order": "4.1.0",
     "stylelint-prettier": "1.2.0",
     "stylelint-scss": "3.19.0",
-    "ts-jest": "27.0.3",
+    "ts-jest": "27.0.4",
     "typescript": "4.3.5",
     "vanilla-framework": "2.33.0",
     "wait-on": "5.3.0"
