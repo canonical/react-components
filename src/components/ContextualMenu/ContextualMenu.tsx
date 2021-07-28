@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import classNames from "classnames";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import type { HTMLProps, ReactNode } from "react";
 import usePortal from "react-useportal";
 
 import { useListener, usePrevious } from "../../hooks";
@@ -10,7 +10,7 @@ import type { ButtonProps } from "../Button";
 import ContextualMenuDropdown from "./ContextualMenuDropdown";
 import type { ContextualMenuDropdownProps } from "./ContextualMenuDropdown";
 import type { MenuLink, Position } from "./ContextualMenuDropdown";
-import { SubComponentProps } from "types";
+import { ClassName, SubComponentProps } from "types";
 
 /**
  * The props for the ContextualMenu component.
@@ -28,7 +28,7 @@ export type Props<L> = {
   /**
    * An optional class to apply to the wrapping element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * Whether the menu should close when the escape key is pressed.
    */
@@ -97,7 +97,7 @@ export type Props<L> = {
    * Whether the menu should be visible.
    */
   visible?: boolean;
-};
+} & HTMLProps<HTMLSpanElement>;
 
 /**
  * Get the node to use for positioning the menu.

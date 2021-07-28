@@ -7,6 +7,8 @@ import type {
   AccordionSectionProps,
 } from "../AccordionSection";
 
+import type { ClassName } from "types";
+
 export type Section = AccordionSectionProps & {
   /**
    * An optional key for the section component. It will also be
@@ -19,7 +21,7 @@ export type Props = {
   /**
    * Optional classes applied to the parent element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * An optional value to set the expanded section. The value must match a
    * section key. This value will only set the expanded section on first render

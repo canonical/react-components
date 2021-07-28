@@ -4,6 +4,8 @@ import type { InputHTMLAttributes, ReactNode } from "react";
 
 import Field from "../Field";
 
+import type { ClassName } from "types";
+
 /**
  * The props for the Input component.
  */
@@ -15,7 +17,7 @@ export type Props = {
   /**
    * Optional class(es) to pass to the input element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * The content for error validation.
    */
@@ -52,10 +54,6 @@ export type Props = {
    * Whether to focus on the input on initial render.
    */
   takeFocus?: boolean;
-  /**
-   * The type of the input element.
-   */
-  type?: InputHTMLAttributes<HTMLInputElement>["type"];
   /**
    * Optional class(es) to pass to the wrapping Field component
    */

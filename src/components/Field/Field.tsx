@@ -5,6 +5,8 @@ import type { ReactNode } from "react";
 import Label from "../Label";
 import Col from "../Col";
 
+import type { ClassName } from "types";
+
 /**
  * The props for the Field component.
  */
@@ -20,7 +22,7 @@ export type Props = {
   /**
    * Optional class(es) to pass to the Field wrapper div.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * The content for error validation.
    */

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import type { HTMLProps, ReactNode } from "react";
 
-import type { SortDirection } from "types";
+import type { ClassName, SortDirection } from "types";
 import Pagination from "../Pagination";
 import Table from "../Table";
 import type { TableProps } from "../Table";
@@ -18,7 +18,7 @@ export type MainTableHeader = {
   /**
    * Optional classes to apply to the table header.
    */
-  className?: string | null;
+  className?: ClassName;
   /**
    * A key to sort the rows by. It should match a key given to the row `sortData`.
    */
@@ -36,7 +36,7 @@ export type MainTableRow = {
   /**
    * Optional class(es) to apply to the row.
    */
-  className?: string | null;
+  className?: ClassName;
   /**
    * The columns in this row.
    */

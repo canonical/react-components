@@ -1,6 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 import type { HTMLProps, ReactNode } from "react";
+import type { ClassName } from "types";
 
 export type Props = {
   /**
@@ -10,7 +11,7 @@ export type Props = {
   /**
    * Optional class(es) to pass to the wrapping div element.
    */
-  className?: string;
+  className?: ClassName;
 } & HTMLProps<HTMLDivElement>;
 
 const Row = ({ children, className, ...props }: Props): JSX.Element => (

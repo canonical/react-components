@@ -1,18 +1,9 @@
-import React, { HTMLProps } from "react";
-import type { ReactNode } from "react";
+import React from "react";
 
 import CheckableInput from "../CheckableInput";
+import type { Props as CheckableInputProps } from "../CheckableInput/CheckableInput";
 
-export type Props = {
-  /**
-   * The label for the checkbox.
-   */
-  label: ReactNode;
-  /**
-   * Whether the checkbox should display in indeterminate state.
-   */
-  indeterminate?: boolean;
-} & HTMLProps<HTMLInputElement>;
+export type Props = Omit<CheckableInputProps, "inputType">;
 
 const CheckboxInput = ({
   label,

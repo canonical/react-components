@@ -16,7 +16,7 @@ export type Props = {
    * Whether the input element should display in indeterminate state.
    */
   indeterminate?: boolean;
-} & HTMLProps<HTMLInputElement>;
+} & Omit<HTMLProps<HTMLInputElement>, "type">;
 
 const CheckableInput = ({
   inputType,

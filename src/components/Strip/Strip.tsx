@@ -6,6 +6,8 @@ import Col from "../Col";
 import type { ColSize } from "../Col/Col";
 import Row from "../Row";
 
+import type { ClassName } from "types";
+
 export type Props = {
   /**
    * The content of the strip.
@@ -22,7 +24,7 @@ export type Props = {
   /**
    * Optional classes for the strip.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * The width of the column if `includeCol` has been set.
    */
@@ -59,7 +61,7 @@ export type Props = {
    * The type of the strip (e.g. "accent" or "image").
    */
   type?: string;
-} & HTMLProps<HTMLElement>;
+} & Omit<HTMLProps<HTMLElement>, "type">;
 
 const Strip = ({
   background,

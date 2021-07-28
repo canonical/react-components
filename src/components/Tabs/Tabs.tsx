@@ -2,6 +2,8 @@ import classNames from "classnames";
 import React from "react";
 import type { HTMLProps, ElementType, ReactNode, ComponentType } from "react";
 
+import type { ClassName } from "types";
+
 export type TabLink<P = null> = {
   /**
    * Whether the tab link should have active styling.
@@ -10,7 +12,7 @@ export type TabLink<P = null> = {
   /**
    * Optional classes applied to the link element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * Optional component to be used instead of the default "a" element.
    */
@@ -29,7 +31,7 @@ export type Props<P = null> = {
   /**
    * Optional classes applied to the parent "nav" element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * An array of tab link objects.
    */
