@@ -1,11 +1,13 @@
 import React from "react";
 import classNames from "classnames";
 
+import type { ClassName } from "types";
+
 export type Props = {
   /**
    * Optional class(es) to pass to the wrapping span element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * Whether the spinner should have a light appearance.
    */

@@ -1,11 +1,13 @@
 import React from "react";
 
 import CodeSnippet, { CodeSnippetBlockAppearance } from "../CodeSnippet";
-import { IS_DEV } from "../../utils";
+
+import { IS_DEV } from "utils";
+import type { ClassName } from "types";
 
 export type Props = {
   children: string;
-  className?: string;
+  className?: ClassName;
   inline?: boolean;
   copyable?: boolean;
   numbered?: boolean;

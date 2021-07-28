@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import type { HTMLProps, ElementType, ReactNode, ComponentType } from "react";
 
-import type { ValueOf } from "../../types";
+import type { ClassName, ValueOf } from "types";
 
 export const ButtonAppearance = {
   BASE: "base",
@@ -29,7 +29,7 @@ export type Props<P = null> = {
   /**
    * Optional class(es) to pass to the button element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * Whether the button should have dense padding.
    */

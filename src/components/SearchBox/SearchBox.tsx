@@ -4,6 +4,8 @@ import type { HTMLProps, FormEvent } from "react";
 
 import Icon from "../Icon";
 
+import type { ClassName } from "types";
+
 export type Props = {
   /**
    * Whether autocomplete should be enabled for the search input.
@@ -12,7 +14,7 @@ export type Props = {
   /**
    * Optional classes to pass to the form element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * Whether the input and buttons should be disabled.
    */

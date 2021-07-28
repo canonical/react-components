@@ -9,6 +9,8 @@ import type {
 
 import Field from "../Field";
 
+import type { ClassName } from "types";
+
 type Option = {
   label?: string;
   value: OptionHTMLAttributes<HTMLOptionElement>["value"];
@@ -25,7 +27,7 @@ export type Props = {
   /**
    * Optional class(es) to pass to the input element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * The content for error validation.
    */

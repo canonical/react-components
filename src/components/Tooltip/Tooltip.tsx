@@ -6,6 +6,8 @@ import usePortal from "react-useportal";
 import { useWindowFitment, useListener } from "../../hooks";
 import type { WindowFitment } from "../../hooks";
 
+import type { ClassName } from "types";
+
 export type CSSPosition =
   | "static"
   | "absolute"
@@ -44,7 +46,7 @@ export type Props = {
   /**
    * An optional class to apply to the wrapping element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * Whether the tooltip should follow the mouse.
    */
