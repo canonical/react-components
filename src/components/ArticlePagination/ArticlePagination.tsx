@@ -2,11 +2,13 @@ import classNames from "classnames";
 import React from "react";
 import type { HTMLProps } from "react";
 
+import type { ClassName } from "types";
+
 export type Props = {
   /**
    * Optional classes to add to the wrapping element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * The URL for the next link.
    */

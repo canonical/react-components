@@ -2,7 +2,7 @@ import classNames from "classnames";
 import type { HTMLProps } from "react";
 import React from "react";
 
-import type { ValueOf } from "../../types";
+import type { ClassName, ValueOf } from "types";
 
 export const ICONS = {
   anchor: "anchor",
@@ -34,7 +34,7 @@ export type Props = {
   /**
    * Optional classes to add to the icon element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * Whether to show the light variant of the icon.
    */
