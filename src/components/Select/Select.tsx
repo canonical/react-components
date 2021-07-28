@@ -11,10 +11,7 @@ import Field from "../Field";
 
 import type { ClassName } from "types";
 
-type Option = {
-  label?: string;
-  value: OptionHTMLAttributes<HTMLOptionElement>["value"];
-} & OptionHTMLAttributes<HTMLOptionElement>;
+type Option = OptionHTMLAttributes<HTMLOptionElement>;
 
 /**
  * The props for the Select component.

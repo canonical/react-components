@@ -1,6 +1,12 @@
 import classNames from "classnames";
 import React from "react";
-import type { HTMLProps, ElementType, ReactNode, ComponentType } from "react";
+import type {
+  ButtonHTMLAttributes,
+  ComponentType,
+  ElementType,
+  MouseEventHandler,
+  ReactNode,
+} from "react";
 
 import type { ClassName, ValueOf } from "types";
 
@@ -53,12 +59,12 @@ export type Props<P = null> = {
   /**
    * Function for handling button click event.
    */
-  onClick?: (evt: React.MouseEvent) => void;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
   /**
    * Whether the button should be small.
    */
   small?: boolean;
-} & (HTMLProps<HTMLElement> | P);
+} & (Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> | P);
 
 /**
  * A component for the Vanilla button.

@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
-import type { HTMLAttributes, ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 import Icon from "../Icon";
 import { ButtonAppearance } from "../Button/Button";
@@ -39,7 +39,7 @@ export type Props = {
    * Whether the button should be in the success state.
    */
   success?: boolean;
-} & HTMLAttributes<HTMLButtonElement>;
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 const ActionButton = ({
   appearance = ButtonAppearance.NEUTRAL,

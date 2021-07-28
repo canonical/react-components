@@ -39,7 +39,7 @@ export type Props = {
    * The value of the search input when the state is externally controlled.
    */
   value?: string;
-} & HTMLProps<HTMLFormElement>;
+} & Omit<HTMLProps<HTMLFormElement>, "onChange" | "onSubmit" | "value">;
 
 const SearchBox = React.forwardRef<HTMLFormElement, Props>(
   (

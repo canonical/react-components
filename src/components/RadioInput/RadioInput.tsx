@@ -1,14 +1,9 @@
-import React, { HTMLProps } from "react";
-import type { ReactNode } from "react";
+import React from "react";
 
 import CheckableInput from "../CheckableInput";
+import type { Props as CheckableInputProps } from "../CheckableInput/CheckableInput";
 
-export type Props = {
-  /**
-   * The label of the radio input.
-   */
-  label: ReactNode;
-} & HTMLProps<HTMLInputElement>;
+export type Props = Omit<CheckableInputProps, "inputType">;
 
 const RadioInput = ({ label, ...radioProps }: Props): JSX.Element => {
   return (

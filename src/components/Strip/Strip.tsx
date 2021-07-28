@@ -61,7 +61,7 @@ export type Props = {
    * The type of the strip (e.g. "accent" or "image").
    */
   type?: string;
-} & HTMLProps<HTMLElement>;
+} & Omit<HTMLProps<HTMLElement>, "type">;
 
 const Strip = ({
   background,

@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import classNames from "classnames";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import type { HTMLProps, ReactNode } from "react";
 import usePortal from "react-useportal";
 
 import { useListener, usePrevious } from "../../hooks";
@@ -97,7 +97,7 @@ export type Props<L> = {
    * Whether the menu should be visible.
    */
   visible?: boolean;
-};
+} & HTMLProps<HTMLSpanElement>;
 
 /**
  * Get the node to use for positioning the menu.
