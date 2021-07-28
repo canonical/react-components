@@ -3,7 +3,7 @@ import React from "react";
 import type { ReactNode } from "react";
 
 import CodeSnippetDropdown from "./CodeSnippetDropdown";
-import type { CodeSnippetDropdownProps } from "./CodeSnippetDropdown";
+import type { Props as CodeSnippetDropdownProps } from "./CodeSnippetDropdown";
 import type { ValueOf } from "../../types";
 
 export const CodeSnippetBlockAppearance = {
@@ -13,7 +13,7 @@ export const CodeSnippetBlockAppearance = {
   WINDOWS_PROMPT: "windowsPrompt",
 } as const;
 
-export type CodeSnippetBlockProps = {
+export type Props = {
   /**
    * The appearance of the code block.
    */
@@ -52,7 +52,7 @@ export default function CodeSnippetBlock({
   stacked = false,
   title,
   wrapLines = false,
-}: CodeSnippetBlockProps): JSX.Element {
+}: Props): JSX.Element {
   let className = "p-code-snippet__block";
   const isNumbered = appearance === CodeSnippetBlockAppearance.NUMBERED;
   const hasIcon =

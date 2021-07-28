@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import type { HTMLProps, ReactNode } from "react";
 
-type Props = {
+export type Props = {
   /**
    * The content of the row.
    */

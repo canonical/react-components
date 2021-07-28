@@ -4,11 +4,11 @@ import type { HTMLProps, ReactNode } from "react";
 import type { SortDirection } from "types";
 import Pagination from "../Pagination";
 import Table from "../Table";
-import type { Props as TableProps } from "../Table/Table";
+import type { TableProps } from "../Table";
 import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
-import type { Props as TableCellProps } from "../TableCell/TableCell";
+import type { TableCellProps } from "../TableCell";
 
 export type MainTableHeader = {
   /**

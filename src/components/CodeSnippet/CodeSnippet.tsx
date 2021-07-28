@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React from "react";
 
 import CodeSnippetBlock from "./CodeSnippetBlock";
-import type { CodeSnippetBlockProps } from "./CodeSnippetBlock";
+import type { Props as CodeSnippetBlockProps } from "./CodeSnippetBlock";
 
 export type Props = {
   /**
