@@ -53,10 +53,6 @@ export type Props = {
    */
   takeFocus?: boolean;
   /**
-   * The type of the input element.
-   */
-  type?: InputHTMLAttributes<HTMLInputElement>["type"];
-  /**
    * Optional class(es) to pass to the wrapping Field component
    */
   wrapperClassName?: string;

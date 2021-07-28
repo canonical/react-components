@@ -75,7 +75,7 @@ export type Props = {
    * **Deprecated**. Use `severity` instead.
    */
   type?: never;
-} & HTMLProps<HTMLDivElement>;
+} & Omit<HTMLProps<HTMLDivElement>, "title">;
 
 const Notification = ({
   actions,

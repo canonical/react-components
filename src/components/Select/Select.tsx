@@ -9,10 +9,7 @@ import type {
 
 import Field from "../Field";
 
-type Option = {
-  label?: string;
-  value: OptionHTMLAttributes<HTMLOptionElement>["value"];
-} & OptionHTMLAttributes<HTMLOptionElement>;
+type Option = OptionHTMLAttributes<HTMLOptionElement>;
 
 /**
  * The props for the Select component.

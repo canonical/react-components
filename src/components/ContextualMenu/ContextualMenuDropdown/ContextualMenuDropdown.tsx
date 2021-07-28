@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import type { HTMLProps, ReactNode } from "react";
 
 import { useWindowFitment } from "../../../hooks";
 import Button from "../../Button";
@@ -34,7 +34,7 @@ export type Props<L = null> = {
   positionNode?: HTMLElement;
   setAdjustedPosition?: (position: Position) => void;
   wrapperClass?: string;
-};
+} & HTMLProps<HTMLSpanElement>;
 
 /**
  * Calculate the styles for the menu.
@@ -137,7 +137,7 @@ const generateLink = <L,>(
       key={key}
       onClick={
         onClick
-          ? (evt: React.MouseEvent) => {
+          ? (evt) => {
               closePortal(evt.nativeEvent);
               onClick(evt);
             }

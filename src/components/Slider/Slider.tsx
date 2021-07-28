@@ -45,7 +45,7 @@ export type Props = {
   /**
    * Change event handler.
    */
-  onChange: ChangeEventHandler;
+  onChange: ChangeEventHandler<HTMLInputElement>;
   /**
    * Whether the field is required for the form to submit.
    */
@@ -54,7 +54,7 @@ export type Props = {
    * Whether to show a number input with the numerical value next to the slider.
    */
   showInput?: boolean;
-} & HTMLProps<HTMLInputElement>;
+} & Omit<HTMLProps<HTMLInputElement>, "label" | "onChange">;
 
 export const Slider = ({
   caution,
