@@ -9,9 +9,9 @@ import type {
 
 import Field from "../Field";
 
-type Option = OptionHTMLAttributes<HTMLOptionElement>;
-
 import type { ClassName } from "types";
+
+type Option = OptionHTMLAttributes<HTMLOptionElement>;
 
 /**
  * The props for the Select component.
