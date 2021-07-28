@@ -8,7 +8,7 @@ export type DropdownOptionProps = {
   label: string;
 } & HTMLProps<HTMLOptionElement>;
 
-export type CodeSnippetDropdownProps = {
+export type Props = {
   /**
    * Function for handling the select value changing.
    */
@@ -23,7 +23,7 @@ export default function CodeSnippetDropdown({
   options,
   onChange,
   ...props
-}: CodeSnippetDropdownProps): JSX.Element {
+}: Props): JSX.Element {
   return (
     <select className="p-code-snippet__dropdown" onChange={onChange} {...props}>
       {options.map(({ label, value, ...props }) => (

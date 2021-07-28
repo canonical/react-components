@@ -4,7 +4,7 @@ import type { HTMLProps, ReactNode } from "react";
 
 import { useWindowFitment } from "../../../hooks";
 import Button from "../../Button";
-import type { Props as ButtonProps } from "../../Button";
+import type { ButtonProps } from "../../Button";
 import type { WindowFitment } from "../../../hooks";
 
 /**

@@ -6,9 +6,9 @@ import usePortal from "react-useportal";
 
 import { useListener, usePrevious } from "../../hooks";
 import Button from "../Button";
-import type { Props as ButtonProps } from "../Button";
+import type { ButtonProps } from "../Button";
 import ContextualMenuDropdown from "./ContextualMenuDropdown";
-import type { Props as ContextualMenuDropdownProps } from "./ContextualMenuDropdown/ContextualMenuDropdown";
+import type { ContextualMenuDropdownProps } from "./ContextualMenuDropdown";
 import type { MenuLink, Position } from "./ContextualMenuDropdown";
 import { ClassName, SubComponentProps } from "types";
 

@@ -1,10 +1,9 @@
 import classNames from "classnames";
 import React from "react";
 import type { HTMLProps, ReactNode } from "react";
-
 import type { ClassName } from "types";
 
-type Props = {
+export type Props = {
   /**
    * The content of the row.
    */
