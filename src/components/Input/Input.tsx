@@ -4,6 +4,8 @@ import type { InputHTMLAttributes, ReactNode } from "react";
 
 import Field from "../Field";
 
+import type { ClassName } from "types";
+
 /**
  * The props for the Input component.
  */
@@ -15,7 +17,7 @@ export type Props = {
   /**
    * Optional class(es) to pass to the input element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * The content for error validation.
    */

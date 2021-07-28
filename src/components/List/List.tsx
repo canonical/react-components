@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React from "react";
 import type { HTMLAttributes, ReactNode } from "react";
 
-import type { Headings } from "../../types";
+import type { ClassName, Headings } from "types";
 
 export type ListItem =
   | ReactNode
@@ -20,7 +20,7 @@ export type BaseProps = {
   /**
    * Optional class(es) to pass to the wrapping element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * The list's items.
    */

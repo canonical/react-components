@@ -1,6 +1,8 @@
 import classNames from "classnames";
 import React, { HTMLProps, ReactNode } from "react";
 
+import type { ClassName } from "types";
+
 export type Props = {
   /**
    * The content of the table cell.
@@ -9,7 +11,7 @@ export type Props = {
   /**
    * Optional class(es) to pass to the wrapping td element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * Whether the cell is an expanded cell.
    */

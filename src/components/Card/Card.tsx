@@ -2,6 +2,8 @@ import classNames from "classnames";
 import React from "react";
 import type { HTMLProps, ReactNode } from "react";
 
+import type { ClassName } from "types";
+
 export type Props = {
   /**
    * The content of the card.
@@ -10,7 +12,7 @@ export type Props = {
   /**
    * Optional class(es) to pass to the wrapping div element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * Whether the card should have highlighted styling.
    */

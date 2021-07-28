@@ -2,6 +2,8 @@ import classNames from "classnames";
 import React from "react";
 import type { ElementType, HTMLProps, ReactNode } from "react";
 
+import type { ClassName } from "types";
+
 export type ColSize = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 
 export const colSizes: ColSize[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -14,7 +16,7 @@ export type Props = {
   /**
    * Optional class(es) to pass to the wrapping element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * Optional element type to give the wrapper if not "div".
    */

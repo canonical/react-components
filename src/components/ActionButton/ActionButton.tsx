@@ -4,7 +4,8 @@ import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 import Icon from "../Icon";
 import { ButtonAppearance } from "../Button/Button";
-import type { ValueOf } from "../../types";
+
+import type { ClassName, ValueOf } from "types";
 
 export const LOADER_MIN_DURATION = 400; // minimium duration (ms) loader displays
 export const SUCCESS_DURATION = 2000; // duration (ms) success tick is displayed
@@ -21,7 +22,7 @@ export type Props = {
   /**
    * Optional class(es) to pass to the button element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * Whether the button should be disabled.
    */

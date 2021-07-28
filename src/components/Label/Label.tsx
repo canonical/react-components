@@ -2,6 +2,8 @@ import classNames from "classnames";
 import React from "react";
 import type { LabelHTMLAttributes, ReactNode } from "react";
 
+import type { ClassName } from "types";
+
 /**
  * The props for the Label component.
  */
@@ -13,7 +15,7 @@ export type Props = {
   /**
    * Optional class(es) to give to the label element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * The id of the input this label is connected to.
    */

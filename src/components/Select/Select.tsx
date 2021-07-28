@@ -11,6 +11,8 @@ import Field from "../Field";
 
 type Option = OptionHTMLAttributes<HTMLOptionElement>;
 
+import type { ClassName } from "types";
+
 /**
  * The props for the Select component.
  */
@@ -22,7 +24,7 @@ export type Props = {
   /**
    * Optional class(es) to pass to the input element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * The content for error validation.
    */

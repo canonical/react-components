@@ -5,11 +5,13 @@ import classNames from "classnames";
 import ActionButton from "../ActionButton";
 import { ButtonAppearance } from "../Button/Button";
 
+import type { ClassName } from "types";
+
 export type Props = {
   /**
    * Optional class(es) to pass to the wrapping element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * Whether the summary button is loading.
    */

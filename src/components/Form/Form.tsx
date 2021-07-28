@@ -2,6 +2,8 @@ import classNames from "classnames";
 import React from "react";
 import type { HTMLProps, ReactNode } from "react";
 
+import type { ClassName } from "types";
+
 export type BaseForm = {
   /**
    * The content of the form.
@@ -10,7 +12,7 @@ export type BaseForm = {
   /**
    * Optional class(es) to pass to the form element.
    */
-  className?: string;
+  className?: ClassName;
 };
 
 export type OrderedForm = BaseForm & {

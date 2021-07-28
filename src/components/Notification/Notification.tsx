@@ -5,7 +5,7 @@ import type { HTMLProps, ReactNode } from "react";
 import Button, { ButtonAppearance } from "../Button";
 import { IS_DEV } from "../../utils";
 
-import type { ValueOf } from "types";
+import type { ClassName, ValueOf } from "types";
 
 export const NotificationSeverity = {
   CAUTION: "caution",
@@ -38,7 +38,7 @@ export type Props = {
   /**
    * Optional class(es) to apply to the parent notification element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * **Deprecated**. Use `onDismiss` instead.
    */

@@ -10,7 +10,7 @@ import type { Props as ButtonProps } from "../Button";
 import ContextualMenuDropdown from "./ContextualMenuDropdown";
 import type { Props as ContextualMenuDropdownProps } from "./ContextualMenuDropdown/ContextualMenuDropdown";
 import type { MenuLink, Position } from "./ContextualMenuDropdown";
-import { SubComponentProps } from "types";
+import { ClassName, SubComponentProps } from "types";
 
 /**
  * The props for the ContextualMenu component.
@@ -28,7 +28,7 @@ export type Props<L> = {
   /**
    * An optional class to apply to the wrapping element.
    */
-  className?: string;
+  className?: ClassName;
   /**
    * Whether the menu should close when the escape key is pressed.
    */
