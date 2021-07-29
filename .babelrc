@@ -6,6 +6,18 @@
   ],
   "plugins": [
     "@babel/plugin-proposal-class-properties",
-    "babel-plugin-typescript-to-proptypes"
+    "babel-plugin-typescript-to-proptypes",
+    [
+      "module-resolver",
+      {
+        "root": ["./src"],
+        "alias": {
+          "components": "./src/components",
+          "hooks": "./src/hooks",
+          "types": "./src/types",
+          "utils": "./src/utils"
+        }
+      }
+    ]
   ]
 }
