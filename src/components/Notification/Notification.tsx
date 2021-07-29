@@ -26,7 +26,7 @@ export type Props = {
   /**
    * A list of up to two actions that the notification can perform.
    */
-  actions?: readonly [NotificationAction?, NotificationAction?];
+  actions?: NotificationAction[];
   /**
    * Whether the notification should not have a border.
    */
@@ -94,8 +94,8 @@ const Notification = ({
   ...props
 }: Props): JSX.Element => {
   const timeoutId = useRef(null);
-  const hasActions = actions?.length;
-  const showMeta = timestamp || hasActions;
+  const hasActions = actions?.length > 0;
+  const showMeta = !!timestamp || hasActions;
 
   useEffect(() => {
     if (timeout && onDismiss) {
