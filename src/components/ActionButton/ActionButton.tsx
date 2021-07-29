@@ -119,6 +119,7 @@ const ActionButton = ({
   return (
     <button
       className={buttonClasses}
+      disabled={disabled}
       ref={ref}
       style={
         height && width

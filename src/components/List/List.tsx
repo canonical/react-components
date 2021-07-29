@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React from "react";
-import type { HTMLAttributes, ReactNode } from "react";
+import type { HTMLProps, ReactNode } from "react";
 
 import type { ClassName, Headings } from "types";
 
@@ -8,15 +8,15 @@ export type ListItem =
   | ReactNode
   | ({
       content: ReactNode;
-    } & HTMLAttributes<HTMLLIElement>);
+    } & HTMLProps<HTMLLIElement>);
 
 export type SteppedListItem = {
   content: ReactNode;
   title: ReactNode;
   titleElement?: Headings;
-} & HTMLAttributes<HTMLLIElement>;
+} & HTMLProps<HTMLLIElement>;
 
-export type BaseProps = {
+export type Props = {
   /**
    * Optional class(es) to pass to the wrapping element.
    */
@@ -24,65 +24,17 @@ export type BaseProps = {
   /**
    * The list's items.
    */
-  items: ListItem[];
-};
-
-export type DefaultListProps = BaseProps & {
-  detailed?: false;
-  divided?: boolean;
-  inline?: false;
-  isDark?: false;
-  middot?: false;
-  split?: boolean;
-  stepped?: false;
-  stretch?: false;
-  ticked?: boolean;
-};
-
-export type BaseInlineProps = BaseProps & {
-  detailed?: false;
-  divided?: false;
-  isDark?: boolean;
-  split?: false;
-  stepped?: false;
-  ticked?: false;
-};
-
-export type InlineListProps = BaseInlineProps & {
-  inline: true;
-  middot?: boolean;
-  stretch?: boolean;
-};
-
-export type MiddotListProps = BaseInlineProps & {
-  inline?: boolean;
-  middot: true;
-  stretch?: false;
-};
-
-export type StretchListProps = BaseInlineProps & {
-  inline?: boolean;
-  middot?: false;
-  stretch: true;
-};
-
-export type SteppedListProps = Exclude<BaseProps, "items"> & {
+  items: ListItem[] | SteppedListItem[];
   detailed?: boolean;
-  divided?: false;
-  inline?: false;
-  isDark?: false;
-  items: SteppedListItem[];
-  middot?: false;
-  split?: false;
-  stepped: true;
-  stretch?: false;
-  ticked?: false;
-} & HTMLAttributes<HTMLOListElement>;
-
-export type Props =
-  | ((DefaultListProps | InlineListProps | MiddotListProps | StretchListProps) &
-      HTMLAttributes<HTMLUListElement>)
-  | SteppedListProps;
+  divided?: boolean;
+  inline?: boolean;
+  isDark?: boolean;
+  middot?: boolean;
+  split?: boolean;
+  stepped?: boolean;
+  stretch?: boolean;
+  ticked?: boolean;
+} & Omit<HTMLProps<HTMLOListElement>, "type">;
 
 const generateItems = (
   items: ListItem[],
@@ -96,7 +48,7 @@ const generateItems = (
     let className: string;
     let content: ReactNode;
     let TitleComponent: Headings = "h3";
-    let liProps: HTMLAttributes<HTMLLIElement>;
+    let liProps: HTMLProps<HTMLLIElement>;
     if (
       React.isValidElement(item) ||
       typeof item === "string" ||

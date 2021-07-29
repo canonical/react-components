@@ -4,7 +4,7 @@ import type { HTMLProps, ReactNode } from "react";
 
 import type { ClassName } from "types";
 
-export type BaseForm = {
+export type Props = {
   /**
    * The content of the form.
    */
@@ -13,25 +13,9 @@ export type BaseForm = {
    * Optional class(es) to pass to the form element.
    */
   className?: ClassName;
-};
-
-export type OrderedForm = BaseForm & {
-  inline?: false;
-  stacked?: false;
-};
-
-export type InlineForm = BaseForm & {
-  inline: boolean;
-  stacked?: false;
-};
-
-export type StackedForm = BaseForm & {
-  inline?: false;
-  stacked: boolean;
-};
-
-export type Props = (OrderedForm | InlineForm | StackedForm) &
-  HTMLProps<HTMLFormElement>;
+  inline?: boolean;
+  stacked?: boolean;
+} & HTMLProps<HTMLFormElement>;
 
 const Form = ({
   children,
