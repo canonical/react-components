@@ -2,30 +2,33 @@ import classNames from "classnames";
 import React from "react";
 import type { HTMLProps } from "react";
 
-import type { ClassName } from "types";
+import type { ClassName, PropsWithSpread } from "types";
 
-export type Props = {
-  /**
-   * Optional classes to add to the wrapping element.
-   */
-  className?: ClassName;
-  /**
-   * The URL for the next link.
-   */
-  nextURL?: string;
-  /**
-   * The label for the next link.
-   */
-  nextLabel?: string;
-  /**
-   * The URL for the previous link.
-   */
-  previousURL?: string;
-  /**
-   * The label for the previous link.
-   */
-  previousLabel?: string;
-} & HTMLProps<HTMLElement>;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * Optional classes to add to the wrapping element.
+     */
+    className?: ClassName;
+    /**
+     * The URL for the next link.
+     */
+    nextURL?: string;
+    /**
+     * The label for the next link.
+     */
+    nextLabel?: string;
+    /**
+     * The URL for the previous link.
+     */
+    previousURL?: string;
+    /**
+     * The label for the previous link.
+     */
+    previousLabel?: string;
+  },
+  HTMLProps<HTMLElement>
+>;
 
 const ArticlePagination = ({
   className,

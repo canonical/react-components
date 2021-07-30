@@ -7,7 +7,7 @@ import type {
   AccordionSectionProps,
 } from "components/AccordionSection";
 
-import type { ClassName } from "types";
+import type { ClassName, PropsWithSpread } from "types";
 
 export type Section = AccordionSectionProps & {
   /**
@@ -17,35 +17,38 @@ export type Section = AccordionSectionProps & {
   key?: string | number;
 };
 
-export type Props = {
-  /**
-   * Optional classes applied to the parent element.
-   */
-  className?: ClassName;
-  /**
-   * An optional value to set the expanded section. The value must match a
-   * section key. This value will only set the expanded section on first render
-   * if externallyControlled is not set to `true`.
-   */
-  expanded?: string;
-  /**
-   * Whether the expanded section will be controlled via external state.
-   */
-  externallyControlled?: boolean;
-  /**
-   * Optional function that is called when the expanded section is changed.
-   * The function is provided the section title or null.
-   */
-  onExpandedChange?: (id, title: string) => void;
-  /**
-   * An array of sections and content.
-   */
-  sections: Section[];
-  /**
-   * Optional string describing heading element that should be used for the section titles.
-   */
-  titleElement?: AccordionHeadings;
-} & HTMLProps<HTMLElement>;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * Optional classes applied to the parent element.
+     */
+    className?: ClassName;
+    /**
+     * An optional value to set the expanded section. The value must match a
+     * section key. This value will only set the expanded section on first render
+     * if externallyControlled is not set to `true`.
+     */
+    expanded?: string;
+    /**
+     * Whether the expanded section will be controlled via external state.
+     */
+    externallyControlled?: boolean;
+    /**
+     * Optional function that is called when the expanded section is changed.
+     * The function is provided the section title or null.
+     */
+    onExpandedChange?: (id, title: string) => void;
+    /**
+     * An array of sections and content.
+     */
+    sections: Section[];
+    /**
+     * Optional string describing heading element that should be used for the section titles.
+     */
+    titleElement?: AccordionHeadings;
+  },
+  HTMLProps<HTMLElement>
+>;
 
 const generateSections = (
   sections: Section[],

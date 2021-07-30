@@ -3,20 +3,27 @@ import { nanoid } from "nanoid";
 import React, { useEffect, useRef, HTMLProps } from "react";
 import type { ReactNode } from "react";
 
-export type Props = {
-  /**
-   * The type of the input element.
-   */
-  inputType: "radio" | "checkbox";
-  /**
-   * The label for the input element.
-   */
-  label: ReactNode;
-  /**
-   * Whether the input element should display in indeterminate state.
-   */
-  indeterminate?: boolean;
-} & Omit<HTMLProps<HTMLInputElement>, "type">;
+import type { PropsWithSpread } from "types";
+
+export type Props = PropsWithSpread<
+  {
+    /**
+     * The type of the input element.
+     */
+    inputType: "radio" | "checkbox";
+    /**
+     * The label for the input element.
+     */
+    label: ReactNode;
+    /**
+     * Whether the input element should display in indeterminate state.
+     */
+    indeterminate?: boolean;
+  },
+  // We explicitly omit "type" otherwise it's possible to overwrite "inputType".
+  // Might want to consider just using "type" instead.
+  Omit<HTMLProps<HTMLInputElement>, "type">
+>;
 
 const CheckableInput = ({
   inputType,

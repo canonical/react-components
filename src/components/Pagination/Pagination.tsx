@@ -4,6 +4,8 @@ import type { HTMLProps } from "react";
 import PaginationButton from "../PaginationButton";
 import PaginationItem from "../PaginationItem";
 
+import type { PropsWithSpread } from "types";
+
 const scrollTop = () => window.scrollTo(0, 0);
 
 const generatePaginationItems = (
@@ -90,32 +92,35 @@ const PaginationItemSeparator = (): JSX.Element => (
   </li>
 );
 
-export type Props = {
-  /**
-   * The current page being viewed.
-   */
-  currentPage: number;
-  /**
-   * The number of items to show per page.
-   */
-  itemsPerPage: number;
-  /**
-   * Function to handle paginating the items.
-   */
-  paginate: (page: number) => void;
-  /**
-   * The total number of items.
-   */
-  totalItems: number;
-  /**
-   * Whether to scroll to the top of the list on page change.
-   */
-  scrollToTop?: boolean;
-  /**
-   * The number of pages at which to truncate the pagination items.
-   */
-  truncateThreshold?: number;
-} & HTMLProps<HTMLElement>;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * The current page being viewed.
+     */
+    currentPage: number;
+    /**
+     * The number of items to show per page.
+     */
+    itemsPerPage: number;
+    /**
+     * Function to handle paginating the items.
+     */
+    paginate: (page: number) => void;
+    /**
+     * The total number of items.
+     */
+    totalItems: number;
+    /**
+     * Whether to scroll to the top of the list on page change.
+     */
+    scrollToTop?: boolean;
+    /**
+     * The number of pages at which to truncate the pagination items.
+     */
+    truncateThreshold?: number;
+  },
+  HTMLProps<HTMLElement>
+>;
 
 const Pagination = ({
   itemsPerPage,
