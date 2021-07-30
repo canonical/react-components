@@ -1,6 +1,6 @@
 {
   "name": "@canonical/react-components",
-  "version": "0.19.0",
+  "version": "0.20.0",
   "main": "dist/index.js",
   "module": "dist/index.js",
   "author": "Huw Wilkins <huw.wilkins@canonical.com>",
@@ -149,7 +149,10 @@
       "<rootDir>/src/setupTests.js"
     ],
     "testEnvironment": "jsdom",
-    "moduleDirectories": ["node_modules", "src"]
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
   },
   "npmpackagejsonlint": {
     "rules": {
