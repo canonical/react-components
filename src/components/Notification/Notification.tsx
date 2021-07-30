@@ -5,7 +5,7 @@ import type { HTMLProps, ReactNode } from "react";
 import Button, { ButtonAppearance } from "../Button";
 import { IS_DEV } from "../../utils";
 
-import type { ClassName, ValueOf } from "types";
+import type { ClassName, PropsWithSpread, ValueOf } from "types";
 
 export const NotificationSeverity = {
   CAUTION: "caution",
@@ -22,60 +22,63 @@ type NotificationAction = {
 /**
  * The props for the Notification component.
  */
-export type Props = {
-  /**
-   * A list of up to two actions that the notification can perform.
-   */
-  actions?: NotificationAction[];
-  /**
-   * Whether the notification should not have a border.
-   */
-  borderless?: boolean;
-  /**
-   * The notification message content.
-   */
-  children?: ReactNode;
-  /**
-   * Optional class(es) to apply to the parent notification element.
-   */
-  className?: ClassName;
-  /**
-   * **Deprecated**. Use `onDismiss` instead.
-   */
-  close?: never;
-  /**
-   * Whether the title should display inline with the message.
-   */
-  inline?: boolean;
-  /**
-   * The function to run when dismissing/closing the notification.
-   */
-  onDismiss?: () => void;
-  /**
-   * The severity of the notification.
-   */
-  severity?: ValueOf<typeof NotificationSeverity>;
-  /**
-   * **Deprecated**. Use `title` instead.
-   */
-  status?: never;
-  /**
-   * The amount of time (in ms) until the notification is automatically dismissed.
-   */
-  timeout?: number;
-  /**
-   * A relevant timestamp for the notification, e.g. when it was created.
-   */
-  timestamp?: ReactNode;
-  /**
-   * The title of the notification.
-   */
-  title?: ReactNode;
-  /**
-   * **Deprecated**. Use `severity` instead.
-   */
-  type?: never;
-} & Omit<HTMLProps<HTMLDivElement>, "title">;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * A list of up to two actions that the notification can perform.
+     */
+    actions?: NotificationAction[];
+    /**
+     * Whether the notification should not have a border.
+     */
+    borderless?: boolean;
+    /**
+     * The notification message content.
+     */
+    children?: ReactNode;
+    /**
+     * Optional class(es) to apply to the parent notification element.
+     */
+    className?: ClassName;
+    /**
+     * **Deprecated**. Use `onDismiss` instead.
+     */
+    close?: never;
+    /**
+     * Whether the title should display inline with the message.
+     */
+    inline?: boolean;
+    /**
+     * The function to run when dismissing/closing the notification.
+     */
+    onDismiss?: () => void;
+    /**
+     * The severity of the notification.
+     */
+    severity?: ValueOf<typeof NotificationSeverity>;
+    /**
+     * **Deprecated**. Use `title` instead.
+     */
+    status?: never;
+    /**
+     * The amount of time (in ms) until the notification is automatically dismissed.
+     */
+    timeout?: number;
+    /**
+     * A relevant timestamp for the notification, e.g. when it was created.
+     */
+    timestamp?: ReactNode;
+    /**
+     * The title of the notification.
+     */
+    title?: ReactNode;
+    /**
+     * **Deprecated**. Use `severity` instead.
+     */
+    type?: never;
+  },
+  HTMLProps<HTMLDivElement>
+>;
 
 const Notification = ({
   actions,

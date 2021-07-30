@@ -2,44 +2,48 @@ import classNames from "classnames";
 import React, { useEffect, useRef, useState } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
+import type { ButtonProps } from "../Button";
+import { ButtonAppearance } from "../Button";
 import Icon from "../Icon";
-import { ButtonAppearance } from "../Button/Button";
 
-import type { ClassName, ValueOf } from "types";
+import type { ClassName, PropsWithSpread } from "types";
 
 export const LOADER_MIN_DURATION = 400; // minimium duration (ms) loader displays
 export const SUCCESS_DURATION = 2000; // duration (ms) success tick is displayed
 
-export type Props = {
-  /**
-   * The appearance of the button.
-   */
-  appearance?: ValueOf<typeof ButtonAppearance>;
-  /**
-   * The content of the button.
-   */
-  children?: ReactNode;
-  /**
-   * Optional class(es) to pass to the button element.
-   */
-  className?: ClassName;
-  /**
-   * Whether the button should be disabled.
-   */
-  disabled?: boolean;
-  /**
-   * Whether the button should display inline.
-   */
-  inline?: boolean;
-  /**
-   * Whether the button should be in the loading state.
-   */
-  loading?: boolean;
-  /**
-   * Whether the button should be in the success state.
-   */
-  success?: boolean;
-} & ButtonHTMLAttributes<HTMLButtonElement>;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * The appearance of the button.
+     */
+    appearance?: ButtonProps["appearance"];
+    /**
+     * The content of the button.
+     */
+    children?: ReactNode;
+    /**
+     * Optional class(es) to pass to the button element.
+     */
+    className?: ClassName;
+    /**
+     * Whether the button should be disabled.
+     */
+    disabled?: boolean;
+    /**
+     * Whether the button should display inline.
+     */
+    inline?: boolean;
+    /**
+     * Whether the button should be in the loading state.
+     */
+    loading?: boolean;
+    /**
+     * Whether the button should be in the success state.
+     */
+    success?: boolean;
+  },
+  ButtonHTMLAttributes<HTMLButtonElement>
+>;
 
 const ActionButton = ({
   appearance = ButtonAppearance.NEUTRAL,

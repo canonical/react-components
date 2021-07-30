@@ -2,29 +2,32 @@ import classNames from "classnames";
 import React from "react";
 import type { LabelHTMLAttributes, ReactNode } from "react";
 
-import type { ClassName } from "types";
+import type { ClassName, PropsWithSpread } from "types";
 
 /**
  * The props for the Label component.
  */
-export type Props = {
-  /**
-   * The label content.
-   */
-  children?: ReactNode;
-  /**
-   * Optional class(es) to give to the label element.
-   */
-  className?: ClassName;
-  /**
-   * The id of the input this label is connected to.
-   */
-  forId?: string;
-  /**
-   * Whether to apply required styling to the label.
-   */
-  required?: boolean;
-} & LabelHTMLAttributes<HTMLLabelElement>;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * The label content.
+     */
+    children?: ReactNode;
+    /**
+     * Optional class(es) to give to the label element.
+     */
+    className?: ClassName;
+    /**
+     * The id of the input this label is connected to.
+     */
+    forId?: string;
+    /**
+     * Whether to apply required styling to the label.
+     */
+    required?: boolean;
+  },
+  LabelHTMLAttributes<HTMLLabelElement>
+>;
 
 const Label = ({
   children,

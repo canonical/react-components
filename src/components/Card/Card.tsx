@@ -2,34 +2,37 @@ import classNames from "classnames";
 import React from "react";
 import type { HTMLProps, ReactNode } from "react";
 
-import type { ClassName } from "types";
+import type { ClassName, PropsWithSpread } from "types";
 
-export type Props = {
-  /**
-   * The content of the card.
-   */
-  children?: ReactNode;
-  /**
-   * Optional class(es) to pass to the wrapping div element.
-   */
-  className?: ClassName;
-  /**
-   * Whether the card should have highlighted styling.
-   */
-  highlighted?: boolean;
-  /**
-   * Whether the card should have overlay styling.
-   */
-  overlay?: boolean;
-  /**
-   * The path to a thumbnail image.
-   */
-  thumbnail?: string;
-  /**
-   * The title of the card.
-   */
-  title?: ReactNode;
-} & Omit<HTMLProps<HTMLDivElement>, "title">;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * The content of the card.
+     */
+    children?: ReactNode;
+    /**
+     * Optional class(es) to pass to the wrapping div element.
+     */
+    className?: ClassName;
+    /**
+     * Whether the card should have highlighted styling.
+     */
+    highlighted?: boolean;
+    /**
+     * Whether the card should have overlay styling.
+     */
+    overlay?: boolean;
+    /**
+     * The path to a thumbnail image.
+     */
+    thumbnail?: string;
+    /**
+     * The title of the card.
+     */
+    title?: ReactNode;
+  },
+  HTMLProps<HTMLDivElement>
+>;
 
 const Card = ({
   children,

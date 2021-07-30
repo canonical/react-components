@@ -9,71 +9,74 @@ import type {
 
 import Field from "../Field";
 
-import type { ClassName } from "types";
+import type { ClassName, PropsWithSpread } from "types";
 
 type Option = OptionHTMLAttributes<HTMLOptionElement>;
 
 /**
  * The props for the Select component.
  */
-export type Props = {
-  /**
-   * The content for caution validation.
-   */
-  caution?: ReactNode;
-  /**
-   * Optional class(es) to pass to the input element.
-   */
-  className?: ClassName;
-  /**
-   * The content for error validation.
-   */
-  error?: ReactNode;
-  /**
-   * Help text to show below the field.
-   */
-  help?: ReactNode;
-  /**
-   * The id of the input.
-   */
-  id?: string;
-  /**
-   * The label for the field.
-   */
-  label?: ReactNode;
-  /**
-   * Optional class(es) to pass to the label component.
-   */
-  labelClassName?: string;
-  /**
-   * Function to run when select value changes.
-   */
-  onChange?: ChangeEventHandler<HTMLSelectElement>;
-  /**
-   * Array of options that the select can choose from.
-   */
-  options?: Option[];
-  /**
-   * Whether the field is required.
-   */
-  required?: boolean;
-  /**
-   * Whether the form field should have a stacked appearance.
-   */
-  stacked?: boolean;
-  /**
-   * The content for success validation.
-   */
-  success?: ReactNode;
-  /**
-   * Whether to focus on the input on initial render.
-   */
-  takeFocus?: boolean;
-  /**
-   * Optional class(es) to pass to the wrapping Field component
-   */
-  wrapperClassName?: string;
-} & SelectHTMLAttributes<HTMLSelectElement>;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * The content for caution validation.
+     */
+    caution?: ReactNode;
+    /**
+     * Optional class(es) to pass to the input element.
+     */
+    className?: ClassName;
+    /**
+     * The content for error validation.
+     */
+    error?: ReactNode;
+    /**
+     * Help text to show below the field.
+     */
+    help?: ReactNode;
+    /**
+     * The id of the input.
+     */
+    id?: string;
+    /**
+     * The label for the field.
+     */
+    label?: ReactNode;
+    /**
+     * Optional class(es) to pass to the label component.
+     */
+    labelClassName?: string;
+    /**
+     * Function to run when select value changes.
+     */
+    onChange?: ChangeEventHandler<HTMLSelectElement>;
+    /**
+     * Array of options that the select can choose from.
+     */
+    options?: Option[];
+    /**
+     * Whether the field is required.
+     */
+    required?: boolean;
+    /**
+     * Whether the form field should have a stacked appearance.
+     */
+    stacked?: boolean;
+    /**
+     * The content for success validation.
+     */
+    success?: ReactNode;
+    /**
+     * Whether to focus on the input on initial render.
+     */
+    takeFocus?: boolean;
+    /**
+     * Optional class(es) to pass to the wrapping Field component
+     */
+    wrapperClassName?: string;
+  },
+  SelectHTMLAttributes<HTMLSelectElement>
+>;
 
 const generateOptions = (options: Props["options"]) =>
   options.map(({ label, value, ...props }) => (

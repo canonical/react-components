@@ -2,20 +2,23 @@ import classNames from "classnames";
 import React from "react";
 import type { HTMLProps, ReactNode } from "react";
 
-import type { ClassName } from "types";
+import type { ClassName, PropsWithSpread } from "types";
 
-export type Props = {
-  /**
-   * The content of the form.
-   */
-  children?: ReactNode;
-  /**
-   * Optional class(es) to pass to the form element.
-   */
-  className?: ClassName;
-  inline?: boolean;
-  stacked?: boolean;
-} & HTMLProps<HTMLFormElement>;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * The content of the form.
+     */
+    children?: ReactNode;
+    /**
+     * Optional class(es) to pass to the form element.
+     */
+    className?: ClassName;
+    inline?: boolean;
+    stacked?: boolean;
+  },
+  HTMLProps<HTMLFormElement>
+>;
 
 const Form = ({
   children,

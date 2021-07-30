@@ -1,17 +1,20 @@
 import React, { HTMLProps, ReactNode } from "react";
 
-import { SortDirection } from "types";
+import { PropsWithSpread, SortDirection } from "types";
 
-export type Props = {
-  /**
-   * The content of the table header.
-   */
-  children?: ReactNode;
-  /**
-   * The direction of sorting, if applicable.
-   */
-  sort?: SortDirection;
-} & HTMLProps<HTMLTableHeaderCellElement>;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * The content of the table header.
+     */
+    children?: ReactNode;
+    /**
+     * The direction of sorting, if applicable.
+     */
+    sort?: SortDirection;
+  },
+  HTMLProps<HTMLTableHeaderCellElement>
+>;
 
 const TableHeader = ({ children, sort, ...props }: Props): JSX.Element => {
   return (

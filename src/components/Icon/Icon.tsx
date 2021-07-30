@@ -2,7 +2,7 @@ import classNames from "classnames";
 import type { HTMLProps } from "react";
 import React from "react";
 
-import type { ClassName, ValueOf } from "types";
+import type { ClassName, PropsWithSpread, ValueOf } from "types";
 
 export const ICONS = {
   anchor: "anchor",
@@ -30,20 +30,23 @@ export const ICONS = {
   warning: "warning",
 } as const;
 
-export type Props = {
-  /**
-   * Optional classes to add to the icon element.
-   */
-  className?: ClassName;
-  /**
-   * Whether to show the light variant of the icon.
-   */
-  light?: boolean;
-  /**
-   * The name of the icon.
-   */
-  name: ValueOf<typeof ICONS> | string;
-} & HTMLProps<HTMLElement>;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * Optional classes to add to the icon element.
+     */
+    className?: ClassName;
+    /**
+     * Whether to show the light variant of the icon.
+     */
+    light?: boolean;
+    /**
+     * The name of the icon.
+     */
+    name: ValueOf<typeof ICONS> | string;
+  },
+  HTMLProps<HTMLElement>
+>;
 
 /**
  * Icon

@@ -102,6 +102,7 @@ export type { TooltipProps } from "./components/Tooltip";
 export type {
   ClassName,
   Headings,
+  PropsWithSpread,
   SortDirection,
   SubComponentProps,
   TSFixMe,

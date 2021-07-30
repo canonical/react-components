@@ -1,26 +1,29 @@
 import classNames from "classnames";
 import React, { HTMLProps, ReactNode } from "react";
 
-import type { ClassName } from "types";
+import type { ClassName, PropsWithSpread } from "types";
 
-export type Props = {
-  /**
-   * The content of the table.
-   */
-  children?: ReactNode;
-  /**
-   * Optional class(es) to pass to the wrapping table element.
-   */
-  className?: ClassName;
-  /**
-   * Whether the table can expand hidden cells.
-   */
-  expanding?: boolean;
-  /**
-   * Whether the table should show card styling on smaller screens.
-   */
-  responsive?: boolean;
-} & HTMLProps<HTMLTableElement>;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * The content of the table.
+     */
+    children?: ReactNode;
+    /**
+     * Optional class(es) to pass to the wrapping table element.
+     */
+    className?: ClassName;
+    /**
+     * Whether the table can expand hidden cells.
+     */
+    expanding?: boolean;
+    /**
+     * Whether the table should show card styling on smaller screens.
+     */
+    responsive?: boolean;
+  },
+  HTMLProps<HTMLTableElement>
+>;
 
 const Table = ({
   children,

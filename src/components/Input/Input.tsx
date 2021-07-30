@@ -4,61 +4,64 @@ import type { InputHTMLAttributes, ReactNode } from "react";
 
 import Field from "../Field";
 
-import type { ClassName } from "types";
+import type { ClassName, PropsWithSpread } from "types";
 
 /**
  * The props for the Input component.
  */
-export type Props = {
-  /**
-   * The content for caution validation.
-   */
-  caution?: ReactNode;
-  /**
-   * Optional class(es) to pass to the input element.
-   */
-  className?: ClassName;
-  /**
-   * The content for error validation.
-   */
-  error?: ReactNode;
-  /**
-   * Help text to show below the field.
-   */
-  help?: ReactNode;
-  /**
-   * The id of the input.
-   */
-  id?: string;
-  /**
-   * The label for the field.
-   */
-  label?: ReactNode;
-  /**
-   * Optional class(es) to pass to the label component.
-   */
-  labelClassName?: string;
-  /**
-   * Whether the field is required.
-   */
-  required?: boolean;
-  /**
-   * Whether the form field should have a stacked appearance.
-   */
-  stacked?: boolean;
-  /**
-   * The content for success validation.
-   */
-  success?: ReactNode;
-  /**
-   * Whether to focus on the input on initial render.
-   */
-  takeFocus?: boolean;
-  /**
-   * Optional class(es) to pass to the wrapping Field component
-   */
-  wrapperClassName?: string;
-} & InputHTMLAttributes<HTMLInputElement>;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * The content for caution validation.
+     */
+    caution?: ReactNode;
+    /**
+     * Optional class(es) to pass to the input element.
+     */
+    className?: ClassName;
+    /**
+     * The content for error validation.
+     */
+    error?: ReactNode;
+    /**
+     * Help text to show below the field.
+     */
+    help?: ReactNode;
+    /**
+     * The id of the input.
+     */
+    id?: string;
+    /**
+     * The label for the field.
+     */
+    label?: ReactNode;
+    /**
+     * Optional class(es) to pass to the label component.
+     */
+    labelClassName?: string;
+    /**
+     * Whether the field is required.
+     */
+    required?: boolean;
+    /**
+     * Whether the form field should have a stacked appearance.
+     */
+    stacked?: boolean;
+    /**
+     * The content for success validation.
+     */
+    success?: ReactNode;
+    /**
+     * Whether to focus on the input on initial render.
+     */
+    takeFocus?: boolean;
+    /**
+     * Optional class(es) to pass to the wrapping Field component
+     */
+    wrapperClassName?: string;
+  },
+  InputHTMLAttributes<HTMLInputElement>
+>;
 
 const Input = ({
   caution,
