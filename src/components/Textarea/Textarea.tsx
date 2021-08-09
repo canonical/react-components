@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useEffect, useRef } from "react";
-import type { InputHTMLAttributes, ReactNode } from "react";
+import type { TextareaHTMLAttributes, ReactNode } from "react";
 
 import Field from "../Field";
 
@@ -64,7 +64,7 @@ export type Props = PropsWithSpread<
      */
     wrapperClassName?: string;
   },
-  InputHTMLAttributes<HTMLTextAreaElement>
+  TextareaHTMLAttributes<HTMLTextAreaElement>
 >;
 
 const Textarea = ({
