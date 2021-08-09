@@ -1,30 +1,42 @@
+import classNames from "classnames";
 import { nanoid } from "nanoid";
-import React, { ReactElement, ReactNode, useRef, useEffect } from "react";
+import React, { ReactElement, useRef, useEffect } from "react";
+import type { HTMLProps, ReactNode } from "react";
+import { ClassName, PropsWithSpread } from "types";
 
-export type Props = {
-  /**
-   * Buttons to display underneath the main modal content.
-   */
-  buttonRow?: ReactNode | null;
-  /**
-   * The content of the modal.
-   */
-  children: ReactNode;
-  /**
-   * Function to handle closing the modal.
-   */
-  close?: () => void | null;
-  /**
-   * The title of the modal.
-   */
-  title?: ReactNode | null;
-};
+export type Props = PropsWithSpread<
+  {
+    /**
+     * Buttons to display underneath the main modal content.
+     */
+    buttonRow?: ReactNode | null;
+    /**
+     * Optional class(es) to apply to the wrapping element.
+     */
+    className?: ClassName;
+    /**
+     * The content of the modal.
+     */
+    children: ReactNode;
+    /**
+     * Function to handle closing the modal.
+     */
+    close?: () => void | null;
+    /**
+     * The title of the modal.
+     */
+    title?: ReactNode | null;
+  },
+  HTMLProps<HTMLDivElement>
+>;
 
 export const Modal = ({
   buttonRow,
   children,
+  className,
   close,
   title,
+  ...wrapperProps
 }: Props): ReactElement => {
   const descriptionId = useRef(nanoid());
   const titleId = useRef(nanoid());
@@ -50,7 +62,11 @@ export const Modal = ({
   }, [close]);
 
   return (
-    <div className="p-modal" onClick={close}>
+    <div
+      className={classNames("p-modal", className)}
+      onClick={close}
+      {...wrapperProps}
+    >
       <section
         className="p-modal__dialog"
         role="dialog"
