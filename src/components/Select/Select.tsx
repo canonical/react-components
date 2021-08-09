@@ -37,7 +37,7 @@ export type Props = PropsWithSpread<
     /**
      * The id of the input.
      */
-    id?: string;
+    id?: string | null;
     /**
      * The label for the field.
      */
@@ -45,15 +45,15 @@ export type Props = PropsWithSpread<
     /**
      * Optional class(es) to pass to the label component.
      */
-    labelClassName?: string;
+    labelClassName?: string | null;
     /**
      * Function to run when select value changes.
      */
-    onChange?: ChangeEventHandler<HTMLSelectElement>;
+    onChange?: ChangeEventHandler<HTMLSelectElement> | null;
     /**
      * Array of options that the select can choose from.
      */
-    options?: Option[];
+    options?: Option[] | null;
     /**
      * Whether the field is required.
      */
@@ -73,13 +73,13 @@ export type Props = PropsWithSpread<
     /**
      * Optional class(es) to pass to the wrapping Field component
      */
-    wrapperClassName?: string;
+    wrapperClassName?: ClassName;
   },
   SelectHTMLAttributes<HTMLSelectElement>
 >;
 
 const generateOptions = (options: Props["options"]) =>
-  options.map(({ label, value, ...props }) => (
+  options?.map(({ label, value, ...props }) => (
     <option value={value} key={`${value}` || label} {...props}>
       {label}
     </option>

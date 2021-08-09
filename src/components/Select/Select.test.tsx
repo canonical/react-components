@@ -44,4 +44,9 @@ describe("Select ", () => {
     });
     expect(wrapper.find("select").getDOMNode()).toBe(document.activeElement);
   });
+
+  it("can take null options", () => {
+    const wrapper = shallow(<Select options={null} />);
+    expect(wrapper.exists()).toBe(true);
+  });
 });
