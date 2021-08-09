@@ -52,4 +52,9 @@ describe("Modal ", () => {
     const wrapper = shallow(<Modal title="some title">Bare bones.</Modal>);
     expect(wrapper.find(".p-modal__close")).toEqual({});
   });
+
+  it("can pass extra classes to the wrapper", () => {
+    const wrapper = shallow(<Modal className="extra-class">Bare bones.</Modal>);
+    expect(wrapper.prop("className").includes("extra-class")).toBe(true);
+  });
 });
