@@ -22,4 +22,9 @@ describe("Textarea ", () => {
     const wrapper = mount(<Textarea takeFocus />, { attachTo: container });
     expect(wrapper.find("textarea").getDOMNode()).toBe(document.activeElement);
   });
+
+  it("can accept input attributes", () => {
+    const wrapper = shallow(<Textarea autoComplete="on" />);
+    expect(wrapper.exists()).toBe(true);
+  });
 });
