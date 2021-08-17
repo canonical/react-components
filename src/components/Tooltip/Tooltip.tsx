@@ -54,7 +54,7 @@ export type Props = {
   /**
    * Message to display when the element is hovered.
    */
-  message?: string | null;
+  message?: ReactNode;
   /**
    * Position of the tooltip relative to the element.
    */

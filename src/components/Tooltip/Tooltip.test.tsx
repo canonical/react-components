@@ -30,6 +30,16 @@ describe("<Tooltip />", () => {
     );
   });
 
+  it("can display elements inside the message", () => {
+    const component = mount(
+      <Tooltip message={<strong>message</strong>}>Child</Tooltip>
+    );
+    component.simulate("focus");
+    expect(component.find("[data-test='tooltip-portal'] strong").exists()).toBe(
+      true
+    );
+  });
+
   it("gives the correct class name to the tooltip", () => {
     const component = mount(
       <Tooltip message="text" position="right">
