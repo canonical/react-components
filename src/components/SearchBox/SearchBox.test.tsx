@@ -5,18 +5,23 @@ import SearchBox from "./SearchBox";
 
 describe("SearchBox ", () => {
   it("renders", () => {
-    const wrapper = shallow(<SearchBox />);
+    const wrapper = shallow(<SearchBox onSearch={jest.fn()} />);
     expect(wrapper).toMatchSnapshot();
   });
 
   it("shows the clear button when there is a value", () => {
-    const wrapper = shallow(<SearchBox value="admin" />);
+    const wrapper = shallow(<SearchBox onSearch={jest.fn()} value="admin" />);
     expect(wrapper.find(".p-search-box__reset").exists()).toBe(true);
   });
 
   it("can externally control the value", () => {
     const wrapper = shallow(
-      <SearchBox externallyControlled onChange={jest.fn()} value="admin" />
+      <SearchBox
+        externallyControlled
+        onSearch={jest.fn()}
+        onChange={jest.fn()}
+        value="admin"
+      />
     );
     let input = wrapper.find(".p-search-box__input");
     expect(input.prop("defaultValue")).toBe(undefined);
@@ -29,7 +34,7 @@ describe("SearchBox ", () => {
   it("can be found using the component name", () => {
     const WrappingComponent = () => (
       <div>
-        <SearchBox />
+        <SearchBox onSearch={jest.fn()} />
       </div>
     );
     const wrapper = mount(<WrappingComponent />);
