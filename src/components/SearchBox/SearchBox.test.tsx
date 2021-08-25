@@ -31,6 +31,27 @@ describe("SearchBox ", () => {
     expect(input.prop("value")).toBe("new-admin");
   });
 
+  it("should call onSearch prop", () => {
+    const onSearchMock = jest.fn();
+    const component = shallow(<SearchBox onSearch={onSearchMock} />);
+    component.find(".p-search-box__button").simulate("click");
+    expect(onSearchMock).toBeCalled();
+  });
+
+  it("should call onChange prop", () => {
+    const onChangeMock = jest.fn();
+    const event = {
+      target: {
+        value: "test",
+      },
+    };
+    const component = shallow(
+      <SearchBox onSearch={jest.fn()} onChange={onChangeMock} />
+    );
+    component.find(".p-search-box__input").simulate("change", event);
+    expect(onChangeMock).toBeCalledWith(event.target.value);
+  });
+
   it("can be found using the component name", () => {
     const WrappingComponent = () => (
       <div>

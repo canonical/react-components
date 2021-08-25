@@ -22,7 +22,6 @@ exports[`SearchBox  renders 1`] = `
   <button
     className="p-search-box__button"
     onClick={[Function]}
-    type="submit"
   >
     <Icon
       name="search"
