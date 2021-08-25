@@ -93,7 +93,6 @@ const SearchBox = ({
       <button
         className="p-search-box__button"
         disabled={disabled}
-        type="submit"
         onClick={triggerSearch}
       >
         <Icon name="search">Search</Icon>
