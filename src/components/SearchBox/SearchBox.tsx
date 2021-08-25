@@ -29,7 +29,7 @@ export type Props = {
   /**
    * A function that is called when the user clicks the search icon
    */
-  onSearch: () => void;
+  onSearch?: () => void;
   /**
    * A search input placeholder message.
    */
