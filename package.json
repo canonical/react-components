@@ -75,7 +75,7 @@
     "ts-jest": "27.0.4",
     "tsc-alias": "1.3.8",
     "typescript": "4.3.5",
-    "vanilla-framework": "2.34.0",
+    "vanilla-framework": "2.35.0",
     "wait-on": "5.3.0"
   },
   "dependencies": {
@@ -93,7 +93,7 @@
   "peerDependencies": {
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "vanilla-framework": "2.34.0"
+    "vanilla-framework": "2.35.0"
   },
   "scripts": {
     "build": "rm -rf dist && yarn build-local; yarn build-declaration",
