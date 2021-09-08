@@ -1,6 +1,5 @@
 import React from "react";
 import type { MouseEventHandler } from "react";
-import classNames from "classnames";
 
 import ActionButton from "../ActionButton";
 import { ButtonAppearance } from "../Button/Button";
@@ -42,9 +41,6 @@ const SummaryButton = ({
     {onClick && (
       <ActionButton
         appearance={ButtonAppearance.NEUTRAL}
-        className={classNames("is-small", "is-dense", {
-          "is-inline": summary,
-        })}
         onClick={onClick}
         loading={isLoading}
         disabled={isLoading}

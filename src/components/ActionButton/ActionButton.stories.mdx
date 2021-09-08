@@ -10,9 +10,15 @@ import ActionButton from "./ActionButton";
       control: {
         type: "text",
       },
+      defaultValue: "Click me!",
     },
+    appearance: {
+      defaultValue: "positive"
+    }
   }}
 />
+
+export const Template = (args) => <ActionButton {...args} />;
 
 ### ActionButton
 
@@ -27,9 +33,7 @@ ActionButton accepts the props from [Button](?path=/docs/button--base) in additi
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <ActionButton appearance="positive">Click me!</ActionButton>
-  </Story>
+  <Story name="Base">{Template.bind({})}</Story>
 </Canvas>
 
 ### Loading

@@ -4,20 +4,25 @@ exports[`ActionButton matches loading snapshot 1`] = `
 <ActionButton
   loading={true}
 >
-  <button
+  <Button
     className="p-action-button p-button--neutral is-processing"
     disabled={false}
   >
-    <Icon
-      className="u-animation--spin"
-      light={false}
-      name="spinner"
+    <button
+      className="p-button--neutral p-action-button p-button--neutral is-processing"
+      disabled={false}
     >
-      <i
-        className="u-animation--spin p-icon--spinner"
-      />
-    </Icon>
-  </button>
+      <Icon
+        className="u-animation--spin"
+        light={false}
+        name="spinner"
+      >
+        <i
+          className="u-animation--spin p-icon--spinner"
+        />
+      </Icon>
+    </button>
+  </Button>
 </ActionButton>
 `;
 
@@ -26,19 +31,24 @@ exports[`ActionButton matches success snapshot 1`] = `
   loading={false}
   success={true}
 >
-  <button
+  <Button
     className="p-action-button p-button--neutral is-processing"
     disabled={false}
   >
-    <Icon
-      className={null}
-      light={false}
-      name="success"
+    <button
+      className="p-button--neutral p-action-button p-button--neutral is-processing"
+      disabled={false}
     >
-      <i
-        className="p-icon--success"
-      />
-    </Icon>
-  </button>
+      <Icon
+        className={null}
+        light={false}
+        name="success"
+      >
+        <i
+          className="p-icon--success"
+        />
+      </Icon>
+    </button>
+  </Button>
 </ActionButton>
 `;

@@ -27,7 +27,7 @@ export type Props<P = null> = {
   /**
    * The appearance of the button.
    */
-  appearance?: ValueOf<typeof ButtonAppearance> | string;
+  appearance?: ValueOf<typeof ButtonAppearance>;
   /**
    * The content of the button.
    */

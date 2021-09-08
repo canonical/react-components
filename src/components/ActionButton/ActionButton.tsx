@@ -3,7 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 import type { ButtonProps } from "../Button";
-import { ButtonAppearance } from "../Button";
+import Button, { ButtonAppearance } from "../Button";
 import Icon from "../Icon";
 
 import type { ClassName, PropsWithSpread } from "types";
@@ -121,7 +121,7 @@ const ActionButton = ({
   // forwardRef which is not currently supported by components that use
   // typescript generics.
   return (
-    <button
+    <Button
       className={buttonClasses}
       disabled={disabled}
       ref={ref}
@@ -144,7 +144,7 @@ const ActionButton = ({
       ) : (
         children
       )}
-    </button>
+    </Button>
   );
 };
 
