@@ -28,6 +28,14 @@ export const ICONS = {
   success: "success",
   user: "user",
   warning: "warning",
+  facebook: "facebook",
+  twitter: "twitter",
+  instagram: "instagram",
+  linkedin: "linkedin",
+  youtube: "youtube",
+  github: "github",
+  rss: "rss",
+  email: "email",
 } as const;
 
 export type Props = PropsWithSpread<
