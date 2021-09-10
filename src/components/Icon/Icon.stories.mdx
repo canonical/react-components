@@ -6,6 +6,8 @@ import "./Icon.stories.scss";
 
 <Meta title="Icon" component={Icon} />
 
+export const Template = (args) => <Icon {...args} />;
+
 ### Icon
 
 This is a [React](https://reactjs.org/) component for the Vanilla [Icon](https://docs.vanillaframework.io/patterns/icons/).
@@ -15,6 +17,19 @@ Icons provide visual context and enhance usability.
 ### Props
 
 <ArgsTable of={Icon} />
+
+## Base (with controls)
+
+<Canvas>
+  <Story
+    name="Base"
+    args={{
+      name: "facebook",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
 
 ### Default
 
@@ -53,5 +68,22 @@ To use custom icons that are not included in Vanilla you need to provide your ow
 <Canvas>
   <Story name="Custom">
     <Icon name="custom" />
+  </Story>
+</Canvas>
+
+### Social
+
+To use custom icons that provide the name of the social media icon following the `.p-icon--{name}` convention.
+
+<Canvas>
+  <Story name="Social">
+    <Icon name={ICONS.facebook} />
+    <Icon name={ICONS.twitter} />
+    <Icon name={ICONS.instagram} />
+    <Icon name={ICONS.linkedin} />
+    <Icon name={ICONS.youtube} />
+    <Icon name={ICONS.github} />
+    <Icon name={ICONS.rss} />
+    <Icon name={ICONS.email} />
   </Story>
 </Canvas>
