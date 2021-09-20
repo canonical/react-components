@@ -27,7 +27,7 @@ describe("PasswordToggle ", () => {
     expect(wrapper.find("input").getDOMNode()).toBe(document.activeElement);
   });
 
-  it("toggles the visability of the password whent the button is clicked", () => {
+  it("toggles the visibility of the password when the button is clicked", () => {
     const wrapper = mount(<PasswordToggle id="test-id" />);
     expect(wrapper.find("input#test-id").prop("type")).toBe("password");
     wrapper.find("button[aria-controls='test-id']").simulate("click");
