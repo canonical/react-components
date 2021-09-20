@@ -32,7 +32,7 @@ export type Props = PropsWithSpread<
     /**
      * The id of the input.
      */
-    id?: string;
+    id: string;
     /**
      * The label for the field.
      */
