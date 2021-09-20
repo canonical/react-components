@@ -83,7 +83,7 @@
     "@types/node": "14.17.17",
     "@types/react": "17.0.19",
     "@types/react-dom": "17.0.9",
-    "@types/react-table": "7.7.2",
+    "@types/react-table": "7.7.4",
     "classnames": "2.3.1",
     "nanoid": "3.1.25",
     "prop-types": "15.7.2",
