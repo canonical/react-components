@@ -3515,10 +3515,10 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react-table@7.7.2":
-  version "7.7.2"
-  resolved "https://registry.yarnpkg.com/@types/react-table/-/react-table-7.7.2.tgz#434f8230eb011c7eed8f3550fdf25befafebcfac"
-  integrity sha512-NwB78t3YV5pZ1NK3m2vylb/d0DKVyWH4y4GMCtlE4tg2n5ENM4ejzKnT46YKuqG2cPjWc+PIxuRVMd5OYX1z4A==
+"@types/react-table@7.7.4":
+  version "7.7.4"
+  resolved "https://registry.yarnpkg.com/@types/react-table/-/react-table-7.7.4.tgz#7d01b3a9516e8dcb7152858271210ef08c6cc32a"
+  integrity sha512-CIBJJx9iid8k+kN1/WD8vSXnM1Qc6zX3ihrMnt3ilZxLSrFJSw4wc1u9WeT4dWjbECEO1wJBGVHfSknR4nzFiQ==
   dependencies:
     "@types/react" "*"
 
