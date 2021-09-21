@@ -75,15 +75,14 @@ const PasswordToggle = ({
   wrapperClassName,
   ...inputProps
 }: Props): JSX.Element => {
-  const [fieldType, setFieldType] = useState("password");
-  const isPassword = fieldType === "password";
+  const [isPassword, setIsPassword] = useState(true);
   const inputRef = useRef(null);
 
   const togglePassword = () => {
     if (isPassword) {
-      setFieldType("text");
+      setIsPassword(false);
     } else {
-      setFieldType("password");
+      setIsPassword(true);
     }
   };
 
@@ -124,7 +123,7 @@ const PasswordToggle = ({
         className={classNames("p-form-validation__input", className)}
         id={id}
         ref={inputRef}
-        type={fieldType}
+        type={isPassword ? "password" : "text"}
         readOnly={readOnly}
         {...inputProps}
       />
