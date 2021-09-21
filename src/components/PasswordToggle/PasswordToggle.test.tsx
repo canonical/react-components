@@ -13,7 +13,7 @@ describe("PasswordToggle ", () => {
     expect(className.includes("extra-class")).toBe(true);
   });
 
-  it("can take focus on first render", () => {
+  it("accepts a ref prop we can use to target the input element directly", () => {
     const container = document.createElement("div");
     document.body.appendChild(container);
     const ref = React.createRef<HTMLInputElement>();
@@ -29,5 +29,16 @@ describe("PasswordToggle ", () => {
     expect(wrapper.find("input#test-id").prop("type")).toBe("password");
     wrapper.find("button[aria-controls='test-id']").simulate("click");
     expect(wrapper.find("input#test-id").prop("type")).toBe("text");
+  });
+
+  it("implicitly accepts input props", () => {
+    const wrapper = mount(
+      <PasswordToggle
+        id="test-id"
+        value="My test value"
+        onChange={() => null}
+      />
+    );
+    expect(wrapper.find("input#test-id").prop("value")).toBe("My test value");
   });
 });
