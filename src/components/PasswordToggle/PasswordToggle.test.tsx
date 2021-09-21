@@ -4,11 +4,6 @@ import React from "react";
 import PasswordToggle from "./PasswordToggle";
 
 describe("PasswordToggle ", () => {
-  it("renders", () => {
-    const wrapper = shallow(<PasswordToggle id="test-id" />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it("can add additional classes", () => {
     const wrapper = shallow(
       <PasswordToggle id="test-id" className="extra-class" />
