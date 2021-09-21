@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
 
 import Button from "../Button";
@@ -9,7 +9,7 @@ import Label from "../Label";
 import type { ClassName, PropsWithSpread } from "types";
 
 /**
- * The props for the Input component.
+ * The props for the Password Toggle component.
  */
 export type Props = PropsWithSpread<
   {
@@ -50,10 +50,6 @@ export type Props = PropsWithSpread<
      */
     success?: ReactNode;
     /**
-     * Whether to focus on the input on initial render.
-     */
-    takeFocus?: boolean;
-    /**
      * Optional class(es) to pass to the wrapping Field component
      */
     wrapperClassName?: string;
@@ -61,74 +57,71 @@ export type Props = PropsWithSpread<
   InputHTMLAttributes<HTMLInputElement>
 >;
 
-const PasswordToggle = ({
-  caution,
-  className,
-  error,
-  help,
-  id,
-  label,
-  readOnly,
-  required,
-  success,
-  takeFocus,
-  wrapperClassName,
-  ...inputProps
-}: Props): JSX.Element => {
-  const [isPassword, setIsPassword] = useState(true);
-  const inputRef = useRef(null);
+const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
+  (
+    {
+      caution,
+      className,
+      error,
+      help,
+      id,
+      label,
+      readOnly,
+      required,
+      success,
+      wrapperClassName,
+      ...inputProps
+    },
+    ref
+  ): JSX.Element => {
+    const [isPassword, setIsPassword] = useState(true);
 
-  const togglePassword = () => {
-    if (isPassword) {
-      setIsPassword(false);
-    } else {
-      setIsPassword(true);
-    }
-  };
+    const togglePassword = () => {
+      if (isPassword) {
+        setIsPassword(false);
+      } else {
+        setIsPassword(true);
+      }
+    };
 
-  useEffect(() => {
-    if (takeFocus) {
-      inputRef.current.focus();
-    }
-  }, [takeFocus]);
-
-  return (
-    <Field
-      caution={caution}
-      className={wrapperClassName}
-      error={error}
-      help={help}
-      required={required}
-      success={success}
-    >
-      <div className="p-form-password-toggle">
-        <Label forId={id} required={required}>
-          {label}
-        </Label>
-        <Button
-          appearance="base"
-          className="u-no-margin--bottom"
-          hasIcon
-          aria-controls={id}
-          aria-live="polite"
-          onClick={() => togglePassword()}
-        >
-          <span className="p-form-password-toggle__label">
-            {isPassword ? "Show" : "Hide"}
-          </span>
-          <i className={isPassword ? "p-icon--show" : "p-icon--hide"}></i>
-        </Button>
-      </div>
-      <input
-        className={classNames("p-form-validation__input", className)}
-        id={id}
-        ref={inputRef}
-        type={isPassword ? "password" : "text"}
-        readOnly={readOnly}
-        {...inputProps}
-      />
-    </Field>
-  );
-};
+    return (
+      <Field
+        caution={caution}
+        className={wrapperClassName}
+        error={error}
+        help={help}
+        required={required}
+        success={success}
+      >
+        <div className="p-form-password-toggle">
+          <Label forId={id} required={required}>
+            {label}
+          </Label>
+          <Button
+            appearance="base"
+            className="u-no-margin--bottom"
+            hasIcon
+            aria-controls={id}
+            aria-live="polite"
+            onClick={() => togglePassword()}
+          >
+            <span className="p-form-password-toggle__label">
+              {isPassword ? "Show" : "Hide"}
+            </span>
+            <i className={isPassword ? "p-icon--show" : "p-icon--hide"}></i>
+          </Button>
+        </div>
+        <input
+          className={classNames("p-form-validation__input", className)}
+          id={id}
+          ref={ref}
+          type={isPassword ? "password" : "text"}
+          readOnly={readOnly}
+          {...inputProps}
+        />
+      </Field>
+    );
+  }
+);
 
 export default PasswordToggle;

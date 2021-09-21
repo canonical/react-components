@@ -16,9 +16,11 @@ describe("PasswordToggle ", () => {
   it("can take focus on first render", () => {
     const container = document.createElement("div");
     document.body.appendChild(container);
-    const wrapper = mount(<PasswordToggle id="test-id" takeFocus />, {
+    const ref = React.createRef<HTMLInputElement>();
+    const wrapper = mount(<PasswordToggle id="test-id" ref={ref} />, {
       attachTo: container,
     });
+    ref.current.focus();
     expect(wrapper.find("input").getDOMNode()).toBe(document.activeElement);
   });
 
