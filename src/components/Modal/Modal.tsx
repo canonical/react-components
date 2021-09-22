@@ -45,12 +45,8 @@ export const Modal = ({
   // anywhere else on the page or hits the escape key
   useEffect(() => {
     const keyDown = (e) => {
-      if (e.code === "Escape") {
-        // Close panel if Esc keydown detected
-        if (close) {
-          close();
-        }
-      }
+      const listener = keyListenersMap.get(e.keyCode);
+      return listener && listener(e);
     };
 
     // Add listener on document to capture keydown events
@@ -59,13 +55,40 @@ export const Modal = ({
     return () => {
       document.removeEventListener("keydown", keyDown);
     };
-  }, [close]);
+  });
+
+  const modalRef = React.useRef();
+  const handleTabKey = (e) => {
+    const focusableModalElements = modalRef.current.querySelectorAll(
+      'a[href], button, textarea, input[type="text"], input[type="radio"], input[type="checkbox"], select'
+    );
+    const firstElement = focusableModalElements[0];
+    const lastElement =
+      focusableModalElements[focusableModalElements.length - 1];
+
+    if (!e.shiftKey && document.activeElement !== firstElement) {
+      firstElement.focus();
+      return e.preventDefault();
+    }
+
+    if (e.shiftKey && document.activeElement !== lastElement) {
+      lastElement.focus();
+      e.preventDefault();
+    }
+  };
+
+  const keyListenersMap = new Map([
+    [27, close],
+    [9, handleTabKey],
+  ]);
 
   return (
     <div
       className={classNames("p-modal", className)}
       onClick={close}
       {...wrapperProps}
+      role="dialog"
+      ref={modalRef as React.RefObject<HTMLDivElement>}
     >
       <section
         className="p-modal__dialog"
