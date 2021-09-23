@@ -1,4 +1,4 @@
-import { shallow } from "enzyme";
+import { shallow, mount } from "enzyme";
 import React from "react";
 
 import Modal from "./Modal";
@@ -56,5 +56,23 @@ describe("Modal ", () => {
   it("can pass extra classes to the wrapper", () => {
     const wrapper = shallow(<Modal className="extra-class">Bare bones.</Modal>);
     expect(wrapper.prop("className").includes("extra-class")).toBe(true);
+  });
+
+  it("focuses on the modal", () => {
+    const wrapper = mount(<Modal>Bare bones</Modal>);
+    expect(wrapper.find("div.p-modal").getDOMNode() === document.activeElement);
+  });
+
+  it("traps focus within the modal", () => {
+    const wrapper = mount(
+      <>
+        <button id="test-btn">Open modal</button>
+        <Modal close={jest.fn()} buttonRow={<div>I am not a button</div>}>
+          Bare bones
+        </Modal>
+      </>
+    );
+    const modal = wrapper.find("div.p-modal");
+    modal.simulate("keydown", { key: "Shift" });
   });
 });
