@@ -44,27 +44,30 @@ export const Modal = ({
   title,
   ...wrapperProps
 }: Props): ReactElement => {
+  const focusableElementSelectors =
+    'a[href]:not([tabindex="-1"]), button:not([disabled]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), area[href]:not([tabindex="-1"]), iframe:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"]), [contentEditable=true]:not([tabindex="-1"])';
   const descriptionId = useRef(nanoid());
   const titleId = useRef(nanoid());
 
   const modalRef: MutableRefObject<HTMLElement> = useRef(null);
+  const focusableModalElements = useRef(null);
   const handleTabKey = (e: KeyboardEvent<HTMLDivElement>) => {
-    const focusableModalElements = modalRef.current.querySelectorAll(
-      'a[href]:not([tabindex="-1"]), button:not([disabled]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), area[href]:not([tabindex="-1"]), iframe:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"]), [contentEditable=true]:not([tabindex="-1"])'
-    );
+    if (focusableModalElements.current.length > 0) {
+      const firstElement = focusableModalElements.current[0];
+      const lastElement =
+        focusableModalElements.current[
+          focusableModalElements.current.length - 1
+        ];
 
-    const firstElement = focusableModalElements[0];
-    const lastElement =
-      focusableModalElements[focusableModalElements.length - 1];
+      if (!e.shiftKey && document.activeElement === lastElement) {
+        (firstElement as HTMLElement).focus();
+        e.preventDefault();
+      }
 
-    if (!e.shiftKey && document.activeElement === lastElement) {
-      (firstElement as HTMLElement).focus();
-      e.preventDefault();
-    }
-
-    if (e.shiftKey && document.activeElement === firstElement) {
-      (lastElement as HTMLElement).focus();
-      return e.preventDefault();
+      if (e.shiftKey && document.activeElement === firstElement) {
+        (lastElement as HTMLElement).focus();
+        return e.preventDefault();
+      }
     }
   };
 
@@ -76,6 +79,13 @@ export const Modal = ({
   useEffect(() => {
     modalRef.current.focus();
   }, [modalRef]);
+
+  useEffect(() => {
+    focusableModalElements.current = modalRef.current.querySelectorAll(
+      focusableElementSelectors
+    );
+    focusableModalElements.current[0]?.focus();
+  }, []);
 
   useEffect(() => {
     const keyDown = (e) => {
