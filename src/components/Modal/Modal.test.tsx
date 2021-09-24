@@ -4,17 +4,8 @@ import React from "react";
 import Modal from "./Modal";
 
 describe("Modal ", () => {
-  it("renders", () => {
-    const wrapper = shallow(
-      <Modal close={jest.fn()} title="Confirm delete">
-        Are you sure?
-      </Modal>
-    );
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it("displays buttons that have been supplied", () => {
-    const wrapper = shallow(
+    const wrapper = mount(
       <Modal
         buttonRow={[
           <button key={1}>Button 1</button>,
@@ -24,14 +15,16 @@ describe("Modal ", () => {
         Button tester
       </Modal>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.find(".p-modal__footer button").length).toEqual(2);
   });
 
   it("displays any content in the button row", () => {
     const wrapper = shallow(
       <Modal buttonRow={<div>I am not a button</div>}>Button tester</Modal>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.text()).toContain("I am not a button");
+    expect(wrapper.text()).toContain("Button tester");
+    expect(wrapper.text()).not.toContain("I am something else");
   });
 
   it("if no buttons are provided it does not render the button wrapper", () => {
