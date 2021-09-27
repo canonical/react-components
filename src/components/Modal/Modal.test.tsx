@@ -1,4 +1,5 @@
 import { shallow, mount } from "enzyme";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import Modal from "./Modal";
@@ -51,21 +52,50 @@ describe("Modal ", () => {
     expect(wrapper.prop("className").includes("extra-class")).toBe(true);
   });
 
-  it("focuses on the modal", () => {
-    const wrapper = mount(<Modal>Bare bones</Modal>);
-    expect(wrapper.find("div.p-modal").getDOMNode() === document.activeElement);
+  it("automatically focuses on the first focussable element", () => {
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    const wrapper = mount(
+      <Modal title="Test" close={jest.fn()}>
+        My modal
+      </Modal>,
+      { attachTo: container }
+    );
+    expect(wrapper.find("button.p-modal__close").getDOMNode()).toBe(
+      document.activeElement
+    );
   });
 
   it("traps focus within the modal", () => {
+    const container = document.createElement("div");
+    document.body.appendChild(container);
     const wrapper = mount(
-      <>
-        <button id="test-btn">Open modal</button>
-        <Modal close={jest.fn()} buttonRow={<div>I am not a button</div>}>
-          Bare bones
-        </Modal>
-      </>
+      <Modal
+        title="Test"
+        close={jest.fn()}
+        buttonRow={
+          <button id="test-cancel" onClick={jest.fn()}>
+            Cancel
+          </button>
+        }
+      >
+        Bare bones
+      </Modal>,
+      { attachTo: container }
     );
-    const modal = wrapper.find("div.p-modal");
-    modal.simulate("keydown", { key: "Shift" });
+
+    const closeButton = wrapper.find("button.p-modal__close").getDOMNode();
+    const cancelButton = wrapper.find("button#test-cancel").getDOMNode();
+
+    expect(closeButton).toBe(document.activeElement);
+
+    userEvent.tab();
+
+    expect(cancelButton).toBe(document.activeElement);
+
+    userEvent.tab();
+
+    console.log(closeButton);
+    expect(closeButton).toBe(document.activeElement);
   });
 });
