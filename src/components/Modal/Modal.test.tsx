@@ -95,7 +95,6 @@ describe("Modal ", () => {
 
     userEvent.tab();
 
-    console.log(closeButton);
     expect(closeButton).toBe(document.activeElement);
   });
 });
