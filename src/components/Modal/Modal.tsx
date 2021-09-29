@@ -44,6 +44,8 @@ export const Modal = ({
   title,
   ...wrapperProps
 }: Props): ReactElement => {
+  // list of focusable selectors is based on this Stack Overflow answer:
+  // https://stackoverflow.com/a/30753870/3732840
   const focusableElementSelectors =
     'a[href]:not([tabindex="-1"]), button:not([disabled]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), area[href]:not([tabindex="-1"]), iframe:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"]), [contentEditable=true]:not([tabindex="-1"])';
   const descriptionId = useRef(nanoid());
