@@ -25,7 +25,6 @@ describe("Modal ", () => {
     );
     expect(wrapper.text()).toContain("I am not a button");
     expect(wrapper.text()).toContain("Button tester");
-    expect(wrapper.text()).not.toContain("I am something else");
   });
 
   it("if no buttons are provided it does not render the button wrapper", () => {
