@@ -1,7 +1,13 @@
 import classNames from "classnames";
 import { nanoid } from "nanoid";
 import React, { ReactElement, useRef, useEffect } from "react";
-import type { HTMLProps, ReactNode } from "react";
+import type {
+  HTMLProps,
+  ReactNode,
+  MutableRefObject,
+  KeyboardEvent,
+  RefObject,
+} from "react";
 import { ClassName, PropsWithSpread } from "types";
 
 export type Props = PropsWithSpread<
@@ -38,34 +44,69 @@ export const Modal = ({
   title,
   ...wrapperProps
 }: Props): ReactElement => {
+  // list of focusable selectors is based on this Stack Overflow answer:
+  // https://stackoverflow.com/a/30753870/3732840
+  const focusableElementSelectors =
+    'a[href]:not([tabindex="-1"]), button:not([disabled]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), area[href]:not([tabindex="-1"]), iframe:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"]), [contentEditable=true]:not([tabindex="-1"])';
   const descriptionId = useRef(nanoid());
   const titleId = useRef(nanoid());
 
-  // This useEffect sets up listeners so the panel will close if user clicks
-  // anywhere else on the page or hits the escape key
+  const modalRef: MutableRefObject<HTMLElement> = useRef(null);
+  const focusableModalElements = useRef(null);
+  const handleTabKey = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (focusableModalElements.current.length > 0) {
+      const firstElement = focusableModalElements.current[0];
+      const lastElement =
+        focusableModalElements.current[
+          focusableModalElements.current.length - 1
+        ];
+
+      if (!e.shiftKey && document.activeElement === lastElement) {
+        (firstElement as HTMLElement).focus();
+        e.preventDefault();
+      }
+
+      if (e.shiftKey && document.activeElement === firstElement) {
+        (lastElement as HTMLElement).focus();
+        return e.preventDefault();
+      }
+    }
+  };
+
+  const keyListenersMap = new Map([
+    [27, close],
+    [9, handleTabKey],
+  ]);
+
+  useEffect(() => {
+    modalRef.current.focus();
+  }, [modalRef]);
+
+  useEffect(() => {
+    focusableModalElements.current = modalRef.current.querySelectorAll(
+      focusableElementSelectors
+    );
+    focusableModalElements.current[0]?.focus();
+  }, []);
+
   useEffect(() => {
     const keyDown = (e) => {
-      if (e.code === "Escape") {
-        // Close panel if Esc keydown detected
-        if (close) {
-          close();
-        }
-      }
+      const listener = keyListenersMap.get(e.keyCode);
+      return listener && listener(e);
     };
 
-    // Add listener on document to capture keydown events
     document.addEventListener("keydown", keyDown);
-    // return function to be called when unmounted
     return () => {
       document.removeEventListener("keydown", keyDown);
     };
-  }, [close]);
+  });
 
   return (
     <div
       className={classNames("p-modal", className)}
       onClick={close}
       {...wrapperProps}
+      ref={modalRef as RefObject<HTMLDivElement>}
     >
       <section
         className="p-modal__dialog"
