@@ -2,7 +2,7 @@ name: Cypress chrome headless
 on: [push]
 jobs:
   cypress-run:
-    runs-on: ubuntu-16.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@main
       - uses: cypress-io/github-action@v2
