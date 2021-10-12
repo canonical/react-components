@@ -1,16 +1,4 @@
 {
-  "extends": ["config:base"],
-  "labels": ["Maintenance 🔨"],
-  "packageRules": [
-    {
-      "packagePatterns": ["*"],
-      "excludePackagePatterns": ["vanilla-framework"],
-      "extends": ["schedule:weekly"],
-      "minor": {
-        "groupName": "all non-major dependencies",
-        "groupSlug": "all-minor-patch"
-      }
-    }
-  ],
-  "dependencyDashboard": false
+  "extends": ["github>canonical-web-and-design/renovate-websites"],
+  "labels": ["Maintenance 🔨"]
 }
