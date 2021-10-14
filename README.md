@@ -1,6 +1,6 @@
 # React components for Vanilla Framework.
 
-This is a collection of components designed to be the way to consume [Vanilla Framework](http://vanillaframework.io) when using React.
+This is a collection of components designed to be the way to consume [Vanilla Framework](http://vanillaframework.io) when using React. 
 
 ## How to use the components
 
