@@ -50,6 +50,8 @@ export const Modal = ({
     'a[href]:not([tabindex="-1"]), button:not([disabled]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), area[href]:not([tabindex="-1"]), iframe:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"]), [contentEditable=true]:not([tabindex="-1"])';
   const descriptionId = useRef(nanoid());
   const titleId = useRef(nanoid());
+  const shouldClose = useRef(null);
+  const overlayRef = useRef(null);
 
   const modalRef: MutableRefObject<HTMLElement> = useRef(null);
   const focusableModalElements = useRef(null);
@@ -101,10 +103,32 @@ export const Modal = ({
     };
   });
 
+  const handleContentOnMouseDown = () => {
+    shouldClose.current = false;
+  };
+
+  const handleContentOnMouseUp = () => {
+    shouldClose.current = false;
+  };
+
+  const handleOverlayOnMouseDown = (event) => {
+    if (event.target === overlayRef.current) {
+      shouldClose.current = true;
+    }
+  };
+
+  const handleOverlayOnClick = () => {
+    if (shouldClose.current) {
+      close();
+    }
+  };
+
   return (
     <div
+      ref={overlayRef}
       className={classNames("p-modal", className)}
-      onClick={close}
+      onClick={handleOverlayOnClick}
+      onMouseDown={handleOverlayOnMouseDown}
       {...wrapperProps}
       ref={modalRef as RefObject<HTMLDivElement>}
     >
@@ -114,7 +138,8 @@ export const Modal = ({
         aria-modal="true"
         aria-labelledby={titleId.current}
         aria-describedby={descriptionId.current}
-        onClick={(evt) => evt.stopPropagation()}
+        onMouseDown={handleContentOnMouseDown}
+        onMouseUp={handleContentOnMouseUp}
       >
         {!!title && (
           <header className="p-modal__header">
