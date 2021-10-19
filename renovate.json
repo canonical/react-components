@@ -11,5 +11,6 @@
         "groupSlug": "all-minor-patch"
       }
     }
-  ]
+  ],
+  "dependencyDashboard": false
 }
