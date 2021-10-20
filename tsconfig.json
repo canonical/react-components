@@ -22,11 +22,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react",
+    "types": ["cypress", "@testing-library/cypress"],
     "paths": {
       "components": ["./components"],
       "hooks": ["./hooks"],
       "types": ["./types"],
-      "utils": ["./utils"],
+      "utils": ["./utils"]
     }
   },
   "include": ["src/**/*.ts", "src/**/*.tsx"],

@@ -1,8 +1,6 @@
 describe("Storybook", () => {
-  const storybookUrl = `http://localhost:${Cypress.env("port")}`;
-
   beforeEach(() => {
-    cy.visitPage(storybookUrl, "Accordion");
+    cy.visitPage("Accordion");
   });
 
   // Accordion
