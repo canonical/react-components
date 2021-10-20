@@ -51,7 +51,6 @@ export const Modal = ({
   const descriptionId = useRef(nanoid());
   const titleId = useRef(nanoid());
   const shouldClose = useRef(null);
-  const overlayRef = useRef(null);
 
   const modalRef: MutableRefObject<HTMLElement> = useRef(null);
   const focusableModalElements = useRef(null);
@@ -112,7 +111,7 @@ export const Modal = ({
   };
 
   const handleOverlayOnMouseDown = (event) => {
-    if (event.target === overlayRef.current) {
+    if (event.target === modalRef.current) {
       shouldClose.current = true;
     }
   };
@@ -125,7 +124,6 @@ export const Modal = ({
 
   return (
     <div
-      ref={overlayRef}
       className={classNames("p-modal", className)}
       onClick={handleOverlayOnClick}
       onMouseDown={handleOverlayOnMouseDown}
