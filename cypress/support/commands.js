@@ -1,3 +1,5 @@
+import "@testing-library/cypress/add-commands";
+
 // ***********************************************
 // This example commands.js shows you how to
 // create various custom commands and overwrite
@@ -30,8 +32,8 @@
  * @param { string } page
  * @param { string } variant - variant of component, e.g. "Highlighted"
  */
-Cypress.Commands.add("visitPage", (storybookUrl, page, variant) => {
-  const baseUrl = `${storybookUrl}/iframe.html?id=`;
+Cypress.Commands.add("visitPage", (page, variant) => {
+  const baseUrl = `http://localhost:${Cypress.env("port")}/iframe.html?id=`;
   if (variant) {
     cy.visit(`${baseUrl}${page.toLowerCase()}--${variant.toLowerCase()}`);
   } else {
