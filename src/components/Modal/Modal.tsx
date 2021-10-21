@@ -50,7 +50,7 @@ export const Modal = ({
     'a[href]:not([tabindex="-1"]), button:not([disabled]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), area[href]:not([tabindex="-1"]), iframe:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"]), [contentEditable=true]:not([tabindex="-1"])';
   const descriptionId = useRef(nanoid());
   const titleId = useRef(nanoid());
-  const shouldClose = useRef(null);
+  const shouldClose = useRef(false);
 
   const modalRef: MutableRefObject<HTMLElement> = useRef(null);
   const focusableModalElements = useRef(null);
