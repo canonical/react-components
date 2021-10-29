@@ -28,6 +28,7 @@ export {
   NotificationSeverity,
 } from "./components/Notification";
 export { default as Pagination } from "./components/Pagination";
+export { default as PasswordToggle } from "./components/PasswordToggle";
 export { default as RadioInput } from "./components/RadioInput";
 export { default as Row } from "./components/Row";
 export { default as SearchAndFilter } from "./components/SearchAndFilter";
