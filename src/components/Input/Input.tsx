@@ -20,7 +20,7 @@ export type Props = PropsWithSpread<
      */
     className?: ClassName;
     /**
-     * The content for error validation.
+     * The content for error validation message. Controls the value of aria-invalid attribute.
      */
     error?: ReactNode;
     /**
