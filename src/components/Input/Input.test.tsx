@@ -32,4 +32,14 @@ describe("Input ", () => {
     const wrapper = mount(<Input takeFocus />, { attachTo: container });
     expect(wrapper.find("input").getDOMNode()).toBe(document.activeElement);
   });
+
+  it("sets aria-invalid to false when there is no error", () => {
+    const wrapper = mount(<Input type="text" />);
+    expect(wrapper.find("input").prop("aria-invalid")).toBe(false);
+  });
+
+  it("sets aria-invalid to true when there is an error", () => {
+    const wrapper = mount(<Input type="text" error="Incorrect value" />);
+    expect(wrapper.find("input").prop("aria-invalid")).toBe(true);
+  });
 });

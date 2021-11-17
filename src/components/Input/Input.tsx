@@ -107,6 +107,7 @@ const Input = ({
         id={id}
         ref={inputRef}
         type={type}
+        aria-invalid={!!error}
         {...inputProps}
       />
     </Field>
