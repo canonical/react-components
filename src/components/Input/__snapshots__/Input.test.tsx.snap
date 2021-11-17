@@ -6,6 +6,7 @@ exports[`Input  renders 1`] = `
   labelFirst={true}
 >
   <input
+    aria-invalid={false}
     className="p-form-validation__input"
     id="test-id"
     type="text"
