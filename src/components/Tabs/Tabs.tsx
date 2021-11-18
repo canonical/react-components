@@ -68,7 +68,7 @@ const Tabs = <P,>({
               <Component
                 aria-selected={active}
                 className={classNames("p-tabs__link", className)}
-                data-test={`tab-link-${label}`}
+                data-testid={`tab-link-${label}`}
                 {...rest}
               >
                 {label}

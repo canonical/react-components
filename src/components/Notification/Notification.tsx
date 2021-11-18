@@ -125,7 +125,10 @@ const Notification = ({
     >
       <div className="p-notification__content">
         {title && (
-          <h5 className="p-notification__title" data-test="notification-title">
+          <h5
+            className="p-notification__title"
+            data-testid="notification-title"
+          >
             {title}
           </h5>
         )}
@@ -135,7 +138,7 @@ const Notification = ({
           <button
             aria-label="Close notification"
             className="p-notification__close"
-            data-test="notification-close-button"
+            data-testid="notification-close-button"
             onClick={onDismiss}
           >
             Close
@@ -143,11 +146,11 @@ const Notification = ({
         )}
       </div>
       {showMeta && (
-        <div className="p-notification__meta" data-test="notification-meta">
+        <div className="p-notification__meta" data-testid="notification-meta">
           {timestamp && (
             <span
               className="p-notification__timestamp"
-              data-test="notification-timestamp"
+              data-testid="notification-timestamp"
             >
               {timestamp}
             </span>
@@ -158,7 +161,7 @@ const Notification = ({
                 <Button
                   appearance={ButtonAppearance.LINK}
                   className="p-notification__action"
-                  data-test="notification-action"
+                  data-testid="notification-action"
                   key={`${action.label}-${i}`}
                   onClick={action.onClick}
                 >

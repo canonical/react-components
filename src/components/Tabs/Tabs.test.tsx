@@ -82,8 +82,10 @@ describe("Tabs", () => {
         ]}
       />
     );
-    expect(wrapper.find("a[data-test='tab-link-label1']").exists()).toBe(false);
-    expect(wrapper.find("div[data-test='tab-link-label1']").exists()).toBe(
+    expect(wrapper.find("a[data-testid='tab-link-label1']").exists()).toBe(
+      false
+    );
+    expect(wrapper.find("div[data-testid='tab-link-label1']").exists()).toBe(
       true
     );
   });
@@ -103,9 +105,11 @@ describe("Tabs", () => {
         ]}
       />
     );
-    expect(wrapper.find("a[data-test='tab-link-label1']").exists()).toBe(false);
-    expect(wrapper.find("TestLink[data-test='tab-link-label1']").exists()).toBe(
-      true
+    expect(wrapper.find("a[data-testid='tab-link-label1']").exists()).toBe(
+      false
     );
+    expect(
+      wrapper.find("TestLink[data-testid='tab-link-label1']").exists()
+    ).toBe(true);
   });
 });

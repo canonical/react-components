@@ -264,7 +264,7 @@ const Tooltip = ({
                   "is-detached",
                   tooltipClassName
                 )}
-                data-test="tooltip-portal"
+                data-testid="tooltip-portal"
                 style={positionStyle as React.CSSProperties}
               >
                 <span className="p-tooltip__message" ref={messageRef}>
