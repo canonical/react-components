@@ -23,7 +23,7 @@ export type SortDirection = "none" | "ascending" | "descending";
  */
 export type SubComponentProps<P> = Partial<P> & {
   // There is currently an issue when spreading additional unknown props e.g.
-  // `data-test` which is the reason for this wildcard object. This extra type
+  // `data-testid` which is the reason for this wildcard object. This extra type
   // can be removed when the following issue is resolved:
   // https://github.com/microsoft/TypeScript/issues/28960
   [prop: string]: unknown;

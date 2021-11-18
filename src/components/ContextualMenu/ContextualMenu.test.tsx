@@ -214,8 +214,10 @@ describe("ContextualMenu ", () => {
   });
 
   it("can pass props to the contextual menu", () => {
-    const wrapper = mount(<ContextualMenu links={[]} data-test="extra-prop" />);
-    expect(wrapper.prop("data-test")).toBe("extra-prop");
+    const wrapper = mount(
+      <ContextualMenu links={[]} data-testid="extra-prop" />
+    );
+    expect(wrapper.prop("data-testid")).toBe("extra-prop");
   });
 
   it("can pass props to the toggle button", () => {
@@ -225,13 +227,13 @@ describe("ContextualMenu ", () => {
         toggleLabel="Toggle"
         toggleProps={{
           appearance: "negative",
-          "data-test": "extra-prop",
+          "data-testid": "extra-prop",
         }}
       />
     );
     const button = wrapper.find("Button.p-contextual-menu__toggle");
     expect(button.prop("appearance")).toBe("negative");
-    expect(button.prop("data-test")).toBe("extra-prop");
+    expect(button.prop("data-testid")).toBe("extra-prop");
   });
 
   it("can pass props to the contextual menu dropdown", () => {
@@ -240,13 +242,13 @@ describe("ContextualMenu ", () => {
         links={[]}
         toggleLabel="Toggle"
         dropdownProps={{
-          "data-test": "extra-prop",
+          "data-testid": "extra-prop",
         }}
       />
     );
     // Open the menu.
     wrapper.find("Button.p-contextual-menu__toggle").simulate("click");
-    expect(wrapper.find("ContextualMenuDropdown").prop("data-test")).toBe(
+    expect(wrapper.find("ContextualMenuDropdown").prop("data-testid")).toBe(
       "extra-prop"
     );
   });

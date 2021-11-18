@@ -19,13 +19,13 @@ describe("<Tooltip />", () => {
   // unit tests
   it("does not show tooltip message by default", () => {
     const component = mount(<Tooltip message="text">Child</Tooltip>);
-    expect(component.exists("[data-test='tooltip-portal']")).toEqual(false);
+    expect(component.exists("[data-testid='tooltip-portal']")).toEqual(false);
   });
 
   it("renders tooltip message when focused", () => {
     const component = mount(<Tooltip message="text">Child</Tooltip>);
     component.simulate("focus");
-    expect(component.find("[data-test='tooltip-portal']").text()).toEqual(
+    expect(component.find("[data-testid='tooltip-portal']").text()).toEqual(
       "text"
     );
   });
@@ -35,9 +35,9 @@ describe("<Tooltip />", () => {
       <Tooltip message={<strong>message</strong>}>Child</Tooltip>
     );
     component.simulate("focus");
-    expect(component.find("[data-test='tooltip-portal'] strong").exists()).toBe(
-      true
-    );
+    expect(
+      component.find("[data-testid='tooltip-portal'] strong").exists()
+    ).toBe(true);
   });
 
   it("gives the correct class name to the tooltip", () => {
@@ -61,9 +61,9 @@ describe("<Tooltip />", () => {
     );
     global.innerWidth = 20;
     wrapper.simulate("mouseover");
-    expect(wrapper.find("[data-test='tooltip-portal']").prop("className")).toBe(
-      "p-tooltip--btm-left is-detached"
-    );
+    expect(
+      wrapper.find("[data-testid='tooltip-portal']").prop("className")
+    ).toBe("p-tooltip--btm-left is-detached");
   });
 
   describe("adjustForWindow", () => {

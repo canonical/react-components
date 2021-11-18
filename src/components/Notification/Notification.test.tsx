@@ -28,12 +28,12 @@ describe("Notification", () => {
 
   it("can be given a title", () => {
     const wrapper = shallow(<Notification />);
-    expect(wrapper.find("[data-test='notification-title']").exists()).toBe(
+    expect(wrapper.find("[data-testid='notification-title']").exists()).toBe(
       false
     );
 
     wrapper.setProps({ title: "Title" });
-    expect(wrapper.find("[data-test='notification-title']").exists()).toBe(
+    expect(wrapper.find("[data-testid='notification-title']").exists()).toBe(
       true
     );
   });
@@ -58,53 +58,57 @@ describe("Notification", () => {
     const onDismiss = jest.fn();
     const wrapper = shallow(<Notification />);
     expect(
-      wrapper.find("[data-test='notification-close-button']").exists()
+      wrapper.find("[data-testid='notification-close-button']").exists()
     ).toBe(false);
 
     wrapper.setProps({ onDismiss });
     expect(
-      wrapper.find("[data-test='notification-close-button']").exists()
+      wrapper.find("[data-testid='notification-close-button']").exists()
     ).toBe(true);
 
-    wrapper.find("[data-test='notification-close-button']").simulate("click");
+    wrapper.find("[data-testid='notification-close-button']").simulate("click");
     expect(onDismiss).toHaveBeenCalled();
   });
 
   it("can be given a timestamp", () => {
     const wrapper = shallow(<Notification />);
-    expect(wrapper.find("[data-test='notification-meta']").exists()).toBe(
+    expect(wrapper.find("[data-testid='notification-meta']").exists()).toBe(
       false
     );
-    expect(wrapper.find("[data-test='notification-timestamp']").exists()).toBe(
-      false
-    );
+    expect(
+      wrapper.find("[data-testid='notification-timestamp']").exists()
+    ).toBe(false);
 
     wrapper.setProps({ timestamp: "1h ago" });
-    expect(wrapper.find("[data-test='notification-meta']").exists()).toBe(true);
-    expect(wrapper.find("[data-test='notification-timestamp']").exists()).toBe(
+    expect(wrapper.find("[data-testid='notification-meta']").exists()).toBe(
       true
     );
+    expect(
+      wrapper.find("[data-testid='notification-timestamp']").exists()
+    ).toBe(true);
   });
 
   it("can be given actions", () => {
     const onActionClick = jest.fn();
     const wrapper = shallow(<Notification />);
-    expect(wrapper.find("[data-test='notification-meta']").exists()).toBe(
+    expect(wrapper.find("[data-testid='notification-meta']").exists()).toBe(
       false
     );
-    expect(wrapper.find("[data-test='notification-action']").exists()).toBe(
+    expect(wrapper.find("[data-testid='notification-action']").exists()).toBe(
       false
     );
 
     wrapper.setProps({
       actions: [{ label: "Action", onClick: onActionClick }],
     });
-    expect(wrapper.find("[data-test='notification-meta']").exists()).toBe(true);
-    expect(wrapper.find("[data-test='notification-action']").exists()).toBe(
+    expect(wrapper.find("[data-testid='notification-meta']").exists()).toBe(
+      true
+    );
+    expect(wrapper.find("[data-testid='notification-action']").exists()).toBe(
       true
     );
 
-    wrapper.find("[data-test='notification-action']").simulate("click");
+    wrapper.find("[data-testid='notification-action']").simulate("click");
     expect(onActionClick).toHaveBeenCalled();
   });
 

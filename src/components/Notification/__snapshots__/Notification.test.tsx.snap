@@ -9,7 +9,7 @@ exports[`Notification renders 1`] = `
   >
     <h5
       className="p-notification__title"
-      data-test="notification-title"
+      data-testid="notification-title"
     >
       Permissions changed
     </h5>
