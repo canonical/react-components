@@ -1,12 +1,12 @@
 # React components for Vanilla Framework.
 
-This is a collection of components designed to be the way to consume [Vanilla Framework](http://vanillaframework.io) when using React. 
+This is a collection of components designed to be the way to consume [Vanilla Framework](http://vanillaframework.io) when using React.
 
 ## How to use the components
 
 See the [component docs](https://canonical-web-and-design.github.io/react-components/) for usage instructions.
 
-![CI](https://github.com/canonical-web-and-design/react-components/workflows/CI/badge.svg?branch=master)
+![CI](https://github.com/canonical-web-and-design/react-components/workflows/CI/badge.svg?branch=main)
 ![Cypress chrome headless](https://github.com/canonical-web-and-design/react-components/workflows/Cypress%20chrome%20headless/badge.svg)
 
 ## Requirements
@@ -36,9 +36,9 @@ Please file any issues at [GitHub](https://github.com/canonical-web-and-design/r
 You might want to:
 
 - [View the source](https://github.com/canonical-web-and-design/react-components) on GitHub.
-- Read about [developing components](https://github.com/canonical-web-and-design/react-components/blob/master/HACKING.md).
-- Find out how to [publish to NPM](https://github.com/canonical-web-and-design/react-components/blob/master/PUBLISH-NPM-PACKAGE.md).
-- Know how to [publish the docs](https://github.com/canonical-web-and-design/react-components/blob/master/PUBLISHING-DOCS.md) to GitHub Pages.
+- Read about [developing components](https://github.com/canonical-web-and-design/react-components/blob/main/HACKING.md).
+- Find out how to [publish to NPM](https://github.com/canonical-web-and-design/react-components/blob/main/PUBLISH-NPM-PACKAGE.md).
+- Know how to [publish the docs](https://github.com/canonical-web-and-design/react-components/blob/main/PUBLISHING-DOCS.md) to GitHub Pages.
 
 ## Developing locally using this repository
 
