@@ -2,10 +2,10 @@
 
 ### Prepare for release
 
-Check out a new release branch from master
+Check out a new release branch from main branch
 
 ```shell
-git checkout -b prepare-0.1.1-release master
+git checkout -b prepare-0.1.1-release main
 ```
 
 #### Build the docs
@@ -41,11 +41,11 @@ Publish the [latest release on Github](https://github.com/canonical-web-and-desi
 
 #### Publish to NPM
 
-This should happen automatically after publishing the release on GH (thanks to [GH actions workflow](https://github.com/canonical-web-and-design/react-components/blob/master/.github/workflows/publish-on-release.yml)).
+This should happen automatically after publishing the release on GH (thanks to [GH actions workflow](https://github.com/canonical-web-and-design/react-components/blob/main/.github/workflows/publish-on-release.yml)).
 
 In case it fails and you need to publish manually, here are manual steps:
 
-Get a fresh copy of master
+Get a fresh copy of the main branch
 
 ```shell
 git clone git@github.com:canonical-web-and-design/react-components.git react-components-release
