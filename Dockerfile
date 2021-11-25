@@ -6,7 +6,7 @@ FROM node:16 AS yarn-dependencies
 WORKDIR /srv
 ADD package.json .
 ADD yarn.lock .
-RUN --mount=type=cache,target=/usr/local/share/.cache/yarn yarn install
+RUN --mount=type=cache,target=/usr/local/share/.cache/yarn CYPRESS_INSTALL_BINARY=0 yarn install
 
 
 # Build stage: Run "yarn run build-js"
