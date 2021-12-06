@@ -70,11 +70,10 @@
     "sass-loader": "10.2.0",
     "style-loader": "2.0.0",
     "stylelint": "14.1.0",
-    "stylelint-config-prettier": "8.0.2",
-    "stylelint-config-standard": "22.0.0",
-    "stylelint-order": "4.1.0",
-    "stylelint-prettier": "1.2.0",
-    "stylelint-scss": "3.21.0",
+    "stylelint-config-prettier": "9.0.3",
+    "stylelint-config-recommended-scss": "5.0.2",
+    "stylelint-order": "5.0.0",
+    "stylelint-prettier": "2.0.0",
     "ts-jest": "27.0.7",
     "tsc-alias": "1.4.1",
     "typescript": "4.5.2",
@@ -93,6 +92,9 @@
     "react-table": "7.7.0",
     "react-useportal": "1.0.14"
   },
+  "resolutions": {
+    "postcss": "^8.3.11"
+  },
   "peerDependencies": {
     "react": "17.0.2",
     "react-dom": "17.0.2",
@@ -108,7 +110,7 @@
     "docs": "start-storybook --port ${PORT:-9009}",
     "link-packages": "yarn install && yarn build && yarn link && cd node_modules/react && yarn link && cd ../react-dom && yarn link",
     "lint-js": "eslint src",
-    "lint-style": "stylelint src",
+    "lint-style": "stylelint src/**/*.scss",
     "lint-package-json": "npmPkgJsonLint .",
     "lint": "yarn lint-package-json && yarn lint-js && yarn lint-style",
     "percy": "yarn build-docs && percy-storybook --build_dir=docs --widths=1280",
