@@ -106,6 +106,7 @@ const Input = ({
         className={classNames("p-form-validation__input", className)}
         id={id}
         ref={inputRef}
+        required={required}
         type={type}
         aria-invalid={!!error}
         {...inputProps}
