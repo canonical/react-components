@@ -1,5 +1,5 @@
 module.exports = {
-  parser: "babel-eslint",
+  parser: "@babel/eslint-parser",
   plugins: ["react", "prettier", "cypress"],
   extends: [
     "react-app", // Use the recommended rules from CRA.
