@@ -42,4 +42,9 @@ describe("Input ", () => {
     const wrapper = mount(<Input type="text" error="Incorrect value" />);
     expect(wrapper.find("input").prop("aria-invalid")).toBe(true);
   });
+
+  it("sets required field on input", () => {
+    const wrapper = mount(<Input type="text" required />);
+    expect(wrapper.find("input").prop("required")).toBe(true);
+  });
 });
