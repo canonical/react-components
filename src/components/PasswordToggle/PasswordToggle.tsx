@@ -50,6 +50,10 @@ export type Props = PropsWithSpread<
      */
     success?: ReactNode;
     /**
+     * The content for success validation.
+     */
+    type?: "submit" | "reset" | "button";
+    /**
      * Optional class(es) to pass to the wrapping Field component
      */
     wrapperClassName?: string;
@@ -69,6 +73,7 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
       readOnly,
       required,
       success,
+      type,
       wrapperClassName,
       ...inputProps
     },
@@ -99,6 +104,7 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
           </Label>
           <Button
             appearance="base"
+            type={type ? type : "button"}
             className="u-no-margin--bottom"
             hasIcon
             aria-controls={id}
