@@ -42,7 +42,7 @@
     "babel-jest": "27.3.1",
     "babel-loader": "8.2.3",
     "babel-plugin-module-resolver": "4.1.0",
-    "babel-plugin-typescript-to-proptypes": "1.4.2",
+    "babel-plugin-typescript-to-proptypes": "2.0.0",
     "concurrently": "6.4.0",
     "css-loader": "5.2.7",
     "cypress": "7.7.0",
