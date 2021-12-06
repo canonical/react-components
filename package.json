@@ -25,7 +25,7 @@
     "@babel/cli": "7.16.0",
     "@babel/eslint-parser": "7.16.3",
     "@babel/preset-typescript": "7.16.0",
-    "@percy/storybook": "3.3.1",
+    "@percy/storybook": "4.1.0",
     "@storybook/addon-a11y": "6.4.8",
     "@storybook/addon-controls": "6.4.8",
     "@storybook/addon-docs": "6.4.8",
