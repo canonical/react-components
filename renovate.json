@@ -1,17 +1,3 @@
 {
-  "extends": ["config:base", "group:allNonMajor", "schedule:weekly"],
-  "labels": ["Maintenance 🔨"],
-  "packageRules": [
-    {
-      "groupName": "internal dependencies",
-      "groupSlug": "internal",
-      "packagePatterns": [
-        "^@canonical",
-        "^canonicalwebteam",
-        "^vanilla-framework"
-      ],
-      "schedule": ["at any time"]
-    }
-  ],
-  "dependencyDashboard": false
+  "extends": ["github>canonical-web-and-design/vanilla-framework"]
 }
