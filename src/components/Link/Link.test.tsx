@@ -9,11 +9,6 @@ describe("Link ", () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it("can be an external link", () => {
-    const wrapper = shallow(<Link external={true}>Test content</Link>);
-    expect(wrapper.prop("className").includes("p-link--external")).toBe(true);
-  });
-
   it("can be an inverted link", () => {
     const wrapper = shallow(<Link inverted={true}>Test content</Link>);
     expect(wrapper.prop("className").includes("p-link--inverted")).toBe(true);
