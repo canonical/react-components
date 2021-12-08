@@ -34,7 +34,7 @@ const PaginationButton = ({
         disabled={disabled}
         onClick={onClick}
       >
-        <i className="p-icon--contextual-menu">{label}</i>
+        <i className="p-icon--chevron-down">{label}</i>
       </button>
     </li>
   );
