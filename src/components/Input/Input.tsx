@@ -56,6 +56,10 @@ export type Props = PropsWithSpread<
      */
     takeFocus?: boolean;
     /**
+     * The type of input required.
+     */
+    type?: string;
+    /**
      * Optional class(es) to pass to the wrapping Field component
      */
     wrapperClassName?: string;
