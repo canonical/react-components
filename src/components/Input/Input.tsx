@@ -3,6 +3,8 @@ import React, { useEffect, useRef } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
 
 import Field from "../Field";
+import CheckboxInput from "../CheckboxInput";
+import RadioInput from "../RadioInput";
 
 import type { ClassName, PropsWithSpread } from "types";
 
@@ -32,6 +34,18 @@ export type Props = PropsWithSpread<
      */
     id?: string;
     /**
+     * Whether the checkbox/radio is checked by default.
+     */
+    defaultChecked?: boolean;
+    /**
+     * Whether the field is disabled.
+     */
+    disabled?: boolean;
+    /**
+     * Whether the checkbox is indeterminate.
+     */
+    indeterminate?: boolean;
+    /**
      * The label for the field.
      */
     label?: ReactNode;
@@ -43,6 +57,10 @@ export type Props = PropsWithSpread<
      * Whether the field is required.
      */
     required?: boolean;
+    /**
+     * Name of input field.
+     */
+    name?: string;
     /**
      * Whether the form field should have a stacked appearance.
      */
@@ -73,8 +91,12 @@ const Input = ({
   error,
   help,
   id,
+  defaultChecked,
+  disabled,
+  indeterminate,
   label,
   labelClassName,
+  name,
   required,
   stacked,
   success,
@@ -92,7 +114,23 @@ const Input = ({
     }
   }, [takeFocus]);
 
-  return (
+  return type === "checkbox" ? (
+    <CheckboxInput
+      label={label}
+      defaultChecked={defaultChecked}
+      id={id}
+      disabled={disabled}
+      indeterminate={indeterminate}
+    ></CheckboxInput>
+  ) : type === "radio" ? (
+    <RadioInput
+      label={label}
+      name={name}
+      defaultChecked={defaultChecked}
+      id={id}
+      disabled={disabled}
+    ></RadioInput>
+  ) : (
     <Field
       caution={caution}
       className={wrapperClassName}
