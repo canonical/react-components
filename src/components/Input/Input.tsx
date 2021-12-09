@@ -114,47 +114,55 @@ const Input = ({
     }
   }, [takeFocus]);
 
-  return type === "checkbox" ? (
-    <CheckboxInput
-      label={label}
-      defaultChecked={defaultChecked}
-      id={id}
-      disabled={disabled}
-      indeterminate={indeterminate}
-    ></CheckboxInput>
-  ) : type === "radio" ? (
-    <RadioInput
-      label={label}
-      name={name}
-      defaultChecked={defaultChecked}
-      id={id}
-      disabled={disabled}
-    ></RadioInput>
-  ) : (
-    <Field
-      caution={caution}
-      className={wrapperClassName}
-      error={error}
-      forId={id}
-      help={help}
-      label={label}
-      labelClassName={labelClassName}
-      labelFirst={labelFirst}
-      required={required}
-      stacked={stacked}
-      success={success}
-    >
-      <input
-        className={classNames("p-form-validation__input", className)}
+  if (type === "checkbox") {
+    return (
+      <CheckboxInput
+        label={label}
+        defaultChecked={defaultChecked}
         id={id}
-        ref={inputRef}
-        required={required}
-        type={type}
-        aria-invalid={!!error}
+        disabled={disabled}
+        indeterminate={indeterminate}
         {...inputProps}
-      />
-    </Field>
-  );
+      ></CheckboxInput>
+    );
+  } else if (type === "radio") {
+    return (
+      <RadioInput
+        label={label}
+        name={name}
+        defaultChecked={defaultChecked}
+        id={id}
+        disabled={disabled}
+        {...inputProps}
+      ></RadioInput>
+    );
+  } else {
+    return (
+      <Field
+        caution={caution}
+        className={wrapperClassName}
+        error={error}
+        forId={id}
+        help={help}
+        label={label}
+        labelClassName={labelClassName}
+        labelFirst={labelFirst}
+        required={required}
+        stacked={stacked}
+        success={success}
+      >
+        <input
+          className={classNames("p-form-validation__input", className)}
+          id={id}
+          ref={inputRef}
+          required={required}
+          type={type}
+          aria-invalid={!!error}
+          {...inputProps}
+        />
+      </Field>
+    );
+  }
 };
 
 export default Input;
