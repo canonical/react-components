@@ -34,18 +34,6 @@ export type Props = PropsWithSpread<
      */
     id?: string;
     /**
-     * Whether the checkbox/radio is checked by default.
-     */
-    defaultChecked?: boolean;
-    /**
-     * Whether the field is disabled.
-     */
-    disabled?: boolean;
-    /**
-     * Whether the checkbox is indeterminate.
-     */
-    indeterminate?: boolean;
-    /**
      * The label for the field.
      */
     label?: ReactNode;
@@ -58,10 +46,6 @@ export type Props = PropsWithSpread<
      */
     required?: boolean;
     /**
-     * Name of input field.
-     */
-    name?: string;
-    /**
      * Whether the form field should have a stacked appearance.
      */
     stacked?: boolean;
@@ -73,10 +57,6 @@ export type Props = PropsWithSpread<
      * Whether to focus on the input on initial render.
      */
     takeFocus?: boolean;
-    /**
-     * The type of input required.
-     */
-    type?: string;
     /**
      * Optional class(es) to pass to the wrapping Field component
      */
@@ -91,12 +71,8 @@ const Input = ({
   error,
   help,
   id,
-  defaultChecked,
-  disabled,
-  indeterminate,
   label,
   labelClassName,
-  name,
   required,
   stacked,
   success,
@@ -106,7 +82,19 @@ const Input = ({
   ...inputProps
 }: Props): JSX.Element => {
   const inputRef = useRef(null);
-  const labelFirst = !["checkbox", "radio"].includes(type);
+  const fieldLabel = !["checkbox", "radio"].includes(type) ? label : "";
+
+  let input = (
+    <input
+      className={classNames("p-form-validation__input", className)}
+      id={id}
+      ref={inputRef}
+      required={required}
+      type={type}
+      aria-invalid={!!error}
+      {...inputProps}
+    />
+  );
 
   useEffect(() => {
     if (takeFocus) {
@@ -115,54 +103,28 @@ const Input = ({
   }, [takeFocus]);
 
   if (type === "checkbox") {
-    return (
-      <CheckboxInput
-        label={label}
-        defaultChecked={defaultChecked}
-        id={id}
-        disabled={disabled}
-        indeterminate={indeterminate}
-        {...inputProps}
-      ></CheckboxInput>
+    input = (
+      <CheckboxInput label={label} id={id} {...inputProps}></CheckboxInput>
     );
   } else if (type === "radio") {
-    return (
-      <RadioInput
-        label={label}
-        name={name}
-        defaultChecked={defaultChecked}
-        id={id}
-        disabled={disabled}
-        {...inputProps}
-      ></RadioInput>
-    );
-  } else {
-    return (
-      <Field
-        caution={caution}
-        className={wrapperClassName}
-        error={error}
-        forId={id}
-        help={help}
-        label={label}
-        labelClassName={labelClassName}
-        labelFirst={labelFirst}
-        required={required}
-        stacked={stacked}
-        success={success}
-      >
-        <input
-          className={classNames("p-form-validation__input", className)}
-          id={id}
-          ref={inputRef}
-          required={required}
-          type={type}
-          aria-invalid={!!error}
-          {...inputProps}
-        />
-      </Field>
-    );
+    input = <RadioInput label={label} id={id} {...inputProps}></RadioInput>;
   }
+  return (
+    <Field
+      caution={caution}
+      className={wrapperClassName}
+      error={error}
+      forId={id}
+      help={help}
+      label={fieldLabel}
+      labelClassName={labelClassName}
+      required={required}
+      stacked={stacked}
+      success={success}
+    >
+      {input}
+    </Field>
+  );
 };
 
 export default Input;
