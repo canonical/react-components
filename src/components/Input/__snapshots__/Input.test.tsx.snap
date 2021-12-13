@@ -3,7 +3,6 @@
 exports[`Input  renders 1`] = `
 <Field
   forId="test-id"
-  labelFirst={true}
 >
   <input
     aria-invalid={false}

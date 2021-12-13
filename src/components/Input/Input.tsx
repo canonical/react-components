@@ -3,6 +3,8 @@ import React, { useEffect, useRef } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
 
 import Field from "../Field";
+import CheckboxInput from "../CheckboxInput";
+import RadioInput from "../RadioInput";
 
 import type { ClassName, PropsWithSpread } from "types";
 
@@ -80,7 +82,19 @@ const Input = ({
   ...inputProps
 }: Props): JSX.Element => {
   const inputRef = useRef(null);
-  const labelFirst = !["checkbox", "radio"].includes(type);
+  const fieldLabel = !["checkbox", "radio"].includes(type) ? label : "";
+
+  let input = (
+    <input
+      className={classNames("p-form-validation__input", className)}
+      id={id}
+      ref={inputRef}
+      required={required}
+      type={type}
+      aria-invalid={!!error}
+      {...inputProps}
+    />
+  );
 
   useEffect(() => {
     if (takeFocus) {
@@ -88,6 +102,13 @@ const Input = ({
     }
   }, [takeFocus]);
 
+  if (type === "checkbox") {
+    input = (
+      <CheckboxInput label={label} id={id} {...inputProps}></CheckboxInput>
+    );
+  } else if (type === "radio") {
+    input = <RadioInput label={label} id={id} {...inputProps}></RadioInput>;
+  }
   return (
     <Field
       caution={caution}
@@ -95,22 +116,13 @@ const Input = ({
       error={error}
       forId={id}
       help={help}
-      label={label}
+      label={fieldLabel}
       labelClassName={labelClassName}
-      labelFirst={labelFirst}
       required={required}
       stacked={stacked}
       success={success}
     >
-      <input
-        className={classNames("p-form-validation__input", className)}
-        id={id}
-        ref={inputRef}
-        required={required}
-        type={type}
-        aria-invalid={!!error}
-        {...inputProps}
-      />
+      {input}
     </Field>
   );
 };

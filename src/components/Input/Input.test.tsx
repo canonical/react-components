@@ -18,12 +18,12 @@ describe("Input ", () => {
 
   it("moves the label for radio buttons", () => {
     const wrapper = shallow(<Input type="radio" />);
-    expect(wrapper.prop("labelFirst")).toBe(false);
+    expect(wrapper.prop("label")).toBe("");
   });
 
   it("moves the label for checkboxes", () => {
     const wrapper = shallow(<Input type="checkbox" />);
-    expect(wrapper.prop("labelFirst")).toBe(false);
+    expect(wrapper.prop("label")).toBe("");
   });
 
   it("can take focus on first render", () => {
