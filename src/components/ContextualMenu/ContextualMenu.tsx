@@ -295,7 +295,7 @@ const ContextualMenu = <L,>({
           {hasToggleIcon ? (
             <i
               className={classNames(
-                "p-icon--contextual-menu p-contextual-menu__indicator",
+                "p-icon--chevron-down p-contextual-menu__indicator",
                 {
                   "is-light": ["negative", "positive"].includes(
                     toggleAppearance
