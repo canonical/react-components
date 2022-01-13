@@ -3,7 +3,6 @@ import type { MouseEventHandler } from "react";
 import classNames from "classnames";
 
 import ActionButton from "../ActionButton";
-import { ButtonAppearance } from "../Button/Button";
 
 import type { ClassName } from "types";
 
@@ -41,7 +40,6 @@ const SummaryButton = ({
     {summary && <span className="u-text--muted">{summary}</span>}
     {onClick && (
       <ActionButton
-        appearance={ButtonAppearance.NEUTRAL}
         className={classNames("is-small", "is-dense", {
           "is-inline": summary,
         })}

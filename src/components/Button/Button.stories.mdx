@@ -27,10 +27,37 @@ Buttons are clickable elements used to perform an action, they can be used for b
 
 <ArgsTable of={Button} />
 
+### Default
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      children: "Button",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Default disabled"
+    args={{
+      children: "Button",
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
 ### Base
 
 <Canvas>
-  <Story name="Base">{Template.bind({})}</Story>
+  <Story name="Base">
+    <Button appearance="base">Base button</Button>
+  </Story>
 </Canvas>
 
 <Canvas>
@@ -55,22 +82,6 @@ Buttons are clickable elements used to perform an action, they can be used for b
   <Story name="Link disabled">
     <Button element="a" href="#test" appearance="base" disabled>
       Link button disabled
-    </Button>
-  </Story>
-</Canvas>
-
-### Neutral
-
-<Canvas>
-  <Story name="Neutral">
-    <Button appearance="neutral">Neutral button</Button>
-  </Story>
-</Canvas>
-
-<Canvas>
-  <Story name="Neutral disabled">
-    <Button appearance="neutral" disabled>
-      Neutral button disabled
     </Button>
   </Story>
 </Canvas>
@@ -153,7 +164,9 @@ Buttons are clickable elements used to perform an action, they can be used for b
   <Story name="Small">
     <>
       <Button small>Small button</Button>
-      <Button small dense>Small dense button</Button>
+      <Button small dense>
+        Small dense button
+      </Button>
     </>
   </Story>
 </Canvas>

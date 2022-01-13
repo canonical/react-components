@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 import type { ButtonProps } from "../Button";
-import { ButtonAppearance } from "../Button";
 import Icon from "../Icon";
 
 import type { ClassName, PropsWithSpread } from "types";
@@ -46,7 +45,7 @@ export type Props = PropsWithSpread<
 >;
 
 const ActionButton = ({
-  appearance = ButtonAppearance.NEUTRAL,
+  appearance,
   children,
   className,
   disabled = false,
