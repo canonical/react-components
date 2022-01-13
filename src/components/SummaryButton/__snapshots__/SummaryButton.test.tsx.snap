@@ -8,7 +8,6 @@ exports[`<SummaryButton /> renders and matches the snapshot 1`] = `
     Showing some items
   </span>
   <ActionButton
-    appearance="neutral"
     className="is-small is-dense is-inline"
     onClick={[Function]}
   >

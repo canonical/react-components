@@ -77,15 +77,13 @@ describe("Button ", () => {
   it("can add additional classes", () => {
     const wrapper = shallow(<Button className="extra-class" />);
     const className = wrapper.prop("className");
-    expect(className.includes("p-button--neutral")).toBe(true);
+    expect(className.includes("p-button")).toBe(true);
     expect(className.includes("extra-class")).toBe(true);
   });
 
   it("puts additional classes at the end", () => {
     const wrapper = shallow(<Button className="extra-class" dense />);
-    expect(wrapper.prop("className")).toEqual(
-      "p-button--neutral is-dense extra-class"
-    );
+    expect(wrapper.prop("className")).toEqual("p-button is-dense extra-class");
   });
 
   it("handles base button props", () => {

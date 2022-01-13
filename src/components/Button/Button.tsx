@@ -15,7 +15,6 @@ export const ButtonAppearance = {
   BRAND: "brand",
   LINK: "link",
   NEGATIVE: "negative",
-  NEUTRAL: "neutral",
   POSITIVE: "positive",
 } as const;
 
@@ -45,7 +44,7 @@ export type Props<P = null> = {
    */
   disabled?: boolean;
   /**
-   * Optional element or component to use instead of <button>.
+   * Optional element or component to use instead of `button`.
    */
   element?: ElementType | ComponentType<P>;
   /**
@@ -71,7 +70,7 @@ export type Props<P = null> = {
  * @template P - The type of the props if providing a component to `element`
  */
 const Button = <P,>({
-  appearance = ButtonAppearance.NEUTRAL,
+  appearance,
   children,
   className,
   dense,
@@ -84,7 +83,7 @@ const Button = <P,>({
   ...buttonProps
 }: Props<P>): JSX.Element => {
   const classes = classNames(
-    `p-button--${appearance}`,
+    appearance ? `p-button--${appearance}` : "p-button",
     {
       "has-icon": hasIcon,
       "is-dense": dense,
