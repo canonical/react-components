@@ -1,11 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Chip  renders default chip 1`] = `
-<div
+<button
   className="p-chip"
   onKeyDown={[Function]}
-  role="button"
-  tabIndex={0}
 >
   <span
     className="p-chip__value"
@@ -15,15 +13,13 @@ exports[`Chip  renders default chip 1`] = `
       }
     }
   />
-</div>
+</button>
 `;
 
 exports[`Chip  renders lead-value chip 1`] = `
-<div
+<button
   className="p-chip"
   onKeyDown={[Function]}
-  role="button"
-  tabIndex={0}
 >
   <span
     className="p-chip__lead"
@@ -38,5 +34,5 @@ exports[`Chip  renders lead-value chip 1`] = `
       }
     }
   />
-</div>
+</button>
 `;
