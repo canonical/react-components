@@ -121,17 +121,17 @@ const FilterPanelSection = ({
                 searchTerm === "" ||
                 highlightSubString(heading, searchTerm).match;
               return (
-                <span key={`${chip.lead}+${chip.value}`}>
-                  {chipVisible && !sectionHidden && (
-                    <Chip
-                      lead={chip.lead}
-                      value={chip.value}
-                      selected={isChipInArray(chip, searchData)}
-                      subString={searchTerm}
-                      onClick={() => handleChipClick(chip)}
-                    />
-                  )}
-                </span>
+                chipVisible &&
+                !sectionHidden && (
+                  <Chip
+                    key={`${chip.lead}+${chip.value}`}
+                    lead={chip.lead}
+                    value={chip.value}
+                    selected={isChipInArray(chip, searchData)}
+                    subString={searchTerm}
+                    onClick={() => handleChipClick(chip)}
+                  />
+                )
               );
             })}
             {overflowCounter > 0 && !expanded && (
