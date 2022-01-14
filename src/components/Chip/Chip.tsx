@@ -74,11 +74,9 @@ const Chip = ({
     return (
       <span className="p-chip" aria-pressed={selected}>
         {chipContent}
-        {onDismiss ? (
-          <button className="p-chip__dismiss" onClick={() => onDismiss()}>
-            <i className="p-icon--close">Dismiss</i>
-          </button>
-        ) : null}
+        <button className="p-chip__dismiss" onClick={() => onDismiss()}>
+          <i className="p-icon--close">Dismiss</i>
+        </button>
       </span>
     );
   } else {
