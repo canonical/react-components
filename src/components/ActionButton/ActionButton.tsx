@@ -104,7 +104,7 @@ const ActionButton = ({
   const buttonClasses = classNames(
     className,
     "p-action-button",
-    `p-button--${appearance}`,
+    appearance ? `p-button--${appearance}` : "p-button",
     {
       "is-processing": showLoader || showSuccess,
       "is-disabled": disabled,
