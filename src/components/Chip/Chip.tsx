@@ -1,8 +1,22 @@
 import React from "react";
 import { highlightSubString } from "../../utils";
 import type { KeyboardEvent, MouseEvent } from "react";
+import { ValueOf } from "types";
+import classNames from "classnames";
+
+export const ChipType = {
+  CAUTION: "caution",
+  INFORMATION: "information",
+  NEGATIVE: "negative",
+  POSITIVE: "positive"
+} as const;
 
 export type Props = {
+  /**
+   * The appearance of the chip.
+   */
+  appearance?: ValueOf<typeof ChipType>;
+
   /**
    * The lead for the chip.
    */
@@ -37,6 +51,7 @@ export type Props = {
 };
 
 const Chip = ({
+  appearance,
   lead = "",
   onClick,
   onDismiss,
@@ -70,9 +85,14 @@ const Chip = ({
     </>
   );
 
+  const chipClassName = classNames({
+    [`p-chip--${appearance}`]: !!appearance,
+    "p-chip": !appearance,
+  });
+
   if (onDismiss) {
     return (
-      <span className="p-chip" aria-pressed={selected}>
+      <span className={chipClassName} aria-pressed={selected}>
         {chipContent}
         <button className="p-chip__dismiss" onClick={() => onDismiss()}>
           <i className="p-icon--close">Dismiss</i>
@@ -82,7 +102,7 @@ const Chip = ({
   } else {
     return (
       <button
-        className="p-chip"
+        className={chipClassName}
         aria-pressed={selected}
         onClick={onClick}
         onKeyDown={(e) => onKeyDown(e)}

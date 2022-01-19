@@ -22,7 +22,7 @@ It can be used to display a small value attached to a component.
   <Story
     name="Default"
     args={{
-      value: "positive",
+      value: "Default",
     }}
   >
     {Template.bind({})}
@@ -34,6 +34,22 @@ It can be used to display a small value attached to a component.
 <Canvas>
   <Story name="Lead-value">
     <Chip lead="Owner" value="Bob" />
+  </Story>
+</Canvas>
+
+### Appearance
+<Canvas>
+  <Story name="Positive-appearance">
+    <Chip lead="Type" value="Positive" appearance="positive"/>
+  </Story>
+  <Story name="Negative-appearance">
+    <Chip lead="Type" value="Negative" appearance="negative"/>
+  </Story>
+  <Story name="Information-appearance">
+    <Chip lead="Type" value="Information" appearance="information"/>
+  </Story>
+  <Story name="Caution-appearance">
+    <Chip lead="Type" value="Caution" appearance="caution"/>
   </Story>
 </Canvas>
 
