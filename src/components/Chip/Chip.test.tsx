@@ -67,9 +67,7 @@ describe("Chip ", () => {
   });
 
   it("renders information chip", () => {
-    // eslint-disable-next-line prettier/prettier
     const wrapper = shallow(<Chip appearance="information" value="information" />);
-    // eslint-disable-next-line prettier/prettier
     expect(wrapper.prop("className").includes("p-chip--information")).toBe(true);
   });
 });
