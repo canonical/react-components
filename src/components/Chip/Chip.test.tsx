@@ -67,7 +67,11 @@ describe("Chip ", () => {
   });
 
   it("renders information chip", () => {
-    const wrapper = shallow(<Chip appearance="information" value="information" />);
-    expect(wrapper.prop("className").includes("p-chip--information")).toBe(true);
+    const wrapper = shallow(
+      <Chip appearance="information" value="information" />
+    );
+    expect(wrapper.prop("className").includes("p-chip--information")).toBe(
+      true
+    );
   });
 });

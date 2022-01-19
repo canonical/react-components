@@ -8,7 +8,7 @@ export const ChipType = {
   CAUTION: "caution",
   INFORMATION: "information",
   NEGATIVE: "negative",
-  POSITIVE: "positive"
+  POSITIVE: "positive",
 } as const;
 
 export type Props = {
