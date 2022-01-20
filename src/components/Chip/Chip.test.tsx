@@ -50,4 +50,28 @@ describe("Chip ", () => {
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(onClick.mock.calls[0]).toEqual([{ lead: "Owner", value: "Bob" }]);
   });
+
+  it("renders positive chip", () => {
+    const wrapper = shallow(<Chip appearance="positive" value="positive" />);
+    expect(wrapper.prop("className").includes("p-chip--positive")).toBe(true);
+  });
+
+  it("renders negative chip", () => {
+    const wrapper = shallow(<Chip appearance="negative" value="negative" />);
+    expect(wrapper.prop("className").includes("p-chip--negative")).toBe(true);
+  });
+
+  it("renders caution chip", () => {
+    const wrapper = shallow(<Chip appearance="caution" value="caution" />);
+    expect(wrapper.prop("className").includes("p-chip--caution")).toBe(true);
+  });
+
+  it("renders information chip", () => {
+    const wrapper = shallow(
+      <Chip appearance="information" value="information" />
+    );
+    expect(wrapper.prop("className").includes("p-chip--information")).toBe(
+      true
+    );
+  });
 });
