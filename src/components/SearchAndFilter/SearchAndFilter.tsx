@@ -290,7 +290,11 @@ const SearchAndFilter = ({
                 role="button"
                 tabIndex={0}
               >
-                Search for <strong>{searchTerm}</strong>...
+                Search for{" "}
+                <span className="p-search-and-filter__search-query">
+                  {searchTerm}
+                </span>
+                ...
               </div>
             )}
             {filterPanelData.map((filterPanelSectionData) => {
