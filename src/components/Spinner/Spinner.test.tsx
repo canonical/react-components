@@ -38,4 +38,12 @@ describe("<Spinner />", () => {
 
     expect(component.find("i").first().hasClass("is-light")).toEqual(true);
   });
+
+  it("renders a custom aria-label", () => {
+    const component = shallow(<Spinner aria-label="custom loading text" />);
+
+    expect(component.find("span").first().props()["aria-label"]).toEqual(
+      "custom loading text"
+    );
+  });
 });
