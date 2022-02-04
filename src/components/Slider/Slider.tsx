@@ -6,6 +6,7 @@ import Field from "../Field";
 import type { PropsWithSpread } from "types";
 
 export const FILLED_COLOR = "#0066CC";
+export const EMPTY_COLOR = "#D9D9D9";
 
 export type Props = PropsWithSpread<
   {
@@ -87,8 +88,8 @@ export const Slider = ({
         to right,
         ${FILLED_COLOR} 0%,
         ${FILLED_COLOR} ${filledPercentage},
-        transparent ${filledPercentage},
-        transparent 100%
+        ${EMPTY_COLOR} ${filledPercentage},
+        ${EMPTY_COLOR} 100%
       )`,
     };
   }
