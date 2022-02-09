@@ -40,6 +40,12 @@ describe("<Spinner />", () => {
     expect(component.find("i").first().text()).toContain("Loading");
   });
 
+  it("renders an assertive spinner", () => {
+    const component = shallow(<Spinner ariaLive={"assertive"} />);
+
+    expect(component.find({ ariaLive: "assertive" }));
+  });
+
   it("renders a light spinner if given isLight prop", () => {
     const component = shallow(<Spinner isLight />);
 
