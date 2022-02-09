@@ -2,21 +2,29 @@
 
 exports[`<Spinner /> renders and matches the snapshot 1`] = `
 <span
+  aria-live="polite"
   className="p-text--default"
+  role="alert"
 >
   <i
     className="p-icon--spinner u-animation--spin"
-  />
+  >
+    Loading
+  </i>
 </span>
 `;
 
 exports[`<Spinner /> renders and matches the snapshot with text 1`] = `
 <span
+  aria-live="polite"
   className="p-text--default"
+  role="alert"
 >
   <i
     className="p-icon--spinner u-animation--spin"
-  />
+  >
+    foo
+  </i>
    
   <span>
     foo
