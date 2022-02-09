@@ -19,24 +19,19 @@ export type Props = {
   /**
    * What the role of the spinner should be.
    */
-  role?: string;
+  role: string;
   /**
    * The politeness setting of the spinner alert.
    */
   ariaLive: "assertive" | "off" | "polite";
-  /**
-   * Text hidden from view, read by screen readers.
-   */
-  labelText?: string;
 } & HTMLProps<HTMLSpanElement>;
 
 const Spinner = ({
   className,
   text,
   isLight = false,
-  ariaLive,
-  labelText,
-  role,
+  ariaLive = "polite",
+  role = "alert",
   ...props
 }: Props): JSX.Element => (
   <span
@@ -50,7 +45,7 @@ const Spinner = ({
         "is-light": isLight,
       })}
     >
-      {labelText}
+      {text ? text : "Loading"}
     </i>
     {text && (
       <>
