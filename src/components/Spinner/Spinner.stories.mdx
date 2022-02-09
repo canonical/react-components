@@ -17,7 +17,7 @@ This is a [React](https://reactjs.org/) component for the Vanilla [Spin](https:/
 ### Default
 
 <Canvas>
-  <Story name="Default" args={{ role: "alert", ariaLive: "polite"}}>
+  <Story name="Default">
     {Template.bind({})}
   </Story>
 </Canvas>
@@ -25,7 +25,15 @@ This is a [React](https://reactjs.org/) component for the Vanilla [Spin](https:/
 ### Spinner with text
 
 <Canvas>
-  <Story name="Text" args={{ text: "Loading...", role: "alert", ariaLive: "polite" }}>
+  <Story name="Text" args={{ text: "Loading..." }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Assertive spinner
+
+<Canvas>
+  <Story name="Assertive" args={{ ariaLive: "assertive" }}>
     {Template.bind({})}
   </Story>
 </Canvas>
