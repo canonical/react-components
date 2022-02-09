@@ -19,11 +19,11 @@ export type Props = {
   /**
    * What the role of the spinner should be.
    */
-  role: string;
+  role?: string;
   /**
    * The politeness setting of the spinner alert.
    */
-  ariaLive: "assertive" | "off" | "polite";
+  ariaLive?: "assertive" | "off" | "polite";
 } & HTMLProps<HTMLSpanElement>;
 
 const Spinner = ({
