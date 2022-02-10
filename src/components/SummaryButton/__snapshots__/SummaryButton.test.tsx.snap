@@ -3,15 +3,14 @@
 exports[`<SummaryButton /> renders and matches the snapshot 1`] = `
 <small>
   <span
-    className="u-text--muted"
+    class="u-text--muted"
   >
     Showing some items
   </span>
-  <ActionButton
-    className="is-small is-dense is-inline"
-    onClick={[Function]}
+  <button
+    class="is-small is-dense is-inline p-action-button p-button"
   >
     Show more
-  </ActionButton>
+  </button>
 </small>
 `;
