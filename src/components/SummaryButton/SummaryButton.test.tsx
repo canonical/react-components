@@ -1,38 +1,38 @@
-import { shallow } from "enzyme";
 import React from "react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import SummaryButton from "./SummaryButton";
 
 describe("<SummaryButton />", () => {
   // snapshot tests
   it("renders and matches the snapshot", () => {
-    const component = shallow(
+    const { container } = render(
       <SummaryButton
         summary="Showing some items"
         label="Show more"
-        onClick={() => false}
+        onClick={jest.fn()}
       />
     );
 
-    expect(component).toMatchSnapshot();
+    expect(container.firstChild).toMatchSnapshot();
   });
 
   // unit tests
   it("renders a spinner icon", () => {
-    const component = shallow(
-      <SummaryButton label="Show more" onClick={() => false} isLoading />
+    const { container } = render(
+      <SummaryButton label="Show more" onClick={jest.fn()} isLoading />
     );
 
-    expect(component.find("ActionButton").first().prop("loading")).toBeTruthy();
+    expect(container.querySelector("i.u-animation--spin")).toBeInTheDocument();
   });
 
   it("can handle click events", () => {
     const onClick = jest.fn();
-    const component = shallow(
-      <SummaryButton label="Show more" onClick={onClick} />
-    );
+    render(<SummaryButton label="Show more" onClick={onClick} />);
 
-    component.find("ActionButton").first().simulate("click");
+    userEvent.click(screen.getByRole("button", { name: "Show more" }));
+
     expect(onClick).toHaveBeenCalled();
   });
 });
