@@ -1,9 +1,9 @@
 import classNames from "classnames";
-import { nanoid } from "nanoid";
 import React, { useEffect, useRef, HTMLProps } from "react";
 import type { ReactNode } from "react";
 
 import type { PropsWithSpread } from "types";
+import { useId } from "hooks/useId";
 
 export type Props = PropsWithSpread<
   {
@@ -31,7 +31,7 @@ const CheckableInput = ({
   indeterminate = false,
   ...checkboxProps
 }: Props): JSX.Element => {
-  const inputId = useRef(nanoid());
+  const inputId = useId();
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
@@ -45,13 +45,13 @@ const CheckableInput = ({
       })}
     >
       <input
-        aria-labelledby={inputId.current}
+        aria-labelledby={inputId}
         className={`p-${inputType}__input`}
         ref={inputRef}
         type={inputType}
         {...checkboxProps}
       />
-      <span className={`p-${inputType}__label`} id={inputId.current}>
+      <span className={`p-${inputType}__label`} id={inputId}>
         {label}
       </span>
     </label>
