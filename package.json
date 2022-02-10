@@ -35,6 +35,7 @@
     "@storybook/theming": "6.4.18",
     "@testing-library/cypress": "8.0.2",
     "@testing-library/dom": "8.11.3",
+    "@testing-library/react": "12.1.2",
     "@testing-library/react-hooks": "7.0.2",
     "@testing-library/user-event": "13.5.0",
     "@typescript-eslint/eslint-plugin": "5.10.2",
@@ -154,7 +155,7 @@
     "setupFiles": [
       "<rootDir>/src/setupTests.js"
     ],
-    "testEnvironment": "jsdom",
+    "testEnvironment": "jest-environment-jsdom",
     "moduleDirectories": [
       "node_modules",
       "src"
