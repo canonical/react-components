@@ -1,8 +1,8 @@
-import { nanoid } from "nanoid";
-import React, { useRef } from "react";
+import React from "react";
 import type { ReactNode } from "react";
 
 import type { Headings } from "types";
+import { useId } from "hooks/useId";
 
 export type AccordionHeadings = Exclude<Headings, "h1">;
 
@@ -46,8 +46,8 @@ const AccordionSection = ({
   titleElement,
   headingLevel = 3,
 }: Props): JSX.Element => {
-  const sectionId = useRef(nanoid());
-  const key = sectionKey || sectionId.current;
+  const sectionId = useId();
+  const key = sectionKey || sectionId;
   const isExpanded = expanded === key;
   const Title = titleElement || "div";
 
@@ -59,7 +59,7 @@ const AccordionSection = ({
         className="p-accordion__heading"
       >
         <button
-          aria-controls={`#${sectionId.current}`}
+          aria-controls={`#${sectionId}`}
           aria-expanded={isExpanded ? "true" : "false"}
           className="p-accordion__tab"
           onClick={() => {
@@ -78,9 +78,9 @@ const AccordionSection = ({
       </Title>
       <section
         aria-hidden={isExpanded ? "false" : "true"}
-        aria-labelledby={sectionId.current}
+        aria-labelledby={sectionId}
         className="p-accordion__panel"
-        id={sectionId.current}
+        id={sectionId}
         role="tabpanel"
       >
         {content}

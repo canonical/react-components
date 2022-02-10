@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import classNames from "classnames";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { HTMLProps, ReactNode } from "react";
@@ -11,6 +10,7 @@ import ContextualMenuDropdown from "./ContextualMenuDropdown";
 import type { ContextualMenuDropdownProps } from "./ContextualMenuDropdown";
 import type { MenuLink, Position } from "./ContextualMenuDropdown";
 import { ClassName, PropsWithSpread, SubComponentProps } from "types";
+import { useId } from "hooks/useId";
 
 /**
  * The props for the ContextualMenu component.
@@ -178,7 +178,7 @@ const ContextualMenu = <L,>({
   visible = false,
   ...wrapperProps
 }: Props<L>): JSX.Element => {
-  const id = useRef(nanoid());
+  const id = useId();
   const wrapper = useRef();
   const [positionCoords, setPositionCoords] = useState<ClientRect>();
   const [adjustedPosition, setAdjustedPosition] = useState(position);
@@ -274,7 +274,7 @@ const ContextualMenu = <L,>({
       {hasToggle ? (
         <Button
           appearance={toggleAppearance}
-          aria-controls={id.current}
+          aria-controls={id}
           aria-expanded={isOpen ? "true" : "false"}
           aria-pressed={isOpen ? "true" : "false"}
           aria-haspopup="true"
@@ -321,7 +321,7 @@ const ContextualMenu = <L,>({
             constrainPanelWidth={constrainPanelWidth}
             dropdownClassName={dropdownClassName}
             dropdownContent={children}
-            id={id.current}
+            id={id}
             isOpen={isOpen}
             links={links}
             position={position}

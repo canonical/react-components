@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import { nanoid } from "nanoid";
 import React, { ReactElement, useRef, useEffect } from "react";
 import type {
   HTMLProps,
@@ -9,6 +8,7 @@ import type {
   RefObject,
 } from "react";
 import { ClassName, PropsWithSpread } from "types";
+import { useId } from "hooks/useId";
 
 export type Props = PropsWithSpread<
   {
@@ -48,8 +48,8 @@ export const Modal = ({
   // https://stackoverflow.com/a/30753870/3732840
   const focusableElementSelectors =
     'a[href]:not([tabindex="-1"]), button:not([disabled]), textarea:not([disabled]):not([tabindex="-1"]), input:not([disabled]):not([tabindex="-1"]), select:not([disabled]):not([tabindex="-1"]), area[href]:not([tabindex="-1"]), iframe:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"]), [contentEditable=true]:not([tabindex="-1"])';
-  const descriptionId = useRef(nanoid());
-  const titleId = useRef(nanoid());
+  const descriptionId = useId();
+  const titleId = useId();
   const shouldClose = useRef(false);
 
   const modalRef: MutableRefObject<HTMLElement> = useRef(null);
@@ -134,14 +134,14 @@ export const Modal = ({
         className="p-modal__dialog"
         role="dialog"
         aria-modal="true"
-        aria-labelledby={titleId.current}
-        aria-describedby={descriptionId.current}
+        aria-labelledby={titleId}
+        aria-describedby={descriptionId}
         onMouseDown={handleContentOnMouseDown}
         onMouseUp={handleContentOnMouseUp}
       >
         {!!title && (
           <header className="p-modal__header">
-            <h2 className="p-modal__title" id={titleId.current}>
+            <h2 className="p-modal__title" id={titleId}>
               {title}
             </h2>
             {!!close && (
@@ -155,7 +155,7 @@ export const Modal = ({
             )}
           </header>
         )}
-        <div id={descriptionId.current}>{children}</div>
+        <div id={descriptionId}>{children}</div>
         {!!buttonRow && (
           <footer className="p-modal__footer">{buttonRow}</footer>
         )}
