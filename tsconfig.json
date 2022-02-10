@@ -22,7 +22,7 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react",
-    "types": ["node", "jest", "cypress", "@testing-library/cypress", "@testing-library/react"],
+    "types": ["node", "jest", "@types/jest", "cypress", "@testing-library/cypress", "@testing-library/react", "@testing-library/jest-dom"],
     "paths": {
       "components": ["./components"],
       "hooks": ["./hooks"],
