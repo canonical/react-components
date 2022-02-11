@@ -385,40 +385,44 @@ If the table cell may have overflowing content (such as contextual menu) use `ha
   <Story name="Responsive">
     <MainTable
       headers={[
-        { content: "Name" },
+        {
+          content: (
+            <span>
+              Name <i class="p-icon--information"></i>
+            </span>
+          ),
+          heading: "Name",
+        },
         { content: "Users", className: "u-align--right" },
         { content: "Units", className: "u-align--right" },
       ]}
       rows={[
         {
           columns: [
-            { content: "Ready", role: "rowheader", "aria-label": "Name" },
-            { content: 1, "aria-label": "Users", className: "u-align--right" },
+            { content: "Ready", role: "rowheader" },
+            { content: 1, className: "u-align--right" },
             {
               content: "1 GiB",
-              "aria-label": "Units",
               className: "u-align--right",
             },
           ],
         },
         {
           columns: [
-            { content: "Ready", role: "rowheader", "aria-label": "Name" },
-            { content: 1, "aria-label": "Users", className: "u-align--right" },
+            { content: "Ready", role: "rowheader" },
+            { content: 1, className: "u-align--right" },
             {
               content: "1 GiB",
-              "aria-label": "Units",
               className: "u-align--right",
             },
           ],
         },
         {
           columns: [
-            { content: "Ready", role: "rowheader", "aria-label": "Name" },
-            { content: 1, "aria-label": "Users", className: "u-align--right" },
+            { content: "Ready", role: "rowheader" },
+            { content: 1, className: "u-align--right" },
             {
               content: "1 GiB",
-              "aria-label": "Units",
               className: "u-align--right",
             },
           ],
