@@ -244,8 +244,8 @@ const generateRows = (
       index
     ) => {
       const cellItems = columns.map(({ content, ...cellProps }, index) => {
-        const headerContent = headers[index]["content"];
-        const headerReplacement = headers[index]["heading"];
+        const headerContent = headers && headers[index]["content"];
+        const headerReplacement = headers && headers[index]["heading"];
 
         return (
           <TableCell
