@@ -100,6 +100,14 @@ export type { TabsProps } from "./components/Tabs";
 export type { TextareaProps } from "./components/Textarea";
 export type { TooltipProps } from "./components/Tooltip";
 
+export {
+  useWindowFitment,
+  useListener,
+  usePrevious,
+  useThrottle,
+} from "./hooks";
+export type { WindowFitment } from "./hooks";
+
 export type {
   ClassName,
   Headings,
