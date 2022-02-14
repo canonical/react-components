@@ -105,6 +105,7 @@ export {
   useListener,
   usePrevious,
   useThrottle,
+  useId,
 } from "./hooks";
 export type { WindowFitment } from "./hooks";
 
