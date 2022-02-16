@@ -106,8 +106,8 @@ export {
   usePrevious,
   useThrottle,
   useId,
-} from "./hooks";
-export type { WindowFitment } from "./hooks";
+} from "hooks";
+export type { WindowFitment } from "hooks";
 
 export type {
   ClassName,

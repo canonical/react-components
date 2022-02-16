@@ -3,8 +3,8 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import usePortal from "react-useportal";
 
-import { useWindowFitment, useListener } from "../../hooks";
-import type { WindowFitment } from "../../hooks";
+import { useWindowFitment, useListener } from "hooks";
+import type { WindowFitment } from "hooks";
 
 import type { ClassName } from "types";
 
