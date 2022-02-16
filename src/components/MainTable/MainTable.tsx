@@ -24,6 +24,10 @@ export type MainTableHeader = PropsWithSpread<
      * A key to sort the rows by. It should match a key given to the row `sortData`.
      */
     sortKey?: string | null;
+    /**
+     * Replacement value for data-heading if content is not a string.
+     */
+    heading?: string;
   },
   HTMLProps<HTMLTableHeaderCellElement>
 >;
@@ -191,6 +195,8 @@ const generateRows = (
   currentSortKey: MainTableHeader["sortKey"],
   emptyStateMsg: ReactNode,
   expanding: Props["expanding"],
+  responsive: Props["responsive"],
+  headers: Props["headers"],
   paginate: Props["paginate"],
   rows: Props["rows"],
   currentPage: number,
@@ -237,12 +243,23 @@ const generateRows = (
       { columns, expanded, expandedContent, key, sortData, ...rowProps },
       index
     ) => {
-      const cellItems = columns.map(({ content, ...cellProps }, index) => (
-        <TableCell key={index} {...cellProps}>
-          {content}
-        </TableCell>
-      ));
+      const cellItems = columns.map(({ content, ...cellProps }, index) => {
+        const headerContent = headers && headers[index]["content"];
+        const headerReplacement = headers && headers[index]["heading"];
 
+        if (responsive) {
+          cellProps["data-heading"] =
+            typeof headerContent === "string"
+              ? headerContent
+              : headerReplacement;
+        }
+
+        return (
+          <TableCell key={index} {...cellProps}>
+            {content}
+          </TableCell>
+        );
+      });
       // if key was not provided as a prop, use row's index instead
       if (key === null || typeof key === "undefined") {
         key = index;
@@ -318,6 +335,8 @@ const MainTable = ({
             currentSortKey,
             emptyStateMsg,
             expanding,
+            responsive,
+            headers,
             paginate,
             rows,
             currentPage,

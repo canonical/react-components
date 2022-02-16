@@ -26,7 +26,12 @@ exports[`MainTable renders 1`] = `
           className="u-align--right"
           key="3"
         >
-          Disks
+          <span>
+            Disks 
+            <i
+              className="p-icon--information"
+            />
+          </span>
         </TableHeader>
       </TableRow>
     </thead>

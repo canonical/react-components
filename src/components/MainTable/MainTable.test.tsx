@@ -15,7 +15,14 @@ describe("MainTable", () => {
       { content: "Status" },
       { content: "Cores", className: "u-align--right" },
       { content: "RAM", className: "u-align--right" },
-      { content: "Disks", className: "u-align--right" },
+      {
+        content: (
+          <span>
+            Disks <i className="p-icon--information"></i>
+          </span>
+        ),
+        className: "u-align--right",
+      },
     ];
     rows = [
       {
@@ -98,6 +105,35 @@ describe("MainTable", () => {
       <MainTable headers={headers} responsive={true} rows={rows} />
     );
     expect(wrapper.find("Table").prop("responsive")).toBe(true);
+  });
+
+  it("contains data-heading attribute equal to heading on columns in responsive table", () => {
+    const wrapper = shallow(
+      <MainTable headers={headers} responsive={true} rows={rows} />
+    );
+
+    expect(wrapper.find("TableCell").first().prop("data-heading")).toEqual(
+      "Status"
+    );
+  });
+
+  it("doesn't contain data-heading attribute if there is no heading", () => {
+    const wrapper = shallow(<MainTable responsive={true} rows={rows} />);
+
+    expect(wrapper.find("TableCell").first().prop("data-heading")).toBe(
+      undefined
+    );
+  });
+
+  it("uses heading prop for data-heading if there are is no heading for that column", () => {
+    headers[3].heading = "Replacement";
+    const wrapper = shallow(
+      <MainTable headers={headers} responsive={true} rows={rows} />
+    );
+
+    expect(wrapper.find("TableCell").last().prop("data-heading")).toEqual(
+      "Replacement"
+    );
   });
 
   it("can be paginated", () => {
