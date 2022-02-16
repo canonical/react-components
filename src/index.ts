@@ -1,8 +1,10 @@
 export { default as Accordion } from "./components/Accordion";
 export { default as ActionButton } from "./components/ActionButton";
+export { default as AccordionSection } from "./components/AccordionSection";
 export { default as ArticlePagination } from "./components/ArticlePagination";
 export { default as Button, ButtonAppearance } from "./components/Button";
 export { default as Card } from "./components/Card";
+export { default as CheckableInput } from "./components/CheckableInput";
 export { default as CheckboxInput } from "./components/CheckboxInput";
 export { default as Chip } from "./components/Chip";
 export { default as Code } from "./components/Code";
@@ -29,6 +31,8 @@ export {
   NotificationSeverity,
 } from "./components/Notification";
 export { default as Pagination } from "./components/Pagination";
+export { default as PaginationButton } from "./components/PaginationButton";
+export { default as PaginationItem } from "./components/PaginationButton";
 export { default as PasswordToggle } from "./components/PasswordToggle";
 export { default as RadioInput } from "./components/RadioInput";
 export { default as Row } from "./components/Row";
