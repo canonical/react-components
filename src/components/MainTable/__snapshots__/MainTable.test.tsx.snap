@@ -40,7 +40,6 @@ exports[`MainTable renders 1`] = `
         key="0"
       >
         <TableCell
-          data-heading={null}
           key="0"
           role="rowheader"
         >
@@ -48,21 +47,18 @@ exports[`MainTable renders 1`] = `
         </TableCell>
         <TableCell
           className="u-align--right"
-          data-heading={null}
           key="1"
         >
           1
         </TableCell>
         <TableCell
           className="u-align--right"
-          data-heading={null}
           key="2"
         >
           1 GiB
         </TableCell>
         <TableCell
           className="u-align--right"
-          data-heading={null}
           key="3"
         >
           2
@@ -72,7 +68,6 @@ exports[`MainTable renders 1`] = `
         key="1"
       >
         <TableCell
-          data-heading={null}
           key="0"
           role="rowheader"
         >
@@ -80,21 +75,18 @@ exports[`MainTable renders 1`] = `
         </TableCell>
         <TableCell
           className="u-align--right"
-          data-heading={null}
           key="1"
         >
           1
         </TableCell>
         <TableCell
           className="u-align--right"
-          data-heading={null}
           key="2"
         >
           1 GiB
         </TableCell>
         <TableCell
           className="u-align--right"
-          data-heading={null}
           key="3"
         >
           2
@@ -104,7 +96,6 @@ exports[`MainTable renders 1`] = `
         key="2"
       >
         <TableCell
-          data-heading={null}
           key="0"
           role="rowheader"
         >
@@ -112,21 +103,18 @@ exports[`MainTable renders 1`] = `
         </TableCell>
         <TableCell
           className="u-align--right"
-          data-heading={null}
           key="1"
         >
           8
         </TableCell>
         <TableCell
           className="u-align--right"
-          data-heading={null}
           key="2"
         >
           3.9 GiB
         </TableCell>
         <TableCell
           className="u-align--right"
-          data-heading={null}
           key="3"
         >
           3

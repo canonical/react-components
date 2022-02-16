@@ -247,18 +247,15 @@ const generateRows = (
         const headerContent = headers && headers[index]["content"];
         const headerReplacement = headers && headers[index]["heading"];
 
+        if (responsive) {
+          cellProps["data-heading"] =
+            typeof headerContent === "string"
+              ? headerContent
+              : headerReplacement;
+        }
+
         return (
-          <TableCell
-            key={index}
-            data-heading={
-              responsive
-                ? typeof headerContent === "string"
-                  ? headerContent
-                  : headerReplacement
-                : null
-            }
-            {...cellProps}
-          >
+          <TableCell key={index} {...cellProps}>
             {content}
           </TableCell>
         );
