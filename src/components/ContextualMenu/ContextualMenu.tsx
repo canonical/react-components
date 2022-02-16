@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { HTMLProps, ReactNode } from "react";
 import usePortal from "react-useportal";
 
-import { useListener, usePrevious } from "../../hooks";
+import { useListener, usePrevious } from "hooks";
 import Button from "../Button";
 import type { ButtonProps } from "../Button";
 import ContextualMenuDropdown from "./ContextualMenuDropdown";

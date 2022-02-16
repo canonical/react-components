@@ -2,10 +2,10 @@ import classNames from "classnames";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { HTMLProps, ReactNode } from "react";
 
-import { useWindowFitment } from "../../../hooks";
+import { useWindowFitment } from "hooks";
 import Button from "../../Button";
 import type { ButtonProps } from "../../Button";
-import type { WindowFitment } from "../../../hooks";
+import type { WindowFitment } from "hooks";
 
 /**
  * The type of the menu links.
