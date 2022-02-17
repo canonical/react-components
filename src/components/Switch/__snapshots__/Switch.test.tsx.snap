@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Switch /> renders and matches the snapshot 1`] = `
+<Field>
+  <label
+    className="p-switch"
+  >
+    <input
+      className="p-switch__input"
+      disabled={false}
+      role="switch"
+      type="checkbox"
+    />
+    <span
+      className="p-switch__slider"
+    />
+    <span
+      className="p-switch__label"
+    >
+      Switch
+    </span>
+  </label>
+</Field>
+`;
+
+exports[`<Switch /> renders and matches the snapshot with disabled 1`] = `
+<Field>
+  <label
+    className="p-switch"
+  >
+    <input
+      className="p-switch__input"
+      disabled={true}
+      role="switch"
+      type="checkbox"
+    />
+    <span
+      className="p-switch__slider"
+    />
+    <span
+      className="p-switch__label"
+    >
+      Disabled switch
+    </span>
+  </label>
+</Field>
+`;
