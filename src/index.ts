@@ -35,6 +35,7 @@ export { default as SearchAndFilter } from "./components/SearchAndFilter";
 export { default as SearchBox } from "./components/SearchBox";
 export { default as Select } from "./components/Select";
 export { default as Slider } from "./components/Slider";
+export { default as Switch } from "./components/Switch";
 export { default as Spinner } from "./components/Spinner";
 export { default as Strip } from "./components/Strip";
 export { default as SummaryButton } from "./components/SummaryButton";
