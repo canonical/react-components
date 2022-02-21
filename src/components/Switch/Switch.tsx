@@ -19,7 +19,11 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLInputElement>
 >;
 
-export const Switch = ({ label, disabled = false }: Props): JSX.Element => {
+export const Switch = ({
+  label,
+  disabled = false,
+  ...inputProps
+}: Props): JSX.Element => {
   return (
     <Field>
       <label className="p-switch">
@@ -28,6 +32,7 @@ export const Switch = ({ label, disabled = false }: Props): JSX.Element => {
           className="p-switch__input"
           role="switch"
           disabled={disabled}
+          {...inputProps}
         ></input>
         <span className="p-switch__slider"></span>
         <span className="p-switch__label">{label}</span>
