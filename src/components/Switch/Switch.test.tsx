@@ -1,32 +1,35 @@
-import { shallow } from "enzyme";
 import React from "react";
+import { render } from "@testing-library/react";
+// import userEvent from "@testing-library/user-event";
 
 import Switch from "./Switch";
 
 describe("<Switch />", () => {
   // snapshot tests
   it("renders and matches the snapshot", () => {
-    const component = shallow(<Switch label="Switch" />);
+    const { container } = render(<Switch label="Switch" />);
 
-    expect(component).toMatchSnapshot();
+    expect(container.firstChild).toMatchSnapshot();
   });
 
   it("renders and matches the snapshot with disabled", () => {
-    const component = shallow(<Switch label="Disabled switch" disabled />);
+    const { container } = render(<Switch label="Disabled switch" disabled />);
 
-    expect(component).toMatchSnapshot();
+    expect(container.firstChild).toMatchSnapshot();
   });
 
-  //unit tests
+  // unit tests
   it("renders a switch with a label", () => {
-    const component = shallow(<Switch label="Switch" />);
+    const { container } = render(<Switch label="Switch" />);
 
-    expect(component.find("label").first().hasClass("p-switch")).toBeTruthy();
+    expect(container.querySelector("label.p-switch")).toBeInTheDocument();
   });
 
   it("renders a disabled switch", () => {
-    const component = shallow(<Switch label="Disabled switch" disabled />);
+    const { container } = render(<Switch label="Disabled switch" disabled />);
 
-    expect(component.find("input[disabled]").length).toBe(1);
+    expect(container.querySelector("input.p-switch__input")).toHaveAttribute(
+      "disabled"
+    );
   });
 });

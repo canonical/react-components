@@ -1,47 +1,58 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Switch /> renders and matches the snapshot 1`] = `
-<Field>
-  <label
-    className="p-switch"
+<div
+  class="p-form__group p-form-validation"
+>
+  <div
+    class="p-form__control u-clearfix"
   >
-    <input
-      className="p-switch__input"
-      disabled={false}
-      role="switch"
-      type="checkbox"
-    />
-    <span
-      className="p-switch__slider"
-    />
-    <span
-      className="p-switch__label"
+    <label
+      class="p-switch"
     >
-      Switch
-    </span>
-  </label>
-</Field>
+      <input
+        class="p-switch__input"
+        role="switch"
+        type="checkbox"
+      />
+      <span
+        class="p-switch__slider"
+      />
+      <span
+        class="p-switch__label"
+      >
+        Switch
+      </span>
+    </label>
+  </div>
+</div>
 `;
 
 exports[`<Switch /> renders and matches the snapshot with disabled 1`] = `
-<Field>
-  <label
-    className="p-switch"
+<div
+  class="p-form__group p-form-validation"
+>
+  <div
+    class="p-form__control u-clearfix"
   >
-    <input
-      className="p-switch__input"
-      disabled={true}
-      role="switch"
-      type="checkbox"
-    />
-    <span
-      className="p-switch__slider"
-    />
-    <span
-      className="p-switch__label"
+    <label
+      class="p-switch"
     >
-      Disabled switch
-    </span>
-  </label>
-</Field>
+      <input
+        class="p-switch__input"
+        disabled=""
+        role="switch"
+        type="checkbox"
+      />
+      <span
+        class="p-switch__slider"
+      />
+      <span
+        class="p-switch__label"
+      >
+        Disabled switch
+      </span>
+    </label>
+  </div>
+</div>
 `;
