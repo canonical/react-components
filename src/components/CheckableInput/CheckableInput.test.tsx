@@ -33,6 +33,17 @@ describe("CheckableInput ", () => {
     expect(wrapper.find(".p-radio.is-required").length).toBe(1);
   });
 
+  it("can apply the --inline modifier class", () => {
+    const wrapper = shallow(
+      <CheckableInput
+        inputType="radio"
+        label="Test required"
+        inline
+      ></CheckableInput>
+    );
+    expect(wrapper.find(".p-radio--inline").length).toBe(1);
+  });
+
   it("can set a checkbox to indeterminate state", () => {
     const container = document.createElement("div");
     document.body.appendChild(container);

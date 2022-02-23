@@ -19,6 +19,10 @@ export type Props = PropsWithSpread<
      * Whether the input element should display in indeterminate state.
      */
     indeterminate?: boolean;
+    /**
+     * Ensures the input and the label text are properly aligned with other inline text.
+     */
+    inline?: boolean;
   },
   // We explicitly omit "type" otherwise it's possible to overwrite "inputType".
   // Might want to consider just using "type" instead.
@@ -40,9 +44,12 @@ const CheckableInput = ({
 
   return (
     <label
-      className={classNames(`p-${inputType}`, {
-        "is-required": checkboxProps.required,
-      })}
+      className={classNames(
+        `p-${inputType}${checkboxProps.inline ? "--inline" : ""}`,
+        {
+          "is-required": checkboxProps.required,
+        }
+      )}
     >
       <input
         aria-labelledby={inputId}

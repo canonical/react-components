@@ -22,6 +22,11 @@ import RadioInput from "./RadioInput";
         type: "boolean",
       },
     },
+    inline: {
+      control: {
+        type: "boolean",
+      },
+    },
     indeterminate: {
       control: {
         type: "boolean",
@@ -76,5 +81,13 @@ Use radio buttons to select one of the given set of options.
 <Canvas>
   <Story name="Required">
     <RadioInput label="Required" name="RadioInput" required></RadioInput>
+  </Story>
+</Canvas>
+
+### Inline
+
+<Canvas>
+  <Story name="Inline">
+    <RadioInput label="Inline" name="RadioInput" inline></RadioInput>
   </Story>
 </Canvas>
