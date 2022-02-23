@@ -22,6 +22,11 @@ import CheckboxInput from "./CheckboxInput";
         type: "boolean",
       },
     },
+    inline: {
+      control: {
+        type: "boolean",
+      },
+    },
     indeterminate: {
       control: {
         type: "boolean",
@@ -76,6 +81,14 @@ Use the checkbox component to select one or more options.
 <Canvas>
   <Story name="Required">
     <CheckboxInput label="Required" required></CheckboxInput>
+  </Story>
+</Canvas>
+
+### Inline
+
+<Canvas>
+  <Story name="Inline">
+    <CheckboxInput label="Inline" inline></CheckboxInput>
   </Story>
 </Canvas>
 
