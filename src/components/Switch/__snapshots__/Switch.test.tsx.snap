@@ -1,58 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Switch /> renders and matches the snapshot 1`] = `
-<div
-  class="p-form__group p-form-validation"
+<label
+  class="p-switch"
 >
-  <div
-    class="p-form__control u-clearfix"
+  <input
+    class="p-switch__input"
+    role="switch"
+    type="checkbox"
+  />
+  <span
+    class="p-switch__slider"
+  />
+  <span
+    class="p-switch__label"
   >
-    <label
-      class="p-switch"
-    >
-      <input
-        class="p-switch__input"
-        role="switch"
-        type="checkbox"
-      />
-      <span
-        class="p-switch__slider"
-      />
-      <span
-        class="p-switch__label"
-      >
-        Switch
-      </span>
-    </label>
-  </div>
-</div>
+    Switch
+  </span>
+</label>
 `;
 
 exports[`<Switch /> renders and matches the snapshot with disabled 1`] = `
-<div
-  class="p-form__group p-form-validation"
+<label
+  class="p-switch"
 >
-  <div
-    class="p-form__control u-clearfix"
+  <input
+    class="p-switch__input"
+    disabled=""
+    role="switch"
+    type="checkbox"
+  />
+  <span
+    class="p-switch__slider"
+  />
+  <span
+    class="p-switch__label"
   >
-    <label
-      class="p-switch"
-    >
-      <input
-        class="p-switch__input"
-        disabled=""
-        role="switch"
-        type="checkbox"
-      />
-      <span
-        class="p-switch__slider"
-      />
-      <span
-        class="p-switch__label"
-      >
-        Disabled switch
-      </span>
-    </label>
-  </div>
-</div>
+    Disabled switch
+  </span>
+</label>
 `;
