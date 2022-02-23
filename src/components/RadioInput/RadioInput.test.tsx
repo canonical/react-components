@@ -1,13 +1,9 @@
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import RadioInput from "./RadioInput";
 
-describe("RadioInput ", () => {
-  it("renders a radio input", () => {
-    const wrapper = mount(
-      <RadioInput label="Test radio" name="Radio test"></RadioInput>
-    );
-    expect(wrapper.find("input.p-radio__input").length).toBe(1);
-  });
+it("renders a radio input", () => {
+  render(<RadioInput label="Test radio" name="Radio test"></RadioInput>);
+  expect(screen.getByRole("radio", { name: "Test radio" })).toBeInTheDocument();
 });
