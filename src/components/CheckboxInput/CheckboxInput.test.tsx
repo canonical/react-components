@@ -1,13 +1,11 @@
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import CheckboxInput from "./CheckboxInput";
 
-describe("CheckboxInput ", () => {
-  it("renders a checkbox", () => {
-    const wrapper = mount(
-      <CheckboxInput label="Test checkbox"></CheckboxInput>
-    );
-    expect(wrapper.find("input.p-checkbox__input").length).toBe(1);
-  });
+it("renders a checkbox", () => {
+  render(<CheckboxInput label="Test checkbox"></CheckboxInput>);
+  expect(
+    screen.getByRole("checkbox", { name: "Test checkbox" })
+  ).toBeInTheDocument();
 });
