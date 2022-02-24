@@ -1,6 +1,6 @@
 module.exports = {
   parser: "@babel/eslint-parser",
-  plugins: ["react", "prettier", "cypress"],
+  plugins: ["react", "prettier", "cypress", "testing-library"],
   extends: [
     "react-app", // Use the recommended rules from CRA.
     "plugin:cypress/recommended",
@@ -67,6 +67,15 @@ module.exports = {
         react: {
           version: "detect",
         },
+      },
+    },
+    {
+      files: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec|test).[jt]s?(x)"],
+      extends: ["plugin:testing-library/react"],
+      rules: {
+        "testing-library/no-node-access": "warn",
+        "testing-library/no-container": "warn",
+        "testing-library/no-render-in-setup": "warn",
       },
     },
   ],
