@@ -47,4 +47,32 @@ describe("Input ", () => {
     const wrapper = mount(<Input type="text" required />);
     expect(wrapper.find("input").prop("required")).toBe(true);
   });
+
+  it("can set required for a radiobutton", () => {
+    const wrapper = mount(<Input type="radio" required />);
+    expect(wrapper.find("input").prop("required")).toBe(true);
+  });
+
+  it("can set required for a checkbox", () => {
+    const wrapper = mount(<Input type="checkbox" required />);
+    expect(wrapper.find("input").prop("required")).toBe(true);
+  });
+
+  it("can set a label class name for a radiobutton", () => {
+    const wrapper = mount(
+      <Input type="radio" labelClassName="label-class-name" />
+    );
+    expect(
+      wrapper.find("label").prop("className").includes("label-class-name")
+    ).toBe(true);
+  });
+
+  it("can set a label class name for a checkbox", () => {
+    const wrapper = mount(
+      <Input type="checkbox" labelClassName="label-class-name" />
+    );
+    expect(
+      wrapper.find("label").prop("className").includes("label-class-name")
+    ).toBe(true);
+  });
 });

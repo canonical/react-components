@@ -16,6 +16,10 @@ export type Props = PropsWithSpread<
      */
     label: ReactNode;
     /**
+     * Optional class(es) to pass to the label element.
+     */
+    labelClassName?: string;
+    /**
      * Whether the input element should display in indeterminate state.
      */
     indeterminate?: boolean;
@@ -32,6 +36,7 @@ export type Props = PropsWithSpread<
 const CheckableInput = ({
   inputType,
   label,
+  labelClassName,
   indeterminate = false,
   ...checkboxProps
 }: Props): JSX.Element => {
@@ -45,6 +50,7 @@ const CheckableInput = ({
   return (
     <label
       className={classNames(
+        labelClassName,
         `p-${inputType}${checkboxProps.inline ? "--inline" : ""}`,
         {
           "is-required": checkboxProps.required,
