@@ -57,4 +57,17 @@ describe("CheckableInput ", () => {
     );
     expect(wrapper.find("input").getDOMNode().indeterminate).toBe(true);
   });
+
+  it("can set a label class name", () => {
+    const wrapper = mount(
+      <CheckableInput
+        inputType="checkbox"
+        label="Test label"
+        labelClassName="label-class-name"
+      />
+    );
+    expect(
+      wrapper.find("label").prop("className").includes("label-class-name")
+    ).toBe(true);
+  });
 });

@@ -84,30 +84,45 @@ const Input = ({
   const inputRef = useRef(null);
   const fieldLabel = !["checkbox", "radio"].includes(type) ? label : "";
 
-  let input = (
-    <input
-      className={classNames("p-form-validation__input", className)}
-      id={id}
-      ref={inputRef}
-      required={required}
-      type={type}
-      aria-invalid={!!error}
-      {...inputProps}
-    />
-  );
-
   useEffect(() => {
     if (takeFocus) {
       inputRef.current.focus();
     }
   }, [takeFocus]);
 
+  let input: ReactNode;
   if (type === "checkbox") {
     input = (
-      <CheckboxInput label={label} id={id} {...inputProps}></CheckboxInput>
+      <CheckboxInput
+        id={id}
+        label={label}
+        labelClassName={labelClassName}
+        required={required}
+        {...inputProps}
+      />
     );
   } else if (type === "radio") {
-    input = <RadioInput label={label} id={id} {...inputProps}></RadioInput>;
+    input = (
+      <RadioInput
+        id={id}
+        label={label}
+        labelClassName={labelClassName}
+        required={required}
+        {...inputProps}
+      />
+    );
+  } else {
+    input = (
+      <input
+        className={classNames("p-form-validation__input", className)}
+        id={id}
+        ref={inputRef}
+        required={required}
+        type={type}
+        aria-invalid={!!error}
+        {...inputProps}
+      />
+    );
   }
   return (
     <Field
