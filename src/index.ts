@@ -37,6 +37,10 @@ export { default as Select } from "./components/Select";
 export { default as Slider } from "./components/Slider";
 export { default as Switch } from "./components/Switch";
 export { default as Spinner } from "./components/Spinner";
+export {
+  default as StatusLabel,
+  StatusLabelAppearance,
+} from "./components/StatusLabel";
 export { default as Strip } from "./components/Strip";
 export { default as SummaryButton } from "./components/SummaryButton";
 export { default as Table } from "./components/Table";
@@ -91,6 +95,7 @@ export type { SearchBoxProps } from "./components/SearchBox";
 export type { SelectProps } from "./components/Select";
 export type { SliderProps } from "./components/Slider";
 export type { SpinnerProps } from "./components/Spinner";
+export type { StatusLabelProps } from "./components/StatusLabel";
 export type { StripProps } from "./components/Strip";
 export type { SummaryButtonProps } from "./components/SummaryButton";
 export type { TableProps } from "./components/Table";
