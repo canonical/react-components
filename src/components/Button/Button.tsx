@@ -13,6 +13,7 @@ import type { ClassName, ValueOf } from "types";
 export const ButtonAppearance = {
   BASE: "base",
   BRAND: "brand",
+  DEFAULT: "",
   LINK: "link",
   NEGATIVE: "negative",
   POSITIVE: "positive",

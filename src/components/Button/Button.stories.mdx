@@ -1,6 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
-import Button from "./Button";
+import Button, { ButtonAppearance } from "./Button";
 
 <Meta
   title="Button"
@@ -11,6 +11,13 @@ import Button from "./Button";
         type: "text",
       },
       defaultValue: "Click me!",
+    },
+    appearance: {
+      control: {
+        options: ButtonAppearance,
+        type: "select",
+      },
+      defaultValue: ButtonAppearance.DEFAULT,
     },
   }}
 />
