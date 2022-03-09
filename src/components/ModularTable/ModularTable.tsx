@@ -1,8 +1,7 @@
 import React, { ReactNode, HTMLProps } from "react";
-import { useTable } from "react-table";
-import type { Column } from "react-table";
+import { Cell, Row, useTable } from "react-table";
+import type { Column, TablePropGetter, UseTableOptions } from "react-table";
 import { PropsWithSpread } from "types";
-
 import Table from "../Table";
 import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
@@ -27,21 +26,33 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
      * Optional extra row to display underneath the main table content.
      */
     footer?: ReactNode;
+    getHeaderProps?: (column: Column<D>) => Record<string, unknown>;
+    getColumnProps?: (column: Column<D>) => Record<string, unknown>;
+    getRowProps?: (row: Row<D>) => Record<string, unknown>;
+    getCellProps?: (cell: Cell<D>) => Record<string, unknown>;
+    getRowId?: UseTableOptions<D>["getRowId"];
   },
   HTMLProps<HTMLTableElement>
 >;
 
-function ModularTable({
+const defaultPropGetter = () => ({});
+
+function ModularTable<D extends Record<string, unknown>>({
   data,
   columns,
   emptyMsg,
   footer,
+  getHeaderProps = defaultPropGetter,
+  getColumnProps = defaultPropGetter,
+  getRowProps = defaultPropGetter,
+  getCellProps = defaultPropGetter,
+  getRowId,
   ...props
-}: Props<Record<string, unknown>>): JSX.Element {
+}: Props<D>): JSX.Element {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+    useTable<D>({ columns, data, getRowId: getRowId || undefined });
 
-  const showEmpty: boolean = emptyMsg && (!rows || rows.length === 0);
+  const showEmpty: boolean = !!emptyMsg && (!rows || rows.length === 0);
 
   return (
     <Table {...getTableProps()} {...props}>
@@ -59,6 +70,8 @@ function ModularTable({
                       ? "p-table__cell--icon-placeholder"
                       : "",
                   },
+                  getColumnProps(column),
+                  getHeaderProps(column),
                 ])}
               >
                 {column.render("Header")}
@@ -74,10 +87,11 @@ function ModularTable({
           // see: https://react-table.tanstack.com/docs/api/useTable#instance-properties
           prepareRow(row);
           return (
-            <TableRow {...row.getRowProps()}>
+            <TableRow {...row.getRowProps(getRowProps(row))}>
               {row.cells.map((cell) => {
                 const hasColumnIcon = cell.column.getCellIcon;
-                const iconName = hasColumnIcon && cell.column.getCellIcon(cell);
+                const iconName =
+                  hasColumnIcon && cell.column.getCellIcon?.(cell);
 
                 return (
                   <TableCell
@@ -90,6 +104,8 @@ function ModularTable({
                           ? "p-table__cell--icon-placeholder"
                           : "",
                       },
+                      getColumnProps(cell.column),
+                      getCellProps(cell),
                     ])}
                   >
                     {iconName && <Icon name={iconName} />}
