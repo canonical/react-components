@@ -96,3 +96,21 @@ it("renders extra props", () => {
 
   expect(screen.getByTestId("testID")).toBeInTheDocument();
 });
+
+it("allows setting custom aria-label for specific cells", async () => {
+  render(
+    <ModularTable
+      columns={columns}
+      data={data}
+      footer="This is a footer"
+      getCellProps={({ value }) => ({
+        "aria-label":
+          value === "Waiting" ? "This is a cell with custom label" : undefined,
+      })}
+    />
+  );
+
+  expect(
+    screen.getByRole("cell", { name: "This is a cell with custom label" })
+  ).toBeInTheDocument();
+});
