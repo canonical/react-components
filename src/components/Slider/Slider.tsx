@@ -4,6 +4,7 @@ import type { ChangeEventHandler, HTMLProps, ReactNode } from "react";
 import Field from "../Field";
 
 import type { PropsWithSpread } from "types";
+import { useId } from "hooks";
 
 export const FILLED_COLOR = "#0066CC";
 export const EMPTY_COLOR = "#D9D9D9";
@@ -77,6 +78,9 @@ export const Slider = ({
   showInput = false,
   ...inputProps
 }: Props): JSX.Element => {
+  const validationId = useId();
+  const helpId = useId();
+  const hasError = !!error;
   let style = {};
   if (navigator?.userAgent?.includes("AppleWebKit")) {
     // Range inputs on Webkit browsers don't have a built-in "filled" portion,
@@ -98,11 +102,16 @@ export const Slider = ({
       caution={caution}
       error={error}
       help={help}
+      helpId={helpId}
       label={label}
       required={required}
+      validationId={validationId}
     >
       <div className="p-slider__wrapper">
         <input
+          aria-describedby={help ? helpId : null}
+          aria-errormessage={hasError ? validationId : null}
+          aria-invalid={hasError}
           disabled={disabled}
           id={id}
           max={max}
@@ -115,6 +124,9 @@ export const Slider = ({
         />
         {showInput && (
           <input
+            aria-describedby={help ? helpId : null}
+            aria-errormessage={hasError ? validationId : null}
+            aria-invalid={hasError}
             className="p-slider__input"
             disabled={disabled || inputDisabled}
             max={max}

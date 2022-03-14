@@ -3,8 +3,13 @@
 exports[`Textarea  renders 1`] = `
 <Field
   forId="test-id"
+  helpId="mock-nanoid-2"
+  validationId="mock-nanoid-1"
 >
   <textarea
+    aria-describedby={null}
+    aria-errormessage={null}
+    aria-invalid={false}
     className="p-form-validation__input"
     id="test-id"
     onKeyUp={[Function]}

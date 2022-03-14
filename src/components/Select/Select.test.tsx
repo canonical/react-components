@@ -1,9 +1,10 @@
+import { render, screen } from "@testing-library/react";
 import { mount, shallow } from "enzyme";
 import React from "react";
 
 import Select from "./Select";
 
-describe("Select ", () => {
+describe("Select", () => {
   it("renders", () => {
     const wrapper = shallow(
       <Select
@@ -43,10 +44,24 @@ describe("Select ", () => {
       attachTo: container,
     });
     expect(wrapper.find("select").getDOMNode()).toBe(document.activeElement);
+    document.body.removeChild(container);
   });
 
   it("can take null options", () => {
     const wrapper = shallow(<Select options={null} />);
     expect(wrapper.exists()).toBe(true);
+  });
+});
+
+describe("Select RTL", () => {
+  it("can display an error", async () => {
+    render(<Select error="Uh oh!" />);
+    expect(screen.getByRole("combobox")).toHaveErrorMessage("Error: Uh oh!");
+  });
+
+  it("can display help", async () => {
+    const help = "Save me!";
+    render(<Select help={help} />);
+    expect(screen.getByRole("combobox")).toHaveAccessibleDescription(help);
   });
 });

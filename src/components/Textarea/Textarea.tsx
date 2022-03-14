@@ -5,6 +5,7 @@ import type { TextareaHTMLAttributes, ReactNode } from "react";
 import Field from "../Field";
 
 import type { ClassName, PropsWithSpread } from "types";
+import { useId } from "hooks";
 
 /**
  * The props for the Textarea component.
@@ -86,6 +87,9 @@ const Textarea = ({
   ...props
 }: Props): JSX.Element => {
   const textareaRef = useRef(null);
+  const validationId = useId();
+  const helpId = useId();
+  const hasError = !!error;
 
   useEffect(() => {
     if (takeFocus) {
@@ -100,13 +104,18 @@ const Textarea = ({
       error={error}
       forId={id}
       help={help}
+      helpId={helpId}
       label={label}
       labelClassName={labelClassName}
       required={required}
       stacked={stacked}
       success={success}
+      validationId={validationId}
     >
       <textarea
+        aria-describedby={help ? helpId : null}
+        aria-errormessage={hasError ? validationId : null}
+        aria-invalid={hasError}
         className={classNames("p-form-validation__input", className)}
         id={id}
         onKeyUp={(evt) => {

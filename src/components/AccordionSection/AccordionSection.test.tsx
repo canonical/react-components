@@ -1,7 +1,6 @@
 import { shallow } from "enzyme";
 import React from "react";
 
-import { MOCK_UUID } from "../../setupTests";
 import AccordionSection from "./AccordionSection";
 
 describe("AccordionSection ", () => {
@@ -50,12 +49,12 @@ describe("AccordionSection ", () => {
     );
     wrapper.find(".p-accordion__tab").at(0).simulate("click");
 
-    expect(onTitleClick.mock.calls[0]).toEqual([true, MOCK_UUID]);
+    expect(onTitleClick.mock.calls[0]).toEqual([true, "mock-nanoid-1"]);
     wrapper.setProps({ expanded });
     // Clicking the title again should close the accordion section.
     wrapper.find(".p-accordion__tab").at(0).simulate("click");
 
-    expect(onTitleClick.mock.calls[1]).toEqual([false, MOCK_UUID]);
+    expect(onTitleClick.mock.calls[1]).toEqual([false, "mock-nanoid-1"]);
   });
 
   it("can use a key for expanded state", () => {

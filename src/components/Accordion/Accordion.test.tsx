@@ -1,7 +1,6 @@
 import { mount, shallow } from "enzyme";
 import React from "react";
 
-import { MOCK_UUID } from "../../setupTests";
 import Accordion from "./Accordion";
 
 describe("Accordion", () => {
@@ -63,7 +62,10 @@ describe("Accordion", () => {
     );
     const title = wrapper.find(".p-accordion__tab").at(0);
     title.simulate("click");
-    expect(onExpandedChange).toHaveBeenCalledWith(MOCK_UUID, "Advanced topics");
+    expect(onExpandedChange).toHaveBeenCalledWith(
+      "mock-nanoid-1",
+      "Advanced topics"
+    );
     // Clicking the title again should close the accordion section.
     title.simulate("click");
     expect(onExpandedChange).toHaveBeenCalledWith(null, null);

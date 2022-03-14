@@ -1,9 +1,10 @@
+import { render, screen } from "@testing-library/react";
 import { mount, shallow } from "enzyme";
 import React from "react";
 
 import PasswordToggle from "./PasswordToggle";
 
-describe("PasswordToggle ", () => {
+describe("PasswordToggle", () => {
   it("can add additional classes", () => {
     const wrapper = shallow(
       <PasswordToggle id="test-id" className="extra-class" />
@@ -22,6 +23,7 @@ describe("PasswordToggle ", () => {
     });
     ref.current.focus();
     expect(wrapper.find("input").getDOMNode()).toBe(document.activeElement);
+    document.body.removeChild(container);
   });
 
   it("toggles the visibility of the password when the button is clicked", () => {
@@ -40,5 +42,20 @@ describe("PasswordToggle ", () => {
       />
     );
     expect(wrapper.find("input#test-id").prop("value")).toBe("My test value");
+  });
+});
+
+describe("PasswordToggle RTL", () => {
+  it("can display an error", async () => {
+    render(<PasswordToggle error="Uh oh!" id="test-id" label="password" />);
+    expect(screen.getByLabelText("password")).toHaveErrorMessage(
+      "Error: Uh oh!"
+    );
+  });
+
+  it("can display help", async () => {
+    const help = "Save me!";
+    render(<PasswordToggle help={help} id="test-id" label="password" />);
+    expect(screen.getByLabelText("password")).toHaveAccessibleDescription(help);
   });
 });

@@ -7,6 +7,7 @@ import CheckboxInput from "../CheckboxInput";
 import RadioInput from "../RadioInput";
 
 import type { ClassName, PropsWithSpread } from "types";
+import { useId } from "hooks";
 
 /**
  * The props for the Input component.
@@ -83,6 +84,19 @@ const Input = ({
 }: Props): JSX.Element => {
   const inputRef = useRef(null);
   const fieldLabel = !["checkbox", "radio"].includes(type) ? label : "";
+  const validationId = useId();
+  const helpId = useId();
+  const hasError = !!error;
+
+  const commonProps = {
+    "aria-describedby": help ? helpId : null,
+    "aria-errormessage": hasError ? validationId : null,
+    "aria-invalid": hasError,
+    id: id,
+    label: label,
+    required: required,
+    ...inputProps,
+  };
 
   useEffect(() => {
     if (takeFocus) {
@@ -94,33 +108,26 @@ const Input = ({
   if (type === "checkbox") {
     input = (
       <CheckboxInput
-        id={id}
         label={label}
         labelClassName={labelClassName}
-        required={required}
-        {...inputProps}
+        {...commonProps}
       />
     );
   } else if (type === "radio") {
     input = (
       <RadioInput
-        id={id}
         label={label}
         labelClassName={labelClassName}
-        required={required}
-        {...inputProps}
+        {...commonProps}
       />
     );
   } else {
     input = (
       <input
         className={classNames("p-form-validation__input", className)}
-        id={id}
         ref={inputRef}
-        required={required}
         type={type}
-        aria-invalid={!!error}
-        {...inputProps}
+        {...commonProps}
       />
     );
   }
@@ -131,11 +138,13 @@ const Input = ({
       error={error}
       forId={id}
       help={help}
+      helpId={helpId}
       label={fieldLabel}
       labelClassName={labelClassName}
       required={required}
       stacked={stacked}
       success={success}
+      validationId={validationId}
     >
       {input}
     </Field>

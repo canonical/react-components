@@ -36,6 +36,10 @@ export type Props = {
    */
   help?: ReactNode;
   /**
+   * An id to give to the help element.
+   */
+  helpId?: string;
+  /**
    * Whether the component is wrapping a select element.
    */
   isSelect?: boolean;
@@ -63,15 +67,24 @@ export type Props = {
    * The content for success validation.
    */
   success?: ReactNode;
+  /**
+   * An id to give to the caution, error or success element.
+   */
+  validationId?: string;
 };
 
-const generateHelp = (help: Props["help"]) =>
-  help && <p className="p-form-help-text">{help}</p>;
+const generateHelp = (help: Props["help"], helpId: Props["helpId"]) =>
+  help && (
+    <p className="p-form-help-text" id={helpId}>
+      {help}
+    </p>
+  );
 
 const generateError = (
   error: Props["error"],
   caution: Props["caution"],
-  success: Props["success"]
+  success: Props["success"],
+  validationId: Props["validationId"]
 ) => {
   if (!error && !caution && !success) {
     return null;
@@ -79,7 +92,7 @@ const generateError = (
   const messageType =
     (error && "Error") || (caution && "Caution") || (success && "Success");
   return (
-    <p className="p-form-validation__message">
+    <p className="p-form-validation__message" id={validationId}>
       <strong>{messageType}:</strong> {error || caution || success}
     </p>
   );
@@ -114,7 +127,9 @@ const generateContent = (
   help: Props["help"],
   error: Props["error"],
   caution: Props["caution"],
-  success: Props["success"]
+  success: Props["success"],
+  validationId: string,
+  helpId: string
 ) => (
   <div className="p-form__control u-clearfix">
     {isSelect ? (
@@ -123,8 +138,8 @@ const generateContent = (
       children
     )}
     {!labelFirst && labelNode}
-    {generateHelp(help)}
-    {generateError(error, caution, success)}
+    {generateHelp(help, helpId)}
+    {generateError(error, caution, success, validationId)}
   </div>
 );
 
@@ -135,6 +150,7 @@ const Field = ({
   error,
   forId,
   help,
+  helpId,
   isSelect,
   label,
   labelClassName,
@@ -142,6 +158,7 @@ const Field = ({
   required,
   stacked,
   success,
+  validationId,
 }: Props): JSX.Element => {
   const labelNode = generateLabel(
     forId,
@@ -158,7 +175,9 @@ const Field = ({
     help,
     error,
     caution,
-    success
+    success,
+    validationId,
+    helpId
   );
   return (
     <div
