@@ -32,6 +32,7 @@ function ModularTable({
   columns,
   emptyMsg,
   footer,
+  ...props
 }: Props<Record<string, unknown>>): JSX.Element {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
@@ -39,7 +40,7 @@ function ModularTable({
   const showEmpty: boolean = emptyMsg && (!rows || rows.length === 0);
 
   return (
-    <Table {...getTableProps()}>
+    <Table {...getTableProps()} {...props}>
       <thead>
         {headerGroups.map((headerGroup) => (
           <TableRow {...headerGroup.getHeaderGroupProps()}>

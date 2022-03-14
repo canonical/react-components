@@ -49,6 +49,7 @@ const SearchBox = ({
   onSearch,
   placeholder = "Search",
   value,
+  ...props
 }: Props): JSX.Element => {
   const input = React.createRef<HTMLInputElement | null>();
   const resetInput = () => {
@@ -79,6 +80,7 @@ const SearchBox = ({
         type="search"
         defaultValue={externallyControlled ? undefined : value}
         value={externallyControlled ? value : undefined}
+        {...props}
       />
       {value && (
         <button

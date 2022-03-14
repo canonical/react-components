@@ -59,6 +59,7 @@ const Chip = ({
   selected,
   subString = "",
   value,
+  ...props
 }: Props): JSX.Element => {
   // When user tabs over chip and presses Enter or Space key, chip will trigger
   // click functionality
@@ -92,9 +93,9 @@ const Chip = ({
 
   if (onDismiss) {
     return (
-      <span className={chipClassName} aria-pressed={selected}>
+      <span className={chipClassName} aria-pressed={selected} {...props}>
         {chipContent}
-        <button className="p-chip__dismiss" onClick={() => onDismiss()}>
+        <button className="p-chip__dismiss" onClick={onDismiss}>
           <i className="p-icon--close">Dismiss</i>
         </button>
       </span>
@@ -106,6 +107,7 @@ const Chip = ({
         aria-pressed={selected}
         onClick={onClick}
         onKeyDown={(e) => onKeyDown(e)}
+        {...props}
       >
         {chipContent}
       </button>
