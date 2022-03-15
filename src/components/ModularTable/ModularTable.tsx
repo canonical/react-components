@@ -1,6 +1,6 @@
 import React, { ReactNode, HTMLProps } from "react";
 import { Cell, Row, useTable } from "react-table";
-import type { Column, TablePropGetter, UseTableOptions } from "react-table";
+import type { Column, UseTableOptions } from "react-table";
 import { PropsWithSpread } from "types";
 import Table from "../Table";
 import TableRow from "../TableRow";
@@ -35,17 +35,15 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
   HTMLProps<HTMLTableElement>
 >;
 
-const defaultPropGetter = () => ({});
-
 function ModularTable<D extends Record<string, unknown>>({
   data,
   columns,
   emptyMsg,
   footer,
-  getHeaderProps = defaultPropGetter,
-  getColumnProps = defaultPropGetter,
-  getRowProps = defaultPropGetter,
-  getCellProps = defaultPropGetter,
+  getHeaderProps,
+  getColumnProps,
+  getRowProps,
+  getCellProps,
   getRowId,
   ...props
 }: Props<D>): JSX.Element {
@@ -70,8 +68,8 @@ function ModularTable<D extends Record<string, unknown>>({
                       ? "p-table__cell--icon-placeholder"
                       : "",
                   },
-                  getColumnProps(column),
-                  getHeaderProps(column),
+                  getColumnProps?.(column) || {},
+                  getHeaderProps?.(column) || {},
                 ])}
               >
                 {column.render("Header")}
@@ -80,14 +78,14 @@ function ModularTable<D extends Record<string, unknown>>({
           </TableRow>
         ))}
       </thead>
-      <tbody {...getTableBodyProps()}>
+      <tbody {...getTableBodyProps?.()}>
         {rows.map((row) => {
           // This function is responsible for lazily preparing a row for rendering.
           // Any row that you intend to render in your table needs to be passed to this function before every render.
           // see: https://react-table.tanstack.com/docs/api/useTable#instance-properties
           prepareRow(row);
           return (
-            <TableRow {...row.getRowProps(getRowProps(row))}>
+            <TableRow {...row.getRowProps(getRowProps?.(row))}>
               {row.cells.map((cell) => {
                 const hasColumnIcon = cell.column.getCellIcon;
                 const iconName =
@@ -104,8 +102,8 @@ function ModularTable<D extends Record<string, unknown>>({
                           ? "p-table__cell--icon-placeholder"
                           : "",
                       },
-                      getColumnProps(cell.column),
-                      getCellProps(cell),
+                      getColumnProps?.(cell.column) || {},
+                      getCellProps?.(cell) || {},
                     ])}
                   >
                     {iconName && <Icon name={iconName} />}
