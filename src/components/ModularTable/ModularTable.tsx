@@ -1,5 +1,10 @@
 import React, { ReactNode, HTMLProps } from "react";
-import { useTable } from "react-table";
+import {
+  TableCellProps,
+  TableHeaderProps,
+  TableRowProps,
+  useTable,
+} from "react-table";
 import type {
   Column,
   UseTableOptions,
@@ -34,9 +39,13 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
     footer?: ReactNode;
     getHeaderProps?: (
       header: HeaderGroup<D>
-    ) => Partial<HTMLProps<HTMLTableHeaderCellElement>>;
-    getRowProps?: (row: Row<D>) => Partial<HTMLProps<HTMLTableRowElement>>;
-    getCellProps?: (cell: Cell<D>) => Partial<HTMLProps<HTMLTableCellElement>>;
+    ) => Partial<TableHeaderProps & HTMLProps<HTMLTableHeaderCellElement>>;
+    getRowProps?: (
+      row: Row<D>
+    ) => Partial<TableRowProps & HTMLProps<HTMLTableRowElement>>;
+    getCellProps?: (
+      cell: Cell<D>
+    ) => Partial<TableCellProps & HTMLProps<HTMLTableCellElement>>;
     getRowId?: UseTableOptions<D>["getRowId"];
   },
   HTMLProps<HTMLTableElement>
@@ -74,8 +83,8 @@ function ModularTable<D extends Record<string, unknown>>({
                       ? "p-table__cell--icon-placeholder"
                       : "",
                   },
+                  { ...getHeaderProps?.(column) },
                 ])}
-                {...getHeaderProps?.(column)}
               >
                 {column.render("Header")}
               </TableHeader>
@@ -90,7 +99,7 @@ function ModularTable<D extends Record<string, unknown>>({
           // see: https://react-table.tanstack.com/docs/api/useTable#instance-properties
           prepareRow(row);
           return (
-            <TableRow {...row.getRowProps()} {...getRowProps?.(row)}>
+            <TableRow {...row.getRowProps(getRowProps?.(row))}>
               {row.cells.map((cell) => {
                 const hasColumnIcon = cell.column.getCellIcon;
                 const iconName =
@@ -107,8 +116,8 @@ function ModularTable<D extends Record<string, unknown>>({
                           ? "p-table__cell--icon-placeholder"
                           : "",
                       },
+                      { ...getCellProps?.(cell) },
                     ])}
-                    {...getCellProps?.(cell)}
                   >
                     {iconName && <Icon name={iconName} />}
                     {cell.render("Cell")}
