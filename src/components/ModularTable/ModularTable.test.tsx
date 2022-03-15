@@ -92,10 +92,7 @@ it("renders a row with footer content", () => {
 });
 
 it("renders extra props", () => {
-  const wrapper = shallow(
-    <ModularTable columns={columns} data={data} data-testid="testID" />
-  );
+  render(<ModularTable columns={columns} data={data} data-testid="testID" />);
 
-  expect(wrapper.find("Table").prop("data-testid")).toEqual("testID");
-});
+  expect(screen.getByTestId("testID")).toBeInTheDocument();
 });
