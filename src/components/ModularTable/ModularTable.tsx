@@ -1,6 +1,7 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, HTMLProps } from "react";
 import { useTable } from "react-table";
 import type { Column } from "react-table";
+import { PropsWithSpread } from "types";
 
 import Table from "../Table";
 import TableRow from "../TableRow";
@@ -8,30 +9,34 @@ import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
 import Icon from "../Icon";
 
-export type Props<D extends Record<string, unknown>> = {
-  /**
-   * The columns of the table.
-   */
-  columns: Column<D>[];
-  /**
-   * The data of the table.
-   */
-  data: D[];
-  /**
-   * A message to display if data is empty.
-   */
-  emptyMsg?: string;
-  /**
-   * Optional extra row to display underneath the main table content.
-   */
-  footer?: ReactNode;
-};
+export type Props<D extends Record<string, unknown>> = PropsWithSpread<
+  {
+    /**
+     * The columns of the table.
+     */
+    columns: Column<D>[];
+    /**
+     * The data of the table.
+     */
+    data: D[];
+    /**
+     * A message to display if data is empty.
+     */
+    emptyMsg?: string;
+    /**
+     * Optional extra row to display underneath the main table content.
+     */
+    footer?: ReactNode;
+  },
+  HTMLProps<HTMLTableElement>
+>;
 
 function ModularTable({
   data,
   columns,
   emptyMsg,
   footer,
+  ...props
 }: Props<Record<string, unknown>>): JSX.Element {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data });
@@ -39,7 +44,7 @@ function ModularTable({
   const showEmpty: boolean = emptyMsg && (!rows || rows.length === 0);
 
   return (
-    <Table {...getTableProps()}>
+    <Table {...getTableProps()} {...props}>
       <thead>
         {headerGroups.map((headerGroup) => (
           <TableRow {...headerGroup.getHeaderGroupProps()}>

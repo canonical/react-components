@@ -141,4 +141,25 @@ describe("CodeSnippet ", () => {
     expect(wrapper.find(".test").length).toBe(1);
     expect(wrapper.find(".p-code-snippet.is-bordered").length).toBe(1);
   });
+
+  it("renders extra props", () => {
+    const wrapper = mount(
+      <CodeSnippet
+        blocks={[
+          {
+            code: "Test",
+            content: (
+              <>
+                <span className="test"></span>
+              </>
+            ),
+          },
+        ]}
+        data-testid="testID"
+      />
+    );
+    expect(wrapper.find("CodeSnippet").first().props()["data-testid"]).toEqual(
+      "testID"
+    );
+  });
 });

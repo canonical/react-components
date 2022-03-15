@@ -54,4 +54,11 @@ describe("SearchBox ", () => {
     const wrapper = mount(<WrappingComponent />);
     expect(wrapper.find("SearchBox").exists()).toBe(true);
   });
+
+  it("renders extra props", () => {
+    const wrapper = shallow(<SearchBox data-testid="testID" />);
+    expect(wrapper.find(".p-search-box__input").prop("data-testid")).toBe(
+      "testID"
+    );
+  });
 });

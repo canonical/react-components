@@ -1,7 +1,7 @@
 import React from "react";
 import { highlightSubString } from "../../utils";
-import type { KeyboardEvent, MouseEvent } from "react";
-import { ValueOf } from "types";
+import type { KeyboardEvent, MouseEvent, HTMLProps } from "react";
+import { ValueOf, PropsWithSpread } from "types";
 import classNames from "classnames";
 
 export const ChipType = {
@@ -11,44 +11,47 @@ export const ChipType = {
   POSITIVE: "positive",
 } as const;
 
-export type Props = {
-  /**
-   * The appearance of the chip.
-   */
-  appearance?: ValueOf<typeof ChipType>;
+export type Props = PropsWithSpread<
+  {
+    /**
+     * The appearance of the chip.
+     */
+    appearance?: ValueOf<typeof ChipType>;
 
-  /**
-   * The lead for the chip.
-   */
-  lead?: string;
-  /**
-   * Function for handling chip div click event.
-   */
-  onClick?: (
-    event: MouseEvent<HTMLButtonElement> | { lead: string; value: string }
-  ) => void;
-  /**
-   * Function for handling dismissing a chip.
-   */
-  onDismiss?: () => void;
-  /**
-   * Whether the chip is selected.
-   */
-  selected?: boolean;
-  /**
-   * A substring to emphasise if it is part of the chip's value,
-   * e.g. "sit" => poSITive
-   */
-  subString?: string;
-  /**
-   * Whether to wrap the value in quotation marks.
-   */
-  quoteValue?: boolean;
-  /**
-   * The value of the chip.
-   */
-  value: string;
-};
+    /**
+     * The lead for the chip.
+     */
+    lead?: string;
+    /**
+     * Function for handling chip div click event.
+     */
+    onClick?: (
+      event: MouseEvent<HTMLButtonElement> | { lead: string; value: string }
+    ) => void;
+    /**
+     * Function for handling dismissing a chip.
+     */
+    onDismiss?: () => void;
+    /**
+     * Whether the chip is selected.
+     */
+    selected?: boolean;
+    /**
+     * A substring to emphasise if it is part of the chip's value,
+     * e.g. "sit" => poSITive
+     */
+    subString?: string;
+    /**
+     * Whether to wrap the value in quotation marks.
+     */
+    quoteValue?: boolean;
+    /**
+     * The value of the chip.
+     */
+    value: string;
+  },
+  HTMLProps<HTMLSpanElement>
+>;
 
 const Chip = ({
   appearance,
@@ -59,6 +62,7 @@ const Chip = ({
   selected,
   subString = "",
   value,
+  ...props
 }: Props): JSX.Element => {
   // When user tabs over chip and presses Enter or Space key, chip will trigger
   // click functionality
@@ -92,9 +96,9 @@ const Chip = ({
 
   if (onDismiss) {
     return (
-      <span className={chipClassName} aria-pressed={selected}>
+      <span className={chipClassName} aria-pressed={selected} {...props}>
         {chipContent}
-        <button className="p-chip__dismiss" onClick={() => onDismiss()}>
+        <button className="p-chip__dismiss" onClick={onDismiss}>
           <i className="p-icon--close">Dismiss</i>
         </button>
       </span>

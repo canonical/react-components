@@ -90,3 +90,9 @@ it("renders a row with footer content", () => {
     })
   ).toBeInTheDocument();
 });
+
+it("renders extra props", () => {
+  render(<ModularTable columns={columns} data={data} data-testid="testID" />);
+
+  expect(screen.getByTestId("testID")).toBeInTheDocument();
+});

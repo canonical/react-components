@@ -1,23 +1,30 @@
 import classNames from "classnames";
-import React from "react";
+import React, { HTMLProps } from "react";
 
 import CodeSnippetBlock from "./CodeSnippetBlock";
 import type { Props as CodeSnippetBlockProps } from "./CodeSnippetBlock";
 
-import type { ClassName } from "types";
+import type { ClassName, PropsWithSpread } from "types";
 
-export type Props = {
-  /**
-   * Optional class(es) to pass to the wrapping div element.
-   */
-  className?: ClassName;
-  /**
-   * A list of code blocks to display.
-   */
-  blocks: CodeSnippetBlockProps[];
-};
+export type Props = PropsWithSpread<
+  {
+    /**
+     * Optional class(es) to pass to the wrapping div element.
+     */
+    className?: ClassName;
+    /**
+     * A list of code blocks to display.
+     */
+    blocks: CodeSnippetBlockProps[];
+  },
+  HTMLProps<HTMLDivElement>
+>;
 
-export default function CodeSnippet({ className, blocks }: Props): JSX.Element {
+export default function CodeSnippet({
+  className,
+  blocks,
+  ...props
+}: Props): JSX.Element {
   return (
     <div
       className={classNames(
@@ -25,11 +32,12 @@ export default function CodeSnippet({ className, blocks }: Props): JSX.Element {
         { "is-bordered": blocks.some((block) => block.content) },
         className
       )}
+      {...props}
     >
-      {blocks.map((props, i) => (
+      {blocks.map((blockProps, i) => (
         <CodeSnippetBlock
           key={`code-snippet-block-${i}`}
-          {...props}
+          {...blockProps}
         ></CodeSnippetBlock>
       ))}
     </div>
