@@ -74,4 +74,18 @@ describe("Chip ", () => {
       true
     );
   });
+  it("renders extra props", () => {
+    const wrapper = shallow(
+      <Chip
+        appearance="information"
+        lead="Owner"
+        onDismiss={jest.fn()}
+        value="Bob"
+        data-testid="testID"
+      />
+    );
+    expect(
+      wrapper.find(".p-chip--information").first().props()["data-testid"]
+    ).toEqual("testID");
+  });
 });

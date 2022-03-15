@@ -73,4 +73,12 @@ describe("ModularTable", () => {
       "This is a footer"
     );
   });
+
+  it("renders extra props", () => {
+    const wrapper = shallow(
+      <ModularTable columns={columns} data={data} data-testid="testID" />
+    );
+
+    expect(wrapper.find("Table").prop("data-testid")).toEqual("testID");
+  });
 });
