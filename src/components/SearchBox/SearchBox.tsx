@@ -1,44 +1,47 @@
 import classNames from "classnames";
-import React from "react";
+import React, { HTMLProps } from "react";
 
 import Icon from "../Icon";
 
-import type { ClassName } from "types";
+import type { ClassName, PropsWithSpread } from "types";
 
-export type Props = {
-  /**
-   * Whether autocomplete should be enabled for the search input.
-   */
-  autocomplete?: "on" | "off";
-  /**
-   * Optional classes to pass to the form element.
-   */
-  className?: ClassName;
-  /**
-   * Whether the input and buttons should be disabled.
-   */
-  disabled?: boolean;
-  /**
-   * Whether the input value will be controlled via external state.
-   */
-  externallyControlled?: boolean;
-  /**
-   * A function that will be called when the input value changes.
-   */
-  onChange?: (inputValue: string) => void;
-  /**
-   * A function that is called when the user clicks the search icon
-   */
-  onSearch?: () => void;
-  /**
-   * A search input placeholder message.
-   */
-  placeholder?: string;
-  /**
-   * The value of the search input when the state is externally controlled.
-   */
-  value?: string;
-};
+export type Props = PropsWithSpread<
+  {
+    /**
+     * Whether autocomplete should be enabled for the search input.
+     */
+    autocomplete?: "on" | "off";
+    /**
+     * Optional classes to pass to the form element.
+     */
+    className?: ClassName;
+    /**
+     * Whether the input and buttons should be disabled.
+     */
+    disabled?: boolean;
+    /**
+     * Whether the input value will be controlled via external state.
+     */
+    externallyControlled?: boolean;
+    /**
+     * A function that will be called when the input value changes.
+     */
+    onChange?: (inputValue: string) => void;
+    /**
+     * A function that is called when the user clicks the search icon
+     */
+    onSearch?: () => void;
+    /**
+     * A search input placeholder message.
+     */
+    placeholder?: string;
+    /**
+     * The value of the search input when the state is externally controlled.
+     */
+    value?: string;
+  },
+  HTMLProps<HTMLInputElement>
+>;
 
 const SearchBox = ({
   autocomplete = "on",
