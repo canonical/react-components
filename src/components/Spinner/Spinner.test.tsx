@@ -24,6 +24,7 @@ describe("<Spinner />", () => {
     expect(
       component.find("i").first().hasClass("p-icon--spinner")
     ).toBeTruthy();
+    expect(component.find("i").first().text()).toContain("Loading");
   });
 
   it("renders text correctly if given text prop", () => {
@@ -31,7 +32,7 @@ describe("<Spinner />", () => {
     const component = shallow(<Spinner text={text} />);
 
     expect(component.find("span").first().text()).toContain(text);
-    expect(component.find("i").first().text()).toContain(text);
+    expect(component.find("i").first().text()).not.toContain(text);
   });
 
   it("renders Loading... for icon text if no text prop is provided", () => {

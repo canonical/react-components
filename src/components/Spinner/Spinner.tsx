@@ -45,7 +45,7 @@ const Spinner = ({
         "is-light": isLight,
       })}
     >
-      {text ? text : "Loading"}
+      {text ? "" : "Loading"}
     </i>
     {text && (
       <>

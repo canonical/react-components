@@ -22,9 +22,7 @@ exports[`<Spinner /> renders and matches the snapshot with text 1`] = `
 >
   <i
     className="p-icon--spinner u-animation--spin"
-  >
-    foo
-  </i>
+  />
    
   <span>
     foo
