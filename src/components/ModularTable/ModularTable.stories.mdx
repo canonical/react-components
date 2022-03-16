@@ -35,7 +35,7 @@ In addition to standard column propeties from [`useTable`](https://react-table.t
 ##### Class names
 
 Custom `className` can be used to provide a specific CSS class name that will be added to all cells in given column.
-You can also provide a `getCellProps` to customise class names for specific cells. More on this in [`useTable - cell properties`](https://react-table.tanstack.com/docs/api/useTable#cell-properties).
+You can also provide `getHeaderProps`, `getRowProps` and `getCellProps` to resolve additional custom props for a specific element. More on this in [`useTable - cell properties`](https://react-table.tanstack.com/docs/api/useTable#cell-properties).
 
 ```js
 getCellProps={({ value, column }) => ({

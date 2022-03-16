@@ -37,12 +37,21 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
      * Optional extra row to display underneath the main table content.
      */
     footer?: ReactNode;
+    /**
+     * This function is used to resolve any props needed for a particular column's header cell.
+     */
     getHeaderProps?: (
       header: HeaderGroup<D>
     ) => Partial<TableHeaderProps & HTMLProps<HTMLTableHeaderCellElement>>;
+    /**
+     * This function is used to resolve any props needed for a particular row.
+     */
     getRowProps?: (
       row: Row<D>
     ) => Partial<TableRowProps & HTMLProps<HTMLTableRowElement>>;
+    /**
+     * This function is used to resolve any props needed for a particular cell.
+     */
     getCellProps?: (
       cell: Cell<D>
     ) => Partial<TableCellProps & HTMLProps<HTMLTableCellElement>>;
