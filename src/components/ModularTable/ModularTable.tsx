@@ -60,7 +60,7 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
   HTMLProps<HTMLTableElement>
 >;
 
-function ModularTable<D extends Record<string, unknown>>({
+function ModularTable({
   data,
   columns,
   emptyMsg,
@@ -70,9 +70,13 @@ function ModularTable<D extends Record<string, unknown>>({
   getCellProps,
   getRowId,
   ...props
-}: Props<D>): JSX.Element {
+}: Props<Record<string, unknown>>): JSX.Element {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable<D>({ columns, data, getRowId: getRowId || undefined });
+    useTable<Record<string, unknown>>({
+      columns,
+      data,
+      getRowId: getRowId || undefined,
+    });
 
   const showEmpty: boolean = !!emptyMsg && (!rows || rows.length === 0);
 
