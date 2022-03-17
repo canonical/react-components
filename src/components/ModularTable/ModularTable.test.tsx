@@ -4,10 +4,10 @@ import React from "react";
 import ModularTable from "./ModularTable";
 
 const columns = [
-  { accessor: "status" as const, Header: "Status" },
-  { accessor: "cores" as const, Header: "Cores", className: "u-align--right" },
-  { accessor: "ram" as const, Header: "RAM", className: "u-align--right" },
-  { accessor: "disks" as const, Header: "Disks", className: "u-align--right" },
+  { accessor: "status", Header: "Status" },
+  { accessor: "cores", Header: "Cores", className: "u-align--right" },
+  { accessor: "ram", Header: "RAM", className: "u-align--right" },
+  { accessor: "disks", Header: "Disks", className: "u-align--right" },
 ];
 const data = [
   {
