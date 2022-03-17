@@ -35,8 +35,12 @@ In addition to standard column propeties from [`useTable`](https://react-table.t
 ##### Class names
 
 Custom `className` can be used to provide a specific CSS class name that will be added to all cells in given column.
+You can also provide `getHeaderProps`, `getRowProps` and `getCellProps` to resolve additional custom props for a specific element. More on this in [`useTable - cell properties`](https://react-table.tanstack.com/docs/api/useTable#cell-properties).
 
 ```js
+getCellProps={({ value, column }) => ({
+  className: `table__cell--${column.id} ${value ===  "1 minute" ? "p-heading--5" : ""}`,
+})}
 columns = {
   Header: "Hidden on mobile",
   accessor: "example",
@@ -67,6 +71,9 @@ columns = {
 <Preview>
   <Story name="Default">
     <ModularTable
+      getCellProps={({ value }) => ({
+        className: value ===  "1 minute" ? "p-heading--5" : "",
+      })}
       columns={React.useMemo(
         () => [
           {
