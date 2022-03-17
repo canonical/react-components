@@ -14,6 +14,7 @@ Build and Commit the docs for this version.
 
 ```shell
 yarn build-docs
+git add .
 git commit -m "Build docs for 0.1.1."
 ```
 
@@ -22,7 +23,7 @@ git commit -m "Build docs for 0.1.1."
 - Update the version using the next [sensible version](https://semver.org/spec/v2.0.0.html).
 
 ```shell
-yarn version --new-version [0.1.1]
+yarn version --new-version 0.1.1
 ```
 
 #### Push
