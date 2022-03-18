@@ -5,11 +5,11 @@ import classNames from "classnames";
 import { ClassName, PropsWithSpread, ValueOf } from "types";
 
 export const StatusLabelAppearance = {
-  Caution: "caution",
-  Default: "",
-  Information: "information",
-  Negative: "negative",
-  Positive: "positive",
+  CAUTION: "caution",
+  DEFAULT: "",
+  INFORMATION: "information",
+  NEGATIVE: "negative",
+  POSITIVE: "positive",
 } as const;
 
 /**
