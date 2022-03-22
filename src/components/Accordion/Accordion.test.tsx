@@ -1,9 +1,18 @@
 import { mount, shallow } from "enzyme";
 import React from "react";
+import * as nanoid from "nanoid";
 
 import Accordion from "./Accordion";
 
 describe("Accordion", () => {
+  beforeEach(() => {
+    jest.spyOn(nanoid, "nanoid").mockReturnValue("mocked-nanoid");
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it("renders", () => {
     const wrapper = shallow(
       <Accordion
@@ -63,7 +72,7 @@ describe("Accordion", () => {
     const title = wrapper.find(".p-accordion__tab").at(0);
     title.simulate("click");
     expect(onExpandedChange).toHaveBeenCalledWith(
-      "mock-nanoid-1",
+      "mocked-nanoid",
       "Advanced topics"
     );
     // Clicking the title again should close the accordion section.
