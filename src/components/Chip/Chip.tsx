@@ -116,7 +116,15 @@ const Chip = ({
         tabIndex={0}
       >
         {chipContent}
-        <button className="p-chip__dismiss" onClick={onDismiss} type="button">
+        <button
+          className="p-chip__dismiss"
+          onClick={(evt) => {
+            // Prevent the dismiss click from calling the chip onClick handler.
+            evt.stopPropagation();
+            onDismiss();
+          }}
+          type="button"
+        >
           <i className="p-icon--close">Dismiss</i>
         </button>
       </span>
