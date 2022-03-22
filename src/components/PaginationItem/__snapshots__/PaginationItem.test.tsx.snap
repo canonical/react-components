@@ -1,14 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PaginationItem /> renders and matches the snapshot 1`] = `
-<li
-  className="p-pagination__item"
->
-  <button
-    className="p-pagination__link"
-    onClick={[MockFunction]}
+<div>
+  <li
+    class="p-pagination__item"
   >
-    1
-  </button>
-</li>
+    <button
+      aria-current="false"
+      class="p-pagination__link"
+    >
+      1
+    </button>
+  </li>
+</div>
 `;
