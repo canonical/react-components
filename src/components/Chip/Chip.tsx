@@ -26,10 +26,7 @@ export type Props = PropsWithSpread<
      * Function for handling chip div click event.
      */
     onClick?: (
-      event:
-        | MouseEvent<HTMLButtonElement>
-        | MouseEvent<HTMLSpanElement>
-        | { lead: string; value: string }
+      event: MouseEvent<HTMLButtonElement> | { lead: string; value: string }
     ) => void;
     /**
      * Function for handling dismissing a chip.
@@ -69,7 +66,7 @@ const Chip = ({
 }: Props): JSX.Element => {
   // When user tabs over chip and presses Enter or Space key, chip will trigger
   // click functionality
-  const onKeyDown = <E,>(e: KeyboardEvent<E>) => {
+  const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
     // The " " value is what is returned for the spacebar
     if (e.key === " " || e.key === "Enter") {
       if (typeof onClick === "function") {
@@ -100,31 +97,11 @@ const Chip = ({
     props.className
   );
 
-  const commonProps = {
-    ...props,
-    "aria-pressed": selected,
-    className: chipClassName,
-    onClick: onClick,
-  };
-
   if (onDismiss) {
     return (
-      <span
-        {...commonProps}
-        onKeyDown={(e) => onKeyDown<HTMLSpanElement>(e)}
-        role="button"
-        tabIndex={0}
-      >
+      <span {...props} className={chipClassName}>
         {chipContent}
-        <button
-          className="p-chip__dismiss"
-          onClick={(evt) => {
-            // Prevent the dismiss click from calling the chip onClick handler.
-            evt.stopPropagation();
-            onDismiss();
-          }}
-          type="button"
-        >
+        <button className="p-chip__dismiss" onClick={onDismiss} type="button">
           <i className="p-icon--close">Dismiss</i>
         </button>
       </span>
@@ -132,8 +109,11 @@ const Chip = ({
   } else {
     return (
       <button
-        {...commonProps}
-        onKeyDown={(e) => onKeyDown<HTMLButtonElement>(e)}
+        {...props}
+        aria-pressed={selected}
+        className={chipClassName}
+        onClick={onClick}
+        onKeyDown={(e) => onKeyDown(e)}
         type="button"
       >
         {chipContent}

@@ -42,18 +42,6 @@ describe("Chip ", () => {
     expect(onDismiss).toHaveBeenCalledTimes(1);
   });
 
-  it("does not call onClick when onDismiss clicked", () => {
-    const onDismiss = jest.fn();
-    const onClick = jest.fn();
-    const wrapper = mount(
-      <Chip lead="Owner" value="Bob" onClick={onClick} onDismiss={onDismiss} />
-    );
-    const dismissButton = wrapper.find(".p-chip__dismiss");
-    dismissButton.simulate("click");
-    expect(onDismiss).toHaveBeenCalledTimes(1);
-    expect(onClick).not.toHaveBeenCalled();
-  });
-
   it("calls onKeyDown when key pressed", () => {
     const onClick = jest.fn();
     const wrapper = mount(<Chip lead="Owner" value="Bob" onClick={onClick} />);
@@ -63,29 +51,9 @@ describe("Chip ", () => {
     expect(onClick.mock.calls[0]).toEqual([{ lead: "Owner", value: "Bob" }]);
   });
 
-  it("calls onKeyDown when key pressed on a dismissable chip", () => {
-    const onClick = jest.fn();
-    const wrapper = mount(
-      <Chip lead="Owner" value="Bob" onClick={onClick} onDismiss={jest.fn()} />
-    );
-    const chip = wrapper.find(".p-chip");
-    chip.simulate("keydown", { key: "Enter" });
-    expect(onClick).toHaveBeenCalledTimes(1);
-    expect(onClick.mock.calls[0]).toEqual([{ lead: "Owner", value: "Bob" }]);
-  });
-
   it("calls onClick when clicking on the chip", () => {
     const onClick = jest.fn();
     const wrapper = mount(<Chip lead="Owner" value="Bob" onClick={onClick} />);
-    wrapper.find(".p-chip").simulate("click");
-    expect(onClick).toHaveBeenCalledTimes(1);
-  });
-
-  it("calls onClick when clicking on a dismissable chip", () => {
-    const onClick = jest.fn();
-    const wrapper = mount(
-      <Chip lead="Owner" value="Bob" onClick={onClick} onDismiss={jest.fn()} />
-    );
     wrapper.find(".p-chip").simulate("click");
     expect(onClick).toHaveBeenCalledTimes(1);
   });
@@ -153,17 +121,6 @@ describe("Chip ", () => {
     const wrapper = mount(
       <form onSubmit={onSubmit}>
         <Chip lead="Owner" value="Bob" />
-      </form>
-    );
-    wrapper.find(".p-chip").simulate("click");
-    expect(onSubmit).not.toHaveBeenCalled();
-  });
-
-  it("does not submit forms when clicking on a dismissible chip", () => {
-    const onSubmit = jest.fn();
-    const wrapper = mount(
-      <form onSubmit={onSubmit}>
-        <Chip lead="Owner" onDismiss={jest.fn()} value="Bob" />
       </form>
     );
     wrapper.find(".p-chip").simulate("click");
