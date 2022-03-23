@@ -6,7 +6,6 @@ exports[`<PaginationItem /> renders and matches the snapshot 1`] = `
     class="p-pagination__item"
   >
     <button
-      aria-current="false"
       class="p-pagination__link"
     >
       1

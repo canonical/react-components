@@ -28,7 +28,7 @@ const PaginationItem = ({
         "is-active": isActive,
       })}
       onClick={onClick}
-      aria-current={isActive ? "page" : "false"}
+      aria-current={isActive ? "page" : undefined}
     >
       {number}
     </button>
