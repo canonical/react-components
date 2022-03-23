@@ -1,11 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Select  renders 1`] = `
+exports[`Select renders 1`] = `
 <Field
   forId="test-id"
+  helpId="mock-nanoid-2"
   isSelect={true}
+  validationId="mock-nanoid-1"
 >
   <select
+    aria-describedby={null}
+    aria-errormessage={null}
+    aria-invalid={false}
     className="p-form-validation__input"
     id="test-id"
     onChange={[Function]}

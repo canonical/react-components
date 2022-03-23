@@ -10,6 +10,7 @@ import type {
 import Field from "../Field";
 
 import type { ClassName, PropsWithSpread } from "types";
+import { useId } from "hooks";
 
 type Option = OptionHTMLAttributes<HTMLOptionElement>;
 
@@ -103,6 +104,9 @@ const Select = ({
   ...selectProps
 }: Props): JSX.Element => {
   const selectRef = useRef(null);
+  const validationId = useId();
+  const helpId = useId();
+  const hasError = !!error;
 
   useEffect(() => {
     if (takeFocus) {
@@ -117,14 +121,19 @@ const Select = ({
       error={error}
       forId={id}
       help={help}
+      helpId={helpId}
       isSelect={true}
       label={label}
       labelClassName={labelClassName}
       required={required}
       stacked={stacked}
       success={success}
+      validationId={validationId}
     >
       <select
+        aria-describedby={help ? helpId : null}
+        aria-errormessage={hasError ? validationId : null}
+        aria-invalid={hasError}
         className={classNames("p-form-validation__input", className)}
         id={id}
         onChange={(evt) => onChange && onChange(evt)}

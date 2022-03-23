@@ -7,6 +7,7 @@ import Field from "../Field";
 import Label from "../Label";
 
 import type { ClassName, PropsWithSpread } from "types";
+import { useId } from "hooks";
 
 /**
  * The props for the Password Toggle component.
@@ -80,6 +81,9 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
     ref
   ): JSX.Element => {
     const [isPassword, setIsPassword] = useState(true);
+    const validationId = useId();
+    const helpId = useId();
+    const hasError = !!error;
 
     const togglePassword = () => {
       if (isPassword) {
@@ -95,8 +99,10 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
         className={wrapperClassName}
         error={error}
         help={help}
+        helpId={helpId}
         required={required}
         success={success}
+        validationId={validationId}
       >
         <div className="p-form-password-toggle">
           <Label forId={id} required={required}>
@@ -118,11 +124,14 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
           </Button>
         </div>
         <input
+          aria-describedby={help ? helpId : null}
+          aria-errormessage={hasError ? validationId : null}
+          aria-invalid={hasError}
           className={classNames("p-form-validation__input", className)}
           id={id}
+          readOnly={readOnly}
           ref={ref}
           type={isPassword ? "password" : "text"}
-          readOnly={readOnly}
           {...inputProps}
         />
       </Field>

@@ -1,3 +1,4 @@
+import { render, screen } from "@testing-library/react";
 import { mount, shallow } from "enzyme";
 import React from "react";
 
@@ -21,10 +22,24 @@ describe("Textarea ", () => {
     document.body.appendChild(container);
     const wrapper = mount(<Textarea takeFocus />, { attachTo: container });
     expect(wrapper.find("textarea").getDOMNode()).toBe(document.activeElement);
+    document.body.removeChild(container);
   });
 
   it("can accept input attributes", () => {
     const wrapper = shallow(<Textarea autoComplete="on" />);
     expect(wrapper.exists()).toBe(true);
+  });
+});
+
+describe("Textarea RTL", () => {
+  it("can display an error for a text input", async () => {
+    render(<Textarea error="Uh oh!" />);
+    expect(screen.getByRole("textbox")).toHaveErrorMessage("Error: Uh oh!");
+  });
+
+  it("can display help for a text input", async () => {
+    const help = "Save me!";
+    render(<Textarea help={help} />);
+    expect(screen.getByRole("textbox")).toHaveAccessibleDescription(help);
   });
 });

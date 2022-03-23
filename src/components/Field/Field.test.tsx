@@ -22,10 +22,12 @@ describe("Field ", () => {
   });
 
   it("can display a caution message", () => {
-    const wrapper = shallow(<Field caution="Are you sure?" />);
+    const wrapper = shallow(
+      <Field caution="Are you sure?" validationId="id-1" />
+    );
     compareJSX(
       wrapper.find(".p-form-validation__message"),
-      <p className="p-form-validation__message">
+      <p className="p-form-validation__message" id="id-1">
         <strong>{"Caution"}:</strong> {"Are you sure?"}
       </p>
     );
@@ -33,10 +35,12 @@ describe("Field ", () => {
   });
 
   it("can display a caution node", () => {
-    const wrapper = shallow(<Field caution={<span>Are you sure?</span>} />);
+    const wrapper = shallow(
+      <Field caution={<span>Are you sure?</span>} validationId="id-1" />
+    );
     compareJSX(
       wrapper.find(".p-form-validation__message"),
-      <p className="p-form-validation__message">
+      <p className="p-form-validation__message" id="id-1">
         <strong>{"Caution"}:</strong> <span>Are you sure?</span>
       </p>
     );
@@ -44,10 +48,12 @@ describe("Field ", () => {
   });
 
   it("can display an error message", () => {
-    const wrapper = shallow(<Field error="You can't do that" />);
+    const wrapper = shallow(
+      <Field error="You can't do that" validationId="id-1" />
+    );
     compareJSX(
       wrapper.find(".p-form-validation__message"),
-      <p className="p-form-validation__message">
+      <p className="p-form-validation__message" id="id-1">
         <strong>{"Error"}:</strong> {"You can't do that"}
       </p>
     );
@@ -55,10 +61,12 @@ describe("Field ", () => {
   });
 
   it("can display an error node", () => {
-    const wrapper = shallow(<Field error={<span>You can't do that</span>} />);
+    const wrapper = shallow(
+      <Field error={<span>You can't do that</span>} validationId="id-1" />
+    );
     compareJSX(
       wrapper.find(".p-form-validation__message"),
-      <p className="p-form-validation__message">
+      <p className="p-form-validation__message" id="id-1">
         <strong>{"Error"}:</strong> <span>You can't do that</span>
       </p>
     );
@@ -66,10 +74,12 @@ describe("Field ", () => {
   });
 
   it("can display a success message", () => {
-    const wrapper = shallow(<Field success="You did it!" />);
+    const wrapper = shallow(
+      <Field success="You did it!" validationId="id-1" />
+    );
     compareJSX(
       wrapper.find(".p-form-validation__message"),
-      <p className="p-form-validation__message">
+      <p className="p-form-validation__message" id="id-1">
         <strong>{"Success"}:</strong> {"You did it!"}
       </p>
     );
@@ -77,10 +87,12 @@ describe("Field ", () => {
   });
 
   it("can display a success node", () => {
-    const wrapper = shallow(<Field success={<span>You did it!</span>} />);
+    const wrapper = shallow(
+      <Field success={<span>You did it!</span>} validationId="id-1" />
+    );
     compareJSX(
       wrapper.find(".p-form-validation__message"),
-      <p className="p-form-validation__message">
+      <p className="p-form-validation__message" id="id-1">
         <strong>{"Success"}:</strong> <span>You did it!</span>
       </p>
     );
@@ -96,11 +108,11 @@ describe("Field ", () => {
 
   it("can display a help node", () => {
     const wrapper = shallow(
-      <Field help={<span>This is how you do it</span>} />
+      <Field help={<span>This is how you do it</span>} helpId="id-1" />
     );
     compareJSX(
       wrapper.find(".p-form-help-text"),
-      <p className="p-form-help-text">
+      <p className="p-form-help-text" id="id-1">
         <span>This is how you do it</span>
       </p>
     );
