@@ -51,6 +51,13 @@ describe("Chip ", () => {
     expect(onClick.mock.calls[0]).toEqual([{ lead: "Owner", value: "Bob" }]);
   });
 
+  it("calls onClick when clicking on the chip", () => {
+    const onClick = jest.fn();
+    const wrapper = mount(<Chip lead="Owner" value="Bob" onClick={onClick} />);
+    wrapper.find(".p-chip").simulate("click");
+    expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
   it("renders positive chip", () => {
     const wrapper = shallow(<Chip appearance="positive" value="positive" />);
     expect(wrapper.prop("className").includes("p-chip--positive")).toBe(true);
@@ -74,6 +81,7 @@ describe("Chip ", () => {
       true
     );
   });
+
   it("renders extra props", () => {
     const wrapper = shallow(
       <Chip
@@ -87,5 +95,46 @@ describe("Chip ", () => {
     expect(
       wrapper.find(".p-chip--information").first().props()["data-testid"]
     ).toEqual("testID");
+  });
+
+  it("passes additional classes", () => {
+    const wrapper = shallow(
+      <Chip className="extra-extra" lead="Owner" value="Bob" />
+    );
+    expect(wrapper.prop("className")).toBe("p-chip extra-extra");
+  });
+
+  it("passes additional classes to a dismissable chip", () => {
+    const wrapper = shallow(
+      <Chip
+        className="extra-extra"
+        lead="Owner"
+        onDismiss={jest.fn()}
+        value="Bob"
+      />
+    );
+    expect(wrapper.prop("className")).toBe("p-chip extra-extra");
+  });
+
+  it("does not submit forms when clicking on the chip", () => {
+    const onSubmit = jest.fn();
+    const wrapper = mount(
+      <form onSubmit={onSubmit}>
+        <Chip lead="Owner" value="Bob" />
+      </form>
+    );
+    wrapper.find(".p-chip").simulate("click");
+    expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it("does not submit forms when clicking on the dismiss button", () => {
+    const onSubmit = jest.fn();
+    const wrapper = mount(
+      <form onSubmit={onSubmit}>
+        <Chip lead="Owner" onDismiss={jest.fn()} value="Bob" />
+      </form>
+    );
+    wrapper.find(".p-chip__dismiss").simulate("click");
+    expect(onSubmit).not.toHaveBeenCalled();
   });
 });

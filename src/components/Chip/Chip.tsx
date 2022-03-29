@@ -50,7 +50,7 @@ export type Props = PropsWithSpread<
      */
     value: string;
   },
-  HTMLProps<HTMLSpanElement>
+  HTMLProps<HTMLButtonElement>
 >;
 
 const Chip = ({
@@ -89,16 +89,19 @@ const Chip = ({
     </>
   );
 
-  const chipClassName = classNames({
-    [`p-chip--${appearance}`]: !!appearance,
-    "p-chip": !appearance,
-  });
+  const chipClassName = classNames(
+    {
+      [`p-chip--${appearance}`]: !!appearance,
+      "p-chip": !appearance,
+    },
+    props.className
+  );
 
   if (onDismiss) {
     return (
-      <span className={chipClassName} aria-pressed={selected} {...props}>
+      <span {...props} className={chipClassName}>
         {chipContent}
-        <button className="p-chip__dismiss" onClick={onDismiss}>
+        <button className="p-chip__dismiss" onClick={onDismiss} type="button">
           <i className="p-icon--close">Dismiss</i>
         </button>
       </span>
@@ -106,10 +109,12 @@ const Chip = ({
   } else {
     return (
       <button
-        className={chipClassName}
+        {...props}
         aria-pressed={selected}
+        className={chipClassName}
         onClick={onClick}
         onKeyDown={(e) => onKeyDown(e)}
+        type="button"
       >
         {chipContent}
       </button>
