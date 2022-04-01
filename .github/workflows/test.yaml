@@ -11,7 +11,7 @@ jobs:
     name: Lint, build and test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
 
       - name: Use Node.js
         uses: actions/setup-node@v3
@@ -38,7 +38,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
 
       - name: Check inclusive naming
         uses: canonical-web-and-design/inclusive-naming@main
