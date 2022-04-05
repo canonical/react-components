@@ -66,6 +66,7 @@ An input field where the user can enter data, which can vary in many ways, depen
       id: "exampleTextInput2",
       placeholder: "example@canonical.com",
       label: "Email address",
+      help: "Additional description for the field",
     }}
   >
     {Template.bind({})}
@@ -161,7 +162,7 @@ An input field where the user can enter data, which can vary in many ways, depen
 <Canvas>
   <Story name="Checkbox">
     <Input type="checkbox" id="checkExample12" defaultChecked label="HTML" />
-    <Input type="checkbox" id="checkExample22" label="CSS" />
+    <Input type="checkbox" id="checkExample22" label="CSS" help="Cascading Style Sheets" />
     <Input
       type="checkbox"
       id="checkExample32"
@@ -182,6 +183,7 @@ An input field where the user can enter data, which can vary in many ways, depen
       id="Radio12"
       defaultValue="option1"
       defaultChecked
+      help="Ubuntu"
     />
     <Input
       label="Mac OS"

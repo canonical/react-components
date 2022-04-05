@@ -1,18 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Input renders 1`] = `
-<Field
-  forId="test-id"
-  helpId="mock-nanoid-2"
-  validationId="mock-nanoid-1"
->
-  <input
-    aria-describedby={null}
-    aria-errormessage={null}
-    aria-invalid={false}
-    className="p-form-validation__input"
-    id="test-id"
-    type="text"
-  />
-</Field>
+exports[`Input RTL renders 1`] = `
+<div>
+  <div
+    class="p-form__group p-form-validation"
+  >
+    <div
+      class="p-form__control u-clearfix"
+    >
+      <input
+        aria-invalid="false"
+        class="p-form-validation__input"
+        id="test-id"
+        type="text"
+      />
+    </div>
+  </div>
+</div>
 `;
