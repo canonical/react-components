@@ -1,42 +1,44 @@
-import { shallow } from "enzyme";
+/* eslint-disable testing-library/no-node-access */
+import { render, isInaccessible } from "@testing-library/react";
 import React from "react";
 
 import TableCell from "./TableCell";
 
 describe("TableCell", () => {
   it("renders", () => {
-    const wrapper = shallow(<TableCell>Test content</TableCell>);
-    expect(wrapper).toMatchSnapshot();
+    const { container } = render(<TableCell>Test content</TableCell>);
+    expect(container.firstChild).toMatchSnapshot();
   });
 
   it("can set a role", () => {
-    const wrapper = shallow(<TableCell role="rowheader" />);
-    expect(wrapper.prop("role")).toEqual("rowheader");
+    const { container } = render(<TableCell role="rowheader" />);
+    expect(container.firstChild).toHaveAttribute("role", "rowheader");
   });
 
   it("can be hidden", () => {
-    const wrapper = shallow(<TableCell hidden={true} />);
-    expect(wrapper.prop("aria-hidden")).toBe(true);
+    const { container, rerender } = render(<TableCell hidden={false} />);
+    expect(isInaccessible(container.firstElementChild)).toEqual(false);
+    rerender(<TableCell hidden={true} />);
+    expect(isInaccessible(container.firstElementChild)).toEqual(true);
   });
 
   it("can be expanding", () => {
-    const wrapper = shallow(<TableCell expanding={true} />);
-    expect(wrapper.prop("className").includes("p-table__expanding-panel")).toBe(
-      true
-    );
+    const { container } = render(<TableCell expanding={true} />);
+    expect(container.firstChild).toHaveClass("p-table__expanding-panel");
   });
 
   it("can have overflow", () => {
-    const wrapper = shallow(<TableCell hasOverflow={true} />);
-    expect(wrapper.prop("className").includes("has-overflow")).toBe(true);
+    const { container } = render(<TableCell hasOverflow={true} />);
+    expect(container.firstChild).toHaveClass("has-overflow");
   });
 
   it("can add additional classes", () => {
-    const wrapper = shallow(
+    const { container } = render(
       <TableCell expanding={true} className="extra-class" />
     );
-    const className = wrapper.prop("className");
-    expect(className.includes("p-table__expanding-panel")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
+    expect(container.firstChild).toHaveClass(
+      "p-table__expanding-panel",
+      "extra-class"
+    );
   });
 });
