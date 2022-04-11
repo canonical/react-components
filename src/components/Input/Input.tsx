@@ -139,6 +139,7 @@ const Input = ({
       forId={id}
       help={help}
       helpId={helpId}
+      isTickElement={type === "checkbox" || type === "radio"}
       label={fieldLabel}
       labelClassName={labelClassName}
       required={required}

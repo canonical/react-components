@@ -5,11 +5,6 @@ import React from "react";
 import Input from "./Input";
 
 describe("Input", () => {
-  it("renders", () => {
-    const wrapper = shallow(<Input type="text" id="test-id" />);
-    expect(wrapper).toMatchSnapshot();
-  });
-
   it("can add additional classes", () => {
     const wrapper = shallow(<Input type="text" className="extra-class" />);
     const className = wrapper.find("input").prop("className");
@@ -80,6 +75,11 @@ describe("Input", () => {
 });
 
 describe("Input RTL", () => {
+  it("renders", () => {
+    const { container } = render(<Input type="text" id="test-id" />);
+    expect(container).toMatchSnapshot();
+  });
+
   it("can display an error for a text input", async () => {
     render(<Input error="Uh oh!" type="text" />);
     expect(screen.getByRole("textbox")).toHaveErrorMessage("Error: Uh oh!");
