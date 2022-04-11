@@ -54,7 +54,7 @@ export type Props = {
    */
   autoAdjust?: boolean;
   /**
-   * Element to which to apply the tooltip to.
+   * Element on which to apply the tooltip.
    */
   children: ReactNode;
   /**
@@ -253,14 +253,24 @@ const TooltipDetached = ({
     autoAdjust && followMouse
   );
 
+  const handleBlur = (e) => {
+    if (
+      e.relatedTarget
+        ? !messageRef.current?.contains(e.relatedTarget)
+        : e.target !== messageRef.current
+    ) {
+      closePortal();
+    }
+  };
+
   return (
     <>
       {message ? (
         <span
           className={className}
-          onBlur={closePortal}
+          onBlur={handleBlur}
           onFocus={openPortal}
-          onMouseOut={closePortal}
+          onMouseOut={handleBlur}
           onMouseOver={openPortal}
         >
           <span
@@ -273,6 +283,7 @@ const TooltipDetached = ({
           {isOpen && (
             <Portal>
               <span
+                role="tooltip"
                 className={classNames(
                   `p-tooltip--${adjustedPosition}`,
                   "is-detached",

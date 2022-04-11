@@ -1,4 +1,6 @@
-import { mount, shallow } from "enzyme";
+import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import merge from "deepmerge";
 import React from "react";
 
@@ -12,7 +14,7 @@ describe("<Tooltip />", () => {
 
   // snapshot tests
   it("renders and matches the snapshot", () => {
-    const component = shallow(<Tooltip message="text">Child</Tooltip>);
+    const component = mount(<Tooltip message="text">Child</Tooltip>);
     expect(component).toMatchSnapshot();
   });
 
@@ -443,6 +445,28 @@ describe("<Tooltip />", () => {
           })
         )
       ).toBe("btm-right");
+    });
+
+    // testing-library tests
+    it("focuses on the first focusable element within the tooltip on pressing tab ", () => {
+      render(
+        <Tooltip
+          message={
+            <>
+              Additional information <a href="canonical.com">Canonical</a>
+            </>
+          }
+        >
+          <button>open the tooltip</button>
+        </Tooltip>
+      );
+
+      userEvent.click(
+        screen.getByRole("button", { name: /open the tooltip/i })
+      );
+      userEvent.tab();
+
+      expect(screen.getByRole("link", { name: "Canonical" })).toHaveFocus();
     });
   });
 });
