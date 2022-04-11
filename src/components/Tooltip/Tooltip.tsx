@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import usePortal from "react-useportal";
 
-import { useWindowFitment, useListener } from "hooks";
+import { useWindowFitment, useListener, useId } from "hooks";
 import type { WindowFitment } from "hooks";
 
 import type { ClassName, ValueOf } from "types";
@@ -208,6 +208,7 @@ const TooltipDetached = ({
     top: -99999999999999,
   });
   const { openPortal, closePortal, isOpen, Portal } = usePortal();
+  const tooltipId = useId();
 
   useEffect(() => {
     if (isOpen && !followMouse && wrapperRef.current) {
@@ -278,26 +279,35 @@ const TooltipDetached = ({
             ref={wrapperRef}
             style={{ display: "inline-block" }}
           >
-            {children}
+            {React.Children.map(children, (child) =>
+              child && React.isValidElement(child)
+                ? React.cloneElement(child, {
+                    "aria-describedby": tooltipId,
+                  })
+                : child
+            )}
           </span>
-          {isOpen && (
-            <Portal>
+          <Portal>
+            <span
+              className={classNames(
+                `p-tooltip--${adjustedPosition}`,
+                "is-detached",
+                { "u-off-screen": !isOpen },
+                tooltipClassName
+              )}
+              data-testid="tooltip-portal"
+              style={positionStyle as React.CSSProperties}
+            >
               <span
                 role="tooltip"
-                className={classNames(
-                  `p-tooltip--${adjustedPosition}`,
-                  "is-detached",
-                  tooltipClassName
-                )}
-                data-testid="tooltip-portal"
-                style={positionStyle as React.CSSProperties}
+                className="p-tooltip__message"
+                ref={messageRef}
+                id={tooltipId}
               >
-                <span className="p-tooltip__message" ref={messageRef}>
-                  {message}
-                </span>
+                {message}
               </span>
-            </Portal>
-          )}
+            </span>
+          </Portal>
         </span>
       ) : (
         <span className={className}>{children}</span>

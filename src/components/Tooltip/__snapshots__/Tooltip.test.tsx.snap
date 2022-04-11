@@ -1,28 +1,35 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Tooltip /> renders and matches the snapshot 1`] = `
-<Tooltip
-  message="text"
->
-  <TooltipDetached
-    message="text"
-  >
+exports[`Tooltip - detached renders and matches the snapshot 1`] = `
+<div>
+  <span>
     <span
-      onBlur={[Function]}
-      onFocus={[Function]}
-      onMouseOut={[Function]}
-      onMouseOver={[Function]}
+      style="display: inline-block;"
     >
-      <span
-        style={
-          Object {
-            "display": "inline-block",
-          }
-        }
+      <button
+        aria-describedby="mock-nanoid-1"
       >
-        Child
-      </span>
+        button text
+      </button>
     </span>
-  </TooltipDetached>
-</Tooltip>
+  </span>
+</div>
+`;
+
+exports[`Tooltip - regular renders and matches the snapshot 1`] = `
+<div>
+  <button
+    aria-describedby="mock-nanoid-1"
+    class="p-tooltip p-tooltip--top-left"
+  >
+    button text
+    <span
+      class="p-tooltip__message"
+      id="mock-nanoid-1"
+      role="tooltip"
+    >
+      text
+    </span>
+  </button>
+</div>
 `;
