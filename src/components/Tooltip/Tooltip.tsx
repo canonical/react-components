@@ -6,7 +6,8 @@ import usePortal from "react-useportal";
 import { useWindowFitment, useListener } from "hooks";
 import type { WindowFitment } from "hooks";
 
-import type { ClassName } from "types";
+import type { ClassName, ValueOf } from "types";
+import TooltipRegular, { TooltipRegularProps } from "components/TooltipRegular";
 
 export type CSSPosition =
   | "static"
@@ -24,23 +25,36 @@ export type PositionStyle = {
   top: number;
 };
 
-export type Position =
-  | "btm-center"
-  | "btm-left"
-  | "btm-right"
-  | "left"
-  | "right"
-  | "top-center"
-  | "top-left"
-  | "top-right";
+export const position = {
+  btmCenter: "btm-center",
+  btmLeft: "btm-left",
+  btmRight: "btm-right",
+  left: "left",
+  right: "right",
+  topCenter: "top-center",
+  topLeft: "top-left",
+  topRight: "top-right",
+} as const;
+
+export type Position = ValueOf<typeof position>;
+
+export const variant = {
+  regular: "regular",
+  detached: "detached",
+} as const;
+type Variant = ValueOf<typeof variant>;
 
 export type Props = {
+  /**
+   * Variant of the tooltip.
+   */
+  variant?: Variant;
   /**
    * Whether the tooltip should adjust to fit in the screen.
    */
   autoAdjust?: boolean;
   /**
-   * Element on which to apply the tooltip.
+   * Element to which to apply the tooltip to.
    */
   children: ReactNode;
   /**
@@ -173,7 +187,7 @@ export const adjustForWindow = (
  * @param positionElementClassName An optional class to apply to the element that wraps the children.
  * @param tooltipClassName An optional class to apply to the tooltip message element.
  */
-const Tooltip = ({
+const TooltipDetached = ({
   autoAdjust = true,
   children,
   className,
@@ -280,5 +294,15 @@ const Tooltip = ({
     </>
   );
 };
+
+const Tooltip = ({
+  variant,
+  ...props
+}: { variant?: Variant } & (Props | TooltipRegularProps)) =>
+  variant === "regular" ? (
+    <TooltipRegular {...(props as TooltipRegularProps)} />
+  ) : (
+    <TooltipDetached {...(props as Props)} />
+  );
 
 export default Tooltip;

@@ -1,8 +1,25 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import Button from "../Button";
-import Tooltip from "./Tooltip";
+import Tooltip, { position, variant } from "./Tooltip";
 
-<Meta title="Tooltip" component={Tooltip} />
+<Meta
+  title="Tooltip"
+  component={Tooltip}
+  argTypes={{
+    position: {
+      control: {
+        type: "radio",
+      },
+      options: Object.values(position),
+    },
+    variant: {
+      control: {
+        type: "radio",
+      },
+      options: Object.values(variant),
+    },
+  }}
+/>
 
 export const Template = (args) => {
   return (
@@ -28,10 +45,31 @@ An alternative use of tooltips is to provide information on a disabled actionabl
 
 <ArgsTable of={Tooltip} />
 
-### Default
+### Regular
 
 <Canvas>
-  <Story name="Default" args={{ message: "Tooltip message to display." }}>
+  <Story
+    name="Regular"
+    args={{
+      variant: "regular",
+      position: "right",
+      message: <>Tooltip <a href="#todo" target="_blank">Link1</a></>
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Detached (default)
+
+<Canvas>
+  <Story
+    name="Detached (default)"
+    args={{
+      variant: "detached",
+      message: <>Tooltip <a href="#todo" target="_blank">Link1</a></>
+    }}
+  >
     {Template.bind({})}
   </Story>
 </Canvas>
@@ -42,6 +80,7 @@ An alternative use of tooltips is to provide information on a disabled actionabl
   <Story
     name="Follow mouse"
     args={{
+      variant: "detached",
       followMouse: true,
       message: "Tooltip message to display.",
       position: "top-center",
@@ -60,6 +99,7 @@ Sometimes however, you need to target the tooltip elements. This can be achieved
   <Story
     name="Targeting elements"
     args={{
+      variant: "detached",
       className: "custom-wrapping-class",
       positionElementClassName: "custom-position-class",
       tooltipClassName: "custom-tooltip-class",
