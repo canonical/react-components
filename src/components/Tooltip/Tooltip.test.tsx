@@ -1,69 +1,129 @@
-import { mount, shallow } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import merge from "deepmerge";
 import React from "react";
 
 import Tooltip, { adjustForWindow } from "./Tooltip";
 
-describe("<Tooltip />", () => {
-  const body = document.querySelector("body");
-  const app = document.createElement("div");
-  app.setAttribute("id", "app");
-  body.appendChild(app);
-
-  // snapshot tests
+describe("Tooltip", () => {
   it("renders and matches the snapshot", () => {
-    const component = shallow(<Tooltip message="text">Child</Tooltip>);
-    expect(component).toMatchSnapshot();
-  });
-
-  // unit tests
-  it("does not show tooltip message by default", () => {
-    const component = mount(<Tooltip message="text">Child</Tooltip>);
-    expect(component.exists("[data-testid='tooltip-portal']")).toEqual(false);
-  });
-
-  it("renders tooltip message when focused", () => {
-    const component = mount(<Tooltip message="text">Child</Tooltip>);
-    component.simulate("focus");
-    expect(component.find("[data-testid='tooltip-portal']").text()).toEqual(
-      "text"
-    );
-  });
-
-  it("can display elements inside the message", () => {
-    const component = mount(
-      <Tooltip message={<strong>message</strong>}>Child</Tooltip>
-    );
-    component.simulate("focus");
-    expect(
-      component.find("[data-testid='tooltip-portal'] strong").exists()
-    ).toBe(true);
-  });
-
-  it("gives the correct class name to the tooltip", () => {
-    const component = mount(
-      <Tooltip message="text" position="right">
-        Child
+    const { container } = render(
+      <Tooltip message="text">
+        <button>button text</button>
       </Tooltip>
     );
-    component.simulate("focus");
-    expect(component.exists(".p-tooltip--right")).toEqual(true);
+    expect(container).toMatchSnapshot();
   });
 
-  it("updates the tooltip to fit on the screen", () => {
-    const wrapper = mount(
+  it("focuses on the first focusable element within the tooltip on pressing tab ", () => {
+    render(
+      <Tooltip
+        message={
+          <>
+            Additional information <a href="canonical.com">Canonical</a>
+          </>
+        }
+      >
+        <button>open the tooltip</button>
+      </Tooltip>
+    );
+
+    userEvent.click(screen.getByRole("button", { name: /open the tooltip/i }));
+    userEvent.tab();
+
+    expect(screen.getByRole("link", { name: "Canonical" })).toHaveFocus();
+  });
+
+  it("adds a description to the wrapped element", () => {
+    render(
+      <Tooltip message="Additional description">
+        <button>open the tooltip</button>
+      </Tooltip>
+    );
+    expect(
+      screen.getByRole("button", { name: /open the tooltip/ })
+    ).toHaveAccessibleDescription("Additional description");
+  });
+
+  it("preserves click handlers for elements within the tooltip", () => {
+    const clickHandler = jest.fn();
+
+    render(
+      <Tooltip
+        message={
+          <>
+            Additional information{" "}
+            <a
+              href="canonical.com"
+              onClick={(e) => {
+                e.preventDefault();
+                clickHandler();
+              }}
+            >
+              Canonical
+            </a>
+          </>
+        }
+      >
+        <button>open the tooltip</button>
+      </Tooltip>
+    );
+
+    userEvent.click(screen.getByRole("button"));
+    userEvent.click(screen.getByRole("link", { name: "Canonical" }));
+
+    expect(clickHandler).toHaveBeenCalled();
+  });
+
+  it("does not show tooltip message by default", () => {
+    render(<Tooltip message="text">Child</Tooltip>);
+    expect(screen.getByTestId("tooltip-portal")).toHaveClass("u-off-screen");
+  });
+
+  it("renders tooltip message on focus", () => {
+    render(
+      <Tooltip message="text">
+        <button>open the tooltip</button>
+      </Tooltip>
+    );
+
+    expect(screen.getByTestId("tooltip-portal")).toHaveClass("u-off-screen");
+    userEvent.tab();
+    expect(screen.getByTestId("tooltip-portal")).not.toHaveClass(
+      "u-off-screen"
+    );
+  });
+
+  it("updates the tooltip to fit on the screen", async () => {
+    render(
       <Tooltip
         message="text that is too long to fit on the screen"
         position="right"
       >
-        Child
+        <button>Child</button>
       </Tooltip>
     );
     global.innerWidth = 20;
-    wrapper.simulate("mouseover");
-    expect(
-      wrapper.find("[data-testid='tooltip-portal']").prop("className")
-    ).toBe("p-tooltip--btm-left is-detached");
+    userEvent.hover(screen.getByRole("button", { name: "Child" }));
+
+    await waitFor(() =>
+      expect(screen.getByTestId("tooltip-portal")).toHaveClass(
+        "p-tooltip--btm-left"
+      )
+    );
+    expect(screen.getByTestId("tooltip-portal")).toHaveClass("is-detached");
+  });
+
+  it("gives the correct class name to the tooltip", () => {
+    render(
+      <Tooltip message="text" position="right">
+        <button>open the tooltip</button>
+      </Tooltip>
+    );
+
+    expect(screen.getByTestId("tooltip-portal")).toHaveClass(
+      "p-tooltip--right"
+    );
   });
 
   describe("adjustForWindow", () => {

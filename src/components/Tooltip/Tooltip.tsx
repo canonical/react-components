@@ -3,10 +3,10 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import usePortal from "react-useportal";
 
-import { useWindowFitment, useListener } from "hooks";
+import { useWindowFitment, useListener, useId } from "hooks";
 import type { WindowFitment } from "hooks";
 
-import type { ClassName } from "types";
+import type { ClassName, ValueOf } from "types";
 
 export type CSSPosition =
   | "static"
@@ -24,15 +24,18 @@ export type PositionStyle = {
   top: number;
 };
 
-export type Position =
-  | "btm-center"
-  | "btm-left"
-  | "btm-right"
-  | "left"
-  | "right"
-  | "top-center"
-  | "top-left"
-  | "top-right";
+export const position = {
+  btmCenter: "btm-center",
+  btmLeft: "btm-left",
+  btmRight: "btm-right",
+  left: "left",
+  right: "right",
+  topCenter: "top-center",
+  topLeft: "top-left",
+  topRight: "top-right",
+} as const;
+
+export type Position = ValueOf<typeof position>;
 
 export type Props = {
   /**
@@ -194,6 +197,7 @@ const Tooltip = ({
     top: -99999999999999,
   });
   const { openPortal, closePortal, isOpen, Portal } = usePortal();
+  const tooltipId = useId();
 
   useEffect(() => {
     if (isOpen && !followMouse && wrapperRef.current) {
@@ -239,14 +243,24 @@ const Tooltip = ({
     autoAdjust && followMouse
   );
 
+  const handleBlur = (e) => {
+    if (
+      e.relatedTarget
+        ? !messageRef.current?.contains(e.relatedTarget)
+        : e.target !== messageRef.current
+    ) {
+      closePortal();
+    }
+  };
+
   return (
     <>
       {message ? (
         <span
           className={className}
-          onBlur={closePortal}
+          onBlur={handleBlur}
           onFocus={openPortal}
-          onMouseOut={closePortal}
+          onMouseOut={handleBlur}
           onMouseOver={openPortal}
         >
           <span
@@ -254,25 +268,35 @@ const Tooltip = ({
             ref={wrapperRef}
             style={{ display: "inline-block" }}
           >
-            {children}
+            {React.Children.map(children, (child) =>
+              child && React.isValidElement(child)
+                ? React.cloneElement(child, {
+                    "aria-describedby": tooltipId,
+                  })
+                : child
+            )}
           </span>
-          {isOpen && (
-            <Portal>
+          <Portal>
+            <span
+              className={classNames(
+                `p-tooltip--${adjustedPosition}`,
+                "is-detached",
+                { "u-off-screen": !isOpen },
+                tooltipClassName
+              )}
+              data-testid="tooltip-portal"
+              style={positionStyle as React.CSSProperties}
+            >
               <span
-                className={classNames(
-                  `p-tooltip--${adjustedPosition}`,
-                  "is-detached",
-                  tooltipClassName
-                )}
-                data-testid="tooltip-portal"
-                style={positionStyle as React.CSSProperties}
+                role="tooltip"
+                className="p-tooltip__message"
+                ref={messageRef}
+                id={tooltipId}
               >
-                <span className="p-tooltip__message" ref={messageRef}>
-                  {message}
-                </span>
+                {message}
               </span>
-            </Portal>
-          )}
+            </span>
+          </Portal>
         </span>
       ) : (
         <span className={className}>{children}</span>
