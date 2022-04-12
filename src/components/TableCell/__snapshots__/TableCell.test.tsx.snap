@@ -2,8 +2,8 @@
 
 exports[`TableCell renders 1`] = `
 <td
-  aria-hidden={false}
-  className=""
+  aria-hidden="false"
+  class=""
   role="gridcell"
 >
   Test content
