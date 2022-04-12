@@ -1,8 +1,19 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 import Button from "../Button";
-import Tooltip from "./Tooltip";
+import Tooltip, { position } from "./Tooltip";
 
-<Meta title="Tooltip" component={Tooltip} />
+<Meta
+  title="Tooltip"
+  component={Tooltip}
+  argTypes={{
+    position: {
+      control: {
+        type: "radio",
+      },
+      options: Object.values(position),
+    },
+  }}
+/>
 
 export const Template = (args) => {
   return (
@@ -31,7 +42,12 @@ An alternative use of tooltips is to provide information on a disabled actionabl
 ### Default
 
 <Canvas>
-  <Story name="Default" args={{ message: "Tooltip message to display." }}>
+  <Story
+    name="Default"
+    args={{
+      message: <>Tooltip <a href="#todo" target="_blank">Link1</a></>
+    }}
+  >
     {Template.bind({})}
   </Story>
 </Canvas>

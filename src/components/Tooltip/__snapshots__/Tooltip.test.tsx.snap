@@ -1,22 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Tooltip /> renders and matches the snapshot 1`] = `
-<Fragment>
-  <span
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
-  >
+exports[`Tooltip renders and matches the snapshot 1`] = `
+<div>
+  <span>
     <span
-      style={
-        Object {
-          "display": "inline-block",
-        }
-      }
+      style="display: inline-block;"
     >
-      Child
+      <button
+        aria-describedby="mock-nanoid-1"
+      >
+        button text
+      </button>
     </span>
   </span>
-</Fragment>
+</div>
 `;
