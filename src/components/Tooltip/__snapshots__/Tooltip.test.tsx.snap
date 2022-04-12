@@ -1,39 +1,5 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Tooltip - detached renders and matches the snapshot 1`] = `
-<div>
-  <span>
-    <span
-      style="display: inline-block;"
-    >
-      <button
-        aria-describedby="mock-nanoid-1"
-      >
-        button text
-      </button>
-    </span>
-  </span>
-</div>
-`;
-
-exports[`Tooltip - regular renders and matches the snapshot 1`] = `
-<div>
-  <button
-    aria-describedby="mock-nanoid-1"
-    class="p-tooltip p-tooltip--top-left"
-  >
-    button text
-    <span
-      class="p-tooltip__message"
-      id="mock-nanoid-1"
-      role="tooltip"
-    >
-      text
-    </span>
-  </button>
-</div>
-`;
-
 exports[`Tooltip renders and matches the snapshot 1`] = `
 <div>
   <span>
