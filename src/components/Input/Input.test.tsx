@@ -5,13 +5,6 @@ import React from "react";
 import Input from "./Input";
 
 describe("Input", () => {
-  it("can add additional classes", () => {
-    const wrapper = shallow(<Input type="text" className="extra-class" />);
-    const className = wrapper.find("input").prop("className");
-    expect(className.includes("p-form-validation__input")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
-  });
-
   it("moves the label for radio buttons", () => {
     const wrapper = shallow(<Input type="radio" />);
     expect(wrapper.prop("label")).toBe("");
@@ -111,5 +104,24 @@ describe("Input RTL", () => {
     const help = "Save me!";
     render(<Input help={help} type="checkbox" />);
     expect(screen.getByRole("checkbox")).toHaveAccessibleDescription(help);
+  });
+
+  it("can add additional classes", () => {
+    const { container } = render(
+      <Input
+        type="text"
+        className="extra-class"
+        help="additional description"
+        helpClassName="additional-help-text-class"
+      />
+    );
+    expect(screen.getByRole("textbox")).toHaveClass(
+      "p-form-validation__input",
+      "extra-class"
+    );
+    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
+    expect(container.querySelector(".p-form-help-text")).toHaveClass(
+      "additional-help-text-class"
+    );
   });
 });
