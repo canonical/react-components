@@ -243,7 +243,19 @@ const Tooltip = ({
     autoAdjust && followMouse
   );
 
+  useEffect(() => {
+    window.addEventListener("keypress", closePortal);
+    return () => {
+      window.removeEventListener("keypress", closePortal);
+    };
+  }, [closePortal]);
+
   const handleBlur = (e) => {
+    // do not close if the focus is within the tooltip
+    if (wrapperRef?.current?.contains(document.activeElement)) {
+      return;
+    }
+
     if (
       e.relatedTarget
         ? !messageRef.current?.contains(e.relatedTarget)
@@ -253,12 +265,18 @@ const Tooltip = ({
     }
   };
 
+  const handleClick = (e) => {
+    e.target.focus();
+    openPortal();
+  };
+
   return (
     <>
       {message ? (
         <span
           className={className}
           onBlur={handleBlur}
+          onClick={handleClick}
           onFocus={openPortal}
           onMouseOut={handleBlur}
           onMouseOver={openPortal}
