@@ -125,8 +125,8 @@
     "test-cypress": "concurrently 'yarn run docs' 'yarn run cypress:test' -k -s first",
     "unlink-packages": "yarn unlink && cd node_modules/react && yarn unlink && cd ../react-dom && yarn unlink",
     "cypress:test": "wait-on http://localhost:${PORT:-9009} && cypress run --env port=${PORT:-9009}",
-    "cypress:run": "cypress run",
-    "cypress:open": "cypress open"
+    "cypress:run": "cypress run --env port=${PORT:-9009}",
+    "cypress:open": "cypress open --env port=${PORT:-9009}"
   },
   "eslintConfig": {
     "extends": "react-app"
