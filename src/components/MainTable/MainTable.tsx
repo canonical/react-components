@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import type { HTMLProps, ReactNode } from "react";
 
 import type { ClassName, PropsWithSpread, SortDirection } from "types";
@@ -9,6 +9,7 @@ import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
 import type { TableCellProps } from "../TableCell";
+import { usePagination } from "hooks";
 
 export type MainTableHeader = PropsWithSpread<
   {
@@ -190,60 +191,20 @@ const generateHeaders = (
   );
 };
 
-const generateRows = (
-  currentSortDirection: SortDirection,
-  currentSortKey: MainTableHeader["sortKey"],
-  emptyStateMsg: ReactNode,
-  expanding: Props["expanding"],
-  responsive: Props["responsive"],
-  headers: Props["headers"],
-  paginate: Props["paginate"],
-  rows: Props["rows"],
-  currentPage: number,
-  setCurrentPage: (page: number) => void,
-  sortable: Props["sortable"],
-  sortFunction: Props["sortFunction"]
-) => {
-  // If the table has no rows, return empty state message
-  if (Object.entries(rows).length === 0 && emptyStateMsg) {
-    return <caption>{emptyStateMsg}</caption>;
-  }
-  // Clone the rows so we can restore the original order.
-  const sortedRows = [...rows];
-  if (sortable && currentSortKey) {
-    if (!sortFunction) {
-      sortFunction = (a, b) => {
-        if (!a.sortData || !b.sortData) {
-          return 0;
-        }
-        if (a.sortData[currentSortKey] > b.sortData[currentSortKey]) {
-          return currentSortDirection === "ascending" ? 1 : -1;
-        } else if (a.sortData[currentSortKey] < b.sortData[currentSortKey]) {
-          return currentSortDirection === "ascending" ? -1 : 1;
-        }
-        return 0;
-      };
-    }
-    sortedRows.sort((a, b) =>
-      sortFunction(a, b, currentSortDirection, currentSortKey)
-    );
-  }
-  let slicedRows = sortedRows;
-  if (paginate) {
-    const startIndex = (currentPage - 1) * paginate;
-    if (startIndex > rows.length) {
-      // If the rows have changed e.g. when filtering and the user is on a page
-      // that no longer exists then send them to the start.
-      setCurrentPage(1);
-    }
-    slicedRows = sortedRows.slice(startIndex, startIndex + paginate);
-  }
-  const rowItems = slicedRows.map(
+const generateRows = ({
+  rows,
+  headers,
+  responsive,
+  expanding,
+}: Partial<Props> & {
+  rows: MainTableRow[];
+}) =>
+  rows.map(
     (
       { columns, expanded, expandedContent, key, sortData, ...rowProps },
       index
     ) => {
-      const cellItems = columns.map(({ content, ...cellProps }, index) => {
+      const cellItems = columns?.map(({ content, ...cellProps }, index) => {
         const headerContent = headers && headers[index]["content"];
         const headerReplacement = headers && headers[index]["heading"];
 
@@ -279,7 +240,38 @@ const generateRows = (
       );
     }
   );
-  return <tbody>{rowItems}</tbody>;
+
+const sortRows = ({
+  currentSortDirection,
+  currentSortKey,
+  rows,
+  sortable,
+  sortFunction,
+}): MainTableRow[] => {
+  if (!rows) {
+    return [];
+  }
+  // Clone the rows so we can restore the original order.
+  const sortedRows = [...rows];
+  if (sortable && currentSortKey) {
+    if (!sortFunction) {
+      sortFunction = (a, b) => {
+        if (!a.sortData || !b.sortData) {
+          return 0;
+        }
+        if (a.sortData[currentSortKey] > b.sortData[currentSortKey]) {
+          return currentSortDirection === "ascending" ? 1 : -1;
+        } else if (a.sortData[currentSortKey] < b.sortData[currentSortKey]) {
+          return currentSortDirection === "ascending" ? -1 : 1;
+        }
+        return 0;
+      };
+    }
+    sortedRows.sort((a, b) =>
+      sortFunction(a, b, currentSortDirection, currentSortKey)
+    );
+  }
+  return sortedRows;
 };
 
 const MainTable = ({
@@ -299,7 +291,6 @@ const MainTable = ({
   const [currentSortKey, setSortKey] = useState(defaultSort);
   const [currentSortDirection, setSortDirection] =
     useState(defaultSortDirection);
-  const [currentPage, setCurrentPage] = useState(1);
 
   // Update the current sort state if the prop changes.
   useEffect(() => {
@@ -316,6 +307,27 @@ const MainTable = ({
     onUpdateSort && onUpdateSort(newSort);
   };
 
+  const sortedRows = useMemo(
+    () =>
+      sortRows({
+        currentSortDirection,
+        currentSortKey,
+        rows,
+        sortable,
+        sortFunction,
+      }),
+    [currentSortDirection, currentSortKey, rows, sortable, sortFunction]
+  );
+
+  const {
+    pageData: finalRows,
+    currentPage,
+    paginate: setCurrentPage,
+  } = usePagination(sortedRows, {
+    itemsPerPage: paginate,
+    autoResetPage: true,
+  });
+
   return (
     <>
       <Table expanding={expanding} responsive={responsive} {...props}>
@@ -329,21 +341,21 @@ const MainTable = ({
             updateSort,
             setSortDirection
           )}
-        {!!rows &&
-          generateRows(
-            currentSortDirection,
-            currentSortKey,
-            emptyStateMsg,
-            expanding,
-            responsive,
-            headers,
-            paginate,
-            rows,
-            currentPage,
-            setCurrentPage,
-            sortable,
-            sortFunction
-          )}
+        {
+          // If the table has no rows, return empty state message
+          Object.entries(finalRows).length === 0 && emptyStateMsg ? (
+            <caption>{emptyStateMsg}</caption>
+          ) : (
+            <tbody>
+              {generateRows({
+                rows: finalRows,
+                headers,
+                responsive,
+                expanding,
+              })}
+            </tbody>
+          )
+        }
       </Table>
       {paginate && rows && rows.length > 0 && (
         <Pagination
