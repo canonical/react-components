@@ -243,7 +243,28 @@ const Tooltip = ({
     autoAdjust && followMouse
   );
 
+  const handleKeyPress = useCallback(
+    (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        closePortal();
+      }
+    },
+    [closePortal]
+  );
+
+  useEffect(() => {
+    window.addEventListener("keypress", handleKeyPress);
+    return () => {
+      window.removeEventListener("keypress", handleKeyPress);
+    };
+  }, [handleKeyPress]);
+
   const handleBlur = (e) => {
+    // do not close if the focus is within the tooltip wrapper
+    if (wrapperRef?.current?.contains(document.activeElement)) {
+      return;
+    }
+
     if (
       e.relatedTarget
         ? !messageRef.current?.contains(e.relatedTarget)
@@ -253,12 +274,22 @@ const Tooltip = ({
     }
   };
 
+  const handleClick = (e) => {
+    // ignore clicks within the tooltip message
+    if (messageRef.current?.contains(e.target)) {
+      return;
+    }
+    e.target.focus();
+    openPortal();
+  };
+
   return (
     <>
       {message ? (
         <span
           className={className}
           onBlur={handleBlur}
+          onClick={handleClick}
           onFocus={openPortal}
           onMouseOut={handleBlur}
           onMouseOver={openPortal}
