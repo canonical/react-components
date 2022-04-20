@@ -31,6 +31,10 @@ export type Props = PropsWithSpread<
      */
     help?: ReactNode;
     /**
+     * Optional class(es) to pass to the help text element.
+     */
+    helpClassName?: ReactNode;
+    /**
      * The id of the input.
      */
     id?: string;
@@ -71,6 +75,7 @@ const Input = ({
   className,
   error,
   help,
+  helpClassName,
   id,
   label,
   labelClassName,
@@ -138,6 +143,7 @@ const Input = ({
       error={error}
       forId={id}
       help={help}
+      helpClassName={helpClassName}
       helpId={helpId}
       isTickElement={type === "checkbox" || type === "radio"}
       label={fieldLabel}

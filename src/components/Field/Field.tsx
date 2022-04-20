@@ -36,6 +36,10 @@ export type Props = {
    */
   help?: ReactNode;
   /**
+   * Optional class(es) to pass to the help text element.
+   */
+  helpClassName?: ReactNode;
+  /**
    * An id to give to the help element.
    */
   helpId?: string;
@@ -80,11 +84,12 @@ export type Props = {
 const generateHelpText = ({
   help,
   helpId,
+  helpClassName,
   isTickElement,
-}: Pick<Props, "help" | "helpId" | "isTickElement">) =>
+}: Pick<Props, "help" | "helpId" | "helpClassName" | "isTickElement">) =>
   help ? (
     <p
-      className={classNames("p-form-help-text", {
+      className={classNames("p-form-help-text", helpClassName, {
         "is-tick-element": isTickElement,
       })}
       id={helpId}
@@ -138,6 +143,7 @@ const generateContent = ({
   labelFirst,
   labelNode,
   help,
+  helpClassName,
   error,
   caution,
   success,
@@ -159,6 +165,7 @@ const generateContent = ({
     {generateHelpText({
       helpId,
       help,
+      helpClassName,
       isTickElement,
     })}
     {generateError(error, caution, success, validationId)}
@@ -172,6 +179,7 @@ const Field = ({
   error,
   forId,
   help,
+  helpClassName,
   helpId,
   isSelect,
   isTickElement,
@@ -198,6 +206,7 @@ const Field = ({
     labelFirst,
     labelNode,
     help,
+    helpClassName,
     error,
     caution,
     success,

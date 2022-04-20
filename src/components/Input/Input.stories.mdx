@@ -21,6 +21,11 @@ import Input from "./Input";
         type: "text",
       },
     },
+    helpClassName: {
+      control: {
+        type: "text",
+      },
+    },
     label: {
       control: {
         type: "text",
@@ -67,6 +72,7 @@ An input field where the user can enter data, which can vary in many ways, depen
       placeholder: "example@canonical.com",
       label: "Email address",
       help: "Additional description for the field",
+      helpClassName: "u-no-margin--bottom",
     }}
   >
     {Template.bind({})}
