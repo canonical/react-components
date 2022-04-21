@@ -196,9 +196,8 @@ const generateRows = ({
   headers,
   responsive,
   expanding,
-}: Partial<Props> & {
-  rows: MainTableRow[];
-}) =>
+}: Required<Pick<Props, "rows">> &
+  Pick<Props, "headers" | "responsive" | "expanding">) =>
   rows.map(
     (
       { columns, expanded, expandedContent, key, sortData, ...rowProps },
@@ -247,6 +246,9 @@ const sortRows = ({
   rows,
   sortable,
   sortFunction,
+}: Pick<Props, "rows" | "sortable" | "sortFunction"> & {
+  currentSortDirection: Props["defaultSortDirection"];
+  currentSortKey: Props["defaultSort"];
 }): MainTableRow[] => {
   if (!rows) {
     return [];

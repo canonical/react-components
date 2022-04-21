@@ -2,10 +2,11 @@ import { useMemo, useEffect, useState } from "react";
 
 /**
  * A hook that handles pagination.
- * @param data The data array to paginate.
- * @param itemsPerPage Number of items per page. Returns all items if no value has been provided.
- * @param initialPage?: Initial page number. Defaults to 1.
- * @param autoResetPage Whether to reset the page number to 1 when the data changes.
+ * @param data - The data array to paginate.
+ * @param {Object} options
+ * @param {number} [options.itemsPerPage] - Number of items per page. Returns all items if no value has been provided.
+ * @param {number} [options.initialPage=1] - Initial page number. Defaults to 1.
+ * @param {boolean} [options.autoResetPage=false] - Whether to reset the page number to 1 when the data changes.
  */
 
 export function usePagination<D, I = number | null>(
