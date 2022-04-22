@@ -39,3 +39,17 @@ export type TSFixMe = any; // eslint-disable-line @typescript-eslint/no-explicit
  * defined in EnumLike.
  */
 export type ValueOf<T> = T[keyof T];
+
+/**
+ * The Vanilla theme types.
+ */
+export enum Theme {
+  /**
+   * The dark Vanilla theme.
+   */
+  DARK = "dark",
+  /**
+   * The light Vanilla theme.
+   */
+  LIGHT = "light",
+}

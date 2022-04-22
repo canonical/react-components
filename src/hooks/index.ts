@@ -1,7 +1,8 @@
-export { useWindowFitment } from "./useWindowFitment";
+export { useClickOutside } from "./useClickOutside";
+export { useId } from "./useId";
 export { useListener } from "./useListener";
 export { usePrevious } from "./usePrevious";
 export { useThrottle } from "./useThrottle";
-export { useId } from "./useId";
 export { usePagination } from "./usePagination";
+export { useWindowFitment } from "./useWindowFitment";
 export type { WindowFitment } from "./useWindowFitment";

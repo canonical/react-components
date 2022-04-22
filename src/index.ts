@@ -22,6 +22,7 @@ export { default as List } from "./components/List";
 export { default as Loader } from "./components/Loader";
 export { default as MainTable } from "./components/MainTable";
 export { default as ModularTable } from "./components/ModularTable";
+export { default as Navigation } from "./components/Navigation";
 export { default as Modal } from "./components/Modal";
 export {
   default as Notification,
@@ -82,6 +83,13 @@ export type { ListProps } from "./components/List";
 export type { MainTableProps } from "./components/MainTable";
 export type { ModularTableProps } from "./components/ModularTable";
 export type { ModalProps } from "./components/Modal";
+export type {
+  GenerateLink,
+  LogoProps,
+  NavigationProps,
+  NavItem,
+  NavLink,
+} from "./components/Navigation";
 export type { NotificationProps } from "./components/Notification";
 export type { PaginationProps } from "./components/Pagination";
 export type { RadioInputProps } from "./components/RadioInput";
@@ -116,6 +124,7 @@ export type {
   PropsWithSpread,
   SortDirection,
   SubComponentProps,
+  Theme,
   TSFixMe,
   ValueOf,
 } from "./types";
