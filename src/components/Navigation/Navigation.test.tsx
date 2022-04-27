@@ -1,6 +1,6 @@
 import React from "react";
 
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Navigation from "./Navigation";
@@ -205,6 +205,34 @@ it("can open the search form", () => {
   expect(screen.getByRole("banner").className.includes("has-search-open")).toBe(
     true
   );
+  expect(screen.getByRole("searchbox")).toBeInTheDocument();
+});
+
+it("focuses on the searchbox when it appears", () => {
+  render(
+    <Navigation
+      logo={<img src="" alt="" />}
+      searchProps={{ onSearch: jest.fn() }}
+    />
+  );
+  userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
+  expect(screen.getByRole("searchbox")).toHaveFocus();
+});
+
+it("closes the search form when the escape key is pressed", () => {
+  render(
+    <Navigation
+      logo={<img src="" alt="" />}
+      searchProps={{ onSearch: jest.fn() }}
+    />
+  );
+  userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
+  expect(screen.getByRole("banner").className.includes("has-search-open")).toBe(
+    true
+  );
+  expect(screen.getByRole("searchbox")).toBeInTheDocument();
+  fireEvent.keyDown(document, { key: "Escape", code: "Escape" });
+  expect(screen.queryByRole("searchbox")).not.toBeInTheDocument();
 });
 
 it("closes the search form when opening the mobile menu", () => {
@@ -234,8 +262,10 @@ it("closes the search form when clicking on the overlay", () => {
   // Open the search form.
   userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
   expect(banner.className.includes("has-search-open")).toBe(true);
+  expect(screen.getByRole("searchbox")).toBeInTheDocument();
   userEvent.click(document.querySelector(".p-navigation__search-overlay"));
   expect(banner.className.includes("has-search-open")).toBe(false);
+  expect(screen.queryByRole("searchbox")).not.toBeInTheDocument();
 });
 
 it("closes the mobile menu when opening the search form", () => {

@@ -1,4 +1,4 @@
-import type { ReactNode, HTMLProps } from "react";
+import { ReactNode, HTMLProps, useRef, useEffect } from "react";
 import React, { isValidElement, useState } from "react";
 
 import classNames from "classnames";
@@ -8,6 +8,7 @@ import NavigationMenu from "./NavigationMenu";
 import type { GenerateLink, NavItem, NavMenu, LogoProps } from "./types";
 import { PropsWithSpread, SubComponentProps, Theme } from "types";
 import SearchBox, { SearchBoxProps } from "components/SearchBox";
+import { useOnEscape } from "hooks";
 
 export type Props = PropsWithSpread<
   {
@@ -124,13 +125,14 @@ const Navigation = ({
   theme,
   ...headerProps
 }: Props): JSX.Element => {
+  const searchRef = useRef<HTMLInputElement>();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   // Display the search box if the props have been provided.
   const hasSearch = !!searchProps;
   // Close the mobile menu when the search box is opened.
-  const toggleSearch = () => {
-    setSearchOpen(!searchOpen);
+  const toggleSearch = (open?: boolean) => {
+    setSearchOpen(open ?? !searchOpen);
     setMobileMenuOpen(false);
   };
   // Close the search box when the mobile menu is opened.
@@ -143,6 +145,18 @@ const Navigation = ({
       setMobileMenuOpen(false);
     }
   };
+  // Hide the searchbox when the escape key is pressed.
+  useOnEscape(() => toggleSearch(false));
+
+  useEffect(() => {
+    if (searchOpen) {
+      // Focus on the searchbox when it appears. This done in a useEffect so
+      // that the state change to display the searchbox has already occured and
+      // the input has been made visible.
+      searchRef.current?.focus();
+    }
+  }, [searchOpen]);
+
   return (
     <header
       {...headerProps}
@@ -187,7 +201,7 @@ const Navigation = ({
                 <li className="p-navigation__item">
                   <button
                     className="p-navigation__link--search-toggle"
-                    onClick={toggleSearch}
+                    onClick={() => toggleSearch()}
                   >
                     <span className="p-navigation__search-label">Search</span>
                   </button>
@@ -225,7 +239,7 @@ const Navigation = ({
                   <li className="p-navigation__item">
                     <button
                       className="p-navigation__link--search-toggle"
-                      onClick={toggleSearch}
+                      onClick={() => toggleSearch()}
                     >
                       <span className="p-navigation__search-label">Search</span>
                     </button>
@@ -238,8 +252,8 @@ const Navigation = ({
             // When the header has a search box and the user has opened the search
             // form then this search box is displayed.
             hasSearch ? (
-              <div className="p-navigation__search">
-                <SearchBox />
+              <div className="p-navigation__search" aria-hidden={!searchOpen}>
+                <SearchBox ref={searchRef} />
               </div>
             ) : null
           }

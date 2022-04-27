@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { HTMLProps } from "react";
+import React, { HTMLProps, useRef } from "react";
 
 import Icon from "../Icon";
 
@@ -36,6 +36,10 @@ export type Props = PropsWithSpread<
      */
     placeholder?: string;
     /**
+     * A ref that is passed to the input element.
+     */
+    ref?: string;
+    /**
      * The value of the search input when the state is externally controlled.
      */
     value?: string;
@@ -43,68 +47,81 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLInputElement>
 >;
 
-const SearchBox = ({
-  autocomplete = "on",
-  className,
-  disabled,
-  externallyControlled,
-  onChange,
-  onSearch,
-  placeholder = "Search",
-  value,
-  ...props
-}: Props): JSX.Element => {
-  const input = React.createRef<HTMLInputElement | null>();
-  const resetInput = () => {
-    onChange && onChange("");
-    if (input.current) {
-      input.current.value = "";
-    }
-  };
+const SearchBox = React.forwardRef<HTMLInputElement, Props>(
+  (
+    {
+      autocomplete = "on",
+      className,
+      disabled,
+      externallyControlled,
+      onChange,
+      onSearch,
+      placeholder = "Search",
+      value,
+      ...props
+    }: Props,
+    forwardedRef
+  ): JSX.Element => {
+    const internalRef = useRef<HTMLInputElement>();
+    const resetInput = () => {
+      onChange && onChange("");
+      if (internalRef.current) {
+        internalRef.current.value = "";
+      }
+    };
 
-  const triggerSearch = () => {
-    onSearch && onSearch();
-  };
+    const triggerSearch = () => {
+      onSearch && onSearch();
+    };
 
-  return (
-    <div className={classNames("p-search-box", className)}>
-      <label className="u-off-screen" htmlFor="search">
-        {placeholder || "Search"}
-      </label>
-      <input
-        autoComplete={autocomplete}
-        className="p-search-box__input"
-        disabled={disabled}
-        id="search"
-        name="search"
-        onChange={(evt) => onChange(evt.target.value)}
-        placeholder={placeholder}
-        ref={input}
-        type="search"
-        defaultValue={externallyControlled ? undefined : value}
-        value={externallyControlled ? value : undefined}
-        {...props}
-      />
-      {value && (
-        <button
-          className="p-search-box__reset"
+    return (
+      <div className={classNames("p-search-box", className)}>
+        <label className="u-off-screen" htmlFor="search">
+          {placeholder || "Search"}
+        </label>
+        <input
+          autoComplete={autocomplete}
+          className="p-search-box__input"
           disabled={disabled}
-          onClick={resetInput}
-          type="reset"
+          id="search"
+          name="search"
+          onChange={(evt) => onChange(evt.target.value)}
+          placeholder={placeholder}
+          ref={(input) => {
+            internalRef.current = input;
+            // Handle both function and object refs.
+            if (typeof forwardedRef === "function") {
+              forwardedRef(input);
+            } else if (forwardedRef) {
+              forwardedRef.current = input;
+            }
+          }}
+          type="search"
+          defaultValue={externallyControlled ? undefined : value}
+          value={externallyControlled ? value : undefined}
+          {...props}
+        />
+        {value && (
+          <button
+            className="p-search-box__reset"
+            disabled={disabled}
+            onClick={resetInput}
+            type="reset"
+          >
+            <Icon name="close">Clear search field</Icon>
+          </button>
+        )}
+        <button
+          className="p-search-box__button"
+          disabled={disabled}
+          onClick={triggerSearch}
         >
-          <Icon name="close">Clear search field</Icon>
+          <Icon name="search">Search</Icon>
         </button>
-      )}
-      <button
-        className="p-search-box__button"
-        disabled={disabled}
-        onClick={triggerSearch}
-      >
-        <Icon name="search">Search</Icon>
-      </button>
-    </div>
-  );
-};
+      </div>
+    );
+  }
+);
 
 SearchBox.displayName = "SearchBox";
 

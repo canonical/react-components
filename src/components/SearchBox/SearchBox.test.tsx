@@ -61,4 +61,16 @@ describe("SearchBox ", () => {
       "testID"
     );
   });
+
+  it("accepts a ref for the input", () => {
+    const container = document.createElement("div");
+    document.body.appendChild(container);
+    const ref = React.createRef<HTMLInputElement>();
+    const wrapper = mount(<SearchBox ref={ref} />, {
+      attachTo: container,
+    });
+    ref.current.focus();
+    expect(wrapper.find("input").getDOMNode()).toHaveFocus();
+    document.body.removeChild(container);
+  });
 });

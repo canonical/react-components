@@ -4,6 +4,7 @@ import FilterPanelSection from "./FilterPanelSection";
 import Chip from "../Chip";
 import { overflowingChipsCount, isChipInArray } from "./utils";
 import type { SearchAndFilterChip, SearchAndFilterData } from "./types";
+import { useOnEscape } from "hooks";
 
 export type Props = {
   /**
@@ -64,13 +65,14 @@ const SearchAndFilter = ({
     };
   }, [searchContainerActive]);
 
+  const closePanel = () => {
+    setFilterPanelHidden(true);
+  };
+  useOnEscape(() => closePanel());
+
   // This useEffect sets up listeners so the panel will close if user clicks
   // anywhere else on the page or hits the escape key
   useEffect(() => {
-    const closePanel = () => {
-      setFilterPanelHidden(true);
-    };
-
     const mouseDown = (e) => {
       // Check if click is outside of filter panel
       if (!searchAndFilterRef?.current?.contains(e.target)) {
@@ -79,21 +81,11 @@ const SearchAndFilter = ({
       }
     };
 
-    const keyDown = (e) => {
-      if (e.code === "Escape") {
-        // Close panel if Esc keydown detected
-        closePanel();
-      }
-    };
-
     // Add listener on document to capture click events
     document.addEventListener("mousedown", mouseDown);
-    // Add listener on document to capture keydown events
-    document.addEventListener("keydown", keyDown);
     // return function to be called when unmounted
     return () => {
       document.removeEventListener("mousedown", mouseDown);
-      document.removeEventListener("keydown", keyDown);
     };
   }, []);
 
