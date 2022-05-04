@@ -164,14 +164,15 @@ const generateHeaders = (
         key={index}
         sort={sortDirection}
         onClick={
-          sortable &&
-          updateSort.bind(
-            this,
-            setSortKey,
-            setSortDirection,
-            sortKey,
-            sortDirection
-          )
+          sortable
+            ? updateSort.bind(
+                this,
+                setSortKey,
+                setSortDirection,
+                sortKey,
+                sortDirection
+              )
+            : undefined
         }
         {...props}
       >
