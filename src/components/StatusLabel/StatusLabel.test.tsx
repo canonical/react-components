@@ -6,7 +6,7 @@ import StatusLabel from "./StatusLabel";
 it("does not set an appearance by default", () => {
   render(<StatusLabel data-testid="StatusLabel">Test</StatusLabel>);
   // Check that the wrapping element contains the default class.
-  expect(screen.getByTestId("StatusLabel")).toHaveClass("p-label");
+  expect(screen.getByTestId("StatusLabel")).toHaveClass("p-status-label");
 });
 
 it("can set an appearance", () => {
@@ -16,7 +16,9 @@ it("can set an appearance", () => {
     </StatusLabel>
   );
   // Check that the wrapping element contains the default class.
-  expect(screen.getByTestId("StatusLabel")).toHaveClass("p-label--caution");
+  expect(screen.getByTestId("StatusLabel")).toHaveClass(
+    "p-status-label--caution"
+  );
 });
 
 it("can pass additional classes", () => {
@@ -31,6 +33,6 @@ it("can pass additional classes", () => {
   );
   // Check that the wrapping element contains the custon class.
   expect(screen.getByTestId("StatusLabel")).toHaveClass(
-    "p-label--caution custom"
+    "p-status-label--caution custom"
   );
 });
