@@ -1,6 +1,7 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
 
 import List from "./List";
+import StatusLabel from "../StatusLabel";
 
 <Meta
   title="List"
@@ -115,7 +116,7 @@ If you want to display lists in a way that is more visually distinctive than the
       items={[
         { content: <h3>Documentation</h3> },
         {
-          content: <span className="p-label--positive">New</span>,
+          content: <StatusLabel appearance="positive">New</StatusLabel>,
           className: "u-vertically-center u-align--right",
         },
       ]}
