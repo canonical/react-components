@@ -55,19 +55,46 @@ it("can display a standard logo", () => {
   render(
     <Navigation
       logo={{
+        "aria-label": "Homepage",
         src: "http://this.is.the.logo.svg",
         title: "This is the site name",
         url: "/this/is/the/logo/link",
       }}
     />
   );
-  expect(
-    screen.getByRole("link", { name: "This is the site name" })
-  ).toHaveAttribute("href", "/this/is/the/logo/link");
-  expect(document.querySelector("img.p-navigation__logo-icon")).toHaveAttribute(
-    "src",
-    "http://this.is.the.logo.svg"
+  const homePageLink = screen.getByRole("link", { name: "Homepage" });
+  expect(homePageLink).toBeInTheDocument();
+  expect(homePageLink).toHaveAttribute("href", "/this/is/the/logo/link");
+  expect(homePageLink).toHaveTextContent("This is the site name");
+
+  const homepageLogo = within(homePageLink).getByRole("img");
+  expect(homepageLogo).toHaveAttribute("src", "http://this.is.the.logo.svg");
+  expect(homepageLogo).toHaveAttribute("class", "p-navigation__logo-icon");
+});
+
+it("can display a standard logo with a generated link", () => {
+  render(
+    <Navigation
+      generateLink={({ url, label, isSelected, ...props }) => (
+        <a {...props} aria-current="page" href={url}>
+          {label}
+        </a>
+      )}
+      logo={{
+        "aria-label": "Homepage",
+        src: "http://this.is.the.logo.svg",
+        title: "This is the site name",
+        url: "/this/is/the/logo/link",
+      }}
+    />
   );
+  const homePageLink = screen.getByRole("link", { name: "Homepage" });
+  expect(homePageLink).toBeInTheDocument();
+  expect(homePageLink).toHaveTextContent("This is the site name");
+
+  const homepageLogo = within(homePageLink).getByRole("img");
+  expect(homepageLogo).toHaveAttribute("src", "http://this.is.the.logo.svg");
+  expect(homepageLogo).toHaveAttribute("class", "p-navigation__logo-icon");
 });
 
 it("can provide a custom logo", () => {

@@ -4,7 +4,7 @@ import FilterPanelSection from "./FilterPanelSection";
 import Chip from "../Chip";
 import { overflowingChipsCount, isChipInArray } from "./utils";
 import type { SearchAndFilterChip, SearchAndFilterData } from "./types";
-import { useOnEscape } from "hooks";
+import { useOnEscapePressed } from "hooks";
 
 export type Props = {
   /**
@@ -68,7 +68,7 @@ const SearchAndFilter = ({
   const closePanel = () => {
     setFilterPanelHidden(true);
   };
-  useOnEscape(() => closePanel());
+  useOnEscapePressed(() => closePanel());
 
   // This useEffect sets up listeners so the panel will close if user clicks
   // anywhere else on the page or hits the escape key

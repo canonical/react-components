@@ -45,17 +45,24 @@ export type NavItem = NavLink | NavMenu;
  */
 export type GenerateLink = (item: NavLink) => ReactNode;
 
-export type LogoProps = {
-  /**
-   * The logo image source URL.
-   */
-  src: string;
-  /**
-   * The site's title.
-   */
-  title: string;
-  /**
-   * The URL to navigate to when the logo is clicked.
-   */
-  url: string;
-};
+export type LogoProps = PropsWithSpread<
+  {
+    /**
+     * An icon to display in the tag.
+     */
+    icon?: ReactNode;
+    /**
+     * The logo image source URL.
+     */
+    src?: string;
+    /**
+     * The site's title.
+     */
+    title: string;
+    /**
+     * The URL to navigate to when the logo is clicked.
+     */
+    url: string;
+  },
+  HTMLProps<HTMLDivElement>
+>;

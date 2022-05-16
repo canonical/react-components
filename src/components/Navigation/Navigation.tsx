@@ -8,7 +8,7 @@ import NavigationMenu from "./NavigationMenu";
 import type { GenerateLink, NavItem, NavMenu, LogoProps } from "./types";
 import { PropsWithSpread, SubComponentProps, Theme } from "types";
 import SearchBox, { SearchBoxProps } from "components/SearchBox";
-import { useOnEscape } from "hooks";
+import { useOnEscapePressed } from "hooks";
 
 export type Props = PropsWithSpread<
   {
@@ -75,6 +75,45 @@ const isMenu = (item: NavItem): item is NavMenu => "items" in item;
  */
 const isLogoProps = (logo: Props["logo"]): logo is LogoProps =>
   !isValidElement(logo);
+
+/**
+ * Display the standard logo if the props were provided otherwise display the
+ * full element provided.
+ */
+const generateLogo = (logo: Props["logo"], generateLink: GenerateLink) => {
+  if (isLogoProps(logo)) {
+    const {
+      url,
+      src,
+      title,
+      icon,
+      "aria-current": ariaCurrent,
+      "aria-label": ariaLabel,
+      ...logoProps
+    } = logo;
+    const content = (
+      <>
+        <div className="p-navigation__logo-tag">
+          {icon ?? <img className="p-navigation__logo-icon" src={src} alt="" />}
+        </div>
+        <span className="p-navigation__logo-title">{title}</span>
+      </>
+    );
+    return (
+      <div className="p-navigation__tagged-logo" {...logoProps}>
+        <NavigationLink
+          className="p-navigation__link"
+          url={url}
+          label={content}
+          aria-label={ariaLabel}
+          generateLink={generateLink}
+          isSelected={!!ariaCurrent}
+        />
+      </div>
+    );
+  }
+  return <div className="p-navigation__logo">{logo}</div>;
+};
 
 /**
  * Generate the JSX for a set of nav items. This will map the items to menus,
@@ -146,7 +185,7 @@ const Navigation = ({
     }
   };
   // Hide the searchbox when the escape key is pressed.
-  useOnEscape(() => toggleSearch(false));
+  useOnEscapePressed(() => toggleSearch(false));
 
   useEffect(() => {
     if (searchOpen) {
@@ -173,26 +212,7 @@ const Navigation = ({
         }
       >
         <div className="p-navigation__banner">
-          {
-            // Display the standard logo if the props were
-            // provided otherwise display the full element provided.
-            isLogoProps(logo) ? (
-              <div className="p-navigation__tagged-logo">
-                <a className="p-navigation__link" href={logo.url}>
-                  <div className="p-navigation__logo-tag">
-                    <img
-                      className="p-navigation__logo-icon"
-                      src={logo.src}
-                      alt=""
-                    />
-                  </div>
-                  <span className="p-navigation__logo-title">{logo.title}</span>
-                </a>
-              </div>
-            ) : (
-              <div className="p-navigation__logo">{logo}</div>
-            )
-          }
+          {generateLogo(logo, generateLink)}
           <ul className="p-navigation__items">
             {
               // When the header has a search box then this button is used to
@@ -200,6 +220,7 @@ const Navigation = ({
               hasSearch ? (
                 <li className="p-navigation__item">
                   <button
+                    aria-label="Search"
                     className="p-navigation__link--search-toggle"
                     onClick={() => toggleSearch()}
                   >
@@ -238,6 +259,7 @@ const Navigation = ({
                 hasSearch ? (
                   <li className="p-navigation__item">
                     <button
+                      aria-label="Search"
                       className="p-navigation__link--search-toggle"
                       onClick={() => toggleSearch()}
                     >

@@ -113,7 +113,7 @@ export {
   useClickOutside,
   useId,
   useListener,
-  useOnEscape,
+  useOnEscapePressed,
   usePrevious,
   useThrottle,
   useWindowFitment,
