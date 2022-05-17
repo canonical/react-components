@@ -93,6 +93,7 @@ const generateItems = ({
         {...liProps}
       >
         {body}
+        {/* middot variant in Vanilla relies on whitespace between inline elements for correct spacing */}
         {middot ? " " : null}
       </li>
     );
