@@ -36,12 +36,13 @@ export type Props = {
   ticked?: boolean;
 } & Omit<HTMLProps<HTMLOListElement>, "type">;
 
-const generateItems = (
-  items: ListItem[],
-  ticked: boolean,
-  inline: boolean,
-  stepped: boolean
-) =>
+const generateItems = ({
+  items,
+  ticked,
+  inline,
+  middot,
+  stepped,
+}: Pick<Props, "items" | "ticked" | "inline" | "middot" | "stepped">) =>
   items.map((item, i) => {
     let body: ReactNode;
     let title: ReactNode;
@@ -92,6 +93,8 @@ const generateItems = (
         {...liProps}
       >
         {body}
+        {/* middot variant in Vanilla relies on whitespace between inline elements for correct spacing */}
+        {middot ? " " : null}
       </li>
     );
   });
@@ -126,7 +129,13 @@ const List = ({
       })}
       {...props}
     >
-      {generateItems(items, ticked, inline || middot || stretch, stepped)}
+      {generateItems({
+        items,
+        ticked,
+        inline: inline || middot || stretch,
+        middot,
+        stepped,
+      })}
     </Component>
   );
 };
