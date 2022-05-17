@@ -17,14 +17,14 @@ context("Navigation", () => {
   it("can open the mobile menu", () => {
     cy.viewport('iphone-6')
     cy.findByRole("link", { name: "Products" }).should("not.exist");
-    cy.findByRole("button", { name: "Menu" }).click(0, 0);
+    cy.findByRole("button", { name: "Menu" }).click();
     cy.findByRole("link", { name: "Products" }).should("be.visible");
   });
 
   it("can open the search at large sizes", () => {
     cy.visitPage("Navigation", "search");
     cy.findByRole("searchbox", { name: "Search" }).should("not.exist");
-    cy.findByRole("button", { name: "Search" }).click(0, 0);
+    cy.findByRole("button", { name: "Search" }).click();
     cy.findByRole("searchbox", { name: "Search" }).should("be.visible");
   });
 
@@ -32,7 +32,7 @@ context("Navigation", () => {
     cy.viewport('iphone-6')
     cy.visitPage("Navigation", "search");
     cy.findByRole("searchbox", { name: "Search" }).should("not.exist");
-    cy.findByRole("button", { name: "Search" }).click(0, 0);
+    cy.findByRole("button", { name: "Search" }).click();
     cy.findByRole("searchbox", { name: "Search" }).should("be.visible");
   });
 });
