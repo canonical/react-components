@@ -1,38 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tabs renders 1`] = `
-<nav
-  className="p-tabs"
->
-  <ul
-    className="p-tabs__list"
+<div>
+  <nav
+    class="p-tabs"
   >
-    <li
-      className="p-tabs__item"
-      key="0"
+    <ul
+      class="p-tabs__list"
     >
-      <a
-        aria-selected={true}
-        className="p-tabs__link"
-        data-testid="tab-link-label1"
-        href="/path1"
+      <li
+        class="p-tabs__item"
       >
-        label1
-      </a>
-    </li>
-    <li
-      className="p-tabs__item"
-      key="1"
-    >
-      <a
-        aria-selected={false}
-        className="p-tabs__link"
-        data-testid="tab-link-label2"
-        href="/path2"
+        <a
+          aria-selected="true"
+          class="p-tabs__link"
+          data-testid="tab-link-label1"
+          href="/path1"
+        >
+          label1
+        </a>
+      </li>
+      <li
+        class="p-tabs__item"
       >
-        label2
-      </a>
-    </li>
-  </ul>
-</nav>
+        <a
+          aria-selected="false"
+          class="p-tabs__link"
+          data-testid="tab-link-label2"
+          href="/path2"
+        >
+          label2
+        </a>
+      </li>
+    </ul>
+  </nav>
+</div>
 `;

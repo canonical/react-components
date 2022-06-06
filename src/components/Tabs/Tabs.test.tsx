@@ -1,11 +1,11 @@
-import { shallow } from "enzyme";
 import React from "react";
+import { render, screen } from "@testing-library/react";
 
 import Tabs from "./Tabs";
 
 describe("Tabs", () => {
   it("renders", () => {
-    const wrapper = shallow(
+    const { container } = render(
       <Tabs
         links={[
           {
@@ -21,29 +21,40 @@ describe("Tabs", () => {
         ]}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(container).toMatchSnapshot();
   });
 
   it("sets an active item correctly", () => {
-    const wrapper = shallow(
+    render(
       <Tabs
         links={[
           {
             active: true,
+            href: "/path1",
             label: "label1",
           },
           {
             active: false,
+            href: "/path2",
             label: "label2",
           },
         ]}
       />
     );
-    expect(wrapper.find("[aria-selected=true]").length).toBe(1);
+    // TODO: use a more appropriate attribute once the issue below is addressed:
+    // https://github.com/canonical-web-and-design/vanilla-framework/issues/4481
+    expect(screen.getByRole("link", { name: "label1" })).toHaveAttribute(
+      "aria-selected",
+      "true"
+    );
+    expect(screen.getByRole("link", { name: "label2" })).toHaveAttribute(
+      "aria-selected",
+      "false"
+    );
   });
 
   it("can set classNames correctly", () => {
-    const wrapper = shallow(
+    render(
       <Tabs
         className="nav-class"
         listClassName="list-class"
@@ -52,64 +63,50 @@ describe("Tabs", () => {
             className: "link-class",
             label: "label1",
             listItemClassName: "list-item-class",
+            href: "/path1",
           },
         ]}
       />
     );
-    expect(wrapper.find("nav").props().className.includes("nav-class")).toBe(
-      true
-    );
-    expect(wrapper.find("ul").props().className.includes("list-class")).toBe(
-      true
-    );
-    expect(
-      wrapper.find("li").props().className.includes("list-item-class")
-    ).toBe(true);
-    expect(wrapper.find("a").props().className.includes("link-class")).toBe(
-      true
-    );
+    expect(screen.getByRole("navigation")).toHaveClass("nav-class");
+    expect(screen.getByRole("list")).toHaveClass("list-class");
+    expect(screen.getByRole("listitem")).toHaveClass("list-item-class");
+    expect(screen.getByRole("link")).toHaveClass("link-class");
   });
 
   it("can use custom elements as links", () => {
-    const wrapper = shallow(
+    render(
       <Tabs
         links={[
           {
-            component: "div",
+            component: "button",
             label: "label1",
             to: "/path",
           },
         ]}
       />
     );
-    expect(wrapper.find("a[data-testid='tab-link-label1']").exists()).toBe(
-      false
-    );
-    expect(wrapper.find("div[data-testid='tab-link-label1']").exists()).toBe(
-      true
-    );
+    expect(screen.getByRole("button", { name: "label1" })).toBeInTheDocument();
   });
 
   it("can use custom components as links", () => {
     const TestLink = ({ children, ...props }) => (
-      <span {...props}>{children}</span>
+      <button {...props}>{children}</button>
     );
-    const wrapper = shallow(
+    const name = "label1";
+    render(
       <Tabs
         links={[
           {
             component: TestLink,
-            label: "label1",
+            label: name,
             to: "/path",
           },
         ]}
       />
     );
-    expect(wrapper.find("a[data-testid='tab-link-label1']").exists()).toBe(
-      false
-    );
-    expect(
-      wrapper.find("TestLink[data-testid='tab-link-label1']").exists()
-    ).toBe(true);
+
+    expect(screen.queryByRole("link", { name })).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name })).toBeInTheDocument();
   });
 });
