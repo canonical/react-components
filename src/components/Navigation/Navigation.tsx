@@ -9,7 +9,7 @@ import type { GenerateLink, NavItem, NavMenu, LogoProps } from "./types";
 import { PropsWithSpread, SubComponentProps } from "types";
 import SearchBox, { SearchBoxProps } from "components/SearchBox";
 import { useOnEscapePressed } from "hooks";
-import { Theme } from "enums";
+import { Theme } from "../../enums";
 
 export type Props = PropsWithSpread<
   {
