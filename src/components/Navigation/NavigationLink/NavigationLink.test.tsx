@@ -5,7 +5,7 @@ import { render, screen } from "@testing-library/react";
 import NavigationLink from "./NavigationLink";
 
 it("generates a standard anchor", () => {
-  render(<NavigationLink label="Go here" url="/to/here" />);
+  render(<NavigationLink link={{ label: "Go here", url: "/to/here" }} />);
   expect(
     screen.getByRole("link", {
       name: "Go here",
@@ -13,8 +13,21 @@ it("generates a standard anchor", () => {
   ).toBeInTheDocument();
 });
 
+it("generates a button", () => {
+  render(<NavigationLink link={{ label: "Go here" }} />);
+  expect(
+    screen.getByRole("button", {
+      name: "Go here",
+    })
+  ).toBeInTheDocument();
+});
+
 it("can select an anchor", () => {
-  render(<NavigationLink isSelected label="Go here" url="/to/here" />);
+  render(
+    <NavigationLink
+      link={{ isSelected: true, label: "Go here", url: "/to/here" }}
+    />
+  );
   expect(
     screen.getByRole("link", {
       name: "Go here",
@@ -26,8 +39,7 @@ it("generates a custom link", () => {
   render(
     <NavigationLink
       generateLink={({ label }) => <button>{label}</button>}
-      label="Go here"
-      url="/to/here"
+      link={{ label: "Go here", url: "/to/here" }}
     />
   );
   expect(
@@ -43,9 +55,7 @@ it("can select a custom link", () => {
       generateLink={({ label, ...props }) => (
         <button aria-current={props["aria-current"]}>{label}</button>
       )}
-      isSelected
-      label="Go here"
-      url="/to/here"
+      link={{ isSelected: true, label: "Go here", url: "/to/here" }}
     />
   );
   expect(

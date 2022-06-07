@@ -1,23 +1,36 @@
-import type { HTMLProps, ReactNode } from "react";
+import type { HTMLAttributes, HTMLProps, ReactNode } from "react";
 import { PropsWithSpread } from "types";
 
-export type NavLink = PropsWithSpread<
-  {
-    /**
-     * Whether this nav item is currently selected.
-     */
-    isSelected?: boolean;
-    /**
-     * The label of the link.
-     */
-    label: ReactNode;
-    /**
-     * The URL of the link.
-     */
-    url?: string;
+export type NavLinkBase = {
+  /**
+   * Whether this nav item is currently selected.
+   */
+  isSelected?: boolean;
+  /**
+   * The label of the link.
+   */
+  label: ReactNode;
+  /**
+   * The URL of the link.
+   */
+  url?: string;
+};
+
+export type NavLinkAnchor = PropsWithSpread<
+  NavLinkBase & {
+    url: string;
   },
-  HTMLProps<HTMLAnchorElement>
+  HTMLAttributes<HTMLAnchorElement>
 >;
+
+export type NavLinkButton = PropsWithSpread<
+  NavLinkBase & {
+    url?: never;
+  },
+  HTMLAttributes<HTMLButtonElement>
+>;
+
+export type NavLink = NavLinkAnchor | NavLinkButton;
 
 export type NavMenu = {
   /**

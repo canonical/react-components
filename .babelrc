@@ -12,6 +12,7 @@
       {
         "root": ["./src"],
         "alias": {
+          "enums": "./src/enums",
           "components": "./src/components",
           "hooks": "./src/hooks",
           "types": "./src/types",

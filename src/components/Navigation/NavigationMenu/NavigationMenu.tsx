@@ -60,12 +60,14 @@ const NavigationMenu = ({
         {items.map((item, i) => (
           <li key={i}>
             <NavigationLink
-              {...item}
               generateLink={generateLink}
-              className={classNames(
-                "p-navigation__dropdown-item",
-                item.className
-              )}
+              link={{
+                ...item,
+                className: classNames(
+                  "p-navigation__dropdown-item",
+                  item.className
+                ),
+              }}
             />
           </li>
         ))}

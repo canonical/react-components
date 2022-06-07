@@ -1,3 +1,5 @@
+import { NavLink, NavLinkAnchor, NavLinkButton } from "components/Navigation";
+
 export const IS_DEV = process.env.NODE_ENV === "development";
 
 /**
@@ -27,3 +29,17 @@ export const highlightSubString = (
     match: newStr !== str,
   };
 };
+
+/**
+ * Whether a navigation item is an anchor.
+ * @param link - The navigation item.
+ */
+export const isNavigationAnchor = (link: NavLink): link is NavLinkAnchor =>
+  !!link.url;
+
+/**
+ * Whether a navigation item is a button.
+ * @param link - The navigation item.
+ */
+export const isNavigationButton = (link: NavLink): link is NavLinkButton =>
+  !link.url;

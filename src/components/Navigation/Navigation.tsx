@@ -6,9 +6,10 @@ import classNames from "classnames";
 import NavigationLink from "./NavigationLink";
 import NavigationMenu from "./NavigationMenu";
 import type { GenerateLink, NavItem, NavMenu, LogoProps } from "./types";
-import { PropsWithSpread, SubComponentProps, Theme } from "types";
+import { PropsWithSpread, SubComponentProps } from "types";
 import SearchBox, { SearchBoxProps } from "components/SearchBox";
 import { useOnEscapePressed } from "hooks";
+import { Theme } from "enums";
 
 export type Props = PropsWithSpread<
   {
@@ -102,12 +103,14 @@ const generateLogo = (logo: Props["logo"], generateLink: GenerateLink) => {
     return (
       <div className="p-navigation__tagged-logo" {...logoProps}>
         <NavigationLink
-          className="p-navigation__link"
-          url={url}
-          label={content}
-          aria-label={ariaLabel}
           generateLink={generateLink}
-          isSelected={!!ariaCurrent}
+          link={{
+            "aria-label": ariaLabel,
+            className: "p-navigation__link",
+            isSelected: !!ariaCurrent,
+            label: content,
+            url: url,
+          }}
         />
       </div>
     );
@@ -139,13 +142,15 @@ const generateItems = (
         key={i}
       >
         <NavigationLink
-          {...item}
-          onClick={(evt) => {
-            item.onClick?.(evt);
-            closeMobileMenu();
-          }}
           generateLink={generateLink}
-          className={classNames("p-navigation__link", item.className)}
+          link={{
+            ...item,
+            className: classNames("p-navigation__link", item.className),
+            onClick: (evt) => {
+              item.onClick?.(evt);
+              closeMobileMenu();
+            },
+          }}
         />
       </li>
     )

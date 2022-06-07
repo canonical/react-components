@@ -1,48 +1,50 @@
-import type { HTMLProps } from "react";
 import React from "react";
-import { PropsWithSpread } from "types";
+import { isNavigationAnchor, isNavigationButton } from "utils";
 
 import type { GenerateLink, NavLink } from "../types";
 
-type Props = PropsWithSpread<
-  NavLink & {
-    generateLink?: GenerateLink;
-  },
-  HTMLProps<HTMLAnchorElement>
->;
+type Props = {
+  generateLink?: GenerateLink;
+  link: NavLink;
+};
 
 /**
  * This component is used internally to display links inside the Navigation component.
  */
-const NavigationLink = ({
-  generateLink,
-  isSelected,
-  label,
-  url,
-  ...props
-}: Props): JSX.Element => {
-  const ariaCurrent = isSelected ? "page" : undefined;
+const NavigationLink = ({ generateLink, link }: Props): JSX.Element | null => {
+  // const ariaCurrent = isSelected ? "page" : undefined;
   if (generateLink) {
+    const { isSelected, ...linkProps } = link;
     // If a function has been provided then use it to generate the link element.
     return (
       <>
         {generateLink({
           isSelected,
-          label,
-          url,
-          "aria-current": ariaCurrent,
-          ...props,
+          "aria-current": isSelected ? "page" : undefined,
+          ...linkProps,
         })}
       </>
     );
-  } else {
-    // If a function has not been provided then use a standard anchor element.
+  } else if (isNavigationAnchor(link)) {
+    const { isSelected, label, url, ...linkProps } = link;
     return (
-      <a href={url} {...props} aria-current={ariaCurrent}>
+      <a
+        {...linkProps}
+        href={url}
+        aria-current={isSelected ? "page" : undefined}
+      >
         {label}
       </a>
     );
+  } else if (isNavigationButton(link)) {
+    const { isSelected, label, url, ...linkProps } = link;
+    return (
+      <button {...linkProps} aria-current={isSelected ? "page" : undefined}>
+        {label}
+      </button>
+    );
   }
+  return null;
 };
 
 export default NavigationLink;
