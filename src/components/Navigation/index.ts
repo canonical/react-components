@@ -4,6 +4,9 @@ export type {
   GenerateLink,
   LogoProps,
   NavLink,
+  NavLinkAnchor,
+  NavLinkBase,
+  NavLinkButton,
   NavMenu,
   NavItem,
 } from "./types";

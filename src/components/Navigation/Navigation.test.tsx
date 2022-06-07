@@ -4,7 +4,8 @@ import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Navigation from "./Navigation";
-import { Theme } from "../../types";
+import { Theme } from "../../enums";
+import { isNavigationAnchor } from "../../utils";
 
 /* eslint-disable testing-library/no-node-access */
 it("displays light theme", () => {
@@ -75,11 +76,17 @@ it("can display a standard logo", () => {
 it("can display a standard logo with a generated link", () => {
   render(
     <Navigation
-      generateLink={({ url, label, isSelected, ...props }) => (
-        <a {...props} aria-current="page" href={url}>
-          {label}
-        </a>
-      )}
+      generateLink={(link) => {
+        if (isNavigationAnchor(link)) {
+          const { url, label, isSelected, ...props } = link;
+          return (
+            <a {...props} aria-current="page" href={url}>
+              {label}
+            </a>
+          );
+        }
+        return null;
+      }}
       logo={{
         "aria-label": "Homepage",
         src: "http://this.is.the.logo.svg",

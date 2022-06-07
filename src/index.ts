@@ -93,6 +93,9 @@ export type {
   NavigationProps,
   NavItem,
   NavLink,
+  NavLinkAnchor,
+  NavLinkBase,
+  NavLinkButton,
 } from "./components/Navigation";
 export type { NotificationProps } from "./components/Notification";
 export type { PaginationProps } from "./components/Pagination";
@@ -125,13 +128,15 @@ export {
 } from "hooks";
 export type { WindowFitment } from "hooks";
 
+export { isNavigationAnchor, isNavigationButton } from "utils";
+
 export type {
   ClassName,
   Headings,
   PropsWithSpread,
   SortDirection,
   SubComponentProps,
-  Theme,
   TSFixMe,
   ValueOf,
 } from "./types";
+export { Theme } from "./enums";
