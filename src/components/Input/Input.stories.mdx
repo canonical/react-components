@@ -1,4 +1,4 @@
-import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
 
 import Input from "./Input";
 
@@ -168,7 +168,12 @@ An input field where the user can enter data, which can vary in many ways, depen
 <Canvas>
   <Story name="Checkbox">
     <Input type="checkbox" id="checkExample12" defaultChecked label="HTML" />
-    <Input type="checkbox" id="checkExample22" label="CSS" help="Cascading Style Sheets" />
+    <Input
+      type="checkbox"
+      id="checkExample22"
+      label="CSS"
+      help="Cascading Style Sheets"
+    />
     <Input
       type="checkbox"
       id="checkExample32"

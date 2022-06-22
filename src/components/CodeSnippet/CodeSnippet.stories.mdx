@@ -1,4 +1,4 @@
-import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
 import { useState } from "react";
 
 import CodeSnippet from "./CodeSnippet";
@@ -299,8 +299,7 @@ Custom elements can be passed to a CodeBlock via the `content` prop. In these ca
       blocks={[
         {
           title: "With embedded iframe",
-          code:
-            "<iframe src='/iframe.html?id=button--base&viewMode=story'></iframe>",
+          code: "<iframe src='/iframe.html?id=button--base&viewMode=story'></iframe>",
           content: (
             <>
               <iframe src="/iframe.html?id=button--base&viewMode=story"></iframe>

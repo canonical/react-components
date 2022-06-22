@@ -1,4 +1,4 @@
-import { Meta, Story, Preview, Props } from "@storybook/addon-docs/blocks";
+import { Meta, Story, Preview, Props } from "@storybook/addon-docs";
 import { useState } from "react";
 import Notification from "../Notification";
 
@@ -22,11 +22,12 @@ ModularTable components accepts `columns` and `data` arguments in the same forma
 - `data` - The data array that you want to display on the table.
 
 <Notification type="caution" status="Important:">
-  Values passed to both of these params have to me memoized (for example via <code>React.useMemo</code>).
-  Memoization ensures that our data isn't recreated on every render. If we didn't use <code>React.useMemo</code>,
-  the table would think it was receiving new data on every render and attempt to recalulate a lot of logic every single time.
+  Values passed to both of these params have to me memoized (for example via{" "}
+  <code>React.useMemo</code>). Memoization ensures that our data isn't recreated
+  on every render. If we didn't use <code>React.useMemo</code>, the table would
+  think it was receiving new data on every render and attempt to recalulate a
+  lot of logic every single time.
 </Notification>
-
 
 #### Custom column options
 
@@ -62,8 +63,8 @@ columns = {
   accessor: "status",
   getCellIcon: ({ value }) => {
     return value === "released" ? ICONS.success : false;
-  }
-}
+  },
+};
 ```
 
 ### Default
@@ -72,14 +73,14 @@ columns = {
   <Story name="Default">
     <ModularTable
       getCellProps={({ value }) => ({
-        className: value ===  "1 minute" ? "p-heading--5" : "",
+        className: value === "1 minute" ? "p-heading--5" : "",
       })}
       columns={React.useMemo(
         () => [
           {
             Header: "ID",
             accessor: "buildId",
-            Cell: ({ value }) => <a href="#">#{ value }</a>,
+            Cell: ({ value }) => <a href="#">#{value}</a>,
           },
           {
             Header: "Architecture",
@@ -104,7 +105,7 @@ columns = {
               }
             },
             getCellIcon: ({ value }) => {
-               switch (value) {
+              switch (value) {
                 case "released":
                   return ICONS.success;
                 case "failed":
@@ -112,7 +113,7 @@ columns = {
                 default:
                   return false;
               }
-            }
+            },
           },
           {
             Header: "Build Finished",
@@ -200,7 +201,7 @@ export const getSampleData = (i = 0) => [
   { data: ++i * 100 + i },
   { data: ++i * 100 + i },
   { data: ++i * 100 + i },
-]
+];
 
 <Canvas>
   <Story name="Load more">
@@ -218,9 +219,9 @@ export const getSampleData = (i = 0) => [
         {
           Header: "Data",
           accessor: "data",
-        }
+        },
       ];
-      const footer= hasMore ? (
+      const footer = hasMore ? (
         <div className="u-align--right">
           <SummaryButton
             summary={`Showing ${data.length} of 20 items.`}
@@ -229,13 +230,7 @@ export const getSampleData = (i = 0) => [
           />
         </div>
       ) : null;
-      return (
-        <ModularTable
-          data={data}
-          columns={columns}
-          footer={footer}
-        />
-      )
+      return <ModularTable data={data} columns={columns} footer={footer} />;
     }}
   </Story>
 </Canvas>
