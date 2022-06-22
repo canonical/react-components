@@ -1,4 +1,4 @@
-import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
 import { useState } from "react";
 
 import SummaryButton from "./SummaryButton";
@@ -19,7 +19,11 @@ export const doNothing = () => {};
 
 <Canvas>
   <Story name="Default">
-    <SummaryButton summary="Showing 15 out of 100 items." label="Show more" onClick={doNothing} />
+    <SummaryButton
+      summary="Showing 15 out of 100 items."
+      label="Show more"
+      onClick={doNothing}
+    />
   </Story>
 </Canvas>
 
@@ -39,7 +43,10 @@ Action is optional as well. When `onClick` prop is not provided component will r
 
 <Canvas>
   <Story name="Summary only">
-    <SummaryButton summary="Showing 100 out of 100 items." label="Show more items" />
+    <SummaryButton
+      summary="Showing 100 out of 100 items."
+      label="Show more items"
+    />
   </Story>
 </Canvas>
 
@@ -49,6 +56,11 @@ When data is loaded asynchronusly `isLoading` prop should be set to `true` to sh
 
 <Canvas>
   <Story name="Loading">
-    <SummaryButton summary="Showing 15 out of 100 items." label="Show more" isLoading onClick={doNothing} />
+    <SummaryButton
+      summary="Showing 15 out of 100 items."
+      label="Show more"
+      isLoading
+      onClick={doNothing}
+    />
   </Story>
 </Canvas>

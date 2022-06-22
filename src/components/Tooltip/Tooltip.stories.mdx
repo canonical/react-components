@@ -1,4 +1,4 @@
-import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
 import Button from "../Button";
 import Tooltip, { position } from "./Tooltip";
 
@@ -45,7 +45,14 @@ An alternative use of tooltips is to provide information on a disabled actionabl
   <Story
     name="Default"
     args={{
-      message: <>Tooltip <a href="#todo" target="_blank">Link1</a></>
+      message: (
+        <>
+          Tooltip{" "}
+          <a href="#todo" target="_blank">
+            Link1
+          </a>
+        </>
+      ),
     }}
   >
     {Template.bind({})}

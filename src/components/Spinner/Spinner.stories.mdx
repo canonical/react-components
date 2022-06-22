@@ -1,4 +1,4 @@
-import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
 
 import Spinner from "./Spinner";
 
@@ -17,9 +17,7 @@ This is a [React](https://reactjs.org/) component for the Vanilla [Spin](https:/
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    {Template.bind({})}
-  </Story>
+  <Story name="Default">{Template.bind({})}</Story>
 </Canvas>
 
 ### Spinner with text

@@ -1,9 +1,7 @@
-import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs/blocks";
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
 import { useState } from "react";
 
-import Notification, {
-  NotificationSeverity,
-} from "./Notification";
+import Notification, { NotificationSeverity } from "./Notification";
 
 <Meta
   title="Notification"
@@ -63,11 +61,11 @@ Notifications are used to display global information, our notification variants 
 The Notification API has changed since v0.18 in order to support new variants
 and align with our component prop naming conventions.
 
-| Deprecated prop names    | Replaced by            |
-| ------------------------ | -----------------------|
-| `type`                   | `severity`             |
-| `status`                 | `title`                |
-| `close`                  | `onDismiss`            |
+| Deprecated prop names | Replaced by |
+| --------------------- | ----------- |
+| `type`                | `severity`  |
+| `status`              | `title`     |
+| `close`               | `onDismiss` |
 
 The `notificationTypes` const has also been replaced with `NotificationSeverity`
 to reflect the new prop name.
