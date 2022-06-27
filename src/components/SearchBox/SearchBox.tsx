@@ -67,6 +67,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
       onChange && onChange("");
       if (internalRef.current) {
         internalRef.current.value = "";
+        forwardedRef.focus();
       }
     };
 
