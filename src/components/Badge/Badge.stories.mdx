@@ -1,0 +1,37 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
+
+import Badge from "./Badge";
+
+<Meta title="Badge" component={Badge} />
+
+export const Template = (args) => <Badge {...args} />;
+
+### Badge
+
+This is a [React](https://reactjs.org/) component for the Vanilla [Badge](https://vanillaframework.io/docs/patterns/badge).
+
+It can be used to display a numeric values.
+
+### Props
+
+<ArgsTable of={Badge} />
+
+### Default
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      value: 9,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Colour Coding
+<Canvas>
+  <Story name="Colour Coding">
+    <Badge value={9} isNegative/>
+  </Story>
+</Canvas>
