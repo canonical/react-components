@@ -1,6 +1,11 @@
 import classNames from "classnames";
 import React from "react";
-import type { ClassName } from "types";
+import type { ClassName, ValueOf } from "types";
+
+export const BadgeType = {
+  ROUNDED_LARGE_NUMBER: "ROUNDED_LARGE_NUMBER",
+  UNDEFINED_LARGE_NUMBER: "UNDEFINED_LARGE_NUMBER",
+} as const;
 
 /**
  * The props for the Badge component.
@@ -11,24 +16,26 @@ export type Props = {
    */
   value: number;
   /**
+   * The type of the badge component.
+   */
+  badgeType?: ValueOf<typeof BadgeType> | string;
+  /**
    * The appearance of the badge.
    */
   isNegative?: boolean;
-  /**
-   * Round the value to the nearest unit
-   */
-  isRounded?: boolean;
   /**
    * Optional class(es) to give to the badge.
    */
   className?: ClassName;
 };
 
+const MAX_VAL = 999;
+
 const Badge = ({
   value,
+  badgeType = BadgeType.UNDEFINED_LARGE_NUMBER,
   className,
   isNegative,
-  isRounded,
 }: Props): JSX.Element => {
   const badgeClassName = classNames(
     {
@@ -37,6 +44,8 @@ const Badge = ({
     },
     className
   );
+
+  const safeValue = value < 0 ? 0 : value;
 
   const nextUnit = {
     none: "k",
@@ -58,7 +67,17 @@ const Badge = ({
     return round(newValue, nextUnit[unit]);
   };
 
-  const formattedValue = isRounded ? round(value) : value;
+  const clamp = (value) => {
+    if (value > MAX_VAL) {
+      return `${MAX_VAL}+`;
+    }
+    return value;
+  };
+
+  const formattedValue =
+    badgeType === BadgeType.ROUNDED_LARGE_NUMBER
+      ? round(safeValue)
+      : clamp(safeValue);
 
   return <span className={badgeClassName}>{formattedValue}</span>;
 };
