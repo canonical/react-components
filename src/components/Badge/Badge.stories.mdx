@@ -1,8 +1,20 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
 
-import Badge from "./Badge";
+import Badge, { BadgeType } from "./Badge";
 
-<Meta title="Badge" component={Badge} />
+<Meta 
+  title="Badge" 
+  component={Badge} 
+  argTypes={{
+    badgeType: {
+      control: {
+        options: BadgeType,
+        type: "select",
+      },
+      defaultValue: BadgeType.UNDEFINED_LARGE_NUMBER,
+    },
+  }}  
+/>
 
 export const Template = (args) => <Badge {...args} />;
 
@@ -33,5 +45,12 @@ It can be used to display a numeric values.
 <Canvas>
   <Story name="Colour Coding">
     <Badge value={9} isNegative/>
+  </Story>
+</Canvas>
+
+### Undefined Large Number
+<Canvas>
+  <Story name="Undefined Large Number">
+    <Badge value={1000} badgeType={""}/>
   </Story>
 </Canvas>
