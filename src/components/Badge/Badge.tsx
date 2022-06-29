@@ -54,7 +54,7 @@ const Badge = ({
     B: "T",
   };
 
-  const round = (value, unit = "none") => {
+  const round = (value: number, unit: string = "none") => {
     if (value < 1000) {
       const truncatedValue = Number(value.toString().slice(0, 3));
       return `${truncatedValue}${unit === "none" ? "" : unit}`;
@@ -66,7 +66,7 @@ const Badge = ({
     return round(newValue, nextUnit[unit]);
   };
 
-  const clamp = (value) => {
+  const clamp = (value: number) => {
     if (value > MAX_VAL) {
       return `${MAX_VAL}+`;
     }
