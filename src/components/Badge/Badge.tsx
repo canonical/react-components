@@ -39,6 +39,7 @@ const Badge = ({
   badgeType = BadgeType.UNDEFINED_LARGE_NUMBER,
   className,
   isNegative,
+  ...spanProps
 }: Props): JSX.Element => {
   const badgeClassName = classNames(
     {
@@ -81,7 +82,11 @@ const Badge = ({
       ? round(safeValue)
       : clamp(safeValue);
 
-  return <span className={badgeClassName}>{formattedValue}</span>;
+  return (
+    <span {...spanProps} className={badgeClassName}>
+      {formattedValue}
+    </span>
+  );
 };
 
 export default Badge;
