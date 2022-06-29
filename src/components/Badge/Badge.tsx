@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import React from "react";
-import type { ClassName, ValueOf } from "types";
+import React, { HTMLProps } from "react";
+import type { ClassName, PropsWithSpread, ValueOf } from "types";
 
 export const BadgeType = {
   ROUNDED_LARGE_NUMBER: "ROUNDED_LARGE_NUMBER",
@@ -10,24 +10,27 @@ export const BadgeType = {
 /**
  * The props for the Badge component.
  */
-export type Props = {
-  /**
-   * Numeric value to be displayed.
-   */
-  value: number;
-  /**
-   * The type of the badge component.
-   */
-  badgeType?: ValueOf<typeof BadgeType>;
-  /**
-   * The appearance of the badge.
-   */
-  isNegative?: boolean;
-  /**
-   * Optional class(es) to give to the badge.
-   */
-  className?: ClassName;
-};
+export type Props = PropsWithSpread<
+  {
+    /**
+     * Numeric value to be displayed.
+     */
+    value: number;
+    /**
+     * The type of the badge component.
+     */
+    badgeType?: ValueOf<typeof BadgeType>;
+    /**
+     * The appearance of the badge.
+     */
+    isNegative?: boolean;
+    /**
+     * Optional class(es) to give to the badge.
+     */
+    className?: ClassName;
+  },
+  HTMLProps<HTMLElement>
+>;
 
 const MAX_VAL = 999;
 
