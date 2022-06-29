@@ -18,7 +18,7 @@ export type Props = {
   /**
    * The type of the badge component.
    */
-  badgeType?: ValueOf<typeof BadgeType> | string;
+  badgeType?: ValueOf<typeof BadgeType>;
   /**
    * The appearance of the badge.
    */
