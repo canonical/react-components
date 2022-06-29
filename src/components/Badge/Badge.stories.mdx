@@ -2,9 +2,9 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
 
 import Badge, { BadgeType } from "./Badge";
 
-<Meta 
-  title="Badge" 
-  component={Badge} 
+<Meta
+  title="Badge"
+  component={Badge}
   argTypes={{
     badgeType: {
       control: {
@@ -13,7 +13,7 @@ import Badge, { BadgeType } from "./Badge";
       },
       defaultValue: BadgeType.UNDEFINED_LARGE_NUMBER,
     },
-  }}  
+  }}
 />
 
 export const Template = (args) => <Badge {...args} />;
@@ -42,15 +42,25 @@ It can be used to display a numeric values.
 </Canvas>
 
 ### Colour Coding
+
 <Canvas>
   <Story name="Colour Coding">
-    <Badge value={9} isNegative/>
+    <Badge value={9} isNegative />
   </Story>
 </Canvas>
 
 ### Undefined Large Number
+
 <Canvas>
   <Story name="Undefined Large Number">
-    <Badge value={1000} badgeType={""}/>
+    <Badge value={1000} badgeType={""} />
+  </Story>
+</Canvas>
+
+### Rounded Large Number
+
+<Canvas>
+  <Story name="Rounded Large Number">
+    <Badge value={1234} badgeType={BadgeType.ROUNDED_LARGE_NUMBER} />
   </Story>
 </Canvas>
