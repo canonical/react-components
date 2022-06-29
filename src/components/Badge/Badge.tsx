@@ -29,7 +29,7 @@ export type Props = PropsWithSpread<
      */
     className?: ClassName;
   },
-  HTMLProps<HTMLElement>
+  HTMLProps<HTMLSpanElement>
 >;
 
 const MAX_VAL = 999;
