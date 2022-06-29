@@ -54,7 +54,7 @@ const Badge = ({
     B: "T",
   };
 
-  const round = (value: number, unit: string = "none") => {
+  const round = (value: number, unit = "none") => {
     if (value < 1000) {
       const truncatedValue = Number(value.toString().slice(0, 3));
       return `${truncatedValue}${unit === "none" ? "" : unit}`;
