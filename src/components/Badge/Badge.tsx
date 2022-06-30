@@ -37,12 +37,12 @@ const units = ["", "k", "M", "B", "T"];
 
 const round = (value: number, unit = 0) => {
   if (value < 1000) {
-    const truncatedValue = Number(value.toString().slice(0, 4));
+    const truncatedValue = Number(value.toString().slice(0, 3));
     return `${truncatedValue}${units[unit]}`;
   }
 
   if (unit >= units.length - 1) {
-    return "+999T";
+    return "999T";
   }
   const newValue = value / 1000;
   return round(newValue, unit + 1);
@@ -70,7 +70,7 @@ const Badge = ({
     className
   );
 
-  let safeValue = value;
+  let safeValue = Math.round(value);
 
   if (value < 0) {
     console.error("The value used in the badge should be positive");
