@@ -5,14 +5,21 @@ it("exports all hooks and components from the index file", () => {
   const hooksPath = "./src/hooks/";
   const componentsPath = "./src/components/";
 
+  const isNotHidden = (name) => !name.startsWith(".");
+
   const hooks = fs
     .readdirSync(hooksPath)
     .filter(
       (fileName) =>
-        fileName !== "index.ts" && fileName.match(/(?<!test)\.(ts|tsx)$/)
+        fileName !== "index.ts" &&
+        isNotHidden(fileName) &&
+        fileName.match(/(?<!test)\.(ts|tsx)$/)
     )
     .map((file) => file.replace(".ts", ""));
-  const components = fs.readdirSync(componentsPath);
+  expect(hooks.length).toBeGreaterThan(0);
+
+  const components = fs.readdirSync(componentsPath).filter(isNotHidden);
+  expect(components.length).toBeGreaterThan(0);
 
   const actualExports = Object.keys(index);
 
