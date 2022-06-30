@@ -126,6 +126,7 @@ export {
   useId,
   useListener,
   useOnEscapePressed,
+  usePagination,
   usePrevious,
   useThrottle,
   useWindowFitment,
