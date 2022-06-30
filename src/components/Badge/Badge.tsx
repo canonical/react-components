@@ -33,6 +33,27 @@ export type Props = PropsWithSpread<
 >;
 
 const MAX_VAL = 999;
+const units = ["", "k", "M", "B", "T"];
+
+const round = (value: number, unit = 0) => {
+  if (value < 1000) {
+    const truncatedValue = Number(value.toString().slice(0, 4));
+    return `${truncatedValue}${units[unit]}`;
+  }
+
+  if (unit >= units.length - 1) {
+    return "+999T";
+  }
+  const newValue = value / 1000;
+  return round(newValue, unit + 1);
+};
+
+const clamp = (value: number) => {
+  if (value > MAX_VAL) {
+    return `${MAX_VAL}+`;
+  }
+  return value;
+};
 
 const Badge = ({
   value,
@@ -49,33 +70,12 @@ const Badge = ({
     className
   );
 
-  const safeValue = value < 0 ? 0 : value;
+  let safeValue = value;
 
-  const nextUnit = {
-    none: "k",
-    k: "M",
-    M: "B",
-    B: "T",
-  };
-
-  const round = (value: number, unit = "none") => {
-    if (value < 1000) {
-      const truncatedValue = Number(value.toString().slice(0, 3));
-      return `${truncatedValue}${unit === "none" ? "" : unit}`;
-    }
-    if (!nextUnit[unit]) {
-      return "+999T";
-    }
-    const newValue = value / 1000;
-    return round(newValue, nextUnit[unit]);
-  };
-
-  const clamp = (value: number) => {
-    if (value > MAX_VAL) {
-      return `${MAX_VAL}+`;
-    }
-    return value;
-  };
+  if (value < 0) {
+    console.error("The value used in the badge should be positive");
+    safeValue = 0;
+  }
 
   const formattedValue =
     badgeType === BadgeType.ROUNDED_LARGE_NUMBER

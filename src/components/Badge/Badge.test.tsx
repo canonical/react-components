@@ -40,7 +40,7 @@ it("rounds number correctly for billions", () => {
     <Badge value={13245645512} badgeType={BadgeType.ROUNDED_LARGE_NUMBER} />
   );
   // Check that the correct value is displayed.
-  expect(screen.getByText("13B")).toBeInTheDocument();
+  expect(screen.getByText("13.2B")).toBeInTheDocument();
 });
 
 it("rounds number correctly for trillions", () => {
