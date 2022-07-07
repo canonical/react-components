@@ -280,3 +280,21 @@ this function so take care in overriding any link props.
     {Template.bind({})}
   </Story>
 </Canvas>
+
+<Canvas>
+  <Story
+    name="No menu items"
+    args={{
+      generateLink: ({ url, label, isSelected, ...props }) => (
+        <button {...props}>{label}</button>
+      ),
+      logo: {
+        src: "https://assets.ubuntu.com/v1/82818827-CoF_white.svg",
+        title: "Canonical",
+        url: "#",
+      },
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>

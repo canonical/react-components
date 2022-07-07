@@ -234,15 +234,17 @@ const Navigation = ({
                 </li>
               ) : null
             }
-            <li className="p-navigation__item">
-              <button
-                aria-pressed={mobileMenuOpen}
-                className="p-navigation__link"
-                onClick={toggleMobileMenu}
-              >
-                {mobileMenuOpen ? "Close menu" : "Menu"}
-              </button>
-            </li>
+            {items?.length > 0 || itemsRight?.length > 0 ? (
+              <li className="p-navigation__item">
+                <button
+                  aria-pressed={mobileMenuOpen}
+                  className="p-navigation__link"
+                  onClick={toggleMobileMenu}
+                >
+                  {mobileMenuOpen ? "Close menu" : "Menu"}
+                </button>
+              </li>
+            ) : null}
           </ul>
         </div>
         <nav className="p-navigation__nav" {...navProps}>
