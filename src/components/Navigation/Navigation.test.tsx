@@ -7,6 +7,13 @@ import Navigation from "./Navigation";
 import { Theme } from "../../enums";
 import { isNavigationAnchor } from "../../utils";
 
+const items = [
+  {
+    label: "THIS IS A LINK",
+    url: "/this/is/the/url",
+  },
+];
+
 /* eslint-disable testing-library/no-node-access */
 it("displays light theme", () => {
   render(<Navigation logo={<img src="" alt="" />} theme={Theme.LIGHT} />);
@@ -272,6 +279,7 @@ it("closes the search form when the escape key is pressed", () => {
 it("closes the search form when opening the mobile menu", () => {
   render(
     <Navigation
+      items={items}
       logo={<img src="" alt="" />}
       searchProps={{ onSearch: jest.fn() }}
     />
@@ -305,6 +313,7 @@ it("closes the search form when clicking on the overlay", () => {
 it("closes the mobile menu when opening the search form", () => {
   render(
     <Navigation
+      items={items}
       logo={<img src="" alt="" />}
       searchProps={{ onSearch: jest.fn() }}
     />
@@ -319,11 +328,21 @@ it("closes the mobile menu when opening the search form", () => {
 });
 
 it("can open the mobile menu", () => {
-  render(<Navigation logo={<img src="" alt="" />} />);
+  render(<Navigation items={items} logo={<img src="" alt="" />} />);
   const banner = screen.getByRole("banner");
   expect(banner.className.includes("has-menu-open")).toBe(false);
   userEvent.click(screen.getByRole("button", { name: "Menu" }));
   expect(banner.className.includes("has-menu-open")).toBe(true);
+});
+
+it("hides the mobile menu button when there are no navigation items to display", () => {
+  render(
+    <Navigation items={[]} itemsRight={[]} logo={<img src="" alt="" />} />
+  );
+  const banner = screen.getByRole("banner");
+  expect(
+    within(banner).queryByRole("button", { name: "Menu" })
+  ).not.toBeInTheDocument();
 });
 
 it("closes the mobile menu when clicking on a nav link", () => {
