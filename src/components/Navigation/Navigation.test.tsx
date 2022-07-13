@@ -337,11 +337,7 @@ it("can open the mobile menu", () => {
 
 it("hides the mobile menu button when there are no navigation items to display", () => {
   render(
-    <Navigation
-      items={undefined}
-      itemsRight={undefined}
-      logo={<img src="" alt="" />}
-    />
+    <Navigation items={[]} itemsRight={[]} logo={<img src="" alt="" />} />
   );
   const banner = screen.getByRole("banner");
   expect(
