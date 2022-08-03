@@ -4,9 +4,9 @@ This is a collection of components designed to be the way to consume [Vanilla Fr
 
 ## How to use the components
 
-See the [component docs](https://canonical-web-and-design.github.io/react-components/) for usage instructions.
+See the [component docs](https://canonical.github.io/react-components/) for usage instructions.
 
-![CI](https://github.com/canonical-web-and-design/react-components/workflows/CI/badge.svg?branch=main)
+![CI](https://github.com/canonical/react-components/workflows/CI/badge.svg?branch=main)
 ![Cypress chrome headless](https://github.com/canonical-web-and-design/react-components/workflows/Cypress%20chrome%20headless/badge.svg)
 
 ## Requirements
@@ -29,16 +29,16 @@ npm install @canonical/react-components
 
 ## Issues
 
-Please file any issues at [GitHub](https://github.com/canonical-web-and-design/react-components/issues).
+Please file any issues at [GitHub](https://github.com/canonical/react-components/issues).
 
 ## Contributing
 
 You might want to:
 
-- [View the source](https://github.com/canonical-web-and-design/react-components) on GitHub.
-- Read about [developing components](https://github.com/canonical-web-and-design/react-components/blob/main/HACKING.md).
-- Find out how to [publish to NPM](https://github.com/canonical-web-and-design/react-components/blob/main/PUBLISH-NPM-PACKAGE.md).
-- Know how to [publish the docs](https://github.com/canonical-web-and-design/react-components/blob/main/PUBLISHING-DOCS.md) to GitHub Pages.
+- [View the source](https://github.com/canonical/react-components) on GitHub.
+- Read about [developing components](https://github.com/canonical/react-components/blob/main/HACKING.md).
+- Find out how to [publish to NPM](https://github.com/canonical/react-components/blob/main/PUBLISH-NPM-PACKAGE.md).
+- Know how to [publish the docs](https://github.com/canonical/react-components/blob/main/PUBLISHING-DOCS.md) to GitHub Pages.
 
 ## Developing locally using this repository
 
@@ -47,7 +47,7 @@ You may wish to link this library directly to your projects while developing loc
 You can do this by cloning this repo to your local workspace;
 
 ```shell
-git clone https://github.com/canonical-web-and-design/react-components
+git clone https://github.com/canonical/react-components
 ```
 
 If you then drop into that folder and run;
