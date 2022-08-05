@@ -75,8 +75,8 @@ export const Modal = ({
   };
 
   const keyListenersMap = new Map([
-    [27, close],
-    [9, handleTabKey],
+    ["Escape", close],
+    ["Tab", handleTabKey],
   ]);
 
   useEffect(() => {
@@ -92,7 +92,7 @@ export const Modal = ({
 
   useEffect(() => {
     const keyDown = (e) => {
-      const listener = keyListenersMap.get(e.keyCode);
+      const listener = keyListenersMap.get(e.code);
       return listener && listener(e);
     };
 

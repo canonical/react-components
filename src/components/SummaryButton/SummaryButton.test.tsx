@@ -27,11 +27,11 @@ describe("<SummaryButton />", () => {
     expect(container.querySelector("i.u-animation--spin")).toBeInTheDocument();
   });
 
-  it("can handle click events", () => {
+  it("can handle click events", async () => {
     const onClick = jest.fn();
     render(<SummaryButton label="Show more" onClick={onClick} />);
 
-    userEvent.click(screen.getByRole("button", { name: "Show more" }));
+    await userEvent.click(screen.getByRole("button", { name: "Show more" }));
 
     expect(onClick).toHaveBeenCalled();
   });
