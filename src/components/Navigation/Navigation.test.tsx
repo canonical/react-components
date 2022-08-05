@@ -1,6 +1,12 @@
 import React from "react";
 
-import { fireEvent, render, screen, within } from "@testing-library/react";
+import {
+  fireEvent,
+  render,
+  screen,
+  within,
+  waitFor,
+} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Navigation from "./Navigation";
@@ -249,7 +255,7 @@ it("can open the search form", () => {
   expect(screen.getByRole("searchbox")).toBeInTheDocument();
 });
 
-it("focuses on the searchbox when it appears", () => {
+it("focuses on the searchbox when it appears", async () => {
   render(
     <Navigation
       logo={<img src="" alt="" />}
@@ -257,7 +263,7 @@ it("focuses on the searchbox when it appears", () => {
     />
   );
   userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
-  expect(screen.getByRole("searchbox")).toHaveFocus();
+  await waitFor(() => expect(screen.getByRole("searchbox")).toHaveFocus());
 });
 
 it("closes the search form when the escape key is pressed", () => {
