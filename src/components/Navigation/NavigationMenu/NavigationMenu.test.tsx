@@ -16,10 +16,10 @@ it("can display when closed", () => {
   ).toBeInTheDocument();
 });
 
-it("can open the menu", () => {
+it("can open the menu", async () => {
   render(<NavigationMenu items={[]} label="Today's menu" />);
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
-  userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
+  await userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
   expect(screen.getByRole("listitem").className.includes("is-active")).toBe(
     true
   );
@@ -31,15 +31,15 @@ it("can open the menu", () => {
   ).toBeInTheDocument();
 });
 
-it("can align menu items to the right", () => {
+it("can align menu items to the right", async () => {
   render(<NavigationMenu alignRight items={[]} label="Today's menu" />);
-  userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
+  await userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
   expect(
     screen.getByRole("list").className.includes("p-navigation__dropdown--right")
   ).toBe(true);
 });
 
-it("can display links using a standard anchor", () => {
+it("can display links using a standard anchor", async () => {
   render(
     <NavigationMenu
       items={[{ label: "Eggs florentine", url: "/eggs/florentine" }]}
@@ -47,7 +47,7 @@ it("can display links using a standard anchor", () => {
     />
   );
   // Open the menu so the links are displayed.
-  userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
+  await userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
   expect(
     screen.getByRole("link", {
       name: "Eggs florentine",
@@ -55,7 +55,7 @@ it("can display links using a standard anchor", () => {
   ).toBeInTheDocument();
 });
 
-it("can display links using a custom link", () => {
+it("can display links using a custom link", async () => {
   render(
     <NavigationMenu
       generateLink={({ label }) => <button>{label}</button>}
@@ -64,7 +64,7 @@ it("can display links using a custom link", () => {
     />
   );
   // Open the menu so the links are displayed.
-  userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
+  await userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
   expect(
     screen.getByRole("button", {
       name: "Eggs benedict",
@@ -72,7 +72,7 @@ it("can display links using a custom link", () => {
   ).toBeInTheDocument();
 });
 
-it("can pass additional classes to the links", () => {
+it("can pass additional classes to the links", async () => {
   render(
     <NavigationMenu
       items={[
@@ -86,7 +86,7 @@ it("can pass additional classes to the links", () => {
     />
   );
   // Open the menu so the links are displayed.
-  userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
+  await userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
   expect(
     screen.getByRole("link", {
       name: "Smashed avo",

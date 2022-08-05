@@ -1,12 +1,6 @@
 import React from "react";
 
-import {
-  fireEvent,
-  render,
-  screen,
-  within,
-  waitFor,
-} from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 import Navigation from "./Navigation";
@@ -241,14 +235,14 @@ it("displays with search", () => {
   ).toBeInTheDocument();
 });
 
-it("can open the search form", () => {
+it("can open the search form", async () => {
   render(
     <Navigation
       logo={<img src="" alt="" />}
       searchProps={{ onSearch: jest.fn() }}
     />
   );
-  userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
+  await userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
   expect(screen.getByRole("banner").className.includes("has-search-open")).toBe(
     true
   );
@@ -262,18 +256,18 @@ it("focuses on the searchbox when it appears", async () => {
       searchProps={{ onSearch: jest.fn() }}
     />
   );
-  userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
-  await waitFor(() => expect(screen.getByRole("searchbox")).toHaveFocus());
+  await userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
+  expect(screen.getByRole("searchbox")).toHaveFocus();
 });
 
-it("closes the search form when the escape key is pressed", () => {
+it("closes the search form when the escape key is pressed", async () => {
   render(
     <Navigation
       logo={<img src="" alt="" />}
       searchProps={{ onSearch: jest.fn() }}
     />
   );
-  userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
+  await userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
   expect(screen.getByRole("banner").className.includes("has-search-open")).toBe(
     true
   );
@@ -282,7 +276,7 @@ it("closes the search form when the escape key is pressed", () => {
   expect(screen.queryByRole("searchbox")).not.toBeInTheDocument();
 });
 
-it("closes the search form when opening the mobile menu", () => {
+it("closes the search form when opening the mobile menu", async () => {
   render(
     <Navigation
       items={items}
@@ -292,14 +286,14 @@ it("closes the search form when opening the mobile menu", () => {
   );
   const banner = screen.getByRole("banner");
   // Open the search form.
-  userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
+  await userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
   expect(banner.className.includes("has-search-open")).toBe(true);
-  userEvent.click(screen.getByRole("button", { name: "Menu" }));
+  await userEvent.click(screen.getByRole("button", { name: "Menu" }));
   expect(banner.className.includes("has-menu-open")).toBe(true);
   expect(banner.className.includes("has-search-open")).toBe(false);
 });
 
-it("closes the search form when clicking on the overlay", () => {
+it("closes the search form when clicking on the overlay", async () => {
   render(
     <Navigation
       logo={<img src="" alt="" />}
@@ -308,15 +302,17 @@ it("closes the search form when clicking on the overlay", () => {
   );
   const banner = screen.getByRole("banner");
   // Open the search form.
-  userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
+  await userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
   expect(banner.className.includes("has-search-open")).toBe(true);
   expect(screen.getByRole("searchbox")).toBeInTheDocument();
-  userEvent.click(document.querySelector(".p-navigation__search-overlay"));
+  await userEvent.click(
+    document.querySelector(".p-navigation__search-overlay")
+  );
   expect(banner.className.includes("has-search-open")).toBe(false);
   expect(screen.queryByRole("searchbox")).not.toBeInTheDocument();
 });
 
-it("closes the mobile menu when opening the search form", () => {
+it("closes the mobile menu when opening the search form", async () => {
   render(
     <Navigation
       items={items}
@@ -326,18 +322,18 @@ it("closes the mobile menu when opening the search form", () => {
   );
   const banner = screen.getByRole("banner");
   // Open the mobile menu.
-  userEvent.click(screen.getByRole("button", { name: "Menu" }));
+  await userEvent.click(screen.getByRole("button", { name: "Menu" }));
   expect(banner.className.includes("has-menu-open")).toBe(true);
-  userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
+  await userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
   expect(banner.className.includes("has-search-open")).toBe(true);
   expect(banner.className.includes("has-menu-open")).toBe(false);
 });
 
-it("can open the mobile menu", () => {
+it("can open the mobile menu", async () => {
   render(<Navigation items={items} logo={<img src="" alt="" />} />);
   const banner = screen.getByRole("banner");
   expect(banner.className.includes("has-menu-open")).toBe(false);
-  userEvent.click(screen.getByRole("button", { name: "Menu" }));
+  await userEvent.click(screen.getByRole("button", { name: "Menu" }));
   expect(banner.className.includes("has-menu-open")).toBe(true);
 });
 
@@ -351,7 +347,7 @@ it("hides the mobile menu button when there are no navigation items to display",
   ).not.toBeInTheDocument();
 });
 
-it("closes the mobile menu when clicking on a nav link", () => {
+it("closes the mobile menu when clicking on a nav link", async () => {
   render(
     <Navigation
       items={[{ label: "THIS IS A LINK", url: "/this/is/the/url" }]}
@@ -359,13 +355,13 @@ it("closes the mobile menu when clicking on a nav link", () => {
     />
   );
   const banner = screen.getByRole("banner");
-  userEvent.click(screen.getByRole("button", { name: "Menu" }));
+  await userEvent.click(screen.getByRole("button", { name: "Menu" }));
   expect(banner.className.includes("has-menu-open")).toBe(true);
-  userEvent.click(screen.getByRole("link", { name: "THIS IS A LINK" }));
+  await userEvent.click(screen.getByRole("link", { name: "THIS IS A LINK" }));
   expect(banner.className.includes("has-menu-open")).toBe(false);
 });
 
-it("does not close the mobile menu when clicking on a nav menu", () => {
+it("does not close the mobile menu when clicking on a nav menu", async () => {
   render(
     <Navigation
       items={[{ items: [], label: "THIS IS A MENU" }]}
@@ -373,8 +369,8 @@ it("does not close the mobile menu when clicking on a nav menu", () => {
     />
   );
   const banner = screen.getByRole("banner");
-  userEvent.click(screen.getByRole("button", { name: "Menu" }));
+  await userEvent.click(screen.getByRole("button", { name: "Menu" }));
   expect(banner.className.includes("has-menu-open")).toBe(true);
-  userEvent.click(screen.getByRole("button", { name: "THIS IS A MENU" }));
+  await userEvent.click(screen.getByRole("button", { name: "THIS IS A MENU" }));
   expect(banner.className.includes("has-menu-open")).toBe(true);
 });

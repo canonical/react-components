@@ -23,28 +23,28 @@ describe("useClickOutside", () => {
     );
   };
 
-  it("handles clicks outside the target", () => {
+  it("handles clicks outside the target", async () => {
     const onClickOutside = jest.fn();
     render(<TestComponent onClickOutside={onClickOutside} />);
-    userEvent.click(screen.getByRole("button", { name: "Outside" }));
+    await userEvent.click(screen.getByRole("button", { name: "Outside" }));
     expect(onClickOutside).toHaveBeenCalled();
   });
 
-  it("handles clicks inside the target", () => {
+  it("handles clicks inside the target", async () => {
     const onClickOutside = jest.fn();
     render(<TestComponent onClickOutside={onClickOutside} />);
-    userEvent.click(screen.getByRole("button", { name: "Inside" }));
+    await userEvent.click(screen.getByRole("button", { name: "Inside" }));
     expect(onClickOutside).not.toHaveBeenCalled();
   });
 
-  it("handles clicking on elements that don't have string classNames", () => {
+  it("handles clicking on elements that don't have string classNames", async () => {
     const onClickOutside = jest.fn();
     render(
       <TestComponent onClickOutside={onClickOutside}>
         <svg data-testid="no-classname" />
       </TestComponent>
     );
-    userEvent.click(screen.getByTestId("no-classname"));
+    await userEvent.click(screen.getByTestId("no-classname"));
     expect(onClickOutside).toHaveBeenCalled();
   });
 });

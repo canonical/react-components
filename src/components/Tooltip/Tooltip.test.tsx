@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import merge from "deepmerge";
 import React from "react";
@@ -15,7 +15,7 @@ describe("Tooltip", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("focuses on the first focusable element within the tooltip on pressing tab ", () => {
+  it("focuses on the first focusable element within the tooltip on pressing tab ", async () => {
     render(
       <Tooltip
         message={
@@ -28,8 +28,10 @@ describe("Tooltip", () => {
       </Tooltip>
     );
 
-    userEvent.click(screen.getByRole("button", { name: /open the tooltip/i }));
-    userEvent.tab();
+    await userEvent.click(
+      screen.getByRole("button", { name: /open the tooltip/i })
+    );
+    await userEvent.tab();
 
     expect(screen.getByRole("link", { name: "Canonical" })).toHaveFocus();
   });
@@ -45,7 +47,7 @@ describe("Tooltip", () => {
     ).toHaveAccessibleDescription("Additional description");
   });
 
-  it("preserves click handlers for elements within the tooltip", () => {
+  it("preserves click handlers for elements within the tooltip", async () => {
     const clickHandler = jest.fn();
 
     render(
@@ -69,8 +71,8 @@ describe("Tooltip", () => {
       </Tooltip>
     );
 
-    userEvent.click(screen.getByRole("button"));
-    userEvent.click(screen.getByRole("link", { name: "Canonical" }));
+    await userEvent.click(screen.getByRole("button"));
+    await userEvent.click(screen.getByRole("link", { name: "Canonical" }));
 
     expect(clickHandler).toHaveBeenCalled();
   });
@@ -80,7 +82,7 @@ describe("Tooltip", () => {
     expect(screen.getByTestId("tooltip-portal")).toHaveClass("u-off-screen");
   });
 
-  it("renders tooltip message on focus", () => {
+  it("renders tooltip message on focus", async () => {
     render(
       <Tooltip message="text">
         <button>open the tooltip</button>
@@ -88,7 +90,7 @@ describe("Tooltip", () => {
     );
 
     expect(screen.getByTestId("tooltip-portal")).toHaveClass("u-off-screen");
-    userEvent.tab();
+    await userEvent.tab();
     expect(screen.getByTestId("tooltip-portal")).not.toHaveClass(
       "u-off-screen"
     );
@@ -104,12 +106,10 @@ describe("Tooltip", () => {
       </Tooltip>
     );
     global.innerWidth = 20;
-    userEvent.hover(screen.getByRole("button", { name: "Child" }));
+    await userEvent.hover(screen.getByRole("button", { name: "Child" }));
 
-    await waitFor(() =>
-      expect(screen.getByTestId("tooltip-portal")).toHaveClass(
-        "p-tooltip--btm-left"
-      )
+    expect(screen.getByTestId("tooltip-portal")).toHaveClass(
+      "p-tooltip--btm-left"
     );
     expect(screen.getByTestId("tooltip-portal")).toHaveClass("is-detached");
   });
