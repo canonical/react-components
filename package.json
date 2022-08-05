@@ -31,6 +31,8 @@
     "@storybook/addon-controls": "6.4.22",
     "@storybook/addon-docs": "6.4.22",
     "@storybook/addons": "6.4.22",
+    "@storybook/builder-webpack5": "6.5.10",
+    "@storybook/manager-webpack5": "6.5.10",
     "@storybook/react": "6.4.22",
     "@storybook/theming": "6.4.22",
     "@testing-library/cypress": "8.0.3",
@@ -82,7 +84,8 @@
     "tsc-alias": "1.7.0",
     "typescript": "4.7.4",
     "vanilla-framework": "3.6.1",
-    "wait-on": "5.3.0"
+    "wait-on": "5.3.0",
+    "webpack": "5.74.0"
   },
   "dependencies": {
     "@types/jest": "27.5.2",
