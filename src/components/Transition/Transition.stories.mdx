@@ -1,0 +1,20 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
+import Button from "../Button";
+import Transition from "./Transition";
+import css from "./Transition.stories.scss";
+
+<Meta title="Transition" component={Transition} />
+
+export const Template = (args) => {
+  return (
+    <div style={{ display: "flex", justifyContent: "center", padding: "3rem" }}>
+      <Transition>test test test</Transition>
+    </div>
+  );
+};
+
+### Transition
+
+<Canvas>
+  <Story name="Default">{Template.bind({})}</Story>
+</Canvas>

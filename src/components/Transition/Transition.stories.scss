@@ -1,0 +1,46 @@
+@import "~vanilla-framework/scss/settings";
+
+.transition--fade-in {
+  @include vf-animation(#{transform, opacity}, fast);
+  height: 0;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.transition--fade-in-end {
+  height: auto;
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+  visibility: visible;
+}
+
+// transition durations
+.transition-duration--snap {
+  transition-duration: map-get($animation-duration, snap);
+}
+.transition-duration--fast {
+  transition-duration: map-get($animation-duration, fast);
+}
+.transition-duration--brisk {
+  transition-duration: map-get($animation-duration, brisk);
+}
+.transition-duration--slow {
+  transition-duration: map-get($animation-duration, slow);
+}
+.transition-duration--sleepy {
+  transition-duration: map-get($animation-duration, sleepy);
+}
+
+// transform directions
+.transition-direction--up {
+  transform: translate3d(0, 0.5rem, 0);
+}
+.transition-direction--right {
+  transform: translate3d(-0.5rem, 0, 0);
+}
+.transition-direction--down {
+  transform: translate3d(0, -0.5rem, 0);
+}
+.transition-direction--left {
+  transform: translate3d(-0.5rem, 0, 0);
+}
