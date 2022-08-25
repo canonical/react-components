@@ -1,6 +1,5 @@
 export { default as Accordion } from "./components/Accordion";
 export { default as ActionButton } from "./components/ActionButton";
-export { default as AccordionSection } from "./components/AccordionSection";
 export { default as ArticlePagination } from "./components/ArticlePagination";
 export { default as Badge } from "./components/Badge";
 export { default as Button, ButtonAppearance } from "./components/Button";
@@ -31,8 +30,6 @@ export {
   NotificationSeverity,
 } from "./components/Notification";
 export { default as Pagination } from "./components/Pagination";
-export { default as PaginationButton } from "./components/PaginationButton";
-export { default as PaginationItem } from "./components/PaginationButton";
 export { default as PasswordToggle } from "./components/PasswordToggle";
 export { default as RadioInput } from "./components/RadioInput";
 export { default as Row } from "./components/Row";
@@ -57,10 +54,6 @@ export { default as Textarea } from "./components/Textarea";
 export { default as Tooltip } from "./components/Tooltip";
 
 export type { AccordionProps } from "./components/Accordion";
-export type {
-  AccordionHeadings,
-  AccordionSectionProps,
-} from "./components/AccordionSection";
 export type { ActionButtonProps } from "./components/ActionButton";
 export type { ArticlePaginationProps } from "./components/ArticlePagination";
 export type { BadgeProps } from "./components/Badge";

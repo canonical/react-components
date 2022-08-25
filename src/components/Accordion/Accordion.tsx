@@ -1,11 +1,11 @@
 import classNames from "classnames";
 import React, { useState, HTMLProps } from "react";
 
-import AccordionSection from "components/AccordionSection";
+import AccordionSection from "./AccordionSection";
 import type {
   AccordionHeadings,
   AccordionSectionProps,
-} from "components/AccordionSection";
+} from "./AccordionSection";
 
 import type { ClassName, PropsWithSpread } from "types";
 
