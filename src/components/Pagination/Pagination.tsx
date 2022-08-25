@@ -1,8 +1,8 @@
 import React from "react";
 import type { HTMLProps } from "react";
 
-import PaginationButton from "../PaginationButton";
-import PaginationItem from "../PaginationItem";
+import PaginationButton from "./PaginationButton";
+import PaginationItem from "./PaginationItem";
 
 import type { PropsWithSpread } from "types";
 
