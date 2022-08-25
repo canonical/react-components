@@ -1,7 +1,7 @@
 import React from "react";
 
-import CheckableInput from "../CheckableInput";
-import type { Props as CheckableInputProps } from "../CheckableInput/CheckableInput";
+import CheckableInput from "../CheckboxInput/components/CheckableInput";
+import type { Props as CheckableInputProps } from "../CheckboxInput/components/CheckableInput/CheckableInput";
 
 export type Props = Omit<CheckableInputProps, "inputType">;
 

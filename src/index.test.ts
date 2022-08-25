@@ -1,7 +1,7 @@
 import fs from "fs";
 import * as index from "./index";
 
-it("exports all hooks and components from the index file", () => {
+it("exports all public hooks and components from the index file", () => {
   const hooksPath = "./src/hooks/";
   const componentsPath = "./src/components/";
 
