@@ -15,12 +15,12 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git@github.com:canonical-web-and-design/react-components.git"
+    "url": "git@github.com:canonical/react-components.git"
   },
   "bugs": {
-    "url": "https://github.com/canonical-web-and-design/react-components/issues"
+    "url": "https://github.com/canonical/react-components/issues"
   },
-  "homepage": "/react-components/",
+  "homepage": "https://github.com/canonical/react-components",
   "devDependencies": {
     "@babel/cli": "7.18.9",
     "@babel/eslint-parser": "7.18.9",

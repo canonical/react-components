@@ -1,3 +1,3 @@
 {
-  "extends": ["github>canonical-web-and-design/vanilla-framework"]
+  "extends": ["github>canonical/vanilla-framework"]
 }
