@@ -109,7 +109,7 @@ const Notification = ({
 
   if (IS_DEV && (close || status || type)) {
     console.warn(
-      "The Notification component is using deprecated props. Refer to the deprecated list for details: https://canonical-web-and-design.github.io/react-components/?path=/docs/notification--information#deprecated"
+      "The Notification component is using deprecated props. Refer to the deprecated list for details: https://canonical.github.io/react-components/?path=/docs/notification--information#deprecated"
     );
   }
 

@@ -1,4 +1,4 @@
-# React components for Vanilla Framework.
+# React components for Vanilla Framework
 
 This is a collection of components designed to be the way to consume [Vanilla Framework](http://vanillaframework.io) when using React.
 
@@ -7,7 +7,7 @@ This is a collection of components designed to be the way to consume [Vanilla Fr
 See the [component docs](https://canonical.github.io/react-components/) for usage instructions.
 
 ![CI](https://github.com/canonical/react-components/workflows/CI/badge.svg?branch=main)
-![Cypress chrome headless](https://github.com/canonical-web-and-design/react-components/workflows/Cypress%20chrome%20headless/badge.svg)
+![Cypress chrome headless](https://github.com/canonical/react-components/workflows/Cypress%20chrome%20headless/badge.svg)
 
 ## Requirements
 

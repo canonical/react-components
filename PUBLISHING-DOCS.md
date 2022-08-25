@@ -8,4 +8,4 @@ yarn build-docs
 
 Commit and create a new PR and land to main branch.
 
-That's it! The [docs](https://canonical-web-and-design.github.io/react-components/) will be updated shortly.
+That's it! The [docs](https://canonical.github.io/react-components/) will be updated shortly.
