@@ -20,7 +20,7 @@
   "bugs": {
     "url": "https://github.com/canonical/react-components/issues"
   },
-  "homepage": "https://github.com/canonical/react-components",
+  "homepage": "https://canonical.github.io/react-components",
   "devDependencies": {
     "@babel/cli": "7.18.9",
     "@babel/eslint-parser": "7.18.9",
