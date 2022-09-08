@@ -33,6 +33,7 @@ const PaginationButton = ({
         })}
         disabled={disabled}
         onClick={onClick}
+        type="button"
       >
         <i className="p-icon--chevron-down">{label}</i>
       </button>
