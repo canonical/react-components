@@ -6,7 +6,7 @@ import classNames from "classnames";
 import NavigationLink from "../NavigationLink";
 import type { GenerateLink, NavMenu } from "../types";
 import { PropsWithSpread } from "types";
-import { useClickOutside } from "hooks";
+import { useClickOutside, useId } from "hooks";
 
 type Props = PropsWithSpread<
   NavMenu & {
@@ -27,7 +27,8 @@ const NavigationMenu = ({
 }: Props): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = useCallback(() => setIsOpen(false), [setIsOpen]);
-  const [menuRef, menuId] = useClickOutside<HTMLButtonElement>(closeMenu);
+  const [menuRef] = useClickOutside<HTMLLIElement>(closeMenu);
+  const menuId = useId();
   return (
     <li
       {...props}
@@ -38,6 +39,7 @@ const NavigationMenu = ({
           "is-active": isOpen,
         }
       )}
+      ref={menuRef}
     >
       <button
         aria-controls={menuId}
@@ -46,7 +48,6 @@ const NavigationMenu = ({
           evt.preventDefault();
           setIsOpen(!isOpen);
         }}
-        ref={menuRef}
       >
         {label}
       </button>

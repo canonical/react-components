@@ -10,10 +10,10 @@ describe("useClickOutside", () => {
   }: PropsWithChildren<{
     onClickOutside: () => void;
   }>) => {
-    const [wrapperRef, id] = useClickOutside<HTMLDivElement>(onClickOutside);
+    const [wrapperRef] = useClickOutside<HTMLDivElement>(onClickOutside);
     return (
       <div>
-        <div id={id} ref={wrapperRef}>
+        <div ref={wrapperRef}>
           Menu
           <button>Inside</button>
         </div>
