@@ -1,5 +1,7 @@
 import { shallow } from "enzyme";
 import React from "react";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 
 import Pagination from "./Pagination";
 
@@ -90,5 +92,23 @@ describe("<Pagination />", () => {
     expect(component.find("PaginationItemSeparator").length).toEqual(1);
     expect(component.find("PaginationButton").length).toEqual(2);
     expect(component.find("PaginationItem").length).toEqual(5);
+  });
+
+  it("does not trigger form submission on pagination button click by default", async () => {
+    const handleOnSubmit = jest.fn();
+    render(
+      <form onSubmit={handleOnSubmit}>
+        <Pagination
+          itemsPerPage={10}
+          totalItems={1000}
+          paginate={jest.fn()}
+          currentPage={98}
+        />
+      </form>
+    );
+
+    await userEvent.click(screen.getByRole("button", { name: "Next page" }));
+    await userEvent.click(screen.getByRole("button", { name: "99" }));
+    expect(handleOnSubmit).not.toHaveBeenCalled();
   });
 });
