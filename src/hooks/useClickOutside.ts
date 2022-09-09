@@ -1,17 +1,13 @@
 import { MutableRefObject, useCallback, useEffect, useRef } from "react";
 
-import { useId } from "./useId";
-
 /**
  * Handle clicks outside an element.
- * @returns An id and ref to pass to the element to handle clicks
- * outside of.
+ * @returns A ref to pass to the element to handle clicks outside of.
  */
 export const useClickOutside = <E extends HTMLElement>(
   onClickOutside: () => void
-): [MutableRefObject<E>, string] => {
-  const wrapperRef = useRef<E | null>(null);
-  const id = useId();
+): MutableRefObject<E> => {
+  const ref = useRef<E | null>(null);
 
   const handleClickOutside = useCallback(
     (evt: MouseEvent) => {
@@ -22,14 +18,14 @@ export const useClickOutside = <E extends HTMLElement>(
         typeof (evt?.target as HTMLElement)?.className === "string";
       if (
         !isValidTarget ||
-        (wrapperRef.current &&
-          !wrapperRef.current?.contains(target) &&
-          target.id !== id)
+        (ref.current &&
+          !ref.current?.contains(target) &&
+          ref.current !== target)
       ) {
         onClickOutside();
       }
     },
-    [id, onClickOutside]
+    [onClickOutside]
   );
 
   useEffect(() => {
@@ -37,5 +33,5 @@ export const useClickOutside = <E extends HTMLElement>(
     return () =>
       document.removeEventListener("click", handleClickOutside, false);
   }, [handleClickOutside]);
-  return [wrapperRef, id];
+  return ref;
 };
