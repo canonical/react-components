@@ -27,7 +27,7 @@ const NavigationMenu = ({
 }: Props): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = useCallback(() => setIsOpen(false), [setIsOpen]);
-  const [menuRef] = useClickOutside<HTMLLIElement>(closeMenu);
+  const menuRef = useClickOutside<HTMLLIElement>(closeMenu);
   const menuId = useId();
   return (
     <li

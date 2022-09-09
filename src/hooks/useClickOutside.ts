@@ -6,8 +6,8 @@ import { MutableRefObject, useCallback, useEffect, useRef } from "react";
  */
 export const useClickOutside = <E extends HTMLElement>(
   onClickOutside: () => void
-): [MutableRefObject<E>] => {
-  const wrapperRef = useRef<E | null>(null);
+): MutableRefObject<E> => {
+  const ref = useRef<E | null>(null);
 
   const handleClickOutside = useCallback(
     (evt: MouseEvent) => {
@@ -18,9 +18,9 @@ export const useClickOutside = <E extends HTMLElement>(
         typeof (evt?.target as HTMLElement)?.className === "string";
       if (
         !isValidTarget ||
-        (wrapperRef.current &&
-          !wrapperRef.current?.contains(target) &&
-          wrapperRef.current !== target)
+        (ref.current &&
+          !ref.current?.contains(target) &&
+          ref.current !== target)
       ) {
         onClickOutside();
       }
@@ -33,5 +33,5 @@ export const useClickOutside = <E extends HTMLElement>(
     return () =>
       document.removeEventListener("click", handleClickOutside, false);
   }, [handleClickOutside]);
-  return [wrapperRef];
+  return ref;
 };
