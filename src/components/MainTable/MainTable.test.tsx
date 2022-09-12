@@ -280,5 +280,20 @@ describe("MainTable", () => {
       expect(heads.first().prop("sort")).toEqual("none");
       expect(heads.at(1).prop("sort")).toEqual("ascending");
     });
+
+    it("shows a hidden caption if provided", () => {
+      const captionText = "This is a caption for screen readers";
+      const wrapper = mount(
+        <MainTable
+          defaultSort="status"
+          defaultSortDirection="descending"
+          headers={headers}
+          rows={rows}
+          sortable={true}
+          caption={captionText}
+        />
+      );
+      expect(wrapper.find("caption").text()).toEqual(captionText);
+    });
   });
 });
