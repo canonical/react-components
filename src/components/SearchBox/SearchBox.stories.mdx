@@ -38,7 +38,12 @@ state and the `value` from state.
 
 <Canvas>
   <Story name="External state">
-    <SearchBox externallyControlled onChange={() => {}} value="..." />
+    <SearchBox
+      externallyControlled
+      shouldRefocusAfterReset
+      onChange={() => {}}
+      value="..."
+    />
   </Story>
 </Canvas>
 

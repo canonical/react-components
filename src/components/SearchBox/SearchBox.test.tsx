@@ -75,14 +75,34 @@ describe("SearchBox ", () => {
     document.body.removeChild(container);
   });
 
-  it("focuses on the input field after clearing", async () => {
+  it("after pressing the clear button focus remains on the button", async () => {
     render(
       <SearchBox externallyControlled onChange={jest.fn()} value="admin" />
     );
-    await userEvent.click(screen.getByLabelText("Search"));
-    await userEvent.click(
-      screen.getByRole("button", { name: "Clear search field" })
+    const searchInput = screen.getByRole("searchbox");
+    const clearButton = screen.getByRole("button", {
+      name: "Clear search field",
+    });
+    await userEvent.click(searchInput);
+    await userEvent.click(clearButton);
+    expect(clearButton).toHaveFocus();
+  });
+
+  it("after pressing the clear button focuses on the input field", async () => {
+    render(
+      <SearchBox
+        externallyControlled
+        shouldRefocusAfterReset
+        onChange={jest.fn()}
+        value="admin"
+      />
     );
-    expect(screen.getByLabelText("Search")).toHaveFocus();
+    const searchInput = screen.getByRole("searchbox");
+    const clearButton = screen.getByRole("button", {
+      name: "Clear search field",
+    });
+    await userEvent.click(searchInput);
+    await userEvent.click(clearButton);
+    expect(searchInput).toHaveFocus();
   });
 });

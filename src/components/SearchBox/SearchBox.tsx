@@ -36,6 +36,10 @@ export type Props = PropsWithSpread<
      */
     placeholder?: string;
     /**
+     * Whether the search input should receive focus after pressing the reset button
+     */
+    shouldRefocusAfterReset?: boolean;
+    /**
      * A ref that is passed to the input element.
      */
     ref?: string;
@@ -57,6 +61,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
       onChange,
       onSearch,
       placeholder = "Search",
+      shouldRefocusAfterReset,
       value,
       ...props
     }: Props,
@@ -67,7 +72,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
       onChange && onChange("");
       if (internalRef.current) {
         internalRef.current.value = "";
-        internalRef.current.focus();
+        if (shouldRefocusAfterReset) internalRef.current.focus();
       }
     };
 
