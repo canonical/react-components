@@ -1,24 +1,24 @@
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import CodeSnippet, { CodeSnippetBlockAppearance } from "./index";
 
 describe("CodeSnippet ", () => {
   it("renders a code block", () => {
-    const wrapper = mount(<CodeSnippet blocks={[{ code: "Test" }]} />);
-    expect(wrapper.find(".p-code-snippet__block").text()).toEqual("Test");
+    render(<CodeSnippet blocks={[{ code: "Test" }]} />);
+    expect(screen.getByText("Test")).toBeInTheDocument();
   });
 
   it("renders title for a code block", () => {
-    const wrapper = mount(
-      <CodeSnippet blocks={[{ title: "Title", code: "Test" }]} />
+    render(<CodeSnippet blocks={[{ title: "Title", code: "Test" }]} />);
+    expect(screen.getByRole("heading", { name: "Title" })).toHaveClass(
+      "p-code-snippet__title"
     );
-    expect(wrapper.find(".p-code-snippet__title").length).toBe(1);
-    expect(wrapper.find(".p-code-snippet__title").text()).toEqual("Title");
   });
 
   it("renders multiple code blocks", () => {
-    const wrapper = mount(
+    render(
       <CodeSnippet
         blocks={[
           { title: "Title", code: "Test" },
@@ -26,7 +26,8 @@ describe("CodeSnippet ", () => {
         ]}
       />
     );
-    expect(wrapper.find("pre").length).toBe(2);
+    expect(screen.getByText("Test")).toBeInTheDocument();
+    expect(screen.getByText("Test 2")).toBeInTheDocument();
   });
 
   it("renders line numbers", () => {
@@ -34,7 +35,7 @@ describe("CodeSnippet ", () => {
     Test line 2;
     Test line 3;`;
 
-    const wrapper = mount(
+    render(
       <CodeSnippet
         blocks={[
           {
@@ -44,26 +45,31 @@ describe("CodeSnippet ", () => {
         ]}
       />
     );
-    const lines = wrapper.find(
-      ".p-code-snippet__block--numbered .p-code-snippet__line"
-    );
-    expect(lines.length).toBe(3);
-    expect(lines.first().text()).toEqual("Test line 1;");
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-code-snippet__block--numbered")
+    ).toBeInTheDocument();
+    expect(screen.getByText("Test line 1;")).toBeInTheDocument();
+    expect(screen.getByText("Test line 2;")).toBeInTheDocument();
+    expect(screen.getByText("Test line 3;")).toBeInTheDocument();
   });
 
   it("renders default linux prompt icon", () => {
-    const wrapper = mount(
+    render(
       <CodeSnippet
         blocks={[
           { appearance: CodeSnippetBlockAppearance.LINUX_PROMPT, code: "Test" },
         ]}
       />
     );
-    expect(wrapper.find(".p-code-snippet__block--icon").length).toBe(1);
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-code-snippet__block--icon")
+    ).toBeInTheDocument();
   });
 
   it("renders windows prompt icon", () => {
-    const wrapper = mount(
+    render(
       <CodeSnippet
         blocks={[
           {
@@ -74,29 +80,32 @@ describe("CodeSnippet ", () => {
       />
     );
     expect(
-      wrapper.find(".p-code-snippet__block--icon.is-windows-prompt").length
-    ).toBe(1);
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-code-snippet__block--icon.is-windows-prompt")
+    ).toBeInTheDocument();
   });
 
   it("renders url icon", () => {
-    const wrapper = mount(
+    render(
       <CodeSnippet
         blocks={[{ appearance: CodeSnippetBlockAppearance.URL, code: "Test" }]}
       />
     );
-    expect(wrapper.find(".p-code-snippet__block--icon.is-url").length).toBe(1);
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-code-snippet__block--icon.is-url")
+    ).toBeInTheDocument();
   });
 
   it("renders code block with line wrapping", () => {
-    const wrapper = mount(
-      <CodeSnippet blocks={[{ wrapLines: true, code: "Test" }]} />
-    );
-    expect(wrapper.find(".p-code-snippet__block.is-wrapped").length).toBe(1);
+    render(<CodeSnippet blocks={[{ wrapLines: true, code: "Test" }]} />);
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.querySelector(".is-wrapped")).toBeInTheDocument();
   });
 
-  it("renders code block with a dropdown", () => {
+  it("renders code block with a dropdown", async () => {
     const onChange = jest.fn();
-    const wrapper = mount(
+    render(
       <CodeSnippet
         blocks={[
           {
@@ -116,15 +125,14 @@ describe("CodeSnippet ", () => {
         ]}
       />
     );
-    const dropdowns = wrapper.find(".p-code-snippet__dropdown");
-    expect(dropdowns.length).toBe(1);
-    expect(dropdowns.first().prop("value")).toEqual("html");
-    dropdowns.first().simulate("change");
+    expect(screen.getByRole("combobox")).toBeInTheDocument();
+    expect(screen.getAllByRole("option")[0]).toHaveValue("js");
+    await userEvent.selectOptions(screen.getByRole("combobox"), "html");
     expect(onChange).toHaveBeenCalled();
   });
 
   it("renders code snippets with a border when it also has custom content", () => {
-    const wrapper = mount(
+    render(
       <CodeSnippet
         blocks={[
           {
@@ -138,12 +146,14 @@ describe("CodeSnippet ", () => {
         ]}
       />
     );
-    expect(wrapper.find(".test").length).toBe(1);
-    expect(wrapper.find(".p-code-snippet.is-bordered").length).toBe(1);
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.querySelector(".test")).toBeInTheDocument();
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.querySelector(".is-bordered")).toBeInTheDocument();
   });
 
   it("renders extra props", () => {
-    const wrapper = mount(
+    render(
       <CodeSnippet
         blocks={[
           {
@@ -158,8 +168,6 @@ describe("CodeSnippet ", () => {
         data-testid="testID"
       />
     );
-    expect(wrapper.find("CodeSnippet").first().props()["data-testid"]).toEqual(
-      "testID"
-    );
+    expect(screen.getByTestId("testID")).toBeInTheDocument();
   });
 });
