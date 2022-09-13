@@ -1,101 +1,121 @@
-import { shallow } from "enzyme";
+import { createEvent, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 
 import Button from "./Button";
+import userEvent from "@testing-library/user-event";
 
 describe("Button ", () => {
   it("renders", () => {
-    const wrapper = shallow(<Button>Test content</Button>);
-    expect(wrapper).toMatchSnapshot();
+    render(<Button>Test content</Button>);
+    expect(screen.getByRole("button")).toMatchSnapshot();
   });
 
   it("renders as a link", () => {
-    const wrapper = shallow(<Button element="a">Test content</Button>);
-    expect(wrapper).toMatchSnapshot();
-  });
-
-  it("can handle button click events", () => {
-    const onClick = jest.fn();
-    const wrapper = shallow(<Button onClick={onClick} />);
-    wrapper.simulate("click");
-    expect(onClick).toHaveBeenCalled();
-  });
-
-  it("can handle anchor click events", () => {
-    const onClick = jest.fn();
-    const wrapper = shallow(<Button element="a" onClick={onClick} />);
-    wrapper.simulate("click");
-    expect(onClick).toHaveBeenCalled();
-  });
-
-  it("correctly disables a button", () => {
-    const onClick = jest.fn();
-    const wrapper = shallow(<Button disabled={true} onClick={onClick} />);
-    expect(wrapper.prop("disabled")).toBe(true);
-    expect(wrapper.prop("className").includes("is-disabled")).toBe(false);
-    expect(wrapper.prop("aria-disabled")).toBe(undefined);
-    const preventDefault = jest.fn();
-    wrapper.simulate("click", { preventDefault });
-    expect(preventDefault).toHaveBeenCalled();
-    expect(onClick).not.toHaveBeenCalled();
-  });
-
-  it("correctly disables a link", () => {
-    const onClick = jest.fn();
-    const wrapper = shallow(
-      <Button element="a" disabled={true} onClick={onClick} />
+    render(
+      <Button element="a" href="">
+        Test content
+      </Button>
     );
-    expect(wrapper.prop("className").includes("is-disabled")).toBe(true);
-    expect(wrapper.prop("aria-disabled")).toBe(true);
-    expect(wrapper.prop("disabled")).toBe(undefined);
-    const preventDefault = jest.fn();
-    wrapper.simulate("click", { preventDefault });
-    expect(preventDefault).toHaveBeenCalled();
+    expect(screen.getByRole("link")).toMatchSnapshot();
+  });
+
+  it("can handle button click events", async () => {
+    const onClick = jest.fn();
+    render(<Button onClick={onClick} />);
+    await userEvent.click(screen.getByRole("button"));
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it("can handle anchor click events", async () => {
+    const onClick = jest.fn();
+    render(<Button element="a" href="" onClick={onClick} />);
+    await userEvent.click(screen.getByRole("link"));
+    expect(onClick).toHaveBeenCalled();
+  });
+
+  it("correctly disables a button", async () => {
+    const onClick = jest.fn();
+    render(<Button disabled={true} onClick={onClick} />);
+    const button = screen.getByRole("button");
+    expect(button).toBeDisabled();
+    expect(button).not.toHaveAttribute("aria-disabled");
+    expect(button).not.toHaveClass("is-disabled");
+    await userEvent.click(button);
     expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it("does not prevent default when disabling a button", async () => {
+    render(<Button disabled={true} onClick={jest.fn()} />);
+    const button = screen.getByRole("button");
+    const clickEvent = createEvent.click(button);
+    fireEvent(button, clickEvent);
+    expect(clickEvent.defaultPrevented).toBe(false);
+  });
+
+  it("correctly disables a link", async () => {
+    const onClick = jest.fn();
+    render(<Button element="a" disabled={true} href="" onClick={onClick} />);
+    const button = screen.getByRole("link");
+    expect(button).toHaveClass("is-disabled");
+    expect(button).not.toBeDisabled();
+    expect(button).toHaveAttribute("aria-disabled");
+    await userEvent.click(button);
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it("prevents default when disabling a link", async () => {
+    const onClick = jest.fn();
+    render(<Button element="a" disabled={true} href="" onClick={onClick} />);
+    const button = screen.getByRole("link");
+    const clickEvent = createEvent.click(button);
+    fireEvent(button, clickEvent);
+    expect(clickEvent.defaultPrevented).toBe(true);
   });
 
   it("correctly handle icons", () => {
-    const wrapper = shallow(<Button hasIcon={true} />);
-    expect(wrapper.prop("className").includes("has-icon")).toBe(true);
+    render(<Button hasIcon={true} />);
+    expect(screen.getByRole("button")).toHaveClass("has-icon");
   });
 
   it("can be inline", () => {
-    const wrapper = shallow(<Button inline={true} />);
-    expect(wrapper.prop("className").includes("is-inline")).toBe(true);
+    render(<Button inline={true} />);
+    expect(screen.getByRole("button")).toHaveClass("is-inline");
   });
 
   it("can be dense", () => {
-    const wrapper = shallow(<Button dense />);
-    expect(wrapper.prop("className").includes("is-dense")).toBe(true);
+    render(<Button dense />);
+    expect(screen.getByRole("button")).toHaveClass("is-dense");
   });
 
   it("can be small", () => {
-    const wrapper = shallow(<Button small />);
-    expect(wrapper.prop("className").includes("is-small")).toBe(true);
+    render(<Button small />);
+    expect(screen.getByRole("button")).toHaveClass("is-small");
   });
 
   it("can add additional classes", () => {
-    const wrapper = shallow(<Button className="extra-class" />);
-    const className = wrapper.prop("className");
-    expect(className.includes("p-button")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
+    render(<Button className="extra-class" />);
+    const button = screen.getByRole("button");
+    expect(button).toHaveClass("p-button");
+    expect(button).toHaveClass("extra-class");
   });
 
   it("puts additional classes at the end", () => {
-    const wrapper = shallow(<Button className="extra-class" dense />);
-    expect(wrapper.prop("className")).toEqual("p-button is-dense extra-class");
+    render(<Button className="extra-class" dense />);
+    expect(screen.getByRole("button").className).toEqual(
+      "p-button is-dense extra-class"
+    );
   });
 
-  it("handles base button props", () => {
-    const wrapper = shallow(<Button type="button" />);
-    wrapper.simulate("click");
-    expect(wrapper.prop("type")).toBe("button");
+  it("handles base button props", async () => {
+    render(<Button type="button" />);
+    expect(screen.getByRole("button")).toBeInTheDocument();
   });
 
-  it("handles alternate element props", () => {
-    const wrapper = shallow(<Button element="a" href="http://example.com" />);
-    wrapper.simulate("click");
-    expect(wrapper.prop("href")).toBe("http://example.com");
+  it("handles alternate element props", async () => {
+    render(<Button element="a" href="http://example.com" />);
+    const button = screen.getByRole("link");
+    expect(button).toBeInTheDocument();
+    expect(button).toHaveAttribute("href", "http://example.com");
   });
 
   it("handles supplied component props", () => {
@@ -105,8 +125,10 @@ describe("Button ", () => {
       children: React.ReactNode;
     };
     const Link = ({ children, to }: LinkProps) => <a href={to}>{children}</a>;
-    const wrapper = shallow(<Button element={Link} to="http://example.com" />);
-    wrapper.simulate("click");
-    expect(wrapper.prop("to")).toBe("http://example.com");
+    render(<Button element={Link} to="http://example.com" />);
+    expect(screen.getByRole("link")).toHaveAttribute(
+      "href",
+      "http://example.com"
+    );
   });
 });

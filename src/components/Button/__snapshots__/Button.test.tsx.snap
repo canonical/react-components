@@ -2,7 +2,7 @@
 
 exports[`Button  renders 1`] = `
 <button
-  className="p-button"
+  class="p-button"
 >
   Test content
 </button>
@@ -10,7 +10,8 @@ exports[`Button  renders 1`] = `
 
 exports[`Button  renders as a link 1`] = `
 <a
-  className="p-button"
+  class="p-button"
+  href=""
 >
   Test content
 </a>
