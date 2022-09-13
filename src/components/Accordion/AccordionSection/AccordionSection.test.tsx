@@ -1,11 +1,12 @@
-import { shallow } from "enzyme";
 import React from "react";
+import { render, screen } from "@testing-library/react";
 
 import AccordionSection from "./AccordionSection";
+import userEvent from "@testing-library/user-event";
 
 describe("AccordionSection ", () => {
   it("renders", () => {
-    const wrapper = shallow(
+    render(
       <AccordionSection
         content={<span>Test</span>}
         expanded="abcd-1234"
@@ -14,11 +15,11 @@ describe("AccordionSection ", () => {
       />
     );
 
-    expect(wrapper).toMatchSnapshot();
+    expect(screen.getByRole("listitem")).toMatchSnapshot();
   });
 
   it("renders headings for titles", () => {
-    const wrapper = shallow(
+    render(
       <AccordionSection
         content={<span>Test</span>}
         expanded="abcd-1234"
@@ -27,16 +28,17 @@ describe("AccordionSection ", () => {
         titleElement="h4"
       />
     );
-
-    expect(wrapper.find("h4.p-accordion__heading")).toHaveLength(1);
-    expect(wrapper.find("h4").first().prop("aria-level")).toBeNull();
-    expect(wrapper).toMatchSnapshot();
+    // Query for the specific element as defined in the titleElement prop.
+    // eslint-disable-next-line testing-library/no-node-access
+    const title = document.querySelector("h4");
+    expect(title).toBeInTheDocument();
+    expect(title).not.toHaveAttribute("aria-level");
   });
 
-  it("can handle click events on the title", () => {
+  it("can handle click events on the title", async () => {
     const onTitleClick = jest.fn();
-    let expanded = null;
-    const wrapper = shallow(
+    let expanded: string | null = null;
+    const { rerender } = render(
       <AccordionSection
         content={<span>Test</span>}
         expanded={expanded}
@@ -47,20 +49,29 @@ describe("AccordionSection ", () => {
         title="Test section"
       />
     );
-    wrapper.find(".p-accordion__tab").at(0).simulate("click");
-
-    expect(onTitleClick.mock.calls[0]).toEqual([true, "mock-nanoid-1"]);
-    wrapper.setProps({ expanded });
+    await userEvent.click(screen.getByRole("tab", { name: "Test section" }));
+    expect(onTitleClick).toHaveBeenCalledWith(true, "mock-nanoid-1");
+    rerender(
+      <AccordionSection
+        content={<span>Test</span>}
+        expanded={expanded}
+        onTitleClick={onTitleClick}
+        setExpanded={(id) => {
+          expanded = id;
+        }}
+        title="Test section"
+      />
+    );
     // Clicking the title again should close the accordion section.
-    wrapper.find(".p-accordion__tab").at(0).simulate("click");
+    await userEvent.click(screen.getByRole("tab", { name: "Test section" }));
 
     expect(onTitleClick.mock.calls[1]).toEqual([false, "mock-nanoid-1"]);
   });
 
-  it("can use a key for expanded state", () => {
+  it("can use a key for expanded state", async () => {
     const onTitleClick = jest.fn();
-    let expanded = null;
-    const wrapper = shallow(
+    let expanded: string | null = null;
+    render(
       <AccordionSection
         content={<span>Test</span>}
         expanded={expanded}
@@ -72,28 +83,8 @@ describe("AccordionSection ", () => {
         title="Test section"
       />
     );
-    wrapper.find(".p-accordion__tab").at(0).simulate("click");
+    await userEvent.click(screen.getByRole("tab", { name: "Test section" }));
 
-    expect(onTitleClick.mock.calls[0]).toEqual([true, "first-key"]);
-  });
-
-  it("can use a key for expanded state", () => {
-    const onTitleClick = jest.fn();
-    let expanded = null;
-    const wrapper = shallow(
-      <AccordionSection
-        content={<span>Test</span>}
-        expanded={expanded}
-        sectionKey="first-key"
-        onTitleClick={onTitleClick}
-        setExpanded={(id) => {
-          expanded = id;
-        }}
-        title="Test section"
-      />
-    );
-    wrapper.find(".p-accordion__tab").at(0).simulate("click");
-
-    expect(onTitleClick.mock.calls[0]).toEqual([true, "first-key"]);
+    expect(onTitleClick).toHaveBeenCalledWith(true, "first-key");
   });
 });

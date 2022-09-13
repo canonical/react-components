@@ -37,7 +37,7 @@ export type Props = PropsWithSpread<
      * Optional function that is called when the expanded section is changed.
      * The function is provided the section title or null.
      */
-    onExpandedChange?: (id, title: string) => void;
+    onExpandedChange?: (id: string, title: string) => void;
     /**
      * An array of sections and content.
      */
@@ -77,7 +77,7 @@ const Accordion = ({
   ...asideProps
 }: Props): JSX.Element => {
   const [expandedSection, setExpandedSection] = useState(expanded);
-  const setExpanded = (id, title) => {
+  const setExpanded = (id: string, title: string) => {
     setExpandedSection(id);
     onExpandedChange && onExpandedChange(id, title);
   };
