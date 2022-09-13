@@ -38,6 +38,7 @@ const CheckableInput = ({
   label,
   labelClassName,
   indeterminate = false,
+  inline,
   ...checkboxProps
 }: Props): JSX.Element => {
   const inputId = useId();
@@ -51,7 +52,7 @@ const CheckableInput = ({
     <label
       className={classNames(
         labelClassName,
-        `p-${inputType}${checkboxProps.inline ? "--inline" : ""}`,
+        `p-${inputType}${inline ? "--inline" : ""}`,
         {
           "is-required": checkboxProps.required,
         }
