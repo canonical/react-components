@@ -122,7 +122,7 @@ export type Props = PropsWithSpread<
     /**
      * A hidden caption to display on the table for screen readers
      */
-    caption?: string | null;
+    hiddenCaption?: string | null;
   },
   TableProps
 >;
@@ -293,7 +293,7 @@ const MainTable = ({
   responsive,
   sortable,
   sortFunction,
-  caption,
+  hiddenCaption,
   ...props
 }: Props): JSX.Element => {
   const [currentSortKey, setSortKey] = useState(defaultSort);
@@ -339,7 +339,7 @@ const MainTable = ({
   return (
     <>
       <Table expanding={expanding} responsive={responsive} {...props}>
-        {caption && (
+        {hiddenCaption && (
           <caption
             style={{
               height: "1px",
@@ -350,7 +350,7 @@ const MainTable = ({
               width: "1px",
             }}
           >
-            {caption}
+            {hiddenCaption}
           </caption>
         )}
         {!!headers &&

@@ -290,7 +290,7 @@ describe("MainTable", () => {
           headers={headers}
           rows={rows}
           sortable={true}
-          caption={captionText}
+          hiddenCaption={captionText}
         />
       );
       expect(wrapper.find("caption").text()).toEqual(captionText);
