@@ -1,6 +1,7 @@
 import { shallow, mount } from "enzyme";
 import React from "react";
-
+import userEvent from "@testing-library/user-event";
+import { render, screen } from "@testing-library/react";
 import SearchBox from "./SearchBox";
 
 describe("SearchBox ", () => {
@@ -72,5 +73,16 @@ describe("SearchBox ", () => {
     ref.current.focus();
     expect(wrapper.find("input").getDOMNode()).toHaveFocus();
     document.body.removeChild(container);
+  });
+
+  it("focuses on the input field after clearing", async () => {
+    render(
+      <SearchBox externallyControlled onChange={jest.fn()} value="admin" />
+    );
+    await userEvent.click(screen.getByLabelText("Search"));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Clear search field" })
+    );
+    expect(screen.getByLabelText("Search")).toHaveFocus();
   });
 });
