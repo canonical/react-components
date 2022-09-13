@@ -53,6 +53,7 @@ const Card = ({
         "p-card--highlighted": highlighted,
         "p-card--overlay": overlay,
       })}
+      role="group"
       {...props}
     >
       {thumbnail && (
