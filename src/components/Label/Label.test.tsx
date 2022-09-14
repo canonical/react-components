@@ -1,23 +1,27 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import Label from "./Label";
 
 describe("Label ", () => {
   it("renders", () => {
-    const wrapper = shallow(<Label forId="test-id">Test content</Label>);
-    expect(wrapper).toMatchSnapshot();
+    render(
+      <Label forId="test-id" data-testid="label">
+        Test content
+      </Label>
+    );
+    expect(screen.getByTestId("label")).toMatchSnapshot();
   });
 
   it("can be required", () => {
-    const wrapper = shallow(<Label required={true} />);
-    expect(wrapper.prop("className").includes("is-required")).toBe(true);
+    render(<Label required={true} data-testid="label" />);
+    expect(screen.getByTestId("label")).toHaveClass("is-required");
   });
 
   it("can add additional classes", () => {
-    const wrapper = shallow(<Label className="extra-class" />);
-    const className = wrapper.prop("className");
-    expect(className.includes("p-form__label")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
+    render(<Label className="extra-class" data-testid="label" />);
+    const label = screen.getByTestId("label");
+    expect(label).toHaveClass("p-form__label");
+    expect(label).toHaveClass("extra-class");
   });
 });
