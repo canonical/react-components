@@ -1,4 +1,4 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import Spinner from "./Spinner";
@@ -6,57 +6,64 @@ import Spinner from "./Spinner";
 describe("<Spinner />", () => {
   // snapshot tests
   it("renders and matches the snapshot", () => {
-    const component = shallow(<Spinner />);
+    render(<Spinner />);
 
-    expect(component).toMatchSnapshot();
+    expect(screen.getByRole("alert")).toMatchSnapshot();
   });
 
   it("renders and matches the snapshot with text", () => {
-    const component = shallow(<Spinner text="foo" />);
+    render(<Spinner text="foo" />);
 
-    expect(component).toMatchSnapshot();
+    expect(screen.getByRole("alert")).toMatchSnapshot();
   });
 
   // unit tests
   it("renders a spinner icon", () => {
-    const component = shallow(<Spinner />);
-
-    expect(
-      component.find("i").first().hasClass("p-icon--spinner")
-    ).toBeTruthy();
-    expect(component.find("i").first().text()).toContain("Loading");
+    render(<Spinner />);
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.querySelector(".p-icon--spinner")).toBeInTheDocument();
+    expect(screen.getByText("Loading")).toBeInTheDocument();
   });
 
   it("renders text correctly if given text prop", () => {
     const text = "Loading...";
-    const component = shallow(<Spinner text={text} />);
+    render(<Spinner text={text} />);
 
-    expect(component.find("span").first().text()).toContain(text);
-    expect(component.find("i").first().text()).not.toContain(text);
+    expect(screen.getByText(text)).toBeInTheDocument();
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-icon--spinner")?.textContent
+    ).not.toContain(text);
   });
 
   it("renders Loading... for icon text if no text prop is provided", () => {
-    const component = shallow(<Spinner />);
-
-    expect(component.find("i").first().text()).toContain("Loading");
+    render(<Spinner />);
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-icon--spinner")?.textContent
+    ).toBe("Loading");
   });
 
   it("renders an assertive spinner", () => {
-    const component = shallow(<Spinner ariaLive={"assertive"} />);
+    render(<Spinner ariaLive={"assertive"} />);
 
-    expect(component.find({ ariaLive: "assertive" }));
+    expect(screen.getByRole("alert")).toHaveAttribute("aria-live", "assertive");
   });
 
   it("renders a light spinner if given isLight prop", () => {
-    const component = shallow(<Spinner isLight />);
+    render(<Spinner isLight />);
 
-    expect(component.find("i").first().hasClass("is-light")).toEqual(true);
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-icon--spinner")
+    ).toHaveClass("is-light");
   });
 
   it("renders a custom aria-label", () => {
-    const component = shallow(<Spinner aria-label="custom loading text" />);
+    render(<Spinner aria-label="custom loading text" />);
 
-    expect(component.find("span").first().props()["aria-label"]).toEqual(
+    expect(screen.getByRole("alert")).toHaveAttribute(
+      "aria-label",
       "custom loading text"
     );
   });
