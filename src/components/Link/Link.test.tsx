@@ -1,37 +1,37 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import Link from "./Link";
 
 describe("Link ", () => {
   it("renders", () => {
-    const wrapper = shallow(<Link href="/example">Test content</Link>);
-    expect(wrapper).toMatchSnapshot();
+    render(<Link href="/example">Test content</Link>);
+    expect(screen.getByRole("link")).toMatchSnapshot();
   });
 
   it("can be an inverted link", () => {
-    const wrapper = shallow(<Link inverted={true}>Test content</Link>);
-    expect(wrapper.prop("className").includes("p-link--inverted")).toBe(true);
+    render(<Link inverted={true}>Test content</Link>);
+    expect(screen.getByRole("link")).toHaveClass("p-link--inverted");
   });
 
   it("can be a soft link", () => {
-    const wrapper = shallow(<Link soft={true}>Test content</Link>);
-    expect(wrapper.prop("className").includes("p-link--soft")).toBe(true);
+    render(<Link soft={true}>Test content</Link>);
+    expect(screen.getByRole("link")).toHaveClass("p-link--soft");
   });
 
   it("can be a back to top link", () => {
-    const wrapper = shallow(<Link top={true}>Back to top</Link>);
-    expect(wrapper).toMatchSnapshot();
+    render(<Link top={true}>Back to top</Link>);
+    expect(screen.getByRole("link")).toMatchSnapshot();
   });
 
   it("can add additional classes", () => {
-    const wrapper = shallow(
+    render(
       <Link soft={true} className="extra-class">
         Test content
       </Link>
     );
-    const className = wrapper.prop("className");
-    expect(className.includes("p-link--soft")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
+    const link = screen.getByRole("link");
+    expect(link).toHaveClass("p-link--soft");
+    expect(link).toHaveClass("extra-class");
   });
 });
