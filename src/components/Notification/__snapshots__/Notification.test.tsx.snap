@@ -2,19 +2,20 @@
 
 exports[`Notification renders 1`] = `
 <div
-  className="p-notification--information"
+  class="p-notification--information"
+  data-testid="notification"
 >
   <div
-    className="p-notification__content"
+    class="p-notification__content"
   >
     <h5
-      className="p-notification__title"
+      class="p-notification__title"
       data-testid="notification-title"
     >
       Permissions changed
     </h5>
     <p
-      className="p-notification__message"
+      class="p-notification__message"
     >
       Anyone with access can view your invited users.
     </p>
