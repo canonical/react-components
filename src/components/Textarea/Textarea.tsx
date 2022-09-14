@@ -113,7 +113,9 @@ const Textarea = ({
       validationId={validationId}
     >
       <textarea
-        aria-describedby={help ? helpId : null}
+        aria-describedby={[help ? helpId : null, success ? validationId : null]
+          .filter(Boolean)
+          .join(" ")}
         aria-errormessage={hasError ? validationId : null}
         aria-invalid={hasError}
         className={classNames("p-form-validation__input", className)}
