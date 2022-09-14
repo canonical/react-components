@@ -1,7 +1,9 @@
-import { shallow, mount } from "enzyme";
+import { render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 
 import SearchAndFilter from "./SearchAndFilter";
+import { Label } from "./SearchAndFilter";
+import userEvent from "@testing-library/user-event";
 
 const sampleData = [
   {
@@ -26,63 +28,77 @@ const sampleData = [
 ];
 
 describe("Search and filter", () => {
-  it("renders", () => {
+  it("renders", async () => {
     const returnSearchData = jest.fn();
-    const wrapper = shallow(
+    render(
+      <SearchAndFilter
+        data-testid="searchandfilter"
+        filterPanelData={[]}
+        returnSearchData={returnSearchData}
+      />
+    );
+    expect(screen.getByTestId("searchandfilter")).toMatchSnapshot();
+  });
+
+  it("hide the clear button when there is no value in search box", async () => {
+    const returnSearchData = jest.fn();
+    render(
       <SearchAndFilter
         filterPanelData={[]}
         returnSearchData={returnSearchData}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(
+      screen.queryByRole("button", { name: Label.Clear })
+    ).not.toBeInTheDocument();
   });
 
-  it("hide the clear button when there is no value in search box", () => {
+  it("shows panel when clicking the wrapping element", async () => {
     const returnSearchData = jest.fn();
-    const wrapper = mount(
+    render(
       <SearchAndFilter
-        filterPanelData={[]}
+        data-testid="searchandfilter"
+        filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
     );
-    expect(wrapper.find(".p-search-and-filter__clear").exists()).toBe(false);
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-search-and-filter__panel")
+    ).toHaveAttribute("aria-hidden", "true");
+    await waitFor(async () => {
+      await userEvent.click(screen.getByTestId("searchandfilter"));
+    });
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-search-and-filter__panel")
+    ).toHaveAttribute("aria-hidden", "false");
   });
 
-  it("shows panel on focus", () => {
+  it("shows panel on click", async () => {
     const returnSearchData = jest.fn();
-    const wrapper = mount(
+    render(
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
     );
     expect(
-      wrapper.find(".p-search-and-filter__panel").prop("aria-hidden")
-    ).toEqual(true);
-    wrapper.find(".p-search-and-filter").simulate("click");
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-search-and-filter__panel")
+    ).toHaveAttribute("aria-hidden", "true");
+    await waitFor(async () => {
+      await userEvent.click(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
     expect(
-      wrapper.find(".p-search-and-filter__panel").prop("aria-hidden")
-    ).toEqual(false);
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-search-and-filter__panel")
+    ).toHaveAttribute("aria-hidden", "false");
   });
 
-  it("shows panel on click", () => {
-    const returnSearchData = jest.fn();
-    const wrapper = mount(
-      <SearchAndFilter
-        filterPanelData={sampleData}
-        returnSearchData={returnSearchData}
-      />
-    );
-    expect(
-      wrapper.find(".p-search-and-filter__panel").prop("aria-hidden")
-    ).toEqual(true);
-    wrapper.find(".p-search-and-filter__input").simulate("click");
-    expect(
-      wrapper.find(".p-search-and-filter__panel").prop("aria-hidden")
-    ).toEqual(false);
-  });
-
-  it("should hide chip overflow counter when none overflow", () => {
+  it("should hide chip overflow counter when none overflow", async () => {
     const returnSearchData = jest.fn();
     // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
     // of the chips
@@ -94,18 +110,19 @@ describe("Search and filter", () => {
       configurable: true,
       value: 40,
     });
-    const wrapper = mount(
+    render(
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
     );
-    expect(wrapper.find(".p-search-and-filter__selected-count").length).toEqual(
-      0
-    );
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-search-and-filter__selected-count")
+    ).not.toBeInTheDocument();
   });
 
-  it("show overflow chip counter when chips overflow", () => {
+  it("show overflow chip counter when chips overflow", async () => {
     // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
     // of the chips
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
@@ -117,23 +134,28 @@ describe("Search and filter", () => {
       value: 100,
     });
     const returnSearchData = jest.fn();
-    const wrapper = mount(
+    render(
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
     );
-    wrapper.find(".p-search-and-filter__input").simulate("click");
-    wrapper
-      .find(".p-filter-panel-section__chips .p-chip")
-      .first()
-      .simulate("click");
-    expect(wrapper.find(".p-search-and-filter__selected-count").text()).toEqual(
-      "+1"
-    );
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-search-and-filter__selected-count")
+    ).not.toBeInTheDocument();
+    await waitFor(async () => {
+      await userEvent.click(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
+    await waitFor(async () => {
+      await userEvent.click(screen.getByRole("button", { name: "us-east1" }));
+    });
+    expect(screen.getByRole("button", { name: "+1" })).toBeInTheDocument();
   });
 
-  it("all chips are shown when counter is clicked", () => {
+  it("all chips are shown when counter is clicked", async () => {
     // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
     // of the chips
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
@@ -145,125 +167,201 @@ describe("Search and filter", () => {
       value: 100,
     });
     const returnSearchData = jest.fn();
-    const wrapper = mount(
+    render(
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
     );
     expect(
-      wrapper
-        .find(".p-search-and-filter__search-container")
-        .prop("aria-expanded")
-    ).toEqual(false);
-    wrapper.find(".p-search-and-filter__input").simulate("click");
-    wrapper
-      .find(".p-filter-panel-section__chips .p-chip")
-      .first()
-      .simulate("click");
-    wrapper.find(".p-search-and-filter__selected-count").simulate("click");
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-search-and-filter__search-container")
+    ).toHaveAttribute("aria-expanded", "false");
+    await waitFor(async () => {
+      await userEvent.click(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
+    await waitFor(async () => {
+      await userEvent.click(screen.getByRole("button", { name: "us-east1" }));
+    });
+    await waitFor(async () => {
+      await userEvent.click(screen.getByRole("button", { name: "+1" }));
+    });
     expect(
-      wrapper
-        .find(".p-search-and-filter__search-container")
-        .prop("aria-expanded")
-    ).toEqual(true);
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-search-and-filter__search-container")
+    ).toHaveAttribute("aria-expanded", "true");
   });
 
-  it("search prompt appears when search field has search term", () => {
+  it("search prompt appears when search field has search term", async () => {
     const returnSearchData = jest.fn();
-    const wrapper = mount(
+    render(
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
     );
-    wrapper.find(".p-search-and-filter").simulate("click");
-    expect(wrapper.find(".p-search-and-filter__search-prompt").length).toEqual(
+    await waitFor(async () => {
+      await userEvent.click(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-search-and-filter__search-prompt")
+    ).not.toBeInTheDocument();
+    await waitFor(async () => {
+      await userEvent.clear(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
+    await waitFor(async () => {
+      await userEvent.type(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+        "My new value"
+      );
+    });
+    expect(
+      screen.getByRole("button", { name: "Search for My new value ..." })
+    ).toBeInTheDocument();
+  });
+
+  it("no search results appear for unknown search term", async () => {
+    const returnSearchData = jest.fn();
+    render(
+      <SearchAndFilter
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+      />
+    );
+    await waitFor(async () => {
+      await userEvent.click(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
+      3
+    );
+    await waitFor(async () => {
+      await userEvent.clear(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
+    await waitFor(async () => {
+      await userEvent.type(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+        "Unknown value"
+      );
+    });
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
       0
     );
-    wrapper
-      .find(".p-search-and-filter__input")
-      .simulate("change", { target: { value: "My new value" } });
-    expect(wrapper.find(".p-search-and-filter__search-prompt").length).toEqual(
+  });
+
+  it("correct number of panels appear for matching search terms", async () => {
+    const returnSearchData = jest.fn();
+    render(
+      <SearchAndFilter
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+      />
+    );
+    await waitFor(async () => {
+      await userEvent.click(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
+    await waitFor(async () => {
+      await userEvent.clear(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
+    await waitFor(async () => {
+      await userEvent.type(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+        "Google"
+      );
+    });
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
       1
     );
+    await waitFor(async () => {
+      await userEvent.clear(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
+    await waitFor(async () => {
+      await userEvent.type(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+        "re"
+      );
+    });
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
+      2
+    );
   });
 
-  it("no search results appear for unknown search term", () => {
+  it("Matching search terms are highlighted with strong tag", async () => {
     const returnSearchData = jest.fn();
-    const wrapper = mount(
+    render(
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
       />
     );
-    wrapper.find(".p-search-and-filter").simulate("click");
-    expect(wrapper.find(".p-filter-panel-section").length).toEqual(3);
-    wrapper
-      .find(".p-search-and-filter__input")
-      .simulate("change", { target: { value: "Unknown value" } });
-    expect(wrapper.find(".p-filter-panel-section").length).toEqual(0);
+    await waitFor(async () => {
+      await userEvent.click(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
+    await waitFor(async () => {
+      await userEvent.clear(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
+    await waitFor(async () => {
+      await userEvent.type(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+        "Google"
+      );
+    });
+    const boldText = document
+      // eslint-disable-next-line testing-library/no-node-access
+      .querySelectorAll(".p-chip")[0]
+      // eslint-disable-next-line testing-library/no-node-access
+      .querySelector("strong");
+    expect(boldText?.textContent).toEqual("Google");
   });
 
-  it("correct number of panels appear for matching search terms", () => {
+  it("Existing search data displays correctly", async () => {
     const returnSearchData = jest.fn();
-    const wrapper = mount(
-      <SearchAndFilter
-        filterPanelData={sampleData}
-        returnSearchData={returnSearchData}
-      />
-    );
-    wrapper.find(".p-search-and-filter").simulate("click");
-    wrapper
-      .find(".p-search-and-filter__input")
-      .simulate("change", { target: { value: "Google" } });
-    expect(wrapper.find(".p-filter-panel-section").length).toEqual(1);
-    wrapper
-      .find(".p-search-and-filter__input")
-      .simulate("change", { target: { value: "re" } });
-    expect(wrapper.find(".p-filter-panel-section").length).toEqual(2);
-  });
-
-  it("Matching search terms are highlighted with strong tag", () => {
-    const returnSearchData = jest.fn();
-    const wrapper = mount(
-      <SearchAndFilter
-        filterPanelData={sampleData}
-        returnSearchData={returnSearchData}
-      />
-    );
-    wrapper.find(".p-search-and-filter__input").simulate("click");
-    wrapper
-      .find(".p-search-and-filter__input")
-      .simulate("change", { target: { value: "Google" } });
-    const firstChip = wrapper.find(".p-chip").first();
-    expect(firstChip.find(".p-chip__value").html()).toEqual(
-      '<span class="p-chip__value"><strong>Google</strong></span>'
-    );
-  });
-
-  it("Existing search data displays correctly", () => {
-    const returnSearchData = jest.fn();
-    const wrapper = mount(
+    render(
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
         existingSearchData={[{ lead: "Cloud", value: "Google" }]}
       />
     );
-    const lead = wrapper
-      .find(".p-search-and-filter__search-container .p-chip__lead")
-      .text();
-    const value = wrapper
-      .find(".p-search-and-filter__search-container .p-chip__value")
-      .text();
+    // eslint-disable-next-line testing-library/no-node-access
+    const lead = document.querySelector(
+      ".p-search-and-filter__search-container .p-chip__lead"
+    )?.textContent;
+    // eslint-disable-next-line testing-library/no-node-access
+    const value = document.querySelector(
+      ".p-search-and-filter__search-container .p-chip__value"
+    )?.textContent;
     expect(lead).toBe("CLOUD");
     expect(value).toBe("Google");
   });
 
-  it("Existing search data displays correctly if two search items present", () => {
+  it("Existing search data displays correctly if two search items present", async () => {
     const returnSearchData = jest.fn();
-    const wrapper = mount(
+    render(
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
@@ -273,15 +371,22 @@ describe("Search and filter", () => {
         ]}
       />
     );
-    const chips = wrapper.find(
+    // eslint-disable-next-line testing-library/no-node-access
+    const chips = document.querySelectorAll(
       ".p-search-and-filter__search-container .p-chip"
     );
     expect(chips.length).toBe(2);
 
-    const chip1Value = chips.at(0).find(".p-chip__value").text();
+    // eslint-disable-next-line testing-library/no-node-access
+    const chip1Value = document.querySelector(
+      ".p-search-and-filter__search-container .p-chip:nth-child(1) .p-chip__value"
+    )?.textContent;
     expect(chip1Value).toEqual("Google");
 
-    const chip2Value = chips.at(1).find(".p-chip__value").text();
+    // eslint-disable-next-line testing-library/no-node-access
+    const chip2Value = document.querySelector(
+      ".p-search-and-filter__search-container .p-chip:nth-child(2) .p-chip__value"
+    )?.textContent;
     expect(chip2Value).toEqual("eu-west-1");
   });
 });

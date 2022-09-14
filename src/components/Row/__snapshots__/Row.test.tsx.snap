@@ -2,7 +2,8 @@
 
 exports[`Row  renders 1`] = `
 <div
-  className="row"
+  class="row"
+  data-testid="row"
 >
   Test content
 </div>

@@ -1,7 +1,8 @@
-import { shallow, mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import FilterPanelSection from "./FilterPanelSection";
+import userEvent from "@testing-library/user-event";
 
 const sampleData = {
   id: 1,
@@ -11,7 +12,7 @@ const sampleData = {
 
 describe("Filter panel section", () => {
   it("renders", () => {
-    const wrapper = shallow(
+    render(
       <FilterPanelSection
         searchData={[]}
         searchTerm=""
@@ -19,11 +20,12 @@ describe("Filter panel section", () => {
         data={sampleData}
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.querySelector(".p-filter-panel-section")).toMatchSnapshot();
   });
 
   it("shows correct data passed as prop", () => {
-    const wrapper = mount(
+    render(
       <FilterPanelSection
         searchData={[]}
         searchTerm=""
@@ -31,15 +33,22 @@ describe("Filter panel section", () => {
         data={sampleData}
       />
     );
-    expect(wrapper.find(".p-filter-panel-section").length).toEqual(1);
-    const section = wrapper.find(".p-filter-panel-section");
-    const chips = wrapper.find(".p-chip");
-    expect(chips.length).toEqual(3);
-    expect(section.find(".p-filter-panel-section__heading").text()).toEqual(
-      "Regions"
-    );
-    const firstChip = section.find(".p-chip").at(0);
-    expect(firstChip.text()).toEqual("us-east1");
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-filter-panel-section")
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "us-east1" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "us-east2" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "us-east3" })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Regions" })
+    ).toBeInTheDocument();
   });
 
   it("should hide chip overflow counter when none overflow", () => {
@@ -53,7 +62,7 @@ describe("Filter panel section", () => {
       configurable: true,
       value: 40,
     });
-    const wrapper = mount(
+    render(
       <FilterPanelSection
         searchData={[]}
         searchTerm=""
@@ -61,7 +70,10 @@ describe("Filter panel section", () => {
         data={sampleData}
       />
     );
-    expect(wrapper.find(".p-filter-panel-section__counter").length).toEqual(0);
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-search-and-filter__selected-count")
+    ).not.toBeInTheDocument();
   });
 
   it("show overflow chip counter when chips overflow", () => {
@@ -75,7 +87,7 @@ describe("Filter panel section", () => {
       configurable: true,
       value: 100,
     });
-    const wrapper = mount(
+    render(
       <FilterPanelSection
         searchData={[]}
         searchTerm=""
@@ -83,13 +95,16 @@ describe("Filter panel section", () => {
         data={sampleData}
       />
     );
-    expect(wrapper.find(".p-filter-panel-section__counter").text()).toEqual(
-      "+3"
-    );
+    expect(
+      // Use a query selector because the element's text is split up over
+      // multiple elements so it can't be selected by its content.
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-filter-panel-section__counter")?.textContent
+    ).toBe("+3");
   });
 
-  it("all chips are shown when counter is clicked", () => {
-    const wrapper = mount(
+  it("all chips are shown when counter is clicked", async () => {
+    render(
       <FilterPanelSection
         searchData={[]}
         searchTerm=""
@@ -98,8 +113,19 @@ describe("Filter panel section", () => {
         sectionHidden={false}
       />
     );
-    expect(wrapper.find("[aria-expanded=false]").length).toEqual(1);
-    wrapper.find(".p-filter-panel-section__counter").simulate("click");
-    expect(wrapper.find("[aria-expanded=true]").length).toEqual(1);
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-filter-panel-section__chips")
+    ).toHaveAttribute("aria-expanded", "false");
+    await userEvent.click(
+      // Use a query selector because the element's text is split up over
+      // multiple elements so it can't be selected by its content.
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-filter-panel-section__counter") as HTMLElement
+    );
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-filter-panel-section__chips")
+    ).toHaveAttribute("aria-expanded", "true");
   });
 });

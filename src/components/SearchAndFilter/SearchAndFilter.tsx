@@ -6,6 +6,12 @@ import { overflowingChipsCount, isChipInArray } from "./utils";
 import type { SearchAndFilterChip, SearchAndFilterData } from "./types";
 import { useOnEscapePressed } from "hooks";
 
+export enum Label {
+  AddFilter = "Add filter",
+  Clear = "Clear input",
+  SearchAndFilter = "Search and filter",
+}
+
 export type Props = {
   /**
    * A list of chips to initialise inside the input.
@@ -25,6 +31,7 @@ const SearchAndFilter = ({
   existingSearchData = [],
   filterPanelData,
   returnSearchData,
+  ...props
 }: Props): JSX.Element => {
   const [searchData, setSearchData] = useState(existingSearchData);
   const [searchTerm, setSearchTerm] = useState("");
@@ -195,13 +202,16 @@ const SearchAndFilter = ({
     setSearchTerm("");
   };
 
-  const placeholder = searchData.length ? "Add filter" : "Search and filter";
+  const placeholder = searchData.length
+    ? Label.AddFilter
+    : Label.SearchAndFilter;
 
   return (
     <div
       className="p-search-and-filter"
       ref={searchAndFilterRef}
       onClick={() => filterPanelHidden && setFilterPanelHidden(false)}
+      {...props}
     >
       <div
         className="p-search-and-filter__search-container"
@@ -212,6 +222,7 @@ const SearchAndFilter = ({
       >
         {searchTerm !== "" && (
           <button
+            aria-label={Label.Clear}
             className="p-search-and-filter__clear"
             onClick={() => clearAllSearchTerms()}
           >
@@ -240,7 +251,7 @@ const SearchAndFilter = ({
           ref={searchBoxRef}
         >
           <label className="u-off-screen" htmlFor="search-and-filter-input">
-            {searchData.length ? "Add filter" : "Search and filter"}
+            {searchData.length ? Label.AddFilter : Label.SearchAndFilter}
           </label>
           <input
             autoComplete="off"
