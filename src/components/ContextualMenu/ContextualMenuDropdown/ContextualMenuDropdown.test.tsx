@@ -1,4 +1,4 @@
-import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import merge from "deepmerge";
 import React from "react";
 
@@ -10,8 +10,8 @@ jest.useFakeTimers("modern");
 
 describe("ContextualMenuDropdown ", () => {
   it("renders", () => {
-    const wrapper = mount(<ContextualMenuDropdown links={["Link1"]} />);
-    expect(wrapper.find("ContextualMenuDropdown")).toMatchSnapshot();
+    render(<ContextualMenuDropdown links={["Link1"]} data-testid="dropdown" />);
+    expect(screen.getByTestId("dropdown")).toMatchSnapshot();
   });
 
   describe("adjustForWindow", () => {
