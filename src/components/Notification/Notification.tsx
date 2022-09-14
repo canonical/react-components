@@ -7,6 +7,10 @@ import { IS_DEV } from "../../utils";
 
 import type { ClassName, PropsWithSpread, ValueOf } from "types";
 
+export enum Label {
+  Close = "Close notification",
+}
+
 export const NotificationSeverity = {
   CAUTION: "caution",
   INFORMATION: "information",
@@ -136,12 +140,11 @@ const Notification = ({
         <p className="p-notification__message">{children}</p>
         {onDismiss && (
           <button
-            aria-label="Close notification"
             className="p-notification__close"
             data-testid="notification-close-button"
             onClick={onDismiss}
           >
-            Close
+            {Label.Close}
           </button>
         )}
       </div>
