@@ -7,6 +7,10 @@ import Button from "../../Button";
 import type { ButtonProps } from "../../Button";
 import type { WindowFitment } from "hooks";
 
+export enum Label {
+  Dropdown = "submenu",
+}
+
 /**
  * The type of the menu links.
  * @template L - The type of the link props.
@@ -211,7 +215,7 @@ const ContextualMenuDropdown = <L,>({
         className={classNames("p-contextual-menu__dropdown", dropdownClassName)}
         id={id}
         aria-hidden={isOpen ? "false" : "true"}
-        aria-label="submenu"
+        aria-label={Label.Dropdown}
         ref={dropdown}
         style={
           constrainPanelWidth && positionStyle?.width

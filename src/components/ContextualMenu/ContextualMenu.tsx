@@ -12,6 +12,10 @@ import type { MenuLink, Position } from "./ContextualMenuDropdown";
 import { ClassName, PropsWithSpread, SubComponentProps } from "types";
 import { useId } from "hooks/useId";
 
+export enum Label {
+  Toggle = "Toggle menu",
+}
+
 /**
  * The props for the ContextualMenu component.
  * @template L - The type of the link props.
@@ -281,6 +285,7 @@ const ContextualMenu = <L,>({
           appearance={toggleAppearance}
           aria-controls={id}
           aria-expanded={isOpen ? "true" : "false"}
+          aria-label={toggleLabel ? null : Label.Toggle}
           aria-pressed={isOpen ? "true" : "false"}
           aria-haspopup="true"
           className={classNames("p-contextual-menu__toggle", toggleClassName)}
