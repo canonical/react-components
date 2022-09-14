@@ -1,7 +1,6 @@
-import { shallow } from "enzyme";
+import { render, screen, within } from "@testing-library/react";
 import React from "react";
 
-import { compareJSX } from "../../testing/utils";
 import List from "./List";
 
 describe("List ", () => {
@@ -12,72 +11,75 @@ describe("List ", () => {
   });
 
   it("renders", () => {
-    const wrapper = shallow(<List items={items} />);
-    expect(wrapper).toMatchSnapshot();
+    render(<List items={items} />);
+    expect(screen.getByRole("list")).toMatchSnapshot();
   });
 
   it("can define items as JSX", () => {
-    const wrapper = shallow(
-      <List items={[<div>test</div>, <span>items</span>]} />
-    );
-    const item = wrapper.find(".p-list__item").first();
-    compareJSX(item.children(), <div>test</div>);
+    render(<List items={[<button>test</button>, <span>items</span>]} />);
+    expect(
+      within(screen.getAllByRole("listitem")[0]).getByRole("button")
+    ).toBeInTheDocument();
   });
 
   it("can define items as objects", () => {
-    const wrapper = shallow(
-      <List items={[{ content: "test", className: "item-class" }]} />
+    render(
+      <List
+        items={[
+          {
+            content: "test",
+            className: "item-class",
+          },
+        ]}
+      />
     );
-    const item = wrapper.find(".p-list__item").first();
-    expect(item.prop("className").includes("item-class")).toBe(true);
+    const item = within(screen.getAllByRole("listitem")[0]).getByText("test");
+    expect(item).toBeInTheDocument();
+    expect(item).toHaveClass("item-class");
   });
 
   it("can be divided", () => {
-    const wrapper = shallow(<List divided={true} items={items} />);
-    expect(wrapper.prop("className").includes("p-list--divided")).toBe(true);
+    render(<List divided={true} items={items} />);
+    expect(screen.getByRole("list")).toHaveClass("p-list--divided");
   });
 
   it("can be inline", () => {
-    const wrapper = shallow(<List inline={true} items={items} />);
-    expect(wrapper.prop("className").includes("p-inline-list")).toBe(true);
-    expect(wrapper.find(".p-inline-list__item").exists()).toBe(true);
+    render(<List inline={true} items={items} />);
+    expect(screen.getByRole("list")).toHaveClass("p-inline-list");
+    expect(screen.getAllByRole("listitem")[0]).toHaveClass(
+      "p-inline-list__item"
+    );
   });
 
   it("can be inline middot", () => {
-    const wrapper = shallow(<List middot={true} items={items} />);
-    expect(wrapper.prop("className").includes("p-inline-list--middot")).toBe(
-      true
+    render(<List middot={true} items={items} />);
+    expect(screen.getByRole("list")).toHaveClass("p-inline-list--middot");
+    expect(screen.getAllByRole("listitem")[0]).toHaveClass(
+      "p-inline-list__item"
     );
-    expect(wrapper.find(".p-inline-list__item").exists()).toBe(true);
   });
 
   it("can be inline stretch", () => {
-    const wrapper = shallow(<List stretch={true} items={items} />);
-    expect(wrapper.prop("className").includes("p-inline-list--stretch")).toBe(
-      true
+    render(<List stretch={true} items={items} />);
+    expect(screen.getByRole("list")).toHaveClass("p-inline-list--stretch");
+    expect(screen.getByRole("list")).not.toHaveClass("p-list");
+    expect(screen.getAllByRole("listitem")[0]).toHaveClass(
+      "p-inline-list__item"
     );
-    expect(wrapper.find(".p-inline-list__item").exists()).toBe(true);
-    expect(wrapper.prop("className").includes("p-list")).toBe(false);
   });
 
   it("can be split", () => {
-    const wrapper = shallow(<List split={true} items={items} />);
-    expect(wrapper.prop("className").includes("is-split")).toBe(true);
+    render(<List split={true} items={items} />);
+    expect(screen.getByRole("list")).toHaveClass("is-split");
   });
 
   it("can be ticked", () => {
-    const wrapper = shallow(<List ticked={true} items={items} />);
-    expect(
-      wrapper
-        .find(".p-list__item")
-        .first()
-        .prop("className")
-        .includes("is-ticked")
-    ).toBe(true);
+    render(<List ticked={true} items={items} />);
+    expect(screen.getAllByRole("listitem")[0]).toHaveClass("is-ticked");
   });
 
   it("can be stepped", () => {
-    const wrapper = shallow(
+    render(
       <List
         stepped={true}
         items={[
@@ -90,18 +92,19 @@ describe("List ", () => {
         ]}
       />
     );
-    expect(wrapper.prop("className").includes("p-stepped-list")).toBe(true);
-    compareJSX(
-      wrapper.find(".p-stepped-list__item").first(),
-      <li className="item-class p-stepped-list__item">
-        <h1 className="p-stepped-list__title">Test title</h1>
-        <p className="p-stepped-list__content">test</p>
-      </li>
+    expect(screen.getByRole("list")).toHaveClass("p-stepped-list");
+    const item = screen.getAllByRole("listitem")[0];
+    expect(item).toHaveClass("p-stepped-list__item");
+    expect(within(item).getByText("Test title")).toHaveClass(
+      "p-stepped-list__title"
+    );
+    expect(within(item).getByText("test")).toHaveClass(
+      "p-stepped-list__content"
     );
   });
 
   it("can be detailed stepped", () => {
-    const wrapper = shallow(
+    render(
       <List
         detailed={true}
         stepped={true}
@@ -115,16 +118,21 @@ describe("List ", () => {
         ]}
       />
     );
-    expect(wrapper.prop("className").includes("p-stepped-list--detailed")).toBe(
-      true
+    expect(screen.getByRole("list")).toHaveClass("p-stepped-list--detailed");
+    const item = screen.getAllByRole("listitem")[0];
+    expect(item).toHaveClass("p-stepped-list__item");
+    expect(within(item).getByText("Test title")).toHaveClass(
+      "p-stepped-list__title"
     );
-    expect(wrapper.find(".p-stepped-list__item").exists()).toBe(true);
+    expect(within(item).getByText("test")).toHaveClass(
+      "p-stepped-list__content"
+    );
   });
 
   it("can add additional classes", () => {
-    const wrapper = shallow(<List className="extra-class" items={items} />);
-    const className = wrapper.prop("className");
-    expect(className.includes("p-list")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
+    render(<List className="extra-class" items={items} />);
+    const list = screen.getByRole("list");
+    expect(list).toHaveClass("p-list");
+    expect(list).toHaveClass("extra-class");
   });
 });
