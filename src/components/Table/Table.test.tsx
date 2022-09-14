@@ -1,36 +1,31 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import Table from "./Table";
 
 describe("Table", () => {
   it("renders", () => {
-    const wrapper = shallow(
+    render(
       <Table>
         <thead></thead>
       </Table>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(screen.getByRole("grid")).toMatchSnapshot();
   });
 
   it("can be expanding", () => {
-    const wrapper = shallow(<Table expanding={true} />);
-    expect(wrapper.prop("className").includes("p-table--expanding")).toBe(true);
+    render(<Table expanding={true} />);
+    expect(screen.getByRole("grid")).toHaveClass("p-table--expanding");
   });
 
   it("can be responsive", () => {
-    const wrapper = shallow(<Table responsive={true} />);
-    expect(wrapper.prop("className").includes("p-table--mobile-card")).toBe(
-      true
-    );
+    render(<Table responsive={true} />);
+    expect(screen.getByRole("grid")).toHaveClass("p-table--mobile-card");
   });
 
   it("can pass additional classes", () => {
-    const wrapper = shallow(
-      <Table responsive={true} className="extra-class" />
-    );
-    const className = wrapper.prop("className");
-    expect(className.includes("p-table--mobile-card")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
+    render(<Table responsive={true} className="extra-class" />);
+    expect(screen.getByRole("grid")).toHaveClass("p-table--mobile-card");
+    expect(screen.getByRole("grid")).toHaveClass("extra-class");
   });
 });
