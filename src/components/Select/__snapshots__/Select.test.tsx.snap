@@ -2,6 +2,7 @@
 
 exports[`Select renders 1`] = `
 <select
+  aria-describedby=""
   aria-invalid="false"
   class="p-form-validation__input"
   id="test-id"
