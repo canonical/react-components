@@ -1,12 +1,11 @@
-import { render, screen } from "@testing-library/react";
-import { mount, shallow } from "enzyme";
+import { fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 
 import Select from "./Select";
 
 describe("Select", () => {
   it("renders", () => {
-    const wrapper = shallow(
+    render(
       <Select
         id="test-id"
         options={[
@@ -15,45 +14,46 @@ describe("Select", () => {
           { value: "2", label: "Bionic Beaver" },
           { value: "3", label: "Xenial Xerus" },
         ]}
+        wrapperClassName="select"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.querySelector("select")).toMatchSnapshot();
   });
 
-  it("should call onChange prop", () => {
+  it("should call onChange prop", async () => {
     const onChangeMock = jest.fn();
     const event = {
-      event: "test-event",
+      target: {
+        value: "selected option",
+      },
     };
-    const component = shallow(<Select options={[]} onChange={onChangeMock} />);
-    component.find("select").simulate("change", event);
-    expect(onChangeMock).toBeCalledWith(event);
+    render(<Select options={[]} onChange={onChangeMock} />);
+    fireEvent.change(screen.getByRole("combobox"), event);
+    expect(onChangeMock.mock.calls[0][0].target).toBe(
+      screen.getByRole("combobox")
+    );
   });
 
   it("can add additional classes", () => {
-    const wrapper = shallow(<Select className="extra-class" options={[]} />);
-    const className = wrapper.find("select").prop("className");
-    expect(className.includes("p-form-validation__input")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
+    render(<Select className="extra-class" options={[]} />);
+    const select = screen.getByRole("combobox");
+    expect(select).toHaveClass("p-form-validation__input");
+    expect(select).toHaveClass("extra-class");
   });
 
   it("can take focus on first render", () => {
     const container = document.createElement("div");
     document.body.appendChild(container);
-    const wrapper = mount(<Select options={[]} takeFocus />, {
-      attachTo: container,
-    });
-    expect(wrapper.find("select").getDOMNode()).toBe(document.activeElement);
-    document.body.removeChild(container);
+    render(<Select options={[]} takeFocus />);
+    expect(screen.getByRole("combobox")).toHaveFocus();
   });
 
   it("can take null options", () => {
-    const wrapper = shallow(<Select options={null} />);
-    expect(wrapper.exists()).toBe(true);
+    render(<Select options={null} />);
+    expect(screen.getByRole("combobox")).toBeInTheDocument();
   });
-});
 
-describe("Select RTL", () => {
   it("can display an error", async () => {
     render(<Select error="Uh oh!" />);
     expect(screen.getByRole("combobox")).toHaveErrorMessage("Error: Uh oh!");
