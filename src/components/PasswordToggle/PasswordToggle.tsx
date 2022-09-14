@@ -4,10 +4,15 @@ import type { InputHTMLAttributes, ReactNode } from "react";
 
 import Button from "../Button";
 import Field from "../Field";
-import Label from "../Label";
+import VanillaLabel from "../Label";
 
 import type { ClassName, PropsWithSpread } from "types";
 import { useId } from "hooks";
+
+export enum Label {
+  Hide = "Hide",
+  Show = "Show",
+}
 
 /**
  * The props for the Password Toggle component.
@@ -105,9 +110,9 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
         validationId={validationId}
       >
         <div className="p-form-password-toggle">
-          <Label forId={id} required={required}>
+          <VanillaLabel forId={id} required={required}>
             {label}
-          </Label>
+          </VanillaLabel>
           <Button
             appearance="base"
             type={type ? type : "button"}
@@ -118,7 +123,7 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
             onClick={() => togglePassword()}
           >
             <span className="p-form-password-toggle__label">
-              {isPassword ? "Show" : "Hide"}
+              {isPassword ? Label.Show : Label.Hide}
             </span>
             <i className={isPassword ? "p-icon--show" : "p-icon--hide"}></i>
           </Button>
