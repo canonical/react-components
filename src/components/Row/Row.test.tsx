@@ -1,18 +1,22 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import Row from "./Row";
 
 describe("Row ", () => {
   it("renders", () => {
-    const wrapper = shallow(<Row>Test content</Row>);
-    expect(wrapper).toMatchSnapshot();
+    render(<Row data-testid="row">Test content</Row>);
+    expect(screen.getByTestId("row")).toMatchSnapshot();
   });
 
   it("can add additional classes", () => {
-    const wrapper = shallow(<Row className="extra-class">Test content</Row>);
-    const className = wrapper.prop("className");
-    expect(className.includes("row")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
+    render(
+      <Row data-testid="row" className="extra-class">
+        Test content
+      </Row>
+    );
+    const row = screen.getByTestId("row");
+    expect(row).toHaveClass("row");
+    expect(row).toHaveClass("extra-class");
   });
 });
