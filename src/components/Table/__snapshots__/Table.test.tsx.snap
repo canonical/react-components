@@ -2,7 +2,7 @@
 
 exports[`Table renders 1`] = `
 <table
-  className=""
+  class=""
   role="grid"
 >
   <thead />

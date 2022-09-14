@@ -1,24 +1,35 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import TableHeader from "./TableHeader";
 
 describe("TableHeader", () => {
   it("renders", () => {
-    const wrapper = shallow(
-      <TableHeader>
-        <tr></tr>
-      </TableHeader>
+    render(
+      <table>
+        <thead>
+          <tr>
+            <TableHeader>Column 1</TableHeader>
+          </tr>
+        </thead>
+      </table>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(screen.getByRole("columnheader")).toMatchSnapshot();
   });
 
   it("can set a sort", () => {
-    const wrapper = shallow(
-      <TableHeader sort="ascending">
-        <tr></tr>
-      </TableHeader>
+    render(
+      <table>
+        <thead>
+          <tr>
+            <TableHeader sort="ascending">Column 1</TableHeader>
+          </tr>
+        </thead>
+      </table>
     );
-    expect(wrapper.prop("aria-sort")).toEqual("ascending");
+    expect(screen.getByRole("columnheader")).toHaveAttribute(
+      "aria-sort",
+      "ascending"
+    );
   });
 });
