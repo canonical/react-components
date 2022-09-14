@@ -3,11 +3,11 @@
 exports[`<Spinner /> renders and matches the snapshot 1`] = `
 <span
   aria-live="polite"
-  className="p-text--default"
+  class="p-text--default"
   role="alert"
 >
   <i
-    className="p-icon--spinner u-animation--spin"
+    class="p-icon--spinner u-animation--spin"
   >
     Loading
   </i>
@@ -17,11 +17,11 @@ exports[`<Spinner /> renders and matches the snapshot 1`] = `
 exports[`<Spinner /> renders and matches the snapshot with text 1`] = `
 <span
   aria-live="polite"
-  className="p-text--default"
+  class="p-text--default"
   role="alert"
 >
   <i
-    className="p-icon--spinner u-animation--spin"
+    class="p-icon--spinner u-animation--spin"
   />
    
   <span>
