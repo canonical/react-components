@@ -30,8 +30,8 @@ describe("AccordionSection ", () => {
     );
     // Query for the specific element as defined in the titleElement prop.
     // eslint-disable-next-line testing-library/no-node-access
-    const title = document.querySelector("h4");
-    expect(title).toBeInTheDocument();
+    const title = screen.getByRole("heading");
+    expect(title.tagName).toBe("H4");
     expect(title).not.toHaveAttribute("aria-level");
   });
 
