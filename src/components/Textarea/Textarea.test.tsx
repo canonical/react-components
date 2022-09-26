@@ -5,10 +5,12 @@ import Textarea from "./Textarea";
 
 describe("Textarea ", () => {
   it("renders", () => {
-    render(<Textarea id="test-id" wrapperClassName="textarea" />);
+    const { container } = render(
+      <Textarea id="test-id" wrapperClassName="textarea" />
+    );
     // Get the wrapping element.
-    // eslint-disable-next-line testing-library/no-node-access
-    expect(document.querySelector("textarea")).toMatchSnapshot();
+    // eslint-disable-next-line testing-library/no-node-access, testing-library/no-container
+    expect(container.firstChild).toMatchSnapshot();
   });
 
   it("can add additional classes", () => {
