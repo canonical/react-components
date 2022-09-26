@@ -33,7 +33,7 @@ describe("List ", () => {
         ]}
       />
     );
-    const item = within(screen.getAllByRole("listitem")[0]).getByText("test");
+    const item = within(screen.getByRole("listitem")).getByText("test");
     expect(item).toBeInTheDocument();
     expect(item).toHaveClass("item-class");
   });
