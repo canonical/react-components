@@ -3,7 +3,7 @@
 exports[`Chip  renders default chip 1`] = `
 <button
   class="p-chip"
-  role="option"
+  data-testid="chip"
   type="button"
 >
   
@@ -18,7 +18,7 @@ exports[`Chip  renders default chip 1`] = `
 exports[`Chip  renders lead-value chip 1`] = `
 <button
   class="p-chip"
-  role="option"
+  data-testid="chip"
   type="button"
 >
   <span
