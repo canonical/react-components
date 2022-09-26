@@ -2,7 +2,7 @@ import React from "react";
 import * as nanoid from "nanoid";
 
 import Accordion from "./Accordion";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 describe("Accordion", () => {
@@ -40,17 +40,14 @@ describe("Accordion", () => {
             title: "Advanced topics",
             content: "test content",
           },
-          {
-            title: "Networking",
-            content: <>More test content</>,
-          },
         ]}
         titleElement="h4"
       />
     );
-    // Query for the specific element as defined in the titleElement prop.
-    // eslint-disable-next-line testing-library/no-node-access
-    expect(document.querySelector("li h4")).toBeInTheDocument();
+    // Check for the specific element as defined in the titleElement prop.
+    expect(
+      within(screen.getByRole("listitem")).getByRole("heading").tagName
+    ).toBe("H4");
   });
 
   it("can call a function when a section is expanded", async () => {
