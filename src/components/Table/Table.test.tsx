@@ -5,12 +5,13 @@ import Table from "./Table";
 
 describe("Table", () => {
   it("renders", () => {
-    render(
+    const { container } = render(
       <Table>
         <thead></thead>
       </Table>
     );
-    expect(screen.getByRole("grid")).toMatchSnapshot();
+    // eslint-disable-next-line testing-library/no-node-access, testing-library/no-container
+    expect(container.firstChild).toMatchSnapshot();
   });
 
   it("can be expanding", () => {
