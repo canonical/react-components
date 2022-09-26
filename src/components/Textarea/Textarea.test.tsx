@@ -1,37 +1,35 @@
 import { render, screen } from "@testing-library/react";
-import { mount, shallow } from "enzyme";
 import React from "react";
 
 import Textarea from "./Textarea";
 
 describe("Textarea ", () => {
   it("renders", () => {
-    const wrapper = shallow(<Textarea id="test-id" />);
-    expect(wrapper).toMatchSnapshot();
+    const { container } = render(
+      <Textarea id="test-id" wrapperClassName="textarea" />
+    );
+    // Get the wrapping element.
+    // eslint-disable-next-line testing-library/no-node-access, testing-library/no-container
+    expect(container.firstChild).toMatchSnapshot();
   });
 
   it("can add additional classes", () => {
-    const wrapper = shallow(<Textarea className="extra-class" />);
-    const className = wrapper.find("textarea").prop("className");
-    expect(className.includes("p-form-validation__input")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
+    render(<Textarea className="extra-class" />);
+    const textarea = screen.getByRole("textbox");
+    expect(textarea).toHaveClass("p-form-validation__input");
+    expect(textarea).toHaveClass("extra-class");
   });
 
   it("can take focus on first render", () => {
-    const container = document.createElement("div");
-    document.body.appendChild(container);
-    const wrapper = mount(<Textarea takeFocus />, { attachTo: container });
-    expect(wrapper.find("textarea").getDOMNode()).toBe(document.activeElement);
-    document.body.removeChild(container);
+    render(<Textarea takeFocus />);
+    expect(screen.getByRole("textbox")).toHaveFocus();
   });
 
   it("can accept input attributes", () => {
-    const wrapper = shallow(<Textarea autoComplete="on" />);
-    expect(wrapper.exists()).toBe(true);
+    render(<Textarea autoComplete="on" />);
+    expect(screen.getByRole("textbox")).toHaveAttribute("autocomplete", "on");
   });
-});
 
-describe("Textarea RTL", () => {
   it("can display an error for a text input", async () => {
     render(<Textarea error="Uh oh!" />);
     expect(screen.getByRole("textbox")).toHaveErrorMessage("Error: Uh oh!");
