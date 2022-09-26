@@ -114,7 +114,6 @@ describe("Button ", () => {
   it("handles alternate element props", async () => {
     render(<Button element="a" href="http://example.com" />);
     const button = screen.getByRole("link");
-    expect(button).toBeInTheDocument();
     expect(button).toHaveAttribute("href", "http://example.com");
   });
 
