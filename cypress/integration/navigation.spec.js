@@ -4,6 +4,7 @@ context("Navigation", () => {
   });
 
   it("displays the navigation items at large sizes", () => {
+    cy.viewport('macbook-16')
     cy.findByRole("link", { name: "Products" }).should("be.visible");
     cy.findByRole("button", { name: "Menu" }).should("not.exist");
   });
