@@ -1,4 +1,5 @@
 import { mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import ContextualMenu from "./ContextualMenu";
@@ -251,5 +252,16 @@ describe("ContextualMenu ", () => {
     expect(wrapper.find("ContextualMenuDropdown").prop("data-testid")).toBe(
       "extra-prop"
     );
+  });
+
+  it("allows passing a component as a toggleLabel", () => {
+    render(
+      <ContextualMenu
+        links={[]}
+        position="right"
+        toggleLabel={<span>toggleLabel component text</span>}
+      />
+    );
+    expect(screen.getByText("toggleLabel component text")).toBeInTheDocument();
   });
 });

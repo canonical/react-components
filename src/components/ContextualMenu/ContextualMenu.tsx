@@ -85,7 +85,7 @@ export type Props<L> = PropsWithSpread<
     /**
      * The toggle button's label.
      */
-    toggleLabel?: string | null;
+    toggleLabel?: string | React.ReactNode | null;
     /**
      * Whether the toggle lable or icon should appear first.
      */
@@ -209,7 +209,12 @@ const ContextualMenu = <L,>({
     },
   });
   const previousVisible = usePrevious(visible);
-  const labelNode = toggleLabel ? <span>{toggleLabel}</span> : null;
+  const labelNode =
+    toggleLabel && typeof toggleLabel === "string" ? (
+      <span>{toggleLabel}</span>
+    ) : React.isValidElement(toggleLabel) ? (
+      toggleLabel
+    ) : null;
   const wrapperClass = classNames(className, "p-contextual-menu", {
     [`p-contextual-menu--${adjustedPosition}`]: adjustedPosition !== "right",
   });
