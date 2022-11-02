@@ -1,15 +1,19 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import TableRow from "./TableRow";
 
 describe("TableRow", () => {
   it("renders", () => {
-    const wrapper = shallow(
-      <TableRow>
-        <td></td>
-      </TableRow>
+    render(
+      <table>
+        <tbody>
+          <TableRow>
+            <td></td>
+          </TableRow>
+        </tbody>
+      </table>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(screen.getByRole("row")).toMatchSnapshot();
   });
 });
