@@ -1,45 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Select renders 1`] = `
-<Field
-  forId="test-id"
-  helpId="mock-nanoid-2"
-  isSelect={true}
-  validationId="mock-nanoid-1"
+<select
+  aria-invalid="false"
+  class="p-form-validation__input"
+  id="test-id"
 >
-  <select
-    aria-describedby={null}
-    aria-errormessage={null}
-    aria-invalid={false}
-    className="p-form-validation__input"
-    id="test-id"
-    onChange={[Function]}
+  <option
+    disabled=""
+    value=""
   >
-    <option
-      disabled={true}
-      key="Select an option"
-      value=""
-    >
-      Select an option
-    </option>
-    <option
-      key="1"
-      value="1"
-    >
-      Cosmic Cuttlefish
-    </option>
-    <option
-      key="2"
-      value="2"
-    >
-      Bionic Beaver
-    </option>
-    <option
-      key="3"
-      value="3"
-    >
-      Xenial Xerus
-    </option>
-  </select>
-</Field>
+    Select an option
+  </option>
+  <option
+    value="1"
+  >
+    Cosmic Cuttlefish
+  </option>
+  <option
+    value="2"
+  >
+    Bionic Beaver
+  </option>
+  <option
+    value="3"
+  >
+    Xenial Xerus
+  </option>
+</select>
 `;
