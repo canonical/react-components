@@ -17,8 +17,7 @@ describe("Select", () => {
         wrapperClassName="select"
       />
     );
-    // eslint-disable-next-line testing-library/no-node-access
-    expect(document.querySelector("select")).toMatchSnapshot();
+    expect(screen.getByRole("combobox")).toMatchSnapshot();
   });
 
   it("should call onChange prop", async () => {
