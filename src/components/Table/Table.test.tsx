@@ -3,30 +3,33 @@ import React from "react";
 
 import Table from "./Table";
 
+const TEST_ID = "table";
+
 describe("Table", () => {
   it("renders", () => {
-    const { container } = render(
-      <Table>
+    render(
+      <Table data-testid={TEST_ID}>
         <thead></thead>
       </Table>
     );
-    // eslint-disable-next-line testing-library/no-node-access, testing-library/no-container
-    expect(container.firstChild).toMatchSnapshot();
+    expect(screen.getByTestId(TEST_ID)).toMatchSnapshot();
   });
 
   it("can be expanding", () => {
-    render(<Table expanding={true} />);
-    expect(screen.getByRole("grid")).toHaveClass("p-table--expanding");
+    render(<Table data-testid={TEST_ID} expanding={true} />);
+    expect(screen.getByTestId(TEST_ID)).toHaveClass("p-table--expanding");
   });
 
   it("can be responsive", () => {
-    render(<Table responsive={true} />);
-    expect(screen.getByRole("grid")).toHaveClass("p-table--mobile-card");
+    render(<Table data-testid={TEST_ID} responsive={true} />);
+    expect(screen.getByTestId(TEST_ID)).toHaveClass("p-table--mobile-card");
   });
 
   it("can pass additional classes", () => {
-    render(<Table responsive={true} className="extra-class" />);
-    expect(screen.getByRole("grid")).toHaveClass("p-table--mobile-card");
-    expect(screen.getByRole("grid")).toHaveClass("extra-class");
+    render(
+      <Table data-testid={TEST_ID} responsive={true} className="extra-class" />
+    );
+    expect(screen.getByTestId(TEST_ID)).toHaveClass("p-table--mobile-card");
+    expect(screen.getByTestId(TEST_ID)).toHaveClass("extra-class");
   });
 });

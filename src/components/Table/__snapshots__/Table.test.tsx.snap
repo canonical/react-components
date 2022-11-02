@@ -3,6 +3,7 @@
 exports[`Table renders 1`] = `
 <table
   class=""
+  data-testid="table"
   role="grid"
 >
   <thead />
