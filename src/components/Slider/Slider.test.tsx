@@ -14,7 +14,7 @@ describe("Slider", () => {
         value={5}
       />
     );
-    expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+    expect(screen.queryByRole("spinbutton")).not.toBeInTheDocument();
   });
 
   it("can render with an additional number input", () => {
