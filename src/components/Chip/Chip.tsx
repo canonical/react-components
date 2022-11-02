@@ -4,6 +4,10 @@ import type { KeyboardEvent, MouseEvent, HTMLProps } from "react";
 import { ValueOf, PropsWithSpread } from "types";
 import classNames from "classnames";
 
+export enum Label {
+  Dismiss = "Dismiss",
+}
+
 export const ChipType = {
   CAUTION: "caution",
   INFORMATION: "information",
@@ -102,7 +106,7 @@ const Chip = ({
       <span {...props} className={chipClassName}>
         {chipContent}
         <button className="p-chip__dismiss" onClick={onDismiss} type="button">
-          <i className="p-icon--close">Dismiss</i>
+          <i className="p-icon--close">{Label.Dismiss}</i>
         </button>
       </span>
     );
