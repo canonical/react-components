@@ -1,76 +1,61 @@
-import { shallow, mount } from "enzyme";
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
-import SearchBox from "./SearchBox";
+import SearchBox, { Label } from "./SearchBox";
 
 describe("SearchBox ", () => {
   it("renders", () => {
-    const wrapper = shallow(<SearchBox />);
-    expect(wrapper).toMatchSnapshot();
+    render(<SearchBox />);
+    // Get the wrapping element for the snapshot.
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.querySelector(".p-search-box")).toMatchSnapshot();
   });
 
   it("shows the clear button when there is a value", () => {
-    const wrapper = shallow(<SearchBox value="admin" />);
-    expect(wrapper.find(".p-search-box__reset").exists()).toBe(true);
+    render(<SearchBox value="admin" />);
+    expect(
+      screen.getByRole("button", { name: Label.Clear })
+    ).toBeInTheDocument();
   });
 
   it("can externally control the value", () => {
-    const wrapper = shallow(
+    const { rerender } = render(
       <SearchBox externallyControlled onChange={jest.fn()} value="admin" />
     );
-    let input = wrapper.find(".p-search-box__input");
-    expect(input.prop("defaultValue")).toBe(undefined);
-    expect(input.prop("value")).toBe("admin");
-    wrapper.setProps({ value: "new-admin" });
-    input = wrapper.find(".p-search-box__input");
-    expect(input.prop("value")).toBe("new-admin");
+    expect(screen.getByRole("searchbox")).toHaveAttribute("value", "admin");
+    rerender(
+      <SearchBox externallyControlled onChange={jest.fn()} value="new-admin" />
+    );
+    expect(screen.getByRole("searchbox")).toHaveAttribute("value", "new-admin");
   });
 
-  it("should call onSearch prop", () => {
+  it("should call onSearch prop", async () => {
     const onSearchMock = jest.fn();
-    const component = shallow(<SearchBox onSearch={onSearchMock} />);
-    component.find(".p-search-box__button").simulate("click");
+    render(<SearchBox onSearch={onSearchMock} />);
+    await userEvent.click(screen.getByRole("button", { name: Label.Search }));
     expect(onSearchMock).toBeCalled();
   });
 
-  it("should call onChange prop", () => {
+  it("should call onChange prop", async () => {
     const onChangeMock = jest.fn();
-    const event = {
-      target: {
-        value: "test",
-      },
-    };
-    const component = shallow(<SearchBox onChange={onChangeMock} />);
-    component.find(".p-search-box__input").simulate("change", event);
-    expect(onChangeMock).toBeCalledWith(event.target.value);
-  });
-
-  it("can be found using the component name", () => {
-    const WrappingComponent = () => (
-      <div>
-        <SearchBox />
-      </div>
-    );
-    const wrapper = mount(<WrappingComponent />);
-    expect(wrapper.find("SearchBox").exists()).toBe(true);
+    render(<SearchBox onChange={onChangeMock} />);
+    await userEvent.type(screen.getByRole("searchbox"), "test");
+    expect(onChangeMock).toBeCalledWith("test");
   });
 
   it("renders extra props", () => {
-    const wrapper = shallow(<SearchBox data-testid="testID" />);
-    expect(wrapper.find(".p-search-box__input").prop("data-testid")).toBe(
+    render(<SearchBox data-testid="testID" />);
+    expect(screen.getByRole("searchbox")).toHaveAttribute(
+      "data-testid",
       "testID"
     );
   });
 
   it("accepts a ref for the input", () => {
-    const container = document.createElement("div");
-    document.body.appendChild(container);
     const ref = React.createRef<HTMLInputElement>();
-    const wrapper = mount(<SearchBox ref={ref} />, {
-      attachTo: container,
-    });
-    ref.current.focus();
-    expect(wrapper.find("input").getDOMNode()).toHaveFocus();
-    document.body.removeChild(container);
+    render(<SearchBox ref={ref} />);
+    ref.current?.focus();
+    expect(screen.getByRole("searchbox")).toHaveFocus();
   });
 });
