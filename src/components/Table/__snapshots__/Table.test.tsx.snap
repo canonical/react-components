@@ -2,7 +2,8 @@
 
 exports[`Table renders 1`] = `
 <table
-  className=""
+  class=""
+  data-testid="table"
   role="grid"
 >
   <thead />
