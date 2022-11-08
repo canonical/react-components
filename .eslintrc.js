@@ -1,6 +1,7 @@
 module.exports = {
   parser: "@babel/eslint-parser",
   plugins: ["react", "prettier", "cypress", "testing-library"],
+  root: true,
   extends: [
     "react-app", // Use the recommended rules from CRA.
     "plugin:cypress/recommended",
