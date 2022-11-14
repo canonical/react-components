@@ -26,6 +26,12 @@ const sampleData = [
     chips: [{ value: "foo" }, { value: "bar" }, { value: "baz" }],
   },
 ];
+// eslint-disable-next-line testing-library/no-node-access
+const getPanel = () => document.querySelector(".p-search-and-filter__panel");
+
+const getSearchContainer = () =>
+  // eslint-disable-next-line testing-library/no-node-access
+  document.querySelector(".p-search-and-filter__search-container");
 
 describe("Search and filter", () => {
   it("renders", async () => {
@@ -62,17 +68,11 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-search-and-filter__panel")
-    ).toHaveAttribute("aria-hidden", "true");
+    expect(getPanel()).toHaveAttribute("aria-hidden", "true");
     await waitFor(async () => {
       await userEvent.click(screen.getByTestId("searchandfilter"));
     });
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-search-and-filter__panel")
-    ).toHaveAttribute("aria-hidden", "false");
+    expect(getPanel()).toHaveAttribute("aria-hidden", "false");
   });
 
   it("shows panel on click", async () => {
@@ -83,19 +83,13 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-search-and-filter__panel")
-    ).toHaveAttribute("aria-hidden", "true");
+    expect(getPanel()).toHaveAttribute("aria-hidden", "true");
     await waitFor(async () => {
       await userEvent.click(
         screen.getByRole("searchbox", { name: Label.SearchAndFilter })
       );
     });
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-search-and-filter__panel")
-    ).toHaveAttribute("aria-hidden", "false");
+    expect(getPanel()).toHaveAttribute("aria-hidden", "false");
   });
 
   it("should hide chip overflow counter when none overflow", async () => {
@@ -173,10 +167,7 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />
     );
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-search-and-filter__search-container")
-    ).toHaveAttribute("aria-expanded", "false");
+    expect(getSearchContainer()).toHaveAttribute("aria-expanded", "false");
     await waitFor(async () => {
       await userEvent.click(
         screen.getByRole("searchbox", { name: Label.SearchAndFilter })
@@ -188,10 +179,7 @@ describe("Search and filter", () => {
     await waitFor(async () => {
       await userEvent.click(screen.getByRole("button", { name: "+1" }));
     });
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-search-and-filter__search-container")
-    ).toHaveAttribute("aria-expanded", "true");
+    expect(getSearchContainer()).toHaveAttribute("aria-expanded", "true");
   });
 
   it("search prompt appears when search field has search term", async () => {
