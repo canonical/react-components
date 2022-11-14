@@ -1,44 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filter panel section renders 1`] = `
-<Fragment>
-  <div
-    className="p-filter-panel-section"
+<div
+  class="p-filter-panel-section"
+>
+  <h3
+    class="p-filter-panel-section__heading"
   >
-    <h3
-      className="p-filter-panel-section__heading"
-      dangerouslySetInnerHTML={
-        Object {
-          "__html": "Regions",
-        }
-      }
-    />
-    <div
-      aria-expanded={false}
-      className="p-filter-panel-section__chips"
+    Regions
+  </h3>
+  <div
+    aria-expanded="false"
+    class="p-filter-panel-section__chips"
+  >
+    <button
+      aria-pressed="false"
+      class="p-chip"
+      type="button"
     >
-      <Chip
-        key="undefined+us-east1"
-        onClick={[Function]}
-        selected={false}
-        subString=""
-        value="us-east1"
-      />
-      <Chip
-        key="undefined+us-east2"
-        onClick={[Function]}
-        selected={false}
-        subString=""
-        value="us-east2"
-      />
-      <Chip
-        key="undefined+us-east3"
-        onClick={[Function]}
-        selected={false}
-        subString=""
-        value="us-east3"
-      />
-    </div>
+      
+      <span
+        class="p-chip__value"
+      >
+        us-east1
+      </span>
+    </button>
+    <button
+      aria-pressed="false"
+      class="p-chip"
+      type="button"
+    >
+      
+      <span
+        class="p-chip__value"
+      >
+        us-east2
+      </span>
+    </button>
+    <button
+      aria-pressed="false"
+      class="p-chip"
+      type="button"
+    >
+      
+      <span
+        class="p-chip__value"
+      >
+        us-east3
+      </span>
+    </button>
   </div>
-</Fragment>
+</div>
 `;
