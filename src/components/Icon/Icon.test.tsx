@@ -1,27 +1,31 @@
-import { shallow } from "enzyme";
+import { render } from "@testing-library/react";
 import React from "react";
 
 import Icon, { ICONS } from "./Icon";
 
 describe("Icon", () => {
   it("renders", () => {
-    const wrapper = shallow(<Icon name={ICONS.success} />);
-    expect(wrapper).toMatchSnapshot();
+    const { container } = render(<Icon name={ICONS.success} />);
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(container.firstChild).toMatchSnapshot();
   });
 
   it("sets correct class name based on given name", () => {
-    const wrapper = shallow(<Icon name="test" />);
-    expect(wrapper.prop("className").includes("p-icon--test")).toBe(true);
+    const { container } = render(<Icon name="test" />);
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(container.firstChild).toHaveClass("p-icon--test");
   });
 
   it("can be given a custom class name", () => {
-    const wrapper = shallow(<Icon className="custom-class" name="test" />);
-    expect(wrapper.prop("className")).toBe("custom-class p-icon--test");
+    const { container } = render(<Icon className="custom-class" name="test" />);
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(container.firstChild).toHaveClass("custom-class p-icon--test");
   });
 
   it("can be given standard HTML props", () => {
     const style = { width: "200px" };
-    const wrapper = shallow(<Icon name="test" style={style} />);
-    expect(wrapper.prop("style")).toBe(style);
+    const { container } = render(<Icon name="test" style={style} />);
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(container.firstChild).toHaveAttribute("style", "width: 200px;");
   });
 });

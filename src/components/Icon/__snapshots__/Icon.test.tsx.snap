@@ -2,6 +2,6 @@
 
 exports[`Icon renders 1`] = `
 <i
-  className="p-icon--success"
+  class="p-icon--success"
 />
 `;

@@ -1,73 +1,84 @@
 import { render, screen } from "@testing-library/react";
-import { mount, shallow } from "enzyme";
 import React from "react";
 
 import Input from "./Input";
 
 describe("Input", () => {
+  it("displays the field label for text inputs", () => {
+    render(<Input type="text" label="text label" />);
+    expect(screen.getByText("text label")).toHaveClass("p-form__label");
+  });
+
   it("moves the label for radio buttons", () => {
-    const wrapper = shallow(<Input type="radio" />);
-    expect(wrapper.prop("label")).toBe("");
+    render(<Input type="radio" />);
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-radio__label")
+    ).toBeInTheDocument();
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-form__label")
+    ).not.toBeInTheDocument();
   });
 
   it("moves the label for checkboxes", () => {
-    const wrapper = shallow(<Input type="checkbox" />);
-    expect(wrapper.prop("label")).toBe("");
+    render(<Input type="checkbox" />);
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-checkbox__label")
+    ).toBeInTheDocument();
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-form__label")
+    ).not.toBeInTheDocument();
   });
 
   it("can take focus on first render", () => {
-    const container = document.createElement("div");
-    document.body.appendChild(container);
-    const wrapper = mount(<Input takeFocus />, { attachTo: container });
-    expect(wrapper.find("input").getDOMNode()).toBe(document.activeElement);
-    document.body.removeChild(container);
+    render(<Input takeFocus />);
+    expect(screen.getByRole("textbox")).toHaveFocus();
   });
 
   it("sets aria-invalid to false when there is no error", () => {
-    const wrapper = mount(<Input type="text" />);
-    expect(wrapper.find("input").prop("aria-invalid")).toBe(false);
+    render(<Input type="text" />);
+    expect(screen.getByRole("textbox")).not.toBeInvalid();
   });
 
   it("sets aria-invalid to true when there is an error", () => {
-    const wrapper = mount(<Input type="text" error="Incorrect value" />);
-    expect(wrapper.find("input").prop("aria-invalid")).toBe(true);
+    render(<Input type="text" error="Incorrect value" />);
+    expect(screen.getByRole("textbox")).toBeInvalid();
   });
 
   it("sets required field on input", () => {
-    const wrapper = mount(<Input type="text" required />);
-    expect(wrapper.find("input").prop("required")).toBe(true);
+    render(<Input type="text" required />);
+    expect(screen.getByRole("textbox")).toBeRequired();
   });
 
   it("can set required for a radiobutton", () => {
-    const wrapper = mount(<Input type="radio" required />);
-    expect(wrapper.find("input").prop("required")).toBe(true);
+    render(<Input type="radio" required />);
+    expect(screen.getByRole("radio")).toBeRequired();
   });
 
   it("can set required for a checkbox", () => {
-    const wrapper = mount(<Input type="checkbox" required />);
-    expect(wrapper.find("input").prop("required")).toBe(true);
+    render(<Input type="checkbox" required />);
+    expect(screen.getByRole("checkbox")).toBeRequired();
   });
 
   it("can set a label class name for a radiobutton", () => {
-    const wrapper = mount(
-      <Input type="radio" labelClassName="label-class-name" />
-    );
+    render(<Input type="radio" labelClassName="label-class-name" />);
     expect(
-      wrapper.find("label").prop("className").includes("label-class-name")
-    ).toBe(true);
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-radio")
+    ).toHaveClass("label-class-name");
   });
 
   it("can set a label class name for a checkbox", () => {
-    const wrapper = mount(
-      <Input type="checkbox" labelClassName="label-class-name" />
-    );
+    render(<Input type="checkbox" labelClassName="label-class-name" />);
     expect(
-      wrapper.find("label").prop("className").includes("label-class-name")
-    ).toBe(true);
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-checkbox")
+    ).toHaveClass("label-class-name");
   });
-});
 
-describe("Input RTL", () => {
   it("renders", () => {
     const { container } = render(<Input type="text" id="test-id" />);
     expect(container).toMatchSnapshot();
