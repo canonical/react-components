@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Input RTL renders 1`] = `
+exports[`Input renders 1`] = `
 <div>
   <div
     class="p-form__group p-form-validation"
