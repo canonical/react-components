@@ -18,7 +18,6 @@ exports[`Filter panel section renders 1`] = `
       class="p-chip"
       type="button"
     >
-      
       <span
         class="p-chip__value"
       >
@@ -30,7 +29,6 @@ exports[`Filter panel section renders 1`] = `
       class="p-chip"
       type="button"
     >
-      
       <span
         class="p-chip__value"
       >
@@ -42,7 +40,6 @@ exports[`Filter panel section renders 1`] = `
       class="p-chip"
       type="button"
     >
-      
       <span
         class="p-chip__value"
       >
