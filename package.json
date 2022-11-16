@@ -41,7 +41,6 @@
     "@typescript-eslint/parser": "5.51.0",
     "@storybook/addon-a11y": "6.5.10",
     "@testing-library/react": "13.4.0",
-    "@testing-library/react-hooks": "8.0.1",
     "@testing-library/user-event": "14.4.3",
     "babel-jest": "27.5.1",
     "babel-loader": "9.1.2",
