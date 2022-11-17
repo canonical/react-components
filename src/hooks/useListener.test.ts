@@ -16,7 +16,7 @@ describe("useListener", () => {
   let addEventListener: jest.SpyInstance;
   let removeEventListener: jest.SpyInstance;
   let defaultArgs: Args;
-  let renderListener: (args?: Args) => RenderHookResult<Args, void>;
+  let renderListener: (args?: Args) => RenderHookResult<void, Args>;
 
   beforeEach(() => {
     callback = jest.fn();
