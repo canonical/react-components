@@ -2,6 +2,7 @@ node_modules
 dist
 .env.local
 .DS_Store
+.idea
 
 .docker-project
 .yarn.*
