@@ -38,6 +38,13 @@ describe("Input", () => {
     expect(screen.getByRole("textbox")).toHaveFocus();
   });
 
+  it("can take focus with delay", async () => {
+    render(<Input takeFocus takeFocusDelay={10} />);
+    expect(screen.getByRole("textbox")).not.toBe(document.activeElement);
+    await new Promise((r) => setTimeout(r, 10));
+    expect(screen.getByRole("textbox")).toBe(document.activeElement);
+  });
+
   it("sets aria-invalid to false when there is no error", () => {
     render(<Input type="text" />);
     expect(screen.getByRole("textbox")).not.toBeInvalid();
