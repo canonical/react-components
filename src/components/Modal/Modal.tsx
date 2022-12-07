@@ -74,8 +74,13 @@ export const Modal = ({
     }
   };
 
+  const handleEscKey = (e: KeyboardEvent<HTMLDivElement>) => {
+    e.nativeEvent.stopImmediatePropagation();
+    close();
+  };
+
   const keyListenersMap = new Map([
-    ["Escape", close],
+    ["Escape", handleEscKey],
     ["Tab", handleTabKey],
   ]);
 
