@@ -28,4 +28,10 @@ describe("Icon", () => {
     // eslint-disable-next-line testing-library/no-node-access
     expect(container.firstChild).toHaveAttribute("style", "width: 200px;");
   });
+
+  it("can be given a description for screen readers", () => {
+    const { container } = render(<Icon name="test" description="Start test" />);
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(container.firstChild).toHaveTextContent("Start test");
+  });
 });

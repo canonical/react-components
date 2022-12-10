@@ -52,6 +52,10 @@ export type Props = PropsWithSpread<
      * The name of the icon.
      */
     name: ValueOf<typeof ICONS> | string;
+    /**
+     * Text for screen readers.
+     */
+    description?: string;
   },
   HTMLProps<HTMLElement>
 >;
@@ -62,13 +66,21 @@ export type Props = PropsWithSpread<
  * @param name One of built-in Vanilla icons or a name of a custom icon that follows `p-icon--{name}` convention.
  * @returns Icon
  */
-const Icon = ({ className, light, name, ...props }: Props): JSX.Element => (
+const Icon = ({
+  className,
+  description,
+  light,
+  name,
+  ...props
+}: Props): JSX.Element => (
   <i
     className={classNames(className, `p-icon--${name}`, {
       "is-light": light,
     })}
     {...props}
-  />
+  >
+    {description}
+  </i>
 );
 
 export default Icon;
