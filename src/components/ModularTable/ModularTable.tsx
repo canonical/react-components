@@ -4,6 +4,7 @@ import {
   TableHeaderProps,
   TableRowProps,
   useTable,
+  useSortBy,
 } from "react-table";
 import type {
   Column,
@@ -38,6 +39,10 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
      */
     footer?: ReactNode;
     /**
+     * Optional argument to make the tables be sortable and use the `useSortBy` plugin.
+     */
+    sortable?: Boolean;
+    /**
      * This function is used to resolve any props needed for a particular column's header cell.
      */
     getHeaderProps?: (
@@ -65,6 +70,7 @@ function ModularTable({
   columns,
   emptyMsg,
   footer,
+  sortable,
   getHeaderProps,
   getRowProps,
   getCellProps,
@@ -72,11 +78,14 @@ function ModularTable({
   ...props
 }: Props<Record<string, unknown>>): JSX.Element {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable<Record<string, unknown>>({
-      columns,
-      data,
-      getRowId: getRowId || undefined,
-    });
+    useTable<Record<string, unknown>>(
+      {
+        columns,
+        data,
+        getRowId: getRowId || undefined,
+      },
+      sortable ? useSortBy : undefined
+    );
 
   const showEmpty: boolean = !!emptyMsg && (!rows || rows.length === 0);
 
@@ -87,6 +96,13 @@ function ModularTable({
           <TableRow {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
               <TableHeader
+                sort={
+                  column.isSorted
+                    ? column.isSortedDesc
+                      ? "descending"
+                      : "ascending"
+                    : "none"
+                }
                 {...column.getHeaderProps([
                   {
                     className: column.className,
@@ -97,6 +113,8 @@ function ModularTable({
                       : "",
                   },
                   { ...getHeaderProps?.(column) },
+                  // Only call this if we want it to be sortable too.
+                  sortable ? column.getSortByToggleProps() : {},
                 ])}
               >
                 {column.render("Header")}
