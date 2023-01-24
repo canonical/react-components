@@ -129,4 +129,20 @@ describe("<Pagination />", () => {
     await userEvent.click(screen.getByRole("button", { name: "99" }));
     expect(handleOnSubmit).not.toHaveBeenCalled();
   });
+
+  it("can be centered", () => {
+    render(
+      <Pagination
+        itemsPerPage={10}
+        totalItems={1000}
+        paginate={jest.fn()}
+        currentPage={98}
+        centered
+      />
+    );
+    // eslint-disable-next-line testing-library/no-node-access
+    expect(document.querySelector(".p-pagination")).toHaveClass(
+      "u-align--center"
+    );
+  });
 });

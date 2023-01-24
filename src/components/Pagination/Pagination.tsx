@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 import type { HTMLProps } from "react";
 
@@ -118,6 +119,10 @@ export type Props = PropsWithSpread<
      * The number of pages at which to truncate the pagination items.
      */
     truncateThreshold?: number;
+    /**
+     * Whether or not the pagination is ceneterd on the page.
+     */
+    centered?: boolean;
   },
   HTMLProps<HTMLElement>
 >;
@@ -129,6 +134,7 @@ const Pagination = ({
   currentPage,
   scrollToTop,
   truncateThreshold = 10,
+  centered,
   ...navProps
 }: Props): JSX.Element => {
   // return early if no pagination is required
@@ -149,7 +155,11 @@ const Pagination = ({
 
   return (
     <nav {...navProps}>
-      <ul className="p-pagination">
+      <ul
+        className={classNames("p-pagination", {
+          "u-align--center": centered,
+        })}
+      >
         <PaginationButton
           key="back"
           direction="back"
