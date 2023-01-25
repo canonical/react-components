@@ -141,7 +141,7 @@ describe("<Pagination />", () => {
       />
     );
     // eslint-disable-next-line testing-library/no-node-access
-    expect(document.querySelector(".p-pagination")).toHaveClass(
+    expect(document.querySelector(".p-pagination__items")).toHaveClass(
       "u-align--center"
     );
   });

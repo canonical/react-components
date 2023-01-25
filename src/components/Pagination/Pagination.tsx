@@ -154,9 +154,9 @@ const Pagination = ({
   };
 
   return (
-    <nav {...navProps}>
-      <ul
-        className={classNames("p-pagination", {
+    <nav className="p-pagination" aria-label="Pagination" {...navProps}>
+      <ol
+        className={classNames("p-pagination__items", {
           "u-align--center": centered,
         })}
       >
@@ -180,7 +180,7 @@ const Pagination = ({
           disabled={currentPage === pageNumbers.length}
           onClick={() => changePage(currentPage + 1)}
         />
-      </ul>
+      </ol>
     </nav>
   );
 };
