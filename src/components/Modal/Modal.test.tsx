@@ -83,13 +83,21 @@ describe("Modal ", () => {
     const closeButton = container.querySelector("button.p-modal__close");
     const cancelButton = container.querySelector("button#test-cancel");
 
-    expect(closeButton).toHaveFocus();
-
-    await user.tab();
-
     expect(cancelButton).toHaveFocus();
 
     await user.tab();
+
+    expect(closeButton).toHaveFocus();
+  });
+
+  it("focuses on close button if there are no other focusable elements", async () => {
+    const { container } = render(
+      <Modal title="Test" close={jest.fn()}>
+        Bare bones
+      </Modal>
+    );
+
+    const closeButton = container.querySelector("button.p-modal__close");
 
     expect(closeButton).toHaveFocus();
   });

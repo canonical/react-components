@@ -1,10 +1,10 @@
-import { mount, shallow } from "enzyme";
+import { render, screen, within } from "@testing-library/react";
 import React from "react";
 
 import MainTable from "./MainTable";
 import type { MainTableHeader, MainTableRow } from "./MainTable";
-import TableCell from "../TableCell";
-import { compareJSX } from "../../testing/utils";
+import { Label as PaginationButtonLabel } from "../Pagination/PaginationButton/PaginationButton";
+import userEvent from "@testing-library/user-event";
 
 describe("MainTable", () => {
   let headers: MainTableHeader[];
@@ -52,21 +52,27 @@ describe("MainTable", () => {
     ];
   });
 
+  afterEach(() => {
+    jest.resetAllMocks();
+  });
+
   it("renders", () => {
-    const wrapper = shallow(<MainTable headers={headers} rows={rows} />);
-    expect(wrapper).toMatchSnapshot();
+    render(<MainTable headers={headers} rows={rows} />);
+    expect(screen.getByRole("grid")).toMatchSnapshot();
   });
 
   it("renders rows with provided keys", () => {
-    rows[0].key = 2;
-    rows[1].key = 1;
+    // There isn't a way to access the key using RTL so this test checks for the
+    // error: "Encountered two children with the same key".
+    // This test helps to prevent this recurring issue, but if you're reading
+    // this and know of a better way to write this test then please update it!
+    const errorSpy = jest.spyOn(console, "error");
+    rows[0].key = 1;
+    rows[1].key = 2;
     rows[2].key = 0; // we explicitly want to test 0 as a falsy value provided as a key
-
-    const wrapper = shallow(<MainTable headers={headers} rows={rows} />);
-
-    expect(wrapper.find("tbody TableRow").at(0).key()).toBe("2");
-    expect(wrapper.find("tbody TableRow").at(1).key()).toBe("1");
-    expect(wrapper.find("tbody TableRow").at(2).key()).toBe("0");
+    render(<MainTable headers={headers} rows={rows} />);
+    expect(errorSpy).not.toHaveBeenCalled();
+    errorSpy.mockReset();
   });
 
   it("can be expanding", () => {
@@ -80,77 +86,70 @@ describe("MainTable", () => {
       expanded: true,
       expandedContent: <div>Expand this</div>,
     });
-    const wrapper = shallow(
-      <MainTable expanding={true} headers={headers} rows={rows} />
-    );
-    expect(wrapper.find("Table").prop("expanding")).toBe(true);
-    const heads = wrapper.find("TableHeader");
+    render(<MainTable expanding={true} headers={headers} rows={rows} />);
+    expect(screen.getByRole("grid")).toHaveClass("p-table--expanding");
+    // Need to query the DOM as this cell is not exposed by default.
+    // eslint-disable-next-line testing-library/no-node-access
+    const heads = document.querySelectorAll("th");
     // There should be an additional hidden table header to account for the
     // expanding cell
     expect(heads.length).toEqual(headers.length + 1);
-    expect(heads.last().prop("aria-hidden")).toBe("true");
-    const columns = wrapper.find("TableRow").last().find("TableCell");
+    expect(heads[heads.length - 1]).toHaveAttribute("aria-hidden", "true");
+    // eslint-disable-next-line testing-library/no-node-access
+    const columns = document.querySelectorAll("tr:last-child td");
     // There should be an additional table cell for the expanding content.
     expect(columns.length).toEqual(rows[rows.length - 1].columns.length + 1);
-    compareJSX(
-      columns.last(),
-      <TableCell expanding={true} hidden={false}>
-        <div>Expand this</div>
-      </TableCell>
+    const expandingColumn = columns[columns.length - 1];
+    expect(expandingColumn.classList.contains("p-table__expanding-panel")).toBe(
+      true
     );
+    expect(expandingColumn.textContent).toBe("Expand this");
   });
 
   it("can be responsive", () => {
-    const wrapper = shallow(
-      <MainTable headers={headers} responsive={true} rows={rows} />
-    );
-    expect(wrapper.find("Table").prop("responsive")).toBe(true);
+    render(<MainTable headers={headers} responsive={true} rows={rows} />);
+    expect(screen.getByRole("grid")).toHaveClass("p-table--mobile-card");
   });
 
   it("contains data-heading attribute equal to heading on columns in responsive table", () => {
-    const wrapper = shallow(
-      <MainTable headers={headers} responsive={true} rows={rows} />
-    );
-
-    expect(wrapper.find("TableCell").first().prop("data-heading")).toEqual(
+    render(<MainTable headers={headers} responsive={true} rows={rows} />);
+    expect(screen.getAllByRole("rowheader")[0]).toHaveAttribute(
+      "data-heading",
       "Status"
     );
   });
 
   it("doesn't contain data-heading attribute if there is no heading", () => {
-    const wrapper = shallow(<MainTable responsive={true} rows={rows} />);
-
-    expect(wrapper.find("TableCell").first().prop("data-heading")).toBe(
-      undefined
+    render(<MainTable responsive={true} rows={rows} />);
+    expect(screen.getAllByRole("rowheader")[0]).not.toHaveAttribute(
+      "data-heading"
     );
   });
 
   it("uses heading prop for data-heading if there are is no heading for that column", () => {
     headers[3].heading = "Replacement";
-    const wrapper = shallow(
-      <MainTable headers={headers} responsive={true} rows={rows} />
-    );
-
-    expect(wrapper.find("TableCell").last().prop("data-heading")).toEqual(
+    render(<MainTable headers={headers} responsive={true} rows={rows} />);
+    expect(screen.getAllByRole("gridcell")[2]).toHaveAttribute(
+      "data-heading",
       "Replacement"
     );
   });
 
   it("can be paginated", () => {
-    const wrapper = shallow(<MainTable paginate={2} rows={rows} />);
-    expect(wrapper.find("Pagination").exists()).toBe(true);
-    expect(wrapper.find("TableRow").length).toBe(2);
+    render(<MainTable paginate={2} rows={rows} />);
+    expect(
+      screen.getByRole("button", { name: PaginationButtonLabel.Next })
+    ).toBeInTheDocument();
+    expect(screen.getAllByRole("row")).toHaveLength(2);
   });
 
-  it("can change the page", () => {
-    const wrapper = shallow(<MainTable paginate={2} rows={rows} />);
-    wrapper.find("Pagination").props().paginate(2);
-    wrapper.update();
-    const rowItems = wrapper.find("TableRow");
-    expect(rowItems.length).toEqual(1);
-    expect(rowItems.at(0).find("TableCell").first().children().text()).toEqual(
-      "Idle"
+  it("can change the page", async () => {
+    render(<MainTable paginate={2} rows={rows} />);
+    await userEvent.click(
+      screen.getByRole("button", { name: PaginationButtonLabel.Next })
     );
+    expect(screen.getAllByRole("row")).toHaveLength(1);
+    expect(screen.getAllByRole("rowheader")[0].textContent).toEqual("Idle");
   });
 
   describe("sorting", () => {
@@ -175,76 +174,85 @@ describe("MainTable", () => {
       };
     });
 
-    it("can be sortable", () => {
-      const wrapper = shallow(
-        <MainTable headers={headers} rows={rows} sortable={true} />
-      );
+    it("can be sortable", async () => {
+      render(<MainTable headers={headers} rows={rows} sortable={true} />);
       // Sortable headers should have the sort prop set.
-      expect(wrapper.find("TableHeader").first().prop("sort")).toEqual("none");
+      expect(
+        screen.getByRole("columnheader", { name: "Status" })
+      ).toHaveAttribute("aria-sort", "none");
       // non-sortable headers should not have the sort prop set.
-      expect(wrapper.find("TableHeader").last().prop("sort")).toEqual(
-        undefined
-      );
+      expect(
+        screen.getByRole("columnheader", { name: "Disks" })
+      ).not.toHaveAttribute("aria-sort");
     });
 
-    it("can sort when clicking on a header", () => {
-      const wrapper = shallow(
-        <MainTable headers={headers} rows={rows} sortable={true} />
-      );
-      let rowItems = wrapper.find("tbody TableRow");
+    it("can sort when clicking on a header", async () => {
+      render(<MainTable headers={headers} rows={rows} sortable={true} />);
+      const rowItems = screen.getAllByRole("row");
       // Check the initial status order.
-      expect(
-        rowItems.at(0).find("TableCell").first().children().text()
-      ).toEqual("Ready");
-      expect(
-        rowItems.at(1).find("TableCell").first().children().text()
-      ).toEqual("Waiting");
-      expect(
-        rowItems.at(2).find("TableCell").first().children().text()
-      ).toEqual("Idle");
-      wrapper.find("TableHeader").first().simulate("click");
-      wrapper.update();
-      rowItems = wrapper.find("tbody TableRow");
+      expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
+        "Ready"
+      );
+
+      expect(within(rowItems[2]).getByRole("rowheader").textContent).toBe(
+        "Waiting"
+      );
+
+      expect(within(rowItems[3]).getByRole("rowheader").textContent).toBe(
+        "Idle"
+      );
+
+      await userEvent.click(
+        screen.getByRole("columnheader", { name: "Status" })
+      );
       // The status should now be ascending.
-      expect(
-        rowItems.at(0).find("TableCell").first().children().text()
-      ).toEqual("Idle");
-      expect(
-        rowItems.at(1).find("TableCell").first().children().text()
-      ).toEqual("Ready");
-      expect(
-        rowItems.at(2).find("TableCell").first().children().text()
-      ).toEqual("Waiting");
-      wrapper.find("TableHeader").first().simulate("click");
-      wrapper.update();
-      rowItems = wrapper.find("tbody TableRow");
+      expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
+        "Idle"
+      );
+
+      expect(within(rowItems[2]).getByRole("rowheader").textContent).toBe(
+        "Ready"
+      );
+
+      expect(within(rowItems[3]).getByRole("rowheader").textContent).toBe(
+        "Waiting"
+      );
+
+      await userEvent.click(
+        screen.getByRole("columnheader", { name: "Status" })
+      );
       // The status should now be descending.
-      expect(
-        rowItems.at(0).find("TableCell").first().children().text()
-      ).toEqual("Waiting");
-      expect(
-        rowItems.at(1).find("TableCell").first().children().text()
-      ).toEqual("Ready");
-      expect(
-        rowItems.at(2).find("TableCell").first().children().text()
-      ).toEqual("Idle");
-      wrapper.find("TableHeader").first().simulate("click");
-      wrapper.update();
-      rowItems = wrapper.find("tbody TableRow");
+      expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
+        "Waiting"
+      );
+
+      expect(within(rowItems[2]).getByRole("rowheader").textContent).toBe(
+        "Ready"
+      );
+
+      expect(within(rowItems[3]).getByRole("rowheader").textContent).toBe(
+        "Idle"
+      );
+
+      await userEvent.click(
+        screen.getByRole("columnheader", { name: "Status" })
+      );
       // The status be back to the original order.
-      expect(
-        rowItems.at(0).find("TableCell").first().children().text()
-      ).toEqual("Ready");
-      expect(
-        rowItems.at(1).find("TableCell").first().children().text()
-      ).toEqual("Waiting");
-      expect(
-        rowItems.at(2).find("TableCell").first().children().text()
-      ).toEqual("Idle");
+      expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
+        "Ready"
+      );
+
+      expect(within(rowItems[2]).getByRole("rowheader").textContent).toBe(
+        "Waiting"
+      );
+
+      expect(within(rowItems[3]).getByRole("rowheader").textContent).toBe(
+        "Idle"
+      );
     });
 
     it("can set a default sort", () => {
-      const wrapper = shallow(
+      render(
         <MainTable
           defaultSort="status"
           defaultSortDirection="descending"
@@ -253,13 +261,14 @@ describe("MainTable", () => {
           sortable={true}
         />
       );
-      expect(wrapper.find("TableHeader").first().prop("sort")).toEqual(
-        "descending"
-      );
+      // Sortable headers should have the sort prop set.
+      expect(
+        screen.getByRole("columnheader", { name: "Status" })
+      ).toHaveAttribute("aria-sort", "descending");
     });
 
     it("updates sort when props change", () => {
-      const wrapper = mount(
+      const { rerender } = render(
         <MainTable
           defaultSort="status"
           defaultSortDirection="descending"
@@ -268,17 +277,27 @@ describe("MainTable", () => {
           sortable={true}
         />
       );
-      let heads = wrapper.find("TableHeader");
-      expect(heads.first().prop("sort")).toEqual("descending");
-      expect(heads.at(1).prop("sort")).toEqual("none");
-      wrapper.setProps({
-        defaultSort: "cores",
-        defaultSortDirection: "ascending",
-      });
-      wrapper.update();
-      heads = wrapper.find("TableHeader");
-      expect(heads.first().prop("sort")).toEqual("none");
-      expect(heads.at(1).prop("sort")).toEqual("ascending");
+      expect(
+        screen.getByRole("columnheader", { name: "Status" })
+      ).toHaveAttribute("aria-sort", "descending");
+      expect(
+        screen.getByRole("columnheader", { name: "Cores" })
+      ).toHaveAttribute("aria-sort", "none");
+      rerender(
+        <MainTable
+          defaultSort="cores"
+          defaultSortDirection="ascending"
+          headers={headers}
+          rows={rows}
+          sortable={true}
+        />
+      );
+      expect(
+        screen.getByRole("columnheader", { name: "Status" })
+      ).toHaveAttribute("aria-sort", "none");
+      expect(
+        screen.getByRole("columnheader", { name: "Cores" })
+      ).toHaveAttribute("aria-sort", "ascending");
     });
   });
 });

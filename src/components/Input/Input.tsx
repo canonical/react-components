@@ -63,6 +63,10 @@ export type Props = PropsWithSpread<
      */
     takeFocus?: boolean;
     /**
+     * Delay takeFocus in milliseconds i.e. to let animations finish
+     */
+    takeFocusDelay?: number;
+    /**
      * Optional class(es) to pass to the wrapping Field component
      */
     wrapperClassName?: string;
@@ -83,6 +87,7 @@ const Input = ({
   stacked,
   success,
   takeFocus,
+  takeFocusDelay,
   type,
   wrapperClassName,
   ...inputProps
@@ -94,7 +99,9 @@ const Input = ({
   const hasError = !!error;
 
   const commonProps = {
-    "aria-describedby": help ? helpId : null,
+    "aria-describedby": [help ? helpId : null, success ? validationId : null]
+      .filter(Boolean)
+      .join(" "),
     "aria-errormessage": hasError ? validationId : null,
     "aria-invalid": hasError,
     id: id,
@@ -105,7 +112,11 @@ const Input = ({
 
   useEffect(() => {
     if (takeFocus) {
-      inputRef.current.focus();
+      if (takeFocusDelay) {
+        setTimeout(() => inputRef.current.focus(), takeFocusDelay);
+      } else {
+        inputRef.current.focus();
+      }
     }
   }, [takeFocus]);
 

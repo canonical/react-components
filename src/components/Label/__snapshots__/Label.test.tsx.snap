@@ -2,8 +2,9 @@
 
 exports[`Label  renders 1`] = `
 <label
-  className="p-form__label"
-  htmlFor="test-id"
+  class="p-form__label"
+  data-testid="label"
+  for="test-id"
 >
   Test content
 </label>

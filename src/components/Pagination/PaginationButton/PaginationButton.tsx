@@ -2,6 +2,11 @@ import classNames from "classnames";
 import React from "react";
 import type { MouseEventHandler } from "react";
 
+export enum Label {
+  Next = "Next page",
+  Previous = "Previous page",
+}
+
 export type PaginationDirection = "forward" | "back";
 export type Props = {
   /**
@@ -23,7 +28,7 @@ const PaginationButton = ({
   onClick,
   disabled = false,
 }: Props): JSX.Element => {
-  const label = direction === "back" ? "Previous page" : "Next page";
+  const label = direction === "back" ? Label.Previous : Label.Next;
   return (
     <li className="p-pagination__item">
       <button

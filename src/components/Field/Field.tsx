@@ -190,6 +190,7 @@ const Field = ({
   stacked,
   success,
   validationId,
+  ...props
 }: Props): JSX.Element => {
   const labelNode = generateLabel(
     forId,
@@ -221,6 +222,7 @@ const Field = ({
         "is-success": success,
         row: stacked,
       })}
+      {...props}
     >
       {labelFirst && labelNode}
       {stacked ? <Col size={8}>{content}</Col> : content}

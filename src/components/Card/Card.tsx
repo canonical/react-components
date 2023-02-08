@@ -3,6 +3,7 @@ import React from "react";
 import type { HTMLProps, ReactNode } from "react";
 
 import type { ClassName, PropsWithSpread } from "types";
+import { useId } from "hooks";
 
 export type Props = PropsWithSpread<
   {
@@ -42,24 +43,33 @@ const Card = ({
   thumbnail,
   title,
   ...props
-}: Props): JSX.Element => (
-  <div
-    className={classNames(className, {
-      "p-card": !highlighted && !overlay,
-      "p-card--highlighted": highlighted,
-      "p-card--overlay": overlay,
-    })}
-    {...props}
-  >
-    {thumbnail && (
-      <>
-        <img className="p-card__thumbnail" src={thumbnail} alt="" />
-        <hr className="u-sv1" />
-      </>
-    )}
-    {title && <h3 className="p-card__title">{title}</h3>}
-    <div className="p-card__content">{children}</div>
-  </div>
-);
+}: Props): JSX.Element => {
+  const titleId = useId();
+  return (
+    <div
+      aria-labelledby={titleId}
+      className={classNames(className, {
+        "p-card": !highlighted && !overlay,
+        "p-card--highlighted": highlighted,
+        "p-card--overlay": overlay,
+      })}
+      role="group"
+      {...props}
+    >
+      {thumbnail && (
+        <>
+          <img className="p-card__thumbnail" src={thumbnail} alt="" />
+          <hr className="u-sv1" />
+        </>
+      )}
+      {title && (
+        <h3 className="p-card__title" id={titleId}>
+          {title}
+        </h3>
+      )}
+      <div className="p-card__content">{children}</div>
+    </div>
+  );
+};
 
 export default Card;

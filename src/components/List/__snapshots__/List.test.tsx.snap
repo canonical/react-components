@@ -2,23 +2,20 @@
 
 exports[`List  renders 1`] = `
 <ul
-  className="p-list"
+  class="p-list"
 >
   <li
-    className="p-list__item"
-    key="0"
+    class="p-list__item"
   >
     test
   </li>
   <li
-    className="p-list__item"
-    key="1"
+    class="p-list__item"
   >
     items
   </li>
   <li
-    className="p-list__item"
-    key="2"
+    class="p-list__item"
   >
     here
   </li>

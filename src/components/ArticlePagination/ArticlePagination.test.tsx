@@ -1,11 +1,11 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import ArticlePagination from "./ArticlePagination";
 
 describe("ArticlePagination ", () => {
   it("renders", () => {
-    const wrapper = shallow(
+    render(
       <ArticlePagination
         nextLabel="Consectetur adipisicing elit"
         nextURL="#next"
@@ -13,13 +13,13 @@ describe("ArticlePagination ", () => {
         previousURL="#previous"
       />
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(screen.getByRole("contentinfo")).toMatchSnapshot();
   });
 
   it("can add additional classes", () => {
-    const wrapper = shallow(<ArticlePagination className="extra-class" />);
-    const className = wrapper.prop("className");
-    expect(className.includes("p-article-pagination")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
+    render(<ArticlePagination className="extra-class" />);
+    const pagination = screen.getByRole("contentinfo");
+    expect(pagination).toHaveClass("p-article-pagination");
+    expect(pagination).toHaveClass("extra-class");
   });
 });

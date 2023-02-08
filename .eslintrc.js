@@ -1,7 +1,6 @@
 module.exports = {
   parser: "@babel/eslint-parser",
-  plugins: ["react", "prettier", "cypress", "testing-library"],
-  root: true,
+  plugins: ["prettier", "cypress", "testing-library"],
   extends: [
     "react-app", // Use the recommended rules from CRA.
     "plugin:cypress/recommended",
@@ -48,10 +47,8 @@ module.exports = {
     {
       files: ["**/*.ts?(x)"],
       parser: "@typescript-eslint/parser",
-      plugins: ["react", "prettier"],
       extends: [
         "react-app", // Uses the recommended rules from CRA.
-        "plugin:@typescript-eslint/recommended", // Uses the recommended rules from @typescript-eslint/eslint-plugin
         "plugin:prettier/recommended", // Ensure this is last in the list.
       ],
       parserOptions: {

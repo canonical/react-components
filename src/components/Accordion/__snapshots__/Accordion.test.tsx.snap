@@ -3,28 +3,70 @@
 exports[`Accordion renders 1`] = `
 <aside
   aria-multiselectable="true"
-  className="p-accordion"
+  class="p-accordion"
   role="tablist"
 >
   <ul
-    className="p-accordion__list"
+    class="p-accordion__list"
   >
-    <AccordionSection
-      content="test content"
-      key="0"
-      setExpanded={[Function]}
-      title="Advanced topics"
-    />
-    <AccordionSection
-      content={
-        <React.Fragment>
-          More test content
-        </React.Fragment>
-      }
-      key="1"
-      setExpanded={[Function]}
-      title="Networking"
-    />
+    <li
+      class="p-accordion__group"
+    >
+      <div
+        aria-level="3"
+        class="p-accordion__heading"
+        role="heading"
+      >
+        <button
+          aria-controls="#mocked-nanoid"
+          aria-expanded="false"
+          class="p-accordion__tab"
+          id="mock-nanoid-1"
+          role="tab"
+          type="button"
+        >
+          Advanced topics
+        </button>
+      </div>
+      <section
+        aria-hidden="true"
+        aria-labelledby="mock-nanoid-1"
+        class="p-accordion__panel"
+        id="mocked-nanoid"
+        role="tabpanel"
+      >
+        test content
+      </section>
+    </li>
+    <li
+      class="p-accordion__group"
+    >
+      <div
+        aria-level="3"
+        class="p-accordion__heading"
+        role="heading"
+      >
+        <button
+          aria-controls="#mock-nanoid-2"
+          aria-expanded="false"
+          class="p-accordion__tab"
+          id="mock-nanoid-3"
+          role="tab"
+          type="button"
+        >
+          Networking
+        </button>
+      </div>
+      <section
+        aria-hidden="true"
+        aria-labelledby="mock-nanoid-3"
+        class="p-accordion__panel"
+        id="mock-nanoid-2"
+        role="tabpanel"
+      >
+        More test content
+      </section>
+    </li>
   </ul>
 </aside>
 `;

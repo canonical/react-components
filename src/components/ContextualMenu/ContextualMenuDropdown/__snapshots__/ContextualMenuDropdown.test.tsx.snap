@@ -1,29 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ContextualMenuDropdown  renders 1`] = `
-<ContextualMenuDropdown
-  links={
-    Array [
-      "Link1",
-    ]
-  }
+<span
+  data-testid="dropdown"
 >
   <span
-    style={null}
+    aria-hidden="true"
+    aria-label="submenu"
+    class="p-contextual-menu__dropdown"
   >
-    <span
-      aria-hidden="true"
-      aria-label="submenu"
-      className="p-contextual-menu__dropdown"
-      style={null}
+    <div
+      class="p-contextual-menu__non-interactive"
     >
-      <div
-        className="p-contextual-menu__non-interactive"
-        key="0"
-      >
-        Link1
-      </div>
-    </span>
+      Link1
+    </div>
   </span>
-</ContextualMenuDropdown>
+</span>
 `;
