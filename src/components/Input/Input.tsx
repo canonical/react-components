@@ -118,7 +118,7 @@ const Input = ({
         inputRef.current.focus();
       }
     }
-  }, [takeFocus]);
+  }, [takeFocus, takeFocusDelay]);
 
   let input: ReactNode;
   if (type === "checkbox") {
@@ -154,7 +154,7 @@ const Input = ({
       error={error}
       forId={id}
       help={help}
-      helpClassName={helpClassName}
+      helpClassName={helpClassName + ""}
       helpId={helpId}
       isTickElement={type === "checkbox" || type === "radio"}
       label={fieldLabel}
