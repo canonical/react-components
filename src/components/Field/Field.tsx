@@ -38,7 +38,7 @@ export type Props = {
   /**
    * Optional class(es) to pass to the help text element.
    */
-  helpClassName?: ReactNode;
+  helpClassName?: string;
   /**
    * An id to give to the help element.
    */
