@@ -2,18 +2,18 @@
 
 exports[`AccordionSection  renders 1`] = `
 <li
-  className="p-accordion__group"
+  class="p-accordion__group"
 >
   <div
-    aria-level={3}
-    className="p-accordion__heading"
+    aria-level="3"
+    class="p-accordion__heading"
     role="heading"
   >
     <button
       aria-controls="#mock-nanoid-1"
       aria-expanded="false"
-      className="p-accordion__tab"
-      onClick={[Function]}
+      class="p-accordion__tab"
+      id="mock-nanoid-2"
       role="tab"
       type="button"
     >
@@ -22,42 +22,8 @@ exports[`AccordionSection  renders 1`] = `
   </div>
   <section
     aria-hidden="true"
-    aria-labelledby="mock-nanoid-1"
-    className="p-accordion__panel"
-    id="mock-nanoid-1"
-    role="tabpanel"
-  >
-    <span>
-      Test
-    </span>
-  </section>
-</li>
-`;
-
-exports[`AccordionSection  renders headings for titles 1`] = `
-<li
-  className="p-accordion__group"
->
-  <h4
-    aria-level={null}
-    className="p-accordion__heading"
-    role={null}
-  >
-    <button
-      aria-controls="#mock-nanoid-1"
-      aria-expanded="false"
-      className="p-accordion__tab"
-      onClick={[Function]}
-      role="tab"
-      type="button"
-    >
-      Test section
-    </button>
-  </h4>
-  <section
-    aria-hidden="true"
-    aria-labelledby="mock-nanoid-1"
-    className="p-accordion__panel"
+    aria-labelledby="mock-nanoid-2"
+    class="p-accordion__panel"
     id="mock-nanoid-1"
     role="tabpanel"
   >

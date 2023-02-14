@@ -1,44 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ActionButton matches loading snapshot 1`] = `
-<ActionButton
-  loading={true}
+<button
+  class="p-action-button p-button is-processing"
 >
-  <button
-    className="p-action-button p-button is-processing"
-    disabled={false}
-  >
-    <Icon
-      className="u-animation--spin"
-      light={false}
-      name="spinner"
-    >
-      <i
-        className="u-animation--spin p-icon--spinner"
-      />
-    </Icon>
-  </button>
-</ActionButton>
+  <i
+    aria-label="Waiting for action to complete"
+    class="u-animation--spin p-icon--spinner"
+  />
+</button>
 `;
 
 exports[`ActionButton matches success snapshot 1`] = `
-<ActionButton
-  loading={false}
-  success={true}
+<button
+  class="p-action-button p-button is-processing"
 >
-  <button
-    className="p-action-button p-button is-processing"
-    disabled={false}
-  >
-    <Icon
-      className={null}
-      light={false}
-      name="success"
-    >
-      <i
-        className="p-icon--success"
-      />
-    </Icon>
-  </button>
-</ActionButton>
+  <i
+    aria-label="Action completed"
+    class="p-icon--success"
+  />
+</button>
 `;

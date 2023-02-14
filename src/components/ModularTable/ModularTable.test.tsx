@@ -4,10 +4,25 @@ import React from "react";
 import ModularTable from "./ModularTable";
 
 const columns = [
-  { accessor: "status", Header: "Status" },
-  { accessor: "cores", Header: "Cores", className: "u-align--right" },
-  { accessor: "ram", Header: "RAM", className: "u-align--right" },
-  { accessor: "disks", Header: "Disks", className: "u-align--right" },
+  { accessor: "status", Header: "Status", sortType: "alphanumeric" },
+  {
+    accessor: "cores",
+    Header: "Cores",
+    className: "u-align--right",
+    sortType: "alphanumeric",
+  },
+  {
+    accessor: "ram",
+    Header: "RAM",
+    className: "u-align--right",
+    sortType: "alphanumeric",
+  },
+  {
+    accessor: "disks",
+    Header: "Disks",
+    className: "u-align--right",
+    sortType: "alphanumeric",
+  },
 ];
 const data = [
   {
@@ -39,6 +54,13 @@ it("renders all rows and columns", async () => {
   rowItems.forEach((row) => {
     const cells = within(row).getAllByRole("cell");
     expect(cells.length).toEqual(columns.length);
+  });
+});
+
+it("renders all rows and columns when the sortable option is set", async () => {
+  render(<ModularTable columns={columns} data={data} sortable={true} />);
+  screen.getAllByRole("columnheader").forEach((ch) => {
+    expect(ch).toHaveAttribute("aria-sort", "none");
   });
 });
 

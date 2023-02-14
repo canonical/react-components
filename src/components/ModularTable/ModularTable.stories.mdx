@@ -191,6 +191,98 @@ columns = {
   </Story>
 </Preview>
 
+### Sortable columns
+
+<Preview>
+  <Story name="Sortable">
+    <ModularTable
+      sortable
+      getCellProps={({ value }) => ({
+        className: value === "1 minute" ? "p-heading--5" : "",
+      })}
+      columns={React.useMemo(
+        () => [
+          {
+            Header: "ID",
+            accessor: "buildId",
+            sortType: 'basic',
+            Cell: ({ value }) => <a href="#">#{value}</a>,
+          },
+          {
+            Header: "Architecture",
+            accessor: "arch",
+            sortType: 'basic',
+          },
+          {
+            Header: "Build Duration",
+            accessor: "duration",
+            className: "u-hide--small",
+            sortType: 'basic',
+          },
+          {
+            Header: "Result",
+            accessor: "result",
+            sortType: 'basic',
+            Cell: ({ value }) => {
+              switch (value) {
+                case "released":
+                  return "Released";
+                case "failed":
+                  return "Failed";
+                default:
+                  return "Unknown";
+              }
+            },
+            getCellIcon: ({ value }) => {
+              switch (value) {
+                case "released":
+                  return ICONS.success;
+                case "failed":
+                  return ICONS.error;
+                default:
+                  return false;
+              }
+            },
+          },
+          {
+            Header: "Build Finished",
+            accessor: "finished",
+            className: "u-align-text--right",
+            sortType: 'basic',
+          },
+        ],
+        []
+      )}
+      data={React.useMemo(
+        () => [
+          {
+            buildId: "5432",
+            arch: "arm64",
+            duration: "5 minutes",
+            result: "released",
+            finished: "10 minutes ago",
+          },
+          {
+            buildId: "1234",
+            arch: "armhf",
+            duration: "5 minutes",
+            result: "failed",
+            finished: "over 1 year ago",
+          },
+          {
+            buildId: "1111",
+            arch: "test64",
+            duration: "1 minute",
+            result: "other",
+            finished: "ages ago",
+          },
+        ],
+        []
+      )}
+    />
+  </Story>
+</Preview>
+
 ### Load more items
 
 Example below shows a basic `ModularTable` with `SummaryButton` component in the footer.

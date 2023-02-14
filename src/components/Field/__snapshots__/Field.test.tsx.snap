@@ -2,15 +2,17 @@
 
 exports[`Field  renders 1`] = `
 <div
-  className="p-form__group p-form-validation"
+  class="p-form__group p-form-validation"
+  data-testid="field"
 >
-  <Label
-    forId="test-id"
+  <label
+    class="p-form__label"
+    for="test-id"
   >
     Test label
-  </Label>
+  </label>
   <div
-    className="p-form__control u-clearfix"
+    class="p-form__control u-clearfix"
   >
     Test content
   </div>

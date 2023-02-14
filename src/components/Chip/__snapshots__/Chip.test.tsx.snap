@@ -2,39 +2,34 @@
 
 exports[`Chip  renders default chip 1`] = `
 <button
-  className="p-chip"
-  onKeyDown={[Function]}
+  class="p-chip"
+  data-testid="chip"
   type="button"
 >
+  
   <span
-    className="p-chip__value"
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "positive",
-      }
-    }
-  />
+    class="p-chip__value"
+  >
+    positive
+  </span>
 </button>
 `;
 
 exports[`Chip  renders lead-value chip 1`] = `
 <button
-  className="p-chip"
-  onKeyDown={[Function]}
+  class="p-chip"
+  data-testid="chip"
   type="button"
 >
   <span
-    className="p-chip__lead"
+    class="p-chip__lead"
   >
     OWNER
   </span>
   <span
-    className="p-chip__value"
-    dangerouslySetInnerHTML={
-      Object {
-        "__html": "Bob",
-      }
-    }
-  />
+    class="p-chip__value"
+  >
+    Bob
+  </span>
 </button>
 `;

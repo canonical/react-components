@@ -4,6 +4,6 @@ exports[`TableHeader renders 1`] = `
 <th
   role="columnheader"
 >
-  <tr />
+  Column 1
 </th>
 `;

@@ -2,7 +2,8 @@
 
 exports[`Form  renders 1`] = `
 <form
-  className=""
+  class=""
+  name="this needs a name so RTL can find it"
 >
   Test content
 </form>

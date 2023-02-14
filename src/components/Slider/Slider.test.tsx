@@ -1,12 +1,11 @@
 import { render, screen } from "@testing-library/react";
-import { shallow } from "enzyme";
 import React from "react";
 
 import Slider from "./Slider";
 
 describe("Slider", () => {
   it("can render without an additional number input", () => {
-    const wrapper = shallow(
+    render(
       <Slider
         max={10}
         min={0}
@@ -15,18 +14,16 @@ describe("Slider", () => {
         value={5}
       />
     );
-    expect(wrapper.find("input[type='number']").exists()).toBe(false);
+    expect(screen.queryByRole("spinbutton")).not.toBeInTheDocument();
   });
 
   it("can render with an additional number input", () => {
-    const wrapper = shallow(
+    render(
       <Slider max={10} min={0} onChange={jest.fn()} showInput value={5} />
     );
-    expect(wrapper.find("input[type='number']").exists()).toBe(true);
+    expect(screen.getByRole("spinbutton")).toBeInTheDocument();
   });
-});
 
-describe("Slider RTL", () => {
   it("can display an error", async () => {
     render(
       <Slider

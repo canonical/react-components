@@ -1,7 +1,9 @@
-import { mount } from "enzyme";
+import { render, screen, within } from "@testing-library/react";
 import React from "react";
 
-import ContextualMenu from "./ContextualMenu";
+import ContextualMenu, { Label } from "./ContextualMenu";
+import { Label as DropdownLabel } from "./ContextualMenuDropdown/ContextualMenuDropdown";
+import userEvent from "@testing-library/user-event";
 
 describe("ContextualMenu ", () => {
   afterEach(() => {
@@ -9,63 +11,64 @@ describe("ContextualMenu ", () => {
   });
 
   it("renders", () => {
-    const wrapper = mount(<ContextualMenu links={[]} />);
-    expect(wrapper.find("ContextualMenu")).toMatchSnapshot();
+    render(<ContextualMenu data-testid="menu" links={[]} />);
+    expect(screen.getByTestId("menu")).toMatchSnapshot();
   });
 
   it("can be aligned to the right", () => {
-    const wrapper = mount(<ContextualMenu links={[]} position="right" />);
-    expect(wrapper.find(".p-contextual-menu").exists()).toBe(true);
+    render(<ContextualMenu data-testid="menu" links={[]} position="right" />);
+    const menu = screen.getByTestId("menu");
+    expect(menu).toHaveClass("p-contextual-menu");
+    expect(menu).not.toHaveClass("p-contextual-menu--left");
+    expect(menu).not.toHaveClass("p-contextual-menu--center");
   });
 
   it("can be aligned to the left", () => {
-    const wrapper = mount(<ContextualMenu links={[]} position="left" />);
-    expect(wrapper.find(".p-contextual-menu--left").exists()).toBe(true);
+    render(<ContextualMenu data-testid="menu" links={[]} position="left" />);
+    expect(screen.getByTestId("menu")).toHaveClass("p-contextual-menu--left");
   });
 
   it("can be aligned to the center", () => {
-    const wrapper = mount(<ContextualMenu links={[]} position="center" />);
-    expect(wrapper.find(".p-contextual-menu--center").exists()).toBe(true);
+    render(<ContextualMenu data-testid="menu" links={[]} position="center" />);
+    expect(screen.getByTestId("menu")).toHaveClass("p-contextual-menu--center");
   });
 
   it("can have a toggle button", () => {
-    const wrapper = mount(<ContextualMenu links={[]} toggleLabel="Toggle" />);
-    expect(wrapper.find("button.p-contextual-menu__toggle").exists()).toBe(
-      true
-    );
+    render(<ContextualMenu links={[]} toggleLabel="Toggle" />);
+    expect(screen.getByRole("button", { name: "Toggle" })).toBeInTheDocument();
   });
 
   it("can be disabled", () => {
-    const wrapper = mount(
-      <ContextualMenu links={[]} toggleDisabled toggleLabel="Toggle" />
-    );
-    expect(
-      wrapper.find("button.p-contextual-menu__toggle").props().disabled
-    ).toBe(true);
+    render(<ContextualMenu links={[]} toggleDisabled toggleLabel="Toggle" />);
+    expect(screen.getByRole("button", { name: "Toggle" })).toBeDisabled();
   });
 
-  it("can have a toggle button with an icon", () => {
-    const wrapper = mount(<ContextualMenu hasToggleIcon links={[]} />);
+  it("can have a toggle button with just an icon", () => {
+    render(<ContextualMenu hasToggleIcon links={[]} />);
     expect(
-      wrapper
-        .find("button.p-contextual-menu__toggle .p-contextual-menu__indicator")
-        .exists()
-    ).toBe(true);
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(
+        ".p-contextual-menu__toggle .p-contextual-menu__indicator"
+      )
+    ).toBeInTheDocument();
+    const toggle = screen.getByRole("button", { name: Label.Toggle });
+    expect(toggle.childNodes).toHaveLength(1);
   });
 
   it("makes the icon light if the toggle is positive or negative", () => {
-    const positive = mount(
+    render(
       <ContextualMenu hasToggleIcon links={[]} toggleAppearance="positive" />
     );
     expect(
-      positive
-        .find("button.p-contextual-menu__toggle .p-contextual-menu__indicator")
-        .hasClass("is-light")
-    ).toBe(true);
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(
+        ".p-contextual-menu__toggle .p-contextual-menu__indicator"
+      )
+    ).toHaveClass("is-light");
   });
 
   it("can have a toggle button with an icon and text on the left", () => {
-    const wrapper = mount(
+    render(
       <ContextualMenu
         hasToggleIcon
         links={[]}
@@ -73,13 +76,12 @@ describe("ContextualMenu ", () => {
         toggleLabelFirst
       />
     );
-    expect(
-      wrapper.find("button.p-contextual-menu__toggle").children().at(0).text()
-    ).toBe("Toggle");
+    const toggle = screen.getByRole("button", { name: "Toggle" });
+    expect(toggle.childNodes[0].textContent).toBe("Toggle");
   });
 
   it("can have a toggle button with an icon and text on the right", () => {
-    const wrapper = mount(
+    render(
       <ContextualMenu
         hasToggleIcon
         links={[]}
@@ -87,114 +89,112 @@ describe("ContextualMenu ", () => {
         toggleLabelFirst={false}
       />
     );
-    expect(
-      wrapper.find("button.p-contextual-menu__toggle").children().at(1).text()
-    ).toBe("Toggle");
+    const toggle = screen.getByRole("button", { name: "Toggle" });
+    expect(toggle.childNodes[1].textContent).toBe("Toggle");
   });
 
   it("can have a toggle button with just text", () => {
-    const wrapper = mount(<ContextualMenu links={[]} toggleLabel="Toggle" />);
+    render(<ContextualMenu links={[]} toggleLabel="Toggle" />);
+    expect(screen.getByRole("button", { name: "Toggle" })).toBeInTheDocument();
     expect(
-      wrapper
-        .find("button.p-contextual-menu__toggle .p-contextual-menu__indicator")
-        .exists()
-    ).toBe(false);
-    expect(
-      wrapper.find("button.p-contextual-menu__toggle").children().text()
-    ).toBe("Toggle");
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-contextual-menu__indicator")
+    ).not.toBeInTheDocument();
   });
 
   it("can not have a toggle button", () => {
-    const wrapper = mount(<ContextualMenu links={[]} />);
-    expect(wrapper.find("button.p-contextual-menu__toggle").exists()).toBe(
-      false
-    );
+    render(<ContextualMenu links={[]} />);
+    expect(
+      screen.queryByRole("button", { name: Label.Toggle })
+    ).not.toBeInTheDocument();
   });
 
-  it("can use the toggle button to display the menu", () => {
-    const wrapper = mount(<ContextualMenu links={[]} toggleLabel="Toggle" />);
+  it("can use the toggle button to display the menu", async () => {
+    render(<ContextualMenu links={[]} toggleLabel="Toggle" />);
     expect(
-      wrapper.find("button.p-contextual-menu__toggle").prop("aria-expanded")
-    ).toBe("false");
-    wrapper.find("Button.p-contextual-menu__toggle").simulate("click");
+      screen.queryByLabelText(DropdownLabel.Dropdown)
+    ).not.toBeInTheDocument();
     expect(
-      wrapper.find("button.p-contextual-menu__toggle").prop("aria-expanded")
-    ).toBe("true");
+      screen.getByRole("button", { name: "Toggle", expanded: false })
+    ).toBeInTheDocument();
+    await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
     expect(
-      wrapper.find(".p-contextual-menu__dropdown").prop("aria-hidden")
-    ).toBe("false");
+      screen.getByRole("button", { name: "Toggle", expanded: true })
+    ).toBeInTheDocument();
+    expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
   });
 
   it("be visible without a toggle button", () => {
-    const wrapper = mount(<ContextualMenu links={[]} visible />);
-    expect(
-      wrapper.find(".p-contextual-menu__dropdown").prop("aria-hidden")
-    ).toBe("false");
+    render(<ContextualMenu links={[]} visible />);
+    expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
   });
 
   it("can display links", () => {
-    const wrapper = mount(
-      <ContextualMenu links={[{ children: "Link1" }]} visible />
-    );
-    expect(
-      wrapper.find("button.p-contextual-menu__link").children().text()
-    ).toBe("Link1");
+    render(<ContextualMenu links={[{ children: "Link1" }]} visible />);
+    expect(screen.getByRole("button", { name: "Link1" })).toBeInTheDocument();
   });
 
   it("can display links in groups", () => {
-    const wrapper = mount(
-      <ContextualMenu links={[[{ children: "Link1" }]]} visible />
-    );
+    render(<ContextualMenu links={[[{ children: "Link1" }]]} visible />);
+    // eslint-disable-next-line testing-library/no-node-access
+    const group = document.querySelector(
+      ".p-contextual-menu__group"
+    ) as HTMLElement;
+    expect(group).toBeInTheDocument();
     expect(
-      wrapper
-        .find(".p-contextual-menu__group button.p-contextual-menu__link")
-        .children()
-        .text()
-    ).toBe("Link1");
+      within(group).getByRole("button", { name: "Link1" })
+    ).toBeInTheDocument();
   });
 
   it("can display a mix of links and groups", () => {
-    const wrapper = mount(
+    render(
       <ContextualMenu
         links={[[{ children: "Link1" }], { children: "Link2" }]}
         visible
       />
     );
+    // eslint-disable-next-line testing-library/no-node-access
+    const group = document.querySelector(
+      ".p-contextual-menu__group"
+    ) as HTMLElement;
+    expect(group).toBeInTheDocument();
     expect(
-      wrapper
-        .find(".p-contextual-menu__group button.p-contextual-menu__link")
-        .children()
-        .text()
-    ).toBe("Link1");
+      within(group).getByRole("button", { name: "Link1" })
+    ).toBeInTheDocument();
     expect(
-      wrapper.find("button.p-contextual-menu__link").at(1).children().text()
-    ).toBe("Link2");
+      within(group).queryByRole("button", { name: "Link2" })
+    ).not.toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Link2" })).toBeInTheDocument();
   });
 
   it("can supply content instead of links", () => {
-    const wrapper = mount(
+    render(
       <ContextualMenu visible>
-        <span className="content">content</span>
+        <span data-testid="content">content</span>
       </ContextualMenu>
     );
-    expect(wrapper.find(".content").exists()).toBe(true);
-    expect(wrapper.find("button.p-contextual-menu__link").exists()).toBe(false);
+    expect(screen.getByTestId("content")).toBeInTheDocument();
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-contextual-menu__link")
+    ).not.toBeInTheDocument();
   });
 
-  it("closes the menu when clicking on an item", () => {
-    const wrapper = mount(
-      <ContextualMenu links={[{ onClick: jest.fn() }]} toggleLabel="Toggle" />
+  it("closes the menu when clicking on an item", async () => {
+    render(
+      <ContextualMenu
+        links={[{ onClick: jest.fn(), children: "Link1" }]}
+        toggleLabel="Toggle"
+      />
     );
     // Open the menu:
-    wrapper.find("Button.p-contextual-menu__toggle").simulate("click");
-    expect(
-      wrapper.find("button.p-contextual-menu__toggle").prop("aria-expanded")
-    ).toBe("true");
+    await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
+    expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
     // Click on an item:
-    wrapper.find("Button.p-contextual-menu__link").simulate("click");
+    await userEvent.click(screen.getByRole("button", { name: "Link1" }));
     expect(
-      wrapper.find("button.p-contextual-menu__toggle").prop("aria-expanded")
-    ).toBe("false");
+      screen.queryByLabelText(DropdownLabel.Dropdown)
+    ).not.toBeInTheDocument();
   });
 
   it("can use a custom link component", () => {
@@ -204,24 +204,24 @@ describe("ContextualMenu ", () => {
       children: React.ReactNode;
     };
     const Link = ({ children, to }: LinkProps) => <a href={to}>{children}</a>;
-    const wrapper = mount(
+    render(
       <ContextualMenu
         links={[{ children: "Link1", element: Link, to: "http://example.com" }]}
         visible
       />
     );
-    expect(wrapper.find("Link.p-contextual-menu__link").exists()).toBe(true);
+    expect(screen.getByRole("link", { name: "Link1" })).toBeInTheDocument();
   });
 
   it("can pass props to the contextual menu", () => {
-    const wrapper = mount(
-      <ContextualMenu links={[]} data-testid="extra-prop" />
-    );
-    expect(wrapper.prop("data-testid")).toBe("extra-prop");
+    render(<ContextualMenu links={[]} data-testid="extra-prop" />);
+    expect(screen.getByTestId("extra-prop")).toBeInTheDocument();
+    // Check that the prop was applied to the wrapping element:
+    expect(screen.getByTestId("extra-prop")).toHaveClass("p-contextual-menu");
   });
 
   it("can pass props to the toggle button", () => {
-    const wrapper = mount(
+    render(
       <ContextualMenu
         links={[]}
         toggleLabel="Toggle"
@@ -231,13 +231,16 @@ describe("ContextualMenu ", () => {
         }}
       />
     );
-    const button = wrapper.find("Button.p-contextual-menu__toggle");
-    expect(button.prop("appearance")).toBe("negative");
-    expect(button.prop("data-testid")).toBe("extra-prop");
+    expect(screen.getByTestId("extra-prop")).toBeInTheDocument();
+    expect(screen.getByTestId("extra-prop")).toHaveClass("p-button--negative");
+    // Check that the props were applied to the toggle element:
+    expect(screen.getByTestId("extra-prop")).toHaveClass(
+      "p-contextual-menu__toggle"
+    );
   });
 
-  it("can pass props to the contextual menu dropdown", () => {
-    const wrapper = mount(
+  it("can pass props to the contextual menu dropdown", async () => {
+    render(
       <ContextualMenu
         links={[]}
         toggleLabel="Toggle"
@@ -247,9 +250,20 @@ describe("ContextualMenu ", () => {
       />
     );
     // Open the menu.
-    wrapper.find("Button.p-contextual-menu__toggle").simulate("click");
-    expect(wrapper.find("ContextualMenuDropdown").prop("data-testid")).toBe(
-      "extra-prop"
+    await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
+    expect(screen.getByTestId("extra-prop")).toBeInTheDocument();
+    // Check that the props were applied to the dropdown element:
+    expect(screen.getByTestId("extra-prop")).toHaveClass("p-contextual-menu");
+  });
+
+  it("allows passing a component as a toggleLabel", () => {
+    render(
+      <ContextualMenu
+        links={[]}
+        position="right"
+        toggleLabel={<span>toggleLabel component text</span>}
+      />
     );
+    expect(screen.getByText("toggleLabel component text")).toBeInTheDocument();
   });
 });

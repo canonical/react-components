@@ -1,21 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Link  can be a back to top link 1`] = `
-<div
-  className="p-top"
+<a
+  class="p-top__link"
+  href="#"
 >
-  <a
-    className="p-top__link"
-    href="#"
-  >
-    Back to top
-  </a>
-</div>
+  Back to top
+</a>
 `;
 
 exports[`Link  renders 1`] = `
 <a
-  className=""
+  class=""
   href="/example"
 >
   Test content

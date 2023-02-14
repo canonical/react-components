@@ -2,38 +2,36 @@
 
 exports[`Search and filter renders 1`] = `
 <div
-  className="p-search-and-filter"
-  onClick={[Function]}
+  class="p-search-and-filter"
+  data-testid="searchandfilter"
 >
   <div
-    aria-expanded={false}
-    className="p-search-and-filter__search-container"
-    data-active={true}
-    data-empty={true}
+    aria-expanded="false"
+    class="p-search-and-filter__search-container"
+    data-active="true"
+    data-empty="true"
   >
     <form
-      className="p-search-and-filter__box"
-      data-overflowing={false}
-      onSubmit={[Function]}
+      class="p-search-and-filter__box"
+      data-overflowing="false"
     >
       <label
-        className="u-off-screen"
-        htmlFor="search-and-filter-input"
+        class="u-off-screen"
+        for="search-and-filter-input"
       >
         Search and filter
       </label>
       <input
-        autoComplete="off"
-        className="p-search-and-filter__input"
+        autocomplete="off"
+        class="p-search-and-filter__input"
         id="search-and-filter-input"
         name="search"
-        onChange={[Function]}
         placeholder="Search and filter"
         type="search"
         value=""
       />
       <button
-        className="u-off-screen"
+        class="u-off-screen"
         type="submit"
       >
         Search

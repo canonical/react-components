@@ -5,6 +5,11 @@ import Icon from "../Icon";
 
 import type { ClassName, PropsWithSpread } from "types";
 
+export enum Label {
+  Clear = "Clear search field",
+  Search = "Search",
+}
+
 export type Props = PropsWithSpread<
   {
     /**
@@ -114,7 +119,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
             onClick={resetInput}
             type="reset"
           >
-            <Icon name="close">Clear search field</Icon>
+            <Icon name="close">{Label.Clear}</Icon>
           </button>
         )}
         <button
@@ -122,7 +127,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
           disabled={disabled}
           onClick={triggerSearch}
         >
-          <Icon name="search">Search</Icon>
+          <Icon name="search">{Label.Search}</Icon>
         </button>
       </div>
     );

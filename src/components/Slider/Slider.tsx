@@ -85,7 +85,7 @@ export const Slider = ({
   if (navigator?.userAgent?.includes("AppleWebKit")) {
     // Range inputs on Webkit browsers don't have a built-in "filled" portion,
     // so instead it is handled here as a background.
-    const val = inputProps.value || inputProps.defaultValue;
+    const val = inputProps.value ?? inputProps.defaultValue;
     const filledPercentage = `${((Number(val) - min) / (max - min)) * 100}%`;
     style = {
       background: `linear-gradient(

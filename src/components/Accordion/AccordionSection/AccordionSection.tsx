@@ -15,7 +15,7 @@ export type Props = {
    * An optional value to set the expanded section. The value must match a
    * section key.
    */
-  expanded?: string;
+  expanded?: string | null;
   headingLevel?: number;
   /**
    * An optional click event when the title is clicked.
@@ -47,6 +47,7 @@ const AccordionSection = ({
   headingLevel = 3,
 }: Props): JSX.Element => {
   const sectionId = useId();
+  const tabId = useId();
   const key = sectionKey || sectionId;
   const isExpanded = expanded === key;
   const Title = titleElement || "div";
@@ -62,6 +63,7 @@ const AccordionSection = ({
           aria-controls={`#${sectionId}`}
           aria-expanded={isExpanded ? "true" : "false"}
           className="p-accordion__tab"
+          id={tabId}
           onClick={() => {
             if (isExpanded) {
               setExpanded(null, null);
@@ -78,7 +80,7 @@ const AccordionSection = ({
       </Title>
       <section
         aria-hidden={isExpanded ? "false" : "true"}
-        aria-labelledby={sectionId}
+        aria-labelledby={tabId}
         className="p-accordion__panel"
         id={sectionId}
         role="tabpanel"

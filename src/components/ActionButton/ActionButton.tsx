@@ -10,6 +10,11 @@ import type { ClassName, PropsWithSpread } from "types";
 export const LOADER_MIN_DURATION = 400; // minimium duration (ms) loader displays
 export const SUCCESS_DURATION = 2000; // duration (ms) success tick is displayed
 
+export enum Label {
+  WAITING = "Waiting for action to complete",
+  SUCCESS = "Action completed",
+}
+
 export type Props = PropsWithSpread<
   {
     /**
@@ -136,6 +141,7 @@ const ActionButton = ({
     >
       {showIcon ? (
         <Icon
+          aria-label={showLoader ? Label.WAITING : Label.SUCCESS}
           className={showLoader ? "u-animation--spin" : null}
           light={iconLight}
           name={icon}

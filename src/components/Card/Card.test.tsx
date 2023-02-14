@@ -1,37 +1,44 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import Card from "./Card";
 
 describe("Card ", () => {
   it("renders", () => {
-    const wrapper = shallow(
-      <Card title="This is the title">Test content</Card>
-    );
-    expect(wrapper).toMatchSnapshot();
+    render(<Card title="This is the title">Test content</Card>);
+    expect(screen.getByRole("group")).toMatchSnapshot();
+  });
+
+  it("can have a title", () => {
+    render(<Card title="This is the title">Test content</Card>);
+    expect(
+      screen.getByRole("group", { name: "This is the title" })
+    ).toBeInTheDocument();
   });
 
   it("can display a header", () => {
-    const wrapper = shallow(<Card thumbnail="test.png"></Card>);
-    expect(wrapper.find(".p-card__thumbnail").prop("src")).toEqual("test.png");
+    render(<Card thumbnail="test.png"></Card>);
+    // Find the visible image in the DOM.
+    // eslint-disable-next-line testing-library/no-node-access
+    const image = document.querySelector(".p-card__thumbnail");
+    expect(image).toBeInTheDocument();
+    expect(image).toHaveAttribute("src", "test.png");
   });
 
   it("can be highlighted", () => {
-    const wrapper = shallow(<Card highlighted={true}></Card>);
-    expect(wrapper.prop("className").includes("p-card--highlighted")).toBe(
-      true
-    );
+    render(<Card highlighted={true}></Card>);
+    expect(screen.getByRole("group")).toHaveClass("p-card--highlighted");
   });
 
   it("can be an overlay", () => {
-    const wrapper = shallow(<Card overlay={true}></Card>);
-    expect(wrapper.prop("className").includes("p-card--overlay")).toBe(true);
+    render(<Card overlay={true}></Card>);
+    expect(screen.getByRole("group")).toHaveClass("p-card--overlay");
   });
 
   it("can add additional classes", () => {
-    const wrapper = shallow(<Card className="extra-class"></Card>);
-    const className = wrapper.prop("className");
-    expect(className.includes("p-card")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
+    render(<Card className="extra-class"></Card>);
+    const card = screen.getByRole("group");
+    expect(card).toHaveClass("p-card");
+    expect(card).toHaveClass("extra-class");
   });
 });

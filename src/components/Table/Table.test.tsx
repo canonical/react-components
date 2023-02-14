@@ -1,36 +1,35 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import Table from "./Table";
 
+const TEST_ID = "table";
+
 describe("Table", () => {
   it("renders", () => {
-    const wrapper = shallow(
-      <Table>
+    render(
+      <Table data-testid={TEST_ID}>
         <thead></thead>
       </Table>
     );
-    expect(wrapper).toMatchSnapshot();
+    expect(screen.getByTestId(TEST_ID)).toMatchSnapshot();
   });
 
   it("can be expanding", () => {
-    const wrapper = shallow(<Table expanding={true} />);
-    expect(wrapper.prop("className").includes("p-table--expanding")).toBe(true);
+    render(<Table data-testid={TEST_ID} expanding={true} />);
+    expect(screen.getByTestId(TEST_ID)).toHaveClass("p-table--expanding");
   });
 
   it("can be responsive", () => {
-    const wrapper = shallow(<Table responsive={true} />);
-    expect(wrapper.prop("className").includes("p-table--mobile-card")).toBe(
-      true
-    );
+    render(<Table data-testid={TEST_ID} responsive={true} />);
+    expect(screen.getByTestId(TEST_ID)).toHaveClass("p-table--mobile-card");
   });
 
   it("can pass additional classes", () => {
-    const wrapper = shallow(
-      <Table responsive={true} className="extra-class" />
+    render(
+      <Table data-testid={TEST_ID} responsive={true} className="extra-class" />
     );
-    const className = wrapper.prop("className");
-    expect(className.includes("p-table--mobile-card")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
+    expect(screen.getByTestId(TEST_ID)).toHaveClass("p-table--mobile-card");
+    expect(screen.getByTestId(TEST_ID)).toHaveClass("extra-class");
   });
 });

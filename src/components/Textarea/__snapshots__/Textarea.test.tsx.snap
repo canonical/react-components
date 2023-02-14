@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Textarea  renders 1`] = `
-<Field
-  forId="test-id"
-  helpId="mock-nanoid-2"
-  validationId="mock-nanoid-1"
+<div
+  class="p-form__group p-form-validation textarea"
 >
-  <textarea
-    aria-describedby={null}
-    aria-errormessage={null}
-    aria-invalid={false}
-    className="p-form-validation__input"
-    id="test-id"
-    onKeyUp={[Function]}
-  />
-</Field>
+  <div
+    class="p-form__control u-clearfix"
+  >
+    <textarea
+      aria-describedby=""
+      aria-invalid="false"
+      class="p-form-validation__input"
+      id="test-id"
+    />
+  </div>
+</div>
 `;

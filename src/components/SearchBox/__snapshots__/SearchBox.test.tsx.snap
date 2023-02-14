@@ -2,32 +2,31 @@
 
 exports[`SearchBox  renders 1`] = `
 <div
-  className="p-search-box"
+  class="p-search-box"
 >
   <label
-    className="u-off-screen"
-    htmlFor="search"
+    class="u-off-screen"
+    for="search"
   >
     Search
   </label>
   <input
-    autoComplete="on"
-    className="p-search-box__input"
+    autocomplete="on"
+    class="p-search-box__input"
     id="search"
     name="search"
-    onChange={[Function]}
     placeholder="Search"
     type="search"
+    value=""
   />
   <button
-    className="p-search-box__button"
-    onClick={[Function]}
+    class="p-search-box__button"
   >
-    <Icon
-      name="search"
+    <i
+      class="p-icon--search"
     >
       Search
-    </Icon>
+    </i>
   </button>
 </div>
 `;

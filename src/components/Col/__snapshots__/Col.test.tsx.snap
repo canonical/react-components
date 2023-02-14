@@ -2,7 +2,8 @@
 
 exports[`Col  renders 1`] = `
 <div
-  className="col-3"
+  class="col-3"
+  data-testid="col"
 >
   Test content
 </div>

@@ -1,28 +1,36 @@
-import { shallow } from "enzyme";
+import { render, screen } from "@testing-library/react";
 import React from "react";
 
 import Form from "./Form";
 
 describe("Form ", () => {
   it("renders", () => {
-    const wrapper = shallow(<Form>Test content</Form>);
-    expect(wrapper).toMatchSnapshot();
+    render(
+      <Form name="this needs a name so RTL can find it">Test content</Form>
+    );
+    expect(screen.getByRole("form")).toMatchSnapshot();
   });
 
   it("can be inline", () => {
-    const wrapper = shallow(<Form inline={true} />);
-    expect(wrapper.prop("className").includes("p-form--inline")).toBe(true);
+    render(<Form name="this needs a name so RTL can find it" inline={true} />);
+    expect(screen.getByRole("form")).toHaveClass("p-form--inline");
   });
 
   it("can be stacked", () => {
-    const wrapper = shallow(<Form stacked={true} />);
-    expect(wrapper.prop("className").includes("p-form--stacked")).toBe(true);
+    render(<Form name="this needs a name so RTL can find it" stacked={true} />);
+    expect(screen.getByRole("form")).toHaveClass("p-form--stacked");
   });
 
   it("can add additional classes", () => {
-    const wrapper = shallow(<Form stacked={true} className="extra-class" />);
-    const className = wrapper.prop("className");
-    expect(className.includes("p-form")).toBe(true);
-    expect(className.includes("extra-class")).toBe(true);
+    render(
+      <Form
+        name="this needs a name so RTL can find it"
+        stacked={true}
+        className="extra-class"
+      />
+    );
+    const form = screen.getByRole("form");
+    expect(form).toHaveClass("p-form");
+    expect(form).toHaveClass("extra-class");
   });
 });

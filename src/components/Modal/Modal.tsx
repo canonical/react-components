@@ -74,8 +74,13 @@ export const Modal = ({
     }
   };
 
+  const handleEscKey = (e: KeyboardEvent<HTMLDivElement>) => {
+    e.nativeEvent.stopImmediatePropagation();
+    close();
+  };
+
   const keyListenersMap = new Map([
-    ["Escape", close],
+    ["Escape", handleEscKey],
     ["Tab", handleTabKey],
   ]);
 
@@ -87,7 +92,12 @@ export const Modal = ({
     focusableModalElements.current = modalRef.current.querySelectorAll(
       focusableElementSelectors
     );
-    focusableModalElements.current[0]?.focus();
+    let focusIndex = 0;
+    // when the close button is rendered, focus on the 2nd content element and not the close btn.
+    if (close && focusableModalElements.current.length > 1) {
+      focusIndex = 1;
+    }
+    focusableModalElements.current[focusIndex]?.focus();
   }, []);
 
   useEffect(() => {
