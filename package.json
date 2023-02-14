@@ -86,7 +86,7 @@
   "dependencies": {
     "@types/jest": "27.5.2",
     "@types/node": "16.18.12",
-    "@types/react": "17.0.53",
+    "@types/react": "18.0.28",
     "@types/react-dom": "17.0.18",
     "@types/react-table": "7.7.14",
     "classnames": "2.3.2",
@@ -96,7 +96,7 @@
     "react-useportal": "1.0.17"
   },
   "resolutions": {
-    "@types/react": "17.0.53",
+    "@types/react": "18.0.28",
     "@types/react-dom": "17.0.18",
     "postcss": "^8.3.11"
   },
