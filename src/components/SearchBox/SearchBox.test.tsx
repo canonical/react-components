@@ -88,4 +88,18 @@ describe("SearchBox ", () => {
     await userEvent.click(clearButton);
     expect(searchInput).toHaveFocus();
   });
+
+  it("calls onClear prop when the clear button is clicked", async () => {
+    const handleOnClear = jest.fn();
+    render(
+      <SearchBox
+        externallyControlled
+        onChange={jest.fn()}
+        onClear={handleOnClear}
+        value="admin"
+      />
+    );
+    await userEvent.click(screen.getByRole("button", { name: Label.Clear }));
+    expect(handleOnClear).toBeCalled();
+  });
 });
