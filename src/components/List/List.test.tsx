@@ -2,9 +2,10 @@ import { render, screen, within } from "@testing-library/react";
 import React from "react";
 
 import List from "./List";
+import type { ListItem, SteppedListItem } from "./List";
 
 describe("List ", () => {
-  let items: string[];
+  let items: ListItem[];
 
   beforeEach(() => {
     items = ["test", "items", "here"];
@@ -135,7 +136,7 @@ describe("List ", () => {
 
     it("should render item's content inside <div>", () => {
       // Prepare
-      const items = [{ title: "Title", content: "Content" }];
+      const items: SteppedListItem[] = [{ title: "Title", content: "Content" }];
 
       // Act
       render(<List stepped items={items} />);
@@ -153,7 +154,7 @@ describe("List ", () => {
 
     it("can have several paragraphs in item's content", () => {
       // Prepare
-      const items = [
+      const items: SteppedListItem[] = [
         {
           title: "With two paragraphs of text",
           content: (

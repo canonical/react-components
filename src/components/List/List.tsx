@@ -14,7 +14,7 @@ export type SteppedListItem = {
   content: ReactNode;
   title: ReactNode;
   titleElement?: Headings;
-} & HTMLProps<HTMLLIElement>;
+} & Omit<HTMLProps<HTMLLIElement>, "title" | "content">; // omit global attributes of HTMLProps since they can only be string or undefined
 
 export type Props = {
   /**
