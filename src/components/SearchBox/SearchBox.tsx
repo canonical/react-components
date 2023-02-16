@@ -37,6 +37,10 @@ export type Props = PropsWithSpread<
      */
     onSearch?: () => void;
     /**
+     * A function that is called when the user clicks the reset icon
+     */
+    onClear?: () => void;
+    /**
      * A search input placeholder message.
      */
     placeholder?: string;
@@ -65,6 +69,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
       externallyControlled,
       onChange,
       onSearch,
+      onClear,
       placeholder = "Search",
       shouldRefocusAfterReset,
       value,
@@ -74,7 +79,8 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
   ): JSX.Element => {
     const internalRef = useRef<HTMLInputElement>();
     const resetInput = () => {
-      onChange && onChange("");
+      onChange?.("");
+      onClear?.();
       if (internalRef.current) {
         internalRef.current.value = "";
         if (shouldRefocusAfterReset) internalRef.current.focus();
