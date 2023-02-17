@@ -29,7 +29,7 @@
     "@percy/storybook": "4.3.4",
     "@storybook/addon-a11y": "6.5.16",
     "@storybook/addon-controls": "6.5.16",
-    "@storybook/addon-docs": "6.5.16",
+    "@storybook/addon-docs": "6.4.22",
     "@storybook/addons": "6.5.16",
     "@storybook/builder-webpack5": "6.5.16",
     "@storybook/manager-webpack5": "6.5.16",
@@ -101,6 +101,7 @@
     "postcss": "^8.3.11"
   },
   "peerDependencies": {
+    "@storybook/addon-docs": "6.4.22",
     "react": "^17.0.2 || ^18.0.0",
     "react-dom": "^17.0.2 || ^18.0.0",
     "vanilla-framework": "3.11.0"
