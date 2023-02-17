@@ -102,7 +102,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
           disabled={disabled}
           id="search"
           name="search"
-          onChange={(evt) => onChange(evt.target.value)}
+          onChange={(evt) => onChange?.(evt.target.value)}
           placeholder={placeholder}
           ref={(input) => {
             internalRef.current = input;
