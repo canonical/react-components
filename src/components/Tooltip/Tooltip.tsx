@@ -193,8 +193,8 @@ const Tooltip = ({
     position: "absolute",
     // Initially position the tooltip of the screen in case it gets shown
     // before setting the position.
-    left: -99999999999999,
-    top: -99999999999999,
+    left: -9999999,
+    top: -9999999,
   });
   const { openPortal, closePortal, isOpen, Portal } = usePortal();
   const tooltipId = useId();
@@ -317,6 +317,11 @@ const Tooltip = ({
               )}
               data-testid="tooltip-portal"
               style={positionStyle as React.CSSProperties}
+              // style={
+              //   isOpen
+              //     ? (positionStyle as React.CSSProperties)
+              //     : { left: -9999 }
+              // }
             >
               <span
                 role="tooltip"
