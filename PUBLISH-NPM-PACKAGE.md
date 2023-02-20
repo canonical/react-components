@@ -1,34 +1,26 @@
 # Publish NPM package
 
-### Prepare for release
+### Automatically prepare for release
 
-Check out a new release branch from main branch
-
-```shell
-git checkout -b prepare-0.1.1-release main
-```
-
-#### Build the docs
-
-Build and Commit the docs for this version.
+For most cases, run:
 
 ```shell
-yarn build-docs
-git add .
-git commit -m "Build docs for 0.1.1."
+yarn prepare
 ```
 
-#### Update the version
+create a PR and land it (this might require approval).
 
-- Update the version using the next [sensible version](https://semver.org/spec/v2.0.0.html).
+That's it!
+
+By default, the script will assume that the next version is a minor release. If you want to release a patch or major version, you can use the following commands:
 
 ```shell
-yarn version --new-version 0.1.1
+yarn prepare:patch
 ```
 
-#### Push
-
-Push your branch to GitHub, create a PR and land it (this might require approval).
+```shell
+yarn prepare:major
+```
 
 ### Publish the release
 
