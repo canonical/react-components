@@ -31,6 +31,9 @@ fi
 new_version="$major.$minor.$patch"
 echo "Preparing $new_version"
 
+# Fetch latest changes
+git fetch
+
 # Switch to new branch
 git checkout -b prepare-$new_version-release origin/main 
 
