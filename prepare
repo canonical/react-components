@@ -40,6 +40,9 @@ git checkout -b prepare-$new_version-release origin/main
 # Update version in package.json
 yarn version --new-version $new_version
 
+# Update dependencies
+yarn
+
 # Build docs
 yarn build-docs
 
