@@ -5,7 +5,7 @@
 For most cases, run:
 
 ```shell
-yarn prepare
+yarn prepare-release
 ```
 
 create a PR and land it (this might require approval).
@@ -15,11 +15,11 @@ That's it!
 By default, the script will assume that the next version is a minor release. If you want to release a patch or major version, you can use the following commands:
 
 ```shell
-yarn prepare:patch
+yarn prepare-release:patch
 ```
 
 ```shell
-yarn prepare:major
+yarn prepare-release:major
 ```
 
 ### Publish the release
