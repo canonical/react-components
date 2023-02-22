@@ -128,10 +128,10 @@
     "cypress:test": "wait-on http://localhost:${PORT:-9009} && cypress run --env port=${PORT:-9009}",
     "cypress:run": "cypress run --env port=${PORT:-9009}",
     "cypress:open": "cypress open --env port=${PORT:-9009}",
-    "prepare:major": "./prepare major",
-    "prepare:minor": "./prepare minor",
-    "prepare:patch": "./prepare patch",
-    "prepare": "yarn run prepare:minor"
+    "prepare-release:major": "./prepare-release major",
+    "prepare-release:minor": "./prepare-release minor",
+    "prepare-release:patch": "./prepare-release patch",
+    "prepare-release": "yarn run prepare-release:minor"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -45,7 +45,6 @@ yarn
 
 # Build docs
 yarn build-docs
-
 # Add changes
 git add .
 
