@@ -85,7 +85,7 @@
   },
   "dependencies": {
     "@types/jest": "27.5.2",
-    "@types/node": "16.18.12",
+    "@types/node": "18.14.2",
     "@types/react": "18.0.28",
     "@types/react-dom": "17.0.18",
     "@types/react-table": "7.7.14",
