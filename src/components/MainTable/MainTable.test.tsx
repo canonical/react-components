@@ -302,7 +302,8 @@ describe("MainTable", () => {
 
     it("shows a hidden caption if provided", () => {
       const captionText = "This is a caption for screen readers";
-      const wrapper = mount(
+
+      render(
         <MainTable
           defaultSort="status"
           defaultSortDirection="descending"
@@ -312,7 +313,11 @@ describe("MainTable", () => {
           hiddenCaption={captionText}
         />
       );
-      expect(wrapper.find("caption").text()).toEqual(captionText);
+
+      // can't target the caption using getByRole :(
+      expect(screen.getByTestId("hidden-caption").textContent).toEqual(
+        captionText
+      );
     });
   });
 });
