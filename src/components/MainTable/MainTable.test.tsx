@@ -299,5 +299,25 @@ describe("MainTable", () => {
         screen.getByRole("columnheader", { name: "Cores" })
       ).toHaveAttribute("aria-sort", "ascending");
     });
+
+    it("shows a hidden caption if provided", () => {
+      const captionText = "This is a caption for screen readers";
+
+      render(
+        <MainTable
+          defaultSort="status"
+          defaultSortDirection="descending"
+          headers={headers}
+          rows={rows}
+          sortable={true}
+          hiddenCaption={captionText}
+        />
+      );
+
+      // can't target the caption using getByRole :(
+      expect(screen.getByTestId("hidden-caption").textContent).toEqual(
+        captionText
+      );
+    });
   });
 });

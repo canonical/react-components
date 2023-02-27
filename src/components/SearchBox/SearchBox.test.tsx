@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React from "react";
-
 import SearchBox, { Label } from "./SearchBox";
 
 describe("SearchBox ", () => {
@@ -57,5 +56,50 @@ describe("SearchBox ", () => {
     render(<SearchBox ref={ref} />);
     ref.current?.focus();
     expect(screen.getByRole("searchbox")).toHaveFocus();
+  });
+
+  it("after pressing the clear button focus remains on the button", async () => {
+    render(
+      <SearchBox externallyControlled onChange={jest.fn()} value="admin" />
+    );
+    const searchInput = screen.getByRole("searchbox");
+    const clearButton = screen.getByRole("button", {
+      name: "Clear search field",
+    });
+    await userEvent.click(searchInput);
+    await userEvent.click(clearButton);
+    expect(clearButton).toHaveFocus();
+  });
+
+  it("after pressing the clear button focuses on the input field", async () => {
+    render(
+      <SearchBox
+        externallyControlled
+        shouldRefocusAfterReset
+        onChange={jest.fn()}
+        value="admin"
+      />
+    );
+    const searchInput = screen.getByRole("searchbox");
+    const clearButton = screen.getByRole("button", {
+      name: "Clear search field",
+    });
+    await userEvent.click(searchInput);
+    await userEvent.click(clearButton);
+    expect(searchInput).toHaveFocus();
+  });
+
+  it("calls onClear prop when the clear button is clicked", async () => {
+    const handleOnClear = jest.fn();
+    render(
+      <SearchBox
+        externallyControlled
+        onChange={jest.fn()}
+        onClear={handleOnClear}
+        value="admin"
+      />
+    );
+    await userEvent.click(screen.getByRole("button", { name: Label.Clear }));
+    expect(handleOnClear).toBeCalled();
   });
 });
