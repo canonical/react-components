@@ -26,7 +26,7 @@ yarn prepare-release:major
 
 #### Review release notes
 
-Make sure that the [release notes draft](https://github.com/canonical/react-components/releases) created automatically by release-drafter is up to date.
+![publish](https://user-images.githubusercontent.com/11927929/221628635-aba4ac9d-a417-47c4-a9f3-256ecac2bd8b.png)
 
 #### Publish
 
