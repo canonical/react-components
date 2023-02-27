@@ -299,5 +299,20 @@ describe("MainTable", () => {
         screen.getByRole("columnheader", { name: "Cores" })
       ).toHaveAttribute("aria-sort", "ascending");
     });
+
+    it("shows a hidden caption if provided", () => {
+      const captionText = "This is a caption for screen readers";
+      const wrapper = mount(
+        <MainTable
+          defaultSort="status"
+          defaultSortDirection="descending"
+          headers={headers}
+          rows={rows}
+          sortable={true}
+          hiddenCaption={captionText}
+        />
+      );
+      expect(wrapper.find("caption").text()).toEqual(captionText);
+    });
   });
 });

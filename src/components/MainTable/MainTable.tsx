@@ -119,6 +119,10 @@ export type Props = PropsWithSpread<
       currentSortDirection: SortDirection,
       currentSortKey: MainTableHeader["sortKey"]
     ) => -1 | 0 | 1;
+    /**
+     * A hidden caption to display on the table for screen readers
+     */
+    hiddenCaption?: string | null;
   },
   TableProps
 >;
@@ -289,6 +293,7 @@ const MainTable = ({
   responsive,
   sortable,
   sortFunction,
+  hiddenCaption,
   ...props
 }: Props): JSX.Element => {
   const [currentSortKey, setSortKey] = useState(defaultSort);
@@ -334,6 +339,20 @@ const MainTable = ({
   return (
     <>
       <Table expanding={expanding} responsive={responsive} {...props}>
+        {hiddenCaption && (
+          <caption
+            style={{
+              height: "1px",
+              left: "-1000px",
+              overflow: "hidden",
+              position: "absolute",
+              top: "auto",
+              width: "1px",
+            }}
+          >
+            {hiddenCaption}
+          </caption>
+        )}
         {!!headers &&
           generateHeaders(
             currentSortKey,
