@@ -341,6 +341,7 @@ const MainTable = ({
       <Table expanding={expanding} responsive={responsive} {...props}>
         {hiddenCaption && (
           <caption
+            data-testid="hidden-caption"
             style={{
               height: "1px",
               left: "-1000px",
