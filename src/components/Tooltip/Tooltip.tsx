@@ -70,6 +70,10 @@ export type Props = {
    * An optional class to apply to the tooltip message element.
    */
   tooltipClassName?: string;
+  /**
+   * The z-index value of the tooltip message element.
+   */
+  zIndex?: number;
 };
 
 const getPositionStyle = (
@@ -175,6 +179,7 @@ export const adjustForWindow = (
  * @param [position="top-left"] Position of the tooltip relative to the element.
  * @param positionElementClassName An optional class to apply to the element that wraps the children.
  * @param tooltipClassName An optional class to apply to the tooltip message element.
+ * @param zIndex The z-index value of the tooltip message element.
  */
 const Tooltip = ({
   autoAdjust = true,
@@ -185,6 +190,7 @@ const Tooltip = ({
   position = "top-left",
   positionElementClassName,
   tooltipClassName,
+  zIndex,
 }: Props): JSX.Element => {
   const wrapperRef = useRef<HTMLElement>(null);
   const messageRef = useRef<HTMLElement>(null);
@@ -328,6 +334,7 @@ const Tooltip = ({
                 className="p-tooltip__message"
                 ref={messageRef}
                 id={tooltipId}
+                style={{ zIndex: zIndex }}
               >
                 {message}
               </span>
