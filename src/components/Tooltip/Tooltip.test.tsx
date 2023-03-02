@@ -126,6 +126,16 @@ describe("Tooltip", () => {
     );
   });
 
+  it("assigns the correct z-index to the correct element", () => {
+    render(
+      <Tooltip message="text" zIndex={999}>
+        <button>open the tooltip</button>
+      </Tooltip>
+    );
+
+    expect(screen.getByRole("tooltip")).toHaveStyle("z-index: 999");
+  });
+
   describe("adjustForWindow", () => {
     const generateFits = (overrides = {}) => {
       const fits = {
