@@ -1,8 +1,5 @@
 import classNames from "classnames";
-import React, {
-  HTMLProps,
-  ReactNode,
-} from "react";
+import React, { HTMLProps, ReactNode } from "react";
 
 import type { ClassName } from "types";
 
@@ -35,7 +32,7 @@ export type Props<P = null> = {
    */
   tabs: SegmentedControlTabs<P>[];
   /**
-   * Optional classes applied to the "ul" element.
+   * Optional classes to make the buttons take on a more compact appearance.
    */
   dense?: boolean;
 };
@@ -43,10 +40,9 @@ export type Props<P = null> = {
 const SegmentedControl = <P,>({
   className,
   dense = false,
-tabs,
+  tabs,
 }: Props<P>): JSX.Element => {
   return (
-    
     <div
       className={
         dense
@@ -55,28 +51,35 @@ tabs,
       }
     >
       <div className="p-segmented-control__list" role="tablist">
-        {tabs.map((tab)=>{
-            const {
-                selected,
-                id,
-                label,
-            } = tab;
-            return (
-                <button className="p-segmented-control__button" role="tab" aria-selected={selected} aria-controls={id+"-tab"} id={id} tabIndex={selected?0:-1}>{label}</button>
-            )
+        {tabs.map((tab) => {
+          const { selected, id, label } = tab;
+          return (
+            <button
+              className="p-segmented-control__button"
+              role="tab"
+              aria-selected={selected}
+              aria-controls={id + "-tab"}
+              id={id}
+              tabIndex={selected ? 0 : -1}
+            >
+              {label}
+            </button>
+          );
         })}
       </div>
-      {tabs.map((tab)=>{
-          const {
-              selected,
-              component,
-              id,
-          } = tab;
-          return (
-              <div tabIndex={0} role="tabpanel" id={id+"-tab"} aria-labelledby={id} hidden={!selected}>
-                  {component}
-              </div>
-          )
+      {tabs.map((tab) => {
+        const { selected, component, id } = tab;
+        return (
+          <div
+            tabIndex={0}
+            role="tabpanel"
+            id={id + "-tab"}
+            aria-labelledby={id}
+            hidden={!selected}
+          >
+            {component}
+          </div>
+        );
       })}
     </div>
   );
