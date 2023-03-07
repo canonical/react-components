@@ -1,0 +1,67 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
+import SegmentedControl from "./SegmentedControl";
+
+<Meta title="SegmentedControl" component={SegmentedControl} />
+
+export const Template = (args) => <SegmentedControl {...args} />;
+
+### SegmentedControl
+
+This is the [React](https://reactjs.org/) component for Vanilla [Segmented Control](https://vanillaframework.io/docs/patterns/segmented-control).
+Segmented control can be used in two ways:
+
+Secondary tabs: if the page already has a set of primary tabs used as navigation, this can be used as a sub-navigation of those primary tabs.
+
+View switcher: in the case of a page in which the same piece of content is shown in more than one format, this component can be used as a switcher between the different views.
+
+### Props
+
+<ArgsTable of={SegmentedControl} />
+
+### Default
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      tabs: [
+        {
+          selected: true,
+          label: "OLM",
+          id: "olm",
+          component: (
+            <p>
+              A system to help you move from configuration management to
+              application management across your hybrid cloud estate - through
+              sharable, reusable, tiny applications called Charmed Operators.
+            </p>
+          ),
+        },
+        {
+          selected: false,
+          label: "SDK",
+          id: "sdk",
+          component: (
+            <p>
+              A set of tools to help you write Charmed Operators and to package
+              them as Charms.
+            </p>
+          ),
+        },
+        {
+          selected: false,
+          label: "Charmhub",
+          id: "charmhub",
+          component: (
+            <p>
+              A repository for charms - from Observability to Data to Identity
+              and more.
+            </p>
+          ),
+        },
+      ],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
