@@ -1,13 +1,14 @@
 import classNames from "classnames";
+import Icon, { ICONS } from "../Icon";
 import React, { HTMLProps, ReactNode, useRef, useState } from "react";
 
-import type { ClassName } from "types";
+import type { ClassName, ValueOf } from "types";
 
 export type SegmentedControlTabs<P = null> = {
   /**
-   * Whether the tab link should have selected styling.
+   * If the tab has an icon element, the type of icon.
    */
-  selected?: boolean;
+  icon?: ValueOf<typeof ICONS> | string;
   /**
    * Id applied to the tab element.
    */
@@ -35,12 +36,17 @@ export type Props<P = null> = {
    * Optional classes to make the buttons take on a more compact appearance.
    */
   dense?: boolean;
+  /**
+   * Optional classes to make the buttons take on a more compact appearance.
+   */
+  hasIcon?: boolean;
 };
 
 const SegmentedControl = <P,>({
   className,
-  dense = false,
   tabs,
+  dense = false,
+  hasIcon = false,
 }: Props<P>): JSX.Element => {
   const [currentTab, changeTab] = useState(0);
   const inputRefs = useRef<HTMLButtonElement[] | null[]>([]);
@@ -77,7 +83,7 @@ const SegmentedControl = <P,>({
     >
       <div className="p-segmented-control__list" role="tablist">
         {tabs.map((tab, i) => {
-          const { id, label } = tab;
+          const { id, label, icon = null } = tab;
           return (
             <button
               className="p-segmented-control__button"
@@ -97,7 +103,8 @@ const SegmentedControl = <P,>({
                 changeTab(i);
               }}
             >
-              {label}
+              {hasIcon ? <Icon name={icon} /> : null}
+              <span>{label}</span>
             </button>
           );
         })}
