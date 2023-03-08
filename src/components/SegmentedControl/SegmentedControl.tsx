@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { HTMLProps, ReactNode } from "react";
+import React, { HTMLProps, ReactNode, useRef, useState } from "react";
 
 import type { ClassName } from "types";
 
@@ -42,6 +42,31 @@ const SegmentedControl = <P,>({
   dense = false,
   tabs,
 }: Props<P>): JSX.Element => {
+  const [currentTab, changeTab] = useState(0);
+  const inputRefs = useRef<HTMLButtonElement[] | null[]>([]);
+  const switchTab = (
+    event: React.KeyboardEvent<HTMLButtonElement>,
+    index: number
+  ) => {
+    event.preventDefault();
+    if (event.code === "ArrowRight") {
+      if (index === inputRefs.current.length - 1) {
+        changeTab(0);
+        inputRefs.current[0].focus();
+      } else {
+        changeTab(index + 1);
+        inputRefs.current[index + 1].focus();
+      }
+    } else if (event.code === "ArrowLeft") {
+      if (index === 0) {
+        changeTab(inputRefs.current.length - 1);
+        inputRefs.current[inputRefs.current.length - 1].focus();
+      } else {
+        changeTab(index - 1);
+        inputRefs.current[index - 1].focus();
+      }
+    }
+  };
   return (
     <div
       className={
@@ -51,31 +76,41 @@ const SegmentedControl = <P,>({
       }
     >
       <div className="p-segmented-control__list" role="tablist">
-        {tabs.map((tab) => {
-          const { selected, id, label } = tab;
+        {tabs.map((tab, i) => {
+          const { id, label } = tab;
           return (
             <button
               className="p-segmented-control__button"
               role="tab"
-              aria-selected={selected}
+              aria-selected={currentTab === i}
               aria-controls={id + "-tab"}
               id={id}
-              tabIndex={selected ? 0 : -1}
+              tabIndex={currentTab === i ? 0 : -1}
+              onKeyUp={(e) => {
+                switchTab(e, i);
+              }}
+              onClick={() => {
+                changeTab(i);
+              }}
+              ref={(ref) => (inputRefs.current[i] = ref)}
+              onFocus={() => {
+                changeTab(i);
+              }}
             >
               {label}
             </button>
           );
         })}
       </div>
-      {tabs.map((tab) => {
-        const { selected, component, id } = tab;
+      {tabs.map((tab, i) => {
+        const { component, id } = tab;
         return (
           <div
             tabIndex={0}
             role="tabpanel"
             id={id + "-tab"}
             aria-labelledby={id}
-            hidden={!selected}
+            hidden={currentTab !== i}
           >
             {component}
           </div>
