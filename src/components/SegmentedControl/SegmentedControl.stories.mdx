@@ -29,36 +29,14 @@ View switcher: in the case of a page in which the same piece of content is shown
         {
           label: "OLM",
           id: "olm",
-          component: (
-            <p>
-              A system to help you move from configuration management to
-              application management across your hybrid cloud estate - through
-              sharable, reusable, tiny applications called Charmed Operators.
-            </p>
-          ),
-          icon: "information",
         },
         {
           label: "SDK",
           id: "sdk",
-          component: (
-            <p>
-              A set of tools to help you write Charmed Operators and to package
-              them as Charms.
-            </p>
-          ),
-          icon: "information",
         },
         {
           label: "Charmhub",
           id: "charmhub",
-          component: (
-            <p>
-              A repository for charms - from Observability to Data to Identity
-              and more.
-            </p>
-          ),
-          icon: "information",
         },
       ],
     }}
@@ -70,88 +48,55 @@ View switcher: in the case of a page in which the same piece of content is shown
 ### Dense
 
 <Canvas>
-  <Story name="Dense">
-    <SegmentedControl
-      dense={true}
-      tabs={[
+  <Story
+    name="Dense"
+    args={{
+      dense: true,
+      tabs: [
         {
           label: "OLM",
           id: "olm",
-          component: (
-            <p>
-              A system to help you move from configuration management to
-              application management across your hybrid cloud estate - through
-              sharable, reusable, tiny applications called Charmed Operators.
-            </p>
-          ),
         },
         {
           label: "SDK",
           id: "sdk",
-          component: (
-            <p>
-              A set of tools to help you write Charmed Operators and to package
-              them as Charms.
-            </p>
-          ),
         },
         {
           label: "Charmhub",
           id: "charmhub",
-          component: (
-            <p>
-              A repository for charms - from Observability to Data to Identity
-              and more.
-            </p>
-          ),
         },
-      ]}
-    />
+      ],
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
-### Has Icon
+### With Icons
 
 <Canvas>
-  <Story name="Has Icon">
-    <SegmentedControl
-      hasIcon={true}
-      tabs={[
+  <Story
+    name="With Icons"
+    args={{
+      tabs: [
         {
           label: "OLM",
           id: "olm",
-          component: (
-            <p>
-              A system to help you move from configuration management to
-              application management across your hybrid cloud estate - through
-              sharable, reusable, tiny applications called Charmed Operators.
-            </p>
-          ),
           icon: "information",
         },
         {
           label: "SDK",
           id: "sdk",
-          component: (
-            <p>
-              A set of tools to help you write Charmed Operators and to package
-              them as Charms.
-            </p>
-          ),
           icon: "information",
         },
         {
           label: "Charmhub",
           id: "charmhub",
-          component: (
-            <p>
-              A repository for charms - from Observability to Data to Identity
-              and more.
-            </p>
-          ),
           icon: "information",
         },
-      ]}
-    />
+      ],
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>

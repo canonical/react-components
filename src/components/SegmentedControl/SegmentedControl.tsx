@@ -14,10 +14,6 @@ export type SegmentedControlTabs<P = null> = {
    */
   id?: string;
   /**
-   * Component to be displayed in each tab.
-   */
-  component?: ReactNode;
-  /**
    * Label to be displayed inside the tab.
    */
   label: string;
@@ -36,17 +32,12 @@ export type Props<P = null> = {
    * Optional classes to make the buttons take on a more compact appearance.
    */
   dense?: boolean;
-  /**
-   * Optional classes to make the buttons take on a more compact appearance.
-   */
-  hasIcon?: boolean;
 };
 
 const SegmentedControl = <P,>({
   className,
   tabs,
   dense = false,
-  hasIcon = false,
 }: Props<P>): JSX.Element => {
   const [currentTab, changeTab] = useState(0);
   const inputRefs = useRef<HTMLButtonElement[] | null[]>([]);
@@ -103,26 +94,12 @@ const SegmentedControl = <P,>({
                 changeTab(i);
               }}
             >
-              {hasIcon ? <Icon name={icon} /> : null}
+              {icon ? <Icon name={icon} /> : null}
               <span>{label}</span>
             </button>
           );
         })}
       </div>
-      {tabs.map((tab, i) => {
-        const { component, id } = tab;
-        return (
-          <div
-            tabIndex={0}
-            role="tabpanel"
-            id={id + "-tab"}
-            aria-labelledby={id}
-            hidden={currentTab !== i}
-          >
-            {component}
-          </div>
-        );
-      })}
     </div>
   );
 };
