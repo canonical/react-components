@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import Icon, { ICONS } from "../Icon";
-import React, { HTMLProps, ReactNode, useRef, useState } from "react";
+import React, { HTMLProps, useRef, useState } from "react";
 
 import type { ClassName, ValueOf } from "types";
 
