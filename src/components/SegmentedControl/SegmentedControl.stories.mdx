@@ -4,7 +4,65 @@ import { ICONS } from "../Icon";
 
 <Meta title="Segmented Control" component={SegmentedControl} />
 
-export const Template = (args) => <SegmentedControl {...args} />;
+export const Template = (args) => (
+  <div>
+    <SegmentedControl
+      {...args}
+      onChange={(event) => {
+        let tabs = document.querySelectorAll('button[role="tab"]');
+        var tabContent = document.getElementById(
+          event.target.getAttribute("aria-controls")
+        );
+        tabs.forEach((tab) => {
+          if (tab == event.target) {
+            tab.setAttribute("aria-selected", true);
+            tabContent.removeAttribute("hidden");
+          } else {
+            tab.setAttribute("aria-selected", false);
+            tabContent.setAttribute("hidden", true);
+          }
+        });
+      }}
+    />
+    <div
+      tabIndex="0"
+      role="tabpanel"
+      id="olm-tab"
+      aria-labelledby="olm"
+      hidden={false}
+    >
+      <p>
+        A system to help you move from configuration management to application
+        management across your hybrid cloud estate - through sharable, reusable,
+        tiny applications called Charmed Operators.
+      </p>
+    </div>
+    <div
+      tabIndex="0"
+      role="tabpanel"
+      id="sdk-tab"
+      aria-labelledby="sdk"
+      hidden="hidden"
+    >
+      <p>
+        A set of tools to help you write Charmed Operators and to package them
+        as Charms.
+      </p>
+    </div>
+    <div
+      tabIndex="0"
+      role="tabpanel"
+      id="charmhub-tab"
+      aria-labelledby="charmhub"
+      hidden="hidden"
+    >
+      <p>
+        A repository for charms - from Observability to Data to Identity and
+        more.
+      </p>
+    </div>
+  </div>
+);
 
 ### Segmented Control
 

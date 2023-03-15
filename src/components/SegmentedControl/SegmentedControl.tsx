@@ -1,10 +1,16 @@
 import classNames from "classnames";
 import Icon, { ICONS } from "../Icon";
-import React, { HTMLProps, useRef, useState } from "react";
+import React, {
+  ChangeEventHandler,
+  HTMLProps,
+  MouseEventHandler,
+  useRef,
+  useState,
+} from "react";
 
 import type { ClassName, ValueOf } from "types";
 
-export type SegmentedControlTabs<P = null> = {
+export type SegmentedControlButton<P = null> = {
   /**
    * If the tab has an icon element, the type of icon.
    */
@@ -27,16 +33,21 @@ export type Props<P = null> = {
   /**
    * An array of tab link objects.
    */
-  tabs: SegmentedControlTabs<P>[];
+  tabs: SegmentedControlButton<P>[];
   /**
    * Optional classes to make the buttons take on a more compact appearance.
    */
   dense?: boolean;
+  /**
+   * Function to be called when a button is clicked
+   */
+  onChange: ChangeEventHandler<HTMLButtonElement>;
 };
 
 const SegmentedControl = <P,>({
   className,
   tabs,
+  onChange,
   dense = false,
 }: Props<P>): JSX.Element => {
   const [currentTab, changeTab] = useState(0);
@@ -86,13 +97,9 @@ const SegmentedControl = <P,>({
               onKeyUp={(e) => {
                 switchTab(e, i);
               }}
-              onClick={() => {
-                changeTab(i);
-              }}
               ref={(ref) => (inputRefs.current[i] = ref)}
-              onFocus={() => {
-                changeTab(i);
-              }}
+              onFocus={onChange}
+              onChange={onChange}
             >
               {icon ? <Icon name={icon} /> : null}
               <span>{label}</span>
