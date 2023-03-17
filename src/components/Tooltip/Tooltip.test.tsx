@@ -36,12 +36,13 @@ describe("Tooltip", () => {
     expect(screen.getByRole("link", { name: "Canonical" })).toHaveFocus();
   });
 
-  it("adds a description to the wrapped element", () => {
+  it("adds a description to the wrapped element", async () => {
     render(
       <Tooltip message="Additional description">
         <button>open the tooltip</button>
       </Tooltip>
     );
+    await userEvent.tab();
     expect(
       screen.getByRole("button", { name: /open the tooltip/ })
     ).toHaveAccessibleDescription("Additional description");
@@ -78,22 +79,23 @@ describe("Tooltip", () => {
   });
 
   it("does not show tooltip message by default", () => {
-    render(<Tooltip message="text">Child</Tooltip>);
-    expect(screen.getByTestId("tooltip-portal")).toHaveClass("u-off-screen");
+    render(<Tooltip message="tooltip text">Child</Tooltip>);
+    expect(screen.queryByText("tooltip text")).not.toBeInTheDocument();
+    expect(screen.queryByTestId("tooltip-portal")).not.toBeInTheDocument();
   });
 
   it("renders tooltip message on focus", async () => {
     render(
-      <Tooltip message="text">
+      <Tooltip message="tooltip text">
         <button>open the tooltip</button>
       </Tooltip>
     );
 
-    expect(screen.getByTestId("tooltip-portal")).toHaveClass("u-off-screen");
+    expect(screen.queryByTestId("tooltip-portal")).not.toBeInTheDocument();
+    expect(screen.queryByText("tooltip text")).not.toBeInTheDocument();
     await userEvent.tab();
-    expect(screen.getByTestId("tooltip-portal")).not.toHaveClass(
-      "u-off-screen"
-    );
+    expect(screen.getByTestId("tooltip-portal")).toBeInTheDocument();
+    expect(screen.getByText("tooltip text")).toBeInTheDocument();
   });
 
   it("updates the tooltip to fit on the screen", async () => {
@@ -114,25 +116,33 @@ describe("Tooltip", () => {
     expect(screen.getByTestId("tooltip-portal")).toHaveClass("is-detached");
   });
 
-  it("gives the correct class name to the tooltip", () => {
+  it("gives the correct class name to the tooltip", async () => {
+    // ensure the tooltip fits in the window and the positioning className remains unchanged
+    global.innerWidth = 500;
     render(
       <Tooltip message="text" position="right">
         <button>open the tooltip</button>
       </Tooltip>
     );
 
+    await userEvent.hover(
+      screen.getByRole("button", { name: "open the tooltip" })
+    );
     expect(screen.getByTestId("tooltip-portal")).toHaveClass(
       "p-tooltip--right"
     );
   });
 
-  it("assigns the correct z-index to the correct element", () => {
+  it("assigns the correct z-index to the correct element", async () => {
     render(
       <Tooltip message="text" zIndex={999}>
         <button>open the tooltip</button>
       </Tooltip>
     );
 
+    await userEvent.hover(
+      screen.getByRole("button", { name: "open the tooltip" })
+    );
     expect(screen.getByRole("tooltip")).toHaveStyle("z-index: 999");
   });
 

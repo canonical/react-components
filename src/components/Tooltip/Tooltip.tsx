@@ -313,33 +313,29 @@ const Tooltip = ({
                 : child
             )}
           </span>
-          <Portal>
-            <span
-              className={classNames(
-                `p-tooltip--${adjustedPosition}`,
-                "is-detached",
-                { "u-off-screen": !isOpen },
-                tooltipClassName
-              )}
-              data-testid="tooltip-portal"
-              style={positionStyle as React.CSSProperties}
-              // style={
-              //   isOpen
-              //     ? (positionStyle as React.CSSProperties)
-              //     : { left: -9999 }
-              // }
-            >
+          {isOpen ? (
+            <Portal>
               <span
-                role="tooltip"
-                className="p-tooltip__message"
-                ref={messageRef}
-                id={tooltipId}
-                style={{ zIndex: zIndex }}
+                className={classNames(
+                  `p-tooltip--${adjustedPosition}`,
+                  "is-detached",
+                  tooltipClassName
+                )}
+                data-testid="tooltip-portal"
+                style={positionStyle as React.CSSProperties}
               >
-                {message}
+                <span
+                  role="tooltip"
+                  className="p-tooltip__message"
+                  ref={messageRef}
+                  id={tooltipId}
+                  style={{ zIndex: zIndex }}
+                >
+                  {message}
+                </span>
               </span>
-            </span>
-          </Portal>
+            </Portal>
+          ) : null}
         </span>
       ) : (
         <span className={className}>{children}</span>
