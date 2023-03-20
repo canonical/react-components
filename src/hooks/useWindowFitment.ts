@@ -10,6 +10,12 @@ export type WindowFitment = {
     // Whether the target element fits between the top edge of the reference
     // element and the bottom edge of the window.
     fitsBelow: boolean;
+    // The available space between the top edge of the reference
+    // element and the top edge of the window.
+    spaceAbove: number;
+    // The available space between the top edge of the reference
+    // element and the bottom edge of the window.
+    spaceBelow: number;
   };
   fromBottom: {
     // Whether the target element fits between the bottom edge of the reference
@@ -18,6 +24,12 @@ export type WindowFitment = {
     // Whether the target element fits between the bottom edge of the reference
     // element and the bottom edge of the window.
     fitsBelow: boolean;
+    // The available space between the bottom edge of the reference
+    // element and the top edge of the window.
+    spaceAbove: number;
+    // The available space between the bottom edge of the reference
+    // element and the bottom edge of the window.
+    spaceBelow: number;
   };
   fromLeft: {
     // Whether the target element fits between the left edge of the reference
@@ -26,6 +38,12 @@ export type WindowFitment = {
     // Whether the target element fits between the left edge of the reference
     // element and the right edge of the window.
     fitsRight: boolean;
+    // The available space between the left edge of the reference
+    // element and the left edge of the window.
+    spaceLeft: number;
+    // The available space between the left edge of the reference
+    // element and the right edge of the window.
+    spaceRight: number;
   };
   fromRight: {
     // Whether the target element fits between the right edge of the reference
@@ -34,6 +52,12 @@ export type WindowFitment = {
     // Whether the target element fits between the right edge of the reference
     // element and the right edge of the window.
     fitsRight: boolean;
+    // The available space between the right edge of the reference
+    // element and the left edge of the window.
+    spaceLeft: number;
+    // The available space between the right edge of the reference
+    // element and the right edge of the window.
+    spaceRight: number;
   };
   fromCenter: {
     // Whether the target element fits between the horizontal center of the
@@ -48,6 +72,18 @@ export type WindowFitment = {
     // Whether the target element fits between the vertical center of the
     // reference element and the bottom edge of the window.
     fitsBelow: boolean;
+    // The available space between the horizontal center of the
+    // reference element and the left edge of the window.
+    spaceLeft: number;
+    // The available space between the horizontal center of the
+    // reference element and the right edge of the window.
+    spaceRight: number;
+    // The available space between the vertical center of the
+    // reference element and the top edge of the window.
+    spaceAbove: number;
+    // The available space between the vertical center of the
+    // reference element and the bottom edge of the window.
+    spaceBelow: number;
     fitsCentered: {
       // Whether the top half of the target element fits between the vertical
       // center of the reference element and the top edge of the window.
@@ -134,24 +170,36 @@ export const useWindowFitment = (
           fromTop: {
             fitsAbove: referenceTop - heightIncludingSpace > windowTop,
             fitsBelow: referenceTop + heightIncludingSpace < windowBottom,
+            spaceAbove: Math.abs(windowTop - referenceTop),
+            spaceBelow: windowBottom - referenceTop,
           },
           fromBottom: {
             fitsAbove: referenceBottom - heightIncludingSpace > windowTop,
             fitsBelow: referenceBottom + heightIncludingSpace < windowBottom,
+            spaceAbove: Math.abs(windowTop - referenceBottom),
+            spaceBelow: windowBottom - referenceBottom,
           },
           fromLeft: {
             fitsLeft: referenceLeft - widthIncludingSpace > windowLeft,
             fitsRight: referenceLeft + widthIncludingSpace < windowRight,
+            spaceLeft: Math.abs(windowLeft - referenceLeft),
+            spaceRight: windowRight - referenceLeft,
           },
           fromRight: {
             fitsLeft: referenceRight - widthIncludingSpace > windowLeft,
             fitsRight: referenceRight + widthIncludingSpace < windowRight,
+            spaceLeft: Math.abs(windowLeft - referenceRight),
+            spaceRight: windowRight - referenceRight,
           },
           fromCenter: {
             fitsLeft: referenceCenterX - widthIncludingSpace > windowLeft,
             fitsRight: referenceCenterX + widthIncludingSpace < windowRight,
             fitsAbove: referenceCenterY - heightIncludingSpace > windowTop,
             fitsBelow: referenceCenterY + heightIncludingSpace < windowBottom,
+            spaceAbove: Math.abs(windowTop - referenceCenterY),
+            spaceBelow: windowBottom - referenceCenterY,
+            spaceLeft: Math.abs(windowLeft - referenceCenterX),
+            spaceRight: windowRight - referenceCenterX,
             fitsCentered: {
               fitsLeft: referenceCenterX - widthFromCenter > windowLeft,
               fitsRight: referenceCenterX + widthFromCenter < windowRight,

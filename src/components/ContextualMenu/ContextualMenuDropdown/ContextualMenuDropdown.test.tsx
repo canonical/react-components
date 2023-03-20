@@ -17,15 +17,39 @@ describe("ContextualMenuDropdown ", () => {
   describe("adjustForWindow", () => {
     const generateFits = (overrides = {}) => {
       const fits = {
-        fromTop: { fitsAbove: true, fitsBelow: true },
-        fromBottom: { fitsAbove: true, fitsBelow: true },
-        fromLeft: { fitsLeft: true, fitsRight: true },
-        fromRight: { fitsLeft: true, fitsRight: true },
+        fromTop: {
+          fitsAbove: true,
+          fitsBelow: true,
+          spaceAbove: 0,
+          spaceBelow: 768,
+        },
+        fromBottom: {
+          fitsAbove: true,
+          fitsBelow: true,
+          spaceAbove: 0,
+          spaceBelow: 768,
+        },
+        fromLeft: {
+          fitsLeft: true,
+          fitsRight: true,
+          spaceLeft: 0,
+          spaceRight: 1024,
+        },
+        fromRight: {
+          fitsLeft: true,
+          fitsRight: true,
+          spaceLeft: 0,
+          spaceRight: 1024,
+        },
         fromCenter: {
           fitsLeft: true,
           fitsRight: true,
           fitsAbove: true,
           fitsBelow: true,
+          spaceLeft: 0,
+          spaceRight: 1024,
+          spaceAbove: 0,
+          spaceBelow: 768,
           fitsCentered: {
             fitsLeft: true,
             fitsRight: true,
