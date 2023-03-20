@@ -294,7 +294,7 @@ const SearchAndFilter = ({
           className="p-search-and-filter__panel"
           aria-hidden={filterPanelHidden}
           ref={panel}
-          style={{ maxHeight, overflowX: "auto" }}
+          style={{ maxHeight, minHeight: "5rem", overflowX: "auto" }}
         >
           <div>
             {searchTerm.length > 0 && (
