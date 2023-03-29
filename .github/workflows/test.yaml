@@ -19,7 +19,7 @@ jobs:
           node-version: 16
 
       - name: Install dependencies
-        run: CYPRESS_INSTALL_BINARY=0 yarn install
+        run: yarn install
 
       - name: Lint
         run: yarn lint
@@ -31,6 +31,29 @@ jobs:
         run: yarn test
         env:
           CI: true
+
+  cypress:
+    name: Cypress
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: cypress-io/github-action@v5
+        with:
+          start: yarn run start-storybook --port 6006
+          wait-on: "http://localhost:6006"
+          browser: chrome
+          headless: true
+          env: port=6006
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress-videos
+          path: cypress/videos
 
   inclusive-naming-check:
     name: Inclusive naming check
