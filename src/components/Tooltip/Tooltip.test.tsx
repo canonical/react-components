@@ -78,6 +78,48 @@ describe("Tooltip", () => {
     expect(clickHandler).toHaveBeenCalled();
   });
 
+  it("does not propogate clicks on the tooltip message to the parent", async () => {
+    const parentClick = jest.fn();
+    render(
+      <div onClick={parentClick}>
+        <Tooltip message="a message">
+          <button>open the tooltip</button>
+        </Tooltip>
+      </div>
+    );
+    await userEvent.hover(screen.getByRole("button"));
+    await userEvent.click(screen.getByRole("tooltip"));
+    expect(parentClick).not.toHaveBeenCalled();
+  });
+
+  it("does not propogate clicks in the tooltip's children to the parent", async () => {
+    const parentClick = jest.fn();
+    render(
+      <div onClick={parentClick}>
+        <Tooltip
+          message={
+            <>
+              Additional information{" "}
+              <a
+                href="example.com"
+                onClick={(event) => {
+                  event.preventDefault();
+                }}
+              >
+                Canonical
+              </a>
+            </>
+          }
+        >
+          <button>open the tooltip</button>
+        </Tooltip>
+      </div>
+    );
+    await userEvent.hover(screen.getByRole("button"));
+    await userEvent.click(screen.getByRole("link", { name: "Canonical" }));
+    expect(parentClick).not.toHaveBeenCalled();
+  });
+
   it("does not show tooltip message by default", () => {
     render(<Tooltip message="tooltip text">Child</Tooltip>);
     expect(screen.queryByText("tooltip text")).not.toBeInTheDocument();
