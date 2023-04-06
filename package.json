@@ -95,11 +95,11 @@
     "react-useportal": "1.0.17"
   },
   "resolutions": {
-    "@types/react": "18.0.28",
-    "@types/react-dom": "17.0.18",
     "postcss": "^8.3.11"
   },
   "peerDependencies": {
+    "@types/react": "^17.0.2 || ^18.0.0",
+    "@types/react-dom": "^17.0.2 || ^18.0.0",
     "react": "^17.0.2 || ^18.0.0",
     "react-dom": "^17.0.2 || ^18.0.0",
     "vanilla-framework": "3.13.0"
