@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useRef } from "react";
+import React, { ElementType, useEffect, useRef } from "react";
 import type { HTMLProps, ReactNode } from "react";
 
 import Button, { ButtonAppearance } from "../Button";
@@ -77,6 +77,10 @@ export type Props = PropsWithSpread<
      */
     title?: ReactNode;
     /**
+     * Optional element or component to use for the title.
+     */
+    titleElement?: ElementType;
+    /**
      * **Deprecated**. Use `severity` instead.
      */
     type?: never;
@@ -97,6 +101,7 @@ const Notification = ({
   timeout,
   timestamp,
   title,
+  titleElement: TitleComponent = "h5",
   type,
   ...props
 }: Props): JSX.Element => {
@@ -129,12 +134,12 @@ const Notification = ({
     >
       <div className="p-notification__content">
         {title && (
-          <h5
+          <TitleComponent
             className="p-notification__title"
             data-testid="notification-title"
           >
             {title}
-          </h5>
+          </TitleComponent>
         )}
         {inline && <>&ensp;</>}
         <p className="p-notification__message">{children}</p>
