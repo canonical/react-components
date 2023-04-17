@@ -156,21 +156,17 @@ describe("MainTable", () => {
     beforeEach(() => {
       headers[0].sortKey = "status";
       headers[1].sortKey = "cores";
-      headers[2].sortKey = "ram";
       rows[0].sortData = {
         status: "ready",
         cores: 2,
-        ram: 1,
       };
       rows[1].sortData = {
         status: "waiting",
         cores: 1,
-        ram: 1,
       };
       rows[2].sortData = {
         status: "idle",
         cores: 8,
-        ram: 3.9,
       };
     });
 
@@ -249,6 +245,38 @@ describe("MainTable", () => {
       expect(within(rowItems[3]).getByRole("rowheader").textContent).toBe(
         "Idle"
       );
+    });
+
+    it("keeps sorting when clicking a non-sortable header", async () => {
+      render(<MainTable headers={headers} rows={rows} sortable={true} />);
+      const rowItems = screen.getAllByRole("row");
+      await userEvent.click(
+        screen.getByRole("columnheader", { name: "Status" })
+      );
+
+      const expectedOrder = ["Idle", "Ready", "Waiting"];
+      // The status should now be ascending.
+      for (let i = 1; i < 4; i++) {
+        expect(within(rowItems[i]).getByRole("rowheader").textContent).toBe(
+          expectedOrder[i - 1]
+        );
+      }
+
+      await userEvent.click(screen.getByRole("columnheader", { name: "RAM" }));
+      // The status should not change
+      for (let i = 1; i < 4; i++) {
+        expect(within(rowItems[i]).getByRole("rowheader").textContent).toBe(
+          expectedOrder[i - 1]
+        );
+      }
+
+      await userEvent.click(screen.getByRole("columnheader", { name: "RAM" }));
+      // The status should not change
+      for (let i = 1; i < 4; i++) {
+        expect(within(rowItems[i]).getByRole("rowheader").textContent).toBe(
+          expectedOrder[i - 1]
+        );
+      }
     });
 
     it("can set a default sort", () => {
