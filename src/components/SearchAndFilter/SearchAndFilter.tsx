@@ -4,7 +4,7 @@ import FilterPanelSection from "./FilterPanelSection";
 import Chip from "../Chip";
 import { overflowingChipsCount, isChipInArray } from "./utils";
 import type { SearchAndFilterChip, SearchAndFilterData } from "./types";
-import { useOnEscapePressed } from "hooks";
+import { useOnEscapePressed, useWindowFitment } from "hooks";
 
 export enum Label {
   AddFilter = "Add filter",
@@ -39,10 +39,12 @@ const SearchAndFilter = ({
   const [searchBoxExpanded, setSearchBoxExpanded] = useState(false);
   const [overflowSearchTermCounter, setOverflowSearchTermCounter] = useState(0);
   const [searchContainerActive, setSearchContainerActive] = useState(false);
+  const [maxHeight, setMaxHeight] = useState<number>();
 
   const searchAndFilterRef = useRef(null);
   const searchContainerRef = useRef(null);
   const searchBoxRef = useRef(null);
+  const panel = useRef();
 
   // Return searchData to parent component
   useEffect(() => {
@@ -177,6 +179,14 @@ const SearchAndFilter = ({
     };
   }, [searchData]);
 
+  useWindowFitment(
+    panel.current,
+    searchAndFilterRef.current,
+    (fitsWindow) => setMaxHeight(fitsWindow.fromBottom.spaceBelow - 16),
+    0,
+    !filterPanelHidden
+  );
+
   // Add search prompt value to search on Enter key
   const searchPromptKeyDown = (e) => {
     if (e.key === "Enter") {
@@ -283,6 +293,8 @@ const SearchAndFilter = ({
         <div
           className="p-search-and-filter__panel"
           aria-hidden={filterPanelHidden}
+          ref={panel}
+          style={{ maxHeight, minHeight: "5rem", overflowX: "auto" }}
         >
           <div>
             {searchTerm.length > 0 && (
