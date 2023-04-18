@@ -65,7 +65,58 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
   HTMLProps<HTMLTableElement>
 >;
 
-function ModularTable({
+const generateCell = <D extends Record<string, unknown>>(
+  cell: Cell<D>,
+  getCellProps: Props<D>["getCellProps"]
+) => {
+  const hasColumnIcon = cell.column.getCellIcon;
+  const iconName = hasColumnIcon && cell.column.getCellIcon?.(cell);
+
+  return (
+    <TableCell
+      {...cell.getCellProps([
+        {
+          className: cell.column.className,
+        },
+        {
+          className: hasColumnIcon ? "p-table__cell--icon-placeholder" : "",
+        },
+        { ...getCellProps?.(cell) },
+      ])}
+    >
+      {iconName && <Icon name={iconName} />}
+      {cell.render("Cell")}
+    </TableCell>
+  );
+};
+
+const generateRows = <D extends Record<string, unknown>>(
+  rows: Row<D>[],
+  prepareRow: (row: Row<D>) => void,
+  getRowProps: Props<D>["getRowProps"],
+  getCellProps: Props<D>["getCellProps"]
+) => {
+  let tableRows: ReactNode[] = [];
+  rows.forEach((row) => {
+    // This function is responsible for lazily preparing a row for rendering.
+    // Any row that you intend to render in your table needs to be passed to this function before every render.
+    // see: https://react-table.tanstack.com/docs/api/useTable#instance-properties
+    prepareRow(row);
+    tableRows.push(
+      <TableRow {...row.getRowProps(getRowProps?.(row))}>
+        {row.cells.map((cell) => generateCell<D>(cell, getCellProps))}
+      </TableRow>
+    );
+    if (row.subRows?.length) {
+      tableRows = tableRows.concat(
+        generateRows<D>(row.subRows, prepareRow, getRowProps, getCellProps)
+      );
+    }
+  });
+  return tableRows;
+};
+
+function ModularTable<D extends Record<string, unknown>>({
   data,
   columns,
   emptyMsg,
@@ -76,9 +127,9 @@ function ModularTable({
   getCellProps,
   getRowId,
   ...props
-}: Props<Record<string, unknown>>): JSX.Element {
+}: Props<D>): JSX.Element {
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable<Record<string, unknown>>(
+    useTable<D>(
       {
         columns,
         data,
@@ -114,7 +165,9 @@ function ModularTable({
                   },
                   { ...getHeaderProps?.(column) },
                   // Only call this if we want it to be sortable too.
-                  sortable ? column.getSortByToggleProps() : {},
+                  sortable
+                    ? column.getSortByToggleProps({ title: undefined })
+                    : {},
                 ])}
               >
                 {column.render("Header")}
@@ -124,40 +177,7 @@ function ModularTable({
         ))}
       </thead>
       <tbody {...getTableBodyProps()}>
-        {rows.map((row) => {
-          // This function is responsible for lazily preparing a row for rendering.
-          // Any row that you intend to render in your table needs to be passed to this function before every render.
-          // see: https://react-table.tanstack.com/docs/api/useTable#instance-properties
-          prepareRow(row);
-          return (
-            <TableRow {...row.getRowProps(getRowProps?.(row))}>
-              {row.cells.map((cell) => {
-                const hasColumnIcon = cell.column.getCellIcon;
-                const iconName =
-                  hasColumnIcon && cell.column.getCellIcon?.(cell);
-
-                return (
-                  <TableCell
-                    {...cell.getCellProps([
-                      {
-                        className: cell.column.className,
-                      },
-                      {
-                        className: hasColumnIcon
-                          ? "p-table__cell--icon-placeholder"
-                          : "",
-                      },
-                      { ...getCellProps?.(cell) },
-                    ])}
-                  >
-                    {iconName && <Icon name={iconName} />}
-                    {cell.render("Cell")}
-                  </TableCell>
-                );
-              })}
-            </TableRow>
-          );
-        })}
+        {generateRows(rows, prepareRow, getRowProps, getCellProps)}
         {showEmpty && (
           <TableRow>
             <TableCell colSpan={columns.length}>{emptyMsg}</TableCell>

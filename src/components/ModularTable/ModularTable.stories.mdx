@@ -205,24 +205,24 @@ columns = {
           {
             Header: "ID",
             accessor: "buildId",
-            sortType: 'basic',
+            sortType: "basic",
             Cell: ({ value }) => <a href="#">#{value}</a>,
           },
           {
             Header: "Architecture",
             accessor: "arch",
-            sortType: 'basic',
+            sortType: "basic",
           },
           {
             Header: "Build Duration",
             accessor: "duration",
             className: "u-hide--small",
-            sortType: 'basic',
+            sortType: "basic",
           },
           {
             Header: "Result",
             accessor: "result",
-            sortType: 'basic',
+            sortType: "basic",
             Cell: ({ value }) => {
               switch (value) {
                 case "released":
@@ -248,7 +248,7 @@ columns = {
             Header: "Build Finished",
             accessor: "finished",
             className: "u-align-text--right",
-            sortType: 'basic',
+            sortType: "basic",
           },
         ],
         []
@@ -275,6 +275,90 @@ columns = {
             duration: "1 minute",
             result: "other",
             finished: "ages ago",
+          },
+        ],
+        []
+      )}
+    />
+  </Story>
+</Preview>
+
+### Subrows
+
+Subrows can be used to group table rows under a heading that needs to appear
+at the start of the group. In the following example sorting the columns will
+sort the group rows, then sort the sub-rows, but the group header always comes first.
+
+<Preview>
+  <Story name="Subrows">
+    <ModularTable
+      sortable
+      columns={React.useMemo(
+        () => [
+          {
+            Header: "Flavour",
+            accessor: "flavour",
+            sortType: "basic",
+            Cell: (props) =>
+              props.row.depth === 0 ? (
+                <strong>{props.value}</strong>
+              ) : (
+                <>
+                  <input type="checkbox" /> {props.value}
+                </>
+              ),
+          },
+          {
+            Header: "Scoops",
+            accessor: "scoops",
+            sortType: "basic",
+            Cell: (props) =>
+              props.row.depth === 0 ? (
+                <span className="u-text--muted">{props.value}</span>
+              ) : (
+                props.value
+              ),
+          },
+        ],
+        []
+      )}
+      data={React.useMemo(
+        () => [
+          {
+            flavour: "Sorbet",
+            scoops: "1-2",
+            subRows: [
+              {
+                flavour: "Lemon",
+                scoops: 2,
+              },
+              {
+                flavour: "Mango",
+                scoops: 1,
+              },
+              {
+                flavour: "Raspberry",
+                scoops: 2,
+              },
+            ],
+          },
+          {
+            flavour: "Ice-cream",
+            scoops: "1-3",
+            subRows: [
+              {
+                flavour: "Chocolate",
+                scoops: 1,
+              },
+              {
+                flavour: "Vanilla",
+                scoops: 3,
+              },
+              {
+                flavour: "Caramel",
+                scoops: 2,
+              },
+            ],
           },
         ],
         []
