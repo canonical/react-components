@@ -82,6 +82,24 @@ it("renders all cells with a correct content", async () => {
   });
 });
 
+it("can set a default sort", async () => {
+  render(
+    <ModularTable
+      columns={columns}
+      data={data}
+      initialSortColumn="disks"
+      initialSortDirection="descending"
+      sortable
+    />
+  );
+  const tableBody = screen.getAllByRole("rowgroup")[1];
+  const rowItems = within(tableBody).getAllByRole("row");
+  expect(rowItems).toHaveLength(3);
+  expect(within(rowItems[0]).queryAllByRole("cell")[3]).toHaveTextContent("3");
+  expect(within(rowItems[1]).queryAllByRole("cell")[3]).toHaveTextContent("2");
+  expect(within(rowItems[2]).queryAllByRole("cell")[3]).toHaveTextContent("2");
+});
+
 it("renders subrows", async () => {
   const data: Record<string, unknown>[] = [
     {

@@ -61,7 +61,13 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
       cell: Cell<D>
     ) => Partial<TableCellProps & HTMLProps<HTMLTableCellElement>>;
     getRowId?: UseTableOptions<D>["getRowId"];
+    /**
+     * The column that the table will be sorted by (this should match a cell selector).
+     */
     initialSortColumn?: string;
+    /**
+     * The direction of the initial sort.
+     */
     initialSortDirection?: "ascending" | "descending";
   },
   HTMLProps<HTMLTableElement>
