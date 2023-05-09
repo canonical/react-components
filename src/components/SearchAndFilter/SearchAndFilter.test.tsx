@@ -377,4 +377,38 @@ describe("Search and filter", () => {
     )?.textContent;
     expect(chip2Value).toEqual("eu-west-1");
   });
+
+  it("calls onHeightChange function when provided and the counter is clicked", async () => {
+    // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
+    // of the chips
+    Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
+      configurable: true,
+      value: 40,
+    });
+    Object.defineProperty(HTMLElement.prototype, "offsetTop", {
+      configurable: true,
+      value: 100,
+    });
+    const returnSearchData = jest.fn();
+    const onHeightChange = jest.fn();
+    render(
+      <SearchAndFilter
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+        onHeightChange={onHeightChange}
+      />
+    );
+    await waitFor(async () => {
+      await userEvent.click(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
+    await waitFor(async () => {
+      await userEvent.click(screen.getByRole("button", { name: "us-east1" }));
+    });
+    await waitFor(async () => {
+      await userEvent.click(screen.getByRole("button", { name: "+1" }));
+    });
+    expect(onHeightChange).toHaveBeenCalled();
+  });
 });
