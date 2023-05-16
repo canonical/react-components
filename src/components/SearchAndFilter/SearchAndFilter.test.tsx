@@ -396,7 +396,7 @@ describe("Search and filter", () => {
     expect(onPanelToggle).toHaveBeenCalled();
   });
 
-  it("calls onHeightChange function when provided and the counter is clicked", async () => {
+  it("calls onExpandChange function when provided and the counter is clicked", async () => {
     // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
     // of the chips
     Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
@@ -408,12 +408,12 @@ describe("Search and filter", () => {
       value: 100,
     });
     const returnSearchData = jest.fn();
-    const onHeightChange = jest.fn();
+    const onExpandChange = jest.fn();
     render(
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
-        onHeightChange={onHeightChange}
+        onExpandChange={onExpandChange}
       />
     );
     await waitFor(async () => {
@@ -427,6 +427,6 @@ describe("Search and filter", () => {
     await waitFor(async () => {
       await userEvent.click(screen.getByRole("button", { name: "+1" }));
     });
-    expect(onHeightChange).toHaveBeenCalled();
+    expect(onExpandChange).toHaveBeenCalled();
   });
 });
