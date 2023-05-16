@@ -378,6 +378,24 @@ describe("Search and filter", () => {
     expect(chip2Value).toEqual("eu-west-1");
   });
 
+  it("calls onPanelToggle function when provided and the searchbox is clicked", async () => {
+    const returnSearchData = jest.fn();
+    const onPanelToggle = jest.fn();
+    render(
+      <SearchAndFilter
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+        onPanelToggle={onPanelToggle}
+      />
+    );
+    await waitFor(async () => {
+      await userEvent.click(
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+      );
+    });
+    expect(onPanelToggle).toHaveBeenCalled();
+  });
+
   it("calls onHeightChange function when provided and the counter is clicked", async () => {
     // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
     // of the chips
