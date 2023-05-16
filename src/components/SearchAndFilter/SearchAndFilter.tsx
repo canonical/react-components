@@ -32,7 +32,7 @@ export type Props = {
   /**
    * A function that is called when the height of the search container changes.
    */
-  onHeightChange?: () => void;
+  onExpandChange?: () => void;
 };
 
 const SearchAndFilter = ({
@@ -40,7 +40,7 @@ const SearchAndFilter = ({
   filterPanelData,
   returnSearchData,
   onPanelToggle = () => {},
-  onHeightChange = () => {},
+  onExpandChange = () => {},
   ...props
 }: Props): JSX.Element => {
   const [searchData, setSearchData] = useState(existingSearchData);
@@ -59,8 +59,8 @@ const SearchAndFilter = ({
   // Call onPanelToggle when the filterPanelHidden state changes
   useEffect(onPanelToggle, [onPanelToggle, filterPanelHidden]);
 
-  // Call onHeightChange when the search box is expanded or collapsed
-  useEffect(onHeightChange, [onHeightChange, searchBoxExpanded]);
+  // Call onExpandChange when the search box is expanded or collapsed
+  useEffect(onExpandChange, [onExpandChange, searchBoxExpanded]);
 
   // Return searchData to parent component
   useEffect(() => {
