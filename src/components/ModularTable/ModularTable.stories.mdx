@@ -197,6 +197,8 @@ columns = {
   <Story name="Sortable">
     <ModularTable
       sortable
+      initialSortColumn="duration"
+      initialSortDirection="ascending"
       getCellProps={({ value }) => ({
         className: value === "1 minute" ? "p-heading--5" : "",
       })}

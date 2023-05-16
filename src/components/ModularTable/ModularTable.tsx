@@ -1,4 +1,4 @@
-import React, { ReactNode, HTMLProps } from "react";
+import React, { ReactNode, HTMLProps, useMemo } from "react";
 import {
   TableCellProps,
   TableHeaderProps,
@@ -61,6 +61,14 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
       cell: Cell<D>
     ) => Partial<TableCellProps & HTMLProps<HTMLTableCellElement>>;
     getRowId?: UseTableOptions<D>["getRowId"];
+    /**
+     * The column that the table will be sorted by (this should match a cell selector).
+     */
+    initialSortColumn?: string;
+    /**
+     * The direction of the initial sort.
+     */
+    initialSortDirection?: "ascending" | "descending";
   },
   HTMLProps<HTMLTableElement>
 >;
@@ -126,14 +134,31 @@ function ModularTable<D extends Record<string, unknown>>({
   getRowProps,
   getCellProps,
   getRowId,
+  initialSortColumn,
+  initialSortDirection,
   ...props
 }: Props<D>): JSX.Element {
+  const sortBy = useMemo(
+    () =>
+      initialSortColumn
+        ? [
+            {
+              id: initialSortColumn,
+              desc: initialSortDirection === "descending",
+            },
+          ]
+        : [],
+    [initialSortColumn, initialSortDirection]
+  );
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable<D>(
       {
         columns,
         data,
         getRowId: getRowId || undefined,
+        initialState: {
+          sortBy,
+        },
       },
       sortable ? useSortBy : undefined
     );
