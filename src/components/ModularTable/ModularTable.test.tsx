@@ -1,4 +1,5 @@
 import { render, screen, within } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import ModularTable from "./ModularTable";
@@ -10,6 +11,7 @@ const columns = [
     Header: "Cores",
     className: "u-align--right",
     sortType: "alphanumeric",
+    title: "Cores",
   },
   {
     accessor: "ram",
@@ -24,7 +26,7 @@ const columns = [
     sortType: "alphanumeric",
   },
 ];
-const data = [
+const data: Record<string, unknown>[] = [
   {
     status: "Ready",
     cores: 1,
@@ -78,6 +80,122 @@ it("renders all cells with a correct content", async () => {
       expect(cell.textContent).toEqual(`${rowData[columnAccessor]}`);
     });
   });
+});
+
+it("can set a default sort", async () => {
+  render(
+    <ModularTable
+      columns={columns}
+      data={data}
+      initialSortColumn="disks"
+      initialSortDirection="descending"
+      sortable
+    />
+  );
+  const tableBody = screen.getAllByRole("rowgroup")[1];
+  const rowItems = within(tableBody).getAllByRole("row");
+  expect(rowItems).toHaveLength(3);
+  expect(within(rowItems[0]).queryAllByRole("cell")[3]).toHaveTextContent("3");
+  expect(within(rowItems[1]).queryAllByRole("cell")[3]).toHaveTextContent("2");
+  expect(within(rowItems[2]).queryAllByRole("cell")[3]).toHaveTextContent("2");
+});
+
+it("renders subrows", async () => {
+  const data: Record<string, unknown>[] = [
+    {
+      status: "Ready",
+      cores: 1,
+      ram: "1 GiB",
+      disks: 2,
+      subRows: [
+        {
+          status: "Waiting",
+          cores: 1,
+          ram: "1 GiB",
+          disks: 2,
+        },
+      ],
+    },
+    {
+      status: "Idle",
+      cores: 8,
+      ram: "3.9 GiB",
+      disks: 3,
+    },
+  ];
+  render(<ModularTable columns={columns} data={data} />);
+  const tableBody = screen.getAllByRole("rowgroup")[1];
+  const rowItems = within(tableBody).getAllByRole("row");
+  expect(rowItems).toHaveLength(3);
+  expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+    "Ready"
+  );
+  expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+    "Waiting"
+  );
+  expect(within(rowItems[2]).queryAllByRole("cell")[0]).toHaveTextContent(
+    "Idle"
+  );
+});
+
+it("sorts group headers then sub-rows", async () => {
+  const data: Record<string, unknown>[] = [
+    {
+      status: "Ready",
+      cores: 3,
+      ram: "1 GiB",
+      disks: 2,
+      subRows: [
+        {
+          status: "Waiting",
+          cores: 4,
+          ram: "1 GiB",
+          disks: 2,
+        },
+        {
+          status: "Error",
+          cores: 2,
+          ram: "1 GiB",
+          disks: 2,
+        },
+      ],
+    },
+    {
+      status: "Idle",
+      cores: 1,
+      ram: "3.9 GiB",
+      disks: 3,
+    },
+  ];
+  render(<ModularTable columns={columns} data={data} sortable />);
+  const tableBody = screen.getAllByRole("rowgroup")[1];
+  let rowItems = within(tableBody).getAllByRole("row");
+  expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+    "Ready"
+  );
+  expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+    "Waiting"
+  );
+  expect(within(rowItems[2]).queryAllByRole("cell")[0]).toHaveTextContent(
+    "Error"
+  );
+  expect(within(rowItems[3]).queryAllByRole("cell")[0]).toHaveTextContent(
+    "Idle"
+  );
+  await userEvent.click(screen.getByRole("columnheader", { name: "Cores" }));
+  rowItems = within(tableBody).getAllByRole("row");
+  expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+    "Idle"
+  );
+  expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+    "Ready"
+  );
+  expect(within(rowItems[2]).queryAllByRole("cell")[0]).toHaveTextContent(
+    "Error"
+  );
+  expect(within(rowItems[3]).queryAllByRole("cell")[0]).toHaveTextContent(
+    "Waiting"
+  );
 });
 
 it("renders no rows when data is empty", () => {

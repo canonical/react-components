@@ -327,6 +327,11 @@ const Tooltip = ({
                 <span
                   role="tooltip"
                   className="p-tooltip__message"
+                  onClick={(event) => {
+                    // Prevent clicks inside the message from bubbling to parent
+                    // click handlers.
+                    event.stopPropagation();
+                  }}
                   ref={messageRef}
                   id={tooltipId}
                   style={{ zIndex: zIndex }}
