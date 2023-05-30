@@ -6,7 +6,6 @@ exports[`Chip  renders default chip 1`] = `
   data-testid="chip"
   type="button"
 >
-  
   <span
     class="p-chip__value"
   >
