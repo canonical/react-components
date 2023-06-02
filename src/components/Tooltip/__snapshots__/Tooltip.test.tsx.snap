@@ -6,9 +6,7 @@ exports[`Tooltip renders and matches the snapshot 1`] = `
     <span
       style="display: inline-block;"
     >
-      <button
-        aria-describedby="mock-nanoid-1"
-      >
+      <button>
         button text
       </button>
     </span>

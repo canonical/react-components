@@ -308,7 +308,7 @@ const Tooltip = ({
             {React.Children.map(children, (child) =>
               child && React.isValidElement(child)
                 ? React.cloneElement(child, {
-                    "aria-describedby": tooltipId,
+                    "aria-describedby": isOpen ? tooltipId : undefined,
                   } as React.HTMLAttributes<HTMLElement>)
                 : child
             )}
