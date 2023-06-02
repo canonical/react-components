@@ -47,7 +47,7 @@ const Card = ({
   const titleId = useId();
   return (
     <div
-      aria-labelledby={titleId}
+      aria-labelledby={title ? titleId : undefined}
       className={classNames(className, {
         "p-card": !highlighted && !overlay,
         "p-card--highlighted": highlighted,
