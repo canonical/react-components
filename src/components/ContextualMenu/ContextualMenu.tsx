@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import type { HTMLProps, ReactNode } from "react";
+import type { HTMLProps } from "react";
 import usePortal from "react-useportal";
 
 import { useListener, usePrevious } from "hooks";
@@ -29,7 +29,7 @@ export type Props<L> = PropsWithSpread<
     /**
      * The menu content (if the links prop is not supplied).
      */
-    children?: ReactNode;
+    children?: ContextualMenuDropdownProps["dropdownContent"];
     /**
      * An optional class to apply to the wrapping element.
      */

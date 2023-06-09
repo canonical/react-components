@@ -4,6 +4,7 @@ import React from "react";
 import ContextualMenu, { Label } from "./ContextualMenu";
 import { Label as DropdownLabel } from "./ContextualMenuDropdown/ContextualMenuDropdown";
 import userEvent from "@testing-library/user-event";
+import Button from "../Button";
 
 describe("ContextualMenu ", () => {
   afterEach(() => {
@@ -265,5 +266,35 @@ describe("ContextualMenu ", () => {
       />
     );
     expect(screen.getByText("toggleLabel component text")).toBeInTheDocument();
+  });
+
+  it("forwards close callback to child when it is a function", async () => {
+    render(
+      <ContextualMenu position="right" toggleLabel="Toggle">
+        {(close: () => void) => <Button onClick={close}>child</Button>}
+      </ContextualMenu>
+    );
+
+    await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
+    expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
+    // Click on an item:
+    await userEvent.click(screen.getByRole("button", { name: "child" }));
+    expect(
+      screen.queryByLabelText(DropdownLabel.Dropdown)
+    ).not.toBeInTheDocument();
+  });
+
+  it("does not forward close callback to child when it is an element", async () => {
+    render(
+      <ContextualMenu position="right" toggleLabel="Toggle">
+        <span data-testid="child-span">child</span>
+      </ContextualMenu>
+    );
+
+    await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
+    expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
+    // Click on an item:
+    await userEvent.click(screen.getByTestId("child-span"));
+    expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
   });
 });

@@ -1,5 +1,11 @@
 import classNames from "classnames";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import type { HTMLProps, ReactNode } from "react";
 
 import { useWindowFitment } from "hooks";
@@ -29,7 +35,7 @@ export type Props<L = null> = {
   closePortal?: (evt?: MouseEvent) => void;
   constrainPanelWidth?: boolean;
   dropdownClassName?: string;
-  dropdownContent?: ReactNode;
+  dropdownContent?: ReactNode | ((close: () => void) => ReactElement);
   id?: string;
   isOpen?: boolean;
   links?: MenuLink<L>[];
@@ -224,7 +230,9 @@ const ContextualMenuDropdown = <L,>({
         }
       >
         {dropdownContent
-          ? dropdownContent
+          ? typeof dropdownContent === "function"
+            ? dropdownContent(closePortal)
+            : dropdownContent
           : links.map((item, i) => {
               if (Array.isArray(item)) {
                 return (
