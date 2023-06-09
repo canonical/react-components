@@ -78,3 +78,35 @@ The contextual menu will provide a visual wrapper to any provided children. Visi
     {Template.bind({})}
   </Story>
 </Canvas>
+
+### Child function
+
+<Canvas>
+  <Story
+    name="Child function"
+    args={{
+      children: (close) => <Button onClick={close}>child function</Button>,
+      hasToggleIcon: true,
+      position: "right",
+      toggleLabel: "Click me!",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Child element
+
+<Canvas>
+  <Story
+    name="Child element"
+    args={{
+      children: <Button>child element</Button>,
+      hasToggleIcon: true,
+      position: "right",
+      toggleLabel: "Click me!",
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
