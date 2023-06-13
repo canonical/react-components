@@ -1,0 +1,53 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
+import { useState } from "react";
+
+import ConfirmationModal from "./ConfirmationModal";
+import Input from "../Input";
+
+<Meta title="ConfirmationModal" component={ConfirmationModal} />
+
+### ConfirmationModal
+
+`ConfirmationModal` is a specialised version of the Vanilla [Modal](https://docs.vanillaframework.io/patterns/modal/) that prompts a confirmation from the user before executing some action.
+
+### Props
+
+<ArgsTable of={ConfirmationModal} />
+
+export const doNothing = () => {};
+
+<Canvas>
+  <Story name="Default">
+    {() => {
+      const [modalOpen, setModalOpen] = useState(true);
+      const closeHandler = () => setModalOpen(false);
+      return (
+        <>
+          <button onClick={() => setModalOpen(true)}>Open confirmation modal</button>
+          {modalOpen ? (
+            <ConfirmationModal
+              close={closeHandler}
+              title="Confirm delete"
+              confirmButtonLabel="Delete"
+              confirmExtra={
+                <span className="u-float-left">
+                  <Input
+                    type="checkbox"
+                    id="extraCheckbox"
+                    label="Do not ask again"
+                    tabIndex={-1}
+                  />
+                </span>
+              }
+              onConfirm={doNothing}
+              hasShiftClickHint
+            >
+              Are you sure you want to delete user "Simon"? This action is
+              permanent and can not be undone.
+            </ConfirmationModal>
+          ) : null}
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
