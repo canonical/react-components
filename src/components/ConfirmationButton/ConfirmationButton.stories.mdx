@@ -1,0 +1,52 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
+import { useState } from "react";
+
+import ConfirmationButton from "./ConfirmationButton";
+import Input from "../Input";
+
+<Meta title="ConfirmationButton" component={ConfirmationButton} />
+
+### ConfirmationButton
+
+`ConfirmationButton` is a specialised version of the Vanilla [Button](https://docs.vanillaframework.io/patterns/buttons/) that prompts a confirmation from the user before executing some action.
+
+### Props
+
+<ArgsTable of={ConfirmationButton} />
+
+<Canvas>
+  <Story name="Default">
+    {() => {
+      const [isLoading, setLoading] = useState(false);
+      const brieflyLoad = () => {
+        setLoading(true);
+        setTimeout(() => setLoading(false), 2000);
+      };
+      return (
+        <ConfirmationButton
+          title="Confirm delete"
+          buttonLabel="Delete"
+          confirmButtonLabel="Delete"
+          confirmExtra={
+            <span className="u-float-left">
+              <Input
+                type="checkbox"
+                id="extraCheckbox"
+                label="Do not ask again"
+                tabIndex={-1}
+              />
+            </span>
+          }
+          icon="delete"
+          isLoading={isLoading}
+          onConfirm={brieflyLoad}
+          shiftClickEnabled
+          hasShiftClickHint
+        >
+          Are you sure you want to delete user "Simon"? This action is
+          permanent and can not be undone.
+        </ConfirmationButton>
+      );
+    }}
+  </Story>
+</Canvas>

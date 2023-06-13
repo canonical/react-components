@@ -12,6 +12,7 @@ export {
   CodeSnippetBlockAppearance,
 } from "./components/CodeSnippet";
 export { default as Col } from "./components/Col";
+export { default as ConfirmationButton } from "./components/ConfirmationButton";
 export { default as ConfirmationModal } from "./components/ConfirmationModal";
 export { default as ContextualMenu } from "./components/ContextualMenu";
 export { default as Field } from "./components/Field";
@@ -69,6 +70,7 @@ export type {
   CodeSnippetDropdownProps,
 } from "./components/CodeSnippet";
 export type { ColProps, ColSize } from "./components/Col";
+export type { ConfirmationButtonProps } from "./components/ConfirmationButton";
 export type { ConfirmationModalProps } from "./components/ConfirmationModal";
 export type {
   ContextualMenuProps,
