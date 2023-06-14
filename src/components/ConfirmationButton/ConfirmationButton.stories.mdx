@@ -14,8 +14,30 @@ import Input from "../Input";
 
 <ArgsTable of={ConfirmationButton} />
 
+export const doNothing = () => {};
+
+### Default
+
 <Canvas>
   <Story name="Default">
+    <ConfirmationButton
+      title="Confirm delete"
+      buttonLabel="Delete"
+      confirmButtonLabel="Delete"
+      onConfirm={doNothing}
+    >
+      <p>
+        Are you sure you want to delete user "Simon"?<br/>
+        This action is permanent and can not be undone.
+      </p>
+    </ConfirmationButton>
+  </Story>
+</Canvas>
+
+### Icon and label
+
+<Canvas>
+  <Story name="Icon and label">
     {() => {
       const [isLoading, setLoading] = useState(false);
       const brieflyLoad = () => {
@@ -27,16 +49,67 @@ import Input from "../Input";
           title="Confirm delete"
           buttonLabel="Delete"
           confirmButtonLabel="Delete"
-          confirmExtra={
-            <span className="u-float-left">
-              <Input
-                type="checkbox"
-                id="extraCheckbox"
-                label="Do not ask again"
-                tabIndex={-1}
-              />
-            </span>
-          }
+          icon="delete"
+          isLoading={isLoading}
+          onConfirm={brieflyLoad}
+          shiftClickEnabled
+          showShiftClickHint
+        >
+          <p>
+            Are you sure you want to delete user "Simon"?<br/>
+            This action is permanent and can not be undone.
+          </p>
+        </ConfirmationButton>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Icon only
+
+<Canvas>
+  <Story name="Icon only">
+    {() => {
+      const [isLoading, setLoading] = useState(false);
+      const brieflyLoad = () => {
+        setLoading(true);
+        setTimeout(() => setLoading(false), 2000);
+      };
+      return (
+        <ConfirmationButton
+          title="Confirm delete"
+          confirmButtonLabel="Delete"
+          icon="delete"
+          isLoading={isLoading}
+          onConfirm={brieflyLoad}
+          shiftClickEnabled
+          showShiftClickHint
+        >
+          <p>
+            Are you sure you want to delete user "Simon"?<br/>
+            This action is permanent and can not be undone.
+          </p>
+        </ConfirmationButton>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Base appearance
+
+<Canvas>
+  <Story name="Base appearance">
+    {() => {
+      const [isLoading, setLoading] = useState(false);
+      const brieflyLoad = () => {
+        setLoading(true);
+        setTimeout(() => setLoading(false), 2000);
+      };
+      return (
+        <ConfirmationButton
+          appearance="base"
+          title="Confirm delete"
+          confirmButtonLabel="Delete"
           icon="delete"
           isLoading={isLoading}
           onConfirm={brieflyLoad}

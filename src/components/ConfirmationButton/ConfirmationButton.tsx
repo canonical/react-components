@@ -97,7 +97,7 @@ export const ConfirmationButton = ({
           >
             {props.children}
             {showShiftClickHint && (
-              <p className="u-text--muted u-hide--small">
+              <p className="p-modal__shortcut-hint u-text--muted">
                 You can skip the confirmation dialog by holding{" "}
                 <code>SHIFT</code> when clicking on the action.
               </p>
