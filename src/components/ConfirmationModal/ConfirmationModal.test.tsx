@@ -45,21 +45,6 @@ describe("ConfirmationModal ", () => {
     expect(screen.getByTestId("extraElement")).toBeInTheDocument();
   });
 
-  it("shows the shift click hint", () => {
-    const { container } = render(
-      <ConfirmationModal
-        hasShiftClickHint
-        confirmButtonLabel="Proceed"
-        onConfirm={jest.fn()}
-      >
-        Test shift click hint
-      </ConfirmationModal>
-    );
-    expect(container.innerHTML).toContain(
-      "You can skip these confirmation modals by holding"
-    );
-  });
-
   it("executes the onConfirm callback when confirm button is clicked", async () => {
     const onConfirm = jest.fn();
     render(

@@ -68,6 +68,24 @@ describe("ConfirmationButton ", () => {
     expect(onConfirm).toHaveBeenCalled();
   });
 
+  it("shows the shift click hint", () => {
+    render(
+      <ConfirmationButton
+        showShiftClickHint
+        confirmButtonLabel="Confirm"
+        onConfirm={jest.fn()}
+      >
+        Test shift click hint
+      </ConfirmationButton>
+    );
+    const button = screen.getByTitle("Confirm");
+    const clickEvent = createEvent.click(button);
+    fireEvent(button, clickEvent);
+    expect(document.body).toContainHTML(
+      "You can skip the confirmation dialog by holding"
+    );
+  });
+
   it("passes extra classes to the modal wrapper", async () => {
     render(
       <ConfirmationButton
