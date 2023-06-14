@@ -37,6 +37,10 @@ export type Props = PropsWithSpread<
      */
     shiftClickEnabled?: boolean;
     /**
+     * Whether to show a hint about the SHIFT+Click shortcut to skip the confirmation modal.
+     */
+    showShiftClickHint?: boolean;
+    /**
      * Optional class(es) to apply to the modal wrapper element.
      */
     modalClassName?: string;
@@ -50,6 +54,7 @@ export const ConfirmationButton = ({
   isLoading = false,
   onHoverText,
   shiftClickEnabled = false,
+  showShiftClickHint = false,
   modalClassName,
   ...props
 }: Props): ReactElement => {
@@ -89,9 +94,14 @@ export const ConfirmationButton = ({
             confirmButtonLabel={props.confirmButtonLabel}
             confirmButtonAppearance={props.confirmButtonAppearance}
             onConfirm={handleConfirmModal}
-            hasShiftClickHint={props.hasShiftClickHint}
           >
             {props.children}
+            {showShiftClickHint && (
+              <p className="u-text--muted u-hide--small">
+                You can skip the confirmation dialog by holding{" "}
+                <code>SHIFT</code> when clicking on the action.
+              </p>
+            )}
           </ConfirmationModal>
         </Portal>
       )}

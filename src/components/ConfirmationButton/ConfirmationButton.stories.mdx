@@ -41,10 +41,12 @@ import Input from "../Input";
           isLoading={isLoading}
           onConfirm={brieflyLoad}
           shiftClickEnabled
-          hasShiftClickHint
+          showShiftClickHint
         >
-          Are you sure you want to delete user "Simon"? This action is
-          permanent and can not be undone.
+          <p>
+            Are you sure you want to delete user "Simon"?<br/>
+            This action is permanent and can not be undone.
+          </p>
         </ConfirmationButton>
       );
     }}

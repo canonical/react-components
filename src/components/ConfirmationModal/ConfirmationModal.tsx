@@ -27,10 +27,6 @@ export type Props = PropsWithSpread<
      */
     confirmExtra?: ReactNode;
     /**
-     * Show the SHIFT+Click shortcut hint to skip the confirmation.
-     */
-    hasShiftClickHint?: boolean;
-    /**
      * Function to perform the action prompted by the modal.
      */
     onConfirm: (e: MouseEvent<HTMLElement>) => void;
@@ -44,7 +40,6 @@ export const ConfirmationModal = ({
   confirmButtonAppearance = "negative",
   confirmButtonLabel,
   confirmExtra,
-  hasShiftClickHint = false,
   onConfirm,
   ...props
 }: Props): ReactElement => {
@@ -67,13 +62,7 @@ export const ConfirmationModal = ({
       }
       {...props}
     >
-      <p style={{ textAlign: "start", whiteSpace: "pre-line" }}>{children}</p>
-      {hasShiftClickHint && (
-        <p className="u-text--muted u-hide--small">
-          You can skip these confirmation modals by holding <code>SHIFT</code>{" "}
-          when clicking on the action.
-        </p>
-      )}
+      {children}
     </Modal>
   );
 };

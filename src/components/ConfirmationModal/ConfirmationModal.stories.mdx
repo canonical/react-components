@@ -33,8 +33,10 @@ export const doNothing = () => {};
               onConfirm={doNothing}
               close={closeHandler}
             >
-              Are you sure you want to delete user "Simon"?<br/>
-              This action is permanent and can not be undone.
+              <p>
+                Are you sure you want to delete user "Simon"?<br/>
+                This action is permanent and can not be undone.
+              </p>
             </ConfirmationModal>
           ) : null}
         </>
@@ -115,7 +117,10 @@ The appearance of the confirm button can be any of the `Button`'s appearance val
                   test
                 </pre>
               </div>
-              <div className="p-text--small">
+              <div
+                className="p-text--small"
+                style={{ width: "480px" }}
+              >
                 You can revert back to the applications default settings by clicking
                 the “Reset all values” button; or reset each edited field by
                 clicking “Use default”.
@@ -156,9 +161,10 @@ Extra elements can be added to the button row.
               confirmButtonLabel="Stop"
               onConfirm={doNothing}
               close={closeHandler}
-              hasShiftClickHint
             >
-              Are you sure you want to stop instance <b>whimsical-mouflon</b>?
+              <p>
+                Are you sure you want to stop instance <b>whimsical-mouflon</b>?
+              </p>
             </ConfirmationModal>
           ) : null}
         </>
