@@ -1,0 +1,35 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
+
+import EmptyState from "./EmptyState";
+import Icon, { ICONS } from "../Icon";
+
+<Meta title="EmptyState" component={EmptyState} />
+
+### EmptyState
+
+This is a [React](https://reactjs.org/) component to represent an empty state.
+
+### Props
+
+<ArgsTable of={EmptyState} />
+
+### Default
+
+<Canvas>
+  <Story name="Default">
+    <EmptyState
+      iconName="containers"
+      title="No instances found"
+    >
+      <p>
+        There are no instances in this project. Spin up your first instance!
+      </p>
+      <p>
+        <a href="#todo" target="_blank">
+          How to create instances
+          <Icon name={ICONS.externalLink}/>
+        </a>
+      </p>
+    </EmptyState>
+  </Story>
+</Canvas>

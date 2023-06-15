@@ -5,6 +5,7 @@
 
 @include vf-b-placeholders;
 @include vf-p-icons-common;
+@include vf-p-icon-containers;
 
 .p-icon--custom {
   @extend %icon;

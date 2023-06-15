@@ -15,6 +15,7 @@ export { default as Col } from "./components/Col";
 export { default as ConfirmationButton } from "./components/ConfirmationButton";
 export { default as ConfirmationModal } from "./components/ConfirmationModal";
 export { default as ContextualMenu } from "./components/ContextualMenu";
+export { default as EmptyState } from "./components/EmptyState";
 export { default as Field } from "./components/Field";
 export { default as Form } from "./components/Form";
 export { default as Icon, ICONS } from "./components/Icon";
@@ -78,6 +79,7 @@ export type {
   MenuLink,
   Position,
 } from "./components/ContextualMenu";
+export type { EmptyStateProps } from "./components/EmptyState";
 export type { FieldProps } from "./components/Field";
 export type { FormProps } from "./components/Form";
 export type { IconProps } from "./components/Icon";
