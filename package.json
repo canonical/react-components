@@ -40,6 +40,7 @@
     "@testing-library/jest-dom": "5.16.5",
     "@testing-library/react": "14.0.0",
     "@testing-library/user-event": "14.4.3",
+    "@types/react-router-dom": "5.3.3",
     "@typescript-eslint/eslint-plugin": "5.60.1",
     "@typescript-eslint/parser": "5.60.1",
     "babel-jest": "27.5.1",
@@ -91,6 +92,7 @@
     "classnames": "2.3.2",
     "nanoid": "3.3.6",
     "prop-types": "15.8.1",
+    "react-router-dom": "6.6.1",
     "react-table": "7.8.0",
     "react-useportal": "1.0.18"
   },
