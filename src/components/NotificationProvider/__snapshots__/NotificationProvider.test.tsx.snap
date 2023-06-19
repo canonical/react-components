@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationProvider stores and renders notifications 1`] = `
+<div
+  data-testid="notification-consumer"
+>
+  <div>
+    <div
+      class="p-notification--positive"
+    >
+      <div
+        class="p-notification__content"
+      >
+        <h5
+          class="p-notification__title"
+          data-testid="notification-title"
+        >
+          Success
+        </h5>
+        <p
+          class="p-notification__message"
+        >
+          My success!
+        </p>
+        <button
+          class="p-notification__close"
+          data-testid="notification-close-button"
+        >
+          Close notification
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NotificationProvider stores and renders notifications 2`] = `
+<div
+  data-testid="notification-consumer"
+>
+  <div>
+    <div
+      class="p-notification--negative"
+    >
+      <div
+        class="p-notification__content"
+      >
+        <h5
+          class="p-notification__title"
+          data-testid="notification-title"
+        >
+          Fail title
+        </h5>
+        <p
+          class="p-notification__message"
+        >
+          Button caused a failure
+           
+          error message
+        </p>
+        <button
+          class="p-notification__close"
+          data-testid="notification-close-button"
+        >
+          Close notification
+        </button>
+      </div>
+      <div
+        class="p-notification__meta"
+        data-testid="notification-meta"
+      >
+        <div
+          class="p-notification__actions"
+        >
+          <button
+            class="p-button--link p-notification__action"
+            data-testid="notification-action"
+          >
+            Retry
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`NotificationProvider stores and renders notifications 3`] = `
+<div
+  data-testid="notification-consumer"
+>
+  <div>
+    <div
+      class="p-notification--information"
+    >
+      <div
+        class="p-notification__content"
+      >
+        <h5
+          class="p-notification__title"
+          data-testid="notification-title"
+        >
+          Test info
+        </h5>
+        <p
+          class="p-notification__message"
+        >
+          Some more details
+        </p>
+        <button
+          class="p-notification__close"
+          data-testid="notification-close-button"
+        >
+          Close notification
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

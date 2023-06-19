@@ -89,7 +89,7 @@ export type Props<L> = PropsWithSpread<
     /**
      * The toggle button's label.
      */
-    toggleLabel?: string | React.ReactNode | null;
+    toggleLabel?: React.ReactNode | null;
     /**
      * Whether the toggle lable or icon should appear first.
      */

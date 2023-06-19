@@ -32,6 +32,15 @@ export {
   default as Notification,
   NotificationSeverity,
 } from "./components/Notification";
+export {
+  NotificationConsumer,
+  NotificationProvider,
+  useNotify,
+  info,
+  success,
+  failure,
+  queue,
+} from "./components/NotificationProvider";
 export { default as Pagination } from "./components/Pagination";
 export { default as PasswordToggle } from "./components/PasswordToggle";
 export { default as RadioInput } from "./components/RadioInput";
@@ -101,6 +110,12 @@ export type {
   NavLinkButton,
 } from "./components/Navigation";
 export type { NotificationProps } from "./components/Notification";
+export type {
+  NotificationAction,
+  NotificationType,
+  QueuedNotification,
+  NotificationHelper,
+} from "./components/NotificationProvider";
 export type { PaginationProps } from "./components/Pagination";
 export type { RadioInputProps } from "./components/RadioInput";
 export type { RowProps } from "./components/Row";

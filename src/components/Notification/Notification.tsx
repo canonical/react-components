@@ -18,6 +18,13 @@ export const NotificationSeverity = {
   POSITIVE: "positive",
 } as const;
 
+export const DefaultTitles = {
+  [NotificationSeverity.CAUTION]: "Warning",
+  [NotificationSeverity.INFORMATION]: "Info",
+  [NotificationSeverity.NEGATIVE]: "Error",
+  [NotificationSeverity.POSITIVE]: "Success",
+};
+
 type NotificationAction = {
   label: string;
   onClick: () => void;
