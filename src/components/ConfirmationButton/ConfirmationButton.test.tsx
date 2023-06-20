@@ -2,34 +2,35 @@ import { createEvent, fireEvent, render, screen } from "@testing-library/react";
 import React from "react";
 
 import ConfirmationButton from "./ConfirmationButton";
+import Icon, { ICONS } from "../Icon";
 import userEvent from "@testing-library/user-event";
 
 describe("ConfirmationButton ", () => {
-  it("shows button label and icon", () => {
-    const { container } = render(
-      <ConfirmationButton
-        buttonLabel="Delete"
-        icon="delete"
-        confirmButtonLabel="Confirm"
-        onConfirm={jest.fn()}
-      >
-        Test button label and icon
-      </ConfirmationButton>
-    );
-    expect(container.innerHTML).toContain("Delete");
-    expect(screen.getByRole("button")).toContainHTML("p-icon--delete");
-  });
-
-  it("shows the loading animation when isLoading is true and an icon is set", () => {
+  it("shows button icon and label", () => {
     render(
       <ConfirmationButton
-        icon="delete"
-        isLoading
-        confirmButtonLabel="Confirm"
-        onConfirm={jest.fn()}
+        confirmationModalProps={{
+          confirmButtonLabel: "Confirm",
+          onConfirm: jest.fn(),
+        }}
       >
-        Test loading animation
+        <Icon name={ICONS.delete} />
+        <span>Delete</span>
       </ConfirmationButton>
+    );
+    expect(screen.getByRole("button")).toContainHTML("p-icon--delete");
+    expect(screen.getByRole("button")).toContainHTML("<span>Delete</span>");
+  });
+
+  it("shows the loading animation when loading is true", () => {
+    render(
+      <ConfirmationButton
+        loading
+        confirmationModalProps={{
+          confirmButtonLabel: "Confirm",
+          onConfirm: jest.fn(),
+        }}
+      />
     );
     expect(screen.getByRole("button")).toContainHTML(
       "u-animation--spin p-icon--spinner"
@@ -40,11 +41,11 @@ describe("ConfirmationButton ", () => {
     render(
       <ConfirmationButton
         onHoverText="Delete"
-        confirmButtonLabel="Confirm"
-        onConfirm={jest.fn()}
-      >
-        Test custom hover text
-      </ConfirmationButton>
+        confirmationModalProps={{
+          confirmButtonLabel: "Confirm",
+          onConfirm: jest.fn(),
+        }}
+      />
     );
     expect(screen.getByTitle("Delete")).toBeInTheDocument();
   });
@@ -54,11 +55,11 @@ describe("ConfirmationButton ", () => {
     render(
       <ConfirmationButton
         shiftClickEnabled
-        confirmButtonLabel="Confirm"
-        onConfirm={onConfirm}
-      >
-        Test shift+click confirm shortcut
-      </ConfirmationButton>
+        confirmationModalProps={{
+          confirmButtonLabel: "Confirm",
+          onConfirm,
+        }}
+      />
     );
     const user = userEvent.setup();
     await user.keyboard("{Shift>}");
@@ -72,29 +73,27 @@ describe("ConfirmationButton ", () => {
     render(
       <ConfirmationButton
         showShiftClickHint
-        confirmButtonLabel="Confirm"
-        onConfirm={jest.fn()}
-      >
-        Test shift click hint
-      </ConfirmationButton>
+        confirmationModalProps={{
+          confirmButtonLabel: "Confirm",
+          onConfirm: jest.fn(),
+        }}
+      />
     );
     const button = screen.getByTitle("Confirm");
     const clickEvent = createEvent.click(button);
     fireEvent(button, clickEvent);
-    expect(document.body).toContainHTML(
-      "You can skip the confirmation dialog by holding"
-    );
+    expect(document.body).toContainHTML("<code>SHIFT</code>");
   });
 
   it("passes extra classes to the modal wrapper", async () => {
     render(
       <ConfirmationButton
-        modalClassName="extra-class"
-        confirmButtonLabel="Confirm"
-        onConfirm={jest.fn()}
-      >
-        Test modal extra class
-      </ConfirmationButton>
+        confirmationModalProps={{
+          className: "extra-class",
+          confirmButtonLabel: "Confirm",
+          onConfirm: jest.fn(),
+        }}
+      />
     );
     const button = screen.getByTitle("Confirm");
     const clickEvent = createEvent.click(button);
@@ -106,11 +105,11 @@ describe("ConfirmationButton ", () => {
     render(
       <ConfirmationButton
         className="extra-class"
-        confirmButtonLabel="Confirm"
-        onConfirm={jest.fn()}
-      >
-        Test button extra class
-      </ConfirmationButton>
+        confirmationModalProps={{
+          confirmButtonLabel: "Confirm",
+          onConfirm: jest.fn(),
+        }}
+      />
     );
     expect(screen.getByTitle("Confirm")).toHaveClass("extra-class");
   });

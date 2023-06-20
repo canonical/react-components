@@ -1,35 +1,20 @@
-import React, { MouseEvent, ReactElement, ReactNode } from "react";
-import { PropsWithSpread, ValueOf } from "types";
-import Button, { ButtonProps } from "components/Button";
+import React, { MouseEvent, ReactElement } from "react";
+import { PropsWithSpread, SubComponentProps } from "types";
+import ActionButton, { ActionButtonProps } from "../ActionButton";
 import ConfirmationModal, {
   ConfirmationModalProps,
 } from "../ConfirmationModal";
-import Icon, { ICONS } from "components/Icon";
-import classNames from "classnames";
 import usePortal from "react-useportal";
 
 export type Props = PropsWithSpread<
   {
     /**
-     * An optional text to be shown inside the button.
+     * Additional props to pass to the confirmation modal.
      */
-    buttonLabel?: string;
-    /**
-     * The content of the confirmation modal.
-     */
-    children: ReactNode;
-    /**
-     * The name of an optional icon to be shown inside the button.
-     */
-    icon?: ValueOf<typeof ICONS> | string;
-    /**
-     * Whether the button is loading.<br/>
-     * It displays an animated spinner only if the `icon` prop is set.
-     */
-    isLoading?: boolean;
+    confirmationModalProps: SubComponentProps<ConfirmationModalProps>;
     /**
      * An optional text to be shown when hovering over the button.<br/>
-     * If not specified, the `confirmButtonLabel` will be shown on hover.
+     * Defaults to the label of the confirm button in the modal.
      */
     onHoverText?: string;
     /**
@@ -40,92 +25,66 @@ export type Props = PropsWithSpread<
      * Whether to show a hint about the SHIFT+Click shortcut to skip the confirmation modal.
      */
     showShiftClickHint?: boolean;
-    /**
-     * Optional class(es) to apply to the modal wrapper element.
-     */
-    modalClassName?: string;
   },
-  Omit<ConfirmationModalProps, "className"> & Omit<ButtonProps, "hasIcon">
+  ActionButtonProps
 >;
 
 export const ConfirmationButton = ({
-  buttonLabel,
-  icon,
-  isLoading = false,
+  confirmationModalProps,
   onHoverText,
   shiftClickEnabled = false,
   showShiftClickHint = false,
-  modalClassName,
-  ...props
+  ...actionButtonProps
 }: Props): ReactElement => {
   const { openPortal, closePortal, isOpen, Portal } = usePortal();
 
   const handleCancelModal = () => {
     closePortal();
-    if (props.close) {
-      props.close();
+    if (confirmationModalProps.close) {
+      confirmationModalProps.close();
     }
   };
 
   const handleConfirmModal = (e: MouseEvent<HTMLElement>) => {
     closePortal();
-    props.onConfirm(e);
+    confirmationModalProps.onConfirm(e);
   };
 
   const handleShiftClick = (e: MouseEvent<HTMLElement>) => {
     if (e.shiftKey) {
-      props.onConfirm(e);
+      confirmationModalProps.onConfirm(e);
     } else {
       openPortal(e);
     }
   };
-
-  const iconName = icon ? (isLoading ? "spinner" : icon) : undefined;
 
   return (
     <>
       {isOpen && (
         <Portal>
           <ConfirmationModal
-            className={modalClassName}
-            title={props.title}
+            {...confirmationModalProps}
             close={handleCancelModal}
-            confirmExtra={props.confirmExtra}
-            confirmButtonLabel={props.confirmButtonLabel}
-            confirmButtonAppearance={props.confirmButtonAppearance}
+            confirmButtonLabel={confirmationModalProps.confirmButtonLabel}
             onConfirm={handleConfirmModal}
           >
-            {props.children}
+            {confirmationModalProps.children}
             {showShiftClickHint && (
-              <p className="p-modal__shortcut-hint u-text--muted">
-                You can skip the confirmation dialog by holding{" "}
-                <code>SHIFT</code> when clicking on the action.
+              <p className="p-text--small u-text--muted u-hide--small">
+                Next time, you can skip this confirmation by holding{" "}
+                <code>SHIFT</code> and clicking the action.
               </p>
             )}
           </ConfirmationModal>
         </Portal>
       )}
-      <Button
-        appearance={props.appearance}
-        hasIcon={!!iconName}
-        className={props.className}
-        dense={props.dense}
-        disabled={props.disabled}
+      <ActionButton
+        {...actionButtonProps}
         onClick={shiftClickEnabled ? handleShiftClick : openPortal}
-        aria-label={props.confirmButtonLabel}
-        title={onHoverText ?? props.confirmButtonLabel}
-        type={props.type ?? "button"}
+        title={onHoverText ?? confirmationModalProps.confirmButtonLabel}
       >
-        {iconName && (
-          <Icon
-            className={classNames({ "u-animation--spin": isLoading })}
-            name={iconName}
-          />
-        )}
-        {buttonLabel && (
-          <span className="confirmation-toggle-caption">{buttonLabel}</span>
-        )}
-      </Button>
+        {actionButtonProps.children}
+      </ActionButton>
     </>
   );
 };
