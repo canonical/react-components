@@ -2,13 +2,13 @@ import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
 import { useState } from "react";
 
 import ConfirmationButton from "./ConfirmationButton";
-import Input from "../Input";
+import Icon, { ICONS } from "../Icon";
 
 <Meta title="ConfirmationButton" component={ConfirmationButton} />
 
 ### ConfirmationButton
 
-`ConfirmationButton` is a specialised version of the Vanilla [Button](https://docs.vanillaframework.io/patterns/buttons/) that prompts a confirmation from the user before executing some action.
+`ConfirmationButton` is a specialised version of the [ActionButton](?path=/docs/actionbutton--default-story) component that uses a [ConfirmationModal](?path=/docs/confirmationmodal--default-story) to prompt a confirmation from the user before executing an action.
 
 ### Props
 
@@ -21,15 +21,18 @@ export const doNothing = () => {};
 <Canvas>
   <Story name="Default">
     <ConfirmationButton
-      title="Confirm delete"
-      buttonLabel="Delete"
-      confirmButtonLabel="Delete"
-      onConfirm={doNothing}
+      confirmationModalProps={{
+        title: "Confirm delete",
+        confirmButtonLabel: "Delete",
+        onConfirm: doNothing,
+        children:
+          <p>
+            Are you sure you want to delete user "Simon"?<br/>
+            This action is permanent and can not be undone.
+          </p>,
+      }}
     >
-      <p>
-        Are you sure you want to delete user "Simon"?<br/>
-        This action is permanent and can not be undone.
-      </p>
+      Delete
     </ConfirmationButton>
   </Story>
 </Canvas>
@@ -46,19 +49,24 @@ export const doNothing = () => {};
       };
       return (
         <ConfirmationButton
-          title="Confirm delete"
-          buttonLabel="Delete"
-          confirmButtonLabel="Delete"
-          icon="delete"
-          isLoading={isLoading}
-          onConfirm={brieflyLoad}
+          confirmationModalProps={{
+            title: "Confirm delete",
+            confirmButtonLabel: "Delete",
+            onConfirm: brieflyLoad,
+            children:
+              <p>
+                Are you sure you want to delete user "Simon"?<br/>
+                This action is permanent and can not be undone.
+              </p>,
+          }}
+          className="has-icon"
+          disabled={isLoading}
+          loading={isLoading}
           shiftClickEnabled
           showShiftClickHint
         >
-          <p>
-            Are you sure you want to delete user "Simon"?<br/>
-            This action is permanent and can not be undone.
-          </p>
+          <Icon name={ICONS.delete} />
+          <span>Delete</span>
         </ConfirmationButton>
       );
     }}
@@ -77,18 +85,23 @@ export const doNothing = () => {};
       };
       return (
         <ConfirmationButton
-          title="Confirm delete"
-          confirmButtonLabel="Delete"
-          icon="delete"
-          isLoading={isLoading}
-          onConfirm={brieflyLoad}
+          confirmationModalProps={{
+            title: "Confirm delete",
+            confirmButtonLabel: "Delete",
+            onConfirm: brieflyLoad,
+            children:
+              <p>
+                Are you sure you want to delete user "Simon"?<br/>
+                This action is permanent and can not be undone.
+              </p>,
+          }}
+          className="has-icon"
+          disabled={isLoading}
+          loading={isLoading}
           shiftClickEnabled
           showShiftClickHint
         >
-          <p>
-            Are you sure you want to delete user "Simon"?<br/>
-            This action is permanent and can not be undone.
-          </p>
+          <Icon name={ICONS.delete} />
         </ConfirmationButton>
       );
     }}
@@ -108,18 +121,23 @@ export const doNothing = () => {};
       return (
         <ConfirmationButton
           appearance="base"
-          title="Confirm delete"
-          confirmButtonLabel="Delete"
-          icon="delete"
-          isLoading={isLoading}
-          onConfirm={brieflyLoad}
+          confirmationModalProps={{
+            title: "Confirm delete",
+            confirmButtonLabel: "Delete",
+            onConfirm: brieflyLoad,
+            children:
+              <p>
+                Are you sure you want to delete user "Simon"?<br/>
+                This action is permanent and can not be undone.
+              </p>,
+          }}
+          className="has-icon"
+          disabled={isLoading}
+          loading={isLoading}
           shiftClickEnabled
           showShiftClickHint
         >
-          <p>
-            Are you sure you want to delete user "Simon"?<br/>
-            This action is permanent and can not be undone.
-          </p>
+          <Icon name={ICONS.delete} />
         </ConfirmationButton>
       );
     }}
