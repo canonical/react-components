@@ -6,25 +6,24 @@ import EmptyState from "./EmptyState";
 describe("EmptyState ", () => {
   it("renders the title", () => {
     const { container } = render(
-      <EmptyState title="Test title" iconName="plus">
-        Empty
-      </EmptyState>
+      <EmptyState title="Test title" image={<img alt="" src="" />} />
     );
     expect(container).toContainHTML("Test title");
   });
 
-  it("renders the icon", () => {
+  it("renders the image", () => {
     const { container } = render(
-      <EmptyState title="Test title" iconName="plus">
-        Empty
-      </EmptyState>
+      <EmptyState
+        title="Test title"
+        image={<img alt="" src="path/to/image" />}
+      />
     );
-    expect(container).toContainHTML("p-icon--plus");
+    expect(container).toContainHTML("path/to/image");
   });
 
   it("renders the content", () => {
     const { container } = render(
-      <EmptyState title="Test title" iconName="plus">
+      <EmptyState title="Test title" image={<img alt="" src="" />}>
         Empty
       </EmptyState>
     );
@@ -33,23 +32,14 @@ describe("EmptyState ", () => {
 
   it("passes extra classes to the wrapping element", async () => {
     const { container } = render(
-      <EmptyState title="Test title" iconName="plus" className="extra-class">
-        Empty
-      </EmptyState>
-    );
-    expect(container).toContainHTML("extra-class row");
-  });
-
-  it("passes extra classes to the icon element", async () => {
-    const { container } = render(
       <EmptyState
         title="Test title"
-        iconName="plus"
-        iconClassName="extra-class"
+        image={<img alt="" src="" />}
+        className="extra-class"
       >
         Empty
       </EmptyState>
     );
-    expect(container).toContainHTML("extra-class p-icon--plus");
+    expect(container).toContainHTML('div class="extra-class"');
   });
 });
