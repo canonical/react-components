@@ -144,12 +144,7 @@ describe("List ", () => {
       // Assess
       const item = screen.getAllByRole("listitem")[0];
       expect(item).toBeInTheDocument();
-      const divs = within(item).getAllByRole((content, element) => {
-        return (
-          element?.tagName.toLowerCase() === "div" && content === "generic"
-        );
-      });
-      expect(divs).toHaveLength(1);
+      expect(within(item).getByText("Content").tagName).toBe("DIV");
     });
 
     it("can have several paragraphs in item's content", () => {
