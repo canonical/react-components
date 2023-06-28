@@ -88,6 +88,11 @@ const ActionButton = ({
       }, LOADER_MIN_DURATION);
     }
 
+    if (!loading && !showLoader) {
+      setHeight(null);
+      setWidth(null);
+    }
+
     return () => window.clearTimeout(loaderTimeout);
   }, [loading, showLoader, success]);
 
