@@ -2,19 +2,25 @@ import classNames from "classnames";
 import React from "react";
 import type { HTMLProps, ReactNode } from "react";
 
-import type { ClassName, Headings } from "types";
+import { ClassName, Headings, PropsWithSpread } from "types";
 
 export type ListItem =
   | ReactNode
-  | ({
-      content: ReactNode;
-    } & HTMLProps<HTMLLIElement>);
+  | PropsWithSpread<
+      {
+        content: ReactNode;
+      },
+      HTMLProps<HTMLLIElement>
+    >;
 
-export type SteppedListItem = {
-  content: ReactNode;
-  title: ReactNode;
-  titleElement?: Headings;
-} & Omit<HTMLProps<HTMLLIElement>, "title" | "content">; // omit global attributes of HTMLProps since they can only be string or undefined
+export type SteppedListItem = PropsWithSpread<
+  {
+    content: ReactNode;
+    title: ReactNode;
+    titleElement?: Headings;
+  },
+  HTMLProps<HTMLLIElement>
+>;
 
 export type Props = {
   /**
