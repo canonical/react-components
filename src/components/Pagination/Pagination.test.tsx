@@ -7,7 +7,7 @@ import { Label as PaginationButtonLabel } from "./PaginationButton/PaginationBut
 
 describe("<Pagination />", () => {
   // snapshot tests
-  it("renders and matches the snapshot", () => {
+  it("renders numbered pagination and matches the snapshot", () => {
     render(
       <Pagination
         itemsPerPage={10}
@@ -21,7 +21,7 @@ describe("<Pagination />", () => {
   });
 
   // unit tests
-  it("renders no pagination with only a single page", () => {
+  it("renders no numbered pagination with only a single page", () => {
     render(
       <Pagination
         itemsPerPage={10}
@@ -34,7 +34,7 @@ describe("<Pagination />", () => {
     expect(screen.queryByRole("navigation")).not.toBeInTheDocument();
   });
 
-  it("renders a simple paginator with back and forward arrows if only five pages or less", () => {
+  it("renders a simple numbered paginator with back and forward arrows if only five pages or less", () => {
     render(
       <Pagination
         itemsPerPage={10}
@@ -60,7 +60,7 @@ describe("<Pagination />", () => {
     expect(screen.getByRole("button", { name: "5" })).toBeInTheDocument();
   });
 
-  it("renders a complex paginator with truncation if more than five pages", () => {
+  it("renders a complex numbered paginator with truncation if more than five pages", () => {
     render(
       <Pagination
         itemsPerPage={10}
@@ -112,7 +112,7 @@ describe("<Pagination />", () => {
     expect(screen.getAllByText("…")).toHaveLength(1);
   });
 
-  it("does not trigger form submission on pagination button click by default", async () => {
+  it("does not trigger form submission on numbered pagination button click by default", async () => {
     const handleOnSubmit = jest.fn();
     render(
       <form onSubmit={handleOnSubmit}>
@@ -130,7 +130,7 @@ describe("<Pagination />", () => {
     expect(handleOnSubmit).not.toHaveBeenCalled();
   });
 
-  it("can be centered", () => {
+  it("should center the numbered pagination", () => {
     render(
       <Pagination
         itemsPerPage={10}
@@ -144,5 +144,50 @@ describe("<Pagination />", () => {
     expect(document.querySelector(".p-pagination__items")).toHaveClass(
       "u-align--center"
     );
+  });
+
+  it("should render default buttons-only pagination and match the snapshot", () => {
+    render(<Pagination onForward={() => {}} onBack={() => {}} />);
+    expect(screen.getByRole("navigation")).toMatchSnapshot();
+  });
+
+  it("should show default labels for buttons-only pagination", () => {
+    render(<Pagination onForward={() => {}} onBack={() => {}} showLabels />);
+    expect(screen.getAllByRole("button")).toHaveLength(2);
+    expect(
+      screen
+        .getByRole("button", { name: /Previous page/ })
+        // eslint-disable-next-line testing-library/no-node-access
+        .querySelector("span")
+    ).toHaveTextContent("Previous page");
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      screen.getByRole("button", { name: /Next page/ }).querySelector("span")
+    ).toHaveTextContent("Next page");
+  });
+
+  it("should show custom labels for buttons-only pagination", () => {
+    render(
+      <Pagination
+        onForward={() => {}}
+        onBack={() => {}}
+        showLabels
+        forwardLabel="Custom forward label"
+        backLabel="Custom back label"
+      />
+    );
+    expect(screen.getAllByRole("button")).toHaveLength(2);
+    expect(
+      screen
+        .getByRole("button", { name: /Custom forward label/ })
+        // eslint-disable-next-line testing-library/no-node-access
+        .querySelector("span")
+    ).toHaveTextContent("Custom forward label");
+    expect(
+      screen
+        .getByRole("button", { name: /Custom back label/ })
+        // eslint-disable-next-line testing-library/no-node-access
+        .querySelector("span")
+    ).toHaveTextContent("Custom back label");
   });
 });

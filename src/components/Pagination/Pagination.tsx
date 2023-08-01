@@ -6,6 +6,7 @@ import PaginationButton from "./PaginationButton";
 import PaginationItem from "./PaginationItem";
 
 import type { PropsWithSpread } from "types";
+import type { PaginationDirection } from "./PaginationButton/PaginationButton";
 
 const scrollTop = () => window.scrollTo(0, 0);
 
@@ -18,7 +19,7 @@ const generatePaginationItems = (
   const lastPage = pageNumbers.length;
   const truncated = lastPage > truncateThreshold;
 
-  let visiblePages;
+  let visiblePages: number[];
   if (truncated) {
     // the default range for pages outside the start and end threshold
     let start = currentPage - 2;
@@ -93,37 +94,98 @@ const PaginationItemSeparator = (): JSX.Element => (
   </li>
 );
 
+// Props that are used in both types of paginations.
+type BaseProps = {
+  /**
+   * Whether to scroll to the top of the list on page change.
+   */
+  scrollToTop?: boolean;
+  /**
+   * The number of pages at which to truncate the pagination items.
+   */
+  truncateThreshold?: number;
+  /**
+   * Whether the pagination is ceneterd on the page.
+   */
+  centered?: boolean;
+  /**
+   * Whether to show the labels for forward and back buttons.
+   */
+  showLabels?: boolean;
+  /**
+   * Whether forward button is disabled.
+   */
+  forwardDisabled?: boolean;
+  /**
+   * Whether back button is disabled.
+   */
+  backDisabled?: boolean;
+  /**
+   * Custom label for forward button.
+   */
+  forwardLabel?: string;
+  /**
+   * Custom label for back button.
+   */
+  backLabel?: string;
+};
+
+// Used when number of items per page, number of total items,
+// current page and paginate function is defined. Pagination
+// ishandled by paginate function and optional onForward and
+// onBack functions.
+type NumberedPagination = BaseProps & {
+  /**
+   * The current page being viewed.<br>
+   * **Required for Numbered Pagination.**
+   */
+  currentPage: number;
+  /**
+   * The number of items to show per page.<br>
+   * **Required for numbered pagination.**
+   */
+  itemsPerPage: number;
+  /**
+   * Function to handle paginating the items.<br>
+   * **Required for numbered pagination.**
+   */
+  paginate: (page: number) => void;
+  /**
+   * The total number of items.<br>
+   * **Required for numbered pagination.**
+   */
+  totalItems: number;
+  /**
+   * Whever to hide the pagination items.
+   */
+  hideNumbers?: boolean;
+  /**
+   * Function to handle page transition to a higher-numbered page.<br>
+   * **Required for buttons-only pagination.**
+   */
+  onForward?: (page: number) => void;
+  /**
+   * Function to handle on page transition to a lower-numbered page.<br>
+   * **Required for buttons-only pagination.**
+   */
+  onBack?: (page: number) => void;
+};
+
+// Used when at least one of number of items per page, number of
+// total items, current page or paginate function is undefined.
+// Pagination is handled by onForward and onBack function.
+type ButtonsOnlyPagination = BaseProps & {
+  itemsPerPage?: never;
+  totalItems?: never;
+  currentPage?: never;
+  paginate?: never;
+  hideNumbers?: never;
+  onForward: () => void;
+  onBack: () => void;
+};
+
 export type Props = PropsWithSpread<
-  {
-    /**
-     * The current page being viewed.
-     */
-    currentPage: number;
-    /**
-     * The number of items to show per page.
-     */
-    itemsPerPage: number;
-    /**
-     * Function to handle paginating the items.
-     */
-    paginate: (page: number) => void;
-    /**
-     * The total number of items.
-     */
-    totalItems: number;
-    /**
-     * Whether to scroll to the top of the list on page change.
-     */
-    scrollToTop?: boolean;
-    /**
-     * The number of pages at which to truncate the pagination items.
-     */
-    truncateThreshold?: number;
-    /**
-     * Whether or not the pagination is ceneterd on the page.
-     */
-    centered?: boolean;
-  },
+  NumberedPagination | ButtonsOnlyPagination,
   HTMLProps<HTMLElement>
 >;
 
@@ -135,21 +197,50 @@ const Pagination = ({
   scrollToTop,
   truncateThreshold = 10,
   centered,
+  showLabels,
+  hideNumbers,
+  onForward,
+  onBack,
+  forwardDisabled,
+  backDisabled,
+  forwardLabel,
+  backLabel,
   ...navProps
 }: Props): JSX.Element => {
-  // return early if no pagination is required
-  if (totalItems <= itemsPerPage) {
-    return null;
-  }
+  const isNumberedPagination =
+    !!itemsPerPage && !!totalItems && !!currentPage && !!paginate;
 
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
-    pageNumbers.push(i);
+  if (isNumberedPagination) {
+    // return early if no pagination is required
+    if (totalItems <= itemsPerPage) {
+      return null;
+    }
+
+    for (let i = 1; i <= Math.ceil(totalItems / itemsPerPage); i++) {
+      pageNumbers.push(i);
+    }
   }
 
-  const changePage = (page) => {
+  const changeNumberedPage = (page: number) => {
     paginate(page);
+    if (page > currentPage) {
+      onForward?.(page);
+    }
+    if (page < currentPage) {
+      onBack?.(page);
+    }
+    scrollToTop && scrollTop();
+  };
+
+  const changeButtonsOnlyPage = (direction: PaginationDirection) => {
+    if (direction === "forward") {
+      onForward?.(undefined);
+    }
+    if (direction === "back") {
+      onBack?.(undefined);
+    }
     scrollToTop && scrollTop();
   };
 
@@ -163,22 +254,34 @@ const Pagination = ({
         <PaginationButton
           key="back"
           direction="back"
-          disabled={currentPage === 1}
-          onClick={() => changePage(currentPage - 1)}
+          disabled={backDisabled || currentPage === 1}
+          onClick={() =>
+            isNumberedPagination
+              ? changeNumberedPage(currentPage - 1)
+              : changeButtonsOnlyPage("back")
+          }
+          showLabel={showLabels}
+          label={backLabel}
         />
-
-        {generatePaginationItems(
-          pageNumbers,
-          currentPage,
-          truncateThreshold,
-          changePage
-        )}
-
+        {isNumberedPagination && !hideNumbers
+          ? generatePaginationItems(
+              pageNumbers,
+              currentPage,
+              truncateThreshold,
+              changeNumberedPage
+            )
+          : null}
         <PaginationButton
           key="forward"
           direction="forward"
-          disabled={currentPage === pageNumbers.length}
-          onClick={() => changePage(currentPage + 1)}
+          disabled={forwardDisabled || currentPage === pageNumbers.length}
+          onClick={() =>
+            isNumberedPagination
+              ? changeNumberedPage(currentPage + 1)
+              : changeButtonsOnlyPage("forward")
+          }
+          showLabel={showLabels}
+          label={forwardLabel}
         />
       </ol>
     </nav>

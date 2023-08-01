@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PaginationButton should render correctly and match snapshot 1`] = `
+<button
+  class="p-pagination__link--previous"
+  type="button"
+>
+  <i
+    class="p-icon--chevron-down"
+  >
+    Previous page
+  </i>
+</button>
+`;

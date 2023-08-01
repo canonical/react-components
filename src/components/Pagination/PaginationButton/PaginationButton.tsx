@@ -21,14 +21,25 @@ export type Props = {
    * Function to handle clicking the pagination button.
    */
   onClick: MouseEventHandler<HTMLButtonElement>;
+  /**
+   * Whether to show the label for button.
+   */
+  showLabel?: boolean;
+  /**
+   * Custom label for button.
+   */
+  label?: string;
 };
 
 const PaginationButton = ({
   direction,
   onClick,
   disabled = false,
+  showLabel,
+  label,
 }: Props): JSX.Element => {
-  const label = direction === "back" ? Label.Previous : Label.Next;
+  const buttonLabel =
+    label || (direction === "back" ? Label.Previous : Label.Next);
   return (
     <li className="p-pagination__item">
       <button
@@ -40,7 +51,9 @@ const PaginationButton = ({
         onClick={onClick}
         type="button"
       >
-        <i className="p-icon--chevron-down">{label}</i>
+        {direction === "forward" && showLabel && <span>{buttonLabel}</span>}
+        <i className="p-icon--chevron-down">{buttonLabel}</i>
+        {direction === "back" && showLabel && <span>{buttonLabel}</span>}
       </button>
     </li>
   );
