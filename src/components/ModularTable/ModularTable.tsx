@@ -69,6 +69,10 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
      * The direction of the initial sort.
      */
     initialSortDirection?: "ascending" | "descending";
+    /**
+     * Whether the sort by needs to be reset after each data change.
+     */
+    autoResetSortBy?: boolean;
   },
   HTMLProps<HTMLTableElement>
 >;
@@ -136,6 +140,7 @@ function ModularTable<D extends Record<string, unknown>>({
   getRowId,
   initialSortColumn,
   initialSortDirection,
+  autoResetSortBy = true,
   ...props
 }: Props<D>): JSX.Element {
   const sortBy = useMemo(
@@ -159,6 +164,7 @@ function ModularTable<D extends Record<string, unknown>>({
         initialState: {
           sortBy,
         },
+        autoResetSortBy,
       },
       sortable ? useSortBy : undefined
     );
