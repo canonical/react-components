@@ -178,7 +178,7 @@ type NumberedPagination = BaseProps & {
 };
 
 // Used when number of items per page, number of total items,
-// current page or paginate function are undefined.
+// current page and paginate function are undefined.
 // Pagination is handled by onForward and onBack function.
 type ButtonsOnlyPagination = BaseProps & {
   itemsPerPage?: never;
