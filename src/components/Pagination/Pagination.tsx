@@ -132,7 +132,7 @@ type BaseProps = {
 
 // Used when number of items per page, number of total items,
 // current page and paginate function is defined. Pagination
-// ishandled by paginate function and optional onForward and
+// is handled by paginate function and optional onForward and
 // onBack functions.
 type NumberedPagination = BaseProps & {
   /**
@@ -156,23 +156,29 @@ type NumberedPagination = BaseProps & {
    */
   totalItems: number;
   /**
-   * Whever to hide the pagination items.
+   * Whether to hide the pagination items.
    */
   hideNumbers?: boolean;
   /**
-   * Function to handle page transition to a higher-numbered page.<br>
+   * Function to handle page transition to a higher-numbered page for
+   * numbered pagination and to next page for buttons-only pagination.<br>
+   * _Called with page parameter for numbered pagination and_
+   * _with no parameter for buttons-only pagination._<br>
    * **Required for buttons-only pagination.**
    */
   onForward?: (page: number) => void;
   /**
-   * Function to handle on page transition to a lower-numbered page.<br>
+   * Function to handle page transition to a lower-numbered page for
+   * numbered pagination and to next page for buttons-only pagination.<br>
+   * _Called with page parameter for numbered pagination and_
+   * _with no parameter for buttons-only pagination._<br>
    * **Required for buttons-only pagination.**
    */
   onBack?: (page: number) => void;
 };
 
-// Used when at least one of number of items per page, number of
-// total items, current page or paginate function is undefined.
+// Used when number of items per page, number of total items,
+// current page or paginate function are undefined.
 // Pagination is handled by onForward and onBack function.
 type ButtonsOnlyPagination = BaseProps & {
   itemsPerPage?: never;

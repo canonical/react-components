@@ -12,7 +12,8 @@ This is a [React](https://reactjs.org/) component for the Vanilla [Pagination](h
 
 The pagination component should be used to navigate between pages of content. There are two types of pagination being provided:
 
-- **Numbered Pagination:** used when the total number of items is known. Depending on the length provided, the pagination component will automatically scale.<br/>
+- **Numbered Pagination:** used when the total number of items is known.<br/>
+  Depending on the length provided, the pagination component will automatically scale.<br/>
   **Required props:** itemsPerPage, totalItems, paginate, currentPage.
 
 - **Buttons-only Pagination:** used when the total number of items is unknown.<br/>
@@ -78,7 +79,7 @@ The pagination component should be used to navigate between pages of content. Th
   </Story>
 </Canvas>
 
-### Disabled pagination items (Numbered Pagination)
+### Hidden pagination items (Numbered Pagination)
 
 <Canvas>
   <Story name="Disabled pagination items (Numbered Pagination)">
@@ -92,10 +93,18 @@ The pagination component should be used to navigate between pages of content. Th
   </Story>
 </Canvas>
 
-### Custom button names (Buttons-only pagination)
+### Default (Buttons-only pagination)
 
 <Canvas>
   <Story name="Default (Buttons-only Pagination)">
+    <Pagination onForward={() => {}} onBack={() => {}} />
+  </Story>
+</Canvas>
+
+### Custom button names (Buttons-only pagination)
+
+<Canvas>
+  <Story name="Custom buttons (Buttons-only Pagination)">
     <Pagination
       onForward={() => {}}
       onBack={() => {}}
