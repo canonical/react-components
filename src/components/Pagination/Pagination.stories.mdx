@@ -10,13 +10,20 @@ export const Template = (args) => <Pagination {...args} />;
 
 This is a [React](https://reactjs.org/) component for the Vanilla [Pagination](https://docs.vanillaframework.io/patterns/pagination/).
 
-The pagination component should be used to navigate between pages of content. Depending on the length provided, the pagination component will automatically scale.
+The pagination component should be used to navigate between pages of content. There are two types of pagination being provided:
+
+- **Numbered Pagination:** used when the total number of items is known.<br/>
+  Depending on the length provided, the pagination component will automatically scale.<br/>
+  **Required props:** itemsPerPage, totalItems, paginate, currentPage.
+
+- **Buttons-only Pagination:** used when the total number of items is unknown.<br/>
+  **Required props:** onForward, onBack.
 
 ### Props
 
 <ArgsTable of={Pagination} />
 
-### Default
+### Default (Numbered Pagination)
 
 <Canvas>
   <Story
@@ -32,10 +39,10 @@ The pagination component should be used to navigate between pages of content. De
   </Story>
 </Canvas>
 
-### Truncated
+### Truncated (Numbered Pagination)
 
 <Canvas>
-  <Story name="Truncated">
+  <Story name="Truncated (Numbered Pagination)">
     <Pagination
       itemsPerPage={10}
       totalItems={1000}
@@ -45,10 +52,10 @@ The pagination component should be used to navigate between pages of content. De
   </Story>
 </Canvas>
 
-### Disabled controls
+### Disabled controls (Numbered Pagination)
 
 <Canvas>
-  <Story name="Disabled controls">
+  <Story name="Disabled controls (Numbered Pagination)">
     <Pagination
       itemsPerPage={20}
       totalItems={100}
@@ -58,10 +65,10 @@ The pagination component should be used to navigate between pages of content. De
   </Story>
 </Canvas>
 
-### Centered
+### Centered (Numbered Pagination)
 
 <Canvas>
-  <Story name="Centered">
+  <Story name="Centered (Numbered Pagination)">
     <Pagination
       itemsPerPage={10}
       totalItems={50}
@@ -69,5 +76,57 @@ The pagination component should be used to navigate between pages of content. De
       currentPage={1}
       centered
     />
+  </Story>
+</Canvas>
+
+### Hidden pagination items (Numbered Pagination)
+
+<Canvas>
+  <Story name="Disabled pagination items (Numbered Pagination)">
+    <Pagination
+      itemsPerPage={10}
+      totalItems={50}
+      paginate={() => {}}
+      currentPage={1}
+      hideNumbers
+    />
+  </Story>
+</Canvas>
+
+### Default (Buttons-only pagination)
+
+<Canvas>
+  <Story name="Default (Buttons-only Pagination)">
+    <Pagination onForward={() => {}} onBack={() => {}} />
+  </Story>
+</Canvas>
+
+### Default button labels (Buttons-only pagination)
+
+<Canvas>
+  <Story name="Default button labels (Buttons-only Pagination)">
+    <Pagination onForward={() => {}} onBack={() => {}} showLabels />
+  </Story>
+</Canvas>
+
+### Custom button labels (Buttons-only pagination)
+
+<Canvas>
+  <Story name="Custom button labels (Buttons-only Pagination)">
+    <Pagination
+      onForward={() => {}}
+      onBack={() => {}}
+      showLabels
+      forwardLabel="Custom forward label"
+      backLabel="Custom back label"
+    />
+  </Story>
+</Canvas>
+
+### Centered (Buttons-only pagination)
+
+<Canvas>
+  <Story name="Centered (Buttons-only Pagination)">
+    <Pagination onForward={() => {}} onBack={() => {}} centered />
   </Story>
 </Canvas>

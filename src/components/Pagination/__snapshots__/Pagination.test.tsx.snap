@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Pagination /> renders and matches the snapshot 1`] = `
+exports[`<Pagination /> renders numbered pagination and matches the snapshot 1`] = `
 <nav
   aria-label="Pagination"
   class="p-pagination"
@@ -90,4 +90,57 @@ exports[`<Pagination /> renders and matches the snapshot 1`] = `
     </li>
   </ol>
 </nav>
+`;
+
+exports[`<Pagination /> should render default buttons-only pagination and match the snapshot 1`] = `
+<nav
+  aria-label="Pagination"
+  class="p-pagination"
+>
+  <ol
+    class="p-pagination__items"
+  >
+    <li
+      class="p-pagination__item"
+    >
+      <button
+        class="p-pagination__link--previous"
+        type="button"
+      >
+        <i
+          class="p-icon--chevron-down"
+        >
+          Previous page
+        </i>
+      </button>
+    </li>
+    <li
+      class="p-pagination__item"
+    >
+      <button
+        class="p-pagination__link--next"
+        type="button"
+      >
+        <i
+          class="p-icon--chevron-down"
+        >
+          Next page
+        </i>
+      </button>
+    </li>
+  </ol>
+</nav>
+`;
+
+exports[`PaginationButton should render correctly and match snapshot 1`] = `
+<button
+  class="p-pagination__link--previous"
+  type="button"
+>
+  <i
+    class="p-icon--chevron-down"
+  >
+    Previous page
+  </i>
+</button>
 `;
