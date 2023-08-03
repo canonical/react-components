@@ -103,7 +103,7 @@ Finally, in your project, add the resolutions for `react` and `react-dom` to `pa
 }
 ```
 
-_**Note:** Before pushing changes to `@canonical/react-components`, don't forget to change the miss-matched versions of deependencies in react-components to the ones before the change._
+_**Note:** Before pushing changes to `@canonical/react-components`, don't forget to change the miss-matched versions of deependencies in `react-components` to the ones before the change._
 
 ## Developing integration tests with cypress
 
