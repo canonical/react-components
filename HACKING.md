@@ -93,7 +93,7 @@ yarn link {path_to_project}
 
 At this point, you might get errors about miss-matched versions of specific dependencies between `react-components` and your project. To fix these errors, change the versions of those dependencies in `react-components` to match the versions in your project. Once done, rerun the previously mentioned steps.
 
-Finally, in your project, add the resolutions for `react` and `react-dom` to `package.json`.
+Finally, in your project, add the resolutions for `react` and `react-dom` to `package.json`. The added bit of code should be:
 
 ```
 "resolutions": {
