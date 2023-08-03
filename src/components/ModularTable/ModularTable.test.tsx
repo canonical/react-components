@@ -322,12 +322,7 @@ describe("ModularTable", () => {
       const [tableData, setTableData] = useState(mockData);
       return (
         <>
-          <ModularTable
-            columns={columns}
-            data={tableData}
-            sortable
-            autoResetSortBy={false}
-          />
+          <ModularTable columns={columns} data={tableData} sortable />
           <button
             onClick={() =>
               setTableData((prevData) => [
