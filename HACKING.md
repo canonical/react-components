@@ -23,7 +23,42 @@ yarn docs
 
 And remember to `dotrun test` and `dotrun lint`.
 
-## Using with another project that runs on yarn 2
+## Using with another project that runs on yarn 3
+
+Both projects will need to be running on the same machine/container.
+
+In `react-components` run:
+
+```shell
+yarn clean
+yarn install
+yarn build
+yarn build-watch
+```
+
+In your project run:
+
+```shell
+yarn clean
+yarn install
+yarn link path_to_project
+```
+
+At this point, you might get errors about miss-matched versions of specific dependencies between `react-components` and your project. To fix these errors, change the versions of those dependencies in `react-components` to match the versions in your project. Once done, rerun the previously mentioned steps.
+
+Finally, in your project, add the resolutions for `react` and `react-dom` to `package.json`. The added bit of code should be:
+
+```
+"resolutions": {
+    "@canonical/react-components": "portal:path_to_react_components",
+    "react": "portal:path_to_react_components/node_modules/react",
+    "react-dom": "portal:path_to_react_components/node_modules/react-dom"
+}
+```
+
+_**Note:** Before pushing changes to `@canonical/react-components`, don't forget to change the miss-matched versions of deependencies in `react-components` to the ones before the change._
+
+## Using with another project that runs on an older version of yarn
 
 Both projects will need to be running on the same machine/container.
 
@@ -69,41 +104,6 @@ dotrun unlink-package
 ```
 
 If you do not wish do use dotrun then replace dotrun in the command above. Note that you must use dotrun or yarn on one project you must use the same command on the other project so that they both link the same node modules.
-
-## Using with another project that runs on yarn 3
-
-Both projects will need to be running on the same machine/container.
-
-In `react-components` run:
-
-```shell
-yarn clean
-yarn install
-yarn build
-yarn build-watch
-```
-
-In your project run:
-
-```shell
-yarn clean
-yarn install
-yarn link {path_to_project}
-```
-
-At this point, you might get errors about miss-matched versions of specific dependencies between `react-components` and your project. To fix these errors, change the versions of those dependencies in `react-components` to match the versions in your project. Once done, rerun the previously mentioned steps.
-
-Finally, in your project, add the resolutions for `react` and `react-dom` to `package.json`. The added bit of code should be:
-
-```
-"resolutions": {
-    "@canonical/react-components": "portal:path_to_react_components",
-    "react": "portal:path_to_react_components/node_modules/react",
-    "react-dom": "portal:path_to_react_components/node_modules/react-dom"
-}
-```
-
-_**Note:** Before pushing changes to `@canonical/react-components`, don't forget to change the miss-matched versions of deependencies in `react-components` to the ones before the change._
 
 ## Developing integration tests with cypress
 
