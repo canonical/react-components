@@ -41,7 +41,7 @@ In your project run:
 ```shell
 yarn clean
 yarn install
-yarn link path_to_react-components
+yarn link path_to_react_components
 ```
 
 At this point, you might get errors about miss-matched versions of specific dependencies between `react-components` and your project. To fix these errors, change the versions of those dependencies in `react-components` to match the versions in your project. Once done, rerun the previously mentioned steps.
