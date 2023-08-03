@@ -13,7 +13,7 @@ import type {
   Row,
   HeaderGroup,
 } from "react-table";
-import { PropsWithSpread } from "types";
+import { PropsWithSpread, SortDirection } from "types";
 import Table from "../Table";
 import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
@@ -171,6 +171,16 @@ function ModularTable<D extends Record<string, unknown>>({
 
   const showEmpty: boolean = !!emptyMsg && (!rows || rows.length === 0);
 
+  const getColumnSortDirection = (column: HeaderGroup<D>): SortDirection => {
+    if (!column.canSort || column.render("Header") instanceof Object) {
+      return undefined;
+    }
+    if (!column.isSorted) {
+      return "none";
+    }
+    return column.isSortedDesc ? "descending" : "ascending";
+  };
+
   return (
     <Table {...getTableProps()} {...props}>
       <thead>
@@ -178,13 +188,7 @@ function ModularTable<D extends Record<string, unknown>>({
           <TableRow {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
               <TableHeader
-                sort={
-                  column.isSorted
-                    ? column.isSortedDesc
-                      ? "descending"
-                      : "ascending"
-                    : "none"
-                }
+                sort={getColumnSortDirection(column)}
                 {...column.getHeaderProps([
                   {
                     className: column.className,

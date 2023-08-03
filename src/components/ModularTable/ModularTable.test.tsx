@@ -1,6 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React, { useState } from "react";
+import { Row } from "react-table";
 
 import ModularTable from "./ModularTable";
 
@@ -289,7 +290,7 @@ describe("ModularTable", () => {
       <ModularTable
         columns={columns}
         data={data}
-        getRowProps={(row) => ({
+        getRowProps={(row: Row<Record<string, unknown>>) => ({
           "aria-label":
             row.values.status === "Idle" ? "Custom idle row label" : undefined,
         })}
@@ -304,7 +305,7 @@ describe("ModularTable", () => {
   });
 
   it("should not reset sort by after data change", async () => {
-    const mockData: Record<string, unknown>[] = [
+    const data: Record<string, unknown>[] = [
       {
         status: "Idle",
         cores: 8,
@@ -319,7 +320,7 @@ describe("ModularTable", () => {
       },
     ];
     const MockTableWithChangeDataButton = (): JSX.Element => {
-      const [tableData, setTableData] = useState(mockData);
+      const [tableData, setTableData] = useState(data);
       return (
         <>
           <ModularTable columns={columns} data={tableData} sortable />
@@ -373,6 +374,58 @@ describe("ModularTable", () => {
     );
     expect(within(rowItems[2]).queryAllByRole("cell")[0]).toHaveTextContent(
       "Idle"
+    );
+  });
+
+  it("should have no aria-sort attribute for columns that can't be sorted by", () => {
+    const columns = [
+      { accessor: "status", Header: "Status", sortType: "alphanumeric" },
+      { accessor: "notSortable", Header: "Not Sortable", disableSortBy: true },
+    ];
+    const data: Record<string, unknown>[] = [
+      {
+        status: "Idle",
+        notSortable: "second",
+      },
+      {
+        status: "Ready",
+        notSortable: "first",
+      },
+    ];
+    render(<ModularTable columns={columns} data={data} sortable />);
+
+    expect(screen.getAllByRole("columnheader")).toHaveLength(2);
+    expect(
+      screen.getByRole("columnheader", { name: "Status" })
+    ).toHaveAttribute("aria-sort", "none");
+    expect(
+      screen.getByRole("columnheader", { name: "Not Sortable" })
+    ).not.toHaveAttribute("aria-sort");
+  });
+
+  it("should have no aria-sort attribute for columns with no name", () => {
+    const columns = [
+      { accessor: "status", Header: "Status", sortType: "alphanumeric" },
+      { accessor: "nameless" },
+    ];
+    const data: Record<string, unknown>[] = [
+      {
+        status: "Idle",
+        nameless: "second",
+      },
+      {
+        status: "Ready",
+        nameless: "first",
+      },
+    ];
+    render(<ModularTable columns={columns} data={data} sortable />);
+
+    expect(screen.getAllByRole("columnheader")).toHaveLength(2);
+    expect(
+      screen.getByRole("columnheader", { name: "Status" })
+    ).toHaveAttribute("aria-sort", "none");
+    expect(screen.getByRole("columnheader", { name: "" })).not.toHaveAttribute(
+      "aria-sort"
     );
   });
 });
