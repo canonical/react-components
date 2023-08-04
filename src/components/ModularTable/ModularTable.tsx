@@ -1,4 +1,4 @@
-import React, { ReactNode, HTMLProps, useMemo } from "react";
+import React, { ReactNode, HTMLProps, useMemo, isValidElement } from "react";
 import {
   TableCellProps,
   TableHeaderProps,
@@ -176,7 +176,7 @@ function ModularTable<D extends Record<string, unknown>>({
     // Function returns whether an instance of ReactNode has text within it.
     // Recursively goes over all children from the node and searches for text.
     const hasText = (node: ReactNode): boolean => {
-      if (!React.isValidElement(node)) {
+      if (!isValidElement(node)) {
         return (
           (typeof node === "string" || typeof node === "number") &&
           !!String(node).trim()
