@@ -171,8 +171,29 @@ function ModularTable<D extends Record<string, unknown>>({
 
   const showEmpty: boolean = !!emptyMsg && (!rows || rows.length === 0);
 
+  // Fuction returns whether table can be sorted by a specific column.
+  const isColumnSortable = (column: HeaderGroup<D>) => {
+    // Function returns whether an instance of ReactNode has text within it.
+    // Recursively goes over all children from the node and searches for text.
+    const hasText = (node: ReactNode): boolean => {
+      if (!React.isValidElement(node)) {
+        return (
+          (typeof node === "string" || typeof node === "number") &&
+          !!String(node).trim()
+        );
+      }
+      const children = node.props.children;
+      if (Array.isArray(children)) {
+        return children.some((child: ReactNode) => hasText(child));
+      }
+      return hasText(children);
+    };
+
+    return column.canSort && hasText(column.render("Header"));
+  };
+
   const getColumnSortDirection = (column: HeaderGroup<D>): SortDirection => {
-    if (!column.canSort || column.render("Header") instanceof Object) {
+    if (!isColumnSortable(column)) {
       return undefined;
     }
     if (!column.isSorted) {
@@ -200,7 +221,7 @@ function ModularTable<D extends Record<string, unknown>>({
                   },
                   { ...getHeaderProps?.(column) },
                   // Only call this if we want it to be sortable too.
-                  sortable
+                  sortable && isColumnSortable(column)
                     ? column.getSortByToggleProps({ title: undefined })
                     : {},
                 ])}
