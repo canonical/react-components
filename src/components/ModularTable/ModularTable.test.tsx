@@ -377,7 +377,7 @@ describe("ModularTable", () => {
     );
   });
 
-  it("should have no aria-sort attribute for columns that can't be sorted by", () => {
+  it("should have no aria-sort attribute and not sort by columns that have sorting disabled", async () => {
     const columns = [
       { accessor: "status", Header: "Status", sortType: "alphanumeric" },
       { accessor: "notSortable", Header: "Not Sortable", disableSortBy: true },
@@ -401,21 +401,117 @@ describe("ModularTable", () => {
     expect(
       screen.getByRole("columnheader", { name: "Not Sortable" })
     ).not.toHaveAttribute("aria-sort");
+
+    const tableBody = screen.getAllByRole("rowgroup")[1];
+    let rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+
+    await userEvent.click(
+      screen.getByRole("columnheader", { name: "Not Sortable" })
+    );
+
+    rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
   });
 
-  it("should have no aria-sort attribute for columns with no name", () => {
+  it("should not have aria-sort attribute and should not sort by columns with no name or with only whitespaces", async () => {
     const columns = [
       { accessor: "status", Header: "Status", sortType: "alphanumeric" },
-      { accessor: "nameless" },
+      { accessor: "nameless", sortType: "alphanumeric" },
+      { accessor: "whitespace", Header: "   ", sortType: "alphanumeric" },
     ];
     const data: Record<string, unknown>[] = [
       {
         status: "Idle",
         nameless: "second",
+        accessor: "two",
       },
       {
         status: "Ready",
         nameless: "first",
+        accessor: "one",
+      },
+    ];
+    render(<ModularTable columns={columns} data={data} sortable />);
+
+    const header = screen.getAllByRole("columnheader");
+    expect(header[0]).toHaveTextContent("Status");
+    expect(header[0]).toHaveAttribute("aria-sort", "none");
+    expect(header[1]).toHaveTextContent("");
+    expect(header[1]).not.toHaveAttribute("aria-sort");
+    expect(header[2]).toHaveTextContent("");
+    expect(header[2]).not.toHaveAttribute("aria-sort");
+
+    const tableBody = screen.getAllByRole("rowgroup")[1];
+    let rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+
+    await userEvent.click(header[1]);
+
+    rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+
+    await userEvent.click(header[2]);
+
+    rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+  });
+
+  it("should not have aria-sort attribute and should not sort by columns whose header is a deeply nested ReactNode with no text inside", async () => {
+    const columns = [
+      { accessor: "status", Header: "Status", sortType: "alphanumeric" },
+      {
+        accessor: "deeplyNested",
+        Header: (
+          <div>
+            <button></button>
+            <div>
+              <p></p>
+              <span></span>
+            </div>
+          </div>
+        ),
+        sort: "alphanumeric",
+      },
+    ];
+    const data: Record<string, unknown>[] = [
+      {
+        status: "Idle",
+        deeplyNested: "second",
+      },
+      {
+        status: "Ready",
+        deeplyNested: "first",
       },
     ];
     render(<ModularTable columns={columns} data={data} sortable />);
@@ -426,6 +522,88 @@ describe("ModularTable", () => {
     ).toHaveAttribute("aria-sort", "none");
     expect(screen.getByRole("columnheader", { name: "" })).not.toHaveAttribute(
       "aria-sort"
+    );
+
+    const tableBody = screen.getAllByRole("rowgroup")[1];
+    let rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+
+    await userEvent.click(screen.getByRole("columnheader", { name: "" }));
+
+    rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+  });
+
+  it("should have aria-sort attribute and should sort by columns whose header is a deeply nested ReactNode with text inside", async () => {
+    const columns = [
+      { accessor: "status", Header: "Status", sortType: "alphanumeric" },
+      {
+        accessor: "deeplyNested",
+        Header: (
+          <div>
+            <button></button>
+            <div>
+              <p></p>
+              <span>Deeply Nested Text</span>
+            </div>
+          </div>
+        ),
+        sortBy: "alphanumeric",
+      },
+    ];
+    const data: Record<string, unknown>[] = [
+      {
+        status: "Idle",
+        deeplyNested: "second",
+      },
+      {
+        status: "Ready",
+        deeplyNested: "first",
+      },
+    ];
+    render(<ModularTable columns={columns} data={data} sortable />);
+
+    expect(screen.getAllByRole("columnheader")).toHaveLength(2);
+    expect(
+      screen.getByRole("columnheader", { name: "Status" })
+    ).toHaveAttribute("aria-sort", "none");
+    expect(
+      screen.getByRole("columnheader", { name: "Deeply Nested Text" })
+    ).toHaveAttribute("aria-sort", "none");
+
+    const tableBody = screen.getAllByRole("rowgroup")[1];
+    let rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+
+    await userEvent.click(
+      screen.getByRole("columnheader", { name: "Deeply Nested Text" })
+    );
+
+    rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
     );
   });
 });
