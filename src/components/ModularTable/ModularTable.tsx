@@ -171,25 +171,34 @@ function ModularTable<D extends Record<string, unknown>>({
 
   const showEmpty: boolean = !!emptyMsg && (!rows || rows.length === 0);
 
-  // Fuction returns whether table can be sorted by a specific column.
+  // Function returns whether table can be sorted by a specific column.
+  // Returns true if sorting is enabled for the column and there is text
+  // being rendered within the column header, otherwise returns false.
   const isColumnSortable = (column: HeaderGroup<D>) => {
-    // Function returns whether an instance of ReactNode has text within it.
-    // Recursively goes over all children from the node and searches for text.
-    const hasText = (node: ReactNode): boolean => {
-      if (!isValidElement(node)) {
-        return (
-          (typeof node === "string" || typeof node === "number") &&
-          !!String(node).trim()
-        );
-      }
-      const children = node.props.children;
-      if (Array.isArray(children)) {
-        return children.some((child: ReactNode) => hasText(child));
-      }
-      return hasText(children);
-    };
+    if (!column.canSort) {
+      return false;
+    }
 
-    return column.canSort && hasText(column.render("Header"));
+    const headerNodesQueue: ReactNode[] = [column.render("Header")];
+    // Go through all header child nodes and search for text.
+    while (headerNodesQueue.length) {
+      const frontNode = headerNodesQueue.shift();
+      if (isValidElement(frontNode)) {
+        headerNodesQueue.push(frontNode.props.children);
+      }
+      if (
+        !isValidElement(frontNode) &&
+        (typeof frontNode === "string" || typeof frontNode === "number") &&
+        !!String(frontNode).trim()
+      ) {
+        return true;
+      }
+      if (!isValidElement(frontNode) && Array.isArray(frontNode)) {
+        frontNode.forEach((childNode) => headerNodesQueue.push(childNode));
+      }
+    }
+
+    return false;
   };
 
   const getColumnSortDirection = (column: HeaderGroup<D>): SortDirection => {
