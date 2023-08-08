@@ -23,11 +23,46 @@ yarn docs
 
 And remember to `dotrun test` and `dotrun lint`.
 
-## Using with another project
+## Using with another project that runs on yarn 3
 
 Both projects will need to be running on the same machine/container.
 
-In react-components run:
+In `react-components` run:
+
+```shell
+yarn clean
+yarn install
+yarn build
+yarn build-watch
+```
+
+In your project run:
+
+```shell
+yarn clean
+yarn install
+yarn link path_to_react_components
+```
+
+At this point, you might get errors about miss-matched versions of specific dependencies between `react-components` and your project. To fix these errors, change the versions of those dependencies in `react-components` to match the versions in your project. Once done, rerun the previously mentioned steps.
+
+Finally, in your project, add the resolutions for `react` and `react-dom` to `package.json`. The added bit of code should be:
+
+```
+"resolutions": {
+    "@canonical/react-components": "portal:path_to_react_components",
+    "react": "portal:path_to_react_components/node_modules/react",
+    "react-dom": "portal:path_to_react_components/node_modules/react-dom"
+}
+```
+
+_**Note:** Before pushing changes to `@canonical/react-components`, don't forget to change the miss-matched versions of deependencies in `react-components` to the ones before the change._
+
+## Using with another project that runs on an older version of yarn
+
+Both projects will need to be running on the same machine/container.
+
+In `react-components` run:
 
 ```shell
 dotrun link-package
@@ -62,7 +97,7 @@ dotrun exec yarn unlink react
 dotrun exec yarn unlink "@canonical/react-components"
 ```
 
-Then in react-components run:
+Then in `react-components` run:
 
 ```shell
 dotrun unlink-package
