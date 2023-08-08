@@ -1,4 +1,4 @@
-import React, { ReactNode, HTMLProps, useMemo } from "react";
+import React, { ReactNode, HTMLProps, useMemo, isValidElement } from "react";
 import {
   TableCellProps,
   TableHeaderProps,
@@ -13,7 +13,7 @@ import type {
   Row,
   HeaderGroup,
 } from "react-table";
-import { PropsWithSpread } from "types";
+import { PropsWithSpread, SortDirection } from "types";
 import Table from "../Table";
 import TableRow from "../TableRow";
 import TableHeader from "../TableHeader";
@@ -171,6 +171,26 @@ function ModularTable<D extends Record<string, unknown>>({
 
   const showEmpty: boolean = !!emptyMsg && (!rows || rows.length === 0);
 
+  // Function returns whether table can be sorted by a specific column.
+  // Returns true if sorting is enabled for the column and there is text
+  // or JSX provided for the header, otherwise returns false.
+  const isColumnSortable = (column: HeaderGroup<D>) =>
+    column.canSort &&
+    (isValidElement(column.Header) ||
+      ((typeof column.Header === "string" ||
+        typeof column.Header === "number") &&
+        !!String(column.Header).trim()));
+
+  const getColumnSortDirection = (column: HeaderGroup<D>): SortDirection => {
+    if (!isColumnSortable(column)) {
+      return undefined;
+    }
+    if (!column.isSorted) {
+      return "none";
+    }
+    return column.isSortedDesc ? "descending" : "ascending";
+  };
+
   return (
     <Table {...getTableProps()} {...props}>
       <thead>
@@ -178,13 +198,7 @@ function ModularTable<D extends Record<string, unknown>>({
           <TableRow {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
               <TableHeader
-                sort={
-                  column.isSorted
-                    ? column.isSortedDesc
-                      ? "descending"
-                      : "ascending"
-                    : "none"
-                }
+                sort={getColumnSortDirection(column)}
                 {...column.getHeaderProps([
                   {
                     className: column.className,
@@ -196,7 +210,7 @@ function ModularTable<D extends Record<string, unknown>>({
                   },
                   { ...getHeaderProps?.(column) },
                   // Only call this if we want it to be sortable too.
-                  sortable
+                  sortable && isColumnSortable(column)
                     ? column.getSortByToggleProps({ title: undefined })
                     : {},
                 ])}

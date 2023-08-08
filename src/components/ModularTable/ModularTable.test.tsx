@@ -1,6 +1,7 @@
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import React, { useState } from "react";
+import { Row } from "react-table";
 
 import ModularTable from "./ModularTable";
 
@@ -289,7 +290,7 @@ describe("ModularTable", () => {
       <ModularTable
         columns={columns}
         data={data}
-        getRowProps={(row) => ({
+        getRowProps={(row: Row<Record<string, unknown>>) => ({
           "aria-label":
             row.values.status === "Idle" ? "Custom idle row label" : undefined,
         })}
@@ -304,7 +305,7 @@ describe("ModularTable", () => {
   });
 
   it("should not reset sort by after data change", async () => {
-    const mockData: Record<string, unknown>[] = [
+    const data: Record<string, unknown>[] = [
       {
         status: "Idle",
         cores: 8,
@@ -319,7 +320,7 @@ describe("ModularTable", () => {
       },
     ];
     const MockTableWithChangeDataButton = (): JSX.Element => {
-      const [tableData, setTableData] = useState(mockData);
+      const [tableData, setTableData] = useState(data);
       return (
         <>
           <ModularTable columns={columns} data={tableData} sortable />
@@ -372,6 +373,220 @@ describe("ModularTable", () => {
       "Error"
     );
     expect(within(rowItems[2]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+  });
+
+  it("should have no aria-sort attribute and not sort by columns that have sorting disabled", async () => {
+    const columns = [
+      { accessor: "status", Header: "Status", sortType: "alphanumeric" },
+      { accessor: "notSortable", Header: "Not Sortable", disableSortBy: true },
+    ];
+    const data: Record<string, unknown>[] = [
+      {
+        status: "Idle",
+        notSortable: "second",
+      },
+      {
+        status: "Ready",
+        notSortable: "first",
+      },
+    ];
+    render(<ModularTable columns={columns} data={data} sortable />);
+
+    expect(screen.getAllByRole("columnheader")).toHaveLength(2);
+    expect(
+      screen.getByRole("columnheader", { name: "Status" })
+    ).toHaveAttribute("aria-sort", "none");
+    expect(
+      screen.getByRole("columnheader", { name: "Not Sortable" })
+    ).not.toHaveAttribute("aria-sort");
+
+    const tableBody = screen.getAllByRole("rowgroup")[1];
+    let rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+
+    await userEvent.click(
+      screen.getByRole("columnheader", { name: "Not Sortable" })
+    );
+
+    rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+  });
+
+  it("should not have aria-sort attribute and should not sort by columns with no name or with only whitespaces", async () => {
+    const columns = [
+      { accessor: "status", Header: "Status", sortType: "alphanumeric" },
+      { accessor: "nameless", sortType: "alphanumeric" },
+      { accessor: "whitespace", Header: "   ", sortType: "alphanumeric" },
+    ];
+    const data: Record<string, unknown>[] = [
+      {
+        status: "Idle",
+        nameless: "second",
+        whitespace: "two",
+      },
+      {
+        status: "Ready",
+        nameless: "first",
+        whitespace: "one",
+      },
+    ];
+    render(<ModularTable columns={columns} data={data} sortable />);
+
+    const header = screen.getAllByRole("columnheader");
+    expect(header[0]).toHaveTextContent("Status");
+    expect(header[0]).toHaveAttribute("aria-sort", "none");
+    expect(header[1]).toHaveTextContent("");
+    expect(header[1]).not.toHaveAttribute("aria-sort");
+    expect(header[2]).toHaveTextContent("");
+    expect(header[2]).not.toHaveAttribute("aria-sort");
+
+    const tableBody = screen.getAllByRole("rowgroup")[1];
+    let rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+
+    await userEvent.click(header[1]);
+
+    rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+
+    await userEvent.click(header[2]);
+
+    rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+  });
+
+  it("should have aria-sort attribute and should sort by columns whose header is a number", async () => {
+    const columns = [
+      { accessor: "status", Header: "Status", sortType: "alphanumeric" },
+      {
+        accessor: "numeric",
+        Header: 0,
+        sort: "alphanumeric",
+      },
+    ];
+    const data: Record<string, unknown>[] = [
+      {
+        status: "Idle",
+        numeric: "second",
+      },
+      {
+        status: "Ready",
+        numeric: "first",
+      },
+    ];
+    render(<ModularTable columns={columns} data={data} sortable />);
+
+    expect(screen.getAllByRole("columnheader")).toHaveLength(2);
+    expect(
+      screen.getByRole("columnheader", { name: "Status" })
+    ).toHaveAttribute("aria-sort", "none");
+    expect(screen.getByRole("columnheader", { name: "0" })).toHaveAttribute(
+      "aria-sort",
+      "none"
+    );
+
+    const tableBody = screen.getAllByRole("rowgroup")[1];
+    let rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+
+    await userEvent.click(screen.getByRole("columnheader", { name: "0" }));
+
+    rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+  });
+
+  it("should have aria-sort attribute and should sort by columns whose header is a JSX", async () => {
+    const columns = [
+      { accessor: "status", Header: "Status", sortType: "alphanumeric" },
+      {
+        accessor: "jsx",
+        Header: <div>JSX</div>,
+        sortBy: "alphanumeric",
+      },
+    ];
+    const data: Record<string, unknown>[] = [
+      {
+        status: "Idle",
+        jsx: "second",
+      },
+      {
+        status: "Ready",
+        jsx: "first",
+      },
+    ];
+    render(<ModularTable columns={columns} data={data} sortable />);
+
+    expect(screen.getAllByRole("columnheader")).toHaveLength(2);
+    expect(
+      screen.getByRole("columnheader", { name: "Status" })
+    ).toHaveAttribute("aria-sort", "none");
+    expect(screen.getByRole("columnheader", { name: "JSX" })).toHaveAttribute(
+      "aria-sort",
+      "none"
+    );
+
+    const tableBody = screen.getAllByRole("rowgroup")[1];
+    let rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Idle"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+
+    await userEvent.click(screen.getByRole("columnheader", { name: "JSX" }));
+
+    rowItems = within(tableBody).getAllByRole("row");
+    expect(rowItems).toHaveLength(2);
+    expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
+      "Ready"
+    );
+    expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
       "Idle"
     );
   });

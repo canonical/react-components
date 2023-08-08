@@ -44,7 +44,7 @@ yarn install
 yarn link path_to_react_components
 ```
 
-At this point, you might get errors about miss-matched versions of specific dependencies between `react-components` and your project. To fix these errors, change the versions of those dependencies in `react-components` to match the versions in your project. Once done, rerun the previously mentioned steps.
+At this point, you might get errors about mismatched versions of specific dependencies between `react-components` and your project. To fix these errors, change the versions of those dependencies in `react-components` to match the versions in your project. Once done, rerun the previously mentioned steps.
 
 Finally, in your project, add the resolutions for `react` and `react-dom` to `package.json`. The added bit of code should be:
 
@@ -56,7 +56,7 @@ Finally, in your project, add the resolutions for `react` and `react-dom` to `pa
 }
 ```
 
-_**Note:** Before pushing changes to `@canonical/react-components`, don't forget to change the miss-matched versions of deependencies in `react-components` to the ones before the change._
+_**Note:** Before pushing changes to `@canonical/react-components`, don't forget to change the mismatched versions of dependencies in `react-components` to the ones before the change._
 
 ## Using with another project that runs on an older version of yarn
 
