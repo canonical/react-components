@@ -436,12 +436,12 @@ describe("ModularTable", () => {
       {
         status: "Idle",
         nameless: "second",
-        accessor: "two",
+        whitespace: "two",
       },
       {
         status: "Ready",
         nameless: "first",
-        accessor: "one",
+        whitespace: "one",
       },
     ];
     render(<ModularTable columns={columns} data={data} sortable />);
@@ -487,31 +487,23 @@ describe("ModularTable", () => {
     );
   });
 
-  it("should not have aria-sort attribute and should not sort by columns whose header is a deeply nested ReactNode with no text inside", async () => {
+  it("should have aria-sort attribute and should sort by columns whose header is a number", async () => {
     const columns = [
       { accessor: "status", Header: "Status", sortType: "alphanumeric" },
       {
-        accessor: "deeplyNested",
-        Header: (
-          <div>
-            <button></button>
-            <div>
-              <p></p>
-              <span></span>
-            </div>
-          </div>
-        ),
+        accessor: "numeric",
+        Header: 0,
         sort: "alphanumeric",
       },
     ];
     const data: Record<string, unknown>[] = [
       {
         status: "Idle",
-        deeplyNested: "second",
+        numeric: "second",
       },
       {
         status: "Ready",
-        deeplyNested: "first",
+        numeric: "first",
       },
     ];
     render(<ModularTable columns={columns} data={data} sortable />);
@@ -520,8 +512,9 @@ describe("ModularTable", () => {
     expect(
       screen.getByRole("columnheader", { name: "Status" })
     ).toHaveAttribute("aria-sort", "none");
-    expect(screen.getByRole("columnheader", { name: "" })).not.toHaveAttribute(
-      "aria-sort"
+    expect(screen.getByRole("columnheader", { name: "0" })).toHaveAttribute(
+      "aria-sort",
+      "none"
     );
 
     const tableBody = screen.getAllByRole("rowgroup")[1];
@@ -534,43 +527,35 @@ describe("ModularTable", () => {
       "Ready"
     );
 
-    await userEvent.click(screen.getByRole("columnheader", { name: "" }));
+    await userEvent.click(screen.getByRole("columnheader", { name: "0" }));
 
     rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(2);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Ready"
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Idle"
     );
   });
 
-  it("should have aria-sort attribute and should sort by columns whose header is a deeply nested ReactNode with text inside", async () => {
+  it("should have aria-sort attribute and should sort by columns whose header is a JSX", async () => {
     const columns = [
       { accessor: "status", Header: "Status", sortType: "alphanumeric" },
       {
-        accessor: "deeplyNested",
-        Header: (
-          <div>
-            <button></button>
-            <div>
-              <p></p>
-              <span>Deeply Nested Text</span>
-            </div>
-          </div>
-        ),
+        accessor: "jsx",
+        Header: <div>JSX</div>,
         sortBy: "alphanumeric",
       },
     ];
     const data: Record<string, unknown>[] = [
       {
         status: "Idle",
-        deeplyNested: "second",
+        jsx: "second",
       },
       {
         status: "Ready",
-        deeplyNested: "first",
+        jsx: "first",
       },
     ];
     render(<ModularTable columns={columns} data={data} sortable />);
@@ -579,9 +564,10 @@ describe("ModularTable", () => {
     expect(
       screen.getByRole("columnheader", { name: "Status" })
     ).toHaveAttribute("aria-sort", "none");
-    expect(
-      screen.getByRole("columnheader", { name: "Deeply Nested Text" })
-    ).toHaveAttribute("aria-sort", "none");
+    expect(screen.getByRole("columnheader", { name: "JSX" })).toHaveAttribute(
+      "aria-sort",
+      "none"
+    );
 
     const tableBody = screen.getAllByRole("rowgroup")[1];
     let rowItems = within(tableBody).getAllByRole("row");
@@ -593,9 +579,7 @@ describe("ModularTable", () => {
       "Ready"
     );
 
-    await userEvent.click(
-      screen.getByRole("columnheader", { name: "Deeply Nested Text" })
-    );
+    await userEvent.click(screen.getByRole("columnheader", { name: "JSX" }));
 
     rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(2);

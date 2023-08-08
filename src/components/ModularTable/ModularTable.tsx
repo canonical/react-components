@@ -173,33 +173,13 @@ function ModularTable<D extends Record<string, unknown>>({
 
   // Function returns whether table can be sorted by a specific column.
   // Returns true if sorting is enabled for the column and there is text
-  // being rendered within the column header, otherwise returns false.
-  const isColumnSortable = (column: HeaderGroup<D>) => {
-    if (!column.canSort) {
-      return false;
-    }
-
-    const headerNodesQueue: ReactNode[] = [column.render("Header")];
-    // Go through all header child nodes and search for text.
-    while (headerNodesQueue.length) {
-      const frontNode = headerNodesQueue.shift();
-      if (isValidElement(frontNode)) {
-        headerNodesQueue.push(frontNode.props.children);
-      }
-      if (
-        !isValidElement(frontNode) &&
-        (typeof frontNode === "string" || typeof frontNode === "number") &&
-        !!String(frontNode).trim()
-      ) {
-        return true;
-      }
-      if (!isValidElement(frontNode) && Array.isArray(frontNode)) {
-        frontNode.forEach((childNode) => headerNodesQueue.push(childNode));
-      }
-    }
-
-    return false;
-  };
+  // or JSX provided for the header, otherwise returns false.
+  const isColumnSortable = (column: HeaderGroup<D>) =>
+    column.canSort &&
+    (isValidElement(column.Header) ||
+      ((typeof column.Header === "string" ||
+        typeof column.Header === "number") &&
+        !!String(column.Header).trim()));
 
   const getColumnSortDirection = (column: HeaderGroup<D>): SortDirection => {
     if (!isColumnSortable(column)) {
