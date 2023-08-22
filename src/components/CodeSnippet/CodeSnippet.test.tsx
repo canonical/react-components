@@ -54,6 +54,56 @@ describe("CodeSnippet ", () => {
     expect(screen.getByText("Test line 3;")).toBeInTheDocument();
   });
 
+  it("renders line numbers when an array is passed in", () => {
+    const multilineCode = [
+      "Test line 1;",
+      <strong>Test line 2;</strong>,
+      "Test line 3;",
+    ];
+
+    render(
+      <CodeSnippet
+        blocks={[
+          {
+            appearance: CodeSnippetBlockAppearance.NUMBERED,
+            code: multilineCode,
+          },
+        ]}
+      />
+    );
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelector(".p-code-snippet__block--numbered")
+    ).toBeInTheDocument();
+    expect(
+      // eslint-disable-next-line testing-library/no-node-access
+      document.querySelectorAll(".p-code-snippet__line")
+    ).toHaveLength(3);
+    expect(screen.getByText("Test line 1;")).toBeInTheDocument();
+    expect(screen.getByText("Test line 2;")).toBeInTheDocument();
+    expect(screen.getByText("Test line 3;")).toBeInTheDocument();
+  });
+
+  it("renders JSX code", () => {
+    render(
+      <CodeSnippet
+        blocks={[
+          {
+            code: (
+              <div data-testid="jsx-content">
+                <a href="example.com/docs/function">functionCall()</a>
+              </div>
+            ),
+          },
+        ]}
+      />
+    );
+    expect(screen.getByTestId("jsx-content")).toBeInTheDocument();
+    expect(
+      screen.getByRole("link", { name: "functionCall()" })
+    ).toBeInTheDocument();
+  });
+
   it("renders default linux prompt icon", () => {
     render(
       <CodeSnippet

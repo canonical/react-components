@@ -21,7 +21,7 @@ export type Props = {
   /**
    * The code snippet to display.
    */
-  code: string;
+  code: ReactNode;
   /**
    * Content to show below the code snippet.
    */
@@ -59,13 +59,22 @@ export default function CodeSnippetBlock({
     appearance === CodeSnippetBlockAppearance.LINUX_PROMPT ||
     appearance === CodeSnippetBlockAppearance.WINDOWS_PROMPT ||
     appearance === CodeSnippetBlockAppearance.URL;
-  let numberedCode: JSX.Element[];
+  let numberedCode: ReactNode;
 
   if (isNumbered) {
     className += "--numbered";
 
     // wrap code lines in spans (and preserve the whitespace)
-    const lines = code.split(/\r?\n/);
+    let lines: ReactNode[];
+    if (Array.isArray(code)) {
+      lines = code;
+    } else if (typeof code === "string") {
+      lines = code.split(/\r?\n/);
+    } else {
+      // If the code is not able to be split over multiple lines, then display
+      // a single line number.
+      lines = [code];
+    }
     numberedCode = lines.map((line, i) => (
       <React.Fragment key={`p-code-snippet__line-${i}`}>
         <span className="p-code-snippet__line">{line}</span>
