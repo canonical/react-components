@@ -42,6 +42,7 @@ export type Props<L = null> = {
   position?: Position;
   positionCoords?: ClientRect;
   positionNode?: HTMLElement;
+  scrollOverflow?: boolean;
   setAdjustedPosition?: (position: Position) => void;
   wrapperClass?: string;
 } & HTMLProps<HTMLSpanElement>;
@@ -173,6 +174,7 @@ const ContextualMenuDropdown = <L,>({
   position,
   positionCoords,
   positionNode,
+  scrollOverflow,
   setAdjustedPosition,
   wrapperClass,
   ...props
@@ -181,6 +183,7 @@ const ContextualMenuDropdown = <L,>({
   const [positionStyle, setPositionStyle] = useState(
     getPositionStyle(adjustedPosition, positionCoords, constrainPanelWidth)
   );
+  const [maxHeight, setMaxHeight] = useState<number>();
 
   // Update the styles to position the menu.
   const updatePositionStyle = useCallback(() => {
@@ -191,19 +194,24 @@ const ContextualMenuDropdown = <L,>({
 
   // Update the position when the window fitment info changes.
   const onUpdateWindowFitment = useCallback(
-    (fitsWindow) => {
-      setAdjustedPosition(adjustForWindow(position, fitsWindow));
+    (fitsWindow: WindowFitment) => {
+      if (autoAdjust) {
+        setAdjustedPosition(adjustForWindow(position, fitsWindow));
+      }
+      if (scrollOverflow) {
+        setMaxHeight(fitsWindow.fromBottom.spaceBelow - 16);
+      }
     },
-    [position, setAdjustedPosition]
+    [autoAdjust, position, scrollOverflow, setAdjustedPosition]
   );
 
-  // Handle adjusting the position of the dropdown so that it remains on screen.
+  // Handle adjusting the horizontal position and scrolling of the dropdown so that it remains on screen.
   useWindowFitment(
     dropdown.current,
     positionNode,
     onUpdateWindowFitment,
     0,
-    isOpen && autoAdjust
+    isOpen && (autoAdjust || scrollOverflow)
   );
 
   // Update the styles when the position changes.
@@ -223,11 +231,14 @@ const ContextualMenuDropdown = <L,>({
         aria-hidden={isOpen ? "false" : "true"}
         aria-label={Label.Dropdown}
         ref={dropdown}
-        style={
-          constrainPanelWidth && positionStyle?.width
+        style={{
+          ...(constrainPanelWidth && positionStyle?.width
             ? { width: positionStyle.width, minWidth: 0, maxWidth: "none" }
-            : null
-        }
+            : {}),
+          ...(scrollOverflow
+            ? { maxHeight, minHeight: "2rem", overflowX: "auto" }
+            : {}),
+        }}
       >
         {dropdownContent
           ? typeof dropdownContent === "function"

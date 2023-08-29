@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, waitFor } from "@testing-library/react";
 import merge from "deepmerge";
 import React from "react";
 
@@ -12,6 +12,52 @@ describe("ContextualMenuDropdown ", () => {
   it("renders", () => {
     render(<ContextualMenuDropdown links={["Link1"]} data-testid="dropdown" />);
     expect(screen.getByTestId("dropdown")).toMatchSnapshot();
+  });
+
+  it("doesn't change height if scrollOverflow not set", () => {
+    render(
+      <ContextualMenuDropdown
+        isOpen
+        links={Array.from({ length: 10 }).map((_, i) => i)}
+      />
+    );
+    expect(
+      document.querySelector(".p-contextual-menu__dropdown")
+    ).not.toHaveAttribute("style");
+  });
+
+  it("changes height if scrollOverflow is set", async () => {
+    global.innerHeight = 116;
+    const positionNode = document.createElement("div");
+    document.body.appendChild(positionNode);
+    const links = Array.from({ length: 10 }).map((_, i) => i);
+    const { rerender } = render(
+      <ContextualMenuDropdown
+        isOpen
+        links={links}
+        positionNode={positionNode}
+        scrollOverflow
+      />
+    );
+    // Rerender the component so that the hooks run again once the elements have
+    // been created in the DOM.
+    rerender(
+      <ContextualMenuDropdown
+        isOpen
+        links={links}
+        positionNode={positionNode}
+        scrollOverflow
+      />
+    );
+    await waitFor(() => {
+      expect(
+        document.querySelector(".p-contextual-menu__dropdown")
+      ).toHaveAttribute(
+        "style",
+        "min-height: 2rem; overflow-x: auto; max-height: 100px;"
+      );
+    });
+    positionNode.remove();
   });
 
   describe("adjustForWindow", () => {
