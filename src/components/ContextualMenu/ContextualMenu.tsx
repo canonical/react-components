@@ -23,7 +23,7 @@ export enum Label {
 export type Props<L> = PropsWithSpread<
   {
     /**
-     * Whether the menu should adjust to fit in the screen.
+     * Whether the menu should adjust its horizontal position to fit on the screen.
      */
     autoAdjust?: boolean;
     /**
@@ -67,13 +67,17 @@ export type Props<L> = PropsWithSpread<
      */
     onToggleMenu?: (isOpen: boolean) => void | null;
     /**
-     * The position of the menu.
+     * The horizontal position of the menu.
      */
     position?: Position | null;
     /**
      * An element to make the menu relative to.
      */
     positionNode?: HTMLElement | null;
+    /**
+     * Whether the dropdown should scroll if it is too long to fit on the screen.
+     */
+    scrollOverflow?: boolean;
     /**
      * The appearance of the toggle button.
      */
@@ -173,6 +177,7 @@ const ContextualMenu = <L,>({
   onToggleMenu,
   position = "right",
   positionNode,
+  scrollOverflow,
   toggleAppearance,
   toggleClassName,
   toggleDisabled,
@@ -337,6 +342,7 @@ const ContextualMenu = <L,>({
             position={position}
             positionCoords={positionCoords}
             positionNode={getPositionNode(wrapper.current, positionNode)}
+            scrollOverflow={scrollOverflow}
             setAdjustedPosition={setAdjustedPosition}
             wrapperClass={wrapperClass}
             {...dropdownProps}
