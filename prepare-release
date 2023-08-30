@@ -43,13 +43,5 @@ yarn version --new-version $new_version
 # Update dependencies
 yarn
 
-# Build docs
-yarn build-docs
-# Add changes
-git add .
-
-# Commit changes
-git commit -m "Build docs for $new_version"
-
 # Push changes
 git push --set-upstream origin prepare-$new_version-release
