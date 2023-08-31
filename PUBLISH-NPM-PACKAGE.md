@@ -3,7 +3,8 @@
 To publish a new react-components release you will need to [update the version](#update-package-version) in package.json and [create a new
 release](#publish-the-release). Once the release has been created in GitHub the
 package will automatically get built and published to NPM and the docs will get
-redeployed (see [publish-on-release.yml](./.github/workflows/publish-on-release.yml)).
+redeployed (see
+[publish-on-release.yml](./.github/workflows/publish-on-release.yml) and [publish-docs.yml](./.github/workflows/publish-docs.yml)).
 
 If needed, you can also [manually trigger the action](#manually-update-docs) to build the docs if you need this to happen without doing a release.
 
@@ -56,8 +57,7 @@ You should now see the new version on [NPM](https://www.npmjs.com/package/@canon
 To rebuild the docs you need to manually trigger the publish action. More
 details in the [GitHub docs](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow).
 
-1. Go to the [Publish to NPM and GitHub
-   Pages](https://github.com/canonical/react-components/actions/workflows/publish-on-release.yml) action.
+1. Go to the [Publish docs](https://github.com/canonical/react-components/actions/workflows/publish-docs.yml) action.
 2. Click the 'Run workflow' button.
 3. Select the `main`` branch.
 4. Click 'Run workflow'.
