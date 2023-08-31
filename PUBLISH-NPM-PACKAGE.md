@@ -1,26 +1,24 @@
 # Publish NPM package
 
-### Automatically prepare for release
+To publish a new react-components release you will need to [update the version](#update-package-version) in package.json and [create a new
+release](#publish-the-release). Once the release has been created in GitHub the
+package will automatically get built and published to NPM and the docs will get
+redeployed (see [publish-on-release.yml](./.github/workflows/publish-on-release.yml)).
 
-For most cases, run:
+If needed, you can also [manually trigger the action](#manually-update-docs) to build the docs if you need this to happen without doing a release.
 
-```shell
-yarn prepare-release
-```
+### Update package version
 
-create a PR and land it (this might require approval).
+_Note: If the version in package.json has already been updated you can skip this step._
 
-That's it!
+To update the package version you can follow these steps:
 
-By default, the script will assume that the next version is a minor release. If you want to release a patch or major version, you can use the following commands:
+1. Create a new branch.
+2. Update the package.json version using `yarn version
+--new-version ...`
+3. Push your branch and create a PR.
 
-```shell
-yarn prepare-release:patch
-```
-
-```shell
-yarn prepare-release:major
-```
+Once the updated version has been merged then move on to [publishing the release](#publish-the-release).
 
 ### Publish the release
 
@@ -52,3 +50,16 @@ npm publish --access public
 ```
 
 You should now see the new version on [NPM](https://www.npmjs.com/package/@canonical/react-components)
+
+### Manually update docs
+
+To rebuild the docs you need to manually trigger the publish action. More
+details in the [GitHub docs](https://docs.github.com/en/actions/using-workflows/manually-running-a-workflow).
+
+1. Go to the [Publish to NPM and GitHub
+   Pages](https://github.com/canonical/react-components/actions/workflows/publish-on-release.yml) action.
+2. Click the 'Run workflow' button.
+3. Select the `main`` branch.
+4. Click 'Run workflow'.
+
+The action should now run, and the docs should get rebuilt.
