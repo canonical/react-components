@@ -130,11 +130,7 @@
     "unlink-packages": "yarn unlink && cd node_modules/react && yarn unlink && cd ../react-dom && yarn unlink",
     "cypress:test": "wait-on http://localhost:${PORT:-9009} && cypress run --env port=${PORT:-9009}",
     "cypress:run": "cypress run --env port=${PORT:-9009}",
-    "cypress:open": "cypress open --env port=${PORT:-9009}",
-    "prepare-release:major": "./prepare-release major",
-    "prepare-release:minor": "./prepare-release minor",
-    "prepare-release:patch": "./prepare-release patch",
-    "prepare-release": "yarn run prepare-release:minor"
+    "cypress:open": "cypress open --env port=${PORT:-9009}"
   },
   "eslintConfig": {
     "extends": "react-app"
