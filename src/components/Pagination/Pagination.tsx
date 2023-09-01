@@ -27,16 +27,16 @@ const generatePaginationItems = (
     // on page 1, also show pages 2, 3 and 4
     if (currentPage === 1) {
       start = 1;
-      end = currentPage + 3;
+      end = Math.min(lastPage - 1, currentPage + 3);
     }
     // on page 2, show page 1, and also pages 3, and 4
     if (currentPage === 2) {
       start = 1;
-      end = currentPage + 2;
+      end = Math.min(lastPage - 1, currentPage + 3);
     }
     // on the last page and page before last, also show the 3 previous pages
     if (currentPage === lastPage || currentPage === lastPage - 1) {
-      start = lastPage - 4;
+      start = Math.max(1, lastPage - 4);
       end = lastPage - 1;
     }
     visiblePages = pageNumbers.slice(start, end);
