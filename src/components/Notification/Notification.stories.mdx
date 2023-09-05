@@ -52,6 +52,14 @@ This is a [React](https://reactjs.org/) component for the Vanilla [Notification]
 
 Notifications are used to display global information, our notification variants consist of default, caution, negative or positive.
 
+The `NotificationProvider` component can be used to manage the notification state globally. Wrap your application components with it and then in any child component you can get the helper with `const notify = useNotify()` to easily trigger notifications:
+
+- `notify.info("You should keep this in mind")`
+- `notify.failure("Error when fooing a bar", errorObjectFromCatch)`
+- `notify.success("The bar was foo'd", "Success")`
+
+The `NotificationConsumer` component can be used to display notifications. It will automatically display any notifications that are added to the `NotificationProvider` state.
+
 ### Props
 
 <ArgsTable of={Notification} />
