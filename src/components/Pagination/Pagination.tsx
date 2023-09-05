@@ -55,7 +55,7 @@ const generatePaginationItems = (
         onClick={() => changePage(1)}
       />
     );
-    if (![1, 2, 3].includes(currentPage)) {
+    if (!visiblePages.includes(2)) {
       items.push(<PaginationItemSeparator key="sep1" />);
     }
   }
@@ -73,7 +73,7 @@ const generatePaginationItems = (
 
   if (truncated) {
     // render last in sequence
-    if (![lastPage, lastPage - 1, lastPage - 2].includes(currentPage)) {
+    if (!visiblePages.includes(lastPage - 1)) {
       items.push(<PaginationItemSeparator key="sep2" />);
     }
     items.push(
