@@ -423,6 +423,7 @@ describe("<Pagination />", () => {
     expect(await screen.findAllByRole("button", { name: "2" })).toHaveLength(1);
     expect(await screen.findAllByRole("button", { name: "3" })).toHaveLength(1);
     expect(await screen.findAllByRole("button", { name: "4" })).toHaveLength(1);
+    expect(screen.queryByText("…")).not.toBeInTheDocument();
   });
 
   it("renders all pages on page 2 without duplicating first or last page", async () => {
@@ -440,6 +441,7 @@ describe("<Pagination />", () => {
     expect(await screen.findAllByRole("button", { name: "2" })).toHaveLength(1);
     expect(await screen.findAllByRole("button", { name: "3" })).toHaveLength(1);
     expect(await screen.findAllByRole("button", { name: "4" })).toHaveLength(1);
+    expect(screen.queryByText("…")).not.toBeInTheDocument();
   });
 
   it("renders all pages on page 3 without duplicating first or last page", async () => {
@@ -457,6 +459,7 @@ describe("<Pagination />", () => {
     expect(await screen.findAllByRole("button", { name: "2" })).toHaveLength(1);
     expect(await screen.findAllByRole("button", { name: "3" })).toHaveLength(1);
     expect(await screen.findAllByRole("button", { name: "4" })).toHaveLength(1);
+    expect(screen.queryByText("…")).not.toBeInTheDocument();
   });
 
   it("renders all pages on page 4 without duplicating first or last page", async () => {
@@ -474,5 +477,27 @@ describe("<Pagination />", () => {
     expect(await screen.findAllByRole("button", { name: "2" })).toHaveLength(1);
     expect(await screen.findAllByRole("button", { name: "3" })).toHaveLength(1);
     expect(await screen.findAllByRole("button", { name: "4" })).toHaveLength(1);
+    expect(screen.queryByText("…")).not.toBeInTheDocument();
+  });
+
+  it("renders all pages on page 4 without duplicating first or last page", async () => {
+    render(
+      <Pagination
+        itemsPerPage={2}
+        totalItems={20}
+        paginate={jest.fn()}
+        currentPage={4}
+        truncateThreshold={3}
+      />
+    );
+
+    expect(await screen.findAllByRole("button", { name: "1" })).toHaveLength(1);
+    expect(await screen.findAllByRole("button", { name: "3" })).toHaveLength(1);
+    expect(await screen.findAllByRole("button", { name: "4" })).toHaveLength(1);
+    expect(await screen.findAllByRole("button", { name: "5" })).toHaveLength(1);
+    expect(await screen.findAllByRole("button", { name: "10" })).toHaveLength(
+      1
+    );
+    expect(screen.queryAllByText("…")).toHaveLength(2);
   });
 });
