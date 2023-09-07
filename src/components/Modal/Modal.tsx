@@ -75,7 +75,15 @@ export const Modal = ({
   };
 
   const handleEscKey = (e: KeyboardEvent<HTMLDivElement>) => {
-    e.nativeEvent.stopImmediatePropagation();
+    if (e.nativeEvent?.stopImmediatePropagation) {
+      e.nativeEvent.stopImmediatePropagation();
+    } else if ((e as unknown as Event).stopImmediatePropagation) {
+      (e as unknown as Event).stopImmediatePropagation();
+    } else if (e.stopPropagation) {
+      e.stopPropagation();
+    } else {
+      console.log("Couldn't stop Esc key press propagation.");
+    }
     close();
   };
 
@@ -98,7 +106,7 @@ export const Modal = ({
       focusIndex = 1;
     }
     focusableModalElements.current[focusIndex]?.focus();
-  }, []);
+  }, [close]);
 
   useEffect(() => {
     const keyDown = (e) => {
