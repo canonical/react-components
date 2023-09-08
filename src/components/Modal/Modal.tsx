@@ -1,12 +1,6 @@
 import classNames from "classnames";
 import React, { ReactElement, useRef, useEffect } from "react";
-import type {
-  HTMLProps,
-  ReactNode,
-  MutableRefObject,
-  KeyboardEvent,
-  RefObject,
-} from "react";
+import type { HTMLProps, ReactNode, MutableRefObject, RefObject } from "react";
 import { ClassName, PropsWithSpread } from "types";
 import { useId } from "hooks/useId";
 
@@ -54,7 +48,7 @@ export const Modal = ({
 
   const modalRef: MutableRefObject<HTMLElement> = useRef(null);
   const focusableModalElements = useRef(null);
-  const handleTabKey = (e: KeyboardEvent<HTMLDivElement>) => {
+  const handleTabKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
     if (focusableModalElements.current.length > 0) {
       const firstElement = focusableModalElements.current[0];
       const lastElement =
@@ -74,15 +68,15 @@ export const Modal = ({
     }
   };
 
-  const handleEscKey = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.nativeEvent?.stopImmediatePropagation) {
+  const handleEscKey = (
+    e: KeyboardEvent | React.KeyboardEvent<HTMLDivElement>
+  ) => {
+    if ("nativeEvent" in e && e.nativeEvent.stopImmediatePropagation) {
       e.nativeEvent.stopImmediatePropagation();
-    } else if ((e as unknown as Event).stopImmediatePropagation) {
-      (e as unknown as Event).stopImmediatePropagation();
+    } else if ("stopImmediatePropagation" in e) {
+      e.stopImmediatePropagation();
     } else if (e.stopPropagation) {
       e.stopPropagation();
-    } else {
-      console.log("Couldn't stop Esc key press propagation.");
     }
     close();
   };
