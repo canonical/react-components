@@ -1,6 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
-import React from "react";
+import React, { useEffect } from "react";
 
 import Modal from "./Modal";
 
@@ -100,5 +100,43 @@ describe("Modal ", () => {
     const closeButton = container.querySelector("button.p-modal__close");
 
     expect(closeButton).toHaveFocus();
+  });
+
+  it("should stop immediate Esc press propagation", async () => {
+    const MockEscEventComponent = ({
+      onEscPress,
+    }: {
+      onEscPress: () => void;
+    }): JSX.Element => {
+      useEffect(() => {
+        const handleEscPress = (e: KeyboardEvent) => {
+          if (e.code === "Escape") {
+            onEscPress();
+          }
+        };
+
+        document.addEventListener("keydown", handleEscPress);
+        return () => {
+          document.removeEventListener("keydown", handleEscPress);
+        };
+      });
+
+      return <div>Mock component with event on Esc key press</div>;
+    };
+
+    const mockHandleModalClose = jest.fn();
+    const mockHandleEscPress = jest.fn();
+    render(
+      <>
+        <Modal title="Test" close={mockHandleModalClose}>
+          Bare bones
+        </Modal>
+        <MockEscEventComponent onEscPress={mockHandleEscPress} />
+      </>
+    );
+
+    await userEvent.keyboard("{Escape}");
+    expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
+    expect(mockHandleEscPress).not.toHaveBeenCalled();
   });
 });
