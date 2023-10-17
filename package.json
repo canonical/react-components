@@ -61,7 +61,7 @@
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react": "7.33.2",
     "eslint-plugin-react-hooks": "4.6.0",
-    "eslint-plugin-testing-library": "5.11.1",
+    "eslint-plugin-testing-library": "6.1.0",
     "jest": "27.5.1",
     "npm-package-json-lint": "5.4.2",
     "prettier": "2.8.8",
