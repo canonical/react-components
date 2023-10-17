@@ -35,7 +35,7 @@
     "@storybook/manager-webpack5": "6.5.16",
     "@storybook/react": "6.5.16",
     "@storybook/theming": "6.5.16",
-    "@testing-library/cypress": "9.0.0",
+    "@testing-library/cypress": "10.0.1",
     "@testing-library/dom": "9.3.3",
     "@testing-library/jest-dom": "5.17.0",
     "@testing-library/react": "14.0.0",
