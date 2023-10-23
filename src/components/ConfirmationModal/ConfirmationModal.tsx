@@ -48,7 +48,11 @@ export const ConfirmationModal = ({
       buttonRow={
         <>
           {confirmExtra}
-          <Button className="u-no-margin--bottom" onClick={props.close}>
+          <Button
+            appearance="base"
+            className="u-no-margin--bottom"
+            onClick={props.close}
+          >
             {cancelButtonLabel}
           </Button>
           <Button
