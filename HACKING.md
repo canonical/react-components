@@ -4,6 +4,10 @@
 
 Canonical `react-components` is developed with [TypeScript](https://www.typescriptlang.org/), but built with `babel` and `@babel/preset-typescript`. Type declarations are generated post build with `tsc`.
 
+## Pull Requests
+
+Pull request titles need to follow [conventional commits](https://www.conventionalcommits.org) specification.
+
 ## Developing components with Storybook
 
 You can run [Storybook](https://storybook.js.org/) locally to develop new components. You may also need to validate that they work with other projects, in which case see the instructions below.
