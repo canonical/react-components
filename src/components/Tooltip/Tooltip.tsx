@@ -301,7 +301,7 @@ const Tooltip = ({
     openPortal();
   };
 
-  const deplayedOpenPortal: MouseEventHandler = useCallback(
+  const delayedOpenPortal: MouseEventHandler = useCallback(
     (event) => {
       const timeout = setTimeout(() => openPortal(event), delay);
       setTimer(timeout);
@@ -318,7 +318,7 @@ const Tooltip = ({
           onClick={handleClick}
           onFocus={openPortal}
           onMouseOut={handleBlur}
-          onMouseOver={deplayedOpenPortal}
+          onMouseOver={delayedOpenPortal}
         >
           <span
             className={positionElementClassName}
