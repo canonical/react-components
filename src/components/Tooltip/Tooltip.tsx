@@ -303,14 +303,10 @@ const Tooltip = ({
     openPortal(e);
   };
 
-  const delayedOpenPortal: MouseEventHandler = useCallback(
-    (event) => {
-      console.log({ event });
-      const timeout = setTimeout(() => openPortal(), delay);
-      setTimer(timeout);
-    },
-    [delay, openPortal]
-  );
+  const delayedOpenPortal: MouseEventHandler = useCallback(() => {
+    const timeout = setTimeout(() => openPortal(), delay);
+    setTimer(timeout);
+  }, [delay, openPortal]);
 
   return (
     <>

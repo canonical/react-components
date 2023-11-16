@@ -211,6 +211,56 @@ describe("Tooltip", () => {
     expect(screen.getByRole("tooltip")).toHaveStyle("z-index: 999");
   });
 
+  it("portal is not opened until the delay time.", async () => {
+    render(
+      <Tooltip message="text" zIndex={999}>
+        <button>open the tooltip</button>
+      </Tooltip>
+    );
+    await userEvent.hover(
+      screen.getByRole("button", { name: "open the tooltip" })
+    );
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+  });
+
+  it("should be able to configure delay", async () => {
+    jest.useFakeTimers("modern");
+    render(
+      <Tooltip delay={1} message="text" zIndex={999}>
+        <button>open the tooltip</button>
+      </Tooltip>
+    );
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    await user.hover(screen.getByRole("button"));
+
+    act(() => {
+      jest.advanceTimersByTime(1);
+    });
+
+    expect(screen.getByRole("tooltip")).toBeInTheDocument();
+  });
+
+  it("blur before the delay time cancels the timeout.", async () => {
+    jest.useFakeTimers("modern");
+    render(
+      <Tooltip message="text" zIndex={999}>
+        <button>open the tooltip</button>
+      </Tooltip>
+    );
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    const button = screen.getByRole("button", { name: "open the tooltip" });
+    await user.hover(button);
+    act(async () => {
+      await user.unhover(button);
+    });
+
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+  });
+
   describe("adjustForWindow", () => {
     const generateFits = (overrides = {}) => {
       const fits = {
