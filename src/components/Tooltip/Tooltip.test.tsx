@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { act, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import merge from "deepmerge";
 import React from "react";
@@ -6,6 +6,10 @@ import React from "react";
 import Tooltip, { adjustForWindow } from "./Tooltip";
 
 describe("Tooltip", () => {
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
   it("renders and matches the snapshot", () => {
     const { container } = render(
       <Tooltip message="text">
@@ -80,6 +84,7 @@ describe("Tooltip", () => {
 
   it("does not propogate clicks on the tooltip message to the parent", async () => {
     const parentClick = jest.fn();
+    jest.useFakeTimers("modern");
     render(
       <div onClick={parentClick}>
         <Tooltip message="a message">
@@ -87,13 +92,19 @@ describe("Tooltip", () => {
         </Tooltip>
       </div>
     );
-    await userEvent.hover(screen.getByRole("button"));
-    await userEvent.click(screen.getByRole("tooltip"));
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    await user.hover(screen.getByRole("button"));
+    act(() => {
+      jest.runAllTimers();
+    });
+
+    await user.click(screen.getByRole("tooltip"));
     expect(parentClick).not.toHaveBeenCalled();
   });
 
   it("does not propogate clicks in the tooltip's children to the parent", async () => {
     const parentClick = jest.fn();
+    jest.useFakeTimers("modern");
     render(
       <div onClick={parentClick}>
         <Tooltip
@@ -115,8 +126,12 @@ describe("Tooltip", () => {
         </Tooltip>
       </div>
     );
-    await userEvent.hover(screen.getByRole("button"));
-    await userEvent.click(screen.getByRole("link", { name: "Canonical" }));
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    await user.hover(screen.getByRole("button"));
+    act(() => {
+      jest.runAllTimers();
+    });
+    await user.click(screen.getByRole("link", { name: "Canonical" }));
     expect(parentClick).not.toHaveBeenCalled();
   });
 
@@ -141,6 +156,7 @@ describe("Tooltip", () => {
   });
 
   it("updates the tooltip to fit on the screen", async () => {
+    jest.useFakeTimers("modern");
     render(
       <Tooltip
         message="text that is too long to fit on the screen"
@@ -150,8 +166,11 @@ describe("Tooltip", () => {
       </Tooltip>
     );
     global.innerWidth = 20;
-    await userEvent.hover(screen.getByRole("button", { name: "Child" }));
-
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    await user.hover(screen.getByRole("button", { name: "Child" }));
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(screen.getByTestId("tooltip-portal")).toHaveClass(
       "p-tooltip--btm-left"
     );
@@ -161,30 +180,34 @@ describe("Tooltip", () => {
   it("gives the correct class name to the tooltip", async () => {
     // ensure the tooltip fits in the window and the positioning className remains unchanged
     global.innerWidth = 500;
+    jest.useFakeTimers("modern");
     render(
       <Tooltip message="text" position="right">
         <button>open the tooltip</button>
       </Tooltip>
     );
-
-    await userEvent.hover(
-      screen.getByRole("button", { name: "open the tooltip" })
-    );
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    await user.hover(screen.getByRole("button", { name: "open the tooltip" }));
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(screen.getByTestId("tooltip-portal")).toHaveClass(
       "p-tooltip--right"
     );
   });
 
   it("assigns the correct z-index to the correct element", async () => {
+    jest.useFakeTimers("modern");
     render(
       <Tooltip message="text" zIndex={999}>
         <button>open the tooltip</button>
       </Tooltip>
     );
-
-    await userEvent.hover(
-      screen.getByRole("button", { name: "open the tooltip" })
-    );
+    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+    await user.hover(screen.getByRole("button", { name: "open the tooltip" }));
+    act(() => {
+      jest.runAllTimers();
+    });
     expect(screen.getByRole("tooltip")).toHaveStyle("z-index: 999");
   });
 

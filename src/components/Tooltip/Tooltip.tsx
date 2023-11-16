@@ -207,7 +207,9 @@ const Tooltip = ({
     left: -9999999,
     top: -9999999,
   });
-  const { openPortal, closePortal, isOpen, Portal } = usePortal();
+  const { openPortal, closePortal, isOpen, Portal } = usePortal({
+    programmaticallyOpen: true,
+  });
   const tooltipId = useId();
   const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(
     null
@@ -298,12 +300,13 @@ const Tooltip = ({
       return;
     }
     e.target.focus();
-    openPortal();
+    openPortal(e);
   };
 
   const delayedOpenPortal: MouseEventHandler = useCallback(
     (event) => {
-      const timeout = setTimeout(() => openPortal(event), delay);
+      console.log({ event });
+      const timeout = setTimeout(() => openPortal(), delay);
       setTimer(timeout);
     },
     [delay, openPortal]
