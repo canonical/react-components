@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import type { MouseEventHandler, ReactNode } from "react";
 import usePortal from "react-useportal";
 
 import { useWindowFitment, useListener, useId } from "hooks";
@@ -75,7 +75,7 @@ export type Props = {
    */
   zIndex?: number;
   /**
-   * Deplay in ms after which Tooltip will appear
+   * Delay in ms after which Tooltip will appear (defaults to 350ms).
    */
   delay?: number;
 };
@@ -195,7 +195,7 @@ const Tooltip = ({
   positionElementClassName,
   tooltipClassName,
   zIndex,
-  delay = 500,
+  delay = 350,
 }: Props): JSX.Element => {
   const wrapperRef = useRef<HTMLElement>(null);
   const messageRef = useRef<HTMLElement>(null);
@@ -301,10 +301,13 @@ const Tooltip = ({
     openPortal();
   };
 
-  const deplayedOpenPortal = useCallback(() => {
-    const timeout = setTimeout(openPortal, delay);
-    setTimer(timeout);
-  }, [delay, openPortal]);
+  const deplayedOpenPortal: MouseEventHandler = useCallback(
+    (event) => {
+      const timeout = setTimeout(() => openPortal(event), delay);
+      setTimer(timeout);
+    },
+    [delay, openPortal]
+  );
 
   return (
     <>
