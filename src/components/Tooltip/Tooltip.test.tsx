@@ -93,8 +93,8 @@ describe("Tooltip", () => {
       </div>
     );
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    await user.hover(screen.getByRole("button"));
-    act(() => {
+    await act(async () => {
+      await user.hover(screen.getByRole("button"));
       jest.runAllTimers();
     });
 
@@ -127,8 +127,8 @@ describe("Tooltip", () => {
       </div>
     );
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    await user.hover(screen.getByRole("button"));
-    act(() => {
+    await act(async () => {
+      await user.hover(screen.getByRole("button"));
       jest.runAllTimers();
     });
     await user.click(screen.getByRole("link", { name: "Canonical" }));
@@ -167,8 +167,8 @@ describe("Tooltip", () => {
     );
     global.innerWidth = 20;
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    await user.hover(screen.getByRole("button", { name: "Child" }));
-    act(() => {
+    await act(async () => {
+      await user.hover(screen.getByRole("button", { name: "Child" }));
       jest.runAllTimers();
     });
     expect(screen.getByTestId("tooltip-portal")).toHaveClass(
@@ -187,8 +187,10 @@ describe("Tooltip", () => {
       </Tooltip>
     );
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    await user.hover(screen.getByRole("button", { name: "open the tooltip" }));
-    act(() => {
+    await act(async () => {
+      await user.hover(
+        screen.getByRole("button", { name: "open the tooltip" })
+      );
       jest.runAllTimers();
     });
     expect(screen.getByTestId("tooltip-portal")).toHaveClass(
@@ -204,8 +206,10 @@ describe("Tooltip", () => {
       </Tooltip>
     );
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    await user.hover(screen.getByRole("button", { name: "open the tooltip" }));
-    act(() => {
+    await act(async () => {
+      await user.hover(
+        screen.getByRole("button", { name: "open the tooltip" })
+      );
       jest.runAllTimers();
     });
     expect(screen.getByRole("tooltip")).toHaveStyle("z-index: 999");
@@ -231,9 +235,8 @@ describe("Tooltip", () => {
       </Tooltip>
     );
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    await user.hover(screen.getByRole("button"));
-
-    act(() => {
+    await act(async () => {
+      await user.hover(screen.getByRole("button"));
       jest.advanceTimersByTime(1);
     });
 
@@ -242,20 +245,22 @@ describe("Tooltip", () => {
 
   it("blur before the delay time cancels the timeout.", async () => {
     jest.useFakeTimers("modern");
+
     render(
-      <Tooltip message="text" zIndex={999}>
+      <Tooltip delay={200} message="text" zIndex={999}>
         <button>open the tooltip</button>
       </Tooltip>
     );
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
-    const button = screen.getByRole("button", { name: "open the tooltip" });
-    await user.hover(button);
-    act(async () => {
-      await user.unhover(button);
+    const button = screen.getByRole("button");
+
+    await act(async () => {
+      await user.hover(button);
     });
 
-    act(() => {
-      jest.runAllTimers();
+    await act(async () => {
+      await user.unhover(button);
+      jest.runOnlyPendingTimers();
     });
 
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
