@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from "react";
+import { MutableRefObject, useCallback, useEffect, useRef } from "react";
 
 /**
  * Handle clicks outside an element.
@@ -34,4 +34,18 @@ export const useOnClickOutside = <E extends HTMLElement>(
     return () =>
       document.removeEventListener("click", handleClickOutside, false);
   }, [handleClickOutside, isEnabled]);
+};
+
+/**
+ * Handle clicks outside an element.
+ * @returns A ref to pass to the element to handle clicks outside of.
+ */
+export const useClickOutside = <E extends HTMLElement>(
+  onClickOutside: () => void
+): MutableRefObject<E> => {
+  const ref = useRef<E | null>(null);
+
+  useOnClickOutside(ref, onClickOutside);
+
+  return ref;
 };

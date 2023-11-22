@@ -137,6 +137,7 @@ export type { TooltipProps } from "./components/Tooltip";
 
 export {
   useOnClickOutside,
+  useClickOutside,
   useId,
   useListener,
   useOnEscapePressed,

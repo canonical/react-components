@@ -1,4 +1,4 @@
-export { useOnClickOutside } from "./useOnClickOutside";
+export { useOnClickOutside, useClickOutside } from "./useOnClickOutside";
 export { useId } from "./useId";
 export { useListener } from "./useListener";
 export { useOnEscapePressed } from "./useOnEscapePressed";
