@@ -136,7 +136,7 @@ export type { TextareaProps } from "./components/Textarea";
 export type { TooltipProps } from "./components/Tooltip";
 
 export {
-  useClickOutside,
+  useOnClickOutside,
   useId,
   useListener,
   useOnEscapePressed,

@@ -1,9 +1,8 @@
 import classNames from "classnames";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { HTMLProps } from "react";
-import usePortal from "react-useportal";
 
-import { useListener, usePrevious } from "hooks";
+import { useListener, useOnEscapePressed, usePrevious } from "hooks";
 import Button from "../Button";
 import type { ButtonProps } from "../Button";
 import ContextualMenuDropdown from "./ContextualMenuDropdown";
@@ -11,6 +10,7 @@ import type { ContextualMenuDropdownProps } from "./ContextualMenuDropdown";
 import type { MenuLink, Position } from "./ContextualMenuDropdown";
 import { ClassName, PropsWithSpread, SubComponentProps } from "types";
 import { useId } from "hooks/useId";
+import { useOnClickOutside } from "hooks/useOnClickOutside";
 
 export enum Label {
   Toggle = "Toggle menu",
@@ -118,7 +118,7 @@ export type Props<L> = PropsWithSpread<
  */
 const getPositionNode = (
   wrapper: HTMLElement,
-  positionNode: HTMLElement
+  positionNode?: HTMLElement
 ): HTMLElement | null => {
   if (positionNode) {
     return positionNode;
@@ -188,10 +188,14 @@ const ContextualMenu = <L,>({
   ...wrapperProps
 }: Props<L>): JSX.Element => {
   const id = useId();
-  const wrapper = useRef();
-  const [positionCoords, setPositionCoords] = useState<ClientRect>();
+  const wrapper = useRef<HTMLDivElement | null>(null);
+  const [positionCoords, setPositionCoords] = useState<DOMRect>();
   const [adjustedPosition, setAdjustedPosition] = useState(position);
   const hasToggle = hasToggleIcon || toggleLabel;
+
+  useEffect(() => {
+    setAdjustedPosition(position);
+  }, [position, autoAdjust]);
 
   // Update the coordinates of the position node.
   const updatePositionCoords = useCallback(() => {
@@ -202,21 +206,20 @@ const ContextualMenu = <L,>({
     setPositionCoords(parent.getBoundingClientRect());
   }, [wrapper, positionNode]);
 
-  const { openPortal, closePortal, isOpen, Portal, ref } = usePortal({
-    closeOnEsc,
-    closeOnOutsideClick,
-    isOpen: visible,
-    onOpen: () => {
-      // Call the toggle callback, if supplied.
-      onToggleMenu && onToggleMenu(true);
-      // When the menu opens then update the coordinates of the parent.
-      updatePositionCoords();
-    },
-    onClose: () => {
-      // Call the toggle callback, if supplied.
-      onToggleMenu && onToggleMenu(false);
-    },
-  });
+  const [isOpen, setIsOpen] = useState(visible);
+  const handleOpen = useCallback(() => {
+    // Call the toggle callback, if supplied.
+    onToggleMenu && onToggleMenu(true);
+    // When the menu opens then update the coordinates of the parent.
+    updatePositionCoords();
+    setIsOpen(true);
+  }, [onToggleMenu, updatePositionCoords]);
+  const handleClose = useCallback(() => {
+    // Call the toggle callback, if supplied.
+    onToggleMenu && onToggleMenu(false);
+    setIsOpen(false);
+  }, [onToggleMenu]);
+
   const previousVisible = usePrevious(visible);
   const labelNode =
     toggleLabel && typeof toggleLabel === "string" ? (
@@ -246,45 +249,36 @@ const ContextualMenu = <L,>({
   useEffect(() => {
     if (visible !== previousVisible) {
       if (visible && !isOpen) {
-        openPortal();
+        handleOpen();
       } else if (!visible && isOpen) {
-        closePortal();
+        handleClose();
       }
     }
-  }, [closePortal, openPortal, visible, isOpen, previousVisible]);
+  }, [handleClose, handleOpen, visible, isOpen, previousVisible]);
 
-  const onResize = useCallback(
-    (evt) => {
-      const parent = getPositionNode(wrapper.current, positionNode);
-      if (parent && !getPositionNodeVisible(parent)) {
-        // Hide the menu if the item has become hidden. This might happen in
-        // a responsive table when columns become hidden as the page
-        // becomes smaller.
-        closePortal(evt);
-      } else {
-        // Update the coordinates so that the menu stays relative to the
-        // toggle button.
-        updatePositionCoords();
-      }
-    },
-    [closePortal, positionNode, updatePositionCoords]
-  );
+  useOnClickOutside(wrapper, handleClose, {
+    isEnabled: closeOnOutsideClick,
+  });
+  useOnEscapePressed(handleClose, { isEnabled: closeOnEsc });
+
+  const onResize = useCallback(() => {
+    const parent = getPositionNode(wrapper.current, positionNode);
+    if (parent && !getPositionNodeVisible(parent)) {
+      // Hide the menu if the item has become hidden. This might happen in
+      // a responsive table when columns become hidden as the page
+      // becomes smaller.
+      handleClose();
+    } else {
+      // Update the coordinates so that the menu stays relative to the
+      // toggle button.
+      updatePositionCoords();
+    }
+  }, [handleClose, positionNode, updatePositionCoords]);
 
   useListener(window, onResize, "resize", true, isOpen);
 
   return (
-    <span
-      className={wrapperClass}
-      ref={wrapperRef}
-      style={
-        positionNode
-          ? null
-          : {
-              position: "relative",
-            }
-      }
-      {...wrapperProps}
-    >
+    <span className={wrapperClass} ref={wrapperRef} {...wrapperProps}>
       {hasToggle ? (
         <Button
           appearance={toggleAppearance}
@@ -296,11 +290,11 @@ const ContextualMenu = <L,>({
           className={classNames("p-contextual-menu__toggle", toggleClassName)}
           disabled={toggleDisabled}
           hasIcon={hasToggleIcon}
-          onClick={(evt: React.MouseEvent) => {
+          onClick={() => {
             if (!isOpen) {
-              openPortal(evt);
+              handleOpen();
             } else {
-              closePortal(evt);
+              handleClose();
             }
           }}
           type="button"
@@ -321,33 +315,25 @@ const ContextualMenu = <L,>({
           ) : null}
           {toggleLabelFirst ? null : labelNode}
         </Button>
-      ) : (
-        <>
-          {/* Give the portal a ref to get around an event issue. https://github.com/alex-cory/react-useportal/issues/36 */}
-          <span style={{ display: "none" }} ref={ref} />
-        </>
-      )}
+      ) : null}
       {isOpen && (
-        <Portal>
-          <ContextualMenuDropdown<L>
-            adjustedPosition={adjustedPosition}
-            autoAdjust={autoAdjust}
-            closePortal={closePortal}
-            constrainPanelWidth={constrainPanelWidth}
-            dropdownClassName={dropdownClassName}
-            dropdownContent={children}
-            id={id}
-            isOpen={isOpen}
-            links={links}
-            position={position}
-            positionCoords={positionCoords}
-            positionNode={getPositionNode(wrapper.current, positionNode)}
-            scrollOverflow={scrollOverflow}
-            setAdjustedPosition={setAdjustedPosition}
-            wrapperClass={wrapperClass}
-            {...dropdownProps}
-          />
-        </Portal>
+        <ContextualMenuDropdown<L>
+          adjustedPosition={adjustedPosition}
+          autoAdjust={autoAdjust}
+          handleClose={handleClose}
+          constrainPanelWidth={constrainPanelWidth}
+          dropdownClassName={dropdownClassName}
+          dropdownContent={children}
+          id={id}
+          isOpen={isOpen}
+          links={links}
+          position={position}
+          positionCoords={positionCoords}
+          positionNode={getPositionNode(wrapper.current)}
+          scrollOverflow={scrollOverflow}
+          setAdjustedPosition={setAdjustedPosition}
+          {...dropdownProps}
+        />
       )}
     </span>
   );

@@ -4,10 +4,5 @@ exports[`ContextualMenu  renders 1`] = `
 <span
   class="p-contextual-menu"
   data-testid="menu"
-  style="position: relative;"
->
-  <span
-    style="display: none;"
-  />
-</span>
+/>
 `;

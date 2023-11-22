@@ -254,7 +254,9 @@ describe("ContextualMenu ", () => {
     await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
     expect(screen.getByTestId("extra-prop")).toBeInTheDocument();
     // Check that the props were applied to the dropdown element:
-    expect(screen.getByTestId("extra-prop")).toHaveClass("p-contextual-menu");
+    expect(screen.getByTestId("extra-prop")).toHaveClass(
+      "p-contextual-menu__dropdown"
+    );
   });
 
   it("allows passing a component as a toggleLabel", () => {

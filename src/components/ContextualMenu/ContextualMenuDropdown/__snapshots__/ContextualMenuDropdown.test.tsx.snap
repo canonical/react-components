@@ -2,18 +2,15 @@
 
 exports[`ContextualMenuDropdown  renders 1`] = `
 <span
+  aria-hidden="true"
+  aria-label="submenu"
+  class="p-contextual-menu__dropdown"
   data-testid="dropdown"
 >
-  <span
-    aria-hidden="true"
-    aria-label="submenu"
-    class="p-contextual-menu__dropdown"
+  <div
+    class="p-contextual-menu__non-interactive"
   >
-    <div
-      class="p-contextual-menu__non-interactive"
-    >
-      Link1
-    </div>
-  </span>
+    Link1
+  </div>
 </span>
 `;

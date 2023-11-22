@@ -1,12 +1,12 @@
 import type { HTMLProps } from "react";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useRef, useState } from "react";
 
 import classNames from "classnames";
 
 import NavigationLink from "../NavigationLink";
 import type { GenerateLink, NavMenu } from "../types";
 import { PropsWithSpread } from "types";
-import { useClickOutside, useId } from "hooks";
+import { useOnClickOutside, useId } from "hooks";
 
 type Props = PropsWithSpread<
   NavMenu & {
@@ -27,7 +27,8 @@ const NavigationMenu = ({
 }: Props): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = useCallback(() => setIsOpen(false), [setIsOpen]);
-  const menuRef = useClickOutside<HTMLLIElement>(closeMenu);
+  const menuRef = useRef(null);
+  useOnClickOutside<HTMLLIElement>(menuRef, closeMenu);
   const menuId = useId();
   return (
     <li

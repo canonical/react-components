@@ -32,7 +32,7 @@ export type Position = "left" | "center" | "right";
 export type Props<L = null> = {
   adjustedPosition?: Position;
   autoAdjust?: boolean;
-  closePortal?: (evt?: MouseEvent) => void;
+  handleClose?: () => void;
   constrainPanelWidth?: boolean;
   dropdownClassName?: string;
   dropdownContent?: ReactNode | ((close: () => void) => ReactElement);
@@ -54,35 +54,16 @@ export type Props<L = null> = {
  * @param constrainPanelWidth - Whether the menu width should be constrained to the position width.
  */
 const getPositionStyle = (
-  position: Position,
   positionCoords: Props["positionCoords"],
   constrainPanelWidth: Props["constrainPanelWidth"]
 ) => {
   if (!positionCoords) {
     return null;
   }
-  const { height, left, top, width } = positionCoords;
-  const topPos = top + height + (window.scrollY || 0);
-  let leftPos = left;
-
-  switch (position) {
-    case "left":
-      leftPos = left;
-      break;
-    case "center":
-      leftPos = left + width / 2;
-      break;
-    case "right":
-      leftPos = left + width;
-      break;
-    default:
-      break;
-  }
+  const { height, width } = positionCoords;
 
   return {
-    position: "absolute",
-    left: leftPos,
-    top: topPos,
+    top: height,
     // The width only needs to be set if the width is to be constrained.
     ...(constrainPanelWidth ? { width } : null),
   };
@@ -134,12 +115,12 @@ export const adjustForWindow = (
  * @template L - The type of the link props.
  * @param link - A button
  * @param key - A key for the DOM.
- * @param closePortal - The function to close the portal.
+ * @param handleClose - The function to close the menu.
  */
 const generateLink = <L,>(
   link: ButtonProps,
   key: React.Key,
-  closePortal: Props["closePortal"]
+  handleClose: Props["handleClose"]
 ) => {
   const { children, className, onClick, ...props } = link;
   return (
@@ -149,7 +130,7 @@ const generateLink = <L,>(
       onClick={
         onClick
           ? (evt) => {
-              closePortal(evt.nativeEvent);
+              handleClose();
               onClick(evt);
             }
           : null
@@ -164,7 +145,7 @@ const generateLink = <L,>(
 const ContextualMenuDropdown = <L,>({
   adjustedPosition,
   autoAdjust,
-  closePortal,
+  handleClose,
   constrainPanelWidth,
   dropdownClassName,
   dropdownContent,
@@ -181,16 +162,14 @@ const ContextualMenuDropdown = <L,>({
 }: Props<L>): JSX.Element => {
   const dropdown = useRef();
   const [positionStyle, setPositionStyle] = useState(
-    getPositionStyle(adjustedPosition, positionCoords, constrainPanelWidth)
+    getPositionStyle(positionCoords, constrainPanelWidth)
   );
   const [maxHeight, setMaxHeight] = useState<number>();
 
   // Update the styles to position the menu.
   const updatePositionStyle = useCallback(() => {
-    setPositionStyle(
-      getPositionStyle(adjustedPosition, positionCoords, constrainPanelWidth)
-    );
-  }, [adjustedPosition, positionCoords, constrainPanelWidth]);
+    setPositionStyle(getPositionStyle(positionCoords, constrainPanelWidth));
+  }, [positionCoords, constrainPanelWidth]);
 
   // Update the position when the window fitment info changes.
   const onUpdateWindowFitment = useCallback(
@@ -221,48 +200,42 @@ const ContextualMenuDropdown = <L,>({
 
   return (
     <span
-      className={wrapperClass}
-      style={positionStyle as React.CSSProperties}
+      className={classNames("p-contextual-menu__dropdown", dropdownClassName)}
+      id={id}
+      aria-hidden={isOpen ? "false" : "true"}
+      aria-label={Label.Dropdown}
+      ref={dropdown}
+      style={{
+        ...(positionStyle as React.CSSProperties),
+        ...(constrainPanelWidth && positionStyle?.width
+          ? { width: positionStyle.width, minWidth: 0, maxWidth: "none" }
+          : {}),
+        ...(scrollOverflow
+          ? { maxHeight, minHeight: "2rem", overflowX: "auto" }
+          : {}),
+      }}
       {...props}
     >
-      <span
-        className={classNames("p-contextual-menu__dropdown", dropdownClassName)}
-        id={id}
-        aria-hidden={isOpen ? "false" : "true"}
-        aria-label={Label.Dropdown}
-        ref={dropdown}
-        style={{
-          ...(constrainPanelWidth && positionStyle?.width
-            ? { width: positionStyle.width, minWidth: 0, maxWidth: "none" }
-            : {}),
-          ...(scrollOverflow
-            ? { maxHeight, minHeight: "2rem", overflowX: "auto" }
-            : {}),
-        }}
-      >
-        {dropdownContent
-          ? typeof dropdownContent === "function"
-            ? dropdownContent(closePortal)
-            : dropdownContent
-          : links.map((item, i) => {
-              if (Array.isArray(item)) {
-                return (
-                  <span className="p-contextual-menu__group" key={i}>
-                    {item.map((link, j) =>
-                      generateLink<L>(link, j, closePortal)
-                    )}
-                  </span>
-                );
-              } else if (typeof item === "string") {
-                return (
-                  <div className="p-contextual-menu__non-interactive" key={i}>
-                    {item}
-                  </div>
-                );
-              }
-              return generateLink<L>(item, i, closePortal);
-            })}
-      </span>
+      {dropdownContent
+        ? typeof dropdownContent === "function"
+          ? dropdownContent(handleClose)
+          : dropdownContent
+        : links.map((item, i) => {
+            if (Array.isArray(item)) {
+              return (
+                <span className="p-contextual-menu__group" key={i}>
+                  {item.map((link, j) => generateLink<L>(link, j, handleClose))}
+                </span>
+              );
+            } else if (typeof item === "string") {
+              return (
+                <div className="p-contextual-menu__non-interactive" key={i}>
+                  {item}
+                </div>
+              );
+            }
+            return generateLink<L>(item, i, handleClose);
+          })}
     </span>
   );
 };

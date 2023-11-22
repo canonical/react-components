@@ -3,7 +3,10 @@ import { useCallback, useEffect } from "react";
 /**
  * Handle the escape key pressed.
  */
-export const useOnEscapePressed = (onEscape: () => void) => {
+export const useOnEscapePressed = (
+  onEscape: () => void,
+  { isEnabled } = { isEnabled: true }
+) => {
   const keyDown = useCallback(
     (evt) => {
       if (evt.code === "Escape") {
@@ -13,9 +16,11 @@ export const useOnEscapePressed = (onEscape: () => void) => {
     [onEscape]
   );
   useEffect(() => {
-    document.addEventListener("keydown", keyDown);
+    if (isEnabled) {
+      document.addEventListener("keydown", keyDown);
+    }
     return () => {
       document.removeEventListener("keydown", keyDown);
     };
-  }, [keyDown]);
+  }, [keyDown, isEnabled]);
 };
