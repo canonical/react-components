@@ -10,15 +10,17 @@ import Button, { ButtonAppearance } from "./Button";
       control: {
         type: "text",
       },
-      defaultValue: "Click me!",
     },
     appearance: {
       control: {
         options: ButtonAppearance,
         type: "select",
       },
-      defaultValue: ButtonAppearance.DEFAULT,
     },
+  }}
+  args={{
+    children: "Click me!",
+    appearance: ButtonAppearance.DEFAULT,
   }}
 />
 
@@ -59,102 +61,129 @@ Buttons are clickable elements used to perform an action, they can be used for b
   </Story>
 </Canvas>
 
-### Base
-
 <Canvas>
-  <Story name="Base">
-    <Button appearance="base">Base button</Button>
+  <Story name="Base" args={{ children: "Base button", appearance: "base" }}>
+    {Template.bind({})}
   </Story>
 </Canvas>
 
 <Canvas>
-  <Story name="Base disabled">
-    <Button appearance="base" disabled>
-      Base button disabled
-    </Button>
-  </Story>
-</Canvas>
-
-### Link
-
-<Canvas>
-  <Story name="Link">
-    <Button element="a" href="#test" appearance="base">
-      Link button
-    </Button>
+  <Story
+    name="Base disabled"
+    args={{
+      children: "Base button disabled",
+      appearance: "base",
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
 <Canvas>
-  <Story name="Link disabled">
-    <Button element="a" href="#test" appearance="base" disabled>
-      Link button disabled
-    </Button>
-  </Story>
-</Canvas>
-
-### Positive
-
-<Canvas>
-  <Story name="Positive">
-    <Button appearance="positive">Positive button</Button>
-  </Story>
-</Canvas>
-
-<Canvas>
-  <Story name="Positive disabled">
-    <Button appearance="positive" disabled>
-      Positive button disabled
-    </Button>
-  </Story>
-</Canvas>
-
-### Negative
-
-<Canvas>
-  <Story name="Negative">
-    <Button appearance="negative">Negative button</Button>
+  <Story
+    name="Link"
+    args={{
+      children: "Link button",
+      appearance: "base",
+      element: "a",
+      href: "#test",
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
 <Canvas>
-  <Story name="Negative disabled">
-    <Button appearance="negative" disabled>
-      Negative button disabled
-    </Button>
+  <Story
+    name="Link disabled"
+    args={{
+      children: "Link button disabled",
+      appearance: "base",
+      element: "a",
+      href: "#test",
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
-
-### Brand
 
 <Canvas>
-  <Story name="Brand">
-    <Button appearance="brand">Brand button</Button>
+  <Story
+    name="Positive"
+    args={{ children: "Positive button", appearance: "positive" }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
 <Canvas>
-  <Story name="Brand disabled">
-    <Button appearance="brand" disabled>
-      Brand button disabled
-    </Button>
+  <Story
+    name="Positive disabled"
+    args={{
+      children: "Positive button disabled",
+      appearance: "positive",
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>
 
-### Inline
+<Canvas>
+  <Story
+    name="Negative"
+    args={{ children: "Negative button", appearance: "negative" }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Negative disabled"
+    args={{
+      children: "Negative button disabled",
+      appearance: "negative",
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story name="Brand" args={{ children: "Brand button", appearance: "brand" }}>
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Brand disabled"
+    args={{
+      children: "Brand button disabled",
+      appearance: "brand",
+      disabled: true,
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
 
 <Canvas>
   <Story name="Inline">
-    <>
-      <span>Everything you need to get started with Vanilla. </span>
-      <Button appearance="neutral" inline>
-        Inline button
-      </Button>
-    </>
+    {() => (
+      <>
+        <span>Everything you need to get started with Vanilla. </span>
+        <Button appearance="neutral" inline>
+          Inline button
+        </Button>
+      </>
+    )}
   </Story>
 </Canvas>
-
-### Dense
 
 <Canvas>
   <Story name="Dense">
@@ -165,33 +194,40 @@ Buttons are clickable elements used to perform an action, they can be used for b
   </Story>
 </Canvas>
 
-### Small
-
 <Canvas>
   <Story name="Small">
-    <>
-      <Button small>Small button</Button>
-      <Button small dense>
-        Small dense button
-      </Button>
-    </>
-  </Story>
-</Canvas>
-
-### Icon
-
-<Canvas>
-  <Story name="Icon">
-    <Button hasIcon>
-      <i className="p-icon--plus"></i>
-    </Button>
+    {() => (
+      <>
+        <Button small>Small button</Button>
+        <Button small dense>
+          Small dense button
+        </Button>
+      </>
+    )}
   </Story>
 </Canvas>
 
 <Canvas>
-  <Story name="Icon & text">
-    <Button hasIcon>
-      <i className="p-icon--plus"></i> <span>Button with icon & text</span>
-    </Button>
+  <Story
+    name="Icon"
+    args={{ children: <i className="p-icon--plus"></i>, hasIcon: true }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+<Canvas>
+  <Story
+    name="Icon & text"
+    args={{
+      children: (
+        <>
+          <i className="p-icon--plus"></i> <span>Button with icon & text</span>
+        </>
+      ),
+      hasIcon: true,
+    }}
+  >
+    {Template.bind({})}
   </Story>
 </Canvas>

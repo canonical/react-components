@@ -11,8 +11,10 @@ import Badge, { BadgeType } from "./Badge";
         options: BadgeType,
         type: "select",
       },
-      defaultValue: BadgeType.UNDEFINED_LARGE_NUMBER,
     },
+  }}
+  args={{
+    badgeType: BadgeType.UNDEFINED_LARGE_NUMBER,
   }}
 />
 
@@ -52,6 +54,7 @@ It can be used to display a numeric values.
 ### Undefined Large Number
 
 When the amount of items is only relevant for small values, this variant should be used. When the value grows further than 999, the badge should show "999+".
+
 <Canvas>
   <Story name="Undefined Large Number">
     <Badge value={1000} badgeType={BadgeType.UNDEFINED_LARGE_NUMBER} />
@@ -61,6 +64,7 @@ When the amount of items is only relevant for small values, this variant should 
 ### Rounded Large Number
 
 When the value of the badge represents a type of information where differences between large amounts of items are relevant, it should include a decimal unit prefix and round the value.
+
 <Canvas>
   <Story name="Rounded Large Number">
     <Badge value={1234} badgeType={BadgeType.ROUNDED_LARGE_NUMBER} />

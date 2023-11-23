@@ -16,7 +16,21 @@ This is a [React](https://reactjs.org/) component to represent an empty state.
 
 ### Default
 
-export const boxImage = <svg xmlns="http://www.w3.org/2000/svg" width="154" height="160"><g fill="none" fill-rule="evenodd"><path fill="#666" fill-rule="nonzero" d="M68.513 3.582l21.105 12.15-1.572.911-19.913-11.46-31.936 18.375 31.943 18.37 13.864-7.974L82 35.758l-12.275 7.084 32.303 18.625c.243.141.393.4.395.682v37.204l31.127-17.906-6.74-3.894 1.545-.93 7.187 4.14c.244.14.394.4.396.68v38.59c-.002.282-.152.541-.396.682l-33.514 19.295-33.436 19.295c-.14.094-.308.134-.475.11-.134.003-.267-.035-.38-.11L34.224 140.01l-33.5-19.295c-.248-.136-.4-.398-.396-.681v-77.18c.001-.278.153-.533.396-.666l33.499-19.31L67.738 3.581c.239-.142.536-.142.775 0zm32.327 98.584l-31.933 18.367v36.716l31.934-18.427v-36.656zm-65.432-.063l.001 36.719 31.917 18.426v-36.77l-31.918-18.375zM134.34 82.82l-31.917 18.36v36.785l31.918-18.328V82.82zM1.91 82.808l.001 36.766 31.917 18.329v-36.711L1.91 82.808zm98.931-19.315L68.877 81.84v36.838l31.964-18.399V63.493zm-65.463-.044v36.83l31.95 18.38V81.904L35.378 63.45zM1.91 44.219l.001 36.765 31.885 18.31v-36.71L1.91 44.22zm66.208-.447L36.172 62.151l31.914 18.326 31.943-18.336-31.912-18.369zm-33.42-19.231L2.711 42.854l31.9 18.372 31.98-18.38-31.894-18.305z"/><g stroke="#DD4814" stroke-dasharray="0 3" stroke-linecap="round"><path d="M83.248 48.885l-.243-27.299c-.003-.362.19-.697.504-.877l33.995-19.425c.307-.176.685-.176.992 0l34 19.428c.312.178.504.51.504.868v38.84c0 .359-.192.69-.504.868l-34.004 19.43c-.305.175-.68.176-.986.004L102 72h0"/><path d="M85 23l32.508 17.732c.306.166.676.162.978-.012L151 22h0m-33 20v37"/></g></g></svg>
+export const boxImage = (
+  <svg xmlns="http://www.w3.org/2000/svg" width="154" height="160">
+    <g fill="none" fill-rule="evenodd">
+      <path
+        fill="#666"
+        fill-rule="nonzero"
+        d="M68.513 3.582l21.105 12.15-1.572.911-19.913-11.46-31.936 18.375 31.943 18.37 13.864-7.974L82 35.758l-12.275 7.084 32.303 18.625c.243.141.393.4.395.682v37.204l31.127-17.906-6.74-3.894 1.545-.93 7.187 4.14c.244.14.394.4.396.68v38.59c-.002.282-.152.541-.396.682l-33.514 19.295-33.436 19.295c-.14.094-.308.134-.475.11-.134.003-.267-.035-.38-.11L34.224 140.01l-33.5-19.295c-.248-.136-.4-.398-.396-.681v-77.18c.001-.278.153-.533.396-.666l33.499-19.31L67.738 3.581c.239-.142.536-.142.775 0zm32.327 98.584l-31.933 18.367v36.716l31.934-18.427v-36.656zm-65.432-.063l.001 36.719 31.917 18.426v-36.77l-31.918-18.375zM134.34 82.82l-31.917 18.36v36.785l31.918-18.328V82.82zM1.91 82.808l.001 36.766 31.917 18.329v-36.711L1.91 82.808zm98.931-19.315L68.877 81.84v36.838l31.964-18.399V63.493zm-65.463-.044v36.83l31.95 18.38V81.904L35.378 63.45zM1.91 44.219l.001 36.765 31.885 18.31v-36.71L1.91 44.22zm66.208-.447L36.172 62.151l31.914 18.326 31.943-18.336-31.912-18.369zm-33.42-19.231L2.711 42.854l31.9 18.372 31.98-18.38-31.894-18.305z"
+      />
+      <g stroke="#DD4814" stroke-dasharray="0 3" stroke-linecap="round">
+        <path d="M83.248 48.885l-.243-27.299c-.003-.362.19-.697.504-.877l33.995-19.425c.307-.176.685-.176.992 0l34 19.428c.312.178.504.51.504.868v38.84c0 .359-.192.69-.504.868l-34.004 19.43c-.305.175-.68.176-.986.004L102 72h0" />
+        <path d="M85 23l32.508 17.732c.306.166.676.162.978-.012L151 22h0m-33 20v37" />
+      </g>
+    </g>
+  </svg>
+);
 
 <Canvas>
   <Story name="Default">
@@ -33,32 +47,34 @@ export const doNothing = () => {};
 
 <Canvas>
   <Story name="With content">
-    <EmptyState
-      image={
-        <Icon
-          name="containers"
-          style={{
-            opacity: 0.25,
-            height: "2.5rem",
-            width: "2.5rem",
-            marginBottom: "1rem"
-          }}
-        />
-      }
-      title="No instances found"
-    >
-      <p>
-        There are no instances in this project. Spin up your first instance!
-      </p>
-      <p>
-        <a href="#todo" target="_blank">
-          How to create instances
-          <Icon name={ICONS.externalLink}/>
-        </a>
-      </p>
-      <Button appearance="positive" onClick={doNothing}>
-        Create instance
-      </Button>
-    </EmptyState>
+    {() => (
+      <EmptyState
+        image={
+          <Icon
+            name="containers"
+            style={{
+              opacity: 0.25,
+              height: "2.5rem",
+              width: "2.5rem",
+              marginBottom: "1rem",
+            }}
+          />
+        }
+        title="No instances found"
+      >
+        <p>
+          There are no instances in this project. Spin up your first instance!
+        </p>
+        <p>
+          <a href="#todo" target="_blank">
+            How to create instances
+            <Icon name={ICONS.externalLink} />
+          </a>
+        </p>
+        <Button appearance="positive" onClick={doNothing}>
+          Create instance
+        </Button>
+      </EmptyState>
+    )}
   </Story>
 </Canvas>

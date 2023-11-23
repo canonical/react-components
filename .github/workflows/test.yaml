@@ -39,11 +39,11 @@ jobs:
       - uses: actions/checkout@v4
       - uses: cypress-io/github-action@v5
         with:
-          start: yarn run start-storybook --port 6006
-          wait-on: "http://localhost:6006"
+          start: yarn docs
+          wait-on: "http://localhost:9009"
           browser: chrome
           headless: true
-          env: port=6006
+          env: port=9009
       - uses: actions/upload-artifact@v3
         if: failure()
         with:
