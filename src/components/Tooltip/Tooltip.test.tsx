@@ -1,11 +1,21 @@
 import { act, render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import userEvent, { UserEvent } from "@testing-library/user-event";
 import merge from "deepmerge";
 import React from "react";
 
 import Tooltip, { adjustForWindow } from "./Tooltip";
 
 describe("Tooltip", () => {
+  let userEventWithTimers: UserEvent;
+
+  beforeEach(() => {
+    jest.useFakeTimers("modern");
+
+    userEventWithTimers = userEvent.setup({
+      advanceTimers: jest.advanceTimersByTime,
+    });
+  });
+
   afterEach(() => {
     jest.useRealTimers();
   });
@@ -19,7 +29,7 @@ describe("Tooltip", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("focuses on the first focusable element within the tooltip on pressing tab ", async () => {
+  it("focuses on the first focusable element within the tooltip on pressing tab", async () => {
     render(
       <Tooltip
         message={
@@ -31,12 +41,15 @@ describe("Tooltip", () => {
         <button>open the tooltip</button>
       </Tooltip>
     );
-
-    await userEvent.click(
-      screen.getByRole("button", { name: /open the tooltip/i })
-    );
-    await userEvent.tab();
-
+    await act(async () => {
+      await userEventWithTimers.click(
+        screen.getByRole("button", { name: /open the tooltip/i })
+      );
+      jest.runAllTimers();
+    });
+    await act(async () => {
+      await userEventWithTimers.tab();
+    });
     expect(screen.getByRole("link", { name: "Canonical" })).toHaveFocus();
   });
 
@@ -46,7 +59,10 @@ describe("Tooltip", () => {
         <button>open the tooltip</button>
       </Tooltip>
     );
-    await userEvent.tab();
+    await act(async () => {
+      await userEventWithTimers.tab();
+    });
+    jest.runAllTimers();
     expect(
       screen.getByRole("button", { name: /open the tooltip/ })
     ).toHaveAccessibleDescription("Additional description");
@@ -76,15 +92,21 @@ describe("Tooltip", () => {
       </Tooltip>
     );
 
-    await userEvent.click(screen.getByRole("button"));
-    await userEvent.click(screen.getByRole("link", { name: "Canonical" }));
+    await act(async () => {
+      await userEventWithTimers.click(screen.getByRole("button"));
+      jest.runAllTimers();
+    });
+    await act(async () => {
+      await userEventWithTimers.click(
+        screen.getByRole("link", { name: "Canonical" })
+      );
+    });
 
     expect(clickHandler).toHaveBeenCalled();
   });
 
   it("does not propogate clicks on the tooltip message to the parent", async () => {
     const parentClick = jest.fn();
-    jest.useFakeTimers("modern");
     render(
       <div onClick={parentClick}>
         <Tooltip message="a message">
@@ -92,19 +114,18 @@ describe("Tooltip", () => {
         </Tooltip>
       </div>
     );
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     await act(async () => {
-      await user.hover(screen.getByRole("button"));
+      await userEventWithTimers.hover(screen.getByRole("button"));
       jest.runAllTimers();
     });
-
-    await user.click(screen.getByRole("tooltip"));
+    await act(async () => {
+      await userEventWithTimers.click(screen.getByRole("tooltip"));
+    });
     expect(parentClick).not.toHaveBeenCalled();
   });
 
   it("does not propogate clicks in the tooltip's children to the parent", async () => {
     const parentClick = jest.fn();
-    jest.useFakeTimers("modern");
     render(
       <div onClick={parentClick}>
         <Tooltip
@@ -126,12 +147,15 @@ describe("Tooltip", () => {
         </Tooltip>
       </div>
     );
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     await act(async () => {
-      await user.hover(screen.getByRole("button"));
+      await userEventWithTimers.hover(screen.getByRole("button"));
       jest.runAllTimers();
     });
-    await user.click(screen.getByRole("link", { name: "Canonical" }));
+    await act(async () => {
+      await userEventWithTimers.click(
+        screen.getByRole("link", { name: "Canonical" })
+      );
+    });
     expect(parentClick).not.toHaveBeenCalled();
   });
 
@@ -150,13 +174,14 @@ describe("Tooltip", () => {
 
     expect(screen.queryByTestId("tooltip-portal")).not.toBeInTheDocument();
     expect(screen.queryByText("tooltip text")).not.toBeInTheDocument();
-    await userEvent.tab();
+    await act(async () => {
+      await userEventWithTimers.tab();
+    });
     expect(screen.getByTestId("tooltip-portal")).toBeInTheDocument();
     expect(screen.getByText("tooltip text")).toBeInTheDocument();
   });
 
   it("updates the tooltip to fit on the screen", async () => {
-    jest.useFakeTimers("modern");
     render(
       <Tooltip
         message="text that is too long to fit on the screen"
@@ -166,9 +191,10 @@ describe("Tooltip", () => {
       </Tooltip>
     );
     global.innerWidth = 20;
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     await act(async () => {
-      await user.hover(screen.getByRole("button", { name: "Child" }));
+      await userEventWithTimers.hover(
+        screen.getByRole("button", { name: "Child" })
+      );
       jest.runAllTimers();
     });
     expect(screen.getByTestId("tooltip-portal")).toHaveClass(
@@ -180,15 +206,13 @@ describe("Tooltip", () => {
   it("gives the correct class name to the tooltip", async () => {
     // ensure the tooltip fits in the window and the positioning className remains unchanged
     global.innerWidth = 500;
-    jest.useFakeTimers("modern");
     render(
       <Tooltip message="text" position="right">
         <button>open the tooltip</button>
       </Tooltip>
     );
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     await act(async () => {
-      await user.hover(
+      await userEventWithTimers.hover(
         screen.getByRole("button", { name: "open the tooltip" })
       );
       jest.runAllTimers();
@@ -199,15 +223,13 @@ describe("Tooltip", () => {
   });
 
   it("assigns the correct z-index to the correct element", async () => {
-    jest.useFakeTimers("modern");
     render(
       <Tooltip message="text" zIndex={999}>
         <button>open the tooltip</button>
       </Tooltip>
     );
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     await act(async () => {
-      await user.hover(
+      await userEventWithTimers.hover(
         screen.getByRole("button", { name: "open the tooltip" })
       );
       jest.runAllTimers();
@@ -221,22 +243,22 @@ describe("Tooltip", () => {
         <button>open the tooltip</button>
       </Tooltip>
     );
-    await userEvent.hover(
-      screen.getByRole("button", { name: "open the tooltip" })
-    );
+    await act(async () => {
+      await userEventWithTimers.hover(
+        screen.getByRole("button", { name: "open the tooltip" })
+      );
+    });
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });
 
   it("should be able to configure delay", async () => {
-    jest.useFakeTimers("modern");
     render(
       <Tooltip delay={1} message="text" zIndex={999}>
         <button>open the tooltip</button>
       </Tooltip>
     );
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     await act(async () => {
-      await user.hover(screen.getByRole("button"));
+      await userEventWithTimers.hover(screen.getByRole("button"));
       jest.advanceTimersByTime(1);
     });
 
@@ -244,22 +266,19 @@ describe("Tooltip", () => {
   });
 
   it("blur before the delay time cancels the timeout.", async () => {
-    jest.useFakeTimers("modern");
-
     render(
       <Tooltip delay={200} message="text" zIndex={999}>
         <button>open the tooltip</button>
       </Tooltip>
     );
-    const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     const button = screen.getByRole("button");
 
     await act(async () => {
-      await user.hover(button);
+      await userEventWithTimers.hover(button);
     });
 
     await act(async () => {
-      await user.unhover(button);
+      await userEventWithTimers.unhover(button);
       jest.runOnlyPendingTimers();
     });
 
