@@ -238,8 +238,9 @@ describe("Tooltip", () => {
   });
 
   it("portal is not opened until the delay time.", async () => {
+    const delay = 100;
     render(
-      <Tooltip message="text" zIndex={999}>
+      <Tooltip delay={delay} message="text" zIndex={999}>
         <button>open the tooltip</button>
       </Tooltip>
     );
@@ -247,8 +248,13 @@ describe("Tooltip", () => {
       await userEventWithTimers.hover(
         screen.getByRole("button", { name: "open the tooltip" })
       );
+      jest.advanceTimersByTime(delay - 1);
     });
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+    await act(async () => {
+      jest.advanceTimersByTime(delay);
+    });
+    expect(screen.getByRole("tooltip")).toBeInTheDocument();
   });
 
   it("should be able to configure delay", async () => {
@@ -266,8 +272,9 @@ describe("Tooltip", () => {
   });
 
   it("blur before the delay time cancels the timeout.", async () => {
+    const delay = 200;
     render(
-      <Tooltip delay={200} message="text" zIndex={999}>
+      <Tooltip delay={delay} message="text" zIndex={999}>
         <button>open the tooltip</button>
       </Tooltip>
     );
@@ -282,6 +289,10 @@ describe("Tooltip", () => {
       jest.runOnlyPendingTimers();
     });
 
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+    await act(async () => {
+      jest.advanceTimersByTime(delay);
+    });
     expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });
 
