@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import type { MouseEventHandler, ReactNode } from "react";
 import usePortal from "react-useportal";
 
 import { useWindowFitment, useListener, useId } from "hooks";
@@ -74,6 +74,10 @@ export type Props = {
    * The z-index value of the tooltip message element.
    */
   zIndex?: number;
+  /**
+   * Delay in ms after which Tooltip will appear (defaults to 350ms).
+   */
+  delay?: number;
 };
 
 const getPositionStyle = (
@@ -191,6 +195,7 @@ const Tooltip = ({
   positionElementClassName,
   tooltipClassName,
   zIndex,
+  delay = 350,
 }: Props): JSX.Element => {
   const wrapperRef = useRef<HTMLElement>(null);
   const messageRef = useRef<HTMLElement>(null);
@@ -202,8 +207,17 @@ const Tooltip = ({
     left: -9999999,
     top: -9999999,
   });
-  const { openPortal, closePortal, isOpen, Portal } = usePortal();
+  const { openPortal, closePortal, isOpen, Portal } = usePortal({
+    programmaticallyOpen: true,
+  });
   const tooltipId = useId();
+  const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(
+    null
+  );
+  const cancelableClosePortal = useCallback(() => {
+    clearTimeout(timer);
+    closePortal();
+  }, [timer, closePortal]);
 
   useEffect(() => {
     if (isOpen && !followMouse && wrapperRef.current) {
@@ -252,10 +266,10 @@ const Tooltip = ({
   const handleKeyPress = useCallback(
     (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        closePortal();
+        cancelableClosePortal();
       }
     },
-    [closePortal]
+    [cancelableClosePortal]
   );
 
   useEffect(() => {
@@ -276,7 +290,7 @@ const Tooltip = ({
         ? !messageRef.current?.contains(e.relatedTarget)
         : e.target !== messageRef.current
     ) {
-      closePortal();
+      cancelableClosePortal();
     }
   };
 
@@ -286,8 +300,13 @@ const Tooltip = ({
       return;
     }
     e.target.focus();
-    openPortal();
+    openPortal(e);
   };
+
+  const delayedOpenPortal: MouseEventHandler = useCallback(() => {
+    const timeout = setTimeout(() => openPortal(), delay);
+    setTimer(timeout);
+  }, [delay, openPortal]);
 
   return (
     <>
@@ -298,7 +317,7 @@ const Tooltip = ({
           onClick={handleClick}
           onFocus={openPortal}
           onMouseOut={handleBlur}
-          onMouseOver={openPortal}
+          onMouseOver={delayedOpenPortal}
         >
           <span
             className={positionElementClassName}

@@ -1,11 +1,25 @@
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { act, render, screen } from "@testing-library/react";
+import userEvent, { UserEvent } from "@testing-library/user-event";
 import merge from "deepmerge";
 import React from "react";
 
 import Tooltip, { adjustForWindow } from "./Tooltip";
 
 describe("Tooltip", () => {
+  let userEventWithTimers: UserEvent;
+
+  beforeEach(() => {
+    jest.useFakeTimers("modern");
+
+    userEventWithTimers = userEvent.setup({
+      advanceTimers: jest.advanceTimersByTime,
+    });
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
+  });
+
   it("renders and matches the snapshot", () => {
     const { container } = render(
       <Tooltip message="text">
@@ -15,7 +29,7 @@ describe("Tooltip", () => {
     expect(container).toMatchSnapshot();
   });
 
-  it("focuses on the first focusable element within the tooltip on pressing tab ", async () => {
+  it("focuses on the first focusable element within the tooltip on pressing tab", async () => {
     render(
       <Tooltip
         message={
@@ -27,12 +41,15 @@ describe("Tooltip", () => {
         <button>open the tooltip</button>
       </Tooltip>
     );
-
-    await userEvent.click(
-      screen.getByRole("button", { name: /open the tooltip/i })
-    );
-    await userEvent.tab();
-
+    await act(async () => {
+      await userEventWithTimers.click(
+        screen.getByRole("button", { name: /open the tooltip/i })
+      );
+      jest.runAllTimers();
+    });
+    await act(async () => {
+      await userEventWithTimers.tab();
+    });
     expect(screen.getByRole("link", { name: "Canonical" })).toHaveFocus();
   });
 
@@ -42,7 +59,10 @@ describe("Tooltip", () => {
         <button>open the tooltip</button>
       </Tooltip>
     );
-    await userEvent.tab();
+    await act(async () => {
+      await userEventWithTimers.tab();
+    });
+    jest.runAllTimers();
     expect(
       screen.getByRole("button", { name: /open the tooltip/ })
     ).toHaveAccessibleDescription("Additional description");
@@ -72,8 +92,15 @@ describe("Tooltip", () => {
       </Tooltip>
     );
 
-    await userEvent.click(screen.getByRole("button"));
-    await userEvent.click(screen.getByRole("link", { name: "Canonical" }));
+    await act(async () => {
+      await userEventWithTimers.click(screen.getByRole("button"));
+      jest.runAllTimers();
+    });
+    await act(async () => {
+      await userEventWithTimers.click(
+        screen.getByRole("link", { name: "Canonical" })
+      );
+    });
 
     expect(clickHandler).toHaveBeenCalled();
   });
@@ -87,8 +114,13 @@ describe("Tooltip", () => {
         </Tooltip>
       </div>
     );
-    await userEvent.hover(screen.getByRole("button"));
-    await userEvent.click(screen.getByRole("tooltip"));
+    await act(async () => {
+      await userEventWithTimers.hover(screen.getByRole("button"));
+      jest.runAllTimers();
+    });
+    await act(async () => {
+      await userEventWithTimers.click(screen.getByRole("tooltip"));
+    });
     expect(parentClick).not.toHaveBeenCalled();
   });
 
@@ -115,8 +147,15 @@ describe("Tooltip", () => {
         </Tooltip>
       </div>
     );
-    await userEvent.hover(screen.getByRole("button"));
-    await userEvent.click(screen.getByRole("link", { name: "Canonical" }));
+    await act(async () => {
+      await userEventWithTimers.hover(screen.getByRole("button"));
+      jest.runAllTimers();
+    });
+    await act(async () => {
+      await userEventWithTimers.click(
+        screen.getByRole("link", { name: "Canonical" })
+      );
+    });
     expect(parentClick).not.toHaveBeenCalled();
   });
 
@@ -135,7 +174,9 @@ describe("Tooltip", () => {
 
     expect(screen.queryByTestId("tooltip-portal")).not.toBeInTheDocument();
     expect(screen.queryByText("tooltip text")).not.toBeInTheDocument();
-    await userEvent.tab();
+    await act(async () => {
+      await userEventWithTimers.tab();
+    });
     expect(screen.getByTestId("tooltip-portal")).toBeInTheDocument();
     expect(screen.getByText("tooltip text")).toBeInTheDocument();
   });
@@ -150,8 +191,12 @@ describe("Tooltip", () => {
       </Tooltip>
     );
     global.innerWidth = 20;
-    await userEvent.hover(screen.getByRole("button", { name: "Child" }));
-
+    await act(async () => {
+      await userEventWithTimers.hover(
+        screen.getByRole("button", { name: "Child" })
+      );
+      jest.runAllTimers();
+    });
     expect(screen.getByTestId("tooltip-portal")).toHaveClass(
       "p-tooltip--btm-left"
     );
@@ -166,10 +211,12 @@ describe("Tooltip", () => {
         <button>open the tooltip</button>
       </Tooltip>
     );
-
-    await userEvent.hover(
-      screen.getByRole("button", { name: "open the tooltip" })
-    );
+    await act(async () => {
+      await userEventWithTimers.hover(
+        screen.getByRole("button", { name: "open the tooltip" })
+      );
+      jest.runAllTimers();
+    });
     expect(screen.getByTestId("tooltip-portal")).toHaveClass(
       "p-tooltip--right"
     );
@@ -181,11 +228,72 @@ describe("Tooltip", () => {
         <button>open the tooltip</button>
       </Tooltip>
     );
-
-    await userEvent.hover(
-      screen.getByRole("button", { name: "open the tooltip" })
-    );
+    await act(async () => {
+      await userEventWithTimers.hover(
+        screen.getByRole("button", { name: "open the tooltip" })
+      );
+      jest.runAllTimers();
+    });
     expect(screen.getByRole("tooltip")).toHaveStyle("z-index: 999");
+  });
+
+  it("portal is not opened until the delay time.", async () => {
+    const delay = 100;
+    render(
+      <Tooltip delay={delay} message="text" zIndex={999}>
+        <button>open the tooltip</button>
+      </Tooltip>
+    );
+    await act(async () => {
+      await userEventWithTimers.hover(
+        screen.getByRole("button", { name: "open the tooltip" })
+      );
+      jest.advanceTimersByTime(delay - 1);
+    });
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+    await act(async () => {
+      jest.advanceTimersByTime(delay);
+    });
+    expect(screen.getByRole("tooltip")).toBeInTheDocument();
+  });
+
+  it("should be able to configure delay", async () => {
+    render(
+      <Tooltip delay={1} message="text" zIndex={999}>
+        <button>open the tooltip</button>
+      </Tooltip>
+    );
+    await act(async () => {
+      await userEventWithTimers.hover(screen.getByRole("button"));
+      jest.advanceTimersByTime(1);
+    });
+
+    expect(screen.getByRole("tooltip")).toBeInTheDocument();
+  });
+
+  it("blur before the delay time cancels the timeout.", async () => {
+    const delay = 200;
+    render(
+      <Tooltip delay={delay} message="text" zIndex={999}>
+        <button>open the tooltip</button>
+      </Tooltip>
+    );
+    const button = screen.getByRole("button");
+
+    await act(async () => {
+      await userEventWithTimers.hover(button);
+    });
+
+    await act(async () => {
+      await userEventWithTimers.unhover(button);
+      jest.runOnlyPendingTimers();
+    });
+
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
+    await act(async () => {
+      jest.advanceTimersByTime(delay);
+    });
+    expect(screen.queryByRole("tooltip")).not.toBeInTheDocument();
   });
 
   describe("adjustForWindow", () => {
