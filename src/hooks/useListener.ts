@@ -11,13 +11,15 @@ import { usePrevious } from "./usePrevious";
  * @param eventType The event name.
  * @param shouldThrottle Whether the callback calls should be throttled.
  * @param shouldListen When the listener should be active.
+ * @param options Native event listener options.
  */
 export const useListener = (
   targetNode: Window | HTMLElement,
   callback: (...args: any[]) => any, // eslint-disable-line @typescript-eslint/no-explicit-any
   eventType: string,
   shouldThrottle = false,
-  shouldListen = true
+  shouldListen = true,
+  options?: boolean | AddEventListenerOptions
 ): void => {
   const isListening = useRef(false);
   const throttle = useThrottle(callback);
@@ -26,6 +28,7 @@ export const useListener = (
   const previousShouldThrottle = usePrevious(shouldThrottle);
   const previousTargetNode = usePrevious(targetNode);
   const previousCallback = usePrevious(callback);
+  const previousOptions = usePrevious(options);
 
   useEffect(() => {
     // If any of the props related to the attached listener changed then the
@@ -34,11 +37,13 @@ export const useListener = (
       callback !== previousCallback ||
       eventType !== previousEventType ||
       shouldThrottle !== previousShouldThrottle ||
-      targetNode !== previousTargetNode;
+      targetNode !== previousTargetNode ||
+      options !== previousOptions;
     if (isListening.current && (!shouldListen || listenerAttributesChanged)) {
       previousTargetNode.removeEventListener(
         previousEventType,
-        eventListener.current
+        eventListener.current,
+        previousOptions
       );
       isListening.current = false;
     }
@@ -52,14 +57,16 @@ export const useListener = (
     }
 
     if (targetNode && shouldListen && !isListening.current) {
-      targetNode.addEventListener(eventType, eventListener.current);
+      targetNode.addEventListener(eventType, eventListener.current, options);
       isListening.current = true;
     }
   }, [
     callback,
     eventType,
+    options,
     previousCallback,
     previousEventType,
+    previousOptions,
     previousShouldThrottle,
     previousTargetNode,
     shouldListen,
@@ -73,9 +80,13 @@ export const useListener = (
       // Unattach the listener if the component gets unmounted while
       // listening.
       if (targetNode && isListening.current) {
-        targetNode.removeEventListener(eventType, eventListener.current);
+        targetNode.removeEventListener(
+          eventType,
+          eventListener.current,
+          options
+        );
       }
     },
-    [eventType, targetNode]
+    [eventType, targetNode, options]
   );
 };
