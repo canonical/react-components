@@ -10,15 +10,17 @@ import StatusLabel, { StatusLabelAppearance } from "./StatusLabel";
       control: {
         type: "text",
       },
-      defaultValue: "Label",
     },
     appearance: {
       control: {
         options: StatusLabelAppearance,
         type: "select",
       },
-      defaultValue: StatusLabelAppearance.Positive,
     },
+  }}
+  args={{
+    children: "Label",
+    appearance: StatusLabelAppearance.Positive,
   }}
 />
 

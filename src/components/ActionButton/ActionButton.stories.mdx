@@ -27,17 +27,29 @@ ActionButton accepts the props from [Button](?path=/docs/button--base) in additi
 ### Default
 
 <Canvas>
-  <Story name="Default">
-    <ActionButton appearance="positive">Click me!</ActionButton>
+  <Story
+    name="Default"
+    args={{
+      appearance: "positive",
+      children: "Click me!"
+    }}
+  >
+    {ActionButton.bind({})}
   </Story>
 </Canvas>
 
 ### Loading
 
 <Canvas>
-  <Story name="Loading">
-    <ActionButton appearance="positive" loading disabled>
-      Click me!
-    </ActionButton>
+  <Story
+    name="Loading"
+    args={{
+      appearance: "positive",
+      loading: true,
+      disabled: true,
+      children: "Click me!"
+    }}
+  >
+    {ActionButton.bind({})}
   </Story>
 </Canvas>

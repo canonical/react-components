@@ -11,7 +11,6 @@ import Notification, { NotificationSeverity } from "./Notification";
       control: {
         type: "boolean",
       },
-      defaultValue: false,
     },
     children: {
       control: {
@@ -22,13 +21,11 @@ import Notification, { NotificationSeverity } from "./Notification";
       control: {
         type: "boolean",
       },
-      defaultValue: false,
     },
     severity: {
       control: {
         type: "radio",
       },
-      defaultValue: NotificationSeverity.INFORMATION,
       options: Object.values(NotificationSeverity),
     },
     timestamp: {
@@ -41,6 +38,11 @@ import Notification, { NotificationSeverity } from "./Notification";
         type: "text",
       },
     },
+  }}
+  args={{
+    borderless: false,
+    inline: false,
+    severity: NotificationSeverity.INFORMATION,
   }}
 />
 
