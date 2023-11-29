@@ -260,7 +260,6 @@ const ContextualMenu = <L,>({
 
   const onResize = useCallback(
     (evt) => {
-      console.log("on resize!");
       const parent = getPositionNode(wrapper.current, positionNode);
       if (parent && !getPositionNodeVisible(parent)) {
         // Hide the menu if the item has become hidden. This might happen in
@@ -283,7 +282,6 @@ const ContextualMenu = <L,>({
       if (parent && e.target.contains(parent)) {
         // Update the coordinates so that the menu stays relative to the
         // toggle button.
-        console.log("update position!");
         updatePositionCoords();
       }
     },
