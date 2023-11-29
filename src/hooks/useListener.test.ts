@@ -8,6 +8,7 @@ type Args = {
   eventType?: string;
   shouldThrottle?: boolean;
   shouldListen?: boolean;
+  options?: boolean | AddEventListenerOptions;
 };
 
 describe("useListener", () => {
@@ -29,6 +30,7 @@ describe("useListener", () => {
       eventType: "mousemove",
       shouldThrottle: false,
       shouldListen: true,
+      options: undefined,
     };
     renderListener = (initialProps) =>
       renderHook(
@@ -38,7 +40,8 @@ describe("useListener", () => {
             args.callback,
             args.eventType,
             args.shouldThrottle,
-            args.shouldListen
+            args.shouldListen,
+            args.options
           ),
         {
           initialProps: {
@@ -51,7 +54,21 @@ describe("useListener", () => {
 
   it("initially adds the listener", () => {
     renderListener();
-    expect(addEventListener).toHaveBeenCalledWith("mousemove", callback);
+    expect(addEventListener).toHaveBeenCalledWith(
+      "mousemove",
+      callback,
+      undefined
+    );
+  });
+
+  it("initially adds the listener with options", () => {
+    renderListener({
+      eventType: "mousemove",
+      callback,
+      options: true,
+    });
+    const args = ["mousemove", callback, true];
+    expect(addEventListener).toHaveBeenCalledWith(...args);
   });
 
   it("does not add the listener if it shouldn't listen", () => {
@@ -124,6 +141,16 @@ describe("useListener", () => {
     expect(addEventListener).toHaveBeenCalled();
   });
 
+  it("re-adds the listener if options change", () => {
+    const { rerender } = renderListener();
+    rerender({
+      ...defaultArgs,
+      options: true,
+    });
+    expect(removeEventListener).toHaveBeenCalled();
+    expect(addEventListener).toHaveBeenCalled();
+  });
+
   it("stops listening when unmounting", () => {
     const { unmount } = renderHook(() =>
       useListener(targetNode, callback, "mousemove")
@@ -131,5 +158,18 @@ describe("useListener", () => {
     expect(removeEventListener).not.toHaveBeenCalled();
     unmount();
     expect(removeEventListener).toHaveBeenCalled();
+  });
+
+  it("stops listening when unmounting with options", () => {
+    const callback = jest.fn();
+    const { unmount } = renderListener({
+      eventType: "mousemove",
+      callback,
+      options: true,
+    });
+    const args = ["mousemove", callback, true];
+    expect(addEventListener).toHaveBeenCalledWith(...args);
+    unmount();
+    expect(removeEventListener).toHaveBeenCalledWith(...args);
   });
 });

@@ -1,16 +1,17 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import React, { PropsWithChildren } from "react";
-import { useClickOutside } from "./useClickOutside";
+import React, { PropsWithChildren, useRef } from "react";
+import { useOnClickOutside } from "./useOnClickOutside";
 
-describe("useClickOutside", () => {
+describe("useOnClickOutside", () => {
   const TestComponent = ({
     children,
     onClickOutside,
   }: PropsWithChildren<{
     onClickOutside: () => void;
   }>) => {
-    const wrapperRef = useClickOutside<HTMLDivElement>(onClickOutside);
+    const wrapperRef = useRef<HTMLDivElement | null>(null);
+    useOnClickOutside<HTMLDivElement>(wrapperRef, onClickOutside);
     return (
       <div>
         <div ref={wrapperRef}>

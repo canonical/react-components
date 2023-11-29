@@ -118,7 +118,7 @@ export type Props<L> = PropsWithSpread<
  */
 const getPositionNode = (
   wrapper: HTMLElement,
-  positionNode: HTMLElement
+  positionNode?: HTMLElement
 ): HTMLElement | null => {
   if (positionNode) {
     return positionNode;
@@ -188,10 +188,14 @@ const ContextualMenu = <L,>({
   ...wrapperProps
 }: Props<L>): JSX.Element => {
   const id = useId();
-  const wrapper = useRef();
-  const [positionCoords, setPositionCoords] = useState<ClientRect>();
+  const wrapper = useRef<HTMLDivElement | null>(null);
+  const [positionCoords, setPositionCoords] = useState<DOMRect>();
   const [adjustedPosition, setAdjustedPosition] = useState(position);
   const hasToggle = hasToggleIcon || toggleLabel;
+
+  useEffect(() => {
+    setAdjustedPosition(position);
+  }, [position, autoAdjust]);
 
   // Update the coordinates of the position node.
   const updatePositionCoords = useCallback(() => {
@@ -202,7 +206,7 @@ const ContextualMenu = <L,>({
     setPositionCoords(parent.getBoundingClientRect());
   }, [wrapper, positionNode]);
 
-  const { openPortal, closePortal, isOpen, Portal, ref } = usePortal({
+  const { openPortal, closePortal, isOpen, Portal } = usePortal({
     closeOnEsc,
     closeOnOutsideClick,
     isOpen: visible,
@@ -217,6 +221,7 @@ const ContextualMenu = <L,>({
       onToggleMenu && onToggleMenu(false);
     },
   });
+
   const previousVisible = usePrevious(visible);
   const labelNode =
     toggleLabel && typeof toggleLabel === "string" ? (
@@ -224,7 +229,7 @@ const ContextualMenu = <L,>({
     ) : React.isValidElement(toggleLabel) ? (
       toggleLabel
     ) : null;
-  const wrapperClass = classNames(className, "p-contextual-menu", {
+  const contextualMenuClassName = classNames(className, "p-contextual-menu", {
     [`p-contextual-menu--${adjustedPosition}`]: adjustedPosition !== "right",
   });
 
@@ -270,19 +275,26 @@ const ContextualMenu = <L,>({
     [closePortal, positionNode, updatePositionCoords]
   );
 
+  const onScroll = useCallback(
+    (e) => {
+      const parent = getPositionNode(wrapper.current, positionNode);
+      // update position if the scroll event is triggered by the parent of the menu
+      if (parent && e.target.contains(parent)) {
+        // Update the coordinates so that the menu stays relative to the
+        // toggle button.
+        updatePositionCoords();
+      }
+    },
+    [positionNode, updatePositionCoords]
+  );
+
   useListener(window, onResize, "resize", true, isOpen);
+  useListener(window, onScroll, "scroll", false, isOpen, true);
 
   return (
     <span
-      className={wrapperClass}
+      className={contextualMenuClassName}
       ref={wrapperRef}
-      style={
-        positionNode
-          ? null
-          : {
-              position: "relative",
-            }
-      }
       {...wrapperProps}
     >
       {hasToggle ? (
@@ -321,18 +333,13 @@ const ContextualMenu = <L,>({
           ) : null}
           {toggleLabelFirst ? null : labelNode}
         </Button>
-      ) : (
-        <>
-          {/* Give the portal a ref to get around an event issue. https://github.com/alex-cory/react-useportal/issues/36 */}
-          <span style={{ display: "none" }} ref={ref} />
-        </>
-      )}
+      ) : null}
       {isOpen && (
         <Portal>
           <ContextualMenuDropdown<L>
             adjustedPosition={adjustedPosition}
             autoAdjust={autoAdjust}
-            closePortal={closePortal}
+            handleClose={closePortal}
             constrainPanelWidth={constrainPanelWidth}
             dropdownClassName={dropdownClassName}
             dropdownContent={children}
@@ -341,10 +348,10 @@ const ContextualMenu = <L,>({
             links={links}
             position={position}
             positionCoords={positionCoords}
-            positionNode={getPositionNode(wrapper.current, positionNode)}
+            contextualMenuClassName={contextualMenuClassName}
+            positionNode={getPositionNode(wrapper.current)}
             scrollOverflow={scrollOverflow}
             setAdjustedPosition={setAdjustedPosition}
-            wrapperClass={wrapperClass}
             {...dropdownProps}
           />
         </Portal>
