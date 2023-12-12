@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import type { TextareaHTMLAttributes, ReactNode } from "react";
 
 import Field from "../Field";
@@ -90,12 +90,24 @@ const Textarea = ({
   const validationId = useId();
   const helpId = useId();
   const hasError = !!error;
+  const [innerValue, setInnervalue] = useState(props.defaultValue);
 
   useEffect(() => {
     if (takeFocus) {
       textareaRef.current.focus();
     }
   }, [takeFocus]);
+
+  useLayoutEffect(() => {
+    if (grow) {
+      const textArea = textareaRef.current;
+      if (textArea) {
+        textArea.style.height = "0px";
+        const scrollHeight = textArea.scrollHeight;
+        textArea.style.height = `${scrollHeight}px`;
+      }
+    }
+  }, [textareaRef, grow, innerValue, props.value]);
 
   return (
     <Field
@@ -122,9 +134,10 @@ const Textarea = ({
         id={id}
         onKeyUp={(evt) => {
           onKeyUp && onKeyUp(evt);
-          if (grow) {
-            evt.currentTarget.style.height =
-              evt.currentTarget.scrollHeight + "px";
+        }}
+        onChange={(evt) => {
+          if (!props.value) {
+            setInnervalue(evt.target.value);
           }
         }}
         ref={textareaRef}
@@ -139,6 +152,7 @@ const Textarea = ({
           style
         }
         {...props}
+        value={props.value || innerValue}
       />
     </Field>
   );
