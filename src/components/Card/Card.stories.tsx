@@ -5,20 +5,17 @@ import Card from "./";
 import Col from "../Col";
 import Row from "../Row";
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Card](https://docs.vanillaframework.io/patterns/card/).
+ * <br/>
+ * <br/>
+ * There are four card styles available to use in Vanilla: default, header, highlighted and overlay. Our card component will expand to fill the full width of its parent container.
+ */
+
 const meta: Meta<typeof Card> = {
   title: "Card",
   component: Card,
   tags: ["autodocs"],
-  parameters: {
-    docs: {
-      description: {
-        component: `This is a [React](https://reactjs.org/) component for the Vanilla [Card](https://docs.vanillaframework.io/patterns/card/). 
-        <br/>
-        <br/>
-        There are four card styles available to use in Vanilla: default, header, highlighted and overlay. Our card component will expand to fill the full width of its parent container.`,
-      },
-    },
-  },
 };
 
 export default meta;
