@@ -7,14 +7,17 @@ describe("Input", () => {
   it("displays the field label for text inputs", () => {
     render(<Input type="text" label="text label" />);
     expect(screen.getByText("text label")).toHaveClass("p-form__label");
+    expect(screen.getByRole("textbox")).toHaveAccessibleName("text label");
   });
 
   it("moves the label for radio buttons", () => {
-    render(<Input type="radio" />);
+    render(<Input type="radio" label="text label" />);
     expect(
       // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-radio__label")
     ).toBeInTheDocument();
+
+    expect(screen.getByRole("radio")).toHaveAccessibleName("text label");
     expect(
       // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-form__label")
@@ -22,7 +25,8 @@ describe("Input", () => {
   });
 
   it("moves the label for checkboxes", () => {
-    render(<Input type="checkbox" />);
+    render(<Input type="checkbox" label="text label" />);
+    expect(screen.getByRole("checkbox")).toHaveAccessibleName("text label");
     expect(
       // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-checkbox__label")
@@ -93,17 +97,23 @@ describe("Input", () => {
 
   it("can display an error for a text input", async () => {
     render(<Input error="Uh oh!" type="text" />);
-    expect(screen.getByRole("textbox")).toHaveErrorMessage("Error: Uh oh!");
+    expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
+      "Error: Uh oh!"
+    );
   });
 
   it("can display an error for a radiobutton", async () => {
     render(<Input error="Uh oh!" type="radio" />);
-    expect(screen.getByRole("radio")).toHaveErrorMessage("Error: Uh oh!");
+    expect(screen.getByRole("radio")).toHaveAccessibleErrorMessage(
+      "Error: Uh oh!"
+    );
   });
 
   it("can display an error for a checkbox", async () => {
     render(<Input error="Uh oh!" type="checkbox" />);
-    expect(screen.getByRole("checkbox")).toHaveErrorMessage("Error: Uh oh!");
+    expect(screen.getByRole("checkbox")).toHaveAccessibleErrorMessage(
+      "Error: Uh oh!"
+    );
   });
 
   it("can display help for a text input", async () => {
