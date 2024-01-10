@@ -94,6 +94,8 @@ const Input = ({
 }: Props): JSX.Element => {
   const inputRef = useRef(null);
   const fieldLabel = !["checkbox", "radio"].includes(type) ? label : "";
+  const defaultInputId = useId();
+  const inputId = id || defaultInputId;
   const validationId = useId();
   const helpId = useId();
   const hasError = !!error;
@@ -104,7 +106,7 @@ const Input = ({
       .join(" "),
     "aria-errormessage": hasError ? validationId : null,
     "aria-invalid": hasError,
-    id: id,
+    id: inputId,
     label: label,
     required: required,
     ...inputProps,
@@ -152,7 +154,7 @@ const Input = ({
       caution={caution}
       className={wrapperClassName}
       error={error}
-      forId={id}
+      forId={inputId}
       help={help}
       helpClassName={helpClassName + ""}
       helpId={helpId}
