@@ -1,0 +1,40 @@
+@import "~vanilla-framework/scss/settings";
+
+.pagination {
+  align-items: baseline;
+  display: flex;
+  margin-top: 1.2rem;
+
+  .description {
+    flex-grow: 1;
+  }
+
+  .back {
+    margin: 0 $spv--large;
+
+    .p-icon--chevron-down {
+      rotate: 90deg;
+    }
+  }
+
+  .next {
+    margin: 0 $spv--large;
+
+    .p-icon--chevron-down {
+      rotate: 270deg;
+    }
+  }
+
+  .pagination-input {
+    margin-right: $spv--small;
+    min-width: 0;
+    width: 3rem;
+  }
+
+  .pagination-select {
+    margin-bottom: 0;
+    margin-left: $spv--x-large;
+    min-width: 0;
+    width: 7rem;
+  }
+}
