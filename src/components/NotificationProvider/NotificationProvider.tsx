@@ -24,13 +24,13 @@ const NotifyContext = createContext<NotificationHelper>({
   success: () => undefined,
   info: () => undefined,
   queue: () => undefined,
+  setDeduplicated: () => undefined,
 });
 
 export const NotificationProvider: FC<NotifyProviderProps> = ({ children }) => {
   const [notification, setNotification] = useState<NotificationType | null>(
     null
   );
-  const { state, pathname } = useLocation() as QueuedNotification;
 
   const clear = () => notification !== null && setNotification(null);
 
@@ -41,15 +41,6 @@ export const NotificationProvider: FC<NotifyProviderProps> = ({ children }) => {
     return value;
   };
 
-  useEffect(() => {
-    if (state?.queuedNotification) {
-      setDeduplicated(state.queuedNotification);
-      window.history.replaceState({}, "");
-    } else {
-      clear();
-    }
-  }, [state, pathname]);
-
   const helper: NotificationHelper = {
     notification,
     clear,
@@ -58,6 +49,7 @@ export const NotificationProvider: FC<NotifyProviderProps> = ({ children }) => {
       setDeduplicated(failure(title, error, message, actions)),
     info: (message, title) => setDeduplicated(info(message, title)),
     success: (message) => setDeduplicated(success(message)),
+    setDeduplicated,
   };
 
   return (
@@ -66,7 +58,19 @@ export const NotificationProvider: FC<NotifyProviderProps> = ({ children }) => {
 };
 
 export function useNotify() {
-  return useContext(NotifyContext);
+  const ctx = useContext(NotifyContext);
+  const { state, pathname } = useLocation() as QueuedNotification;
+
+  useEffect(() => {
+    if (state?.queuedNotification) {
+      ctx.setDeduplicated(state.queuedNotification);
+      window.history.replaceState({}, "");
+    } else {
+      ctx.clear();
+    }
+  }, [state, pathname]);
+
+  return ctx;
 }
 
 export const NotificationConsumer: FC = () => {
