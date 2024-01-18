@@ -62,7 +62,9 @@ export const ConfirmationModal = ({
       }
       {...props}
     >
-      {children}
+      <div style={{ minWidth: '480px' }}>
+        {children}
+      </div>
     </Modal>
   );
 };
