@@ -9,10 +9,8 @@ import React, {
 import {
   NotificationType,
   NotificationHelper,
-  QueuedNotification,
   NotifyProviderProps,
 } from "./types";
-import { useLocation } from "react-router-dom";
 import isEqual from "lodash/isEqual";
 import { info, failure, success, queue } from "./messageBuilder";
 import Notification, { DefaultTitles } from "../Notification/Notification";
@@ -27,7 +25,11 @@ const NotifyContext = createContext<NotificationHelper>({
   setDeduplicated: () => undefined,
 });
 
-export const NotificationProvider: FC<NotifyProviderProps> = ({ children }) => {
+export const NotificationProvider: FC<NotifyProviderProps> = ({
+  children,
+  state,
+  pathname,
+}) => {
   const [notification, setNotification] = useState<NotificationType | null>(
     null
   );
@@ -40,6 +42,15 @@ export const NotificationProvider: FC<NotifyProviderProps> = ({ children }) => {
     }
     return value;
   };
+
+  useEffect(() => {
+    if (state?.queuedNotification) {
+      setDeduplicated(state.queuedNotification);
+      window.history.replaceState({}, "");
+    } else {
+      clear();
+    }
+  }, [state, pathname]);
 
   const helper: NotificationHelper = {
     notification,
@@ -58,19 +69,7 @@ export const NotificationProvider: FC<NotifyProviderProps> = ({ children }) => {
 };
 
 export function useNotify() {
-  const ctx = useContext(NotifyContext);
-  const { state, pathname } = useLocation() as QueuedNotification;
-
-  useEffect(() => {
-    if (state?.queuedNotification) {
-      ctx.setDeduplicated(state.queuedNotification);
-      window.history.replaceState({}, "");
-    } else {
-      ctx.clear();
-    }
-  }, [state, pathname]);
-
-  return ctx;
+  return useContext(NotifyContext);
 }
 
 export const NotificationConsumer: FC = () => {
