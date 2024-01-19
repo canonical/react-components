@@ -49,7 +49,7 @@ describe("PasswordToggle", () => {
 
   it("can display an error", async () => {
     render(<PasswordToggle error="Uh oh!" id="test-id" label="password" />);
-    expect(screen.getByLabelText("password")).toHaveErrorMessage(
+    expect(screen.getByLabelText("password")).toHaveAccessibleErrorMessage(
       "Error: Uh oh!"
     );
   });
