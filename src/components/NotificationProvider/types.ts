@@ -3,6 +3,10 @@ import { ValueOf } from "types";
 import { NotificationSeverity } from "../Notification";
 
 export interface NotifyProviderProps {
+  state?: {
+    queuedNotification: NotificationType | null;
+  };
+  pathname?: string;
   children: ReactNode;
 }
 
