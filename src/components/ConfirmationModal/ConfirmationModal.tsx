@@ -1,4 +1,4 @@
-import React, { MouseEvent, ReactElement } from "react";
+import React, { MouseEvent, ReactElement, useState, useEffect } from "react";
 import type { ReactNode } from "react";
 import { PropsWithSpread, ValueOf } from "types";
 import Button, { ButtonAppearance } from "components/Button";
@@ -43,6 +43,25 @@ export const ConfirmationModal = ({
   onConfirm,
   ...props
 }: Props): ReactElement => {
+  const [minWidth, setMinWidth] = useState("480px");
+  useEffect(() => {
+    const updateMinWidth = () => {
+      if (window.matchMedia("(max-width: 400px)").matches) {
+        setMinWidth("200px");
+      } else if (window.matchMedia("(max-width: 700px)").matches) {
+        setMinWidth("300px");
+      } else {
+        setMinWidth("480px");
+      }
+    };
+
+    window.addEventListener("resize", updateMinWidth);
+    updateMinWidth();
+    return () => {
+      window.removeEventListener("resize", updateMinWidth);
+    };
+  }, []);
+
   return (
     <Modal
       buttonRow={
@@ -62,7 +81,7 @@ export const ConfirmationModal = ({
       }
       {...props}
     >
-      <div style={{ minWidth: '480px' }}>
+      <div style={{ minWidth: minWidth }}>
         {children}
       </div>
     </Modal>
