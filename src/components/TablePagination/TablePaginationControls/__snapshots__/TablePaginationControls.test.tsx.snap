@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TablePaginationControls /> renders table pagination controls and matches the snapshot 1`] = `
+Array [
+  <button
+    aria-label="Previous page"
+    class="p-button--base has-icon back"
+    disabled=""
+  >
+    <i
+      class="p-icon--chevron-down"
+    />
+  </button>,
+  <button
+    aria-label="Next page"
+    class="p-button--base has-icon next"
+  >
+    <i
+      class="p-icon--chevron-down"
+    />
+  </button>,
+]
+`;
+
+exports[`<TablePaginationControls /> renders table pagination controls and matches the snapshot 2`] = `
+<input
+  aria-describedby=""
+  aria-invalid="false"
+  class="p-form-validation__input u-no-margin--bottom pagination-input"
+  id="paginationPageInput"
+  label="Page number"
+  type="number"
+  value="1"
+/>
+`;

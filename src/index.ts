@@ -64,6 +64,7 @@ export { default as TableRow } from "./components/TableRow";
 export { default as Tabs } from "./components/Tabs";
 export { default as Textarea } from "./components/Textarea";
 export { default as Tooltip } from "./components/Tooltip";
+export { default as TablePagination } from "./components/TablePagination";
 
 export type { AccordionProps } from "./components/Accordion";
 export type { ActionButtonProps } from "./components/ActionButton";
@@ -134,6 +135,7 @@ export type { TableRowProps } from "./components/TableRow";
 export type { TabsProps } from "./components/Tabs";
 export type { TextareaProps } from "./components/Textarea";
 export type { TooltipProps } from "./components/Tooltip";
+export type { TablePaginationProps } from "./components/TablePagination";
 
 export {
   useOnClickOutside,

@@ -26,7 +26,7 @@ describe("Field ", () => {
         <input aria-errormessage="id-1" aria-invalid="true" />
       </Field>
     );
-    expect(screen.getByRole("textbox")).toHaveErrorMessage(
+    expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
       "Caution: Are you sure?"
     );
     expect(screen.getByTestId("field")).toHaveClass("is-caution");
@@ -42,7 +42,7 @@ describe("Field ", () => {
         <input aria-errormessage="id-1" aria-invalid="true" />
       </Field>
     );
-    expect(screen.getByRole("textbox")).toHaveErrorMessage(
+    expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
       "Caution: Are you sure?"
     );
     expect(screen.getByTestId("field")).toHaveClass("is-caution");
@@ -54,7 +54,7 @@ describe("Field ", () => {
         <input aria-errormessage="id-1" aria-invalid="true" />
       </Field>
     );
-    expect(screen.getByRole("textbox")).toHaveErrorMessage(
+    expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
       "Error: You can't do that"
     );
     expect(screen.getByTestId("field")).toHaveClass("is-error");
@@ -70,7 +70,7 @@ describe("Field ", () => {
         <input aria-errormessage="id-1" aria-invalid="true" />
       </Field>
     );
-    expect(screen.getByRole("textbox")).toHaveErrorMessage(
+    expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
       "Error: You can't do that"
     );
     expect(screen.getByTestId("field")).toHaveClass("is-error");
