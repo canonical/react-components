@@ -1,8 +1,9 @@
 name: Publish docs
 
 on:
-  workflow_call:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build-docs:

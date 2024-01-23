@@ -27,6 +27,8 @@
     "@babel/preset-typescript": "7.23.3",
     "@percy/cli": "1.27.6",
     "@percy/storybook": "4.3.7",
+    "@semantic-release/changelog": "6.0.3",
+    "@semantic-release/git": "10.0.1",
     "@storybook/addon-a11y": "7.6.7",
     "@storybook/addon-essentials": "7.6.7",
     "@storybook/addon-interactions": "7.6.7",
@@ -71,6 +73,7 @@
     "react-dom": "18.2.0",
     "sass": "1.69.7",
     "sass-loader": "10.5.1",
+    "semantic-release": "23.0.0",
     "storybook": "7.6.7",
     "style-loader": "3.3.3",
     "stylelint": "15.11.0",
@@ -127,7 +130,6 @@
     "lint-package-json": "npmPkgJsonLint .",
     "lint": "yarn lint-package-json && yarn lint-js && yarn lint-style",
     "percy": "yarn build-docs && percy storybook ./docs",
-    "prepublishOnly": "yarn clean && yarn install && yarn build",
     "serve": "yarn docs",
     "start": "yarn docs",
     "test": "jest",
@@ -135,7 +137,9 @@
     "unlink-packages": "yarn unlink && cd node_modules/react && yarn unlink && cd ../react-dom && yarn unlink",
     "cypress:test": "wait-on http://localhost:${PORT:-9009} && cypress run --env port=${PORT:-9009}",
     "cypress:run": "cypress run --env port=${PORT:-9009}",
-    "cypress:open": "cypress open --env port=${PORT:-9009}"
+    "cypress:open": "cypress open --env port=${PORT:-9009}",
+    "semantic-release": "semantic-release",
+    "semantic-release-dry-run": "semantic-release --dry-run --no-ci"
   },
   "eslintConfig": {
     "extends": "react-app"
