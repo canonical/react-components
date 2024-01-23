@@ -37,22 +37,22 @@ describe("<TablePagination />", () => {
     );
   });
 
-  it("has correct per page setting when changed", () => {
+  it("has correct per page setting when changed", async () => {
     render(<TablePagination data={dummyData} pageLimits={[2, 5, 10]} />);
 
     expect(screen.getByRole("navigation")).toHaveTextContent("2/page");
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "Items per page" }),
       "5"
     );
     expect(screen.getByRole("navigation")).toHaveTextContent("5/page");
   });
 
-  it("resets to first page when page size is changed", () => {
+  it("resets to first page when page size is changed", async () => {
     render(<TablePagination data={dummyData} pageLimits={[2, 5, 10]} />);
 
     expect(screen.getByRole("navigation")).toHaveTextContent("2/page");
-    userEvent.selectOptions(
+    await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "Items per page" }),
       "5"
     );
@@ -80,7 +80,7 @@ describe("<TablePagination />", () => {
     expect(currentPageInput).toHaveValue(2);
     await userEvent.selectOptions(pageSizeSelector, "2");
     expect(currentPageInput).toHaveValue(1);
-    await fireEvent.change(currentPageInput, { target: { value: 3 } });
+    fireEvent.change(currentPageInput, { target: { value: 3 } });
     expect(currentPageInput).toHaveValue(3);
     await userEvent.click(incButton);
     expect(currentPageInput).toHaveValue(3);

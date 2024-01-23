@@ -6,7 +6,7 @@ import userEvent from "@testing-library/user-event";
 
 describe("Notification", () => {
   beforeEach(() => {
-    jest.useFakeTimers("modern");
+    jest.useFakeTimers();
   });
 
   it("renders", () => {

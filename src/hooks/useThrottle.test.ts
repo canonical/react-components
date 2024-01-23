@@ -2,7 +2,7 @@ import { renderHook } from "@testing-library/react";
 
 import { THROTTLE_DELAY, useThrottle } from "./useThrottle";
 
-jest.useFakeTimers("modern");
+jest.useFakeTimers();
 
 describe("useThrottle", () => {
   let callback: jest.Mock;

@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<TablePaginationControls /> renders table pagination controls and matches the snapshot 1`] = `
-Array [
+[
   <button
     aria-label="Previous page"
     class="p-button--base has-icon back"
