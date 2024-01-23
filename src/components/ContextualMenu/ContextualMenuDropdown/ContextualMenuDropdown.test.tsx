@@ -6,7 +6,7 @@ import ContextualMenuDropdown, {
   adjustForWindow,
 } from "./ContextualMenuDropdown";
 
-jest.useFakeTimers("modern");
+jest.useFakeTimers();
 
 describe("ContextualMenuDropdown ", () => {
   it("renders", () => {
