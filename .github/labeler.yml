@@ -1,3 +1,5 @@
 Maintenance 🔨:
-  - package.json
-  - .gitignore
+- changed-files:
+  - any-glob-to-any-file:
+    - package.json
+    - .gitignore
