@@ -24,6 +24,7 @@ export enum Label {
 export type MenuLink<L = null> = string | ButtonProps<L> | ButtonProps<L>[];
 
 export type Position = "left" | "center" | "right";
+type VerticalPosition = "top" | "bottom";
 
 /**
  * The props for the ContextualMenuDropdown component.
@@ -55,6 +56,7 @@ export type Props<L = null> = {
  */
 const getPositionStyle = (
   position: Position,
+  verticalPosition: VerticalPosition,
   positionCoords: Props["positionCoords"],
   constrainPanelWidth: Props["constrainPanelWidth"]
 ): React.CSSProperties => {
@@ -62,7 +64,10 @@ const getPositionStyle = (
     return null;
   }
   const { height, left, top, width } = positionCoords;
-  const topPos = top + height + (window.scrollY || 0);
+  const topPos =
+    verticalPosition === "bottom"
+      ? top + height + (window.scrollY || 0)
+      : top + (window.scrollY || 0);
   let leftPos = left;
 
   switch (position) {
@@ -161,6 +166,23 @@ const generateLink = <L,>(
   );
 };
 
+const getClosestScrollableParent = (
+  node: HTMLElement | null
+): HTMLElement | null => {
+  let currentNode = node;
+  while (currentNode && currentNode !== document.body) {
+    const { overflowY, overflowX } = window.getComputedStyle(currentNode);
+    if (
+      ["auto", "scroll", "overlay"].includes(overflowY) &&
+      ["auto", "scroll", "overlay"].includes(overflowX)
+    ) {
+      return currentNode;
+    }
+    currentNode = currentNode.parentElement;
+  }
+  return document.body;
+};
+
 const ContextualMenuDropdown = <L,>({
   adjustedPosition,
   autoAdjust,
@@ -180,30 +202,74 @@ const ContextualMenuDropdown = <L,>({
   ...props
 }: Props<L>): JSX.Element => {
   const dropdown = useRef();
-
+  const [verticalPosition, setVerticalPosition] =
+    useState<VerticalPosition>("bottom");
   const [positionStyle, setPositionStyle] = useState(
-    getPositionStyle(adjustedPosition, positionCoords, constrainPanelWidth)
+    getPositionStyle(
+      adjustedPosition,
+      verticalPosition,
+      positionCoords,
+      constrainPanelWidth
+    )
   );
   const [maxHeight, setMaxHeight] = useState<number>();
-
   // Update the styles to position the menu.
   const updatePositionStyle = useCallback(() => {
     setPositionStyle(
-      getPositionStyle(adjustedPosition, positionCoords, constrainPanelWidth)
+      getPositionStyle(
+        adjustedPosition,
+        verticalPosition,
+        positionCoords,
+        constrainPanelWidth
+      )
     );
-  }, [adjustedPosition, positionCoords, constrainPanelWidth]);
+  }, [adjustedPosition, positionCoords, verticalPosition, constrainPanelWidth]);
+
+  const updateVerticalPosition = useCallback(() => {
+    if (!positionNode) {
+      return null;
+    }
+    const scrollableParent = getClosestScrollableParent(positionNode);
+    if (!scrollableParent) {
+      return null;
+    }
+    const scrollableParentRect = scrollableParent.getBoundingClientRect();
+    const rect = positionNode.getBoundingClientRect();
+
+    // Calculate the rect in relation to the scrollableParent
+    const relativeRect = {
+      top: rect.top - scrollableParentRect.top,
+      bottom: rect.bottom - scrollableParentRect.top,
+      height: rect.height,
+    };
+
+    const spaceBelow = scrollableParentRect.height - relativeRect.bottom;
+    const spaceAbove = relativeRect.top;
+    const dropdownHeight = relativeRect.height;
+
+    setVerticalPosition(
+      spaceBelow >= dropdownHeight || spaceBelow > spaceAbove ? "bottom" : "top"
+    );
+  }, [positionNode]);
 
   // Update the position when the window fitment info changes.
   const onUpdateWindowFitment = useCallback(
     (fitsWindow: WindowFitment) => {
       if (autoAdjust) {
         setAdjustedPosition(adjustForWindow(position, fitsWindow));
+        updateVerticalPosition();
       }
       if (scrollOverflow) {
         setMaxHeight(fitsWindow.fromBottom.spaceBelow - 16);
       }
     },
-    [autoAdjust, position, scrollOverflow, setAdjustedPosition]
+    [
+      autoAdjust,
+      position,
+      scrollOverflow,
+      setAdjustedPosition,
+      updateVerticalPosition,
+    ]
   );
 
   // Handle adjusting the horizontal position and scrolling of the dropdown so that it remains on screen.
@@ -219,6 +285,10 @@ const ContextualMenuDropdown = <L,>({
   useEffect(() => {
     updatePositionStyle();
   }, [adjustedPosition, updatePositionStyle]);
+
+  useEffect(() => {
+    updateVerticalPosition();
+  }, [updateVerticalPosition]);
 
   return (
     // Vanilla Framework uses .p-contextual-menu parent modifier classnames to determine the correct position of the .p-contextual-menu__dropdown dropdown (left, center, right).
@@ -237,6 +307,7 @@ const ContextualMenuDropdown = <L,>({
           ...(scrollOverflow
             ? { maxHeight, minHeight: "2rem", overflowX: "auto" }
             : {}),
+          ...(verticalPosition === "top" ? { bottom: "0" } : {}),
         }}
         {...props}
       >
