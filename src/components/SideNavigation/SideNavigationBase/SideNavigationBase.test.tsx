@@ -1,14 +1,12 @@
 import React from "react";
-import { screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import type { HTMLProps } from "react";
-
-import { renderComponent } from "testing/utils";
 
 import SideNavigationBase from "./SideNavigationBase";
 
 it("displays an element", () => {
   const label = "Test content";
-  renderComponent(<SideNavigationBase label={label} component="button" />);
+  render(<SideNavigationBase label={label} component="button" />);
   expect(screen.getByRole("button", { name: label })).toBeInTheDocument();
 });
 
@@ -19,26 +17,26 @@ it("can use a custom component", () => {
     </a>
   );
   const label = "Test content";
-  renderComponent(<SideNavigationBase label={label} component={Link} />);
+  render(<SideNavigationBase label={label} component={Link} />);
   expect(screen.getByRole("link", { name: label })).toBeInTheDocument();
 });
 
 it("displays an icon", () => {
-  renderComponent(
+  render(
     <SideNavigationBase icon="user" label="Test content" component="button" />,
   );
   expect(document.querySelector(".p-icon--user")).toBeInTheDocument();
 });
 
 it("displays a light icon", () => {
-  renderComponent(
+  render(
     <SideNavigationBase icon="user" label="Test content" component="button" />,
   );
   expect(document.querySelector(".p-icon--user")).toHaveClass("is-light");
 });
 
 it("displays a dark icon", () => {
-  renderComponent(
+  render(
     <SideNavigationBase
       dark
       icon="user"
