@@ -1,12 +1,12 @@
-import { Button, Icon } from "@canonical/react-components";
-import type { PropsWithSpread } from "@canonical/react-components/dist/types";
+import React from "react";
+import type { PropsWithSpread } from "types";
 import classNames from "classnames";
 import type { ReactNode } from "react";
 import { useState, type HTMLProps, type PropsWithChildren } from "react";
 
-import Panel from "components/upstream/Panel";
-import type { PanelProps } from "components/upstream/Panel";
-import type { PanelLogoDefaultElement } from "components/upstream/Panel";
+import Panel from "components/Panel";
+import type { PanelProps } from "components/Panel";
+import type { PanelLogoDefaultElement } from "components/Panel";
 import type { ExclusiveProps } from "types";
 
 import type { SideNavigationProps } from "../SideNavigation";
@@ -18,6 +18,8 @@ import AppNavigation from "./AppNavigation";
 import AppNavigationBar from "./AppNavigationBar";
 import AppStatus from "./AppStatus";
 import Application from "./Application";
+import Button from "components/Button";
+import Icon from "components/Icon";
 
 export type BaseProps<
   NI = SideNavigationLinkDefaultElement,

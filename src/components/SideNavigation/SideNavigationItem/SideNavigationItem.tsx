@@ -1,3 +1,4 @@
+import React from "react";
 import type { PropsWithChildren } from "react";
 
 import SideNavigationLink from "../SideNavigationLink";
@@ -9,7 +10,7 @@ export type Props<L = SideNavigationLinkDefaultElement> =
   | SideNavigationLinkProps<L>;
 
 const SideNavigationItem = <L = SideNavigationLinkDefaultElement,>(
-  props: Props<L>,
+  props: Props<L>
 ) => {
   return (
     <li className="p-side-navigation__item">

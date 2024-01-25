@@ -1,7 +1,8 @@
+import React from "react";
 import classNames from "classnames";
 import type { HTMLProps, PropsWithChildren } from "react";
 
-import Panel from "components/upstream/Panel";
+import Panel from "components/Panel";
 
 type Props = PropsWithChildren & HTMLProps<HTMLDivElement>;
 

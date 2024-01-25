@@ -1,4 +1,5 @@
-import type { PropsWithSpread } from "@canonical/react-components/dist/types";
+import React from "react";
+import type { PropsWithSpread } from "types";
 import classNames from "classnames";
 import type {
   ComponentType,
