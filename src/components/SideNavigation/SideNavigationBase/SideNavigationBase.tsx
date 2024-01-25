@@ -1,6 +1,7 @@
-import { Icon } from "@canonical/react-components";
-import type { PropsWithSpread } from "@canonical/react-components/dist/types";
+import React from "react";
+import type { PropsWithSpread } from "types";
 import type { ComponentType, ElementType, ReactNode } from "react";
+import Icon from "components/Icon";
 
 export type Props<C> = PropsWithSpread<
   {

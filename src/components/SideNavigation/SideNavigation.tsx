@@ -1,4 +1,5 @@
-import type { PropsWithSpread } from "@canonical/react-components/dist/types";
+import React from "react";
+import type { PropsWithSpread } from "types";
 import classNames from "classnames";
 import {
   type HTMLProps,
@@ -28,7 +29,7 @@ export type Props<L = SideNavigationLinkDefaultElement> = PropsWithSpread<
 const generateItem = <L = SideNavigationLinkDefaultElement,>(
   item: NavItem<L>,
   linkComponent: Props<L>["linkComponent"],
-  index: number,
+  index: number
 ) => {
   return isValidElement(item) ? (
     <SideNavigationItem key={index}>{item}</SideNavigationItem>
@@ -42,7 +43,7 @@ const generateItem = <L = SideNavigationLinkDefaultElement,>(
 };
 
 const isGrouped = <L = SideNavigationLinkDefaultElement,>(
-  items: Props<L>["items"],
+  items: Props<L>["items"]
 ): items is NavItem<L>[][] => {
   return items.some((item) => Array.isArray(item));
 };
@@ -63,7 +64,7 @@ const SideNavigation = <L = SideNavigationLinkDefaultElement,>({
         "p-side-navigation--icons":
           hasIcons ||
           groups.some((items) =>
-            items.some((item) => "icon" in item && !!item.icon),
+            items.some((item) => "icon" in item && !!item.icon)
           ),
         "is-dark": dark,
       })}

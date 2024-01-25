@@ -1,10 +1,11 @@
-import Button from "@canonical/react-components/dist/components/Button";
-import Icon from "@canonical/react-components/dist/components/Icon";
-import type { PropsWithSpread } from "@canonical/react-components/dist/types";
+import React from "react";
+import Button from "components/Button";
+import Icon from "components/Icon";
+import type { PropsWithSpread } from "types";
 import classNames from "classnames";
 import { type HTMLProps, type PropsWithChildren } from "react";
 
-import Panel, { type PanelProps } from "components/upstream/Panel";
+import Panel, { type PanelProps } from "components/Panel";
 
 export type Props = PropsWithSpread<
   {
