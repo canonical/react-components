@@ -1,14 +1,12 @@
 import React from "react";
-import { screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import type { ButtonHTMLAttributes } from "react";
-
-import { renderComponent } from "testing/utils";
 
 import SideNavigationItem from "./SideNavigationItem";
 
 it("displays a link from props", () => {
   const label = "Test content";
-  renderComponent(<SideNavigationItem label={label} href="#" />);
+  render(<SideNavigationItem label={label} href="#" />);
   expect(screen.getByRole("link", { name: label })).toHaveClass(
     "p-side-navigation__link",
   );
@@ -19,7 +17,7 @@ it("can use a custom link component", () => {
     <button {...props} />
   );
   const label = "Test content";
-  renderComponent(<SideNavigationItem label={label} component={Link} />);
+  render(<SideNavigationItem label={label} component={Link} />);
   expect(screen.getByRole("button", { name: label })).toHaveClass(
     "p-side-navigation__link",
   );
@@ -27,7 +25,7 @@ it("can use a custom link component", () => {
 
 it("can replace link content with children", () => {
   const label = "Test content";
-  renderComponent(
+  render(
     <SideNavigationItem>
       <button>{label}</button>
     </SideNavigationItem>,

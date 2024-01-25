@@ -1,22 +1,20 @@
 import React from "react";
-import { screen } from "@testing-library/react";
-
-import { renderComponent } from "testing/utils";
+import { render, screen } from "@testing-library/react";
 
 import AppNavigation from "./AppNavigation";
 
 it("displays children", () => {
   const children = "Test content";
-  renderComponent(<AppNavigation>{children}</AppNavigation>);
+  render(<AppNavigation>{children}</AppNavigation>);
   expect(screen.getByText(children)).toBeInTheDocument();
 });
 
 it("displays as collapsed", () => {
-  const { result } = renderComponent(<AppNavigation collapsed />);
-  expect(result.container.firstChild).toHaveClass("is-collapsed");
+  const { container } = render(<AppNavigation collapsed />);
+  expect(container.firstChild).toHaveClass("is-collapsed");
 });
 
 it("displays as pinned", () => {
-  const { result } = renderComponent(<AppNavigation pinned />);
-  expect(result.container.firstChild).toHaveClass("is-pinned");
+  const { container } = render(<AppNavigation pinned />);
+  expect(container.firstChild).toHaveClass("is-pinned");
 });

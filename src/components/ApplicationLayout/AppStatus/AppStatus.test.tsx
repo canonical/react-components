@@ -1,12 +1,10 @@
 import React from "react";
-import { screen } from "@testing-library/react";
-
-import { renderComponent } from "testing/utils";
+import { render, screen } from "@testing-library/react";
 
 import AppStatus from "./AppStatus";
 
 it("displays children", () => {
   const children = "Test content";
-  renderComponent(<AppStatus>{children}</AppStatus>);
+  render(<AppStatus>{children}</AppStatus>);
   expect(screen.getByText(children)).toBeInTheDocument();
 });

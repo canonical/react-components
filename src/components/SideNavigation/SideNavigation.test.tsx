@@ -1,7 +1,6 @@
-import { screen } from "@testing-library/react";
+import React from "react";
+import { render, screen } from "@testing-library/react";
 import type { ButtonHTMLAttributes } from "react";
-
-import { renderComponent } from "testing/utils";
 
 import SideNavigation from "./SideNavigation";
 
@@ -10,7 +9,7 @@ const Link = ({ ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => (
 );
 
 it("displays links", () => {
-  renderComponent(
+  render(
     <SideNavigation
       items={[
         {
@@ -29,7 +28,7 @@ it("displays links", () => {
 });
 
 it("displays links using a custom component", () => {
-  renderComponent(
+  render(
     <SideNavigation
       items={[
         {
@@ -45,7 +44,7 @@ it("displays links using a custom component", () => {
 });
 
 it("displays a mix of links and custom components", () => {
-  renderComponent(
+  render(
     <SideNavigation
       items={[
         {
@@ -61,7 +60,7 @@ it("displays a mix of links and custom components", () => {
 });
 
 it("sets components per link", () => {
-  renderComponent(
+  render(
     <SideNavigation
       items={[
         {
@@ -80,7 +79,7 @@ it("sets components per link", () => {
 });
 
 it("sets icons", () => {
-  const { result } = renderComponent(
+  const { container } = render(
     <SideNavigation
       hasIcons
       items={[
@@ -90,11 +89,11 @@ it("sets icons", () => {
       ]}
     />,
   );
-  expect(result.container.firstChild).toHaveClass("p-side-navigation--icons");
+  expect(container.firstChild).toHaveClass("p-side-navigation--icons");
 });
 
 it("automatically determines if icon class should be applied", () => {
-  const { result } = renderComponent(
+  const { container } = render(
     <SideNavigation
       items={[
         {
@@ -105,5 +104,5 @@ it("automatically determines if icon class should be applied", () => {
       ]}
     />,
   );
-  expect(result.container.firstChild).toHaveClass("p-side-navigation--icons");
+  expect(container.firstChild).toHaveClass("p-side-navigation--icons");
 });

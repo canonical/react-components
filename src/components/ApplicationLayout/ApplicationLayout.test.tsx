@@ -1,8 +1,6 @@
 import React from "react";
-import { screen, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-
-import { renderComponent } from "testing/utils";
 
 import AppAside from "./AppAside";
 import ApplicationLayout from "./ApplicationLayout";
@@ -15,7 +13,7 @@ const logo = {
 };
 
 it("displays a logo", () => {
-  renderComponent(<ApplicationLayout logo={logo} navItems={[]} />);
+  render(<ApplicationLayout logo={logo} navItems={[]} />);
   const link = screen.getAllByRole("link", { name: "Juju" })[0];
   expect(within(link).getByRole("img", { name: "Juju" })).toHaveAttribute(
     "src",
@@ -24,13 +22,13 @@ it("displays a logo", () => {
 });
 
 it("displays as light", () => {
-  renderComponent(<ApplicationLayout dark={false} logo={logo} navItems={[]} />);
+  render(<ApplicationLayout dark={false} logo={logo} navItems={[]} />);
   expect(document.querySelectorAll(".is-dark")).toHaveLength(0);
   expect(document.querySelectorAll(".is-light")).toHaveLength(0);
 });
 
 it("displays as dark", () => {
-  renderComponent(<ApplicationLayout dark logo={logo} navItems={[]} />);
+  render(<ApplicationLayout dark logo={logo} navItems={[]} />);
   expect(document.querySelectorAll(".is-dark")).toHaveLength(5);
   // Two icons are light so that they appear over the dark background.
   expect(document.querySelectorAll(".is-light")).toHaveLength(2);
@@ -38,7 +36,7 @@ it("displays as dark", () => {
 
 it("displays main content", () => {
   const content = "Main content";
-  renderComponent(
+  render(
     <ApplicationLayout logo={logo} navItems={[]}>
       {content}
     </ApplicationLayout>,
@@ -48,16 +46,14 @@ it("displays main content", () => {
 
 it("displays a status bar", () => {
   const content = "Main content";
-  renderComponent(
-    <ApplicationLayout logo={logo} navItems={[]} status={content} />,
-  );
+  render(<ApplicationLayout logo={logo} navItems={[]} status={content} />);
   expect(screen.getByText(content)).toBeInTheDocument();
   expect(screen.getByText(content).parentNode).toHaveClass("l-status");
 });
 
 it("displays an aside", () => {
   const content = "Aside content";
-  renderComponent(
+  render(
     <ApplicationLayout
       logo={logo}
       navItems={[]}
@@ -69,7 +65,7 @@ it("displays an aside", () => {
 });
 
 it("pins the menu", async () => {
-  renderComponent(<ApplicationLayout logo={logo} navItems={[]} />);
+  render(<ApplicationLayout logo={logo} navItems={[]} />);
   expect(document.querySelector(".l-navigation")).not.toHaveClass("is-pinned");
   await userEvent.click(screen.getByRole("button", { name: "Pin menu" }));
   expect(document.querySelector(".l-navigation")).toHaveClass("is-pinned");
@@ -77,7 +73,7 @@ it("pins the menu", async () => {
 
 it("pins the menu using external state", async () => {
   const onPinMenu = jest.fn();
-  renderComponent(
+  render(
     <ApplicationLayout
       logo={logo}
       navItems={[]}
@@ -91,7 +87,7 @@ it("pins the menu using external state", async () => {
 });
 
 it("opens and collapses the menu", async () => {
-  renderComponent(<ApplicationLayout logo={logo} navItems={[]} />);
+  render(<ApplicationLayout logo={logo} navItems={[]} />);
   expect(document.querySelector(".l-navigation")).toHaveClass("is-collapsed");
   await userEvent.click(screen.getByRole("button", { name: "Menu" }));
   expect(document.querySelector(".l-navigation")).not.toHaveClass(
@@ -103,7 +99,7 @@ it("opens and collapses the menu", async () => {
 
 it("collapses the menu using external state", async () => {
   const onCollapseMenu = jest.fn();
-  renderComponent(
+  render(
     <ApplicationLayout
       logo={logo}
       navItems={[]}
