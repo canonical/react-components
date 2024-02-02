@@ -13,7 +13,7 @@ declare module "react-table" {
     extends UseSortByOptions<D> {}
 
   export interface TableState<
-    D extends Record<string, unknown> = Record<string, unknown>
+    D extends Record<string, unknown> = Record<string, unknown>,
   > extends UseSortByState<D> {}
 
   export interface UseTableColumnOptions<D extends Record<string, unknown>>
@@ -23,7 +23,7 @@ declare module "react-table" {
   }
 
   export interface ColumnInstance<
-    D extends Record<string, unknown> = Record<string, unknown>
+    D extends Record<string, unknown> = Record<string, unknown>,
   > extends UseFiltersColumnProps<D>,
       UseSortByColumnProps<D> {}
 }

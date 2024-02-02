@@ -1,8 +1,9 @@
 name: Publish docs
 
 on:
-  workflow_call:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build-docs:
@@ -13,13 +14,17 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         id: pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
       - name: Install dependencies
         run: yarn install
       - name: Build Storybook
         run: yarn build-docs
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: "./docs"
   publish-docs:
@@ -36,4 +41,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4

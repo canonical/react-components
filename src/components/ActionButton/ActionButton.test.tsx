@@ -9,7 +9,7 @@ import ActionButton, {
 import { act } from "react-dom/test-utils";
 
 describe("ActionButton", () => {
-  jest.useFakeTimers("modern");
+  jest.useFakeTimers();
 
   it("matches loading snapshot", () => {
     render(<ActionButton loading>Click me</ActionButton>);

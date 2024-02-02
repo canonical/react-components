@@ -9,7 +9,7 @@ describe("Tooltip", () => {
   let userEventWithTimers: UserEvent;
 
   beforeEach(() => {
-    jest.useFakeTimers("modern");
+    jest.useFakeTimers();
 
     userEventWithTimers = userEvent.setup({
       advanceTimers: jest.advanceTimersByTime,

@@ -89,6 +89,8 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
     const validationId = useId();
     const helpId = useId();
     const hasError = !!error;
+    const defaultPasswordToggleId = useId();
+    const passwordToggleId = id || defaultPasswordToggleId;
 
     const togglePassword = () => {
       if (isPassword) {
@@ -110,7 +112,7 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
         validationId={validationId}
       >
         <div className="p-form-password-toggle">
-          <VanillaLabel forId={id} required={required}>
+          <VanillaLabel forId={passwordToggleId} required={required}>
             {label}
           </VanillaLabel>
           <Button
@@ -138,7 +140,7 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
           aria-errormessage={hasError ? validationId : null}
           aria-invalid={hasError}
           className={classNames("p-form-validation__input", className)}
-          id={id}
+          id={passwordToggleId}
           readOnly={readOnly}
           ref={ref}
           type={isPassword ? "password" : "text"}

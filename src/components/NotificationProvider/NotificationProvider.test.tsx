@@ -7,7 +7,6 @@ import {
   NotificationProvider,
   useNotify,
 } from "./NotificationProvider";
-import { BrowserRouter } from "react-router-dom";
 import Button from "../Button";
 import { act } from "react-dom/test-utils";
 
@@ -51,8 +50,7 @@ describe("NotificationProvider", () => {
             <NotificationConsumer />
           </div>
         </NotificationProvider>
-      </div>,
-      { wrapper: BrowserRouter }
+      </div>
     );
 
     const clickBtn = async (testId: string) =>

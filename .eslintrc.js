@@ -14,7 +14,7 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
-    "prettier/prettier": "error",
+    "prettier/prettier": ["error", { trailingComma: "es5" }],
     "react/forbid-component-props": [
       "error",
       {
@@ -73,7 +73,7 @@ module.exports = {
       rules: {
         "testing-library/no-node-access": "warn",
         "testing-library/no-container": "warn",
-        "testing-library/no-render-in-setup": "warn",
+        "testing-library/no-render-in-lifecycle": "warn",
       },
     },
   ],

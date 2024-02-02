@@ -3,6 +3,10 @@ import { ValueOf } from "types";
 import { NotificationSeverity } from "../Notification";
 
 export interface NotifyProviderProps {
+  state?: {
+    queuedNotification: NotificationType | null;
+  };
+  pathname?: string;
   children: ReactNode;
 }
 
@@ -37,4 +41,5 @@ export interface NotificationHelper {
   info: (message: ReactNode, title?: string) => NotificationType;
   success: (message: ReactNode) => NotificationType;
   queue: (notification: NotificationType) => QueuedNotification;
+  setDeduplicated: (value: NotificationType) => NotificationType;
 }

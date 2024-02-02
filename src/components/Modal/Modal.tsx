@@ -99,7 +99,7 @@ export const Modal = ({
     if (close && focusableModalElements.current.length > 1) {
       focusIndex = 1;
     }
-    focusableModalElements.current[focusIndex]?.focus();
+    focusableModalElements.current[focusIndex]?.focus({ preventScroll: true });
   }, [close]);
 
   useEffect(() => {

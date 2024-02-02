@@ -6,7 +6,7 @@ Canonical `react-components` is developed with [TypeScript](https://www.typescri
 
 ## Pull Requests
 
-Pull request titles need to follow [conventional commits](https://www.conventionalcommits.org) specification.
+Pull request titles need to follow [conventional commits](https://www.conventionalcommits.org) specification, which will be used by [semantic-release](https://github.com/semantic-release/semantic-release) to determine if a release will be published on merging your pull request into the main branch. You can refer to this [FAQ](https://semantic-release.gitbook.io/semantic-release/support/faq#how-can-i-change-the-type-of-commits-that-trigger-a-release) for details regarding rules for triggering a release.
 
 ## Developing components with Storybook
 
