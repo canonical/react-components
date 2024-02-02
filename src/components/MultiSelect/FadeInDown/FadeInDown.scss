@@ -1,0 +1,22 @@
+@import "vanilla-framework";
+
+.fade-in--down {
+  @include vf-transition(#{transform, opacity, visibility}, fast);
+
+  position: relative;
+  z-index: 1;
+
+  &[aria-hidden="true"] {
+    height: 0;
+    opacity: 0;
+    transform: translate3d(0, -0.5rem, 0);
+    visibility: hidden;
+  }
+
+  &[aria-hidden="false"] {
+    height: auto;
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    visibility: visible;
+  }
+}
