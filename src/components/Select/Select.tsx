@@ -105,6 +105,8 @@ const Select = ({
 }: Props): JSX.Element => {
   const selectRef = useRef(null);
   const validationId = useId();
+  const defaultSelectId = useId();
+  const selectId = id || defaultSelectId;
   const helpId = useId();
   const hasError = !!error;
 
@@ -119,7 +121,7 @@ const Select = ({
       caution={caution}
       className={wrapperClassName}
       error={error}
-      forId={id}
+      forId={selectId}
       help={help}
       helpId={helpId}
       isSelect={true}
@@ -137,7 +139,7 @@ const Select = ({
         aria-errormessage={hasError ? validationId : null}
         aria-invalid={hasError}
         className={classNames("p-form-validation__input", className)}
-        id={id}
+        id={selectId}
         onChange={(evt) => onChange && onChange(evt)}
         ref={selectRef}
         {...selectProps}

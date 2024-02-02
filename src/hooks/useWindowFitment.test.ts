@@ -75,7 +75,7 @@ describe("useWindowFitment", () => {
         left: 20,
         top: 20,
         width: 10,
-      } as DOMRect);
+      }) as DOMRect;
     renderHook(() => useWindowFitment(targetNode, referenceNode, callback));
     expect(callback).toHaveBeenCalledWith({
       fromTop: {
@@ -128,7 +128,7 @@ describe("useWindowFitment", () => {
         left: 5,
         top: 5,
         width: 20,
-      } as DOMRect);
+      }) as DOMRect;
     global.innerHeight = 10;
     global.innerWidth = 10;
     renderHook(() => useWindowFitment(targetNode, referenceNode, callback));

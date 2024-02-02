@@ -1,0 +1,98 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TablePagination /> renders table pagination and matches the snapshot 1`] = `
+<div
+  class="pagination"
+  role="navigation"
+>
+  <div
+    class="description"
+  >
+    Showing all 5 items
+  </div>
+  <button
+    aria-label="Previous page"
+    class="p-button--base has-icon back"
+    disabled=""
+  >
+    <i
+      class="p-icon--chevron-down"
+    />
+  </button>
+  <div
+    class="p-form__group p-form-validation"
+  >
+    <label
+      class="u-off-screen p-form__label"
+      for="paginationPageInput"
+    >
+      Page number
+    </label>
+    <div
+      class="p-form__control u-clearfix"
+    >
+      <input
+        aria-describedby=""
+        aria-invalid="false"
+        class="p-form-validation__input u-no-margin--bottom pagination-input"
+        id="paginationPageInput"
+        label="Page number"
+        type="number"
+        value="1"
+      />
+    </div>
+  </div>
+   
+  of 
+  1
+  <button
+    aria-label="Next page"
+    class="p-button--base has-icon next"
+    disabled=""
+  >
+    <i
+      class="p-icon--chevron-down"
+    />
+  </button>
+  <div
+    class="p-form__group p-form-validation"
+  >
+    <label
+      class="u-off-screen p-form__label"
+      for="itemsPerPage"
+    >
+      Items per page
+    </label>
+    <div
+      class="p-form__control u-clearfix"
+    >
+      <div
+        class="p-form-validation__select-wrapper"
+      >
+        <select
+          aria-describedby=""
+          aria-invalid="false"
+          class="p-form-validation__input items-per-page"
+          id="itemsPerPage"
+        >
+          <option
+            value="50"
+          >
+            50/page
+          </option>
+          <option
+            value="100"
+          >
+            100/page
+          </option>
+          <option
+            value="200"
+          >
+            200/page
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</div>
+`;

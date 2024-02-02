@@ -32,7 +32,9 @@ describe("Textarea ", () => {
 
   it("can display an error for a text input", async () => {
     render(<Textarea error="Uh oh!" />);
-    expect(screen.getByRole("textbox")).toHaveErrorMessage("Error: Uh oh!");
+    expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
+      "Error: Uh oh!"
+    );
   });
 
   it("can display help for a text input", async () => {

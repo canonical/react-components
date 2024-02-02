@@ -1,0 +1,214 @@
+import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
+
+import TablePagination from "./TablePagination";
+import MainTable from "../MainTable";
+
+<Meta title="TablePagination" component={TablePagination} />
+
+export const Template = (args) => <TablePagination {...args} />;
+
+### TablePagination
+
+This is an HOC [React](https://reactjs.org/) component for applying pagination to input data for direct child components.
+This component is un-opinionated about the structure of the input data and can be used with any child component that displays 
+a list of data. However, the styling and behaviour of this component were designed to work nicely with the ```MainTable``` component.
+
+To use this component, simply wrap a child component with it and provide the data that you want to paginate to the ```data``` prop. 
+This component will then pass the paged data to all <b>direct</b> child components via a child prop specified by ```dataForwardProp```.  
+
+### Props
+
+<ArgsTable of={TablePagination} />
+
+### Default
+
+<Canvas>
+  <Story
+    name="Default"
+    args={{
+      data: [{id: "row-1"}, {id: "row-2"}, {id: "row-3"}, {id: "row-4"}, {id: "row-5"}],
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Custom page limit
+
+<Canvas>
+  <Story
+    name="CustomPageLimit"
+    args={{
+      data: [{id: "row-1"}, {id: "row-2"}, {id: "row-3"}, {id: "row-4"}, {id: "row-5"}],
+      pageLimits: [1, 2, 3]
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Custom display title
+
+<Canvas>
+  <Story
+    name="CustomDisplayTitle"
+    args={{
+      data: [{id: "row-1"}, {id: "row-2"}, {id: "row-3"}, {id: "row-4"}, {id: "row-5"}],
+      description: <b>Hello there</b>
+    }}
+  >
+    {Template.bind({})}
+  </Story>
+</Canvas>
+
+### Render above
+
+<Canvas>
+  <Story
+    name="RenderAbove"
+  >
+    {() => {
+      const data = [
+        {
+          columns: [
+            { content: "Ready", role: "rowheader" },
+            { content: 1, className: "u-align--right" },
+            { content: "1 GiB", className: "u-align--right" },
+            { content: 2, className: "u-align--right" },
+            { content: 42, className: "u-align--right" },
+          ],
+          sortData: {
+            status: "ready",
+            cores: 2,
+            ram: 1,
+            disks: 2,
+          },
+        },
+        {
+          columns: [
+            { content: "Idle", role: "rowheader" },
+            { content: 1, className: "u-align--right" },
+            { content: "1 GiB", className: "u-align--right" },
+            { content: 2, className: "u-align--right" },
+            { content: 23, className: "u-align--right" },
+          ],
+          sortData: {
+            status: "idle",
+            cores: 1,
+            ram: 1,
+            disks: 2,
+          },
+        },
+        {
+          columns: [
+            { content: "Waiting", role: "rowheader" },
+            { content: 8, className: "u-align--right" },
+            { content: "3.9 GiB", className: "u-align--right" },
+            { content: 3, className: "u-align--right" },
+            { content: 0, className: "u-align--right" },
+          ],
+          sortData: {
+            status: "waiting",
+            cores: 8,
+            ram: 3.9,
+            disks: 3,
+          },
+        },
+      ];
+
+      const headers = [
+        { content: "Status", sortKey: "status" },
+        { content: "Cores", sortKey: "cores", className: "u-align--right" },
+        { content: "RAM", sortKey: "ram", className: "u-align--right" },
+        { content: "Disks", sortKey: "disks", className: "u-align--right" },
+        { content: "Networks", className: "u-align--right" },
+      ];
+
+      return (
+        <TablePagination data={data} pageLimits={[1, 2, 3]}>
+          <MainTable
+            headers={headers}
+            rows={data}
+            sortabl
+          />
+        </TablePagination>
+      );
+    }}
+  </Story>
+</Canvas>
+
+### Render below
+
+<Canvas>
+  <Story
+    name="RenderBelow"
+  >
+    {() => {
+      const data = [
+        {
+          columns: [
+            { content: "Ready", role: "rowheader" },
+            { content: 1, className: "u-align--right" },
+            { content: "1 GiB", className: "u-align--right" },
+            { content: 2, className: "u-align--right" },
+            { content: 42, className: "u-align--right" },
+          ],
+          sortData: {
+            status: "ready",
+            cores: 2,
+            ram: 1,
+            disks: 2,
+          },
+        },
+        {
+          columns: [
+            { content: "Idle", role: "rowheader" },
+            { content: 1, className: "u-align--right" },
+            { content: "1 GiB", className: "u-align--right" },
+            { content: 2, className: "u-align--right" },
+            { content: 23, className: "u-align--right" },
+          ],
+          sortData: {
+            status: "idle",
+            cores: 1,
+            ram: 1,
+            disks: 2,
+          },
+        },
+        {
+          columns: [
+            { content: "Waiting", role: "rowheader" },
+            { content: 8, className: "u-align--right" },
+            { content: "3.9 GiB", className: "u-align--right" },
+            { content: 3, className: "u-align--right" },
+            { content: 0, className: "u-align--right" },
+          ],
+          sortData: {
+            status: "waiting",
+            cores: 8,
+            ram: 3.9,
+            disks: 3,
+          },
+        },
+      ];
+
+      const headers = [
+        { content: "Status", sortKey: "status" },
+        { content: "Cores", sortKey: "cores", className: "u-align--right" },
+        { content: "RAM", sortKey: "ram", className: "u-align--right" },
+        { content: "Disks", sortKey: "disks", className: "u-align--right" },
+        { content: "Networks", className: "u-align--right" },
+      ];
+
+      return (
+        <TablePagination data={data} pageLimits={[1, 2, 3]} position="below">
+          <MainTable
+            headers={headers}
+            rows={data}
+            sortabl
+          />
+        </TablePagination>
+      );
+    }}
+  </Story>
+</Canvas>

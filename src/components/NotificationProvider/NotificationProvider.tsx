@@ -9,10 +9,8 @@ import React, {
 import {
   NotificationType,
   NotificationHelper,
-  QueuedNotification,
   NotifyProviderProps,
 } from "./types";
-import { useLocation } from "react-router-dom";
 import isEqual from "lodash/isEqual";
 import { info, failure, success, queue } from "./messageBuilder";
 import Notification, { DefaultTitles } from "../Notification/Notification";
@@ -24,13 +22,17 @@ const NotifyContext = createContext<NotificationHelper>({
   success: () => undefined,
   info: () => undefined,
   queue: () => undefined,
+  setDeduplicated: () => undefined,
 });
 
-export const NotificationProvider: FC<NotifyProviderProps> = ({ children }) => {
+export const NotificationProvider: FC<NotifyProviderProps> = ({
+  children,
+  state,
+  pathname,
+}) => {
   const [notification, setNotification] = useState<NotificationType | null>(
     null
   );
-  const { state, pathname } = useLocation() as QueuedNotification;
 
   const clear = () => notification !== null && setNotification(null);
 
@@ -58,6 +60,7 @@ export const NotificationProvider: FC<NotifyProviderProps> = ({ children }) => {
       setDeduplicated(failure(title, error, message, actions)),
     info: (message, title) => setDeduplicated(info(message, title)),
     success: (message) => setDeduplicated(success(message)),
+    setDeduplicated,
   };
 
   return (

@@ -1,5 +1,6 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
 
+import { Button } from "../Button";
 import ContextualMenu from "./ContextualMenu";
 
 <Meta
@@ -37,6 +38,7 @@ export const ScrollTemplate = (args) => (
         voluptas odit aspernatur alias molestias facere.
       </p>
     )}
+    <ContextualMenu {...args} />
   </div>
 );
 
