@@ -28,6 +28,7 @@ export { default as MainTable } from "./components/MainTable";
 export { default as ModularTable } from "./components/ModularTable";
 export { default as Navigation } from "./components/Navigation";
 export { default as Modal } from "./components/Modal";
+export * from "./components/MultiSelect";
 export {
   default as Notification,
   NotificationSeverity,
