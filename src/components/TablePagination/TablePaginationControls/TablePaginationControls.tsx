@@ -2,7 +2,7 @@ import Button from "components/Button";
 import Icon from "components/Icon";
 import Input from "components/Input";
 import Select from "components/Select";
-import React, { ChangeEvent, HTMLAttributes, useRef } from "react";
+import React, { ChangeEvent, HTMLAttributes } from "react";
 import classnames from "classnames";
 import {
   generatePagingOptions,
@@ -38,8 +38,7 @@ const TablePaginationControls = ({
   onPageSizeChange,
   ...divProps
 }: Props): JSX.Element => {
-  const descriptionRef = useRef<HTMLDivElement>(null);
-  const isSmallScreen = useFigureSmallScreen({ descriptionRef });
+  const isSmallScreen = useFigureSmallScreen();
 
   const totalPages = Math.ceil(totalItems / pageSize);
   const descriptionDisplay = getDescription({
@@ -77,7 +76,7 @@ const TablePaginationControls = ({
       {...divProps}
       role="navigation"
     >
-      <div className="description" ref={descriptionRef}>
+      <div className="description" id="pagination-description">
         {descriptionDisplay}
       </div>
       <Button
@@ -111,7 +110,7 @@ const TablePaginationControls = ({
         <Icon name="chevron-down" />
       </Button>
       <Select
-        className="items-per-page"
+        className="u-no-margin--bottom"
         label="Items per page"
         labelClassName="u-off-screen"
         id="itemsPerPage"

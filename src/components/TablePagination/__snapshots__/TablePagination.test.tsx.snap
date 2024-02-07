@@ -7,6 +7,7 @@ exports[`<TablePagination /> renders table pagination and matches the snapshot 1
 >
   <div
     class="description"
+    id="pagination-description"
   >
     Showing all 5 items
   </div>
@@ -72,7 +73,7 @@ exports[`<TablePagination /> renders table pagination and matches the snapshot 1
         <select
           aria-describedby=""
           aria-invalid="false"
-          class="p-form-validation__input items-per-page"
+          class="p-form-validation__input u-no-margin--bottom"
           id="itemsPerPage"
         >
           <option

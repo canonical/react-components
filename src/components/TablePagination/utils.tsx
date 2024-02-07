@@ -2,25 +2,10 @@ import {
   Children,
   ReactElement,
   ReactNode,
-  RefObject,
   cloneElement,
   useEffect,
   useState,
 } from "react";
-
-/**
- * Determine if we are working with a small screen.
- * 'small screen' in this case is relative to the width of the description div
- */
-export const figureSmallScreen = (
-  descriptionRef: RefObject<HTMLDivElement>
-) => {
-  const descriptionElement = descriptionRef.current;
-  if (!descriptionElement) {
-    return true;
-  }
-  return descriptionElement.getBoundingClientRect().width < 230;
-};
 
 /**
  * Iterate direct react child components and override the value of the prop specified by @param dataForwardProp
@@ -78,20 +63,17 @@ export const getDescription = ({
   }`;
 };
 
-export const useFigureSmallScreen = (args: {
-  descriptionRef: RefObject<HTMLDivElement>;
-}) => {
-  const { descriptionRef } = args;
+export const useFigureSmallScreen = () => {
   const [isSmallScreen, setSmallScreen] = useState(false);
   useEffect(() => {
     const handleResize = () => {
-      setSmallScreen(figureSmallScreen(descriptionRef));
+      setSmallScreen(window.innerWidth < 620);
     };
     window.addEventListener("resize", handleResize);
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  }, [isSmallScreen, descriptionRef]);
+  }, []);
 
   return isSmallScreen;
 };
