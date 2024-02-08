@@ -36,9 +36,9 @@ export type Props = PropsWithSpread<
 
 /**
  * This is a [React](https://reactjs.org/) component for the Vanilla [Card](https://docs.vanillaframework.io/patterns/card/).
- * 
+ *
  * There are four card styles available to use in Vanilla: default, header, highlighted and overlay. Our card component will expand to fill the full width of its parent container.
-*/
+ */
 
 const Card = ({
   children,
