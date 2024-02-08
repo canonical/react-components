@@ -8,6 +8,18 @@ import {
 } from "react";
 
 /**
+ * Determine if we are working with a small screen.
+ * 'small screen' in this case is relative to the width of the description div
+ */
+export const figureSmallScreen = () => {
+  const descriptionElement = document.getElementById("pagination-description");
+  if (!descriptionElement) {
+    return true;
+  }
+  return descriptionElement.getBoundingClientRect().width < 230;
+};
+
+/**
  * Iterate direct react child components and override the value of the prop specified by @param dataForwardProp
  * for those child components.
  * @param children - react node children to iterate
@@ -67,7 +79,7 @@ export const useFigureSmallScreen = () => {
   const [isSmallScreen, setSmallScreen] = useState(false);
   useEffect(() => {
     const handleResize = () => {
-      setSmallScreen(window.innerWidth < 620);
+      setSmallScreen(figureSmallScreen());
     };
     window.addEventListener("resize", handleResize);
     return () => {
