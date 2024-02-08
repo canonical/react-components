@@ -5,7 +5,6 @@ exports[`<TablePaginationControls /> renders table pagination controls and match
   <button
     aria-label="Previous page"
     class="p-button--base has-icon back"
-    disabled=""
   >
     <i
       class="p-icon--chevron-down"
@@ -30,6 +29,6 @@ exports[`<TablePaginationControls /> renders table pagination controls and match
   id="paginationPageInput"
   label="Page number"
   type="number"
-  value="1"
+  value="0"
 />
 `;

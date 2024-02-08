@@ -1,28 +1,54 @@
 import Button from "components/Button";
 import Icon from "components/Icon";
 import Input from "components/Input";
-import React, { ChangeEvent } from "react";
+import Select from "components/Select";
+import React, { ChangeEvent, HTMLAttributes } from "react";
+import classnames from "classnames";
+import {
+  generatePagingOptions,
+  getDescription,
+  useFigureSmallScreen,
+} from "../utils";
+import {
+  BasePaginationProps,
+  ExternalControlProps,
+  InternalControlProps,
+} from "../TablePagination";
 
-export type Props = {
-  /**
-   * Callback function to handle a change in page number
-   */
-  onPageChange: (pageNumber: number) => void;
-  /**
-   * The current page of the data
-   */
-  currentPage: number;
-  /**
-   * The total number of pages that exists within the data
-   */
-  totalPages: number;
-};
+export type AllProps = BasePaginationProps &
+  InternalControlProps &
+  ExternalControlProps;
+
+export type Props = Omit<
+  AllProps,
+  "externallyControlled" | "dataForwardProp" | "position"
+> &
+  HTMLAttributes<HTMLDivElement>;
 
 const TablePaginationControls = ({
-  onPageChange,
+  data,
+  className,
+  itemName,
+  description,
+  pageLimits,
+  totalItems,
   currentPage,
-  totalPages,
+  pageSize,
+  onPageChange,
+  onPageSizeChange,
+  ...divProps
 }: Props): JSX.Element => {
+  const isSmallScreen = useFigureSmallScreen();
+
+  const totalPages = Math.ceil(totalItems / pageSize);
+  const descriptionDisplay = getDescription({
+    description,
+    data,
+    isSmallScreen,
+    totalItems,
+    itemName,
+  });
+
   const handleDecrementPage = (currentPage: number) => {
     if (currentPage > 1) {
       onPageChange(currentPage - 1);
@@ -40,8 +66,19 @@ const TablePaginationControls = ({
     onPageChange(newPage);
   };
 
+  const handlePageSizeChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    onPageSizeChange(parseInt(e.target.value));
+  };
+
   return (
-    <>
+    <div
+      className={classnames("pagination", className)}
+      {...divProps}
+      role="navigation"
+    >
+      <div className="description" id="pagination-description">
+        {descriptionDisplay}
+      </div>
       <Button
         aria-label="Previous page"
         className="back"
@@ -72,7 +109,16 @@ const TablePaginationControls = ({
       >
         <Icon name="chevron-down" />
       </Button>
-    </>
+      <Select
+        className="u-no-margin--bottom"
+        label="Items per page"
+        labelClassName="u-off-screen"
+        id="itemsPerPage"
+        options={generatePagingOptions(pageLimits)}
+        onChange={handlePageSizeChange}
+        value={pageSize}
+      />
+    </div>
   );
 };
 

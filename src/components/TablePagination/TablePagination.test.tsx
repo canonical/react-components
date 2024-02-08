@@ -62,7 +62,7 @@ describe("<TablePagination />", () => {
     expect(currentPageInput).toHaveValue(1);
   });
 
-  it("should paginate correctly in incrementing or decrementing directions", async () => {
+  it("should paginate correctly in locally controlled mode", async () => {
     render(<TablePagination data={dummyData} pageLimits={[1, 2, 5]} />);
     const incButton = screen.getByRole("button", { name: "Next page" });
     const decButton = screen.getByRole("button", { name: "Previous page" });
@@ -86,5 +86,151 @@ describe("<TablePagination />", () => {
     expect(currentPageInput).toHaveValue(3);
     await userEvent.click(decButton);
     expect(currentPageInput).toHaveValue(2);
+  });
+
+  it("should paginate correctly in externally controlled mode", async () => {
+    const totalItems = 100;
+    let currentPage = 1;
+    let pageSize = 10;
+    const handlePageChange = (page: number) => {
+      currentPage = page;
+    };
+    const handlePageSizeChange = (size: number) => {
+      currentPage = 1;
+      pageSize = size;
+    };
+    const { rerender } = render(
+      <TablePagination
+        data={dummyData}
+        pageLimits={[10, 20, 50]}
+        externallyControlled
+        totalItems={totalItems}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
+      />
+    );
+
+    const incButton = screen.getByRole("button", { name: "Next page" });
+    const decButton = screen.getByRole("button", { name: "Previous page" });
+    const currentPageInput = screen.getByRole("spinbutton", {
+      name: "Page number",
+    });
+    const pageSizeSelector = screen.getByRole("combobox", {
+      name: "Items per page",
+    });
+
+    expect(currentPageInput).toHaveValue(1);
+    await userEvent.click(decButton);
+    rerender(
+      <TablePagination
+        data={dummyData}
+        pageLimits={[10, 20, 50]}
+        externallyControlled
+        totalItems={totalItems}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
+      />
+    );
+    expect(currentPageInput).toHaveValue(1);
+
+    await userEvent.click(incButton);
+    rerender(
+      <TablePagination
+        data={dummyData}
+        pageLimits={[10, 20, 50]}
+        externallyControlled
+        totalItems={totalItems}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
+      />
+    );
+    expect(currentPageInput).toHaveValue(2);
+
+    await userEvent.selectOptions(pageSizeSelector, "20");
+    rerender(
+      <TablePagination
+        data={dummyData}
+        pageLimits={[10, 20, 50]}
+        externallyControlled
+        totalItems={totalItems}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
+      />
+    );
+    expect(currentPageInput).toHaveValue(1);
+
+    fireEvent.change(currentPageInput, { target: { value: 5 } });
+    rerender(
+      <TablePagination
+        data={dummyData}
+        pageLimits={[10, 20, 50]}
+        externallyControlled
+        totalItems={totalItems}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
+      />
+    );
+    expect(currentPageInput).toHaveValue(5);
+
+    await userEvent.click(incButton);
+    rerender(
+      <TablePagination
+        data={dummyData}
+        pageLimits={[10, 20, 50]}
+        externallyControlled
+        totalItems={totalItems}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
+      />
+    );
+    expect(currentPageInput).toHaveValue(5);
+
+    await userEvent.click(decButton);
+    rerender(
+      <TablePagination
+        data={dummyData}
+        pageLimits={[10, 20, 50]}
+        externallyControlled
+        totalItems={totalItems}
+        currentPage={currentPage}
+        pageSize={pageSize}
+        onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
+      />
+    );
+    expect(currentPageInput).toHaveValue(4);
+  });
+
+  it("should throw an error if pageSize is not in pageLimits when externally controlled", () => {
+    // Don't print out massive error logs for this test
+    console.error = () => "";
+    expect(() =>
+      render(
+        <TablePagination
+          data={dummyData}
+          pageLimits={[10, 20, 50]}
+          externallyControlled
+          totalItems={100}
+          currentPage={1}
+          pageSize={5}
+          onPageChange={jest.fn()}
+          onPageSizeChange={jest.fn()}
+        />
+      )
+    ).toThrow(
+      "pageSize must be a valid option in pageLimits, pageLimits is set to [10,20,50]"
+    );
   });
 });
