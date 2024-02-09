@@ -3,10 +3,18 @@
 .pagination {
   align-items: baseline;
   display: flex;
-  margin-top: 1.2rem;
+  margin: $spv--large 0;
+
+  @media screen and (max-width: $breakpoint-small) {
+    justify-content: flex-end;
+  }
 
   .description {
     flex-grow: 1;
+
+    @media screen and (max-width: $breakpoint-small) {
+      display: none;
+    }
   }
 
   .back {
