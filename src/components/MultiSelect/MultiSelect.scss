@@ -1,5 +1,6 @@
 @use "sass:map";
 
+// stylelint-disable-next-line scss/load-no-partial-leading-underscore
 @import "~vanilla-framework/scss/_base_forms";
 @import "~vanilla-framework/scss/base_placeholders";
 @import "~vanilla-framework/scss/base_icon-definitions";
