@@ -23,7 +23,6 @@ exports[`<TablePaginationControls /> renders table pagination controls and match
 
 exports[`<TablePaginationControls /> renders table pagination controls and matches the snapshot 2`] = `
 <input
-  aria-describedby=""
   aria-invalid="false"
   class="p-form-validation__input u-no-margin--bottom pagination-input"
   id="paginationPageInput"

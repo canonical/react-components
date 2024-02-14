@@ -9,7 +9,6 @@ exports[`Input renders 1`] = `
       class="p-form__control u-clearfix"
     >
       <input
-        aria-describedby=""
         aria-invalid="false"
         class="p-form-validation__input"
         id="test-id"

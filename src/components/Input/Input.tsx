@@ -100,10 +100,11 @@ const Input = ({
   const helpId = useId();
   const hasError = !!error;
 
+  const description = [help ? helpId : null, success ? validationId : null]
+    .filter(Boolean)
+    .join(" ");
   const commonProps = {
-    "aria-describedby": [help ? helpId : null, success ? validationId : null]
-      .filter(Boolean)
-      .join(" "),
+    "aria-describedby": !description ? undefined : description,
     "aria-errormessage": hasError ? validationId : null,
     "aria-invalid": hasError,
     id: inputId,
