@@ -1,9 +1,16 @@
-import { useRef } from "react";
-import { nanoid } from "nanoid";
+import { useId as useIdReact } from "react";
+
+import { IS_DEV } from "utils";
 
 /**
- * A hook that returns the same random ID string on every render.
- * Can be used as a value for HTML "id" attributes.
- * @returns random ID string
+ * @deprecated Code component is deprecated. Use CodeSnippet component or inline `<code>` instead.
  */
-export const useId = (): string => useRef(nanoid()).current;
+export const useId = () => {
+  const id = useIdReact();
+  if (IS_DEV) {
+    console.warn(
+      'The useId hook has been deprecated. Use `import { useId } from "react";` instead.'
+    );
+  }
+  return id;
+};

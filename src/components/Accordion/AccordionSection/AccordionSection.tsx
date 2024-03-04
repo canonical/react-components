@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useId } from "react";
 import type { ReactNode } from "react";
 
 import type { Headings } from "types";
-import { useId } from "hooks/useId";
 
 export type AccordionHeadings = Exclude<Headings, "h1">;
 

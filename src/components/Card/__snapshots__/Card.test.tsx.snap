@@ -2,13 +2,13 @@
 
 exports[`Card  renders 1`] = `
 <div
-  aria-labelledby="mock-nanoid-1"
+  aria-labelledby=":r0:"
   class="p-card"
   role="group"
 >
   <h3
     class="p-card__title"
-    id="mock-nanoid-1"
+    id=":r0:"
   >
     This is the title
   </h3>

@@ -1,12 +1,12 @@
 import type { HTMLProps } from "react";
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useId, useRef, useState } from "react";
 
 import classNames from "classnames";
 
 import NavigationLink from "../NavigationLink";
 import type { GenerateLink, NavMenu } from "../types";
 import { PropsWithSpread } from "types";
-import { useOnClickOutside, useId } from "hooks";
+import { useOnClickOutside } from "hooks";
 
 type Props = PropsWithSpread<
   NavMenu & {

@@ -10,10 +10,10 @@ exports[`AccordionSection  renders 1`] = `
     role="heading"
   >
     <button
-      aria-controls="#mock-nanoid-1"
+      aria-controls="#:r0:"
       aria-expanded="false"
       class="p-accordion__tab"
-      id="mock-nanoid-2"
+      id=":r1:"
       role="tab"
       type="button"
     >
@@ -22,9 +22,9 @@ exports[`AccordionSection  renders 1`] = `
   </div>
   <section
     aria-hidden="true"
-    aria-labelledby="mock-nanoid-2"
+    aria-labelledby=":r1:"
     class="p-accordion__panel"
-    id="mock-nanoid-1"
+    id=":r0:"
     role="tabpanel"
   >
     <span>

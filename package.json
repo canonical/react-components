@@ -90,13 +90,12 @@
   },
   "dependencies": {
     "@types/jest": "29.5.11",
-    "@types/node": "18.19.4",
+    "@types/node": "20.8.5",
     "@types/react": "18.2.46",
     "@types/react-dom": "18.2.18",
     "@types/react-table": "7.7.19",
     "classnames": "2.5.1",
     "jest-environment-jsdom": "29.7.0",
-    "nanoid": "5.0.4",
     "prop-types": "15.8.1",
     "react-table": "7.8.0",
     "react-useportal": "1.0.19"

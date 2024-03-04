@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useId, useRef } from "react";
 import type {
   ChangeEventHandler,
   ReactNode,
@@ -10,7 +10,6 @@ import type {
 import Field from "../Field";
 
 import type { ClassName, PropsWithSpread } from "types";
-import { useId } from "hooks";
 
 type Option = OptionHTMLAttributes<HTMLOptionElement>;
 

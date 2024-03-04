@@ -1,11 +1,16 @@
 import classNames from "classnames";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, {
+  useEffect,
+  useId,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from "react";
 import type { TextareaHTMLAttributes, ReactNode } from "react";
 
 import Field from "../Field";
 
 import type { ClassName, PropsWithSpread } from "types";
-import { useId } from "hooks";
 
 /**
  * The props for the Textarea component.

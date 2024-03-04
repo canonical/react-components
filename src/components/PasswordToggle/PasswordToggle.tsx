@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useState } from "react";
+import React, { useId, useState } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
 
 import Button from "../Button";
@@ -7,7 +7,6 @@ import Field from "../Field";
 import VanillaLabel from "../Label";
 
 import type { ClassName, PropsWithSpread } from "types";
-import { useId } from "hooks";
 
 export enum Label {
   Hide = "Hide",
