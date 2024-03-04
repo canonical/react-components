@@ -1,9 +1,9 @@
 import classNames from "classnames";
-import React, { useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { MouseEventHandler, ReactNode } from "react";
 import usePortal from "react-useportal";
 
-import { useWindowFitment, useListener, useId } from "hooks";
+import { useWindowFitment, useListener } from "hooks";
 import type { WindowFitment } from "hooks";
 
 import type { ClassName, ValueOf } from "types";

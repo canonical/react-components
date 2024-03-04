@@ -1,15 +1,10 @@
 import React from "react";
-import * as nanoid from "nanoid";
 
 import Accordion from "./Accordion";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
 describe("Accordion", () => {
-  beforeEach(() => {
-    jest.spyOn(nanoid, "nanoid").mockReturnValueOnce("mocked-nanoid");
-  });
-
   afterEach(() => {
     jest.restoreAllMocks();
   });
@@ -69,10 +64,7 @@ describe("Accordion", () => {
     );
     const tab = screen.getByRole("tab", { name: "Advanced topics" });
     await userEvent.click(tab);
-    expect(onExpandedChange).toHaveBeenCalledWith(
-      "mocked-nanoid",
-      "Advanced topics"
-    );
+    expect(onExpandedChange).toHaveBeenCalledWith(":r6:", "Advanced topics");
     // Clicking the tab again should close the accordion section.
     await userEvent.click(tab);
     expect(onExpandedChange).toHaveBeenCalledWith(null, null);

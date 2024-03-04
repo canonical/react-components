@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useId } from "react";
 import type { ChangeEventHandler, HTMLProps, ReactNode } from "react";
 
 import Field from "../Field";
 
 import type { PropsWithSpread } from "types";
-import { useId } from "hooks";
 
 export const FILLED_COLOR = "#0066CC";
 export const EMPTY_COLOR = "#D9D9D9";

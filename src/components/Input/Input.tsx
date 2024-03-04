@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useId, useRef } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
 
 import Field from "../Field";
@@ -7,7 +7,6 @@ import CheckboxInput from "../CheckboxInput";
 import RadioInput from "../RadioInput";
 
 import type { ClassName, PropsWithSpread } from "types";
-import { useId } from "hooks";
 
 /**
  * The props for the Input component.

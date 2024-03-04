@@ -18,10 +18,10 @@ exports[`Accordion renders 1`] = `
         role="heading"
       >
         <button
-          aria-controls="#mocked-nanoid"
+          aria-controls="#:r0:"
           aria-expanded="false"
           class="p-accordion__tab"
-          id="mock-nanoid-1"
+          id=":r1:"
           role="tab"
           type="button"
         >
@@ -30,9 +30,9 @@ exports[`Accordion renders 1`] = `
       </div>
       <section
         aria-hidden="true"
-        aria-labelledby="mock-nanoid-1"
+        aria-labelledby=":r1:"
         class="p-accordion__panel"
-        id="mocked-nanoid"
+        id=":r0:"
         role="tabpanel"
       >
         test content
@@ -47,10 +47,10 @@ exports[`Accordion renders 1`] = `
         role="heading"
       >
         <button
-          aria-controls="#mock-nanoid-2"
+          aria-controls="#:r2:"
           aria-expanded="false"
           class="p-accordion__tab"
-          id="mock-nanoid-3"
+          id=":r3:"
           role="tab"
           type="button"
         >
@@ -59,9 +59,9 @@ exports[`Accordion renders 1`] = `
       </div>
       <section
         aria-hidden="true"
-        aria-labelledby="mock-nanoid-3"
+        aria-labelledby=":r3:"
         class="p-accordion__panel"
-        id="mock-nanoid-2"
+        id=":r2:"
         role="tabpanel"
       >
         More test content

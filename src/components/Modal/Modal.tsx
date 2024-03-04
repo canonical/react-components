@@ -1,8 +1,7 @@
 import classNames from "classnames";
-import React, { ReactElement, useRef, useEffect } from "react";
+import React, { ReactElement, useId, useRef, useEffect } from "react";
 import type { HTMLProps, ReactNode, MutableRefObject, RefObject } from "react";
 import { ClassName, PropsWithSpread } from "types";
-import { useId } from "hooks/useId";
 
 export type Props = PropsWithSpread<
   {
