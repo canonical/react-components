@@ -15,7 +15,7 @@ exports[`NotificationProvider stores and renders notifications 1`] = `
           class="p-notification__title"
           data-testid="notification-title"
         >
-          Success
+          Test success
         </h5>
         <p
           class="p-notification__message"

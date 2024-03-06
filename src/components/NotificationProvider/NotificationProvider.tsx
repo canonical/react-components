@@ -59,7 +59,7 @@ export const NotificationProvider: FC<NotifyProviderProps> = ({
     failure: (title, error, message, actions) =>
       setDeduplicated(failure(title, error, message, actions)),
     info: (message, title) => setDeduplicated(info(message, title)),
-    success: (message) => setDeduplicated(success(message)),
+    success: (message, title) => setDeduplicated(success(message, title)),
     setDeduplicated,
   };
 

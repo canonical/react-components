@@ -16,7 +16,7 @@ describe("NotificationProvider", () => {
 
     const TriggerComponent = () => {
       const notify = useNotify();
-      const handleSuccess = () => notify.success("My success!");
+      const handleSuccess = () => notify.success("My success!", "Test success");
       const handleClear = () => notify.clear();
       const handleInfo = () => notify.info("Some more details", "Test info");
       const handleError = () =>

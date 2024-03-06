@@ -18,9 +18,13 @@ export const info = (message: ReactNode, title?: string): NotificationType => {
   };
 };
 
-export const success = (message: ReactNode): NotificationType => {
+export const success = (
+  message: ReactNode,
+  title?: string
+): NotificationType => {
   return {
     message,
+    title,
     type: NotificationSeverity.POSITIVE,
   };
 };
