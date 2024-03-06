@@ -39,7 +39,7 @@ export interface NotificationHelper {
     actions?: NotificationAction[]
   ) => NotificationType;
   info: (message: ReactNode, title?: string) => NotificationType;
-  success: (message: ReactNode) => NotificationType;
+  success: (message: ReactNode, title?: string) => NotificationType;
   queue: (notification: NotificationType) => QueuedNotification;
   setDeduplicated: (value: NotificationType) => NotificationType;
 }
