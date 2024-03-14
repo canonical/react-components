@@ -1,7 +1,4 @@
-@import "~vanilla-framework/scss/settings";
-@import "~vanilla-framework/scss/base_placeholders";
-@import "~vanilla-framework/scss/base_icon-definitions";
-@import "~vanilla-framework/scss/patterns_icons";
+@import "vanilla-framework";
 
 @include vf-b-placeholders;
 @include vf-p-icons-common;
