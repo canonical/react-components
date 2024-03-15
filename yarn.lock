@@ -14500,10 +14500,10 @@ validate-npm-package-name@^5.0.0:
   dependencies:
     builtins "^5.0.0"
 
-vanilla-framework@4.6.0:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/vanilla-framework/-/vanilla-framework-4.6.0.tgz#61b93a2197eed0d869f85e1014dd9e67bacc355e"
-  integrity sha512-pRjJknqsL4CLA+ovLMlg7MhVh9nIcu7Ev81Z62gh3hAzUDIiZOUI2W9+B16XWv4QFmFxEOgQcfVi2cezLun9SQ==
+vanilla-framework@4.9.0:
+  version "4.9.0"
+  resolved "https://registry.yarnpkg.com/vanilla-framework/-/vanilla-framework-4.9.0.tgz#7566b42a22c2394ea1d7ea843d24ec305446cb3e"
+  integrity sha512-iTmvqWlsX0ic69VZ1sR9NPQtYRR9+iM679HZCl7SDQhMQSsEeJEQ6Ejjen3JN5a7YxiYmeIhxaLlmC4rExRT1w==
 
 vary@~1.1.2:
   version "1.1.2"
@@ -14783,7 +14783,6 @@ wrap-ansi@^6.2.0:
     strip-ansi "^6.0.0"
 
 wrap-ansi@^7.0.0:
-  name wrap-ansi-cjs
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha512-YVGIj2kamLSTxw6NsZjoBxfSwsn0ycdesmc4p+Q21c5zPuZ1pl+NfxVdxPtdHvmNVOQ6XSYG4AUtyt/Fi7D16Q==
