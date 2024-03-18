@@ -1,138 +1,15 @@
 @use "sass:map";
 @import "vanilla-framework";
+@include vf-b-placeholders; // Vanilla base placeholders to extend from
 
 $dropdown-max-height: 20rem;
 
-// XXX: Temporarly we are duplicating some of the placeholders defined in Vanilla
-// to avoid conflict of including the duplicate of base Vanilla in React components.
-// This is a temporary solution until we have a better way to handle this.
-
-// as in Vanilla _base_placeholders.scss
-%vf-hide-text {
-  overflow: hidden;
-  text-indent: 110vw;
-  white-space: nowrap;
-}
-
-// as in Vanilla _base_placeholders.scss
-%icon {
-  $vertical-offset: 0.5px;
-  @extend %vf-hide-text;
-  @include vf-icon-size($default-icon-size);
-  background: {
-    position: center;
-    repeat: no-repeat;
-  }
-
-  display: inline-block;
-  font-size: inherit; // allow icons to match size of parent text element, when set in em
-  margin: 0;
-  padding: 0;
-  position: relative;
-  vertical-align: calc(
-    $vertical-offset + 0.5 * $cap-height - 0.5 * $default-icon-size
-  );
-}
-
-// as in Vanilla _base_forms.scss
-%vf-disabled-element {
-  cursor: not-allowed;
-  opacity: $disabled-element-opacity;
-}
-
-// as in Vanilla _base_forms.scss
-%vf-readonly-element {
-  color: $color-mid-light;
-  cursor: default;
-
-  &:hover,
-  &:active {
-    border-color: $color-mid-dark;
-    outline: none;
-  }
-}
-
-// as in Vanilla _base_forms.scss
-%bordered-text-vertical-padding {
-  padding-bottom: $input-vertical-padding;
-  padding-top: $input-vertical-padding;
-}
-
-// as in Vanilla _base_forms.scss
-%vf-input-elements {
-  @extend %bordered-text-vertical-padding;
-  @include vf-focus($color-focus, $bar-thickness, true);
-  @include vf-animation(#{background-color}, fast);
-
-  // stylelint-disable property-no-vendor-prefix
-  -webkit-appearance: textfield;
-  -moz-appearance: textfield;
-  appearance: textfield;
-  // stylelint-enable property-no-vendor-prefix
-  background-color: $colors--theme--background-inputs;
-  border: 0 solid transparent;
-  border-bottom: $input-border-thickness solid
-    $colors--theme--border-high-contrast;
-  border-radius: 0;
-  color: $colors--theme--text-default;
-  font-family: unquote($font-base-family);
-  font-size: 1rem;
-  font-weight: $font-weight-regular-text;
-  line-height: map-get($line-heights, default-text);
-  margin-bottom: $input-margin-bottom;
-  min-width: 8em;
-  padding-left: $sph--small;
-  padding-right: $sph--small;
-  vertical-align: baseline;
-  width: 100%;
-
-  &:hover {
-    background-color: $colors--theme--background-hover;
-  }
-
-  &:active,
-  &:focus {
-    background-color: $colors--theme--background-active;
-  }
-
-  option,
-  option:checked {
-    background-color: $colors--theme--background-alt;
-    color: $colors--theme--text-default;
-  }
-
-  option:checked:not(:disabled) {
-    background-color: $colors--theme--background-active;
-  }
-
-  &::placeholder {
-    color: $colors--theme--text-muted;
-  }
-
-  &.is-dense {
-    margin: 0 0 $spv-nudge-compensation 0;
-    padding-bottom: calc($spv-nudge - $spv--x-small - $input-border-thickness);
-    padding-top: calc($spv-nudge - $spv--x-small - $input-border-thickness);
-  }
-
-  &[disabled],
-  &[disabled="disabled"] {
-    @extend %vf-disabled-element;
-  }
-
-  &[readonly],
-  &[readonly="readonly"] {
-    @extend %vf-readonly-element;
-  }
-
-  @each $state, $color in $states {
-    &.has-#{$state} {
-      border: $input-border-thickness solid $color;
-    }
-  }
-}
-
 .multi-select {
+  // Scope Vanilla form includes to multi select component only
+  // to avoid overriding any Vanilla base styles
+  // XXX: This is a workaround for https://github.com/canonical/vanilla-framework/issues/5030
+  @include vf-b-forms;
+
   position: relative;
 }
 
