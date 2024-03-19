@@ -1,11 +1,15 @@
 @use "sass:map";
 @import "vanilla-framework";
-@include vf-base;
-@include vf-p-lists;
+@include vf-b-placeholders; // Vanilla base placeholders to extend from
 
 $dropdown-max-height: 20rem;
 
 .multi-select {
+  // Scope Vanilla form includes to multi select component only
+  // to avoid overriding any Vanilla base styles
+  // XXX: This is a workaround for https://github.com/canonical/vanilla-framework/issues/5030
+  @include vf-b-forms;
+
   position: relative;
 }
 
@@ -37,12 +41,12 @@ $dropdown-max-height: 20rem;
 }
 
 .multi-select__dropdown {
-  @extend %vf-bg--x-light;
-  @extend %vf-has-box-shadow;
+  background-color: $colors--theme--background-default;
+  box-shadow: $box-shadow;
+  color: $colors--theme--text-default;
   left: 0;
   max-height: $dropdown-max-height;
   overflow: auto;
-
   padding-top: $spv--small;
   position: absolute;
   right: 0;
@@ -59,14 +63,15 @@ $dropdown-max-height: 20rem;
 }
 
 .multi-select__dropdown-list {
-  @extend %vf-list;
-
+  list-style: none;
   margin-bottom: $sph--x-small;
+  margin-left: 0;
+  padding-left: 0;
 }
 
 .multi-select__footer {
-  background: white;
-  border-top: 1px solid $color-mid-light;
+  background: $colors--theme--background-default;
+  border-top: 1px solid $colors--theme--border-default;
   bottom: 0;
   display: flex;
   flex-wrap: wrap;
@@ -97,12 +102,6 @@ $dropdown-max-height: 20rem;
   }
 }
 
-.multi-select__dropdown-item-description {
-  @extend %small-text;
-
-  color: $color-mid-dark;
-}
-
 .multi-select__dropdown-button {
   border: 0;
   margin-bottom: 0;
@@ -113,7 +112,7 @@ $dropdown-max-height: 20rem;
 }
 
 .multi-select__selected-list {
-  background-color: $colors--light-theme--background-inputs;
+  background-color: $colors--theme--background-inputs;
   border-bottom: 0;
   margin: 0;
   overflow: hidden;
@@ -142,12 +141,12 @@ $dropdown-max-height: 20rem;
     transform: translateY(-50%) rotate(-180deg);
 
     @extend %icon;
-    @include vf-icon-chevron($color-mid-dark);
+    @include vf-icon-chevron-themed;
     @include vf-transition($property: transform, $duration: fast);
   }
 
   &[aria-expanded="true"] {
-    background-color: $colors--light-theme--background-hover;
+    background-color: $colors--theme--background-hover;
   }
 
   &[aria-expanded="false"] {
