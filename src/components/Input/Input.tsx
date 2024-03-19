@@ -107,7 +107,6 @@ const Input = ({
     "aria-errormessage": hasError ? validationId : null,
     "aria-invalid": hasError,
     id: inputId,
-    label: label,
     required: required,
     ...inputProps,
   };

@@ -10,6 +10,12 @@ describe("Input", () => {
     expect(screen.getByRole("textbox")).toHaveAccessibleName("text label");
   });
 
+  it("can display JSX labels for text inputs", () => {
+    render(<Input type="text" label={<>text label</>} />);
+    expect(screen.getByText("text label")).toHaveClass("p-form__label");
+    expect(screen.getByRole("textbox")).toHaveAccessibleName("text label");
+  });
+
   it("moves the label for radio buttons", () => {
     render(<Input type="radio" label="text label" />);
     expect(
