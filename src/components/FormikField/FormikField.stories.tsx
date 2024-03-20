@@ -16,14 +16,30 @@ export default meta;
 type Story = StoryObj<typeof FormikField>;
 
 export const Default: Story = {
-  render: () => (
+  args: {
+    name: "username",
+    label: "Username",
+    type: "text",
+  },
+  render: (args) => (
     <Formik initialValues={{ username: "" }} onSubmit={() => {}}>
-      <FormikField name="username" label="Username" type="text" />
+      <FormikField {...args} />
     </Formik>
   ),
 };
 
 export const Fields: Story = {
+  args: {
+    component: Select,
+    name: "release",
+    label: "Release",
+    options: [
+      { value: "", disabled: true, label: "Select an option" },
+      { value: "1", label: "Cosmic Cuttlefish" },
+      { value: "2", label: "Bionic Beaver" },
+      { value: "3", label: "Xenial Xerus" },
+    ],
+  },
   parameters: {
     docs: {
       description: {
@@ -35,24 +51,15 @@ Any additional props that need to be passed can be given to FormikField.
       },
     },
   },
-  render: () => (
+  render: (args) => (
     <Formik initialValues={{ release: "" }} onSubmit={() => {}}>
-      <FormikField
-        component={Select}
-        name="release"
-        label="Release"
-        options={[
-          { value: "", disabled: true, label: "Select an option" },
-          { value: "1", label: "Cosmic Cuttlefish" },
-          { value: "2", label: "Bionic Beaver" },
-          { value: "3", label: "Xenial Xerus" },
-        ]}
-      />
+      <FormikField {...args} />
     </Formik>
   ),
 };
 
 export const Errors: Story = {
+  args: Default.args,
   parameters: {
     docs: {
       description: {
@@ -62,14 +69,14 @@ Formik parameters are passed to the field using Formik's \`useField\`. This mean
       },
     },
   },
-  render: () => (
+  render: (args) => (
     <Formik
       initialErrors={{ username: "This username has already been taken." }}
       initialTouched={{ username: true }}
       initialValues={{ username: "" }}
       onSubmit={() => {}}
     >
-      <FormikField name="username" label="Username" type="text" />
+      <FormikField {...args} />
     </Formik>
   ),
 };

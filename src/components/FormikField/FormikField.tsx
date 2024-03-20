@@ -10,7 +10,8 @@ import Input from "components/Input";
 
 export type Props<C extends ElementType | ComponentType = typeof Input> = {
   /**
-   * The component to display. Defaults to `Input`.
+   * The component to display.
+   * @default Input
    */
   component?: C;
   /**

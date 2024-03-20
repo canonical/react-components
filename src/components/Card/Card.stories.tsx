@@ -38,7 +38,15 @@ export const Highlighted = {
 };
 
 export const Overlay = {
-  render: () => (
+  args: {
+    title: "Web browsing",
+    overlay: true,
+    children: `Renowned for speed and security, Ubuntu and Firefox make browsing
+the web a pleasure again. Ubuntu also includes Chrome, Opera and
+other browsers that can be installed from the Ubuntu Software
+Centre.`,
+  },
+  render: (args) => (
     <section
       className="p-strip--image is-light"
       style={{
@@ -48,12 +56,7 @@ export const Overlay = {
     >
       <Row>
         <Col size={6} emptyLarge={7}>
-          <Card title="Web browsing" overlay>
-            Renowned for speed and security, Ubuntu and Firefox make browsing
-            the web a pleasure again. Ubuntu also includes Chrome, Opera and
-            other browsers that can be installed from the Ubuntu Software
-            Centre.
-          </Card>
+          <Card {...args} />
         </Col>
       </Row>
     </section>
