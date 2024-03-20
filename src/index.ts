@@ -18,6 +18,7 @@ export { default as ContextualMenu } from "./components/ContextualMenu";
 export { default as EmptyState } from "./components/EmptyState";
 export { default as Field } from "./components/Field";
 export { default as Form } from "./components/Form";
+export { default as FormikField } from "./components/FormikField";
 export { default as Icon, ICONS } from "./components/Icon";
 export { default as Input } from "./components/Input";
 export { default as Label } from "./components/Label";
@@ -93,6 +94,7 @@ export type {
 export type { EmptyStateProps } from "./components/EmptyState";
 export type { FieldProps } from "./components/Field";
 export type { FormProps } from "./components/Form";
+export type { FormikFieldProps } from "./components/FormikField";
 export type { IconProps } from "./components/Icon";
 export type { InputProps } from "./components/Input";
 export type { LabelProps } from "./components/Label";

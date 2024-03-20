@@ -55,6 +55,7 @@ Finally, in your project, add the resolutions for `react` and `react-dom` to `pa
 ```
 "resolutions": {
     "@canonical/react-components": "portal:path_to_react_components",
+    "formik": "portal:path_to_react_components/node_modules/formik",
     "react": "portal:path_to_react_components/node_modules/react",
     "react-dom": "portal:path_to_react_components/node_modules/react-dom"
 }
