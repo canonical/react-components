@@ -25,6 +25,10 @@ export type Props = PropsWithSpread<
      * The title of the modal.
      */
     title?: ReactNode | null;
+    /**
+     * Whether the button click event should propagate.
+     */
+    shouldPropagateClickEvent?: boolean;
   },
   HTMLProps<HTMLDivElement>
 >;
@@ -35,6 +39,7 @@ export const Modal = ({
   className,
   close,
   title,
+  shouldPropagateClickEvent,
   ...wrapperProps
 }: Props): ReactElement => {
   // list of focusable selectors is based on this Stack Overflow answer:
@@ -77,7 +82,9 @@ export const Modal = ({
     } else if (e.stopPropagation) {
       e.stopPropagation();
     }
-    close();
+    if (close) {
+      close();
+    }
   };
 
   const keyListenersMap = new Map([
@@ -102,7 +109,7 @@ export const Modal = ({
   }, [close]);
 
   useEffect(() => {
-    const keyDown = (e) => {
+    const keyDown = (e: KeyboardEvent) => {
       const listener = keyListenersMap.get(e.code);
       return listener && listener(e);
     };
@@ -121,15 +128,24 @@ export const Modal = ({
     shouldClose.current = false;
   };
 
-  const handleOverlayOnMouseDown = (event) => {
-    if (event.target === modalRef.current) {
+  const handleOverlayOnMouseDown = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === modalRef.current) {
       shouldClose.current = true;
     }
   };
 
-  const handleOverlayOnClick = () => {
-    if (shouldClose.current) {
+  const handleClose = (e: React.MouseEvent) => {
+    if (!shouldPropagateClickEvent) {
+      e.stopPropagation();
+    }
+    if (close) {
       close();
+    }
+  };
+
+  const handleOverlayOnClick = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (shouldClose.current) {
+      handleClose(e);
     }
   };
 
@@ -159,7 +175,7 @@ export const Modal = ({
               <button
                 className="p-modal__close"
                 aria-label="Close active modal"
-                onClick={close}
+                onClick={handleClose}
               >
                 Close
               </button>

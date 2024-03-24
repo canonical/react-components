@@ -43,18 +43,32 @@ export const ConfirmationModal = ({
   onConfirm,
   ...props
 }: Props): ReactElement => {
+  const handleClick =
+    (action: Function | null | undefined) =>
+    (e: MouseEvent<HTMLButtonElement>) => {
+      if (!props.shouldPropagateClickEvent) {
+        e.stopPropagation();
+      }
+      if (action) {
+        action(e);
+      }
+    };
+
   return (
     <Modal
       buttonRow={
         <>
           {confirmExtra}
-          <Button className="u-no-margin--bottom" onClick={props.close}>
+          <Button
+            className="u-no-margin--bottom"
+            onClick={handleClick(props.close)}
+          >
             {cancelButtonLabel}
           </Button>
           <Button
             appearance={confirmButtonAppearance}
             className="u-no-margin--bottom"
-            onClick={onConfirm}
+            onClick={handleClick(onConfirm)}
           >
             {confirmButtonLabel}
           </Button>
