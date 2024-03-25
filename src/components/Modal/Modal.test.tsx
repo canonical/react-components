@@ -153,7 +153,7 @@ describe("Modal ", () => {
     const closeButton = container.querySelector("button.p-modal__close");
     expect(closeButton).not.toBeNull();
     await userEvent.click(closeButton!);
-    expect(handleExternalClick).toHaveBeenCalledTimes(0);
+    expect(handleExternalClick).not.toHaveBeenCalled();
   });
 
   it("should propagate click event on close", async () => {

@@ -71,7 +71,7 @@ describe("ConfirmationModal ", () => {
     );
 
     await userEvent.click(screen.getByText("Go back"));
-    expect(handleExternalClick).toHaveBeenCalledTimes(0);
+    expect(handleExternalClick).not.toHaveBeenCalled();
   });
 
   it("should propagate click event on cancel", async () => {
@@ -104,7 +104,7 @@ describe("ConfirmationModal ", () => {
     );
 
     await userEvent.click(screen.getByText("Proceed"));
-    expect(handleExternalClick).toHaveBeenCalledTimes(0);
+    expect(handleExternalClick).not.toHaveBeenCalled();
   });
 
   it("should propagate click event on confirm", async () => {
