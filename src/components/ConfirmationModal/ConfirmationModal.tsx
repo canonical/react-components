@@ -29,7 +29,7 @@ export type Props = PropsWithSpread<
     /**
      * Function to perform the action prompted by the modal.
      */
-    onConfirm: (e: MouseEvent<HTMLElement>) => void;
+    onConfirm: (event: MouseEvent<HTMLElement>) => void;
   },
   Omit<ModalProps, "buttonRow">
 >;
@@ -44,13 +44,13 @@ export const ConfirmationModal = ({
   ...props
 }: Props): ReactElement => {
   const handleClick =
-    (action: Function | null | undefined) =>
-    (e: MouseEvent<HTMLButtonElement>) => {
+    <A extends Function>(action: A | null | undefined) =>
+    (event: MouseEvent<HTMLButtonElement>) => {
       if (!props.shouldPropagateClickEvent) {
-        e.stopPropagation();
+        event.stopPropagation();
       }
       if (action) {
-        action(e);
+        action(event);
       }
     };
 
