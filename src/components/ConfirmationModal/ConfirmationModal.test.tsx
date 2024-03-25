@@ -55,4 +55,73 @@ describe("ConfirmationModal ", () => {
     await userEvent.click(screen.getByText("Proceed"));
     expect(onConfirm).toHaveBeenCalled();
   });
+
+  it("should stop click event propagation on cancel by default", async () => {
+    const handleExternalClick = jest.fn();
+    render(
+      <div onClick={handleExternalClick}>
+        <ConfirmationModal
+          cancelButtonLabel="Go back"
+          confirmButtonLabel="Proceed"
+          onConfirm={jest.fn()}
+        >
+          Test click propagation
+        </ConfirmationModal>
+      </div>
+    );
+
+    await userEvent.click(screen.getByText("Go back"));
+    expect(handleExternalClick).toHaveBeenCalledTimes(0);
+  });
+
+  it("should propagate click event on cancel", async () => {
+    const handleExternalClick = jest.fn();
+    render(
+      <div onClick={handleExternalClick}>
+        <ConfirmationModal
+          cancelButtonLabel="Go back"
+          confirmButtonLabel="Proceed"
+          onConfirm={jest.fn()}
+          shouldPropagateClickEvent={true}
+        >
+          Test click propagation
+        </ConfirmationModal>
+      </div>
+    );
+
+    await userEvent.click(screen.getByText("Go back"));
+    expect(handleExternalClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("should stop click event propagation on confirm by default", async () => {
+    const handleExternalClick = jest.fn();
+    render(
+      <div onClick={handleExternalClick}>
+        <ConfirmationModal confirmButtonLabel="Proceed" onConfirm={jest.fn()}>
+          Test click propagation
+        </ConfirmationModal>
+      </div>
+    );
+
+    await userEvent.click(screen.getByText("Proceed"));
+    expect(handleExternalClick).toHaveBeenCalledTimes(0);
+  });
+
+  it("should propagate click event on confirm", async () => {
+    const handleExternalClick = jest.fn();
+    render(
+      <div onClick={handleExternalClick}>
+        <ConfirmationModal
+          confirmButtonLabel="Proceed"
+          onConfirm={jest.fn()}
+          shouldPropagateClickEvent={true}
+        >
+          Test click propagation
+        </ConfirmationModal>
+      </div>
+    );
+
+    await userEvent.click(screen.getByText("Proceed"));
+    expect(handleExternalClick).toHaveBeenCalledTimes(1);
+  });
 });

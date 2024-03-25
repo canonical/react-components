@@ -139,4 +139,36 @@ describe("Modal ", () => {
     expect(mockHandleModalClose).toHaveBeenCalledTimes(1);
     expect(mockHandleEscPress).not.toHaveBeenCalled();
   });
+
+  it("should stop click event propagation on close by default", async () => {
+    const handleExternalClick = jest.fn();
+    const { container } = render(
+      <div onClick={handleExternalClick}>
+        <Modal title="Test" close={jest.fn()}>
+          Bare bones
+        </Modal>
+      </div>
+    );
+
+    const closeButton = container.querySelector("button.p-modal__close");
+    expect(closeButton).not.toBeNull();
+    await userEvent.click(closeButton!);
+    expect(handleExternalClick).toHaveBeenCalledTimes(0);
+  });
+
+  it("should propagate click event on close", async () => {
+    const handleExternalClick = jest.fn();
+    const { container } = render(
+      <div onClick={handleExternalClick}>
+        <Modal title="Test" close={jest.fn()} shouldPropagateClickEvent={true}>
+          Bare bones
+        </Modal>
+      </div>
+    );
+
+    const closeButton = container.querySelector("button.p-modal__close");
+    expect(closeButton).not.toBeNull();
+    await userEvent.click(closeButton!);
+    expect(handleExternalClick).toHaveBeenCalledTimes(1);
+  });
 });
