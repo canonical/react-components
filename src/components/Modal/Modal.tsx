@@ -39,7 +39,7 @@ export const Modal = ({
   className,
   close,
   title,
-  shouldPropagateClickEvent,
+  shouldPropagateClickEvent = false,
   ...wrapperProps
 }: Props): ReactElement => {
   // list of focusable selectors is based on this Stack Overflow answer:
