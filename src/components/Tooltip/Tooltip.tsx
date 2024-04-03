@@ -287,7 +287,8 @@ const Tooltip = ({
 
     if (
       e.relatedTarget
-        ? !messageRef.current?.contains(e.relatedTarget)
+        ? !messageRef.current?.contains(e.relatedTarget) &&
+          !wrapperRef.current?.contains(e.relatedTarget)
         : e.target !== messageRef.current
     ) {
       cancelableClosePortal();
