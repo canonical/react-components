@@ -103,23 +103,17 @@ describe("Input", () => {
 
   it("can display an error for a text input", async () => {
     render(<Input error="Uh oh!" type="text" />);
-    expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
-      "Error: Uh oh!"
-    );
+    expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage("Uh oh!");
   });
 
   it("can display an error for a radiobutton", async () => {
     render(<Input error="Uh oh!" type="radio" />);
-    expect(screen.getByRole("radio")).toHaveAccessibleErrorMessage(
-      "Error: Uh oh!"
-    );
+    expect(screen.getByRole("radio")).toHaveAccessibleErrorMessage("Uh oh!");
   });
 
   it("can display an error for a checkbox", async () => {
     render(<Input error="Uh oh!" type="checkbox" />);
-    expect(screen.getByRole("checkbox")).toHaveAccessibleErrorMessage(
-      "Error: Uh oh!"
-    );
+    expect(screen.getByRole("checkbox")).toHaveAccessibleErrorMessage("Uh oh!");
   });
 
   it("can display help for a text input", async () => {

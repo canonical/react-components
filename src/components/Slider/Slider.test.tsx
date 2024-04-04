@@ -35,9 +35,7 @@ describe("Slider", () => {
         error="Uh oh!"
       />
     );
-    expect(screen.getByRole("slider")).toHaveAccessibleErrorMessage(
-      "Error: Uh oh!"
-    );
+    expect(screen.getByRole("slider")).toHaveAccessibleErrorMessage("Uh oh!");
   });
 
   it("can display help", async () => {
