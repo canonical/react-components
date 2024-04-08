@@ -31,6 +31,10 @@ yarn add <path-to-tarball>
 
 - Steps for QA.
 
+### Percy steps
+
+- List any expected visual change in Percy, or write something like "No visual changes expected" if none is expected.
+
 ## Fixes
 
 Fixes: # .
