@@ -40,4 +40,15 @@ describe("Textarea ", () => {
     render(<Textarea help={help} />);
     expect(screen.getByRole("textbox")).toHaveAccessibleDescription(help);
   });
+
+  it("can change value to an empty string", () => {
+    let testValue = "test";
+    const { rerender } = render(<Textarea value={testValue} />);
+    const textarea = screen.getByRole("textbox");
+    expect(textarea).toHaveValue("test");
+
+    testValue = ""; // simulate an external change of the value
+    rerender(<Textarea value={testValue} />);
+    expect(textarea).toHaveValue("");
+  });
 });
