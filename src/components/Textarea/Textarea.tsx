@@ -159,7 +159,7 @@ const Textarea = ({
           style
         }
         {...props}
-        value={props.value || innerValue}
+        value={props.value ?? innerValue}
       />
     </Field>
   );
