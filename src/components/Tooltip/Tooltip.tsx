@@ -184,6 +184,7 @@ export const adjustForWindow = (
  * @param positionElementClassName An optional class to apply to the element that wraps the children.
  * @param tooltipClassName An optional class to apply to the tooltip message element.
  * @param zIndex The z-index value of the tooltip message element.
+ * @param delay Delay in ms after which Tooltip will appear (defaults to 350ms).
  */
 const Tooltip = ({
   autoAdjust = true,
@@ -305,9 +306,15 @@ const Tooltip = ({
   };
 
   const delayedOpenPortal: MouseEventHandler = useCallback(() => {
+    if (isOpen) {
+      return;
+    }
+    if (timer) {
+      clearTimeout(timer);
+    }
     const timeout = setTimeout(() => openPortal(), delay);
     setTimer(timeout);
-  }, [delay, openPortal]);
+  }, [delay, openPortal, timer, isOpen]);
 
   return (
     <>
