@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { PropsWithSpread, ValueOf } from "types";
 import Button, { ButtonAppearance } from "components/Button";
 import Modal, { ModalProps } from "components/Modal";
+import ActionButton from "components/ActionButton";
 
 export type Props = PropsWithSpread<
   {
@@ -30,6 +31,14 @@ export type Props = PropsWithSpread<
      * Function to perform the action prompted by the modal.
      */
     onConfirm: (event: MouseEvent<HTMLElement>) => void;
+    /**
+     * Whether the confirm button should be in the loading state.
+     */
+    confirmButtonLoading?: boolean;
+    /**
+     * Whether the confirm button should be disabled.
+     */
+    confirmButtonDisabled?: boolean;
   },
   Omit<ModalProps, "buttonRow">
 >;
@@ -41,6 +50,8 @@ export const ConfirmationModal = ({
   confirmButtonLabel,
   confirmExtra,
   onConfirm,
+  confirmButtonLoading,
+  confirmButtonDisabled,
   ...props
 }: Props): ReactElement => {
   const handleClick =
@@ -65,13 +76,15 @@ export const ConfirmationModal = ({
           >
             {cancelButtonLabel}
           </Button>
-          <Button
+          <ActionButton
             appearance={confirmButtonAppearance}
             className="u-no-margin--bottom"
             onClick={handleClick(onConfirm)}
+            loading={confirmButtonLoading}
+            disabled={confirmButtonDisabled}
           >
             {confirmButtonLabel}
-          </Button>
+          </ActionButton>
         </>
       }
       {...props}
