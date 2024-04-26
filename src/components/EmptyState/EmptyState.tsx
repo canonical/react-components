@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React, { ReactNode, HTMLProps, ReactElement } from "react";
 import { PropsWithSpread } from "types";
 
@@ -31,10 +32,14 @@ export const EmptyState = ({
   ...props
 }: Props): ReactElement => {
   return (
-    <div className={className} {...props}>
-      {image}
-      <h2 className="p-heading--4">{title}</h2>
-      {children}
+    <div className={classNames(["row", className])} {...props}>
+      <div className="u-align--right col-4 col-medium-2 col-small-1">
+        {image}
+      </div>
+      <div className="u-align--left col-8 col-medium-4 col-small-3">
+        <p className="p-heading--4 u-no-margin--bottom">{title}</p>
+        {children}
+      </div>
     </div>
   );
 };
