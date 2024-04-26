@@ -32,14 +32,23 @@ describe("Textarea ", () => {
 
   it("can display an error for a text input", async () => {
     render(<Textarea error="Uh oh!" />);
-    expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
-      "Error: Uh oh!"
-    );
+    expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage("Uh oh!");
   });
 
   it("can display help for a text input", async () => {
     const help = "Save me!";
     render(<Textarea help={help} />);
     expect(screen.getByRole("textbox")).toHaveAccessibleDescription(help);
+  });
+
+  it("can change value to an empty string", () => {
+    let testValue = "test";
+    const { rerender } = render(<Textarea value={testValue} />);
+    const textarea = screen.getByRole("textbox");
+    expect(textarea).toHaveValue("test");
+
+    testValue = ""; // simulate an external change of the value
+    rerender(<Textarea value={testValue} />);
+    expect(textarea).toHaveValue("");
   });
 });

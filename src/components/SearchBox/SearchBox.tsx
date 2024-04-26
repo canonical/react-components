@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { HTMLProps, useRef } from "react";
+import React, { HTMLProps, KeyboardEvent, useRef } from "react";
 
 import Icon from "../Icon";
 
@@ -33,7 +33,7 @@ export type Props = PropsWithSpread<
      */
     onChange?: (inputValue: string) => void;
     /**
-     * A function that is called when the user clicks the search icon
+     * A function that is called when the user clicks the search icon or presses enter
      */
     onSearch?: () => void;
     /**
@@ -91,6 +91,13 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
       onSearch && onSearch();
     };
 
+    const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === "Enter" && internalRef.current.checkValidity()) {
+        internalRef.current.blur();
+        triggerSearch();
+      }
+    };
+
     return (
       <div className={classNames("p-search-box", className)}>
         <label className="u-off-screen" htmlFor="search">
@@ -103,6 +110,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
           id="search"
           name="search"
           onChange={(evt) => onChange?.(evt.target.value)}
+          onKeyDown={onKeyDown}
           placeholder={placeholder}
           ref={(input) => {
             internalRef.current = input;

@@ -55,9 +55,7 @@ describe("Select", () => {
 
   it("can display an error", async () => {
     render(<Select error="Uh oh!" />);
-    expect(screen.getByRole("combobox")).toHaveAccessibleErrorMessage(
-      "Error: Uh oh!"
-    );
+    expect(screen.getByRole("combobox")).toHaveAccessibleErrorMessage("Uh oh!");
   });
 
   it("can display help", async () => {

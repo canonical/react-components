@@ -107,11 +107,9 @@ const generateError = (
   if (!error && !caution && !success) {
     return null;
   }
-  const messageType =
-    (error && "Error") || (caution && "Caution") || (success && "Success");
   return (
     <p className="p-form-validation__message" id={validationId}>
-      <strong>{messageType}:</strong> {error || caution || success}
+      {error || caution || success}
     </p>
   );
 };

@@ -25,6 +25,10 @@ export type Props = PropsWithSpread<
      * The title of the modal.
      */
     title?: ReactNode | null;
+    /**
+     * Whether the button click event should propagate.
+     */
+    shouldPropagateClickEvent?: boolean;
   },
   HTMLProps<HTMLDivElement>
 >;
@@ -35,6 +39,7 @@ export const Modal = ({
   className,
   close,
   title,
+  shouldPropagateClickEvent = false,
   ...wrapperProps
 }: Props): ReactElement => {
   // list of focusable selectors is based on this Stack Overflow answer:
@@ -47,7 +52,7 @@ export const Modal = ({
 
   const modalRef: MutableRefObject<HTMLElement> = useRef(null);
   const focusableModalElements = useRef(null);
-  const handleTabKey = (e: React.KeyboardEvent<HTMLDivElement>) => {
+  const handleTabKey = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (focusableModalElements.current.length > 0) {
       const firstElement = focusableModalElements.current[0];
       const lastElement =
@@ -55,29 +60,31 @@ export const Modal = ({
           focusableModalElements.current.length - 1
         ];
 
-      if (!e.shiftKey && document.activeElement === lastElement) {
+      if (!event.shiftKey && document.activeElement === lastElement) {
         (firstElement as HTMLElement).focus();
-        e.preventDefault();
+        event.preventDefault();
       }
 
-      if (e.shiftKey && document.activeElement === firstElement) {
+      if (event.shiftKey && document.activeElement === firstElement) {
         (lastElement as HTMLElement).focus();
-        return e.preventDefault();
+        return event.preventDefault();
       }
     }
   };
 
   const handleEscKey = (
-    e: KeyboardEvent | React.KeyboardEvent<HTMLDivElement>
+    event: KeyboardEvent | React.KeyboardEvent<HTMLDivElement>
   ) => {
-    if ("nativeEvent" in e && e.nativeEvent.stopImmediatePropagation) {
-      e.nativeEvent.stopImmediatePropagation();
-    } else if ("stopImmediatePropagation" in e) {
-      e.stopImmediatePropagation();
-    } else if (e.stopPropagation) {
-      e.stopPropagation();
+    if ("nativeEvent" in event && event.nativeEvent.stopImmediatePropagation) {
+      event.nativeEvent.stopImmediatePropagation();
+    } else if ("stopImmediatePropagation" in event) {
+      event.stopImmediatePropagation();
+    } else if (event.stopPropagation) {
+      event.stopPropagation();
     }
-    close();
+    if (close) {
+      close();
+    }
   };
 
   const keyListenersMap = new Map([
@@ -102,9 +109,9 @@ export const Modal = ({
   }, [close]);
 
   useEffect(() => {
-    const keyDown = (e) => {
-      const listener = keyListenersMap.get(e.code);
-      return listener && listener(e);
+    const keyDown = (event: KeyboardEvent) => {
+      const listener = keyListenersMap.get(event.code);
+      return listener && listener(event);
     };
 
     document.addEventListener("keydown", keyDown);
@@ -121,15 +128,26 @@ export const Modal = ({
     shouldClose.current = false;
   };
 
-  const handleOverlayOnMouseDown = (event) => {
+  const handleOverlayOnMouseDown = (
+    event: React.MouseEvent<HTMLDivElement>
+  ) => {
     if (event.target === modalRef.current) {
       shouldClose.current = true;
     }
   };
 
-  const handleOverlayOnClick = () => {
-    if (shouldClose.current) {
+  const handleClose = (event: React.MouseEvent) => {
+    if (!shouldPropagateClickEvent) {
+      event.stopPropagation();
+    }
+    if (close) {
       close();
+    }
+  };
+
+  const handleOverlayOnClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (shouldClose.current) {
+      handleClose(event);
     }
   };
 
@@ -159,7 +177,7 @@ export const Modal = ({
               <button
                 className="p-modal__close"
                 aria-label="Close active modal"
-                onClick={close}
+                onClick={handleClose}
               >
                 Close
               </button>

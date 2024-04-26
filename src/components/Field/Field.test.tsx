@@ -27,7 +27,7 @@ describe("Field ", () => {
       </Field>
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
-      "Caution: Are you sure?"
+      "Are you sure?"
     );
     expect(screen.getByTestId("field")).toHaveClass("is-caution");
   });
@@ -43,7 +43,7 @@ describe("Field ", () => {
       </Field>
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
-      "Caution: Are you sure?"
+      "Are you sure?"
     );
     expect(screen.getByTestId("field")).toHaveClass("is-caution");
   });
@@ -55,7 +55,7 @@ describe("Field ", () => {
       </Field>
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
-      "Error: You can't do that"
+      "You can't do that"
     );
     expect(screen.getByTestId("field")).toHaveClass("is-error");
   });
@@ -71,7 +71,7 @@ describe("Field ", () => {
       </Field>
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
-      "Error: You can't do that"
+      "You can't do that"
     );
     expect(screen.getByTestId("field")).toHaveClass("is-error");
   });
@@ -83,7 +83,7 @@ describe("Field ", () => {
       </Field>
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
-      "Success: You did it!"
+      "You did it!"
     );
     expect(screen.getByTestId("field")).toHaveClass("is-success");
   });
@@ -99,7 +99,7 @@ describe("Field ", () => {
       </Field>
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
-      "Success: You did it!"
+      "You did it!"
     );
     expect(screen.getByTestId("field")).toHaveClass("is-success");
   });

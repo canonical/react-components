@@ -29,9 +29,7 @@ describe("FormikField", () => {
       </Formik>
     );
 
-    expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
-      "Error: Uh oh!"
-    );
+    expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage("Uh oh!");
   });
 
   it("can hide the errors", () => {
