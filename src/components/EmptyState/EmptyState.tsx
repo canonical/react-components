@@ -24,7 +24,6 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLDivElement>
 >;
 
-// test percy
 export const EmptyState = ({
   children,
   className,
