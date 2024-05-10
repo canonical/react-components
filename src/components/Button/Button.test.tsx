@@ -37,19 +37,12 @@ describe("Button ", () => {
     const onClick = jest.fn();
     render(<Button disabled={true} onClick={onClick} />);
     const button = screen.getByRole("button");
-    expect(button).toBeDisabled();
-    expect(button).not.toHaveAttribute("aria-disabled");
-    expect(button).not.toHaveClass("is-disabled");
+    // The button should be disabled but not have the disabled attribute to allow for focus and displaying the tooltip
+    expect(button).not.toBeDisabled();
+    expect(button).toHaveAttribute("aria-disabled");
+    expect(button).toHaveClass("is-disabled");
     await userEvent.click(button);
     expect(onClick).not.toHaveBeenCalled();
-  });
-
-  it("does not prevent default when disabling a button", async () => {
-    render(<Button disabled={true} onClick={jest.fn()} />);
-    const button = screen.getByRole("button");
-    const clickEvent = createEvent.click(button);
-    fireEvent(button, clickEvent);
-    expect(clickEvent.defaultPrevented).toBe(false);
   });
 
   it("correctly disables a link", async () => {

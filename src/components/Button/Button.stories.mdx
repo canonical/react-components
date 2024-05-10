@@ -1,6 +1,7 @@
 import { ArgsTable, Canvas, Meta, Story } from "@storybook/addon-docs";
 
 import Button, { ButtonAppearance } from "./Button";
+import Tooltip from "../Tooltip";
 
 <Meta
   title="Button"
@@ -231,3 +232,22 @@ Buttons are clickable elements used to perform an action, they can be used for b
     {Template.bind({})}
   </Story>
 </Canvas>
+
+<Canvas>
+  <Story
+    name="Disabled with tooltip"
+    args={{
+      children: "Disabled button with a tooltip",
+      disabled: true,
+    }}
+  >
+    {(args) => (
+      <div style={{ paddingTop: "3rem" }}>
+        <Tooltip message="This button is disabled">
+          <Button {...args} />
+        </Tooltip>
+      </div>
+    )}
+  </Story>
+</Canvas>
+

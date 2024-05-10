@@ -88,21 +88,19 @@ const Button = <P,>({
     {
       "has-icon": hasIcon,
       "is-dense": dense,
-      "is-disabled": Component !== "button" && disabled,
+      "is-disabled": disabled,
       "is-inline": inline,
       "is-small": small,
     },
     className
   );
   const onClickDisabled = (e: MouseEvent) => e.preventDefault();
-  const disabledProp =
-    Component === "button" ? { disabled } : { "aria-disabled": disabled };
 
   return (
     <Component
       className={classes}
       onClick={disabled ? onClickDisabled : onClick}
-      {...disabledProp}
+      aria-disabled={disabled || undefined}
       {...buttonProps}
     >
       {children}
