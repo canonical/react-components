@@ -15,7 +15,7 @@ describe("EmptyState ", () => {
     render(
       <EmptyState
         title="Test title"
-        image={<img alt="" src="path/to/image" />}
+        image={<img alt="pic" src="path/to/image" />}
       />
     );
     expect(screen.getByRole("img")).toHaveAttribute("src", "path/to/image");

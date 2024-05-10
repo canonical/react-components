@@ -95,7 +95,9 @@ const generateLogo = (logo: Props["logo"], generateLink: GenerateLink) => {
     const content = (
       <>
         <div className="p-navigation__logo-tag">
-          {icon ?? <img className="p-navigation__logo-icon" src={src} alt="" />}
+          {icon ?? (
+            <img className="p-navigation__logo-icon" src={src} alt="Logo" />
+          )}
         </div>
         <span className="p-navigation__logo-title">{title}</span>
       </>

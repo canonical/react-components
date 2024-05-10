@@ -12,7 +12,7 @@ describe("Button ", () => {
 
   it("renders as a link", () => {
     render(
-      <Button element="a" href="">
+      <Button element="a" href="http://example.com">
         Test content
       </Button>
     );
@@ -28,7 +28,7 @@ describe("Button ", () => {
 
   it("can handle anchor click events", async () => {
     const onClick = jest.fn();
-    render(<Button element="a" href="" onClick={onClick} />);
+    render(<Button element="a" href="http://example.com" onClick={onClick} />);
     await userEvent.click(screen.getByRole("link"));
     expect(onClick).toHaveBeenCalled();
   });
@@ -54,7 +54,14 @@ describe("Button ", () => {
 
   it("correctly disables a link", async () => {
     const onClick = jest.fn();
-    render(<Button element="a" disabled={true} href="" onClick={onClick} />);
+    render(
+      <Button
+        element="a"
+        disabled={true}
+        href="http://example.com"
+        onClick={onClick}
+      />
+    );
     const button = screen.getByRole("link");
     expect(button).toHaveClass("is-disabled");
     expect(button).not.toBeDisabled();
@@ -65,7 +72,14 @@ describe("Button ", () => {
 
   it("prevents default when disabling a link", async () => {
     const onClick = jest.fn();
-    render(<Button element="a" disabled={true} href="" onClick={onClick} />);
+    render(
+      <Button
+        element="a"
+        disabled={true}
+        href="http://example.com"
+        onClick={onClick}
+      />
+    );
     const button = screen.getByRole("link");
     const clickEvent = createEvent.click(button);
     fireEvent(button, clickEvent);
