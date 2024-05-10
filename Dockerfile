@@ -2,7 +2,7 @@
 
 # Build stage: Install yarn dependencies
 # ===
-FROM node:20 AS yarn-dependencies
+FROM node:22 AS yarn-dependencies
 WORKDIR /srv
 ADD package.json .
 ADD yarn.lock .
@@ -19,7 +19,7 @@ RUN yarn run build-docs
 
 # Build the production image
 # ===
-FROM ubuntu:jammy
+FROM ubuntu:noble
 
 # Set up environment
 ENV LANG C.UTF-8
