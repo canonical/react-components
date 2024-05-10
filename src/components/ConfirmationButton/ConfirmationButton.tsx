@@ -29,6 +29,9 @@ export type Props = PropsWithSpread<
   ActionButtonProps
 >;
 
+/**
+ * `ConfirmationButton` is a specialised version of the [ActionButton](?path=/docs/actionbutton--default-story) component that uses a [ConfirmationModal](?path=/docs/confirmationmodal--default-story) to prompt a confirmation from the user before executing an action.
+ */
 export const ConfirmationButton = ({
   confirmationModalProps,
   onHoverText,

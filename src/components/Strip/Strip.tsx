@@ -66,6 +66,11 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Strip](https://docs.vanillaframework.io/patterns/strip/).
+ *
+ * The strip pattern provides a full width strip container in which to wrap a row.
+ */
 const Strip = ({
   background,
   bordered = false,

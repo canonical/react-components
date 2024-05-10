@@ -6,7 +6,6 @@ import Col from "../Col";
 import Row from "../Row";
 
 const meta: Meta<typeof Card> = {
-  title: "Card",
   component: Card,
   tags: ["autodocs"],
 };

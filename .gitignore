@@ -15,6 +15,7 @@ yarn-error.log*
 
 storybook-static/
 *.fuse*
+*.nfs*
 
 cypress/screenshots/
 cypress/videos

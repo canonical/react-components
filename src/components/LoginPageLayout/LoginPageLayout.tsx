@@ -18,6 +18,10 @@ export type Props = {
   logo?: { src: string; title: string; url: string };
 };
 
+/**
+ * This is a layout component that is used to display a page with a title and children.
+ * The LoginPageLayout recommended usages are in the login flow like registration, sign up and error pages.
+ */
 const LoginPageLayout: FC<Props> = ({
   children,
   title,

@@ -66,6 +66,11 @@ export type Props = PropsWithSpread<
   InputHTMLAttributes<HTMLInputElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Password Toggle](https://docs.vanillaframework.io/base/forms/#password-toggle).
+ *
+ * It can be used when an input needs to obscure its value, whilst giving the user a way to reveal it if needed.
+ */
 const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
   (
     {

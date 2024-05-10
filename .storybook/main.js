@@ -1,13 +1,13 @@
 const path = require("path");
 
 const config = {
-  stories: ["../src/**/*.stories.@(js|ts|jsx|tsx|mdx)"],
+  stories: ["../src/**/*.@(mdx|stories.@(js|ts|jsx|tsx))"],
   addons: [
     "@storybook/addon-essentials",
     "@storybook/addon-docs",
     "@storybook/addon-controls",
     "@storybook/addon-a11y",
-    "@storybook/addon-mdx-gfm",
+    "@storybook/addon-webpack5-compiler-babel"
   ],
   webpackFinal: async (config) => {
     config.module.rules.push({
@@ -23,9 +23,6 @@ const config = {
   framework: {
     name: "@storybook/react-webpack5",
     options: {},
-  },
-  features: {
-    storyStoreV7: false,
   },
 };
 

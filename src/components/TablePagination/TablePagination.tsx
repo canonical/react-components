@@ -93,6 +93,27 @@ export type Props = PropsWithChildren<
 > &
   HTMLAttributes<HTMLDivElement>;
 
+/**
+This is an HOC [React](https://reactjs.org/) component for applying pagination to direct children components. This component is un-opinionated about
+the structure of the input data and can be used with any child component that displays a list of data. However, the styling and behaviour of this component were designed
+to work nicely with the `MainTable` component. To use this component, simply wrap a child component with it and provide the data that you want
+to paginate to the `data` prop. This component will then pass the paged data to all <b>direct</b> child components via a child prop specified by `dataForwardProp`.
+The component may be externally controlled, see following sections for detailed explanation.
+
+#### Externally controlled pagination
+
+For externally controlled mode, you will be responsible for the pagination logic and therefore the component will be purely presentational.
+The pagination behaviour is controlled outside of this component. Note the data injection to child components is essentially a passthrough in this case.
+To enable externally controlled mode for this component, set the `externallyControlled` prop to `true`. From there, it is your responsibility
+to ensure that the following props `totalItems`, `currentPage`, `pageSize`, `onPageChange` and `onPageSizeChange` are set properly.
+You can refer to the props table below on how to set these props.
+
+#### Un-controlled pagination
+
+In this mode, the component assumes that the input data is not paginated. The component will implement the pagination logic and apply it to the input data
+then inject the paged data into direct child components. This is the default mode of operations for the component where `externallyControlled` prop is set
+to `false`.
+ */
 const TablePagination = (props: Props) => {
   const {
     data,

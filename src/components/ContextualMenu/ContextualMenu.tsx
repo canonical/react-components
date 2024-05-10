@@ -141,26 +141,9 @@ const getPositionNodeVisible = (positionNode: HTMLElement) => {
 };
 
 /**
- * A component for the Vanilla contextual menu.
- * @template L - The type of the link props.
- * @param [autoAdjust=true] - Whether the menu should adjust to fit in the screen.
- * @param children - The menu content (if the links prop is not supplied).
- * @param className - An optional class to apply to the wrapping element.
- * @param [closeOnEsc=true] - Whether the menu should close when the escape key is pressed.
- * @param [closeOnOutsideClick=true] - Whether the menu should close when clicking outside the menu.
- * @param constrainPanelWidth - Whether the menu's width should match the toggle's width.
- * @param dropdownClassName - An optional class to apply to the dropdown.
- * @param hasToggleIcon - Whether the toggle should display a chevron icon.
- * @param links - A list of links to display in the menu (if the children prop is not supplied.)
- * @param onToggleMenu - A function to call when the menu is toggled.
- * @param [position="right"] - The position of the menu.
- * @param positionNode - An element to make the menu relative to.
- * @param toggleAppearance - The appearance of the toggle button.
- * @param toggleClassName - An class to apply to the toggle button.
- * @param toggleDisabled - Whether the toggle button should be disabled.
- * @param toggleLabel - The toggle button's label.
- * @param [toggleLabelFirst=true] - Whether the toggle lable or icon should appear first.
- * @param [visible=false] - Whether the menu should be visible.
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Contextual menu](https://docs.vanillaframework.io/patterns//contextual-menu/).
+ *
+ * A contextual menu can be used in conjunction with any page element to provide a contextual menu.
  */
 const ContextualMenu = <L,>({
   autoAdjust = true,

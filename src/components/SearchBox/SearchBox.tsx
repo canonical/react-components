@@ -60,6 +60,11 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLInputElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [SearchBox](https://docs.vanillaframework.io/patterns/search-box/).
+ *
+ * Search boxes enable search functionality on a page and are typically used in a navigation bar. SearchBox elements should be wrapped within a form element that handles its own submit action.
+ */
 const SearchBox = React.forwardRef<HTMLInputElement, Props>(
   (
     {

@@ -62,6 +62,12 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLInputElement>
 >;
 
+/**
+ * This is the [React](https://reactjs.org/) component for the Vanilla [Slider](https://vanillaframework.io/docs/patterns/slider).
+ *
+ * Sliders should be used to let a user specify a numeric value between a defined
+minimum and maximum value, however the precise value is not especially important.
+ */
 export const Slider = ({
   caution,
   disabled = false,

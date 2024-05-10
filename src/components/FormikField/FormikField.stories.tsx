@@ -6,7 +6,6 @@ import Select from "../Select";
 import { Formik } from "formik";
 
 const meta: Meta<typeof FormikField> = {
-  title: "FormikField",
   component: FormikField,
   tags: ["autodocs"],
 };

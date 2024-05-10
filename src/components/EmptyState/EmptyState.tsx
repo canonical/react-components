@@ -24,6 +24,9 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLDivElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component to represent an empty state.
+ */
 export const EmptyState = ({
   children,
   className,

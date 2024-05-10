@@ -20,6 +20,11 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLFormElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Form](https://docs.vanillaframework.io/base/forms).
+ *
+ * Form controls have global styling defined at the HTML element level. Labels and most input types are 100% width of the `<form>` parent element.
+ */
 const Form = ({
   children,
   className,

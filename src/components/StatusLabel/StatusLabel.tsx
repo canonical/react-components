@@ -34,7 +34,9 @@ export type Props = PropsWithSpread<
 >;
 
 /**
- * A component for the Vanilla Label.
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Label](https://vanillaframework.io/docs/patterns/labels).
+ *
+ * Labels are static elements which you can apply to signify status, tags or any other information you find useful.
  */
 const StatusLabel = ({
   appearance,

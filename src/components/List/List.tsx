@@ -105,6 +105,11 @@ const generateItems = ({
     );
   });
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [List](https://docs.vanillaframework.io/patterns/lists/).
+ *
+ * If you want to display lists in a way that is more visually distinctive than the standard `<ol>` and `<ul>`, we have 7 list styles at your disposal.
+ */
 const List = ({
   className,
   detailed,

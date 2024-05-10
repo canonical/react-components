@@ -26,6 +26,9 @@ export type Props = {
   ariaLive?: "assertive" | "off" | "polite";
 } & HTMLProps<HTMLSpanElement>;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Spin](https://docs.vanillaframework.io/settings/animation-settings/#spin) animation.
+ */
 const Spinner = ({
   className,
   text,

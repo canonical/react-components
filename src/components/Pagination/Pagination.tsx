@@ -195,6 +195,18 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLElement>
 >;
 
+/**
+This is a [React](https://reactjs.org/) component for the Vanilla [Pagination](https://docs.vanillaframework.io/patterns/pagination/).
+
+The pagination component should be used to navigate between pages of content. There are two types of pagination being provided:
+
+* **Numbered Pagination:** used when the total number of items is known.<br />
+  Depending on the length provided, the pagination component will automatically scale.<br />
+  **Required props:** itemsPerPage, totalItems, paginate, currentPage.
+
+* **Buttons-only Pagination:** used when the total number of items is unknown.<br />
+  **Required props:** onForward, onBack.
+ */
 const Pagination = ({
   itemsPerPage,
   totalItems,
