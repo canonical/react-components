@@ -3,7 +3,7 @@ import type { PropsWithSpread } from "types";
 import classNames from "classnames";
 import type { HTMLProps, PropsWithChildren } from "react";
 
-type Props = PropsWithSpread<
+export type Props = PropsWithSpread<
   {
     collapsed?: boolean;
     pinned?: boolean;

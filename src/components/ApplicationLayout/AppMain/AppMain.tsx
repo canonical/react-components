@@ -2,7 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import type { HTMLProps, PropsWithChildren } from "react";
 
-type Props = PropsWithChildren & HTMLProps<HTMLDivElement>;
+export type Props = PropsWithChildren & HTMLProps<HTMLDivElement>;
 
 const AppMain = ({ children, className, ...props }: Props) => {
   return (

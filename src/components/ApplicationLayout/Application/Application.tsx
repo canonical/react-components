@@ -3,7 +3,10 @@ import type { PropsWithSpread } from "types";
 import classNames from "classnames";
 import type { HTMLProps, PropsWithChildren } from "react";
 
-type Props = PropsWithSpread<PropsWithChildren, HTMLProps<HTMLDivElement>>;
+export type Props = PropsWithSpread<
+  PropsWithChildren,
+  HTMLProps<HTMLDivElement>
+>;
 
 const Application = ({ children, className, ...props }: Props) => {
   return (
