@@ -1,4 +1,4 @@
-import React from "react";
+import React, { isValidElement } from "react";
 import type { PropsWithSpread } from "types";
 import classNames from "classnames";
 import type {
@@ -13,16 +13,18 @@ import type { ExclusiveProps } from "types";
 
 export type LogoDefaultElement = HTMLProps<HTMLAnchorElement>;
 
-type PanelLogo<L = LogoDefaultElement> = PropsWithSpread<
-  {
-    icon: string;
-    iconAlt?: string;
-    name: string;
-    nameAlt?: string;
-    component?: ElementType | ComponentType<L>;
-  },
-  L
->;
+type PanelLogo<L = LogoDefaultElement> =
+  | ReactNode
+  | PropsWithSpread<
+      {
+        icon: string;
+        iconAlt?: string;
+        name: string;
+        nameAlt?: string;
+        component?: ElementType | ComponentType<L>;
+      },
+      L
+    >;
 
 type PanelToggle = {
   label: string;
@@ -58,30 +60,39 @@ export type Props<L = LogoDefaultElement> = {
 } & PropsWithChildren &
   HeaderProps<L>;
 
-const generateLogo = <L = LogoDefaultElement,>({
-  icon,
-  iconAlt,
-  name,
-  nameAlt,
-  component: Component = "a",
-  ...props
-}: PanelLogo<L>) => (
-  <Component className="p-panel__logo" {...props}>
-    <img
-      className="p-panel__logo-icon"
-      src={icon}
-      alt={iconAlt}
-      width="24"
-      height="24"
-    />
-    <img
-      className="p-panel__logo-name is-fading-when-collapsed"
-      src={name}
-      alt={nameAlt}
-      height="16"
-    />
-  </Component>
-);
+const isReactNode = (element: unknown): element is ReactNode =>
+  isValidElement(element);
+
+const generateLogo = <L = LogoDefaultElement,>(logo: PanelLogo<L>) => {
+  if (isReactNode(logo)) {
+    return logo;
+  }
+  const {
+    icon,
+    iconAlt,
+    name,
+    nameAlt,
+    component: Component = "a",
+    ...props
+  } = logo;
+  return (
+    <Component className="p-panel__logo" {...props}>
+      <img
+        className="p-panel__logo-icon"
+        src={icon}
+        alt={iconAlt}
+        width="24"
+        height="24"
+      />
+      <img
+        className="p-panel__logo-name is-fading-when-collapsed"
+        src={name}
+        alt={nameAlt}
+        height="16"
+      />
+    </Component>
+  );
+};
 
 const Panel = <L = LogoDefaultElement,>({
   forwardRef,

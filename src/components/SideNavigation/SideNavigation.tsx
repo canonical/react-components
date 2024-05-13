@@ -31,15 +31,22 @@ const generateItem = <L = SideNavigationLinkDefaultElement,>(
   linkComponent: Props<L>["linkComponent"],
   index: number
 ) => {
-  return isValidElement(item) ? (
-    <SideNavigationItem key={index}>{item}</SideNavigationItem>
-  ) : "label" in item ? (
-    <SideNavigationItem<L>
-      {...item}
-      key={index}
-      component={item.component ?? linkComponent}
-    />
-  ) : null;
+  if (isValidElement(item)) {
+    return <SideNavigationItem key={index}>{item}</SideNavigationItem>;
+  }
+  if ("nonInteractive" in item) {
+    return <SideNavigationItem {...item} key={index} />;
+  }
+  if ("label" in item) {
+    return (
+      <SideNavigationItem<L>
+        {...item}
+        key={index}
+        component={item.component ?? linkComponent}
+      />
+    );
+  }
+  return null;
 };
 
 const isGrouped = <L = SideNavigationLinkDefaultElement,>(
