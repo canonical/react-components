@@ -5,9 +5,7 @@ on:
 jobs:
   label:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      pull-requests: write
+    permissions: write-all
     steps:
       - uses: mheap/github-action-required-labels@v5
         with:
