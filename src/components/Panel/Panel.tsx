@@ -30,7 +30,7 @@ type PanelToggle = {
 };
 
 type LogoProps<L = LogoDefaultElement> = {
-  logo: PanelLogo<L>;
+  logo?: PanelLogo<L>;
 };
 
 type TitleProps = {

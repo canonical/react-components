@@ -53,6 +53,10 @@ export type Props<
     }
   >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla
+ * [Application Layout](https://vanillaframework.io/docs/layouts/application).
+ */
 const ApplicationLayout = <
   NI = SideNavigationLinkDefaultElement,
   PL = PanelLogoDefaultElement,
