@@ -6,9 +6,8 @@ import EmptyState from "./EmptyState";
 describe("EmptyState ", () => {
   it("renders the title", () => {
     render(<EmptyState title="Test title" image={<img alt="" src="" />} />);
-    expect(
-      screen.getByRole("heading", { name: "Test title" })
-    ).toBeInTheDocument();
+    const title = screen.getByText("Test title");
+    expect(title).toHaveClass("p-heading--4");
   });
 
   it("renders the image", () => {
