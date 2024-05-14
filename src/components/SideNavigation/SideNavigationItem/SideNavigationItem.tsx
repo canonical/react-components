@@ -1,5 +1,5 @@
 import React from "react";
-import type { PropsWithChildren } from "react";
+import type { HTMLProps, PropsWithChildren, ReactNode } from "react";
 
 import SideNavigationLink from "../SideNavigationLink";
 import type { SideNavigationLinkProps } from "../SideNavigationLink";
@@ -8,27 +8,35 @@ import SideNavigationText, {
   SideNavigationTextProps,
 } from "../SideNavigationText";
 
-export type Props<L = SideNavigationLinkDefaultElement> =
-  | PropsWithChildren
+type ItemProps = {
+  children: NonNullable<PropsWithChildren["children"]>;
+} & HTMLProps<HTMLLIElement>;
+
+type ContentProps<L = SideNavigationLinkDefaultElement> =
   | SideNavigationLinkProps<L>
   | (SideNavigationTextProps & { nonInteractive: true });
 
-const generateContent = <L,>(props: Props<L>) => {
-  if ("nonInteractive" in props && props.nonInteractive) {
-    const { nonInteractive: _, ...textProps } = props;
-    return <SideNavigationText {...textProps} />;
-  }
-  if ("label" in props) {
-    return <SideNavigationLink<L> {...props} />;
-  }
-  return props.children;
-};
+export type Props<L = SideNavigationLinkDefaultElement> =
+  | ItemProps
+  | ContentProps<L>;
 
 const SideNavigationItem = <L = SideNavigationLinkDefaultElement,>(
   props: Props<L>
 ) => {
+  let content: ReactNode;
+  let liProps: HTMLProps<HTMLLIElement> = {};
+  if ("nonInteractive" in props) {
+    const { nonInteractive: _, ...textProps } = props;
+    content = <SideNavigationText {...textProps} />;
+  } else if (!("children" in props)) {
+    content = <SideNavigationLink<L> {...props} />;
+  } else {
+    ({ children: content, ...liProps } = props);
+  }
   return (
-    <li className="p-side-navigation__item">{generateContent<L>(props)}</li>
+    <li className="p-side-navigation__item" {...liProps}>
+      {content}
+    </li>
   );
 };
 

@@ -3,7 +3,10 @@
   "version": "0.47.3",
   "main": "dist/index.js",
   "module": "dist/index.js",
-  "author": "Huw Wilkins <huw.wilkins@canonical.com>",
+  "author": {
+    "email": "webteam@canonical.com",
+    "name": "Canonical Webteam"
+  },
   "license": "LGPL-3.0",
   "files": [
     "dist/**/*.js",

@@ -1,4 +1,4 @@
-import React, { isValidElement } from "react";
+import React from "react";
 import type { PropsWithSpread } from "types";
 import classNames from "classnames";
 import type {
@@ -10,6 +10,7 @@ import type {
 } from "react";
 
 import type { ExclusiveProps } from "types";
+import { isReactNode } from "utils";
 
 export type LogoDefaultElement = HTMLProps<HTMLAnchorElement>;
 
@@ -42,7 +43,7 @@ type TitleProps = {
 };
 
 type HeaderProps<L = LogoDefaultElement> = ExclusiveProps<
-  {},
+  { header: ReactNode },
   {
     controls?: ReactNode;
     controlsClassName?: string;
@@ -59,9 +60,6 @@ export type Props<L = LogoDefaultElement> = {
   forwardRef?: React.Ref<HTMLDivElement> | null;
 } & PropsWithChildren &
   HeaderProps<L>;
-
-const isReactNode = (element: unknown): element is ReactNode =>
-  isValidElement(element);
 
 const generateLogo = <L = LogoDefaultElement,>(logo: PanelLogo<L>) => {
   if (isReactNode(logo)) {
@@ -102,6 +100,7 @@ const Panel = <L = LogoDefaultElement,>({
   controlsClassName,
   controls,
   dark,
+  header,
   logo,
   stickyHeader,
   title,
@@ -149,7 +148,9 @@ const Panel = <L = LogoDefaultElement,>({
             {controls}
           </div>
         </div>
-      ) : null}
+      ) : (
+        header
+      )}
       {children && wrapContent ? (
         <div className={classNames("p-panel__content", contentClassName)}>
           {children}
