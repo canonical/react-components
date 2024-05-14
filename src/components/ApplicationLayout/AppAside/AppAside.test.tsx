@@ -7,7 +7,7 @@ import AppAside from "./AppAside";
 it("displays without a close", async () => {
   render(<AppAside>Content</AppAside>);
   expect(
-    screen.queryByRole("button", { name: "Close" }),
+    screen.queryByRole("button", { name: "Close" })
   ).not.toBeInTheDocument();
 });
 
