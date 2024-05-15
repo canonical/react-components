@@ -1,20 +1,24 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 
 import AppAside from "./AppAside";
 
-it("displays without a close", async () => {
-  render(<AppAside>Content</AppAside>);
-  expect(
-    screen.queryByRole("button", { name: "Close" })
-  ).not.toBeInTheDocument();
+it("displays collapsed", async () => {
+  render(<AppAside collapsed>Content</AppAside>);
+  expect(screen.queryByRole("complementary")).toHaveClass("is-collapsed");
 });
 
-it("displays a close button", async () => {
-  const onClose = jest.fn();
-  render(<AppAside onClose={onClose} />);
-  expect(screen.getByText("Close")).toBeInTheDocument();
-  await userEvent.click(screen.getByRole("button", { name: "Close" }));
-  expect(onClose).toHaveBeenCalled();
+it("displays as narrow", async () => {
+  render(<AppAside narrow>Content</AppAside>);
+  expect(screen.queryByRole("complementary")).toHaveClass("is-narrow");
+});
+
+it("displays pinned", async () => {
+  render(<AppAside pinned>Content</AppAside>);
+  expect(screen.queryByRole("complementary")).toHaveClass("is-pinned");
+});
+
+it("displays as wide", async () => {
+  render(<AppAside wide>Content</AppAside>);
+  expect(screen.queryByRole("complementary")).toHaveClass("is-wide");
 });

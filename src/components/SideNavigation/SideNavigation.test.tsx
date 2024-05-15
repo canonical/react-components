@@ -8,7 +8,122 @@ const Link = ({ ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => (
   <button {...props} />
 );
 
-it("displays links", () => {
+it("displays content", () => {
+  render(<SideNavigation>Content</SideNavigation>);
+  expect(screen.getByText("Content")).toBeInTheDocument();
+});
+
+it("displays a single list of links", () => {
+  render(
+    <SideNavigation
+      items={[
+        {
+          label: "Link one",
+          href: "#",
+        },
+        {
+          label: "Link two",
+          href: "#",
+        },
+      ]}
+    />
+  );
+  expect(screen.getAllByRole("list")).toHaveLength(1);
+});
+
+it("displays multiple lists of links", () => {
+  render(
+    <SideNavigation
+      items={[
+        [
+          {
+            label: "Link one",
+            href: "#",
+          },
+          {
+            label: "Link two",
+            href: "#",
+          },
+        ],
+        [
+          {
+            label: "Link three",
+            href: "#",
+          },
+          {
+            label: "Link four",
+            href: "#",
+          },
+        ],
+      ]}
+    />
+  );
+  expect(screen.getAllByRole("list")).toHaveLength(2);
+});
+
+it("can apply props to the list elements", () => {
+  render(
+    <SideNavigation
+      listClassName="custom-list-class-one"
+      items={[
+        {
+          className: "custom-list-class-two",
+          items: [
+            {
+              label: "Link one",
+              href: "#",
+            },
+            {
+              label: "Link two",
+              href: "#",
+            },
+          ],
+        },
+      ]}
+    />
+  );
+  expect(screen.getByRole("list")).toHaveClass("custom-list-class-one");
+  expect(screen.getByRole("list")).toHaveClass("custom-list-class-two");
+});
+
+it("can display text items", () => {
+  render(
+    <SideNavigation
+      items={[
+        {
+          label: "Link one",
+          href: "#",
+        },
+        {
+          nonInteractive: true,
+          label: "Text one",
+        },
+      ]}
+    />
+  );
+  expect(screen.getByRole("link", { name: "Link one" })).toBeInTheDocument();
+  expect(screen.getByText("Text one")).toBeInTheDocument();
+  expect(
+    screen.queryByRole("link", { name: "Text one" })
+  ).not.toBeInTheDocument();
+});
+
+it("can display custom elements", () => {
+  render(
+    <SideNavigation
+      items={[
+        {
+          label: "Link one",
+          href: "#",
+        },
+        <button onClick={jest.fn()}>Hello</button>,
+      ]}
+    />
+  );
+  expect(screen.getByRole("button", { name: "Hello" })).toBeInTheDocument();
+});
+
+it("displays links by default", () => {
   render(
     <SideNavigation
       items={[

@@ -45,10 +45,10 @@ it("displays main content", () => {
 });
 
 it("displays a status bar", () => {
-  const content = "Main content";
+  const content = "Status content";
   render(<ApplicationLayout logo={logo} navItems={[]} status={content} />);
   expect(screen.getByText(content)).toBeInTheDocument();
-  expect(screen.getByText(content).parentNode).toHaveClass("l-status");
+  expect(screen.getByText(content)).toHaveClass("l-status");
 });
 
 it("displays an aside", () => {
