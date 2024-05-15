@@ -11,6 +11,10 @@ export type Props<L = LinkDefaultElement> = Omit<
   SideNavigationBaseProps<L>,
   "component"
 > & {
+  /**
+   * The component or element to use for the link element e.g. `a` or `NavLink`.
+   * @default a
+   */
   component?: SideNavigationBaseProps<L>["component"];
 };
 

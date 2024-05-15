@@ -9,6 +9,9 @@ import SideNavigationText, {
 } from "../SideNavigationText";
 
 type ItemProps = {
+  /**
+   * The item content.
+   */
   children: NonNullable<PropsWithChildren["children"]>;
 } & HTMLProps<HTMLLIElement>;
 

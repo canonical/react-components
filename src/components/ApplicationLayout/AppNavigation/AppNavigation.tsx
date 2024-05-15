@@ -5,12 +5,26 @@ import type { HTMLProps, PropsWithChildren } from "react";
 
 export type Props = PropsWithSpread<
   {
+    /**
+     * Whether the navigation panel should be collapsed.
+     */
     collapsed?: boolean;
+    /**
+     * The navigation drawer content.
+     */
+    children?: PropsWithChildren["children"];
+    /**
+     * Whether the navigation panel should be pinned.
+     */
     pinned?: boolean;
-  } & PropsWithChildren,
+  },
   HTMLProps<HTMLDivElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for navigation panel in the Vanilla
+ * [Application Layout](https://vanillaframework.io/docs/layouts/application).
+ */
 const AppNavigation = ({
   children,
   className,

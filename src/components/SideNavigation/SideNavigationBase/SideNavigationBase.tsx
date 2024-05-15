@@ -5,10 +5,25 @@ import Icon from "components/Icon";
 
 export type Props<C> = PropsWithSpread<
   {
+    /**
+     * The component or element to use for the element e.g. `span` or `NavLink`.
+     */
     component: ElementType | ComponentType<C>;
+    /**
+     * Whether to use the dark theme.
+     */
     dark?: boolean;
+    /**
+     * The navigation item's icon.
+     */
     icon?: string;
+    /**
+     * The navigation item's label.
+     */
     label: ReactNode;
+    /**
+     * The navigation item's status.
+     */
     status?: ReactNode;
   },
   C

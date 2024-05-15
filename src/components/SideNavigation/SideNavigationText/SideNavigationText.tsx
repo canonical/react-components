@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import type { HTMLProps, PropsWithChildren } from "react";
+import type { HTMLProps } from "react";
 
 import type { SideNavigationBaseProps } from "../SideNavigationBase";
 import SideNavigationBase from "../SideNavigationBase";
@@ -10,8 +10,7 @@ export type TextDefaultElement = HTMLProps<HTMLSpanElement>;
 export type Props = Omit<
   SideNavigationBaseProps<TextDefaultElement>,
   "component" | "label"
-> &
-  PropsWithChildren;
+>;
 
 const SideNavigationText = ({ children, className, ...props }: Props) => {
   return (

@@ -26,17 +26,51 @@ export type BaseProps<
   PL = PanelLogoDefaultElement,
 > = PropsWithSpread<
   {
+    /**
+     * The aside panel. This prop puts the panel in the correct position inside the
+     * application layout DOM structure, but does not wrap the content in an aside,
+     * so the content provided to this prop should include an `<AppAside>` or equivalent.
+     */
     aside?: ReactNode;
+    /**
+     * The content for the main area.
+     */
+    children?: PropsWithChildren["children"];
+    /**
+     * Whether to use the dark theme.
+     * @default true
+     */
     dark?: boolean;
+    /**
+     * The logo to appear in the navigation panels.
+     */
     logo: NonNullable<PanelProps<PL>["logo"]>;
+    /**
+     * The component to use to render links inside the navigation e.g. when
+     * using react-router you'd pass `Link` to this prop.
+     */
     navLinkComponent?: SideNavigationProps<NI>["linkComponent"];
+    /**
+     * Whether the navigation menu should be collapsed.
+     */
     menuCollapsed?: boolean;
+    /**
+     * Whether the navigation menu should be pinned.
+     */
     menuPinned?: boolean;
-    navPanelClassName?: string;
+    /**
+     * A function that is called to collapse the navigation menu.
+     */
     onCollapseMenu?: (menuCollapsed: boolean) => void;
+    /**
+     * A function that is called to pin the navigation menu.
+     */
     onPinMenu?: (menuPinned: boolean) => void;
+    /**
+     * The content to appear inside the status area.
+     */
     status?: ReactNode;
-  } & PropsWithChildren,
+  },
   HTMLProps<HTMLDivElement>
 >;
 
@@ -56,6 +90,11 @@ export type Props<
 /**
  * This is a [React](https://reactjs.org/) component for the Vanilla
  * [Application Layout](https://vanillaframework.io/docs/layouts/application).
+ *
+ * This component combines the various sub-components that make up the
+ * Application Layout to make it easier to consume. For some applications this
+ * component maybe not be flexible enough, in which case you may choose to use
+ * the sub-components directly.
  */
 const ApplicationLayout = <
   NI = SideNavigationLinkDefaultElement,
@@ -69,7 +108,6 @@ const ApplicationLayout = <
   menuPinned,
   navLinkComponent,
   navItems,
-  navPanelClassName,
   onCollapseMenu,
   onPinMenu,
   sideNavigation,
@@ -97,7 +135,6 @@ const ApplicationLayout = <
       </AppNavigationBar>
       <AppNavigation collapsed={menuIsCollapsed} pinned={menuIsPinned}>
         <Panel<PL>
-          className={navPanelClassName}
           dark={dark}
           controls={
             <>

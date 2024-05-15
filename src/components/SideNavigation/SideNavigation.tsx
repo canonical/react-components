@@ -18,6 +18,9 @@ export type NavItem<L = SideNavigationLinkDefaultElement> =
 
 export type NavGroup<L = SideNavigationLinkDefaultElement> = PropsWithSpread<
   {
+    /**
+     * The navigation items.
+     */
     items: NavItem<L>[];
   },
   HTMLProps<HTMLUListElement>
@@ -25,13 +28,38 @@ export type NavGroup<L = SideNavigationLinkDefaultElement> = PropsWithSpread<
 
 export type Props<L = SideNavigationLinkDefaultElement> = PropsWithSpread<
   {
+    /**
+     * The navigation content. This can be used instead of supplying `items`.
+     */
+    children?: PropsWithChildren["children"];
+    /**
+     * Whether to use the dark theme.
+     */
     dark?: boolean;
+    /**
+     * Whether the navigation items contain icons.
+     */
     hasIcons?: boolean;
+    /**
+     * The navigation items. This can be a single array of items, nested arrays
+     * for multiple navigation lists or an object containing items and props
+     * that are passed to the list element.
+     */
     items?: NavItem<L>[] | NavItem<L>[][] | NavGroup<L>[];
+    /**
+     * The component or element to use for the link elements e.g. `a` or `NavLink`.
+     * @default a
+     */
     linkComponent?: SideNavigationLinkProps["component"];
+    /**
+     * Classes to apply to the navigation list(s).
+     */
     listClassName?: string;
+    /**
+     * Classes to apply to the nav element.
+     */
     navClassName?: string;
-  } & PropsWithChildren,
+  },
   HTMLProps<HTMLDivElement>
 >;
 
@@ -61,11 +89,46 @@ const generateItem = <L = SideNavigationLinkDefaultElement,>(
   return null;
 };
 
+const generateItems = <L = SideNavigationLinkDefaultElement,>(
+  groups: NavItem<L>[][] | NavGroup<L>[] | null,
+  listClassName?: string,
+  linkComponent?: SideNavigationLinkProps["component"]
+) => {
+  return groups?.map((group: NavItem<L>[] | NavGroup<L>, g) => {
+    let items: NavItem<L>[];
+    let props: HTMLProps<HTMLUListElement> = {};
+    if (typeof group === "object" && "items" in group) {
+      ({ items, ...props } = group);
+    } else {
+      items = group;
+    }
+    return (
+      <ul
+        {...props}
+        className={classNames(
+          "p-side-navigation__list",
+          listClassName,
+          "className" in group ? group.className : null
+        )}
+        key={g}
+      >
+        {items
+          .filter(Boolean)
+          .map((item, i) => generateItem<L>(item, i, linkComponent))}
+      </ul>
+    );
+  });
+};
+
 const isGrouped = <L = SideNavigationLinkDefaultElement,>(
   items: Props<L>["items"]
 ): items is NavItem<L>[][] | NavGroup<L>[] =>
   items.some((item) => Array.isArray(item) || "items" in item);
 
+/**
+ * This is a [React](https://reactjs.org/) component for side navigation, used
+ * in the [Vanilla](https://vanillaframework.io/docs/) layouts.
+ */
 const SideNavigation = <L = SideNavigationLinkDefaultElement,>({
   children,
   className,
@@ -96,31 +159,7 @@ const SideNavigation = <L = SideNavigationLinkDefaultElement,>({
       {...props}
     >
       <nav className={navClassName}>
-        {children ??
-          groups?.map((group: NavItem<L>[] | NavGroup<L>, g) => {
-            let items: NavItem<L>[];
-            let props: HTMLProps<HTMLUListElement> = {};
-            if (typeof group === "object" && "items" in group) {
-              ({ items, ...props } = group);
-            } else {
-              items = group;
-            }
-            return (
-              <ul
-                {...props}
-                className={classNames(
-                  "p-side-navigation__list",
-                  listClassName,
-                  "className" in group ? group.className : null
-                )}
-                key={g}
-              >
-                {items
-                  .filter(Boolean)
-                  .map((item, i) => generateItem<L>(item, i, linkComponent))}
-              </ul>
-            );
-          })}
+        {children ?? generateItems(groups, listClassName, linkComponent)}
       </nav>
     </div>
   );
