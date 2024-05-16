@@ -70,6 +70,22 @@ export type BaseProps<
      * The content to appear inside the status area.
      */
     status?: ReactNode;
+    /**
+     * Classes to apply to the navigation bar.
+     */
+    navigationBarClassName?: string;
+    /**
+     * Classes to apply to the navigation menu.
+     */
+    navigationClassName?: string;
+    /**
+     * Classes to apply to the main area.
+     */
+    mainClassName?: string;
+    /**
+     * Classes to apply to the status area.
+     */
+    statusClassName?: string;
   },
   HTMLProps<HTMLDivElement>
 >;
@@ -106,14 +122,18 @@ const ApplicationLayout = <
   children,
   dark = true,
   logo,
+  mainClassName,
   menuCollapsed,
   menuPinned,
-  navLinkComponent,
+  navigationBarClassName,
+  navigationClassName,
   navItems,
+  navLinkComponent,
   onCollapseMenu,
   onPinMenu,
   sideNavigation,
   status,
+  statusClassName,
   ...props
 }: Props<NI, PL>) => {
   const [internalMenuPinned, setInternalMenuPinned] = useState(false);
@@ -125,7 +145,7 @@ const ApplicationLayout = <
 
   return (
     <Application {...props}>
-      <AppNavigationBar>
+      <AppNavigationBar className={navigationBarClassName}>
         <Panel<PL>
           dark={dark}
           logo={logo}
@@ -135,7 +155,11 @@ const ApplicationLayout = <
           }}
         />
       </AppNavigationBar>
-      <AppNavigation collapsed={menuIsCollapsed} pinned={menuIsPinned}>
+      <AppNavigation
+        className={navigationClassName}
+        collapsed={menuIsCollapsed}
+        pinned={menuIsPinned}
+      >
         <Panel<PL>
           dark={dark}
           controls={
@@ -191,9 +215,11 @@ const ApplicationLayout = <
           )}
         </Panel>
       </AppNavigation>
-      <AppMain>{children}</AppMain>
+      <AppMain className={mainClassName}>{children}</AppMain>
       {aside}
-      {status ? <AppStatus>{status}</AppStatus> : null}
+      {status ? (
+        <AppStatus className={statusClassName}>{status}</AppStatus>
+      ) : null}
     </Application>
   );
 };
