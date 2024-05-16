@@ -45,6 +45,7 @@ it("displays multiple lists of links", () => {
             href: "#",
           },
         ],
+        null,
         [
           {
             label: "Link three",

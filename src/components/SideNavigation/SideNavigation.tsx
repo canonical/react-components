@@ -45,7 +45,7 @@ export type Props<L = SideNavigationLinkDefaultElement> = PropsWithSpread<
      * for multiple navigation lists or an object containing items and props
      * that are passed to the list element.
      */
-    items?: NavItem<L>[] | NavItem<L>[][] | NavGroup<L>[];
+    items?: NavItem<L>[] | (NavItem<L>[] | null)[] | (NavGroup<L> | null)[];
     /**
      * The component or element to use for the link elements e.g. `a` or `NavLink`.
      * @default a
@@ -66,13 +66,16 @@ export type Props<L = SideNavigationLinkDefaultElement> = PropsWithSpread<
 const generateItem = <L = SideNavigationLinkDefaultElement,>(
   item: NavItem<L>,
   index: number,
-  linkComponent?: Props<L>["linkComponent"]
+  linkComponent?: Props<L>["linkComponent"],
+  dark?: boolean
 ) => {
   if (isReactNode(item)) {
     return <SideNavigationItem key={index}>{item}</SideNavigationItem>;
   }
   if ("nonInteractive" in item) {
-    return <SideNavigationItem {...item} key={index} />;
+    return (
+      <SideNavigationItem {...item} dark={item.dark ?? dark} key={index} />
+    );
   }
   if ("children" in item) {
     return <SideNavigationItem key={index} {...item} />;
@@ -81,6 +84,7 @@ const generateItem = <L = SideNavigationLinkDefaultElement,>(
     return (
       <SideNavigationItem<L>
         component={item.component ?? linkComponent}
+        dark={item.dark ?? dark}
         {...item}
         key={index}
       />
@@ -92,9 +96,10 @@ const generateItem = <L = SideNavigationLinkDefaultElement,>(
 const generateItems = <L = SideNavigationLinkDefaultElement,>(
   groups: NavItem<L>[][] | NavGroup<L>[] | null,
   listClassName?: string,
-  linkComponent?: SideNavigationLinkProps["component"]
+  linkComponent?: SideNavigationLinkProps["component"],
+  dark?: boolean
 ) => {
-  return groups?.map((group: NavItem<L>[] | NavGroup<L>, g) => {
+  return groups?.filter(Boolean).map((group: NavItem<L>[] | NavGroup<L>, g) => {
     let items: NavItem<L>[];
     let props: HTMLProps<HTMLUListElement> = {};
     if (typeof group === "object" && "items" in group) {
@@ -114,7 +119,7 @@ const generateItems = <L = SideNavigationLinkDefaultElement,>(
       >
         {items
           .filter(Boolean)
-          .map((item, i) => generateItem<L>(item, i, linkComponent))}
+          .map((item, i) => generateItem<L>(item, i, linkComponent, dark))}
       </ul>
     );
   });
@@ -123,7 +128,7 @@ const generateItems = <L = SideNavigationLinkDefaultElement,>(
 const isGrouped = <L = SideNavigationLinkDefaultElement,>(
   items: Props<L>["items"]
 ): items is NavItem<L>[][] | NavGroup<L>[] =>
-  items.some((item) => Array.isArray(item) || "items" in item);
+  items.some((item) => Array.isArray(item) || (item && "items" in item));
 
 /**
  * This is a [React](https://reactjs.org/) component for side navigation, used
@@ -150,8 +155,8 @@ const SideNavigation = <L = SideNavigationLinkDefaultElement,>({
         "p-side-navigation--icons":
           hasIcons ||
           groups?.some((group) =>
-            ("items" in group ? group.items : items).some((item) =>
-              isReactNode(item) ? false : "icon" in item && !!item.icon
+            (group && "items" in group ? group.items : items).some((item) =>
+              isReactNode(item) ? false : item && "icon" in item && !!item.icon
             )
           ),
         "is-dark": dark,
@@ -159,7 +164,7 @@ const SideNavigation = <L = SideNavigationLinkDefaultElement,>({
       {...props}
     >
       <nav className={navClassName}>
-        {children ?? generateItems(groups, listClassName, linkComponent)}
+        {children ?? generateItems(groups, listClassName, linkComponent, dark)}
       </nav>
     </div>
   );
