@@ -1,0 +1,44 @@
+name: Upload TICS report
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  tics-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+      - name: Install dependencies
+        run: yarn install
+      - name: Lint
+        run: yarn lint
+
+      - name: Build
+        run: yarn build
+
+      - name: Test
+        run: yarn test --coverage
+        env:
+          CI: true
+
+      - name: Produce TICS report
+        shell: bash
+        run: |
+          set -x
+          export TICSAUTHTOKEN=${{ secrets.TICS_AUTH_TOKEN }}
+          curl --silent --show-error "https://canonical.tiobe.com/tiobeweb/TICS/api/public/v1/fapi/installtics/Script?cfg=default&platform=linux&url=https://canonical.tiobe.com/tiobeweb/TICS/" > install_tics.sh
+          . ./install_tics.sh
+          TICSQServer -project react-components -tmpdir /tmp/tics -branchdir .
+
+      - name: Upload TICS report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tics-report
+          path: /tmp/tics/ticstmpdir
+          retention-days: 7
