@@ -1,4 +1,7 @@
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
+
+import Badge from "components/Badge";
 
 import SideNavigationText from "./SideNavigationText";
 
@@ -12,5 +15,9 @@ export default meta;
 type Story = StoryObj<typeof SideNavigationText>;
 
 export const Default: Story = {
-  args: {},
+  args: {
+    icon: "drag",
+    children: "Models",
+    status: <Badge value={9} isNegative />,
+  },
 };

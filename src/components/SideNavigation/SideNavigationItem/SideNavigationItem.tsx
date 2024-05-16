@@ -17,7 +17,12 @@ type ItemProps = {
 
 type ContentProps<L = SideNavigationLinkDefaultElement> =
   | SideNavigationLinkProps<L>
-  | (SideNavigationTextProps & { nonInteractive: true });
+  | (SideNavigationTextProps & {
+      /**
+       * Whether this should be a content-only item.
+       */
+      nonInteractive: true;
+    });
 
 export type Props<L = SideNavigationLinkDefaultElement> =
   | ItemProps

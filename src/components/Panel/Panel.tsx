@@ -166,6 +166,10 @@ const generateLogo = <L = LogoDefaultElement,>(logo: PanelLogo<L>) => {
 /**
  * This is a [React](https://reactjs.org/) component for panels in the
  * [Vanilla](https://vanillaframework.io/docs/) layouts.
+ *
+ * The Panel component can be used in many areas of the application layout. It
+ * can be the child element of `AppAside`, `AppMain`, `AppNavigation`, `AppNavigationBar`
+ * and `AppStatus`.
  */
 const Panel = <L = LogoDefaultElement,>({
   forwardRef,

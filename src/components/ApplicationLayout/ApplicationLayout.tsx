@@ -94,7 +94,9 @@ export type Props<
  * This component combines the various sub-components that make up the
  * Application Layout to make it easier to consume. For some applications this
  * component maybe not be flexible enough, in which case you may choose to use
- * the sub-components directly.
+ * the sub-components directly. Be aware that the application layout requires a
+ * specific structure and states to function correctly so there will be a
+ * trade-off when using the sub-components directly.
  */
 const ApplicationLayout = <
   NI = SideNavigationLinkDefaultElement,
@@ -146,6 +148,8 @@ const ApplicationLayout = <
                 })}
                 onClick={(evt) => {
                   setMenuCollapsed(true);
+                  // The menu stays open while its content has focus, so the
+                  // close button must blur to actually close the menu.
                   evt.currentTarget.blur();
                 }}
               >

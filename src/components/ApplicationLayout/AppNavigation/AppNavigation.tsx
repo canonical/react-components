@@ -22,8 +22,11 @@ export type Props = PropsWithSpread<
 >;
 
 /**
- * This is a [React](https://reactjs.org/) component for navigation panel in the Vanilla
+ * This is a [React](https://reactjs.org/) component for the navigation panel in the Vanilla
  * [Application Layout](https://vanillaframework.io/docs/layouts/application).
+ *
+ * This component is used to display the left navigation panel. It should be
+ * used alongside [`AppNavigationBar`](/docs/components-applicationlayout-appnavigationbar--docs).
  */
 const AppNavigation = ({
   children,

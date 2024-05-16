@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
 
@@ -11,6 +12,7 @@ import ApplicationLayout from "./ApplicationLayout";
 import AppAside from "./AppAside";
 import Panel from "components/Panel";
 import Icon from "components/Icon";
+import SideNavigation from "components/SideNavigation";
 
 const meta: Meta<typeof ApplicationLayout> = {
   component: ApplicationLayout,
@@ -23,9 +25,7 @@ type Story = StoryObj<typeof ApplicationLayout>;
 
 export const Default: Story = {
   render: () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [showAside, setShowAside] = useState(true);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
     const [asidePinned, setAsidePinned] = useState(false);
 
     return (
@@ -150,6 +150,119 @@ export const Default: Story = {
           >
             Toggle aside
           </Button>
+        }
+      >
+        <Panel title="Application Layout">
+          <Row>
+            <Col size={12}>Content</Col>
+          </Row>
+        </Panel>
+      </ApplicationLayout>
+    );
+  },
+};
+
+/**
+ * The pinned and collapsed states can be handled externally if you need access
+ * to these outside the application layout.
+ */
+export const ExternalStates: Story = {
+  render: () => {
+    const [menuPinned, setMenuPinned] = useState(false);
+    const [menuCollapsed, setMenuCollapsed] = useState(true);
+
+    return (
+      <ApplicationLayout
+        menuPinned={menuPinned}
+        onPinMenu={setMenuPinned}
+        menuCollapsed={menuCollapsed}
+        onCollapseMenu={setMenuCollapsed}
+        logo={{
+          icon: "https://assets.ubuntu.com/v1/7144ec6d-logo-jaas-icon.svg",
+          name: "https://assets.ubuntu.com/v1/2e04d794-logo-jaas.svg",
+          nameAlt: "JAAS",
+          href: "/",
+        }}
+        navItems={[
+          {
+            items: [
+              {
+                icon: "drag",
+                label: "Models",
+                href: "/models",
+              },
+              {
+                icon: "menu",
+                label: "Controllers",
+                href: "/controllers",
+              },
+              {
+                icon: "user",
+                label: "Permissions",
+                href: "/users",
+              },
+            ],
+          },
+        ]}
+      >
+        <Panel title="Application Layout">
+          <Row>
+            <Col size={12}>Content</Col>
+          </Row>
+        </Panel>
+      </ApplicationLayout>
+    );
+  },
+};
+
+/**
+ * Menu items can either be provided as an array given to `navItems` or when
+ * more control is needed then by proving `sideNavigation`.
+ *
+ * For more details about how to provide navigation items see the
+ * [`SideNavigation`](/docs/components-sidenavigation--docs) docs.
+ */
+export const Navigation: Story = {
+  render: () => {
+    const [menuPinned, setMenuPinned] = useState(false);
+    const [menuCollapsed, setMenuCollapsed] = useState(true);
+
+    return (
+      <ApplicationLayout
+        menuPinned={menuPinned}
+        onPinMenu={setMenuPinned}
+        menuCollapsed={menuCollapsed}
+        onCollapseMenu={setMenuCollapsed}
+        logo={{
+          icon: "https://assets.ubuntu.com/v1/7144ec6d-logo-jaas-icon.svg",
+          name: "https://assets.ubuntu.com/v1/2e04d794-logo-jaas.svg",
+          nameAlt: "JAAS",
+          href: "/",
+        }}
+        sideNavigation={
+          <SideNavigation
+            items={[
+              {
+                items: [
+                  {
+                    icon: "drag",
+                    label: "Models",
+                    href: "/models",
+                  },
+                  {
+                    icon: "menu",
+                    label: "Controllers",
+                    href: "/controllers",
+                  },
+                  {
+                    icon: "user",
+                    label: "Permissions",
+                    href: "/users",
+                  },
+                ],
+              },
+            ]}
+          />
         }
       >
         <Panel title="Application Layout">

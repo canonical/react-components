@@ -40,7 +40,7 @@ const SideNavigationBase = <C,>({
   return (
     <Component {...props}>
       {icon ? (
-        <Icon name={icon} light={!dark} className="p-side-navigation__icon" />
+        <Icon name={icon} light={dark} className="p-side-navigation__icon" />
       ) : null}
       <span className="p-side-navigation__label">
         <span className="p-side-navigation__label">{label}</span>
