@@ -22,12 +22,12 @@ it("displays an icon", () => {
 });
 
 it("displays a light icon", () => {
-  render(<SideNavigationLink icon="user" label="Test content" />);
+  render(<SideNavigationLink dark icon="user" label="Test content" />);
   expect(document.querySelector(".p-icon--user")).toHaveClass("is-light");
 });
 
 it("displays a dark icon", () => {
-  render(<SideNavigationLink dark icon="user" label="Test content" />);
+  render(<SideNavigationLink dark={false} icon="user" label="Test content" />);
   expect(document.querySelector(".p-icon--user")).not.toHaveClass("is-light");
 });
 

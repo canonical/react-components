@@ -30,7 +30,12 @@ it("displays an icon", () => {
 
 it("displays a light icon", () => {
   render(
-    <SideNavigationBase icon="user" label="Test content" component="button" />
+    <SideNavigationBase
+      dark
+      icon="user"
+      label="Test content"
+      component="button"
+    />
   );
   expect(document.querySelector(".p-icon--user")).toHaveClass("is-light");
 });
@@ -38,7 +43,7 @@ it("displays a light icon", () => {
 it("displays a dark icon", () => {
   render(
     <SideNavigationBase
-      dark
+      dark={false}
       icon="user"
       label="Test content"
       component="button"
