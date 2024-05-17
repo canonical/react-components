@@ -76,3 +76,4 @@ yarn run unlink-packages
 ## Related projects
 The following projects are related to, or build upon this library:
 - [Store components](https://github.com/canonical/store-components)
+- [MAAS React components](https://github.com/canonical/maas-react-components)
