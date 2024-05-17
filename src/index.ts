@@ -45,6 +45,7 @@ export {
 } from "./components/NotificationProvider";
 export { default as LoginPageLayout } from "./components/LoginPageLayout";
 export { default as Pagination } from "./components/Pagination";
+export { default as Panel } from "./components/Panel";
 export { default as PasswordToggle } from "./components/PasswordToggle";
 export { default as RadioInput } from "./components/RadioInput";
 export { default as Row } from "./components/Row";
@@ -123,6 +124,7 @@ export type {
 } from "./components/NotificationProvider";
 export type { LoginPageLayoutProps } from "./components/LoginPageLayout";
 export type { PaginationProps } from "./components/Pagination";
+export type { PanelProps } from "./components/Panel";
 export type { RadioInputProps } from "./components/RadioInput";
 export type { RowProps } from "./components/Row";
 export type { SearchAndFilterProps } from "./components/SearchAndFilter";
