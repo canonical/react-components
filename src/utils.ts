@@ -1,4 +1,5 @@
 import { NavLink, NavLinkAnchor, NavLinkButton } from "components/Navigation";
+import { isValidElement, ReactNode } from "react";
 
 export const IS_DEV = process.env.NODE_ENV === "development";
 
@@ -43,3 +44,9 @@ export const isNavigationAnchor = (link: NavLink): link is NavLinkAnchor =>
  */
 export const isNavigationButton = (link: NavLink): link is NavLinkButton =>
   !link.url;
+
+/**
+ * A typeguard for whether an element is a ReactNode.
+ */
+export const isReactNode = (element: unknown): element is ReactNode =>
+  isValidElement(element);
