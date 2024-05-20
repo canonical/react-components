@@ -75,6 +75,10 @@ type TitleProps = {
    * @default h4
    */
   titleComponent?: ElementType;
+  /**
+   * An ID for the title element.
+   */
+  titleId?: string;
 };
 
 type HeaderProps<L = LogoDefaultElement> = ExclusiveProps<
@@ -185,6 +189,7 @@ const Panel = <L = LogoDefaultElement,>({
   title,
   titleClassName,
   titleComponent: TitleComponent = "h4",
+  titleId,
   toggle,
   wrapContent = true,
   ...props
@@ -208,6 +213,7 @@ const Panel = <L = LogoDefaultElement,>({
           ) : (
             <TitleComponent
               className={classNames("p-panel__title", titleClassName)}
+              id={titleId}
             >
               {title}
             </TitleComponent>
