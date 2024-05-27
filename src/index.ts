@@ -43,6 +43,7 @@ export {
   failure,
   queue,
 } from "./components/NotificationProvider";
+export { default as LoginPageLayout } from "./components/LoginPageLayout";
 export { default as Pagination } from "./components/Pagination";
 export { default as PasswordToggle } from "./components/PasswordToggle";
 export { default as RadioInput } from "./components/RadioInput";
@@ -120,6 +121,7 @@ export type {
   QueuedNotification,
   NotificationHelper,
 } from "./components/NotificationProvider";
+export type { LoginPageLayoutProps } from "./components/LoginPageLayout";
 export type { PaginationProps } from "./components/Pagination";
 export type { RadioInputProps } from "./components/RadioInput";
 export type { RowProps } from "./components/Row";
