@@ -1,0 +1,19 @@
+@import "vanilla-framework";
+
+@media screen and (max-width: $breakpoint-small) {
+  .page-row {
+    padding: 0;
+  }
+
+  .page-card {
+    border: 0;
+  }
+
+  .is-paper {
+    background-color: #fff;
+  }
+}
+
+.page-inner {
+  padding: 1rem 2rem 2rem;
+}
