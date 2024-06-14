@@ -123,7 +123,7 @@
     "build-declaration": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
     "build-watch": "yarn run build-local --watch",
     "build-docs": "storybook build -c .storybook -o docs",
-    "clean": "rm -rf node_modules dist .out",
+    "clean": "rm -rf node_modules dist .out docs",
     "docs": "storybook dev -p ${PORT:-9009}",
     "link-packages": "yarn install && yarn build && yarn link && cd node_modules/react && yarn link && cd ../react-dom && yarn link",
     "lint-js": "eslint src",
