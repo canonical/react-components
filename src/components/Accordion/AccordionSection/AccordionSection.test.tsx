@@ -87,4 +87,23 @@ describe("AccordionSection ", () => {
 
     expect(onTitleClick).toHaveBeenCalledWith(true, "first-key");
   });
+
+  it("renders custom headings for titles", () => {
+    render(
+      <AccordionSection
+        content={<span>Test</span>}
+        expanded="abcd-1234"
+        setExpanded={jest.fn()}
+        title={
+          <>
+            <span>Test section </span>
+            <span>optional</span>
+          </>
+        }
+      />
+    );
+    const title = screen.getByRole("tab");
+    expect(title.children).toHaveLength(2);
+    expect(title).toHaveTextContent("Test section optional");
+  });
 });
