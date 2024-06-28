@@ -15,69 +15,9 @@ export default meta;
 type Story = StoryObj<typeof SideNavigation>;
 
 /**
- * Menu items can be provided as links, text or custom components.
+ * Menu items can be provided as links, text or custom components. To provide attributes to individual menus then each menu can be provided as a object containing an items array: `{ className: "menu-one", items: [...] }`.
  */
 export const Default: Story = {
-  args: {
-    items: [
-      {
-        icon: "drag",
-        label: "Models",
-        status: <Badge value={9} isNegative />,
-      },
-      {
-        icon: "menu",
-        label: "Controllers",
-        nonInteractive: true,
-      },
-      <div>Custom item</div>,
-    ],
-  },
-};
-
-/**
- * To display multiple menus a nested array of items can be used.
- */
-export const MultipleMenus: Story = {
-  args: {
-    items: [
-      [
-        {
-          icon: "drag",
-          label: "Models",
-          href: "/models",
-        },
-        {
-          icon: "menu",
-          label: "Controllers",
-          href: "/controllers",
-        },
-        {
-          icon: "user",
-          label: "Permissions",
-          href: "/users",
-        },
-      ],
-      [
-        {
-          icon: "information",
-          label: "Docs",
-          href: "/docs",
-        },
-        {
-          label: "Logout",
-          href: "/logout",
-        },
-      ],
-    ],
-  },
-};
-
-/**
- * To provide attributes to individual menus then each menu can be provided as a
- * object containing an items array: `{ className: "menu-one", items: [...] }`.
- */
-export const ListAttributes: Story = {
   args: {
     items: [
       {
@@ -87,11 +27,12 @@ export const ListAttributes: Story = {
             icon: "drag",
             label: "Models",
             href: "/models",
+            status: <Badge value={9} isNegative />,
           },
           {
             icon: "menu",
             label: "Controllers",
-            href: "/controllers",
+            nonInteractive: true,
           },
           {
             icon: "user",
