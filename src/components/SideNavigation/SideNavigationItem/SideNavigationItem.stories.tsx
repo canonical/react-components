@@ -11,7 +11,7 @@ const meta: Meta<typeof SideNavigationItem> = {
   render: (args) => (
     <SideNavigation
       dark={false}
-      items={[<SideNavigationItem {...args} dark={false} />]}
+      items={[{ items: [<SideNavigationItem {...args} dark={false} />] }]}
     />
   ),
   tags: ["autodocs"],
