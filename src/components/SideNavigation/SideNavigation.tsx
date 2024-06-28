@@ -43,14 +43,9 @@ export type Props<L = SideNavigationLinkDefaultElement> = PropsWithSpread<
      */
     hasIcons?: boolean;
     /**
-     * The navigation items. This can be a single array of items, nested arrays
-     * for multiple navigation lists or an object containing items and props
-     * that are passed to the list element.
+     * The navigation items.
      */
-    items?:
-      | NavItemGroup<L>
-      | (NavItemGroup<L> | null)[]
-      | (NavGroup<L> | null)[];
+    items?: (NavGroup<L> | null)[];
     /**
      * The component or element to use for the link elements e.g. `a` or `NavLink`.
      * @default a
@@ -132,11 +127,6 @@ const generateItems = <L = SideNavigationLinkDefaultElement,>(
     });
 };
 
-const isGrouped = <L = SideNavigationLinkDefaultElement,>(
-  items: Props<L>["items"]
-): items is NavItemGroup<L>[] | NavGroup<L>[] =>
-  items.some((item) => Array.isArray(item) || (item && "items" in item));
-
 const getHasIcons = <L = SideNavigationLinkDefaultElement,>(
   groups: (NavItemGroup<L> | null)[] | (NavGroup<L> | null)[]
 ) =>
@@ -161,20 +151,16 @@ const SideNavigation = <L = SideNavigationLinkDefaultElement,>({
   navClassName,
   ...props
 }: Props<L>) => {
-  let groups: (NavItemGroup<L> | null)[] | (NavGroup<L> | null)[] | null = null;
-  if (items) {
-    groups = isGrouped(items) ? items : [items];
-  }
   return (
     <div
       className={classNames(className, {
-        "p-side-navigation--icons": hasIcons || getHasIcons(groups),
+        "p-side-navigation--icons": hasIcons || getHasIcons(items),
         "is-dark": dark,
       })}
       {...props}
     >
       <nav className={navClassName}>
-        {children ?? generateItems(groups, listClassName, linkComponent, dark)}
+        {children ?? generateItems(items, listClassName, linkComponent, dark)}
       </nav>
     </div>
   );

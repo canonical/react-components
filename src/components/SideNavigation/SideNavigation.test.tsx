@@ -13,55 +13,6 @@ it("displays content", () => {
   expect(screen.getByText("Content")).toBeInTheDocument();
 });
 
-it("displays a single list of links", () => {
-  render(
-    <SideNavigation
-      items={[
-        {
-          label: "Link one",
-          href: "#",
-        },
-        {
-          label: "Link two",
-          href: "#",
-        },
-      ]}
-    />
-  );
-  expect(screen.getAllByRole("list")).toHaveLength(1);
-});
-
-it("displays multiple lists of links", () => {
-  render(
-    <SideNavigation
-      items={[
-        [
-          {
-            label: "Link one",
-            href: "#",
-          },
-          {
-            label: "Link two",
-            href: "#",
-          },
-        ],
-        null,
-        [
-          {
-            label: "Link three",
-            href: "#",
-          },
-          {
-            label: "Link four",
-            href: "#",
-          },
-        ],
-      ]}
-    />
-  );
-  expect(screen.getAllByRole("list")).toHaveLength(2);
-});
-
 it("can apply props to the list elements", () => {
   render(
     <SideNavigation
@@ -92,12 +43,16 @@ it("can display text items", () => {
     <SideNavigation
       items={[
         {
-          label: "Link one",
-          href: "#",
-        },
-        {
-          nonInteractive: true,
-          label: "Text one",
+          items: [
+            {
+              label: "Link one",
+              href: "#",
+            },
+            {
+              nonInteractive: true,
+              label: "Text one",
+            },
+          ],
         },
       ]}
     />
@@ -114,10 +69,14 @@ it("can display custom elements", () => {
     <SideNavigation
       items={[
         {
-          label: "Link one",
-          href: "#",
+          items: [
+            {
+              label: "Link one",
+              href: "#",
+            },
+            <button onClick={jest.fn()}>Hello</button>,
+          ],
         },
-        <button onClick={jest.fn()}>Hello</button>,
       ]}
     />
   );
@@ -129,12 +88,16 @@ it("displays links by default", () => {
     <SideNavigation
       items={[
         {
-          label: "Link one",
-          href: "#",
-        },
-        {
-          label: "Link two",
-          href: "#",
+          items: [
+            {
+              label: "Link one",
+              href: "#",
+            },
+            {
+              label: "Link two",
+              href: "#",
+            },
+          ],
         },
       ]}
     />
@@ -148,9 +111,13 @@ it("displays links using a custom component", () => {
     <SideNavigation
       items={[
         {
-          label: "Link one",
+          items: [
+            {
+              label: "Link one",
+            },
+            <Link>Link two</Link>,
+          ],
         },
-        <Link>Link two</Link>,
       ]}
       linkComponent={Link}
     />
@@ -164,10 +131,14 @@ it("displays a mix of links and custom components", () => {
     <SideNavigation
       items={[
         {
-          label: "Link one",
-          href: "#",
+          items: [
+            {
+              label: "Link one",
+              href: "#",
+            },
+            <Link>Link two</Link>,
+          ],
         },
-        <Link>Link two</Link>,
       ]}
     />
   );
@@ -180,12 +151,16 @@ it("sets components per link", () => {
     <SideNavigation
       items={[
         {
-          label: "Link one",
-          component: Link,
-        },
-        {
-          label: "Link two",
-          component: "h1",
+          items: [
+            {
+              label: "Link one",
+              component: Link,
+            },
+            {
+              label: "Link two",
+              component: "h1",
+            },
+          ],
         },
       ]}
     />
@@ -200,7 +175,11 @@ it("sets icons", () => {
       hasIcons
       items={[
         {
-          label: "Link one",
+          items: [
+            {
+              label: "Link one",
+            },
+          ],
         },
       ]}
     />
@@ -213,9 +192,13 @@ it("automatically determines if icon class should be applied from a list of item
     <SideNavigation
       items={[
         {
-          label: "Link one",
-          href: "#",
-          icon: "user",
+          items: [
+            {
+              label: "Link one",
+              href: "#",
+              icon: "user",
+            },
+          ],
         },
       ]}
     />
@@ -227,19 +210,23 @@ it("automatically determines if icon class should be applied from multiple menus
   const { container } = render(
     <SideNavigation
       items={[
-        [
-          {
-            label: "Link one",
-            href: "#",
-          },
-        ],
-        [
-          {
-            label: "Link two",
-            href: "#",
-            icon: "user",
-          },
-        ],
+        {
+          items: [
+            {
+              label: "Link one",
+              href: "#",
+            },
+          ],
+        },
+        {
+          items: [
+            {
+              label: "Link two",
+              href: "#",
+              icon: "user",
+            },
+          ],
+        },
       ]}
     />
   );
