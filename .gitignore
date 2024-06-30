@@ -1,6 +1,5 @@
 node_modules
 dist
-docs
 .env.local
 .DS_Store
 .idea
