@@ -24,11 +24,11 @@ export type Props = {
    * An optional key to be used to track which section is selected.
    */
   sectionKey?: string;
-  setExpanded?: (key: string | null, title: string | null) => void;
+  setExpanded?: (key: string | null, title: ReactNode | null) => void;
   /**
    * The title of the section.
    */
-  title?: string;
+  title?: ReactNode;
   /**
    * Optional string describing heading element that should be used for the section titles.
    */

@@ -61,6 +61,7 @@ The Textarea component defines a multi-line text input control.
       id: "textarea2",
       rows: "3",
       defaultValue: "Ubuntu",
+      onControlEnter: () => {alert("onControlEnter() successfully called.")}
     }}
   >
     {Template.bind({})}
