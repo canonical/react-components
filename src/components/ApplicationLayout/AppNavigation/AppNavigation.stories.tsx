@@ -98,19 +98,23 @@ export const States: Story = {
               dark
               items={[
                 {
-                  icon: "drag",
-                  label: "Models",
-                  href: "/models",
-                },
-                {
-                  icon: "menu",
-                  label: "Controllers",
-                  href: "/controllers",
-                },
-                {
-                  icon: "user",
-                  label: "Permissions",
-                  href: "/permissions",
+                  items: [
+                    {
+                      icon: "drag",
+                      label: "Models",
+                      href: "/models",
+                    },
+                    {
+                      icon: "menu",
+                      label: "Controllers",
+                      href: "/controllers",
+                    },
+                    {
+                      icon: "user",
+                      label: "Permissions",
+                      href: "/permissions",
+                    },
+                  ],
                 },
               ]}
             />
