@@ -27,12 +27,6 @@ type Story = StoryObj<typeof AppStatus>;
  * it will automatically wrap the content passed to the `status` prop.
  */
 export const Default: Story = {
-  args: {
-    children: "AppStatus",
-  },
-};
-
-export const Content: Story = {
   render: (args) => {
     return (
       <Application>

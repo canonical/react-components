@@ -36,12 +36,6 @@ type Story = StoryObj<typeof AppAside>;
  * application layout `<ApplicationLayout aside={<AppAside .../>}>`.
  */
 export const Default: Story = {
-  args: {
-    children: "AppAside",
-  },
-};
-
-export const States: Story = {
   render: (args) => {
     const [pinned, setPinned] = useState(false);
     const [width, setWidth] = useState(null);

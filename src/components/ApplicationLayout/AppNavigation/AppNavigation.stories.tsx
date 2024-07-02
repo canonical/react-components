@@ -30,12 +30,6 @@ type Story = StoryObj<typeof AppNavigation>;
  * it will wrap `navItems` and `sideNavigation`.
  */
 export const Default: Story = {
-  args: {
-    children: "AppNavigation",
-  },
-};
-
-export const States: Story = {
   render: (args) => {
     const [pinned, setPinned] = useState(false);
     const [collapsed, setCollapsed] = useState(true);
