@@ -352,11 +352,11 @@ export const Content: Story = {
       blocks={[
         {
           title: "With embedded iframe",
-          code: "<iframe src='/iframe.html?id=button--base&viewMode=story'></iframe>",
+          code: "<iframe src='./iframe.html?viewMode=story&id=components-button--default&args='></iframe>",
           content: (
             <iframe
               title="iframe"
-              src="/iframe.html?viewMode=story&id=components-button--default&args="
+              src="./iframe.html?viewMode=story&id=components-button--default&args="
             ></iframe>
           ),
         },
