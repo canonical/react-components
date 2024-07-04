@@ -4,3 +4,6 @@ snapshot:
   enable-javascript: true
 discovery:
   network-idle-timeout: 700
+  retry: true
+  launch-options:
+    timeout: 60000
