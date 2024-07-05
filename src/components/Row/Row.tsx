@@ -17,6 +17,11 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLDivElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for use within the Vanilla [Grid](https://docs.vanillaframework.io/patterns/grid/).
+ *
+ * Vanilla has a responsive grid using a combination of rows and columns.
+ */
 const Row = ({ children, className, ...props }: Props): JSX.Element => (
   <div className={classNames(className, "row")} {...props}>
     {children}

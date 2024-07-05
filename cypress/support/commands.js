@@ -33,10 +33,10 @@ import "@testing-library/cypress/add-commands";
  * @param { string } variant - variant of component, e.g. "Highlighted"
  */
 Cypress.Commands.add("visitPage", (page, variant) => {
-  const baseUrl = `http://localhost:${Cypress.env("port")}/iframe.html?id=`;
+  const baseUrl = `http://localhost:${Cypress.env("port")}/iframe.html?id=components-`;
   if (variant) {
     cy.visit(`${baseUrl}${page.toLowerCase()}--${variant.toLowerCase()}`);
   } else {
-    cy.visit(`${baseUrl}${page.toLowerCase()}--default-story`);
+    cy.visit(`${baseUrl}${page.toLowerCase()}--default`);
   }
 });

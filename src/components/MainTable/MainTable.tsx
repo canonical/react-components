@@ -281,6 +281,9 @@ const sortRows = ({
   return sortedRows;
 };
 
+/**
+ * This is a [React](https://reactjs.org/) component to support many table use cases.
+ */
 const MainTable = ({
   defaultSort,
   defaultSortDirection,

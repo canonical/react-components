@@ -30,6 +30,11 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLAnchorElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Link](https://docs.vanillaframework.io/patterns/links/).
+ *
+ * Links are used to embed actions or pathways to more information, allowing users to click their way from page to page.
+ */
 const Link = ({
   children,
   className,

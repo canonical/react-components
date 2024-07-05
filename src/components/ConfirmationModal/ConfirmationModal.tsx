@@ -43,6 +43,9 @@ export type Props = PropsWithSpread<
   Omit<ModalProps, "buttonRow">
 >;
 
+/**
+ * `ConfirmationModal` is a specialised version of the [Modal](?path=/docs/modal--default-story) component to prompt a confirmation from the user before executing an action.
+ */
 export const ConfirmationModal = ({
   cancelButtonLabel = "Cancel",
   children,

@@ -57,6 +57,11 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLButtonElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Chip](https://vanillaframework.io/docs/patterns/chip).
+ *
+ * It can be used to display a small value attached to a component.
+ */
 const Chip = ({
   appearance,
   lead = "",

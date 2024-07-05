@@ -42,6 +42,11 @@ export type Props<P = null> = {
   listClassName?: string;
 };
 
+/**
+ * This is the [React](https://reactjs.org/) component for Vanilla [Tabs](https://vanillaframework.io/docs/patterns/tabs).
+Tabs organise and allow navigation between groups of content that are related and at the same level
+of hierarchy.
+ */
 const Tabs = <P,>({
   className,
   links,

@@ -78,6 +78,11 @@ export type Props = PropsWithSpread<
   TextareaHTMLAttributes<HTMLTextAreaElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Textarea](https://docs.vanillaframework.io/base/forms/#textarea).
+ *
+ * The Textarea component defines a multi-line text input control.
+ */
 const Textarea = ({
   caution,
   className,

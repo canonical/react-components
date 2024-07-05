@@ -95,6 +95,31 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLDivElement>
 >;
 
+/**
+This is a [React](https://reactjs.org/) component for the Vanilla [Notification](https://docs.vanillaframework.io/patterns/notification/).
+
+Notifications are used to display global information, our notification variants consist of default, caution, negative or positive.
+
+The `NotificationProvider` component can be used to manage the notification state globally. Wrap your application components with it and then in any child component you can get the helper with `const notify = useNotify()` to easily trigger notifications:
+
+* `notify.info("You should keep this in mind")`
+* `notify.failure("Error when fooing a bar", errorObjectFromCatch)`
+* `notify.success("The bar was foo'd", "Success")`
+
+The `NotificationConsumer` component can be used to display notifications. It will automatically display any notifications that are added to the `NotificationProvider` state.
+
+The Notification API has changed since v0.18 in order to support new variants
+and align with our component prop naming conventions.
+
+| Deprecated prop names | Replaced by |
+| --------------------- | ----------- |
+| `type`                | `severity`  |
+| `status`              | `title`     |
+| `close`               | `onDismiss` |
+
+The `notificationTypes` const has also been replaced with `NotificationSeverity`
+to reflect the new prop name.
+ */
 const Notification = ({
   actions,
   borderless = false,

@@ -35,6 +35,9 @@ export type Props = {
   onExpandChange?: () => void;
 };
 
+/**
+ * This component allows searching and filtering of large datasets.
+ */
 const SearchAndFilter = ({
   existingSearchData = [],
   filterPanelData,

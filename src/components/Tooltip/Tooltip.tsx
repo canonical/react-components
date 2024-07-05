@@ -174,17 +174,13 @@ export const adjustForWindow = (
 };
 
 /**
- * A React component for Vanilla tooltips.
- * @param [autoAdjust=true] Whether the tooltip should adjust to fit in the screen.
- * @param children Element on which to apply the tooltip.
- * @param className An optional class to apply to the wrapping element.
- * @param [followMouse=false] Whether the tooltip should follow the mouse.
- * @param message Message to display when the element is hovered.
- * @param [position="top-left"] Position of the tooltip relative to the element.
- * @param positionElementClassName An optional class to apply to the element that wraps the children.
- * @param tooltipClassName An optional class to apply to the tooltip message element.
- * @param zIndex The z-index value of the tooltip message element.
- * @param delay Delay in ms after which Tooltip will appear (defaults to 350ms).
+ * This is the [React](https://reactjs.org/) component for Vanilla [Tooltips](https://vanillaframework.io/docs/patterns/tooltips).
+ *
+ * Tooltips are text labels that appear when the user hovers over, focuses on, or touches an element on the screen.
+ *
+ * They can be used to provide information about concepts/terms/actions that are not self-explanatory or well known.
+ *
+ * An alternative use of tooltips is to provide information on a disabled actionable element, e.g. for disabled buttons, providing information about why they are disabled.
  */
 const Tooltip = ({
   autoAdjust = true,
