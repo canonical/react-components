@@ -44,7 +44,7 @@ export type BaseProps<
     /**
      * The logo to appear in the navigation panels.
      */
-    logo: NonNullable<PanelProps<PL>["logo"]>;
+    logo?: PanelProps<PL>["logo"];
     /**
      * The component to use to render links inside the navigation e.g. when
      * using react-router you'd pass `Link` to this prop.
@@ -96,10 +96,10 @@ export type Props<
 > = BaseProps<NI, PL> &
   ExclusiveProps<
     {
-      navItems: NonNullable<SideNavigationProps<NI>["items"]>;
+      navItems?: SideNavigationProps<NI>["items"];
     },
     {
-      sideNavigation: ReactNode;
+      sideNavigation?: ReactNode;
     }
   >;
 
@@ -145,81 +145,86 @@ const ApplicationLayout = <
 
   return (
     <Application {...props}>
-      <AppNavigationBar className={navigationBarClassName}>
-        <Panel<PL>
-          dark={dark}
-          logo={logo}
-          toggle={{
-            label: "Menu",
-            onClick: () => setMenuCollapsed(!menuIsCollapsed),
-          }}
-        />
-      </AppNavigationBar>
-      <AppNavigation
-        className={navigationClassName}
-        collapsed={menuIsCollapsed}
-        pinned={menuIsPinned}
-      >
-        <Panel<PL>
-          dark={dark}
-          controls={
-            <>
-              <Button
-                hasIcon
-                appearance="base"
-                className={classNames("u-no-margin u-hide--medium", {
-                  "is-dark": dark,
-                })}
-                onClick={(evt) => {
-                  setMenuCollapsed(true);
-                  // The menu stays open while its content has focus, so the
-                  // close button must blur to actually close the menu.
-                  evt.currentTarget.blur();
-                }}
-              >
-                <Icon name="close" className={classNames({ "is-light": dark })}>
-                  Close menu
-                </Icon>
-              </Button>
-              <Button
-                hasIcon
-                appearance="base"
-                className={classNames("u-no-margin u-hide--small", {
-                  "is-dark": dark,
-                })}
-                onClick={() => {
-                  setMenuPinned(!menuIsPinned);
-                }}
-              >
-                <Icon
-                  name={menuIsPinned ? "close" : "pin"}
-                  className={classNames({ "is-light": dark })}
-                >
-                  {menuIsPinned ? "Unpin menu" : "Pin menu"}
-                </Icon>
-              </Button>
-            </>
-          }
-          controlsClassName="u-hide--large"
-          stickyHeader
-          logo={logo}
-        >
-          {navItems ? (
-            <SideNavigation<NI>
+      {(navItems || sideNavigation) && (
+        <>
+          <AppNavigationBar className={navigationBarClassName}>
+            <Panel<PL>
               dark={dark}
-              items={navItems}
-              linkComponent={navLinkComponent}
+              logo={logo}
+              toggle={{
+                label: "Menu",
+                onClick: () => setMenuCollapsed(!menuIsCollapsed),
+              }}
             />
-          ) : (
-            sideNavigation
-          )}
-        </Panel>
-      </AppNavigation>
+          </AppNavigationBar>
+          <AppNavigation
+            className={navigationClassName}
+            collapsed={menuIsCollapsed}
+            pinned={menuIsPinned}
+          >
+            <Panel<PL>
+              dark={dark}
+              controls={
+                <>
+                  <Button
+                    hasIcon
+                    appearance="base"
+                    className={classNames("u-no-margin u-hide--medium", {
+                      "is-dark": dark,
+                    })}
+                    onClick={(evt) => {
+                      setMenuCollapsed(true);
+                      // The menu stays open while its content has focus, so the
+                      // close button must blur to actually close the menu.
+                      evt.currentTarget.blur();
+                    }}
+                  >
+                    <Icon
+                      name="close"
+                      className={classNames({ "is-light": dark })}
+                    >
+                      Close menu
+                    </Icon>
+                  </Button>
+                  <Button
+                    hasIcon
+                    appearance="base"
+                    className={classNames("u-no-margin u-hide--small", {
+                      "is-dark": dark,
+                    })}
+                    onClick={() => {
+                      setMenuPinned(!menuIsPinned);
+                    }}
+                  >
+                    <Icon
+                      name={menuIsPinned ? "close" : "pin"}
+                      className={classNames({ "is-light": dark })}
+                    >
+                      {menuIsPinned ? "Unpin menu" : "Pin menu"}
+                    </Icon>
+                  </Button>
+                </>
+              }
+              controlsClassName="u-hide--large"
+              stickyHeader
+              logo={logo}
+            >
+              {navItems ? (
+                <SideNavigation<NI>
+                  dark={dark}
+                  items={navItems}
+                  linkComponent={navLinkComponent}
+                />
+              ) : (
+                sideNavigation
+              )}
+            </Panel>
+          </AppNavigation>
+        </>
+      )}
       <AppMain className={mainClassName}>{children}</AppMain>
       {aside}
-      {status ? (
-        <AppStatus className={statusClassName}>{status}</AppStatus>
-      ) : null}
+      {status && <AppStatus className={statusClassName}>{status}</AppStatus>}
     </Application>
   );
 };

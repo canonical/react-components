@@ -111,3 +111,8 @@ it("collapses the menu using external state", async () => {
   await userEvent.click(screen.getByRole("button", { name: "Menu" }));
   expect(onCollapseMenu).toHaveBeenCalledWith(false);
 });
+
+it("can opt out of app navigation", async () => {
+  render(<ApplicationLayout />);
+  expect(document.querySelector(".l-navigation")).toBeNull();
+});

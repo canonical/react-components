@@ -59,8 +59,9 @@ export const Default: Story = {
         ]}
         aside={
           showAside ? (
-            <AppAside title="Aside panel" pinned={asidePinned}>
+            <AppAside pinned={asidePinned}>
               <Panel
+                title="Aside panel"
                 controls={
                   <>
                     <Button
@@ -266,6 +267,24 @@ export const Navigation: Story = {
         }
       >
         <Panel title="Application Layout">
+          <Row>
+            <Col size={12}>Content</Col>
+          </Row>
+        </Panel>
+      </ApplicationLayout>
+    );
+  },
+};
+
+/**
+ * App navigation can also be completely opted out of, for some
+ * particular scenarios (e.g. login page, error pages).
+ */
+export const NoNavigation: Story = {
+  render: () => {
+    return (
+      <ApplicationLayout>
+        <Panel title="Application Layout with no navigation">
           <Row>
             <Col size={12}>Content</Col>
           </Row>
