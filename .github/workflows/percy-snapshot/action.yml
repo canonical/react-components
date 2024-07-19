@@ -1,0 +1,81 @@
+name: Percy Snapshot
+description: Builds storybook, captures example snapshots, & uploads them to Percy
+inputs:
+  pr_number:
+    required: false
+    description: Identifier of a pull request to associate with this Percy build. I.E. github.com/{repo}/pull/{pr_number}
+  commitsh:
+    required: true
+    description: SHA signature of commit triggering the build
+  branch_name:
+    required: true
+    description: Name of the branch that Percy is being run against
+  percy_token_write:
+    required: true
+    description: Percy token with write access
+outputs:
+  build_link:
+    description: Link to the Percy build triggered by this workflow
+    value: ${{ steps.percy_snapshot.outputs.build_link }}
+  build_id:
+    description: ID of the Percy build triggered by this workflow
+    value: ${{ steps.percy_snapshot.outputs.build_id }}
+  org_id:
+    description: ID of the organization associated with the Percy build
+    value: ${{ steps.percy_snapshot.outputs.org_id }}
+runs:
+  using: composite
+  steps:
+    - name: Install NodeJS
+      uses: actions/setup-node@v4.0.2
+      with:
+        node-version: 20
+
+    # https://github.com/puppeteer/puppeteer/blob/main/docs/troubleshooting.md#chrome-headless-doesnt-launch-on-unix
+    - name: Install dependencies
+      shell: bash
+      run: |
+        sudo apt-get update
+        sudo apt-get -y upgrade
+        sudo apt-get -yq install gconf-service libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgcc1 libgconf-2-4 libgdk-pixbuf2.0-0 libglib2.0-0 libgtk-3-0 libnspr4 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxss1 libxtst6 libappindicator1 libnss3 libasound2 libatk1.0-0 libc6 ca-certificates fonts-liberation lsb-release xdg-utils wget libgbm-dev
+        yarn install
+
+    - name: Take snapshots & upload to Percy
+      shell: bash
+      id: percy_snapshot
+      env:
+        PERCY_TOKEN: ${{ inputs.percy_token_write }}
+        # This identifies the diff by name in the percy diffs list
+        PERCY_BRANCH: ${{ inputs.branch_name }}
+        PERCY_COMMIT: ${{ inputs.commitsh }}
+        PERCY_CLIENT_ERROR_LOGS: false
+        # If PR number is set & a Percy-GHA integration is set up, this allows Percy to set status on the PR
+        PERCY_PULL_REQUEST: ${{ inputs.pr_number }}
+      run: |
+        set -e
+        # Start a percy build and capture the stdout
+
+        # Start a percy build and capture the stdout and stderr
+        percy_output=$(yarn percy 2>&1)
+
+        echo "$percy_output"
+
+        # Fail if the Percy stdout contains "Build not created"
+        if echo "$percy_output" | grep -q "Build not created"; then
+          echo "Percy build not created."
+          exit 1
+        else
+          echo "Percy build created successfully"
+        fi
+
+        # Extract the build link from the stdout of the snapshot command
+        build_link=$(echo "$percy_output" | sed -n 's/.*Finalized build #.*: \(https:\/\/percy.io\/[^ ]*\).*/\1/p')
+
+        # Using '/' to split the $build_link, extract the organization and build identifiers
+        org_id=$(echo "$build_link" | cut -d '/' -f 4)
+        build_id=$(echo "$build_link" | cut -d '/' -f 7)
+
+        echo "build_link=$build_link" >> $GITHUB_OUTPUT
+        echo "org_id=$org_id" >> $GITHUB_OUTPUT
+        echo "build_id=$build_id" >> $GITHUB_OUTPUT
+        echo "Percy build created at $build_link"
