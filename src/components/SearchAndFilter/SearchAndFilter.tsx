@@ -264,7 +264,11 @@ const SearchAndFilter = ({
               lead={chip.lead}
               value={chip.value}
               key={`search-${chip.lead}+${chip.value}`}
-              onDismiss={() => removeFromSelected(chip)}
+              onDismiss={(event) => {
+                // Prevent filter chip dismissals from bubbling up and triggering the parent onClick handler
+                event.stopPropagation();
+                removeFromSelected(chip);
+              }}
               selected={true}
               quoteValue={chip.quoteValue}
             />

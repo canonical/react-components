@@ -35,7 +35,7 @@ export type Props = PropsWithSpread<
     /**
      * Function for handling dismissing a chip.
      */
-    onDismiss?: () => void;
+    onDismiss?: (event: MouseEvent<HTMLButtonElement>) => void;
     /**
      * Whether the chip is selected.
      */
