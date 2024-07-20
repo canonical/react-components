@@ -1,4 +1,4 @@
-import React from "react";
+import React, { act } from "react";
 import { render, screen } from "@testing-library/react";
 
 import ActionButton, {
@@ -6,7 +6,6 @@ import ActionButton, {
   LOADER_MIN_DURATION,
   SUCCESS_DURATION,
 } from "./ActionButton";
-import { act } from "react-dom/test-utils";
 
 describe("ActionButton", () => {
   jest.useFakeTimers();

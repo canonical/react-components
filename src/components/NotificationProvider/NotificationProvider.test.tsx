@@ -8,7 +8,6 @@ import {
   useNotify,
 } from "./NotificationProvider";
 import Button from "../Button";
-import { act } from "react-dom/test-utils";
 
 describe("NotificationProvider", () => {
   it("stores and renders notifications", async () => {
@@ -54,7 +53,7 @@ describe("NotificationProvider", () => {
     );
 
     const clickBtn = async (testId: string) =>
-      await act(async () => await userEvent.click(screen.getByTestId(testId)));
+      await userEvent.click(screen.getByTestId(testId));
 
     expect(screen.getByTestId("notification-consumer")).toBeEmptyDOMElement();
 
