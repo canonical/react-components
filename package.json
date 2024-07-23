@@ -113,11 +113,11 @@
     "jackspeak": "2.1.1"
   },
   "peerDependencies": {
-    "@types/react": "^17.0.2 || ^18.0.0",
-    "@types/react-dom": "^17.0.2 || ^18.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "formik": "^2.4.5",
-    "react": "^17.0.2 || ^18.0.0",
-    "react-dom": "^17.0.2 || ^18.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "vanilla-framework": "^3.15.1 || ^4.0.0"
   },
   "scripts": {
