@@ -201,7 +201,7 @@ const ContextualMenuDropdown = <L,>({
   contextualMenuClassName,
   ...props
 }: Props<L>): JSX.Element => {
-  const dropdown = useRef();
+  const dropdown = useRef<HTMLDivElement>(null);
   const [verticalPosition, setVerticalPosition] =
     useState<VerticalPosition>("bottom");
   const [positionStyle, setPositionStyle] = useState(
@@ -233,22 +233,30 @@ const ContextualMenuDropdown = <L,>({
     if (!scrollableParent) {
       return null;
     }
+
     const scrollableParentRect = scrollableParent.getBoundingClientRect();
-    const rect = positionNode.getBoundingClientRect();
+    const toggleRect = positionNode.getBoundingClientRect();
 
     // Calculate the rect in relation to the scrollableParent
-    const relativeRect = {
-      top: rect.top - scrollableParentRect.top,
-      bottom: rect.bottom - scrollableParentRect.top,
-      height: rect.height,
+    const relativeToScrollParentRect = {
+      top: toggleRect.top - scrollableParentRect.top,
+      bottom: toggleRect.bottom - scrollableParentRect.top,
     };
 
-    const spaceBelow = scrollableParentRect.height - relativeRect.bottom;
-    const spaceAbove = relativeRect.top;
-    const dropdownHeight = relativeRect.height;
+    const scrollParentSpaceBelow =
+      scrollableParentRect.height - relativeToScrollParentRect.bottom;
+    const scrollParentSpaceAbove = relativeToScrollParentRect.top;
+
+    const dropdownHeight = dropdown.current.getBoundingClientRect().height ?? 0;
+
+    const windowSpaceBelow = window.innerHeight - toggleRect.bottom;
 
     setVerticalPosition(
-      spaceBelow >= dropdownHeight || spaceBelow > spaceAbove ? "bottom" : "top"
+      (scrollParentSpaceBelow >= dropdownHeight &&
+        windowSpaceBelow >= dropdownHeight) ||
+        windowSpaceBelow > scrollParentSpaceAbove
+        ? "bottom"
+        : "top"
     );
   }, [positionNode]);
 

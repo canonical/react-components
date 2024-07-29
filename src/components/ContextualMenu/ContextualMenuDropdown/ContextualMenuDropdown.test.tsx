@@ -171,4 +171,180 @@ describe("ContextualMenuDropdown ", () => {
       ).toBe("right");
     });
   });
+
+  describe("dropdown menu vertical positioning", () => {
+    const renderMenu = (positionNode: HTMLElement, menuHeight: number) => {
+      // need to mock overflow property for scrollparent
+      jest
+        .spyOn(global, "getComputedStyle")
+        .mockImplementation((node: Element) => {
+          if (node.id === "scrollParent") {
+            return {
+              overflowY: "auto",
+              overflowX: "auto",
+            } as CSSStyleDeclaration;
+          }
+          return {} as CSSStyleDeclaration;
+        });
+
+      // render the component once to setup initial jsdom elements
+      const links = Array.from({ length: 10 }).map((_, i) => i);
+      const { rerender } = render(
+        <ContextualMenuDropdown
+          autoAdjust
+          setAdjustedPosition={jest.fn()}
+          isOpen
+          links={links}
+          positionNode={positionNode}
+        />
+      );
+
+      // get the dropdown menu dom element and set its height
+      // NOTE: we can only do this after the component has been rendered at least once
+      let dropdownNode = document.querySelector(
+        ".p-contextual-menu__dropdown"
+      ) as HTMLElement;
+
+      dropdownNode.getBoundingClientRect = jest
+        .fn()
+        .mockReturnValue({ height: menuHeight });
+
+      rerender(
+        <ContextualMenuDropdown
+          autoAdjust
+          setAdjustedPosition={jest.fn()}
+          isOpen
+          links={links}
+          positionNode={positionNode}
+        />
+      );
+    };
+
+    const assertMenuPosition = async (position: "above" | "below") => {
+      await waitFor(() => {
+        const dropdownNode = document.querySelector(
+          ".p-contextual-menu__dropdown"
+        ) as HTMLElement;
+
+        let condition = expect(dropdownNode);
+        if (position === "below") {
+          condition = condition.not as jest.JestMatchers<HTMLElement>;
+        }
+
+        condition.toHaveAttribute("style", "bottom: 0px;");
+      });
+    };
+
+    it("places menu below toggle if there is enough space in window and scroll parent", async () => {
+      global.innerHeight = 1000;
+
+      const scrollParent = document.createElement("div");
+      jest.spyOn(scrollParent, "getBoundingClientRect").mockReturnValue({
+        top: 0,
+        bottom: 0,
+        height: 1000,
+      } as DOMRect);
+      scrollParent.id = "scrollParent";
+
+      const positionNode = document.createElement("div");
+      jest.spyOn(positionNode, "getBoundingClientRect").mockReturnValue({
+        top: 500,
+        bottom: 480,
+        height: 20,
+      } as DOMRect);
+
+      scrollParent.appendChild(positionNode);
+      document.body.appendChild(scrollParent);
+
+      const menuHeight = 200;
+      renderMenu(positionNode, menuHeight);
+
+      await assertMenuPosition("below");
+
+      positionNode.remove();
+    });
+
+    it("places menu below toggle if there is not enough space in window or scroll parent, but there is more space below than above", async () => {
+      global.innerHeight = 600;
+
+      const scrollParent = document.createElement("div");
+      jest.spyOn(scrollParent, "getBoundingClientRect").mockReturnValue({
+        top: 180,
+        bottom: 400,
+        height: 20,
+      } as DOMRect);
+      scrollParent.id = "scrollParent";
+
+      const positionNode = document.createElement("div");
+      jest.spyOn(positionNode, "getBoundingClientRect").mockReturnValue({
+        top: 100,
+        bottom: 480,
+        height: 20,
+      } as DOMRect);
+
+      scrollParent.appendChild(positionNode);
+      document.body.appendChild(scrollParent);
+
+      const menuHeight = 200;
+      renderMenu(positionNode, menuHeight);
+
+      await assertMenuPosition("below");
+
+      positionNode.remove();
+    });
+
+    it("places menu above if there is not enough space in the window", async () => {
+      global.innerHeight = 10;
+
+      const positionNode = document.createElement("div");
+      jest.spyOn(positionNode, "getBoundingClientRect").mockReturnValue({
+        top: 0,
+        bottom: 50,
+        height: 50,
+      } as DOMRect);
+
+      jest.spyOn(document.body, "getBoundingClientRect").mockReturnValue({
+        height: 10,
+        bottom: 0,
+        top: 0,
+      } as DOMRect);
+      document.body.appendChild(positionNode);
+
+      const menuHeight = 200;
+      renderMenu(positionNode, menuHeight);
+
+      await assertMenuPosition("above");
+
+      positionNode.remove();
+    });
+
+    it("places menu above if there is enough space in the window, but not enough space in the scroll parent", async () => {
+      global.innerHeight = 500;
+
+      const scrollParent = document.createElement("div");
+      jest.spyOn(scrollParent, "getBoundingClientRect").mockReturnValue({
+        top: 0,
+        bottom: 0,
+        height: 300,
+      } as DOMRect);
+      scrollParent.id = "scrollParent";
+
+      const positionNode = document.createElement("div");
+      jest.spyOn(positionNode, "getBoundingClientRect").mockReturnValue({
+        top: 200,
+        bottom: 400,
+        height: 20,
+      } as DOMRect);
+
+      scrollParent.appendChild(positionNode);
+      document.body.appendChild(scrollParent);
+
+      const menuHeight = 200;
+      renderMenu(positionNode, menuHeight);
+
+      await assertMenuPosition("above");
+
+      positionNode.remove();
+    });
+  });
 });
