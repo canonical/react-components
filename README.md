@@ -41,13 +41,13 @@ You might want to:
 
 You may wish to link this library directly to your projects while developing locally.
 
-You can do this by cloning this repo to your local workspace;
+You can do this by cloning this repo to your local workspace:
 
 ```shell
 git clone https://github.com/canonical/react-components
 ```
 
-If you then drop into that folder and run;
+If you then drop into that folder and run:
 
 ```shell
 yarn run link-packages
@@ -55,7 +55,7 @@ yarn run link-packages
 
 ...this will add this project, `react` and `react-dom` to a local yarn registry.
 
-Switching back to the project you are developing, run;
+Switching back to the project you are developing, run:
 
 ```shell
 yarn install
@@ -66,7 +66,7 @@ yarn link @canonical/react-components
 
 ...to pull the linked deps from the local registry. If you now run `yarn build-watch` in your `react-components` folder, your project should pick up any changes on refresh or hot module reload.
 
-**Note:** When you're finished working locally - don't forget to go back and unlink;
+**Note:** When you're finished working locally - don't forget to go back and unlink:
 
 ```
 cd react-components
