@@ -15,7 +15,7 @@ describe("Select", () => {
           { value: "3", label: "Xenial Xerus" },
         ]}
         wrapperClassName="select"
-      />
+      />,
     );
     expect(screen.getByRole("combobox")).toMatchSnapshot();
   });
@@ -30,7 +30,7 @@ describe("Select", () => {
     render(<Select options={[]} onChange={onChangeMock} />);
     fireEvent.change(screen.getByRole("combobox"), event);
     expect(onChangeMock.mock.calls[0][0].target).toBe(
-      screen.getByRole("combobox")
+      screen.getByRole("combobox"),
     );
   });
 
@@ -62,5 +62,38 @@ describe("Select", () => {
     const help = "Save me!";
     render(<Select help={help} />);
     expect(screen.getByRole("combobox")).toHaveAccessibleDescription(help);
+  });
+
+  it("renders with required attribute", () => {
+    render(
+      <Select
+        id="test-required"
+        options={[
+          { value: "", disabled: true, label: "Select an option" },
+          { value: "1", label: "Cosmic Cuttlefish" },
+          { value: "2", label: "Bionic Beaver" },
+          { value: "3", label: "Xenial Xerus" },
+        ]}
+        required
+      />,
+    );
+    const select = screen.getByRole("combobox");
+    expect(select).toBeRequired();
+  });
+
+  it("renders without required attribute when not set", () => {
+    render(
+      <Select
+        id="test-not-required"
+        options={[
+          { value: "", disabled: true, label: "Select an option" },
+          { value: "1", label: "Cosmic Cuttlefish" },
+          { value: "2", label: "Bionic Beaver" },
+          { value: "3", label: "Xenial Xerus" },
+        ]}
+      />,
+    );
+    const select = screen.getByRole("combobox");
+    expect(select).not.toBeRequired();
   });
 });
