@@ -14619,10 +14619,10 @@ validate-npm-package-name@^5.0.0:
   dependencies:
     builtins "^5.0.0"
 
-vanilla-framework@4.11.0:
-  version "4.11.0"
-  resolved "https://registry.yarnpkg.com/vanilla-framework/-/vanilla-framework-4.11.0.tgz#81636d58bacbd3320a4eb6bf5bef00409cfdc008"
-  integrity sha512-S0AAHNVphn3YJ7BQhyHmvKhrqiZcncQBPedwMan18uavB4VfAT8UN0dwgrHQvY/ypUuJiq/GPA0Xe1xcd+E7dg==
+vanilla-framework@4.15.0:
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/vanilla-framework/-/vanilla-framework-4.15.0.tgz#09102aa40a9b5c4f51fee75af5c5390b0cc91a40"
+  integrity sha512-tp3r2UU4cl7QC3I0/Cd5IFRFwp4Zk0Wq/8+/cgs1PUzKVO9wKcRRrYtLjEmIgJ2+eTkHmNKbmFaFsJ1kJxD2MA==
 
 vary@~1.1.2:
   version "1.1.2"
