@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 
@@ -115,4 +115,27 @@ it("collapses the menu using external state", async () => {
 it("can opt out of app navigation", async () => {
   render(<ApplicationLayout />);
   expect(document.querySelector(".l-navigation")).toBeNull();
+});
+
+it("should change the title of the document", async () => {
+  const initialTitle = "initial title";
+  const newTitle = "new title";
+  const CheckChangeTitleComponent = () => {
+    const [shouldDisplayApplicationLayout, setShouldDisplayApplicationLayout] =
+      useState(false);
+    useEffect(() => {
+      document.title = initialTitle;
+    }, []);
+
+    return shouldDisplayApplicationLayout ? (
+      <ApplicationLayout logo={logo} navItems={[]} title={newTitle} />
+    ) : (
+      <button onClick={() => setShouldDisplayApplicationLayout(true)} />
+    );
+  };
+
+  render(<CheckChangeTitleComponent />);
+  expect(document.title).toBe(initialTitle);
+  await userEvent.click(screen.getByRole("button"));
+  expect(document.title).toBe(newTitle);
 });
