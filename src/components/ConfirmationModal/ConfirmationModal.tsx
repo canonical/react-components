@@ -10,7 +10,7 @@ export type Props = PropsWithSpread<
     /**
      * Label for the cancel button.
      */
-    cancelButtonLabel?: string;
+    cancelButtonLabel?: ReactNode;
     /**
      * The content of the modal.
      */
@@ -22,7 +22,7 @@ export type Props = PropsWithSpread<
     /**
      * Label for the confirm button.
      */
-    confirmButtonLabel: string;
+    confirmButtonLabel: ReactNode;
     /**
      * Extra elements to be placed in the button row of the modal.
      */
