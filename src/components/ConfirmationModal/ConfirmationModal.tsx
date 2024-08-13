@@ -1,16 +1,20 @@
 import React, { MouseEvent, ReactElement } from "react";
 import type { ReactNode } from "react";
 import { PropsWithSpread, ValueOf } from "types";
-import Button, { ButtonAppearance } from "components/Button";
+import Button, { ButtonAppearance, ButtonProps } from "components/Button";
 import Modal, { ModalProps } from "components/Modal";
-import ActionButton from "components/ActionButton";
+import ActionButton, { ActionButtonProps } from "components/ActionButton";
 
 export type Props = PropsWithSpread<
   {
     /**
      * Label for the cancel button.
      */
-    cancelButtonLabel?: string;
+    cancelButtonLabel?: ReactNode;
+    /**
+     * Additional props to be spread on the cancel button.
+     */
+    cancelButtonProps?: Partial<ButtonProps>;
     /**
      * The content of the modal.
      */
@@ -22,7 +26,11 @@ export type Props = PropsWithSpread<
     /**
      * Label for the confirm button.
      */
-    confirmButtonLabel: string;
+    confirmButtonLabel: ReactNode;
+    /**
+     * Additional props to be spread on the confirm button.
+     */
+    confirmButtonProps?: Partial<ActionButtonProps>;
     /**
      * Extra elements to be placed in the button row of the modal.
      */
@@ -48,6 +56,7 @@ export type Props = PropsWithSpread<
  */
 export const ConfirmationModal = ({
   cancelButtonLabel = "Cancel",
+  cancelButtonProps,
   children,
   confirmButtonAppearance = "negative",
   confirmButtonLabel,
@@ -55,6 +64,7 @@ export const ConfirmationModal = ({
   onConfirm,
   confirmButtonLoading,
   confirmButtonDisabled,
+  confirmButtonProps,
   ...props
 }: Props): ReactElement => {
   const handleClick =
@@ -74,12 +84,14 @@ export const ConfirmationModal = ({
         <>
           {confirmExtra}
           <Button
+            {...cancelButtonProps}
             className="u-no-margin--bottom"
             onClick={handleClick(props.close)}
           >
             {cancelButtonLabel}
           </Button>
           <ActionButton
+            {...confirmButtonProps}
             appearance={confirmButtonAppearance}
             className="u-no-margin--bottom"
             onClick={handleClick(onConfirm)}
