@@ -1,10 +1,20 @@
-import React, { MouseEvent, ReactElement } from "react";
+import React, { MouseEvent, ReactElement, ReactNode } from "react";
 import { PropsWithSpread, SubComponentProps } from "types";
 import ActionButton, { ActionButtonProps } from "../ActionButton";
 import ConfirmationModal, {
   ConfirmationModalProps,
 } from "../ConfirmationModal";
 import usePortal from "react-useportal";
+
+const generateTitle = (title: ReactNode) => {
+  if (typeof title === "string") {
+    return title;
+  }
+  if (typeof title === "number") {
+    return title.toString();
+  }
+  return null;
+};
 
 export type Props = PropsWithSpread<
   {
@@ -84,7 +94,9 @@ export const ConfirmationButton = ({
       <ActionButton
         {...actionButtonProps}
         onClick={shiftClickEnabled ? handleShiftClick : openPortal}
-        title={onHoverText ?? confirmationModalProps.confirmButtonLabel}
+        title={generateTitle(
+          onHoverText ?? confirmationModalProps.confirmButtonLabel
+        )}
       >
         {actionButtonProps.children}
       </ActionButton>
