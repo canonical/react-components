@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import type { PropsWithSpread } from "types";
 import classNames from "classnames";
 import type { ReactNode } from "react";
@@ -86,10 +86,6 @@ export type BaseProps<
      * Classes to apply to the status area.
      */
     statusClassName?: string;
-    /**
-     * The title of the document.
-     */
-    title?: string;
   },
   HTMLProps<HTMLDivElement>
 >;
@@ -138,7 +134,6 @@ const ApplicationLayout = <
   sideNavigation,
   status,
   statusClassName,
-  title,
   ...props
 }: Props<NI, PL>) => {
   const [internalMenuPinned, setInternalMenuPinned] = useState(false);
@@ -147,12 +142,6 @@ const ApplicationLayout = <
   const setMenuPinned = onPinMenu ?? setInternalMenuPinned;
   const menuIsCollapsed = menuCollapsed ?? internalMenuCollapsed;
   const setMenuCollapsed = onCollapseMenu ?? setInternalMenuCollapsed;
-
-  useEffect(() => {
-    if (title) {
-      document.title = title;
-    }
-  }, [title]);
 
   return (
     <Application {...props}>
