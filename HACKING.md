@@ -108,6 +108,18 @@ Then in `react-components` run:
 dotrun unlink-package
 ```
 
+## Linking from Vite
+
+When using yarn link from a project using Vite you may need to temporarily set the following
+option in your vite.config.ts:
+
+```
+resolve: {
+  dedupe: ["react", "react-dom", "formik"],
+  preserveSymlinks: true,
+},
+```
+
 If you do not wish do use dotrun then replace dotrun in the command above. Note that you must use dotrun or yarn on one project you must use the same command on the other project so that they both link the same node modules.
 
 ## Developing integration tests with cypress
