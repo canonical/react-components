@@ -24,7 +24,10 @@ export type MultiSelectProps = {
   selectedItems?: MultiSelectItem[];
   help?: string;
   label?: string | null;
+  listSelected?: boolean;
+  onDeselectItem?: (item: MultiSelectItem) => void;
   onItemsUpdate?: (items: MultiSelectItem[]) => void;
+  onSelectItem?: (item: MultiSelectItem) => void;
   placeholder?: string;
   required?: boolean;
   items: MultiSelectItem[];
@@ -32,6 +35,7 @@ export type MultiSelectProps = {
   renderItem?: (item: MultiSelectItem) => ReactNode;
   dropdownHeader?: ReactNode;
   dropdownFooter?: ReactNode;
+  showDropdownFooter?: boolean;
   variant?: "condensed" | "search";
 };
 
@@ -47,6 +51,8 @@ type MultiSelectDropdownProps = {
   disabledItems: MultiSelectItem[];
   header?: ReactNode;
   updateItems: (newItems: MultiSelectItem[]) => void;
+  onDeselectItem?: (item: MultiSelectItem) => void;
+  onSelectItem?: (item: MultiSelectItem) => void;
   footer?: ReactNode;
   groupFn?: GroupFn;
   sortFn?: SortFn;
@@ -88,6 +94,8 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
   disabledItems,
   header,
   updateItems,
+  onSelectItem,
+  onDeselectItem,
   isOpen,
   footer,
   sortFn = sortAlphabetically,
@@ -126,6 +134,11 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
         ? [...selectedItems, foundItem]
         : selectedItems.filter((item) => `${item.value}` !== value) ?? [];
       updateItems(newSelectedItems);
+      if (checked) {
+        onSelectItem?.(foundItem);
+      } else {
+        onDeselectItem?.(foundItem);
+      }
     }
   };
 
@@ -173,13 +186,17 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   disabled,
   selectedItems: externalSelectedItems = [],
   label,
+  listSelected = true,
   onItemsUpdate,
+  onSelectItem,
+  onDeselectItem,
   placeholder,
   required = false,
   items = [],
   disabledItems = [],
   dropdownHeader,
   dropdownFooter,
+  showDropdownFooter = true,
   variant = "search",
 }: MultiSelectProps) => {
   const wrapperRef = useClickOutside<HTMLDivElement>(() => {
@@ -218,6 +235,44 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     )
     .map((el) => el.label)
     .join(", ");
+  let footer: ReactNode = null;
+  if (showDropdownFooter) {
+    footer = dropdownFooter ? (
+      dropdownFooter
+    ) : (
+      <>
+        <Button
+          appearance="link"
+          onClick={() => {
+            const enabledItems = items.filter(
+              (item) =>
+                !disabledItems.some(
+                  (disabledItem) => disabledItem.value === item.value
+                )
+            );
+            updateItems([...selectedItems, ...enabledItems]);
+          }}
+          type="button"
+        >
+          Select all
+        </Button>
+        <Button
+          appearance="link"
+          onClick={() => {
+            const disabledSelectedItems = selectedItems.filter((item) =>
+              disabledItems.some(
+                (disabledItem) => disabledItem.value === item.value
+              )
+            );
+            updateItems(disabledSelectedItems);
+          }}
+          type="button"
+        >
+          Clear
+        </Button>
+      </>
+    );
+  }
   return (
     <div ref={wrapperRef}>
       <div className="multi-select">
@@ -256,7 +311,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
             }}
           >
             <span className="multi-select__condensed-text">
-              {selectedItems.length > 0
+              {listSelected && selectedItems.length > 0
                 ? selectedItemsLabel
                 : placeholder ?? "Select items"}
             </span>
@@ -276,43 +331,9 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           disabledItems={disabledItems}
           header={dropdownHeader}
           updateItems={updateItems}
-          footer={
-            dropdownFooter ? (
-              dropdownFooter
-            ) : (
-              <>
-                <Button
-                  appearance="link"
-                  onClick={() => {
-                    const enabledItems = items.filter(
-                      (item) =>
-                        !disabledItems.some(
-                          (disabledItem) => disabledItem.value === item.value
-                        )
-                    );
-                    updateItems([...selectedItems, ...enabledItems]);
-                  }}
-                  type="button"
-                >
-                  Select all
-                </Button>
-                <Button
-                  appearance="link"
-                  onClick={() => {
-                    const disabledSelectedItems = selectedItems.filter((item) =>
-                      disabledItems.some(
-                        (disabledItem) => disabledItem.value === item.value
-                      )
-                    );
-                    updateItems(disabledSelectedItems);
-                  }}
-                  type="button"
-                >
-                  Clear
-                </Button>
-              </>
-            )
-          }
+          onSelectItem={onSelectItem}
+          onDeselectItem={onDeselectItem}
+          footer={footer}
         />
       </div>
     </div>

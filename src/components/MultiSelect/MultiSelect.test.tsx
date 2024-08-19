@@ -51,19 +51,29 @@ it("can have some options preselected", async () => {
 
 it("can select options from the dropdown", async () => {
   const onItemsUpdate = jest.fn();
-  render(<MultiSelect items={items} onItemsUpdate={onItemsUpdate} />);
+  const onSelectItem = jest.fn();
+  render(
+    <MultiSelect
+      items={items}
+      onItemsUpdate={onItemsUpdate}
+      onSelectItem={onSelectItem}
+    />
+  );
   await userEvent.click(screen.getByRole("combobox"));
   await userEvent.click(screen.getByLabelText(items[0].label));
   await waitFor(() => expect(onItemsUpdate).toHaveBeenCalledWith([items[0]]));
+  await waitFor(() => expect(onSelectItem).toHaveBeenCalledWith(items[0]));
 });
 
 it("can remove options that have been selected", async () => {
   const onItemsUpdate = jest.fn();
+  const onDeselectItem = jest.fn();
   render(
     <MultiSelect
       items={items}
       selectedItems={items}
       onItemsUpdate={onItemsUpdate}
+      onDeselectItem={onDeselectItem}
     />
   );
   await userEvent.click(screen.getByRole("combobox"));
@@ -72,6 +82,7 @@ it("can remove options that have been selected", async () => {
     within(screen.getByRole("listbox")).getByLabelText(items[0].label)
   );
   expect(onItemsUpdate).toHaveBeenCalledWith(items.slice(1));
+  expect(onDeselectItem).toHaveBeenCalledWith(items[0]);
 });
 
 it("can filter option list", async () => {
@@ -97,6 +108,20 @@ it("can display a custom dropdown header and footer", async () => {
   expect(
     screen.getByRole("button", { name: "custom footer button" })
   ).toBeInTheDocument();
+});
+
+it("can not display the footer", async () => {
+  render(
+    <MultiSelect
+      dropdownFooter={<button>custom footer button</button>}
+      items={items}
+      showDropdownFooter={false}
+    />
+  );
+  await userEvent.click(screen.getByRole("combobox"));
+  expect(
+    screen.queryByRole("button", { name: "custom footer button" })
+  ).not.toBeInTheDocument();
 });
 
 it("selects all items and clears selection when respective buttons are clicked", async () => {
@@ -125,6 +150,20 @@ it("updates text in the input field if something is selected", async () => {
     <MultiSelect items={items} selectedItems={[items[0]]} variant="condensed" />
   );
   expect(screen.getByRole("combobox")).toHaveTextContent(items[0].label);
+});
+
+it("can display the placeholder when items are selected", async () => {
+  const placeholder = "Select a few items";
+  render(
+    <MultiSelect
+      items={items}
+      selectedItems={[items[0]]}
+      variant="condensed"
+      listSelected={false}
+      placeholder={placeholder}
+    />
+  );
+  expect(screen.getByRole("combobox")).toHaveTextContent(placeholder);
 });
 
 it("can have one or more sections with titles", async () => {
