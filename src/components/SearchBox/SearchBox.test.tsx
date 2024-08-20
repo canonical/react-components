@@ -32,8 +32,16 @@ describe("SearchBox ", () => {
   it("should call onSearch prop", async () => {
     const onSearchMock = jest.fn();
     render(<SearchBox onSearch={onSearchMock} />);
+    await userEvent.type(screen.getByRole("searchbox"), "test");
     await userEvent.click(screen.getByRole("button", { name: Label.Search }));
-    expect(onSearchMock).toBeCalled();
+    expect(onSearchMock).toHaveBeenCalledWith("test");
+  });
+
+  it("should call onSearch prop when externally controlled", async () => {
+    const onSearchMock = jest.fn();
+    render(<SearchBox onSearch={onSearchMock} value="externalvalue" />);
+    await userEvent.click(screen.getByRole("button", { name: Label.Search }));
+    expect(onSearchMock).toHaveBeenCalledWith("externalvalue");
   });
 
   it("should call onChange prop", async () => {
@@ -101,5 +109,23 @@ describe("SearchBox ", () => {
     );
     await userEvent.click(screen.getByRole("button", { name: Label.Clear }));
     expect(handleOnClear).toBeCalled();
+  });
+
+  it("blurs when searching", async () => {
+    render(<SearchBox />);
+    const searchInput = screen.getByRole("searchbox");
+    await userEvent.type(screen.getByRole("searchbox"), "test");
+    expect(searchInput).toHaveFocus();
+    await userEvent.type(screen.getByRole("searchbox"), "{Enter}");
+    expect(searchInput).not.toHaveFocus();
+  });
+
+  it("can not blur when searching", async () => {
+    render(<SearchBox shouldBlurOnSearch={false} />);
+    const searchInput = screen.getByRole("searchbox");
+    await userEvent.type(screen.getByRole("searchbox"), "test");
+    expect(searchInput).toHaveFocus();
+    await userEvent.type(screen.getByRole("searchbox"), "{Enter}");
+    expect(searchInput).toHaveFocus();
   });
 });
