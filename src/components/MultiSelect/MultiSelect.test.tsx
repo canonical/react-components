@@ -145,6 +145,14 @@ it("closes the dropdown when clicking outside of the dropdown", async () => {
   expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
 });
 
+it("closes the dropdown when clicking on the button", async () => {
+  render(<MultiSelect items={items} />);
+  await userEvent.click(screen.getByRole("combobox"));
+  expect(screen.getByRole("listbox")).toBeInTheDocument();
+  await userEvent.click(screen.getByRole("combobox"));
+  expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+});
+
 it("updates text in the input field if something is selected", async () => {
   render(
     <MultiSelect items={items} selectedItems={[items[0]]} variant="condensed" />

@@ -105,6 +105,12 @@ describe("ContextualMenu ", () => {
     ).not.toBeInTheDocument();
   });
 
+  it("can have a custom toggle button", () => {
+    const label = "Custom toggle";
+    render(<ContextualMenu links={[]} toggle={<button>{label}</button>} />);
+    expect(screen.getByRole("button", { name: label })).toBeInTheDocument();
+  });
+
   it("can not have a toggle button", () => {
     render(<ContextualMenu links={[]} />);
     expect(
