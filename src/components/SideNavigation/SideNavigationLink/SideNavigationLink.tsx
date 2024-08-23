@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import classNames from "classnames";
 import type { HTMLProps } from "react";
 
@@ -17,23 +17,21 @@ export type Props<L = LinkDefaultElement> = Omit<
    */
   component?: SideNavigationBaseProps<L>["component"];
 };
-
-const SideNavigationLink = <L = LinkDefaultElement,>({
-  component,
-  ...props
-}: Props<L>) => {
-  let className: string | null = null;
-  if ("className" in props && typeof props.className === "string") {
-    className = props.className;
-    delete props.className;
+const SideNavigationLink = forwardRef<HTMLAnchorElement, Props>(
+  ({ component, ref, ...props }: Props) => {
+    let className: string | null = null;
+    if ("className" in props && typeof props.className === "string") {
+      className = props.className;
+      delete props.className;
+    }
+    return (
+      <SideNavigationBase
+        className={classNames("p-side-navigation__link", className)}
+        component={component ?? "a"}
+        {...props}
+      />
+    );
   }
-  return (
-    <SideNavigationBase
-      className={classNames("p-side-navigation__link", className)}
-      component={component ?? "a"}
-      {...props}
-    />
-  );
-};
+);
 
 export default SideNavigationLink;

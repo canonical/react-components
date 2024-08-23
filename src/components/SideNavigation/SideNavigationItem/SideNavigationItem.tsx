@@ -37,7 +37,7 @@ const SideNavigationItem = <L = SideNavigationLinkDefaultElement,>(
     const { nonInteractive: _, ...textProps } = props;
     content = <SideNavigationText {...textProps} />;
   } else if (!("children" in props)) {
-    content = <SideNavigationLink<L> {...props} />;
+    content = <SideNavigationLink {...props} />;
   } else {
     ({ children: content, ...liProps } = props);
   }
