@@ -80,6 +80,7 @@ export { default as Tabs } from "./components/Tabs";
 export { default as Textarea } from "./components/Textarea";
 export { default as Tooltip } from "./components/Tooltip";
 export { default as TablePagination } from "./components/TablePagination";
+export { default as TablePaginationControls } from "./components/TablePagination/TablePaginationControls";
 
 export type { AccordionProps } from "./components/Accordion";
 export type { ActionButtonProps } from "./components/ActionButton";

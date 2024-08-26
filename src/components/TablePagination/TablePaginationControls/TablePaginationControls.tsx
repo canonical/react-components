@@ -1,4 +1,4 @@
-import Button from "components/Button";
+import Button, { ButtonProps } from "components/Button";
 import Icon from "components/Icon";
 import Input from "components/Input";
 import Select from "components/Select";
@@ -15,35 +15,65 @@ import {
   InternalControlProps,
 } from "../TablePagination";
 
+export enum Label {
+  NEXT_PAGE = "Next page",
+  PREVIOUS_PAGE = "Previous page",
+  PAGE_NUMBER = "Page number",
+}
+
 export type AllProps = BasePaginationProps &
   InternalControlProps &
   ExternalControlProps;
 
 export type Props = Omit<
   AllProps,
-  "externallyControlled" | "dataForwardProp" | "position"
-> &
-  HTMLAttributes<HTMLDivElement>;
+  | "currentPage"
+  | "data"
+  | "dataForwardProp"
+  | "externallyControlled"
+  | "onPageChange"
+  | "position"
+  | "totalItems"
+> & {
+  currentPage?: AllProps["currentPage"];
+  displayDescription?: boolean;
+  onInputPageChange?: (page: number) => void;
+  nextButtonProps?: Partial<ButtonProps>;
+  onNextPage?: (page: number) => void;
+  onPageChange?: AllProps["onPageChange"];
+  onPreviousPage?: (page: number) => void;
+  previousButtonProps?: Partial<ButtonProps>;
+  totalItems?: AllProps["totalItems"];
+  visibleCount?: number;
+  showPageInput?: boolean;
+} & HTMLAttributes<HTMLDivElement>;
 
 const TablePaginationControls = ({
-  data,
   className,
-  itemName,
-  description,
-  pageLimits,
-  totalItems,
   currentPage,
-  pageSize,
+  description,
+  displayDescription = true,
+  onInputPageChange,
+  itemName,
+  nextButtonProps,
+  onNextPage,
   onPageChange,
   onPageSizeChange,
+  onPreviousPage,
+  pageLimits,
+  pageSize,
+  previousButtonProps,
+  showPageInput = true,
+  totalItems,
+  visibleCount,
   ...divProps
 }: Props): JSX.Element => {
   const isSmallScreen = useFigureSmallScreen();
 
-  const totalPages = Math.ceil(totalItems / pageSize);
+  const totalPages = totalItems ? Math.ceil(totalItems / pageSize) : null;
   const descriptionDisplay = getDescription({
     description,
-    data,
+    visibleCount,
     isSmallScreen,
     totalItems,
     itemName,
@@ -51,19 +81,22 @@ const TablePaginationControls = ({
 
   const handleDecrementPage = (currentPage: number) => {
     if (currentPage > 1) {
-      onPageChange(currentPage - 1);
+      onPageChange?.(currentPage - 1);
     }
+    onPreviousPage?.(typeof currentPage === "number" ? currentPage - 1 : null);
   };
 
   const handleIncrementPage = (currentPage: number, totalPages: number) => {
     if (currentPage < totalPages) {
-      onPageChange(currentPage + 1);
+      onPageChange?.(currentPage + 1);
     }
+    onNextPage?.(typeof currentPage === "number" ? currentPage + 1 : null);
   };
 
   const handleInputPageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newPage = Math.min(totalPages, Math.max(1, parseInt(e.target.value)));
-    onPageChange(newPage);
+    onPageChange?.(newPage);
+    onInputPageChange?.(Number(e.target.value));
   };
 
   const handlePageSizeChange = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -77,35 +110,45 @@ const TablePaginationControls = ({
       role="navigation"
     >
       <div className="description" id="pagination-description">
-        {descriptionDisplay}
+        {displayDescription ? descriptionDisplay : null}
       </div>
       <Button
-        aria-label="Previous page"
+        aria-label={Label.PREVIOUS_PAGE}
         className="back"
         appearance="base"
         hasIcon
         disabled={currentPage === 1}
         onClick={() => handleDecrementPage(currentPage)}
+        {...previousButtonProps}
       >
-        <Icon name="chevron-down" />
+        {previousButtonProps?.children ? (
+          previousButtonProps.children
+        ) : (
+          <Icon name="chevron-down" />
+        )}
       </Button>
-      <Input
-        id="paginationPageInput"
-        label="Page number"
-        labelClassName="u-off-screen"
-        className="u-no-margin--bottom pagination-input"
-        onChange={handleInputPageChange}
-        value={currentPage}
-        type="number"
-      />{" "}
-      of&nbsp;{totalPages}
+      {showPageInput ? (
+        <>
+          <Input
+            id="paginationPageInput"
+            label={Label.PAGE_NUMBER}
+            labelClassName="u-off-screen"
+            className="u-no-margin--bottom pagination-input"
+            onChange={handleInputPageChange}
+            value={currentPage}
+            type="number"
+          />{" "}
+        </>
+      ) : null}
+      {typeof totalPages === "number" ? `of ${totalPages}` : null}
       <Button
-        aria-label="Next page"
+        aria-label={Label.NEXT_PAGE}
         className="next"
         appearance="base"
         hasIcon
         disabled={currentPage === totalPages}
         onClick={() => handleIncrementPage(currentPage, totalPages)}
+        {...nextButtonProps}
       >
         <Icon name="chevron-down" />
       </Button>

@@ -17,7 +17,7 @@ export type BasePaginationProps = {
   /**
    * list of data elements to be paginated. This component is un-opinionated about
    * the structure of the data but it should be identical to the data structure
-   * reuiqred by the child table component
+   * required by the child table component
    */
   data: unknown[];
   /**
@@ -192,7 +192,7 @@ const TablePagination = (props: Props) => {
   const controls = (
     <TablePaginationControls
       {...divProps}
-      data={controlData}
+      visibleCount={controlData.length}
       className={className}
       itemName={itemName}
       description={description}

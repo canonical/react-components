@@ -3,6 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import TablePagination from "./TablePagination";
 import MainTable from "../MainTable";
+import TablePaginationControls from "./TablePaginationControls";
 
 const meta: Meta<typeof TablePagination> = {
   component: TablePagination,
@@ -392,4 +393,29 @@ export const RenderBelow: Story = {
   },
 
   name: "RenderBelow",
+};
+
+/** The table pagination controls can be used without wrapping MainTable by
+ * using the `TablePaginationControls` component.
+ */
+export const ControlsOnly: Story = {
+  render: () => {
+    return (
+      <TablePaginationControls
+        currentPage={1}
+        itemName="row"
+        nextButtonProps={{ disabled: false }}
+        onInputPageChange={console.log}
+        onNextPage={console.log}
+        onPageSizeChange={console.log}
+        onPreviousPage={console.log}
+        pageLimits={[10, 25, 50]}
+        pageSize={20}
+        previousButtonProps={{ disabled: false }}
+        showPageInput
+        totalItems={100}
+        visibleCount={10}
+      />
+    );
+  },
 };
