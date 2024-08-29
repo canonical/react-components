@@ -1,0 +1,33 @@
+name: Preview release
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  release:
+    name: Preview release
+    runs-on: ubuntu-latest
+    outputs:
+      new-release-version: ${{ steps.dry-run.outputs.new-release-version }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+      - name: Install dependencies
+        run: yarn install
+      - name: Preview release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        id: dry-run
+        run: |
+          OUTPUT=$(unset GITHUB_ACTIONS && npx semantic-release --dry-run --no-ci --branches "$GITHUB_HEAD_REF")
+          VERSION=$(echo "$OUTPUT" | grep -o "The next release version is [0-9]*\.[0-9]*\.[0-9]*" | awk '{print $6}')
+          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+      - name: Next version
+        run: echo "The next version will be ${{ steps.dry-run.outputs.new-release-version }}"
