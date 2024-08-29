@@ -11,7 +11,7 @@ exports[`Button  renders 1`] = `
 exports[`Button  renders as a link 1`] = `
 <a
   class="p-button"
-  href=""
+  href="http://example.com"
 >
   Test content
 </a>

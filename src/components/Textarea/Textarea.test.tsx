@@ -40,4 +40,51 @@ describe("Textarea ", () => {
     render(<Textarea help={help} />);
     expect(screen.getByRole("textbox")).toHaveAccessibleDescription(help);
   });
+
+  it("can change value to an empty string", () => {
+    let testValue = "test";
+    const { rerender } = render(<Textarea value={testValue} />);
+    const textarea = screen.getByRole("textbox");
+    expect(textarea).toHaveValue("test");
+
+    testValue = ""; // simulate an external change of the value
+    rerender(<Textarea value={testValue} />);
+    expect(textarea).toHaveValue("");
+  });
+
+  it("adds Ctrl + Enter keydown event listener on mount and removes on unmount", async () => {
+    const addEventListenerSpy = jest.spyOn(document, "addEventListener");
+    const removeEventListenerSpy = jest.spyOn(document, "removeEventListener");
+
+    const { unmount } = render(
+      <Textarea
+        onControlEnter={() => {
+          console.log("OnControlEnter was here.");
+        }}
+      />
+    );
+
+    // Capture the event handler
+    const [event, handler] = addEventListenerSpy.mock.calls[0];
+
+    // Assert that addEventListener was called with the correct event type and handler
+    expect(event).toBe("keydown");
+    expect(typeof handler).toBe("function");
+
+    const keyboardCombo = new KeyboardEvent("keydown", {
+      key: "Enter",
+      ctrlKey: true,
+    });
+    document.dispatchEvent(keyboardCombo);
+
+    // Unmount the component to trigger cleanup
+    unmount();
+
+    // Assert that removeEventListener was called with the same event type and handler
+    expect(removeEventListenerSpy).toHaveBeenCalledWith("keydown", handler);
+
+    // Clean up: restore the original implementations
+    addEventListenerSpy.mockRestore();
+    removeEventListenerSpy.mockRestore();
+  });
 });

@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
-
-import { Meta } from "@storybook/react";
+import { Meta, StoryObj } from "@storybook/react";
 
 import { MultiSelect, MultiSelectItem, MultiSelectProps } from "./MultiSelect";
 
@@ -19,7 +18,6 @@ const Template = (props: MultiSelectProps) => {
 };
 
 const meta: Meta<typeof MultiSelect> = {
-  title: "MultiSelect",
   component: MultiSelect,
   render: Template,
   tags: ["autodocs"],
@@ -28,7 +26,9 @@ const meta: Meta<typeof MultiSelect> = {
 
 export default meta;
 
-export const CondensedExample = {
+type Story = StoryObj<typeof MultiSelect>;
+
+export const CondensedExample: Story = {
   args: {
     items: [
       ...Array.from({ length: 26 }, (_, i) => ({
@@ -48,7 +48,7 @@ export const CondensedExample = {
   },
 };
 
-export const SearchExample = {
+export const SearchExample: Story = {
   args: {
     ...CondensedExample.args,
     variant: "search",
@@ -61,7 +61,7 @@ export const SearchExample = {
   },
 };
 
-export const WithDisabledItems = {
+export const WithDisabledItems: Story = {
   args: {
     ...CondensedExample.args,
     disabledItems: [

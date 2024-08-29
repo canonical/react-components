@@ -1,25 +1,25 @@
 import classNames from "classnames";
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
-import type { HTMLProps } from "react";
+import type { HTMLProps, ReactNode } from "react";
 import usePortal from "react-useportal";
-
 import { useListener, usePrevious } from "hooks";
 import Button from "../Button";
 import type { ButtonProps } from "../Button";
 import ContextualMenuDropdown from "./ContextualMenuDropdown";
 import type { ContextualMenuDropdownProps } from "./ContextualMenuDropdown";
 import type { MenuLink, Position } from "./ContextualMenuDropdown";
-import { ClassName, PropsWithSpread, SubComponentProps } from "types";
+import {
+  ClassName,
+  ExclusiveProps,
+  PropsWithSpread,
+  SubComponentProps,
+} from "types";
 
 export enum Label {
   Toggle = "Toggle menu",
 }
 
-/**
- * The props for the ContextualMenu component.
- * @template L - The type of the link props.
- */
-export type Props<L> = PropsWithSpread<
+export type BaseProps<L> = PropsWithSpread<
   {
     /**
      * Whether the menu should adjust its horizontal position to fit on the screen.
@@ -54,10 +54,6 @@ export type Props<L> = PropsWithSpread<
      */
     dropdownProps?: SubComponentProps<ContextualMenuDropdownProps>;
     /**
-     * Whether the toggle should display a chevron icon.
-     */
-    hasToggleIcon?: boolean;
-    /**
      * A list of links to display in the menu (if the children prop is not supplied.)
      */
     links?: MenuLink<L>[] | null;
@@ -78,36 +74,51 @@ export type Props<L> = PropsWithSpread<
      */
     scrollOverflow?: boolean;
     /**
-     * The appearance of the toggle button.
-     */
-    toggleAppearance?: ButtonProps["appearance"] | null;
-    /**
-     * A class to apply to the toggle button.
-     */
-    toggleClassName?: string | null;
-    /**
-     * Whether the toggle button should be disabled.
-     */
-    toggleDisabled?: boolean;
-    /**
-     * The toggle button's label.
-     */
-    toggleLabel?: React.ReactNode | null;
-    /**
-     * Whether the toggle lable or icon should appear first.
-     */
-    toggleLabelFirst?: boolean;
-    /**
-     * Additional props to pass to the toggle button.
-     */
-    toggleProps?: SubComponentProps<ButtonProps>;
-    /**
      * Whether the menu should be visible.
      */
     visible?: boolean;
   },
   HTMLProps<HTMLSpanElement>
 >;
+
+/**
+ * The props for the ContextualMenu component.
+ * @template L - The type of the link props.
+ */
+export type Props<L> = BaseProps<L> &
+  ExclusiveProps<
+    {
+      /**
+       * Whether the toggle should display a chevron icon.
+       */
+      hasToggleIcon?: boolean;
+      /**
+       * The appearance of the toggle button.
+       */
+      toggleAppearance?: ButtonProps["appearance"] | null;
+      /**
+       * A class to apply to the toggle button.
+       */
+      toggleClassName?: string | null;
+      /**
+       * Whether the toggle button should be disabled.
+       */
+      toggleDisabled?: boolean;
+      /**
+       * The toggle button's label.
+       */
+      toggleLabel?: React.ReactNode | null;
+      /**
+       * Whether the toggle lable or icon should appear first.
+       */
+      toggleLabelFirst?: boolean;
+      /**
+       * Additional props to pass to the toggle button.
+       */
+      toggleProps?: SubComponentProps<ButtonProps>;
+    },
+    { toggle: ReactNode }
+  >;
 
 /**
  * Get the node to use for positioning the menu.
@@ -141,26 +152,9 @@ const getPositionNodeVisible = (positionNode: HTMLElement) => {
 };
 
 /**
- * A component for the Vanilla contextual menu.
- * @template L - The type of the link props.
- * @param [autoAdjust=true] - Whether the menu should adjust to fit in the screen.
- * @param children - The menu content (if the links prop is not supplied).
- * @param className - An optional class to apply to the wrapping element.
- * @param [closeOnEsc=true] - Whether the menu should close when the escape key is pressed.
- * @param [closeOnOutsideClick=true] - Whether the menu should close when clicking outside the menu.
- * @param constrainPanelWidth - Whether the menu's width should match the toggle's width.
- * @param dropdownClassName - An optional class to apply to the dropdown.
- * @param hasToggleIcon - Whether the toggle should display a chevron icon.
- * @param links - A list of links to display in the menu (if the children prop is not supplied.)
- * @param onToggleMenu - A function to call when the menu is toggled.
- * @param [position="right"] - The position of the menu.
- * @param positionNode - An element to make the menu relative to.
- * @param toggleAppearance - The appearance of the toggle button.
- * @param toggleClassName - An class to apply to the toggle button.
- * @param toggleDisabled - Whether the toggle button should be disabled.
- * @param toggleLabel - The toggle button's label.
- * @param [toggleLabelFirst=true] - Whether the toggle lable or icon should appear first.
- * @param [visible=false] - Whether the menu should be visible.
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Contextual menu](https://docs.vanillaframework.io/patterns//contextual-menu/).
+ *
+ * A contextual menu can be used in conjunction with any page element to provide a contextual menu.
  */
 const ContextualMenu = <L,>({
   autoAdjust = true,
@@ -177,6 +171,7 @@ const ContextualMenu = <L,>({
   position = "right",
   positionNode,
   scrollOverflow,
+  toggle,
   toggleAppearance,
   toggleClassName,
   toggleDisabled,
@@ -190,7 +185,6 @@ const ContextualMenu = <L,>({
   const wrapper = useRef<HTMLDivElement | null>(null);
   const [positionCoords, setPositionCoords] = useState<DOMRect>();
   const [adjustedPosition, setAdjustedPosition] = useState(position);
-  const hasToggle = hasToggleIcon || toggleLabel;
 
   useEffect(() => {
     setAdjustedPosition(position);
@@ -211,14 +205,15 @@ const ContextualMenu = <L,>({
     isOpen: visible,
     onOpen: () => {
       // Call the toggle callback, if supplied.
-      onToggleMenu && onToggleMenu(true);
+      onToggleMenu?.(true);
       // When the menu opens then update the coordinates of the parent.
       updatePositionCoords();
     },
     onClose: () => {
       // Call the toggle callback, if supplied.
-      onToggleMenu && onToggleMenu(false);
+      onToggleMenu?.(false);
     },
+    programmaticallyOpen: true,
   });
 
   const previousVisible = usePrevious(visible);
@@ -290,49 +285,54 @@ const ContextualMenu = <L,>({
   useListener(window, onResize, "resize", true, isOpen);
   useListener(window, onScroll, "scroll", false, isOpen, true);
 
+  let toggleNode: ReactNode = null;
+  if (toggle) {
+    toggleNode = toggle;
+  } else if (hasToggleIcon || toggleLabel) {
+    toggleNode = (
+      <Button
+        appearance={toggleAppearance}
+        aria-controls={id}
+        aria-expanded={isOpen ? "true" : "false"}
+        aria-label={toggleLabel ? null : Label.Toggle}
+        aria-pressed={isOpen ? "true" : "false"}
+        aria-haspopup="true"
+        className={classNames("p-contextual-menu__toggle", toggleClassName)}
+        disabled={toggleDisabled}
+        hasIcon={hasToggleIcon}
+        onClick={(evt: React.MouseEvent) => {
+          if (!isOpen) {
+            openPortal(evt);
+          } else {
+            closePortal(evt);
+          }
+        }}
+        type="button"
+        {...toggleProps}
+      >
+        {toggleLabelFirst ? labelNode : null}
+        {hasToggleIcon ? (
+          <i
+            className={classNames(
+              "p-icon--chevron-down p-contextual-menu__indicator",
+              {
+                "is-light": ["negative", "positive"].includes(toggleAppearance),
+              }
+            )}
+          ></i>
+        ) : null}
+        {toggleLabelFirst ? null : labelNode}
+      </Button>
+    );
+  }
+
   return (
     <span
       className={contextualMenuClassName}
       ref={wrapperRef}
       {...wrapperProps}
     >
-      {hasToggle ? (
-        <Button
-          appearance={toggleAppearance}
-          aria-controls={id}
-          aria-expanded={isOpen ? "true" : "false"}
-          aria-label={toggleLabel ? null : Label.Toggle}
-          aria-pressed={isOpen ? "true" : "false"}
-          aria-haspopup="true"
-          className={classNames("p-contextual-menu__toggle", toggleClassName)}
-          disabled={toggleDisabled}
-          hasIcon={hasToggleIcon}
-          onClick={(evt: React.MouseEvent) => {
-            if (!isOpen) {
-              openPortal(evt);
-            } else {
-              closePortal(evt);
-            }
-          }}
-          type="button"
-          {...toggleProps}
-        >
-          {toggleLabelFirst ? labelNode : null}
-          {hasToggleIcon ? (
-            <i
-              className={classNames(
-                "p-icon--chevron-down p-contextual-menu__indicator",
-                {
-                  "is-light": ["negative", "positive"].includes(
-                    toggleAppearance
-                  ),
-                }
-              )}
-            ></i>
-          ) : null}
-          {toggleLabelFirst ? null : labelNode}
-        </Button>
-      ) : null}
+      {toggleNode}
       {isOpen && (
         <Portal>
           <ContextualMenuDropdown<L>

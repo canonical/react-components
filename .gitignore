@@ -1,6 +1,5 @@
 node_modules
 dist
-docs
 .env.local
 .DS_Store
 .idea
@@ -15,6 +14,7 @@ yarn-error.log*
 
 storybook-static/
 *.fuse*
+*.nfs*
 
 cypress/screenshots/
 cypress/videos

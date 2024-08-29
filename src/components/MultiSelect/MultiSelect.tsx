@@ -1,14 +1,8 @@
 import type { ReactNode } from "react";
-import React, { useEffect, useId, useMemo, useState } from "react";
+import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 
 import "./MultiSelect.scss";
-import {
-  Button,
-  CheckboxInput,
-  SearchBox,
-  useClickOutside,
-  useOnEscapePressed,
-} from "../../index";
+import { Button, CheckboxInput, ContextualMenu, SearchBox } from "../../index";
 
 import { FadeInDown } from "./FadeInDown";
 
@@ -24,7 +18,10 @@ export type MultiSelectProps = {
   selectedItems?: MultiSelectItem[];
   help?: string;
   label?: string | null;
+  listSelected?: boolean;
+  onDeselectItem?: (item: MultiSelectItem) => void;
   onItemsUpdate?: (items: MultiSelectItem[]) => void;
+  onSelectItem?: (item: MultiSelectItem) => void;
   placeholder?: string;
   required?: boolean;
   items: MultiSelectItem[];
@@ -32,6 +29,7 @@ export type MultiSelectProps = {
   renderItem?: (item: MultiSelectItem) => ReactNode;
   dropdownHeader?: ReactNode;
   dropdownFooter?: ReactNode;
+  showDropdownFooter?: boolean;
   variant?: "condensed" | "search";
 };
 
@@ -47,10 +45,11 @@ type MultiSelectDropdownProps = {
   disabledItems: MultiSelectItem[];
   header?: ReactNode;
   updateItems: (newItems: MultiSelectItem[]) => void;
+  onDeselectItem?: (item: MultiSelectItem) => void;
+  onSelectItem?: (item: MultiSelectItem) => void;
   footer?: ReactNode;
   groupFn?: GroupFn;
   sortFn?: SortFn;
-  shouldPinSelectedItems?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const sortAlphabetically = (a: MultiSelectItem, b: MultiSelectItem) => {
@@ -88,6 +87,8 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
   disabledItems,
   header,
   updateItems,
+  onSelectItem,
+  onDeselectItem,
   isOpen,
   footer,
   sortFn = sortAlphabetically,
@@ -126,6 +127,11 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
         ? [...selectedItems, foundItem]
         : selectedItems.filter((item) => `${item.value}` !== value) ?? [];
       updateItems(newSelectedItems);
+      if (checked) {
+        onSelectItem?.(foundItem);
+      } else {
+        onDeselectItem?.(foundItem);
+      }
     }
   };
 
@@ -173,31 +179,22 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   disabled,
   selectedItems: externalSelectedItems = [],
   label,
+  listSelected = true,
   onItemsUpdate,
+  onSelectItem,
+  onDeselectItem,
   placeholder,
   required = false,
   items = [],
   disabledItems = [],
   dropdownHeader,
   dropdownFooter,
+  showDropdownFooter = true,
   variant = "search",
 }: MultiSelectProps) => {
-  const wrapperRef = useClickOutside<HTMLDivElement>(() => {
-    setIsDropdownOpen(false);
-    setFilter("");
-  });
-  useOnEscapePressed(() => {
-    setIsDropdownOpen(false);
-    setFilter("");
-  });
+  const buttonRef = useRef();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [filter, setFilter] = useState("");
-
-  useEffect(() => {
-    if (!isDropdownOpen) {
-      setFilter("");
-    }
-  }, [isDropdownOpen]);
 
   const [internalSelectedItems, setInternalSelectedItems] = useState<
     MultiSelectItem[]
@@ -218,10 +215,61 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     )
     .map((el) => el.label)
     .join(", ");
+  let footer: ReactNode = null;
+  if (showDropdownFooter) {
+    footer = dropdownFooter ? (
+      dropdownFooter
+    ) : (
+      <>
+        <Button
+          appearance="link"
+          onClick={() => {
+            const enabledItems = items.filter(
+              (item) =>
+                !disabledItems.some(
+                  (disabledItem) => disabledItem.value === item.value
+                )
+            );
+            updateItems([...selectedItems, ...enabledItems]);
+          }}
+          type="button"
+        >
+          Select all
+        </Button>
+        <Button
+          appearance="link"
+          onClick={() => {
+            const disabledSelectedItems = selectedItems.filter((item) =>
+              disabledItems.some(
+                (disabledItem) => disabledItem.value === item.value
+              )
+            );
+            updateItems(disabledSelectedItems);
+          }}
+          type="button"
+        >
+          Clear
+        </Button>
+      </>
+    );
+  }
   return (
-    <div ref={wrapperRef}>
-      <div className="multi-select">
-        {variant === "search" ? (
+    <ContextualMenu
+      className="multi-select"
+      onToggleMenu={(isOpen) => {
+        if (!isOpen) {
+          setFilter("");
+        }
+        // Handle syncing the state when toggling the menu from within the
+        // contextual menu component e.g. when clicking outside.
+        if (isOpen !== isDropdownOpen) {
+          setIsDropdownOpen(isOpen);
+        }
+      }}
+      position="left"
+      constrainPanelWidth
+      toggle={
+        variant === "search" ? (
           <SearchBox
             externallyControlled
             aria-controls={dropdownId}
@@ -252,69 +300,51 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
             aria-expanded={isDropdownOpen}
             className="multi-select__select-button"
             onClick={() => {
-              setIsDropdownOpen((isOpen) => !isOpen);
+              setIsDropdownOpen(!isDropdownOpen);
             }}
+            onMouseDown={(event) => {
+              // If the dropdown is open when this button is clicked the
+              // click-outside event will fire which will close the dropdown, but
+              // then the button click event will fire which will immediately
+              // reopen the dropdown.
+              // To prevent this we can stop the propagation to the click event
+              // while `isDropdownOpen` is still set to `true` (by the time we
+              // get to the `onClick` event `isDropdownOpen` will already be `false`,
+              // hence having to do this on mouse down).
+              if (isDropdownOpen) {
+                event.stopPropagation();
+              }
+            }}
+            ref={buttonRef}
           >
             <span className="multi-select__condensed-text">
-              {selectedItems.length > 0
+              {listSelected && selectedItems.length > 0
                 ? selectedItemsLabel
                 : placeholder ?? "Select items"}
             </span>
           </button>
-        )}
-        <MultiSelectDropdown
-          id={dropdownId}
-          isOpen={isDropdownOpen}
-          items={
-            filter.length > 0
-              ? items.filter((item) =>
-                  item.label.toLowerCase().includes(filter.toLowerCase())
-                )
-              : items
-          }
-          selectedItems={selectedItems}
-          disabledItems={disabledItems}
-          header={dropdownHeader}
-          updateItems={updateItems}
-          footer={
-            dropdownFooter ? (
-              dropdownFooter
-            ) : (
-              <>
-                <Button
-                  appearance="link"
-                  onClick={() => {
-                    const enabledItems = items.filter(
-                      (item) =>
-                        !disabledItems.some(
-                          (disabledItem) => disabledItem.value === item.value
-                        )
-                    );
-                    updateItems([...selectedItems, ...enabledItems]);
-                  }}
-                  type="button"
-                >
-                  Select all
-                </Button>
-                <Button
-                  appearance="link"
-                  onClick={() => {
-                    const disabledSelectedItems = selectedItems.filter((item) =>
-                      disabledItems.some(
-                        (disabledItem) => disabledItem.value === item.value
-                      )
-                    );
-                    updateItems(disabledSelectedItems);
-                  }}
-                  type="button"
-                >
-                  Clear
-                </Button>
-              </>
-            )
-          }
-        />
-      </div>
-    </div>
+        )
+      }
+      visible={isDropdownOpen}
+    >
+      <MultiSelectDropdown
+        id={dropdownId}
+        isOpen={isDropdownOpen}
+        items={
+          filter.length > 0
+            ? items.filter((item) =>
+                item.label.toLowerCase().includes(filter.toLowerCase())
+              )
+            : items
+        }
+        selectedItems={selectedItems}
+        disabledItems={disabledItems}
+        header={dropdownHeader}
+        updateItems={updateItems}
+        onSelectItem={onSelectItem}
+        onDeselectItem={onDeselectItem}
+        footer={footer}
+      />
+    </ContextualMenu>
   );
 };

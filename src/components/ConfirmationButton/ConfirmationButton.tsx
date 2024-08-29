@@ -1,10 +1,20 @@
-import React, { MouseEvent, ReactElement } from "react";
+import React, { MouseEvent, ReactElement, ReactNode } from "react";
 import { PropsWithSpread, SubComponentProps } from "types";
 import ActionButton, { ActionButtonProps } from "../ActionButton";
 import ConfirmationModal, {
   ConfirmationModalProps,
 } from "../ConfirmationModal";
 import usePortal from "react-useportal";
+
+const generateTitle = (title: ReactNode) => {
+  if (typeof title === "string") {
+    return title;
+  }
+  if (typeof title === "number") {
+    return title.toString();
+  }
+  return null;
+};
 
 export type Props = PropsWithSpread<
   {
@@ -29,6 +39,9 @@ export type Props = PropsWithSpread<
   ActionButtonProps
 >;
 
+/**
+ * `ConfirmationButton` is a specialised version of the [ActionButton](?path=/docs/actionbutton--default-story) component that uses a [ConfirmationModal](?path=/docs/confirmationmodal--default-story) to prompt a confirmation from the user before executing an action.
+ */
 export const ConfirmationButton = ({
   confirmationModalProps,
   onHoverText,
@@ -81,7 +94,9 @@ export const ConfirmationButton = ({
       <ActionButton
         {...actionButtonProps}
         onClick={shiftClickEnabled ? handleShiftClick : openPortal}
-        title={onHoverText ?? confirmationModalProps.confirmButtonLabel}
+        title={generateTitle(
+          onHoverText ?? confirmationModalProps.confirmButtonLabel
+        )}
       >
         {actionButtonProps.children}
       </ActionButton>

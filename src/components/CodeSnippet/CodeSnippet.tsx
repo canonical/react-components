@@ -20,6 +20,13 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLDivElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Code snippet](https://docs.vanillaframework.io/base/code#code-snippet).
+ *
+ * #### Blocks
+ *
+ * A single `CodeSnippet` component can render multiple separate code blocks. Blocks are provided as an array via the `blocks` prop. Each block object defines values of props for each code block of the snippet.
+ */
 export default function CodeSnippet({
   className,
   blocks,

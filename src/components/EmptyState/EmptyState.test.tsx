@@ -6,16 +6,15 @@ import EmptyState from "./EmptyState";
 describe("EmptyState ", () => {
   it("renders the title", () => {
     render(<EmptyState title="Test title" image={<img alt="" src="" />} />);
-    expect(
-      screen.getByRole("heading", { name: "Test title" })
-    ).toBeInTheDocument();
+    const title = screen.getByText("Test title");
+    expect(title).toHaveClass("p-heading--4");
   });
 
   it("renders the image", () => {
     render(
       <EmptyState
         title="Test title"
-        image={<img alt="" src="path/to/image" />}
+        image={<img alt="pic" src="path/to/image" />}
       />
     );
     expect(screen.getByRole("img")).toHaveAttribute("src", "path/to/image");

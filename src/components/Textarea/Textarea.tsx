@@ -1,5 +1,6 @@
 import classNames from "classnames";
 import React, {
+  useCallback,
   useEffect,
   useId,
   useLayoutEffect,
@@ -69,10 +70,19 @@ export type Props = PropsWithSpread<
      * Optional class(es) to pass to the wrapping Field component
      */
     wrapperClassName?: string;
+    /**
+     * Function to occur on keyboard event, 'CTRL + Enter'
+     */
+    onControlEnter?: () => void;
   },
   TextareaHTMLAttributes<HTMLTextAreaElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Textarea](https://docs.vanillaframework.io/base/forms/#textarea).
+ *
+ * The Textarea component defines a multi-line text input control.
+ */
 const Textarea = ({
   caution,
   className,
@@ -83,6 +93,7 @@ const Textarea = ({
   label,
   labelClassName,
   onKeyUp,
+  onControlEnter,
   required,
   stacked,
   style,
@@ -98,6 +109,27 @@ const Textarea = ({
   const [innerValue, setInnervalue] = useState(props.defaultValue);
   const defaultTextAreaId = useId();
   const textAreaId = id || defaultTextAreaId;
+
+  const handleKeyDown = useCallback(
+    (event: KeyboardEvent) => {
+      if (
+        event.key === "Enter" &&
+        (event.ctrlKey || event.metaKey) &&
+        document.activeElement === textareaRef.current
+      ) {
+        onControlEnter();
+      }
+    },
+    [onControlEnter]
+  );
+
+  useEffect(() => {
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [handleKeyDown]);
 
   useEffect(() => {
     if (takeFocus) {
@@ -159,7 +191,7 @@ const Textarea = ({
           style
         }
         {...props}
-        value={props.value || innerValue}
+        value={props.value ?? innerValue}
       />
     </Field>
   );

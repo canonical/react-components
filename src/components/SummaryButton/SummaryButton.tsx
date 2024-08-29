@@ -29,6 +29,9 @@ export type Props = {
   summary?: string;
 };
 
+/**
+ * `SummaryButton` is a component to render a short summary with an action button. It's initial use case is a summary of table contents with action to load more items.
+ */
 const SummaryButton = ({
   className,
   isLoading,

@@ -30,6 +30,11 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Article pagination](https://docs.vanillaframework.io/patterns/article-pagination/).
+ *
+ * The article pagination component should be used to navigate from one article to the next, or previous, in chronological order.
+ */
 const ArticlePagination = ({
   className,
   nextURL,

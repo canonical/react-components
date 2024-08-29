@@ -58,7 +58,7 @@ export type Props = {
   /**
    * Optional class(es) to pass to the label component.
    */
-  labelClassName?: string;
+  labelClassName?: string | null;
   /**
    * Whether the label should show before the input.
    */

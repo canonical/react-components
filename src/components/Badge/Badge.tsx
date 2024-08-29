@@ -55,6 +55,11 @@ const clamp = (value: number) => {
   return value;
 };
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Badge](https://vanillaframework.io/docs/patterns/badge).
+ *
+ * It can be used to display a numeric values.
+ */
 const Badge = ({
   value,
   badgeType = BadgeType.UNDEFINED_LARGE_NUMBER,

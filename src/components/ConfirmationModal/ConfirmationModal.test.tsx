@@ -124,4 +124,30 @@ describe("ConfirmationModal ", () => {
     await userEvent.click(screen.getByText("Proceed"));
     expect(handleExternalClick).toHaveBeenCalledTimes(1);
   });
+
+  it("passes additional props to the buttons", () => {
+    render(
+      <ConfirmationModal
+        cancelButtonLabel="cancel"
+        confirmButtonLabel="submit"
+        cancelButtonProps={{
+          type: "button",
+        }}
+        confirmButtonProps={{
+          type: "submit",
+        }}
+        onConfirm={jest.fn()}
+      >
+        Test
+      </ConfirmationModal>
+    );
+    expect(screen.getByRole("button", { name: "cancel" })).toHaveAttribute(
+      "type",
+      "button"
+    );
+    expect(screen.getByRole("button", { name: "submit" })).toHaveAttribute(
+      "type",
+      "submit"
+    );
+  });
 });

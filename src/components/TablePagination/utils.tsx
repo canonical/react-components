@@ -45,22 +45,20 @@ export const generatePagingOptions = (pageLimits: number[]) => {
 
 export const getDescription = ({
   description,
-  data,
   isSmallScreen,
   totalItems,
   itemName,
+  visibleCount,
 }: {
   description: ReactNode;
-  data: unknown[];
   isSmallScreen: boolean;
   totalItems: number;
   itemName: string;
+  visibleCount: number;
 }) => {
   if (description) {
     return description;
   }
-
-  const visibleCount = data.length;
 
   if (isSmallScreen) {
     return `${visibleCount} out of ${totalItems}`;

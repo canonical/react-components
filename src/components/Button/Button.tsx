@@ -67,7 +67,9 @@ export type Props<P = null> = {
 } & (Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> | P);
 
 /**
- * A component for the Vanilla button.
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Button](https://docs.vanillaframework.io/patterns/buttons/).
+ *
+ * Buttons are clickable elements used to perform an action, they can be used for buttons and link elements.
  * @template P - The type of the props if providing a component to `element`
  */
 const Button = <P,>({
@@ -88,21 +90,19 @@ const Button = <P,>({
     {
       "has-icon": hasIcon,
       "is-dense": dense,
-      "is-disabled": Component !== "button" && disabled,
+      "is-disabled": disabled,
       "is-inline": inline,
       "is-small": small,
     },
     className
   );
   const onClickDisabled = (e: MouseEvent) => e.preventDefault();
-  const disabledProp =
-    Component === "button" ? { disabled } : { "aria-disabled": disabled };
 
   return (
     <Component
       className={classes}
       onClick={disabled ? onClickDisabled : onClick}
-      {...disabledProp}
+      aria-disabled={disabled || undefined}
       {...buttonProps}
     >
       {children}

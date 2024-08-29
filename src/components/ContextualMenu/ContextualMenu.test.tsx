@@ -41,7 +41,9 @@ describe("ContextualMenu ", () => {
 
   it("can be disabled", () => {
     render(<ContextualMenu links={[]} toggleDisabled toggleLabel="Toggle" />);
-    expect(screen.getByRole("button", { name: "Toggle" })).toBeDisabled();
+    expect(screen.getByRole("button", { name: "Toggle" })).toHaveAttribute(
+      "aria-disabled"
+    );
   });
 
   it("can have a toggle button with just an icon", () => {
@@ -101,6 +103,12 @@ describe("ContextualMenu ", () => {
       // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-contextual-menu__indicator")
     ).not.toBeInTheDocument();
+  });
+
+  it("can have a custom toggle button", () => {
+    const label = "Custom toggle";
+    render(<ContextualMenu links={[]} toggle={<button>{label}</button>} />);
+    expect(screen.getByRole("button", { name: label })).toBeInTheDocument();
   });
 
   it("can not have a toggle button", () => {

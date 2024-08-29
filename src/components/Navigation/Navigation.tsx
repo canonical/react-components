@@ -95,7 +95,9 @@ const generateLogo = (logo: Props["logo"], generateLink: GenerateLink) => {
     const content = (
       <>
         <div className="p-navigation__logo-tag">
-          {icon ?? <img className="p-navigation__logo-icon" src={src} alt="" />}
+          {icon ?? (
+            <img className="p-navigation__logo-icon" src={src} alt="Logo" />
+          )}
         </div>
         <span className="p-navigation__logo-title">{title}</span>
       </>
@@ -156,6 +158,14 @@ const generateItems = (
     )
   );
 
+/**
+This is the [React](https://reactjs.org/) component for the Vanilla
+[Navigation](https://vanillaframework.io/docs/patterns/navigation) pattern. It
+is a simple navigation bar that you can add to the top of your site or app.
+
+The navigation items are collapsed behind a "Menu" link in small screens and
+displayed horizontally on larger screens.
+ */
 const Navigation = ({
   fullWidth,
   generateLink,

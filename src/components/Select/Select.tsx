@@ -85,6 +85,11 @@ const generateOptions = (options: Props["options"]) =>
     </option>
   ));
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Select](https://docs.vanillaframework.io/base/forms/#select).
+ *
+ * Use the Select component to create a drop-down list.
+ */
 const Select = ({
   caution,
   className,

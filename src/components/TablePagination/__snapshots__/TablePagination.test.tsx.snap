@@ -12,9 +12,9 @@ exports[`<TablePagination /> renders table pagination and matches the snapshot 1
     Showing all 5 items
   </div>
   <button
+    aria-disabled="true"
     aria-label="Previous page"
-    class="p-button--base has-icon back"
-    disabled=""
+    class="p-button--base has-icon is-disabled back"
   >
     <i
       class="p-icon--chevron-down"
@@ -42,12 +42,11 @@ exports[`<TablePagination /> renders table pagination and matches the snapshot 1
     </div>
   </div>
    
-  of 
-  1
+  of 1
   <button
+    aria-disabled="true"
     aria-label="Next page"
-    class="p-button--base has-icon next"
-    disabled=""
+    class="p-button--base has-icon is-disabled next"
   >
     <i
       class="p-icon--chevron-down"

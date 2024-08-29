@@ -35,7 +35,7 @@ export type Props = PropsWithSpread<
     /**
      * A function that is called when the user clicks the search icon or presses enter
      */
-    onSearch?: () => void;
+    onSearch?: (inputValue: string) => void;
     /**
      * A function that is called when the user clicks the reset icon
      */
@@ -44,6 +44,10 @@ export type Props = PropsWithSpread<
      * A search input placeholder message.
      */
     placeholder?: string;
+    /**
+     * Whether the search input should lose focus when searching.
+     */
+    shouldBlurOnSearch?: boolean;
     /**
      * Whether the search input should receive focus after pressing the reset button
      */
@@ -60,6 +64,11 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLInputElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [SearchBox](https://docs.vanillaframework.io/patterns/search-box/).
+ *
+ * Search boxes enable search functionality on a page and are typically used in a navigation bar. SearchBox elements should be wrapped within a form element that handles its own submit action.
+ */
 const SearchBox = React.forwardRef<HTMLInputElement, Props>(
   (
     {
@@ -71,6 +80,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
       onSearch,
       onClear,
       placeholder = "Search",
+      shouldBlurOnSearch = true,
       shouldRefocusAfterReset,
       value,
       ...props
@@ -88,12 +98,14 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
     };
 
     const triggerSearch = () => {
-      onSearch && onSearch();
+      onSearch?.(externallyControlled ? value : internalRef.current.value);
     };
 
     const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
       if (e.key === "Enter" && internalRef.current.checkValidity()) {
-        internalRef.current.blur();
+        if (shouldBlurOnSearch) {
+          internalRef.current.blur();
+        }
         triggerSearch();
       }
     };

@@ -17,6 +17,9 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLInputElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Switch](https://vanillaframework.io/docs/patterns/switch) component.
+ */
 export const Switch = ({
   label,
   disabled = false,

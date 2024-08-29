@@ -54,6 +54,11 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for use within the Vanilla [Grid](https://docs.vanillaframework.io/patterns/grid/).
+ *
+ * Vanilla has a responsive grid using a combination of rows and columns.
+ */
 const Col = ({
   children,
   className,

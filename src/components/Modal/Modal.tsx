@@ -33,6 +33,11 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLDivElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Modal](https://docs.vanillaframework.io/patterns/modal/).
+ *
+ * The modal component can be used to overlay an area of the screen which can contain a prompt, dialog or interaction.
+ */
 export const Modal = ({
   buttonRow,
   children,

@@ -18,7 +18,7 @@
   }
 
   .back {
-    margin: 0 $spv--large;
+    margin: 0 0 0 $spv--large;
 
     .p-icon--chevron-down {
       rotate: 90deg;
@@ -34,7 +34,7 @@
   }
 
   .pagination-input {
-    margin-right: $spv--small;
+    margin: 0 $spv--small 0 $spv--large;
     min-width: 0;
     width: 3rem;
   }

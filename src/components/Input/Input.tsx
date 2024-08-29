@@ -73,6 +73,11 @@ export type Props = PropsWithSpread<
   InputHTMLAttributes<HTMLInputElement>
 >;
 
+/**
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Input](https://docs.vanillaframework.io/base/forms/#input).
+ *
+ * An input field where the user can enter data, which can vary in many ways, depending on the type attribute.
+ */
 const Input = ({
   caution,
   className,

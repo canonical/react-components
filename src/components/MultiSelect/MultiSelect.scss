@@ -10,7 +10,9 @@ $dropdown-max-height: 20rem;
   // XXX: This is a workaround for https://github.com/canonical/vanilla-framework/issues/5030
   @include vf-b-forms;
 
+  margin-bottom: $input-margin-bottom;
   position: relative;
+  width: 100%;
 }
 
 .multi-select .p-form-validation__message {
@@ -26,6 +28,7 @@ $dropdown-max-height: 20rem;
 
 .multi-select__input {
   cursor: pointer;
+  margin-bottom: 0;
   position: relative;
 
   &.items-selected {
@@ -38,19 +41,6 @@ $dropdown-max-height: 20rem;
   &[disabled="disabled"] {
     opacity: 1;
   }
-}
-
-.multi-select__dropdown {
-  background-color: $colors--theme--background-default;
-  box-shadow: $box-shadow;
-  color: $colors--theme--text-default;
-  left: 0;
-  max-height: $dropdown-max-height;
-  overflow: auto;
-  padding-top: $spv--small;
-  position: absolute;
-  right: 0;
-  top: calc(100% - #{$input-margin-bottom});
 }
 
 .multi-select__dropdown--side-by-side {
@@ -131,6 +121,10 @@ $dropdown-max-height: 20rem;
 
   position: relative;
   z-index: 0;
+
+  .multi-select & {
+    margin-bottom: 0;
+  }
 
   &::after {
     content: "";

@@ -57,7 +57,9 @@ export type Props = PropsWithSpread<
 >;
 
 /**
- * Icon
+ * This is a [React](https://reactjs.org/) component for the Vanilla [Icon](https://docs.vanillaframework.io/patterns/icons/).
+ *
+ * Icons provide visual context and enhance usability.
  *
  * @param name One of built-in Vanilla icons or a name of a custom icon that follows `p-icon--{name}` convention.
  * @returns Icon

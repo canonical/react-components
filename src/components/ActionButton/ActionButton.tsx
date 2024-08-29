@@ -49,6 +49,13 @@ export type Props = PropsWithSpread<
   ButtonHTMLAttributes<HTMLButtonElement>
 >;
 
+/**
+ * This is a not an existing Vanilla component. It can be used to display submitting states for forms or other actions.
+ *
+ * ActionButton accepts the props from
+ * [Button](?path=/docs/components-button--docs) in addition to those in the
+ * props table:
+ */
 const ActionButton = ({
   appearance,
   children,
