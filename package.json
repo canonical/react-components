@@ -127,7 +127,7 @@
     "build-watch": "yarn run build-local --watch",
     "build-docs": "storybook build -c .storybook -o docs",
     "clean": "rm -rf node_modules dist .out",
-    "docs": "storybook dev -p ${PORT:-9009}",
+    "docs": "storybook dev -p ${PORT:-9009} --no-open",
     "link-packages": "yarn install && yarn build && yarn link && cd node_modules/react && yarn link && cd ../react-dom && yarn link",
     "lint-js": "eslint src",
     "lint-style": "stylelint src/**/*.scss",
