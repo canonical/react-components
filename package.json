@@ -122,8 +122,8 @@
   },
   "scripts": {
     "build": "rm -rf dist && yarn build-local; yarn build-declaration",
-    "build-local": "NODE_ENV=production babel src --out-dir dist --copy-files --extensions '.js,.jsx,.ts,.tsx'",
-    "build-declaration": "tsc --project tsconfig.json && tsc-alias -p tsconfig.json",
+    "build-local": "NODE_ENV=production babel src --out-dir dist --copy-files --no-copy-ignored --extensions '.js,.jsx,.ts,.tsx,.snap' --ignore '**/*.test.ts','**/*.test.tsx','**/*.stories.tsx','**/__snapshots__','src/setupTests.js','src/testing'",
+    "build-declaration": "tsc --project tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "build-watch": "yarn run build-local --watch",
     "build-docs": "storybook build -c .storybook -o docs",
     "clean": "rm -rf node_modules dist .out",
