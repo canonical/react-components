@@ -125,7 +125,7 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
     if (foundItem) {
       const newSelectedItems = checked
         ? [...selectedItems, foundItem]
-        : selectedItems.filter((item) => `${item.value}` !== value) ?? [];
+        : (selectedItems.filter((item) => `${item.value}` !== value) ?? []);
       updateItems(newSelectedItems);
       if (checked) {
         onSelectItem?.(foundItem);
@@ -320,7 +320,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
             <span className="multi-select__condensed-text">
               {listSelected && selectedItems.length > 0
                 ? selectedItemsLabel
-                : placeholder ?? "Select items"}
+                : (placeholder ?? "Select items")}
             </span>
           </button>
         )
