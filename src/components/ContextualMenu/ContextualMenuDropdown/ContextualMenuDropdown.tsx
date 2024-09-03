@@ -58,7 +58,7 @@ const getPositionStyle = (
   position: Position,
   verticalPosition: VerticalPosition,
   positionCoords: Props["positionCoords"],
-  constrainPanelWidth: Props["constrainPanelWidth"]
+  constrainPanelWidth: Props["constrainPanelWidth"],
 ): React.CSSProperties => {
   if (!positionCoords) {
     return null;
@@ -101,7 +101,7 @@ const getPositionStyle = (
  */
 export const adjustForWindow = (
   position: Position,
-  fitsWindow: WindowFitment
+  fitsWindow: WindowFitment,
 ): Position => {
   let newPosition: string = position;
   if (!fitsWindow.fromRight.fitsLeft && newPosition === "right") {
@@ -144,7 +144,7 @@ export const adjustForWindow = (
 const generateLink = <L,>(
   link: ButtonProps,
   key: React.Key,
-  handleClose: Props["handleClose"]
+  handleClose: Props["handleClose"],
 ) => {
   const { children, className, onClick, ...props } = link;
   return (
@@ -167,7 +167,7 @@ const generateLink = <L,>(
 };
 
 const getClosestScrollableParent = (
-  node: HTMLElement | null
+  node: HTMLElement | null,
 ): HTMLElement | null => {
   let currentNode = node;
   while (currentNode && currentNode !== document.body) {
@@ -209,8 +209,8 @@ const ContextualMenuDropdown = <L,>({
       adjustedPosition,
       verticalPosition,
       positionCoords,
-      constrainPanelWidth
-    )
+      constrainPanelWidth,
+    ),
   );
   const [maxHeight, setMaxHeight] = useState<number>();
   // Update the styles to position the menu.
@@ -220,8 +220,8 @@ const ContextualMenuDropdown = <L,>({
         adjustedPosition,
         verticalPosition,
         positionCoords,
-        constrainPanelWidth
-      )
+        constrainPanelWidth,
+      ),
     );
   }, [adjustedPosition, positionCoords, verticalPosition, constrainPanelWidth]);
 
@@ -256,7 +256,7 @@ const ContextualMenuDropdown = <L,>({
         windowSpaceBelow >= dropdownHeight) ||
         windowSpaceBelow > scrollParentSpaceAbove
         ? "bottom"
-        : "top"
+        : "top",
     );
   }, [positionNode]);
 
@@ -277,7 +277,7 @@ const ContextualMenuDropdown = <L,>({
       scrollOverflow,
       setAdjustedPosition,
       updateVerticalPosition,
-    ]
+    ],
   );
 
   // Handle adjusting the horizontal position and scrolling of the dropdown so that it remains on screen.
@@ -286,7 +286,7 @@ const ContextualMenuDropdown = <L,>({
     positionNode,
     onUpdateWindowFitment,
     0,
-    isOpen && (autoAdjust || scrollOverflow)
+    isOpen && (autoAdjust || scrollOverflow),
   );
 
   // Update the styles when the position changes.
@@ -328,7 +328,7 @@ const ContextualMenuDropdown = <L,>({
                 return (
                   <span className="p-contextual-menu__group" key={i}>
                     {item.map((link, j) =>
-                      generateLink<L>(link, j, handleClose)
+                      generateLink<L>(link, j, handleClose),
                     )}
                   </span>
                 );

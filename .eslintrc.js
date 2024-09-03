@@ -14,7 +14,6 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
-    "prettier/prettier": ["error", { trailingComma: "es5" }],
     "react/forbid-component-props": [
       "error",
       {

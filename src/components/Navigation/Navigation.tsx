@@ -131,7 +131,7 @@ const generateLogo = (logo: Props["logo"], generateLink: GenerateLink) => {
 const generateItems = (
   items: NavItem[],
   closeMobileMenu: () => void,
-  generateLink?: GenerateLink | null
+  generateLink?: GenerateLink | null,
 ) =>
   items.map((item, i) =>
     isMenu(item) ? (
@@ -155,7 +155,7 @@ const generateItems = (
           }}
         />
       </li>
-    )
+    ),
   );
 
 /**

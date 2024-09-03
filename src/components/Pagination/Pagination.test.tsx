@@ -16,7 +16,7 @@ describe("<Pagination />", () => {
         totalItems={50}
         paginate={jest.fn()}
         currentPage={1}
-      />
+      />,
     );
 
     expect(screen.getByRole("navigation")).toMatchSnapshot();
@@ -30,7 +30,7 @@ describe("<Pagination />", () => {
         totalItems={5}
         paginate={jest.fn()}
         currentPage={1}
-      />
+      />,
     );
 
     expect(screen.queryByRole("navigation")).not.toBeInTheDocument();
@@ -43,17 +43,17 @@ describe("<Pagination />", () => {
         totalItems={50}
         paginate={jest.fn()}
         currentPage={1}
-      />
+      />,
     );
 
     expect(
-      screen.queryByRole("listitem", { name: "…" })
+      screen.queryByRole("listitem", { name: "…" }),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: PaginationButtonLabel.Next })
+      screen.getByRole("button", { name: PaginationButtonLabel.Next }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: PaginationButtonLabel.Previous })
+      screen.getByRole("button", { name: PaginationButtonLabel.Previous }),
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "1" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "2" })).toBeInTheDocument();
@@ -69,15 +69,15 @@ describe("<Pagination />", () => {
         totalItems={1000}
         paginate={jest.fn()}
         currentPage={5}
-      />
+      />,
     );
 
     expect(screen.getAllByText("…")).toHaveLength(2);
     expect(
-      screen.getByRole("button", { name: PaginationButtonLabel.Next })
+      screen.getByRole("button", { name: PaginationButtonLabel.Next }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: PaginationButtonLabel.Previous })
+      screen.getByRole("button", { name: PaginationButtonLabel.Previous }),
     ).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "1" })).toBeInTheDocument();
     expect(screen.getByRole("button", { name: "4" })).toBeInTheDocument();
@@ -93,7 +93,7 @@ describe("<Pagination />", () => {
         totalItems={1000}
         paginate={jest.fn()}
         currentPage={2}
-      />
+      />,
     );
 
     // There should only be one ellipsis.
@@ -107,7 +107,7 @@ describe("<Pagination />", () => {
         totalItems={1000}
         paginate={jest.fn()}
         currentPage={98}
-      />
+      />,
     );
 
     // There should only be one ellipsis.
@@ -124,7 +124,7 @@ describe("<Pagination />", () => {
           paginate={jest.fn()}
           currentPage={98}
         />
-      </form>
+      </form>,
     );
 
     await userEvent.click(screen.getByRole("button", { name: "Next page" }));
@@ -140,10 +140,10 @@ describe("<Pagination />", () => {
         paginate={jest.fn()}
         currentPage={98}
         centered
-      />
+      />,
     );
     expect(document.querySelector(".p-pagination__items")).toHaveClass(
-      "u-align--center"
+      "u-align--center",
     );
   });
 
@@ -155,25 +155,25 @@ describe("<Pagination />", () => {
         paginate={jest.fn()}
         currentPage={1}
         showLabels
-      />
+      />,
     );
     const previousButton = screen.getByRole("button", {
       name: new RegExp(PaginationButtonLabel.Previous),
     });
     expect(previousButton.querySelector("span")).toHaveTextContent(
-      PaginationButtonLabel.Previous
+      PaginationButtonLabel.Previous,
     );
     const nextButton = screen.getByRole("button", {
       name: new RegExp(PaginationButtonLabel.Next),
     });
     expect(nextButton.querySelector("span")).toHaveTextContent(
-      PaginationButtonLabel.Next
+      PaginationButtonLabel.Next,
     );
     expect(
       previousButton &&
         nextButton &&
         previousButton.compareDocumentPosition(nextButton) &
-          Node.DOCUMENT_POSITION_FOLLOWING
+          Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   });
 
@@ -187,25 +187,25 @@ describe("<Pagination />", () => {
         showLabels
         forwardLabel={CustomButtonLabel.Next}
         backLabel={CustomButtonLabel.Previous}
-      />
+      />,
     );
     const previousButton = screen.getByRole("button", {
       name: new RegExp(CustomButtonLabel.Previous),
     });
     expect(previousButton.querySelector("span")).toHaveTextContent(
-      CustomButtonLabel.Previous
+      CustomButtonLabel.Previous,
     );
     const nextButton = screen.getByRole("button", {
       name: new RegExp(CustomButtonLabel.Next),
     });
     expect(nextButton.querySelector("span")).toHaveTextContent(
-      CustomButtonLabel.Next
+      CustomButtonLabel.Next,
     );
     expect(
       previousButton &&
         nextButton &&
         previousButton.compareDocumentPosition(nextButton) &
-          Node.DOCUMENT_POSITION_FOLLOWING
+          Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   });
 
@@ -218,17 +218,17 @@ describe("<Pagination />", () => {
         currentPage={1}
         forwardDisabled
         backDisabled
-      />
+      />,
     );
     expect(
       screen.getByRole("button", {
         name: PaginationButtonLabel.Next,
-      })
+      }),
     ).toBeDisabled();
     expect(
       screen.getByRole("button", {
         name: PaginationButtonLabel.Previous,
-      })
+      }),
     ).toBeDisabled();
   });
 
@@ -242,12 +242,12 @@ describe("<Pagination />", () => {
         paginate={mockHandlePaginate}
         currentPage={1}
         onForward={mockHandleForward}
-      />
+      />,
     );
     await userEvent.click(
       screen.getByRole("button", {
         name: new RegExp(PaginationButtonLabel.Next),
-      })
+      }),
     );
     expect(mockHandlePaginate).toHaveBeenCalledTimes(1);
     expect(mockHandlePaginate).toHaveBeenCalledWith(2);
@@ -265,12 +265,12 @@ describe("<Pagination />", () => {
         paginate={mockHandlePaginate}
         currentPage={2}
         onBack={mockHandleBack}
-      />
+      />,
     );
     await userEvent.click(
       screen.getByRole("button", {
         name: new RegExp(PaginationButtonLabel.Previous),
-      })
+      }),
     );
     expect(mockHandlePaginate).toHaveBeenCalledTimes(1);
     expect(mockHandlePaginate).toHaveBeenCalledWith(1);
@@ -286,18 +286,18 @@ describe("<Pagination />", () => {
         paginate={jest.fn()}
         currentPage={2}
         hideNumbers
-      />
+      />,
     );
     expect(screen.getAllByRole("button")).toHaveLength(2);
     expect(
       screen.getByRole("button", {
         name: new RegExp(PaginationButtonLabel.Next),
-      })
+      }),
     ).toBeVisible();
     expect(
       screen.getByRole("button", {
         name: new RegExp(PaginationButtonLabel.Previous),
-      })
+      }),
     ).toBeVisible();
   });
 
@@ -309,7 +309,7 @@ describe("<Pagination />", () => {
   it("should center the buttons-only pagination", () => {
     render(<Pagination onForward={jest.fn()} onBack={jest.fn()} centered />);
     expect(document.querySelector(".p-pagination__items")).toHaveClass(
-      "u-align--center"
+      "u-align--center",
     );
   });
 
@@ -319,19 +319,19 @@ describe("<Pagination />", () => {
       name: new RegExp(PaginationButtonLabel.Previous),
     });
     expect(previousButton.querySelector("span")).toHaveTextContent(
-      PaginationButtonLabel.Previous
+      PaginationButtonLabel.Previous,
     );
     const nextButton = screen.getByRole("button", {
       name: new RegExp(PaginationButtonLabel.Next),
     });
     expect(nextButton.querySelector("span")).toHaveTextContent(
-      PaginationButtonLabel.Next
+      PaginationButtonLabel.Next,
     );
     expect(
       previousButton &&
         nextButton &&
         previousButton.compareDocumentPosition(nextButton) &
-          Node.DOCUMENT_POSITION_FOLLOWING
+          Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   });
 
@@ -343,25 +343,25 @@ describe("<Pagination />", () => {
         showLabels
         forwardLabel={CustomButtonLabel.Next}
         backLabel={CustomButtonLabel.Previous}
-      />
+      />,
     );
     const previousButton = screen.getByRole("button", {
       name: new RegExp(CustomButtonLabel.Previous),
     });
     expect(previousButton.querySelector("span")).toHaveTextContent(
-      CustomButtonLabel.Previous
+      CustomButtonLabel.Previous,
     );
     const nextButton = screen.getByRole("button", {
       name: new RegExp(CustomButtonLabel.Next),
     });
     expect(nextButton.querySelector("span")).toHaveTextContent(
-      CustomButtonLabel.Next
+      CustomButtonLabel.Next,
     );
     expect(
       previousButton &&
         nextButton &&
         previousButton.compareDocumentPosition(nextButton) &
-          Node.DOCUMENT_POSITION_FOLLOWING
+          Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   });
 
@@ -372,17 +372,17 @@ describe("<Pagination />", () => {
         onBack={jest.fn()}
         backDisabled
         forwardDisabled
-      />
+      />,
     );
     expect(
       screen.getByRole("button", {
         name: PaginationButtonLabel.Next,
-      })
+      }),
     ).toBeDisabled();
     expect(
       screen.getByRole("button", {
         name: PaginationButtonLabel.Previous,
-      })
+      }),
     ).toBeDisabled();
   });
 
@@ -392,7 +392,7 @@ describe("<Pagination />", () => {
     await userEvent.click(
       screen.getByRole("button", {
         name: new RegExp(PaginationButtonLabel.Next),
-      })
+      }),
     );
     expect(mockHandleForward).toHaveBeenCalledTimes(1);
   });
@@ -403,7 +403,7 @@ describe("<Pagination />", () => {
     await userEvent.click(
       screen.getByRole("button", {
         name: new RegExp(PaginationButtonLabel.Previous),
-      })
+      }),
     );
     expect(mockHandleBack).toHaveBeenCalledTimes(1);
   });
@@ -416,7 +416,7 @@ describe("<Pagination />", () => {
         paginate={jest.fn()}
         currentPage={1}
         truncateThreshold={3}
-      />
+      />,
     );
 
     expect(await screen.findAllByRole("button", { name: "1" })).toHaveLength(1);
@@ -434,7 +434,7 @@ describe("<Pagination />", () => {
         paginate={jest.fn()}
         currentPage={2}
         truncateThreshold={3}
-      />
+      />,
     );
 
     expect(await screen.findAllByRole("button", { name: "1" })).toHaveLength(1);
@@ -452,7 +452,7 @@ describe("<Pagination />", () => {
         paginate={jest.fn()}
         currentPage={3}
         truncateThreshold={3}
-      />
+      />,
     );
 
     expect(await screen.findAllByRole("button", { name: "1" })).toHaveLength(1);
@@ -470,7 +470,7 @@ describe("<Pagination />", () => {
         paginate={jest.fn()}
         currentPage={4}
         truncateThreshold={3}
-      />
+      />,
     );
 
     expect(await screen.findAllByRole("button", { name: "1" })).toHaveLength(1);
@@ -488,7 +488,7 @@ describe("<Pagination />", () => {
         paginate={jest.fn()}
         currentPage={4}
         truncateThreshold={3}
-      />
+      />,
     );
 
     expect(await screen.findAllByRole("button", { name: "1" })).toHaveLength(1);
@@ -496,7 +496,7 @@ describe("<Pagination />", () => {
     expect(await screen.findAllByRole("button", { name: "4" })).toHaveLength(1);
     expect(await screen.findAllByRole("button", { name: "5" })).toHaveLength(1);
     expect(await screen.findAllByRole("button", { name: "10" })).toHaveLength(
-      1
+      1,
     );
     expect(screen.queryAllByText("…")).toHaveLength(2);
   });

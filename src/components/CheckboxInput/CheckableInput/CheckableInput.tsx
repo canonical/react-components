@@ -54,7 +54,7 @@ const CheckableInput = ({
         `p-${inputType}${inline ? "--inline" : ""}`,
         {
           "is-required": checkboxProps.required,
-        }
+        },
       )}
     >
       <input

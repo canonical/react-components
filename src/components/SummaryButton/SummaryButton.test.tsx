@@ -12,7 +12,7 @@ describe("<SummaryButton />", () => {
         summary="Showing some items"
         label="Show more"
         onClick={jest.fn()}
-      />
+      />,
     );
 
     expect(container.firstChild).toMatchSnapshot();
@@ -21,7 +21,7 @@ describe("<SummaryButton />", () => {
   // unit tests
   it("renders a spinner icon", () => {
     const { container } = render(
-      <SummaryButton label="Show more" onClick={jest.fn()} isLoading />
+      <SummaryButton label="Show more" onClick={jest.fn()} isLoading />,
     );
 
     expect(container.querySelector("i.u-animation--spin")).toBeInTheDocument();

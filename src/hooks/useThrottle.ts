@@ -12,7 +12,7 @@ export type Callback = (...args: any[]) => any; // eslint-disable-line @typescri
  */
 export const useThrottle = (
   callback: Callback,
-  delay = THROTTLE_DELAY
+  delay = THROTTLE_DELAY,
 ): Callback => {
   const timeout = useRef<number>();
   const lastCall = useRef<number>();
@@ -44,7 +44,7 @@ export const useThrottle = (
         createTimeout();
       }
     },
-    [callback, delay]
+    [callback, delay],
   );
 
   useEffect(
@@ -54,7 +54,7 @@ export const useThrottle = (
         clearTimeout(timeout.current);
       }
     },
-    []
+    [],
   );
 
   return throttle;

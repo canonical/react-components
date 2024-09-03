@@ -15,7 +15,7 @@ it("shows options when opened", async () => {
 
   items.forEach((item) => {
     expect(
-      screen.queryByRole("checkbox", { name: item.label })
+      screen.queryByRole("checkbox", { name: item.label }),
     ).not.toBeInTheDocument();
   });
 
@@ -23,7 +23,7 @@ it("shows options when opened", async () => {
 
   items.forEach((item) => {
     expect(
-      screen.getByRole("checkbox", { name: item.label })
+      screen.getByRole("checkbox", { name: item.label }),
     ).toBeInTheDocument();
   });
 });
@@ -37,15 +37,19 @@ it("opens the dropdown when the combobox is clicked", async () => {
 
 it("can have some options preselected", async () => {
   render(
-    <MultiSelect variant="condensed" items={items} selectedItems={[items[0]]} />
+    <MultiSelect
+      variant="condensed"
+      items={items}
+      selectedItems={[items[0]]}
+    />,
   );
   expect(screen.getByRole("combobox")).toHaveTextContent(items[0].label);
   expect(
-    screen.queryByRole("checkbox", { name: items[0].label })
+    screen.queryByRole("checkbox", { name: items[0].label }),
   ).not.toBeInTheDocument();
   await userEvent.click(screen.getByRole("combobox"));
   expect(
-    screen.getByRole("checkbox", { name: items[0].label })
+    screen.getByRole("checkbox", { name: items[0].label }),
   ).toBeInTheDocument();
 });
 
@@ -57,7 +61,7 @@ it("can select options from the dropdown", async () => {
       items={items}
       onItemsUpdate={onItemsUpdate}
       onSelectItem={onSelectItem}
-    />
+    />,
   );
   await userEvent.click(screen.getByRole("combobox"));
   await userEvent.click(screen.getByLabelText(items[0].label));
@@ -74,12 +78,12 @@ it("can remove options that have been selected", async () => {
       selectedItems={items}
       onItemsUpdate={onItemsUpdate}
       onDeselectItem={onDeselectItem}
-    />
+    />,
   );
   await userEvent.click(screen.getByRole("combobox"));
   expect(screen.getAllByRole("listitem")).toHaveLength(3);
   await userEvent.click(
-    within(screen.getByRole("listbox")).getByLabelText(items[0].label)
+    within(screen.getByRole("listbox")).getByLabelText(items[0].label),
   );
   expect(onItemsUpdate).toHaveBeenCalledWith(items.slice(1));
   expect(onDeselectItem).toHaveBeenCalledWith(items[0]);
@@ -99,14 +103,14 @@ it("can display a custom dropdown header and footer", async () => {
       dropdownHeader={<button>custom header button</button>}
       dropdownFooter={<button>custom footer button</button>}
       items={items}
-    />
+    />,
   );
   await userEvent.click(screen.getByRole("combobox"));
   expect(
-    screen.getByRole("button", { name: "custom header button" })
+    screen.getByRole("button", { name: "custom header button" }),
   ).toBeInTheDocument();
   expect(
-    screen.getByRole("button", { name: "custom footer button" })
+    screen.getByRole("button", { name: "custom footer button" }),
   ).toBeInTheDocument();
 });
 
@@ -116,18 +120,22 @@ it("can not display the footer", async () => {
       dropdownFooter={<button>custom footer button</button>}
       items={items}
       showDropdownFooter={false}
-    />
+    />,
   );
   await userEvent.click(screen.getByRole("combobox"));
   expect(
-    screen.queryByRole("button", { name: "custom footer button" })
+    screen.queryByRole("button", { name: "custom footer button" }),
   ).not.toBeInTheDocument();
 });
 
 it("selects all items and clears selection when respective buttons are clicked", async () => {
   const onItemsUpdate = jest.fn();
   render(
-    <MultiSelect items={items} variant="search" onItemsUpdate={onItemsUpdate} />
+    <MultiSelect
+      items={items}
+      variant="search"
+      onItemsUpdate={onItemsUpdate}
+    />,
   );
   await userEvent.click(screen.getByRole("combobox"));
   await userEvent.type(screen.getByRole("combobox"), "item");
@@ -155,7 +163,11 @@ it("closes the dropdown when clicking on the button", async () => {
 
 it("updates text in the input field if something is selected", async () => {
   render(
-    <MultiSelect items={items} selectedItems={[items[0]]} variant="condensed" />
+    <MultiSelect
+      items={items}
+      selectedItems={[items[0]]}
+      variant="condensed"
+    />,
   );
   expect(screen.getByRole("combobox")).toHaveTextContent(items[0].label);
 });
@@ -169,7 +181,7 @@ it("can display the placeholder when items are selected", async () => {
       variant="condensed"
       listSelected={false}
       placeholder={placeholder}
-    />
+    />,
   );
   expect(screen.getByRole("combobox")).toHaveTextContent(placeholder);
 });
@@ -186,7 +198,7 @@ it("can have one or more sections with titles", async () => {
 
   itemsWithGroup.forEach((item) => {
     expect(
-      screen.getByRole("heading", { name: item.group })
+      screen.getByRole("heading", { name: item.group }),
     ).toBeInTheDocument();
     expect(screen.getByRole("list", { name: item.group })).toBeInTheDocument();
   });
@@ -205,15 +217,15 @@ it("sorts grouped options alphabetically", async () => {
 
   const checkGroupOrder = async (
     groupName: string,
-    expectedLabels: string[]
+    expectedLabels: string[],
   ) => {
     const group = screen.getByRole("list", { name: groupName });
     await waitFor(() =>
       within(group)
         .getAllByRole("listitem")
         .forEach((item, index) =>
-          expect(item).toHaveTextContent(expectedLabels[index])
-        )
+          expect(item).toHaveTextContent(expectedLabels[index]),
+        ),
     );
   };
 
@@ -234,7 +246,7 @@ it("hides group title when no items match the search query", async () => {
 
   await userEvent.type(screen.getByRole("combobox"), "item two");
   expect(
-    screen.queryByRole("heading", { name: "Group 1" })
+    screen.queryByRole("heading", { name: "Group 1" }),
   ).not.toBeInTheDocument();
   expect(screen.getByRole("heading", { name: "Group 2" })).toBeInTheDocument();
 });

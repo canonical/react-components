@@ -9,7 +9,7 @@ it("generates a standard anchor", () => {
   expect(
     screen.getByRole("link", {
       name: "Go here",
-    })
+    }),
   ).toBeInTheDocument();
 });
 
@@ -18,7 +18,7 @@ it("generates a button", () => {
   expect(
     screen.getByRole("button", {
       name: "Go here",
-    })
+    }),
   ).toBeInTheDocument();
 });
 
@@ -26,12 +26,12 @@ it("can select an anchor", () => {
   render(
     <NavigationLink
       link={{ isSelected: true, label: "Go here", url: "/to/here" }}
-    />
+    />,
   );
   expect(
     screen.getByRole("link", {
       name: "Go here",
-    })
+    }),
   ).toHaveAttribute("aria-current", "page");
 });
 
@@ -40,12 +40,12 @@ it("generates a custom link", () => {
     <NavigationLink
       generateLink={({ label }) => <button>{label}</button>}
       link={{ label: "Go here", url: "/to/here" }}
-    />
+    />,
   );
   expect(
     screen.getByRole("button", {
       name: "Go here",
-    })
+    }),
   ).toBeInTheDocument();
 });
 
@@ -56,11 +56,11 @@ it("can select a custom link", () => {
         <button aria-current={props["aria-current"]}>{label}</button>
       )}
       link={{ isSelected: true, label: "Go here", url: "/to/here" }}
-    />
+    />,
   );
   expect(
     screen.getByRole("button", {
       name: "Go here",
-    })
+    }),
   ).toHaveAttribute("aria-current", "page");
 });

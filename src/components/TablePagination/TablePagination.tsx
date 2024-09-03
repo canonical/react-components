@@ -141,7 +141,7 @@ const TablePagination = (props: Props) => {
 
     if (!pageSizeFound) {
       throw new Error(
-        `pageSize must be a valid option in pageLimits, pageLimits is set to [${pageLimits}]`
+        `pageSize must be a valid option in pageLimits, pageLimits is set to [${pageLimits}]`,
       );
     }
   }

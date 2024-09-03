@@ -23,7 +23,7 @@ it("can use a custom component", () => {
 
 it("displays an icon", () => {
   render(
-    <SideNavigationBase icon="user" label="Test content" component="button" />
+    <SideNavigationBase icon="user" label="Test content" component="button" />,
   );
   expect(document.querySelector(".p-icon--user")).toBeInTheDocument();
 });
@@ -35,7 +35,7 @@ it("displays a light icon", () => {
       icon="user"
       label="Test content"
       component="button"
-    />
+    />,
   );
   expect(document.querySelector(".p-icon--user")).toHaveClass("is-light");
 });
@@ -47,7 +47,7 @@ it("displays a dark icon", () => {
       icon="user"
       label="Test content"
       component="button"
-    />
+    />,
   );
   expect(document.querySelector(".p-icon--user")).not.toHaveClass("is-light");
 });

@@ -6,7 +6,7 @@ import Textarea from "./Textarea";
 describe("Textarea ", () => {
   it("renders", () => {
     const { container } = render(
-      <Textarea id="test-id" wrapperClassName="textarea" />
+      <Textarea id="test-id" wrapperClassName="textarea" />,
     );
     // Get the wrapping element.
     // eslint-disable-next-line testing-library/no-node-access, testing-library/no-container
@@ -61,7 +61,7 @@ describe("Textarea ", () => {
         onControlEnter={() => {
           console.log("OnControlEnter was here.");
         }}
-      />
+      />,
     );
 
     // Capture the event handler

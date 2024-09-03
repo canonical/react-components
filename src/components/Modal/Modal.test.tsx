@@ -14,14 +14,14 @@ describe("Modal ", () => {
         ]}
       >
         Button tester
-      </Modal>
+      </Modal>,
     );
     expect(screen.getAllByRole("button").length).toEqual(2);
   });
 
   it("displays any content in the button row", () => {
     const { container } = render(
-      <Modal buttonRow={<div>I am not a button</div>}>Button tester</Modal>
+      <Modal buttonRow={<div>I am not a button</div>}>Button tester</Modal>,
     );
     expect(container.innerHTML).toContain("I am not a button");
     expect(container.innerHTML).toContain("Button tester");
@@ -31,7 +31,7 @@ describe("Modal ", () => {
     const { container } = render(
       <Modal close={jest.fn()} title="Confirm delete">
         Are you sure?
-      </Modal>
+      </Modal>,
     );
     expect(container.querySelector(".p-modal__button-row")).toBeNull();
   });
@@ -48,7 +48,7 @@ describe("Modal ", () => {
 
   it("can pass extra classes to the wrapper", () => {
     const { container } = render(
-      <Modal className="extra-class">Bare bones.</Modal>
+      <Modal className="extra-class">Bare bones.</Modal>,
     );
     expect(container.querySelector(".extra-class")).toBeInTheDocument();
   });
@@ -57,10 +57,10 @@ describe("Modal ", () => {
     const { container } = render(
       <Modal title="Test" close={jest.fn()}>
         My modal
-      </Modal>
+      </Modal>,
     );
     expect(container.querySelector("button.p-modal__close")).toBe(
-      document.activeElement
+      document.activeElement,
     );
   });
 
@@ -77,7 +77,7 @@ describe("Modal ", () => {
         }
       >
         Bare bones
-      </Modal>
+      </Modal>,
     );
 
     const closeButton = container.querySelector("button.p-modal__close");
@@ -94,7 +94,7 @@ describe("Modal ", () => {
     const { container } = render(
       <Modal title="Test" close={jest.fn()}>
         Bare bones
-      </Modal>
+      </Modal>,
     );
 
     const closeButton = container.querySelector("button.p-modal__close");
@@ -132,7 +132,7 @@ describe("Modal ", () => {
           Bare bones
         </Modal>
         <MockEscEventComponent onEscPress={mockHandleEscPress} />
-      </>
+      </>,
     );
 
     await userEvent.keyboard("{Escape}");
@@ -147,7 +147,7 @@ describe("Modal ", () => {
         <Modal title="Test" close={jest.fn()}>
           Bare bones
         </Modal>
-      </div>
+      </div>,
     );
 
     const closeButton = container.querySelector("button.p-modal__close");
@@ -163,7 +163,7 @@ describe("Modal ", () => {
         <Modal title="Test" close={jest.fn()} shouldPropagateClickEvent={true}>
           Bare bones
         </Modal>
-      </div>
+      </div>,
     );
 
     const closeButton = container.querySelector("button.p-modal__close");

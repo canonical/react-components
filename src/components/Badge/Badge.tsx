@@ -72,7 +72,7 @@ const Badge = ({
       [`p-badge--negative`]: !!isNegative,
       "p-badge": !isNegative,
     },
-    className
+    className,
   );
 
   let safeValue = Math.round(value);

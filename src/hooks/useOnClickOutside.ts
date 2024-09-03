@@ -6,7 +6,7 @@ import { MutableRefObject, useCallback, useEffect, useRef } from "react";
 export const useOnClickOutside = <E extends HTMLElement>(
   elementRef: ReturnType<typeof useRef<E | null>>,
   onClickOutside: () => void,
-  { isEnabled } = { isEnabled: true }
+  { isEnabled } = { isEnabled: true },
 ): void => {
   const handleClickOutside = useCallback(
     (evt: MouseEvent) => {
@@ -24,7 +24,7 @@ export const useOnClickOutside = <E extends HTMLElement>(
         onClickOutside();
       }
     },
-    [elementRef, onClickOutside]
+    [elementRef, onClickOutside],
   );
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export const useOnClickOutside = <E extends HTMLElement>(
  * @returns A ref to pass to the element to handle clicks outside of.
  */
 export const useClickOutside = <E extends HTMLElement>(
-  onClickOutside: () => void
+  onClickOutside: () => void,
 ): MutableRefObject<E> => {
   const ref = useRef<E | null>(null);
 

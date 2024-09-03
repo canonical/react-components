@@ -7,10 +7,10 @@ import userEvent from "@testing-library/user-event";
 describe("PasswordToggle", () => {
   it("can add additional classes", () => {
     render(
-      <PasswordToggle label="password" id="test-id" className="extra-class" />
+      <PasswordToggle label="password" id="test-id" className="extra-class" />,
     );
     expect(screen.getByLabelText("password")).toHaveClass(
-      "p-form-validation__input"
+      "p-form-validation__input",
     );
     expect(screen.getByLabelText("password")).toHaveClass("extra-class");
   });
@@ -26,7 +26,7 @@ describe("PasswordToggle", () => {
     render(<PasswordToggle label="password" id="test-id" />);
     expect(screen.getByLabelText("password")).toHaveAttribute(
       "type",
-      "password"
+      "password",
     );
     await userEvent.click(screen.getByRole("button", { name: Label.Show }));
     expect(screen.getByLabelText("password")).toHaveAttribute("type", "text");
@@ -39,18 +39,18 @@ describe("PasswordToggle", () => {
         id="test-id"
         value="My test value"
         onChange={() => null}
-      />
+      />,
     );
     expect(screen.getByLabelText("password")).toHaveAttribute(
       "value",
-      "My test value"
+      "My test value",
     );
   });
 
   it("can display an error", async () => {
     render(<PasswordToggle error="Uh oh!" id="test-id" label="password" />);
     expect(screen.getByLabelText("password")).toHaveAccessibleErrorMessage(
-      "Uh oh!"
+      "Uh oh!",
     );
   });
 

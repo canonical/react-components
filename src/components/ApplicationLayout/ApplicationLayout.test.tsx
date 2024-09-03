@@ -17,7 +17,7 @@ it("displays a logo", () => {
   const link = screen.getAllByRole("link", { name: "Juju" })[0];
   expect(within(link).getByRole("img", { name: "Juju" })).toHaveAttribute(
     "src",
-    "name.svg"
+    "name.svg",
   );
 });
 
@@ -39,7 +39,7 @@ it("displays main content", () => {
   render(
     <ApplicationLayout logo={logo} navItems={[]}>
       {content}
-    </ApplicationLayout>
+    </ApplicationLayout>,
   );
   expect(screen.getByText(content)).toBeInTheDocument();
 });
@@ -58,7 +58,7 @@ it("displays an aside", () => {
       logo={logo}
       navItems={[]}
       aside={<AppAside>{content}</AppAside>}
-    />
+    />,
   );
   expect(screen.getByText(content)).toBeInTheDocument();
   expect(document.querySelector(".l-aside")).toBeInTheDocument();
@@ -79,7 +79,7 @@ it("pins the menu using external state", async () => {
       navItems={[]}
       menuPinned={true}
       onPinMenu={onPinMenu}
-    />
+    />,
   );
   expect(document.querySelector(".l-navigation")).toHaveClass("is-pinned");
   await userEvent.click(screen.getByRole("button", { name: "Unpin menu" }));
@@ -91,7 +91,7 @@ it("opens and collapses the menu", async () => {
   expect(document.querySelector(".l-navigation")).toHaveClass("is-collapsed");
   await userEvent.click(screen.getByRole("button", { name: "Menu" }));
   expect(document.querySelector(".l-navigation")).not.toHaveClass(
-    "is-collapsed"
+    "is-collapsed",
   );
   await userEvent.click(screen.getByRole("button", { name: "Close menu" }));
   expect(document.querySelector(".l-navigation")).toHaveClass("is-collapsed");
@@ -105,7 +105,7 @@ it("collapses the menu using external state", async () => {
       navItems={[]}
       menuCollapsed={true}
       onCollapseMenu={onCollapseMenu}
-    />
+    />,
   );
   expect(document.querySelector(".l-navigation")).toHaveClass("is-collapsed");
   await userEvent.click(screen.getByRole("button", { name: "Menu" }));

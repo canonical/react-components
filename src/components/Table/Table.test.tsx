@@ -10,7 +10,7 @@ describe("Table", () => {
     render(
       <Table data-testid={TEST_ID}>
         <thead></thead>
-      </Table>
+      </Table>,
     );
     expect(screen.getByTestId(TEST_ID)).toMatchSnapshot();
   });
@@ -27,7 +27,7 @@ describe("Table", () => {
 
   it("can pass additional classes", () => {
     render(
-      <Table data-testid={TEST_ID} responsive={true} className="extra-class" />
+      <Table data-testid={TEST_ID} responsive={true} className="extra-class" />,
     );
     expect(screen.getByTestId(TEST_ID)).toHaveClass("p-table--mobile-card");
     expect(screen.getByTestId(TEST_ID)).toHaveClass("extra-class");

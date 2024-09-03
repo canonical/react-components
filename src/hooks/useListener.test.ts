@@ -41,14 +41,14 @@ describe("useListener", () => {
             args.eventType,
             args.shouldThrottle,
             args.shouldListen,
-            args.options
+            args.options,
           ),
         {
           initialProps: {
             ...defaultArgs,
             ...initialProps,
           },
-        }
+        },
       );
   });
 
@@ -57,7 +57,7 @@ describe("useListener", () => {
     expect(addEventListener).toHaveBeenCalledWith(
       "mousemove",
       callback,
-      undefined
+      undefined,
     );
   });
 
@@ -153,7 +153,7 @@ describe("useListener", () => {
 
   it("stops listening when unmounting", () => {
     const { unmount } = renderHook(() =>
-      useListener(targetNode, callback, "mousemove")
+      useListener(targetNode, callback, "mousemove"),
     );
     expect(removeEventListener).not.toHaveBeenCalled();
     unmount();

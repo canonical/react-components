@@ -43,7 +43,7 @@ describe("useOnClickOutside", () => {
     render(
       <TestComponent onClickOutside={onClickOutside}>
         <svg data-testid="no-classname" />
-      </TestComponent>
+      </TestComponent>,
     );
     await userEvent.click(screen.getByTestId("no-classname"));
     expect(onClickOutside).toHaveBeenCalled();

@@ -101,7 +101,7 @@ describe("MainTable", () => {
     expect(columns.length).toEqual(rows[rows.length - 1].columns.length + 1);
     const expandingColumn = columns[columns.length - 1];
     expect(expandingColumn.classList.contains("p-table__expanding-panel")).toBe(
-      true
+      true,
     );
     expect(expandingColumn.textContent).toBe("Expand this");
   });
@@ -115,14 +115,14 @@ describe("MainTable", () => {
     render(<MainTable headers={headers} responsive={true} rows={rows} />);
     expect(screen.getAllByRole("rowheader")[0]).toHaveAttribute(
       "data-heading",
-      "Status"
+      "Status",
     );
   });
 
   it("doesn't contain data-heading attribute if there is no heading", () => {
     render(<MainTable responsive={true} rows={rows} />);
     expect(screen.getAllByRole("rowheader")[0]).not.toHaveAttribute(
-      "data-heading"
+      "data-heading",
     );
   });
 
@@ -131,14 +131,14 @@ describe("MainTable", () => {
     render(<MainTable headers={headers} responsive={true} rows={rows} />);
     expect(screen.getAllByRole("gridcell")[2]).toHaveAttribute(
       "data-heading",
-      "Replacement"
+      "Replacement",
     );
   });
 
   it("can be paginated", () => {
     render(<MainTable paginate={2} rows={rows} />);
     expect(
-      screen.getByRole("button", { name: PaginationButtonLabel.Next })
+      screen.getByRole("button", { name: PaginationButtonLabel.Next }),
     ).toBeInTheDocument();
     expect(screen.getAllByRole("row")).toHaveLength(2);
   });
@@ -146,7 +146,7 @@ describe("MainTable", () => {
   it("can change the page", async () => {
     render(<MainTable paginate={2} rows={rows} />);
     await userEvent.click(
-      screen.getByRole("button", { name: PaginationButtonLabel.Next })
+      screen.getByRole("button", { name: PaginationButtonLabel.Next }),
     );
     expect(screen.getAllByRole("row")).toHaveLength(1);
     expect(screen.getAllByRole("rowheader")[0].textContent).toEqual("Idle");
@@ -174,11 +174,11 @@ describe("MainTable", () => {
       render(<MainTable headers={headers} rows={rows} sortable={true} />);
       // Sortable headers should have the sort prop set.
       expect(
-        screen.getByRole("columnheader", { name: "Status" })
+        screen.getByRole("columnheader", { name: "Status" }),
       ).toHaveAttribute("aria-sort", "none");
       // non-sortable headers should not have the sort prop set.
       expect(
-        screen.getByRole("columnheader", { name: "Disks" })
+        screen.getByRole("columnheader", { name: "Disks" }),
       ).not.toHaveAttribute("aria-sort");
     });
 
@@ -187,63 +187,63 @@ describe("MainTable", () => {
       const rowItems = screen.getAllByRole("row");
       // Check the initial status order.
       expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
-        "Ready"
+        "Ready",
       );
 
       expect(within(rowItems[2]).getByRole("rowheader").textContent).toBe(
-        "Waiting"
+        "Waiting",
       );
 
       expect(within(rowItems[3]).getByRole("rowheader").textContent).toBe(
-        "Idle"
+        "Idle",
       );
 
       await userEvent.click(
-        screen.getByRole("columnheader", { name: "Status" })
+        screen.getByRole("columnheader", { name: "Status" }),
       );
       // The status should now be ascending.
       expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
-        "Idle"
+        "Idle",
       );
 
       expect(within(rowItems[2]).getByRole("rowheader").textContent).toBe(
-        "Ready"
+        "Ready",
       );
 
       expect(within(rowItems[3]).getByRole("rowheader").textContent).toBe(
-        "Waiting"
+        "Waiting",
       );
 
       await userEvent.click(
-        screen.getByRole("columnheader", { name: "Status" })
+        screen.getByRole("columnheader", { name: "Status" }),
       );
       // The status should now be descending.
       expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
-        "Waiting"
+        "Waiting",
       );
 
       expect(within(rowItems[2]).getByRole("rowheader").textContent).toBe(
-        "Ready"
+        "Ready",
       );
 
       expect(within(rowItems[3]).getByRole("rowheader").textContent).toBe(
-        "Idle"
+        "Idle",
       );
 
       await userEvent.click(
-        screen.getByRole("columnheader", { name: "Status" })
+        screen.getByRole("columnheader", { name: "Status" }),
       );
       // The status be back to the original order.
       expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
-        "Ready"
+        "Ready",
       );
 
       expect(within(rowItems[2]).getByRole("rowheader").textContent).toBe(
-        "Waiting"
+        "Waiting",
       );
 
       expect(within(rowItems[3]).getByRole("rowheader").textContent).toBe(
-        "Idle"
+        "Idle",
       );
     });
 
@@ -251,14 +251,14 @@ describe("MainTable", () => {
       render(<MainTable headers={headers} rows={rows} sortable={true} />);
       const rowItems = screen.getAllByRole("row");
       await userEvent.click(
-        screen.getByRole("columnheader", { name: "Status" })
+        screen.getByRole("columnheader", { name: "Status" }),
       );
 
       const expectedOrder = ["Idle", "Ready", "Waiting"];
       // The status should now be ascending.
       for (let i = 1; i < 4; i++) {
         expect(within(rowItems[i]).getByRole("rowheader").textContent).toBe(
-          expectedOrder[i - 1]
+          expectedOrder[i - 1],
         );
       }
 
@@ -266,7 +266,7 @@ describe("MainTable", () => {
       // The status should not change
       for (let i = 1; i < 4; i++) {
         expect(within(rowItems[i]).getByRole("rowheader").textContent).toBe(
-          expectedOrder[i - 1]
+          expectedOrder[i - 1],
         );
       }
 
@@ -274,7 +274,7 @@ describe("MainTable", () => {
       // The status should not change
       for (let i = 1; i < 4; i++) {
         expect(within(rowItems[i]).getByRole("rowheader").textContent).toBe(
-          expectedOrder[i - 1]
+          expectedOrder[i - 1],
         );
       }
     });
@@ -287,11 +287,11 @@ describe("MainTable", () => {
           headers={headers}
           rows={rows}
           sortable={true}
-        />
+        />,
       );
       // Sortable headers should have the sort prop set.
       expect(
-        screen.getByRole("columnheader", { name: "Status" })
+        screen.getByRole("columnheader", { name: "Status" }),
       ).toHaveAttribute("aria-sort", "descending");
     });
 
@@ -303,13 +303,13 @@ describe("MainTable", () => {
           headers={headers}
           rows={rows}
           sortable={true}
-        />
+        />,
       );
       expect(
-        screen.getByRole("columnheader", { name: "Status" })
+        screen.getByRole("columnheader", { name: "Status" }),
       ).toHaveAttribute("aria-sort", "descending");
       expect(
-        screen.getByRole("columnheader", { name: "Cores" })
+        screen.getByRole("columnheader", { name: "Cores" }),
       ).toHaveAttribute("aria-sort", "none");
       rerender(
         <MainTable
@@ -318,13 +318,13 @@ describe("MainTable", () => {
           headers={headers}
           rows={rows}
           sortable={true}
-        />
+        />,
       );
       expect(
-        screen.getByRole("columnheader", { name: "Status" })
+        screen.getByRole("columnheader", { name: "Status" }),
       ).toHaveAttribute("aria-sort", "none");
       expect(
-        screen.getByRole("columnheader", { name: "Cores" })
+        screen.getByRole("columnheader", { name: "Cores" }),
       ).toHaveAttribute("aria-sort", "ascending");
     });
 
@@ -339,12 +339,12 @@ describe("MainTable", () => {
           rows={rows}
           sortable={true}
           hiddenCaption={captionText}
-        />
+        />,
       );
 
       // can't target the caption using getByRole :(
       expect(screen.getByTestId("hidden-caption").textContent).toEqual(
-        captionText
+        captionText,
       );
     });
   });

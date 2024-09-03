@@ -126,7 +126,7 @@ const ActionButton = ({
       "is-processing": showLoader || showSuccess,
       "is-disabled": disabled,
       "is-inline": inline,
-    }
+    },
   );
   const showIcon = showLoader || showSuccess;
   const icon = (showLoader && "spinner") || (showSuccess && "success") || null;

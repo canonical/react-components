@@ -15,7 +15,7 @@ export function usePagination<D, I = number | null>(
     itemsPerPage: I;
     initialPage?: number;
     autoResetPage?: boolean;
-  }
+  },
 ): {
   pageData: Array<D>;
   currentPage: number;
@@ -29,7 +29,7 @@ export function usePagination<D, I = number | null>(
   };
   const { itemsPerPage, initialPage, autoResetPage } = Object.assign(
     defaultOptions,
-    options
+    options,
   );
   const totalItems = data?.length ?? 0;
   const initialPageIndex = initialPage > 0 ? initialPage - 1 : 0;
@@ -60,7 +60,7 @@ export function usePagination<D, I = number | null>(
       typeof itemsPerPage === "number"
         ? data?.slice(startIndex, startIndex + itemsPerPage)
         : data,
-    [startIndex, data, itemsPerPage]
+    [startIndex, data, itemsPerPage],
   );
 
   return {

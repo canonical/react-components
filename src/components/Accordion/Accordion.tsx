@@ -54,7 +54,7 @@ const generateSections = (
   sections: Section[],
   setExpanded,
   expanded,
-  titleElement
+  titleElement,
 ) =>
   sections.map(({ key, ...props }, i) => (
     <AccordionSection
@@ -98,7 +98,7 @@ const Accordion = ({
           sections,
           setExpanded,
           externallyControlled ? expanded : expandedSection,
-          titleElement
+          titleElement,
         )}
       </ul>
     </aside>

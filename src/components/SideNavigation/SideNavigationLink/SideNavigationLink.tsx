@@ -31,7 +31,7 @@ const SideNavigationLink = forwardRef<HTMLAnchorElement, Props>(
         {...props}
       />
     );
-  }
+  },
 );
 
 export default SideNavigationLink;

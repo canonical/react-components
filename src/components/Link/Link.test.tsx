@@ -28,7 +28,7 @@ describe("Link ", () => {
     render(
       <Link soft={true} className="extra-class">
         Test content
-      </Link>
+      </Link>,
     );
     const link = screen.getByRole("link");
     expect(link).toHaveClass("p-link--soft");

@@ -6,6 +6,6 @@ import CheckboxInput from "./CheckboxInput";
 it("renders a checkbox", () => {
   render(<CheckboxInput label="Test checkbox"></CheckboxInput>);
   expect(
-    screen.getByRole("checkbox", { name: "Test checkbox" })
+    screen.getByRole("checkbox", { name: "Test checkbox" }),
   ).toBeInTheDocument();
 });

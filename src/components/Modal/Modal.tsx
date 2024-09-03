@@ -78,7 +78,7 @@ export const Modal = ({
   };
 
   const handleEscKey = (
-    event: KeyboardEvent | React.KeyboardEvent<HTMLDivElement>
+    event: KeyboardEvent | React.KeyboardEvent<HTMLDivElement>,
   ) => {
     if ("nativeEvent" in event && event.nativeEvent.stopImmediatePropagation) {
       event.nativeEvent.stopImmediatePropagation();
@@ -103,7 +103,7 @@ export const Modal = ({
 
   useEffect(() => {
     focusableModalElements.current = modalRef.current.querySelectorAll(
-      focusableElementSelectors
+      focusableElementSelectors,
     );
     let focusIndex = 0;
     // when the close button is rendered, focus on the 2nd content element and not the close btn.
@@ -134,7 +134,7 @@ export const Modal = ({
   };
 
   const handleOverlayOnMouseDown = (
-    event: React.MouseEvent<HTMLDivElement>
+    event: React.MouseEvent<HTMLDivElement>,
   ) => {
     if (event.target === modalRef.current) {
       shouldClose.current = true;

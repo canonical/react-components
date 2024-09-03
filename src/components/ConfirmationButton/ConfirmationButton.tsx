@@ -95,7 +95,7 @@ export const ConfirmationButton = ({
         {...actionButtonProps}
         onClick={shiftClickEnabled ? handleShiftClick : openPortal}
         title={generateTitle(
-          onHoverText ?? confirmationModalProps.confirmButtonLabel
+          onHoverText ?? confirmationModalProps.confirmButtonLabel,
         )}
       >
         {actionButtonProps.children}

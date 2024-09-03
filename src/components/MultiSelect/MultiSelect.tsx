@@ -35,7 +35,7 @@ export type MultiSelectProps = {
 
 type ValueSet = Set<MultiSelectItem["value"]>;
 type GroupFn = (
-  items: Parameters<typeof getGroupedItems>[0]
+  items: Parameters<typeof getGroupedItems>[0],
 ) => ReturnType<typeof getGroupedItems>;
 type SortFn = typeof sortAlphabetically;
 type MultiSelectDropdownProps = {
@@ -97,11 +97,11 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
 }: MultiSelectDropdownProps) => {
   const selectedItemValues = useMemo(
     () => new Set(selectedItems.map((item) => item.value)),
-    [selectedItems]
+    [selectedItems],
   );
   const disabledItemValues = useMemo(
     () => new Set(disabledItems.map((item) => item.value)),
-    [disabledItems]
+    [disabledItems],
   );
   const [previouslySelectedItemValues, setPreviouslySelectedItemValues] =
     useState<ValueSet>(new Set(selectedItemValues));
@@ -117,7 +117,7 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
   const groupedItems = useMemo(
     () => (hasGroup ? groupFn(items) : [{ group: "Ungrouped", items }]),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [items, groupFn]
+    [items, groupFn],
   );
   const handleOnChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = event.target;
@@ -211,7 +211,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   const inputId = useId();
   const selectedItemsLabel = selectedItems
     .filter((selectedItem) =>
-      items.some((item) => item.value === selectedItem.value)
+      items.some((item) => item.value === selectedItem.value),
     )
     .map((el) => el.label)
     .join(", ");
@@ -227,8 +227,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
             const enabledItems = items.filter(
               (item) =>
                 !disabledItems.some(
-                  (disabledItem) => disabledItem.value === item.value
-                )
+                  (disabledItem) => disabledItem.value === item.value,
+                ),
             );
             updateItems([...selectedItems, ...enabledItems]);
           }}
@@ -241,8 +241,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           onClick={() => {
             const disabledSelectedItems = selectedItems.filter((item) =>
               disabledItems.some(
-                (disabledItem) => disabledItem.value === item.value
-              )
+                (disabledItem) => disabledItem.value === item.value,
+              ),
             );
             updateItems(disabledSelectedItems);
           }}
@@ -333,7 +333,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         items={
           filter.length > 0
             ? items.filter((item) =>
-                item.label.toLowerCase().includes(filter.toLowerCase())
+                item.label.toLowerCase().includes(filter.toLowerCase()),
               )
             : items
         }

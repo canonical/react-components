@@ -12,7 +12,7 @@ describe("Card ", () => {
   it("can have a title", () => {
     render(<Card title="This is the title">Test content</Card>);
     expect(
-      screen.getByRole("group", { name: "This is the title" })
+      screen.getByRole("group", { name: "This is the title" }),
     ).toBeInTheDocument();
   });
 

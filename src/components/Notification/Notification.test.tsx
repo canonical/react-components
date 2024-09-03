@@ -17,7 +17,7 @@ describe("Notification", () => {
         title="Permissions changed"
       >
         Anyone with access can view your invited users.
-      </Notification>
+      </Notification>,
     );
     expect(screen.getByTestId("notification")).toMatchSnapshot();
   });
@@ -52,11 +52,11 @@ describe("Notification", () => {
     const onDismiss = jest.fn();
     const { rerender } = render(<Notification />);
     expect(
-      screen.queryByRole("button", { name: Label.Close })
+      screen.queryByRole("button", { name: Label.Close }),
     ).not.toBeInTheDocument();
     rerender(<Notification onDismiss={onDismiss} />);
     expect(
-      screen.getByRole("button", { name: Label.Close })
+      screen.getByRole("button", { name: Label.Close }),
     ).toBeInTheDocument();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
     await user.click(screen.getByRole("button", { name: Label.Close }));
@@ -70,7 +70,7 @@ describe("Notification", () => {
     rerender(<Notification timestamp={timestamp} />);
     expect(screen.getByText(timestamp)).toBeInTheDocument();
     expect(screen.getByText(timestamp)).toHaveClass(
-      "p-notification__timestamp"
+      "p-notification__timestamp",
     );
   });
 
@@ -80,7 +80,7 @@ describe("Notification", () => {
     expect(screen.queryByRole("button")).not.toBeInTheDocument();
 
     rerender(
-      <Notification actions={[{ label: "Action", onClick: onActionClick }]} />
+      <Notification actions={[{ label: "Action", onClick: onActionClick }]} />,
     );
     expect(screen.getByRole("button", { name: "Action" })).toBeInTheDocument();
     const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });

@@ -128,14 +128,14 @@ export type Props<L> = BaseProps<L> &
  */
 const getPositionNode = (
   wrapper: HTMLElement,
-  positionNode?: HTMLElement
+  positionNode?: HTMLElement,
 ): HTMLElement | null => {
   if (positionNode) {
     return positionNode;
   } else if (wrapper) {
     // We want to position the menu in relation to the toggle, if it exists.
     const toggle = wrapper.querySelector<HTMLElement>(
-      ".p-contextual-menu__toggle"
+      ".p-contextual-menu__toggle",
     );
     return toggle || wrapper;
   }
@@ -237,7 +237,7 @@ const ContextualMenu = <L,>({
         updatePositionCoords();
       }
     },
-    [updatePositionCoords]
+    [updatePositionCoords],
   );
 
   // Handle controlling updates to the menu visibility from outside
@@ -266,7 +266,7 @@ const ContextualMenu = <L,>({
         updatePositionCoords();
       }
     },
-    [closePortal, positionNode, updatePositionCoords]
+    [closePortal, positionNode, updatePositionCoords],
   );
 
   const onScroll = useCallback(
@@ -279,7 +279,7 @@ const ContextualMenu = <L,>({
         updatePositionCoords();
       }
     },
-    [positionNode, updatePositionCoords]
+    [positionNode, updatePositionCoords],
   );
 
   useListener(window, onResize, "resize", true, isOpen);
@@ -317,7 +317,7 @@ const ContextualMenu = <L,>({
               "p-icon--chevron-down p-contextual-menu__indicator",
               {
                 "is-light": ["negative", "positive"].includes(toggleAppearance),
-              }
+              },
             )}
           ></i>
         ) : null}

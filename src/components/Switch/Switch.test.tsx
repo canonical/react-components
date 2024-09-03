@@ -29,7 +29,7 @@ describe("<Switch />", () => {
     const { container } = render(<Switch label="Disabled switch" disabled />);
 
     expect(container.querySelector("input.p-switch__input")).toHaveAttribute(
-      "disabled"
+      "disabled",
     );
   });
 });

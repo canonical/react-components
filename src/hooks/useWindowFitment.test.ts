@@ -63,7 +63,7 @@ describe("useWindowFitment", () => {
 
   it("does not respond when not checking", () => {
     renderHook(() =>
-      useWindowFitment(targetNode, referenceNode, callback, 0, false)
+      useWindowFitment(targetNode, referenceNode, callback, 0, false),
     );
     expect(callback).not.toHaveBeenCalled();
   });
