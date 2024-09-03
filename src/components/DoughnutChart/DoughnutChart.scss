@@ -1,0 +1,30 @@
+@import "vanilla-framework";
+
+.doughnut-chart {
+  width: 6.5rem;
+
+  .doughnut-chart__tooltip {
+    display: block;
+  }
+
+  .doughnut-chart__tooltip > :only-child {
+    // Override the tooltip wrapper.
+    display: block !important;
+  }
+
+  .doughnut-chart__chart {
+    // Restrict hover areas to the strokes.
+    pointer-events: stroke;
+  }
+
+  .doughnut-chart__segment {
+    fill: transparent;
+
+    // Animate stroke size changes on hover.
+    transition: stroke-width 0.3s ease;
+  }
+}
+
+.doughnut-chart__legend {
+  list-style-type: none;
+}
