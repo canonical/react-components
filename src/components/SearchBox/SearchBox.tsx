@@ -85,7 +85,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
       value,
       ...props
     }: Props,
-    forwardedRef
+    forwardedRef,
   ): JSX.Element => {
     const internalRef = useRef<HTMLInputElement>();
     const resetInput = () => {
@@ -157,7 +157,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
         </button>
       </div>
     );
-  }
+  },
 );
 
 SearchBox.displayName = "SearchBox";

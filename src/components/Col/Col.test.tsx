@@ -8,7 +8,7 @@ describe("Col ", () => {
     render(
       <Col data-testid="col" size={3}>
         Test content
-      </Col>
+      </Col>,
     );
     expect(screen.getByTestId("col")).toMatchSnapshot();
   });
@@ -17,7 +17,7 @@ describe("Col ", () => {
     render(
       <Col data-testid="col" size={3} small={1}>
         Test content
-      </Col>
+      </Col>,
     );
     expect(screen.getByTestId("col")).toHaveClass("col-small-1");
   });
@@ -26,7 +26,7 @@ describe("Col ", () => {
     render(
       <Col data-testid="col" size={3} medium={1}>
         Test content
-      </Col>
+      </Col>,
     );
     expect(screen.getByTestId("col")).toHaveClass("col-medium-1");
   });
@@ -35,7 +35,7 @@ describe("Col ", () => {
     render(
       <Col data-testid="col" size={3} large={1}>
         Test content
-      </Col>
+      </Col>,
     );
     expect(screen.getByTestId("col")).toHaveClass("col-large-1");
   });
@@ -44,7 +44,7 @@ describe("Col ", () => {
     render(
       <Col data-testid="col" size={3} emptySmall={1}>
         Test content
-      </Col>
+      </Col>,
     );
     expect(screen.getByTestId("col")).toHaveClass("col-start-small-1");
   });
@@ -53,7 +53,7 @@ describe("Col ", () => {
     render(
       <Col data-testid="col" size={3} emptyMedium={1}>
         Test content
-      </Col>
+      </Col>,
     );
     expect(screen.getByTestId("col")).toHaveClass("col-start-medium-1");
   });
@@ -62,7 +62,7 @@ describe("Col ", () => {
     render(
       <Col data-testid="col" size={3} emptyLarge={1}>
         Test content
-      </Col>
+      </Col>,
     );
     expect(screen.getByTestId("col")).toHaveClass("col-start-large-1");
   });

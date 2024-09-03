@@ -41,7 +41,7 @@ describe("Search and filter", () => {
         data-testid="searchandfilter"
         filterPanelData={[]}
         returnSearchData={returnSearchData}
-      />
+      />,
     );
     expect(screen.getByTestId("searchandfilter")).toMatchSnapshot();
   });
@@ -52,10 +52,10 @@ describe("Search and filter", () => {
       <SearchAndFilter
         filterPanelData={[]}
         returnSearchData={returnSearchData}
-      />
+      />,
     );
     expect(
-      screen.queryByRole("button", { name: Label.Clear })
+      screen.queryByRole("button", { name: Label.Clear }),
     ).not.toBeInTheDocument();
   });
 
@@ -66,7 +66,7 @@ describe("Search and filter", () => {
         data-testid="searchandfilter"
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
-      />
+      />,
     );
     expect(getPanel()).toHaveAttribute("aria-hidden", "true");
     await waitFor(async () => {
@@ -81,12 +81,12 @@ describe("Search and filter", () => {
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
-      />
+      />,
     );
     expect(getPanel()).toHaveAttribute("aria-hidden", "true");
     await waitFor(async () => {
       await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     expect(getPanel()).toHaveAttribute("aria-hidden", "false");
@@ -108,11 +108,11 @@ describe("Search and filter", () => {
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
-      />
+      />,
     );
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-search-and-filter__selected-count")
+      document.querySelector(".p-search-and-filter__selected-count"),
     ).not.toBeInTheDocument();
   });
 
@@ -132,15 +132,15 @@ describe("Search and filter", () => {
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
-      />
+      />,
     );
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-search-and-filter__selected-count")
+      document.querySelector(".p-search-and-filter__selected-count"),
     ).not.toBeInTheDocument();
     await waitFor(async () => {
       await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     await waitFor(async () => {
@@ -165,12 +165,12 @@ describe("Search and filter", () => {
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
-      />
+      />,
     );
     expect(getSearchContainer()).toHaveAttribute("aria-expanded", "false");
     await waitFor(async () => {
       await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     await waitFor(async () => {
@@ -188,30 +188,30 @@ describe("Search and filter", () => {
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
-      />
+      />,
     );
     await waitFor(async () => {
       await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-search-and-filter__search-prompt")
+      document.querySelector(".p-search-and-filter__search-prompt"),
     ).not.toBeInTheDocument();
     await waitFor(async () => {
       await userEvent.clear(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     await waitFor(async () => {
       await userEvent.type(
         screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-        "My new value"
+        "My new value",
       );
     });
     expect(
-      screen.getByRole("button", { name: "Search for My new value ..." })
+      screen.getByRole("button", { name: "Search for My new value ..." }),
     ).toBeInTheDocument();
   });
 
@@ -221,31 +221,31 @@ describe("Search and filter", () => {
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
-      />
+      />,
     );
     await waitFor(async () => {
       await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
-      3
+      3,
     );
     await waitFor(async () => {
       await userEvent.clear(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     await waitFor(async () => {
       await userEvent.type(
         screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-        "Unknown value"
+        "Unknown value",
       );
     });
     // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
-      0
+      0,
     );
   });
 
@@ -255,42 +255,42 @@ describe("Search and filter", () => {
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
-      />
+      />,
     );
     await waitFor(async () => {
       await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     await waitFor(async () => {
       await userEvent.clear(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     await waitFor(async () => {
       await userEvent.type(
         screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-        "Google"
+        "Google",
       );
     });
     // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
-      1
+      1,
     );
     await waitFor(async () => {
       await userEvent.clear(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     await waitFor(async () => {
       await userEvent.type(
         screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-        "re"
+        "re",
       );
     });
     // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
-      2
+      2,
     );
   });
 
@@ -300,22 +300,22 @@ describe("Search and filter", () => {
       <SearchAndFilter
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
-      />
+      />,
     );
     await waitFor(async () => {
       await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     await waitFor(async () => {
       await userEvent.clear(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     await waitFor(async () => {
       await userEvent.type(
         screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-        "Google"
+        "Google",
       );
     });
     const boldText = document
@@ -333,15 +333,15 @@ describe("Search and filter", () => {
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
         existingSearchData={[{ lead: "Cloud", value: "Google" }]}
-      />
+      />,
     );
     // eslint-disable-next-line testing-library/no-node-access
     const lead = document.querySelector(
-      ".p-search-and-filter__search-container .p-chip__lead"
+      ".p-search-and-filter__search-container .p-chip__lead",
     )?.textContent;
     // eslint-disable-next-line testing-library/no-node-access
     const value = document.querySelector(
-      ".p-search-and-filter__search-container .p-chip__value"
+      ".p-search-and-filter__search-container .p-chip__value",
     )?.textContent;
     expect(lead).toBe("CLOUD");
     expect(value).toBe("Google");
@@ -357,23 +357,23 @@ describe("Search and filter", () => {
           { lead: "Cloud", value: "Google" },
           { lead: "Region", value: "eu-west-1" },
         ]}
-      />
+      />,
     );
     // eslint-disable-next-line testing-library/no-node-access
     const chips = document.querySelectorAll(
-      ".p-search-and-filter__search-container .p-chip"
+      ".p-search-and-filter__search-container .p-chip",
     );
     expect(chips.length).toBe(2);
 
     // eslint-disable-next-line testing-library/no-node-access
     const chip1Value = document.querySelector(
-      ".p-search-and-filter__search-container .p-chip:nth-child(1) .p-chip__value"
+      ".p-search-and-filter__search-container .p-chip:nth-child(1) .p-chip__value",
     )?.textContent;
     expect(chip1Value).toEqual("Google");
 
     // eslint-disable-next-line testing-library/no-node-access
     const chip2Value = document.querySelector(
-      ".p-search-and-filter__search-container .p-chip:nth-child(2) .p-chip__value"
+      ".p-search-and-filter__search-container .p-chip:nth-child(2) .p-chip__value",
     )?.textContent;
     expect(chip2Value).toEqual("eu-west-1");
   });
@@ -386,11 +386,11 @@ describe("Search and filter", () => {
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
         onPanelToggle={onPanelToggle}
-      />
+      />,
     );
     await waitFor(async () => {
       await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     expect(onPanelToggle).toHaveBeenCalled();
@@ -414,11 +414,11 @@ describe("Search and filter", () => {
         filterPanelData={sampleData}
         returnSearchData={returnSearchData}
         onExpandChange={onExpandChange}
-      />
+      />,
     );
     await waitFor(async () => {
       await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter })
+        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
     await waitFor(async () => {

@@ -46,7 +46,7 @@ const StatusLabel = ({
 }: Props): JSX.Element => {
   const classes = classNames(
     appearance ? `p-status-label--${appearance}` : "p-status-label",
-    className
+    className,
   );
   return (
     <div {...labelProps} className={classes}>

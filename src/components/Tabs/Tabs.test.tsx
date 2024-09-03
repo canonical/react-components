@@ -19,7 +19,7 @@ describe("Tabs", () => {
             label: "label2",
           },
         ]}
-      />
+      />,
     );
     expect(container).toMatchSnapshot();
   });
@@ -39,17 +39,17 @@ describe("Tabs", () => {
             label: "label2",
           },
         ]}
-      />
+      />,
     );
     // TODO: use a more appropriate attribute once the issue below is addressed:
     // https://github.com/canonical-web-and-design/vanilla-framework/issues/4481
     expect(screen.getByRole("link", { name: "label1" })).toHaveAttribute(
       "aria-selected",
-      "true"
+      "true",
     );
     expect(screen.getByRole("link", { name: "label2" })).toHaveAttribute(
       "aria-selected",
-      "false"
+      "false",
     );
   });
 
@@ -66,7 +66,7 @@ describe("Tabs", () => {
             href: "/path1",
           },
         ]}
-      />
+      />,
     );
     expect(screen.getByRole("navigation")).toHaveClass("nav-class");
     expect(screen.getByRole("list")).toHaveClass("list-class");
@@ -84,7 +84,7 @@ describe("Tabs", () => {
             to: "/path",
           },
         ]}
-      />
+      />,
     );
     expect(screen.getByRole("button", { name: "label1" })).toBeInTheDocument();
   });
@@ -103,7 +103,7 @@ describe("Tabs", () => {
             to: "/path",
           },
         ]}
-      />
+      />,
     );
 
     expect(screen.queryByRole("link", { name })).not.toBeInTheDocument();

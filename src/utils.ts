@@ -11,7 +11,7 @@ export const IS_DEV = process.env.NODE_ENV === "development";
  */
 export const highlightSubString = (
   str?: string,
-  subString?: string
+  subString?: string,
 ): { text: string; match: boolean } => {
   if (typeof str !== "string" || typeof subString !== "string") {
     return {
@@ -22,7 +22,7 @@ export const highlightSubString = (
   const caseInsensitiveRegex = new RegExp(subString, "gi");
   const newStr = str.replace(
     caseInsensitiveRegex,
-    (match) => `<strong>${match}</strong>`
+    (match) => `<strong>${match}</strong>`,
   );
 
   return {

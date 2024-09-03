@@ -120,7 +120,7 @@ const Textarea = ({
         onControlEnter();
       }
     },
-    [onControlEnter]
+    [onControlEnter],
   );
 
   useEffect(() => {

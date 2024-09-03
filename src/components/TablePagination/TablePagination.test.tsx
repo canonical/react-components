@@ -25,7 +25,7 @@ describe("<TablePagination />", () => {
     render(<TablePagination data={dummyData} />);
 
     expect(screen.getByRole("navigation")).toHaveTextContent(
-      "Showing all 5 items"
+      "Showing all 5 items",
     );
   });
 
@@ -33,7 +33,7 @@ describe("<TablePagination />", () => {
     render(<TablePagination data={dummyData} pageLimits={[1]} />);
 
     expect(screen.getByRole("navigation")).toHaveTextContent(
-      "Showing 1 out of 5 items"
+      "Showing 1 out of 5 items",
     );
   });
 
@@ -43,7 +43,7 @@ describe("<TablePagination />", () => {
     expect(screen.getByRole("navigation")).toHaveTextContent("2/page");
     await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "Items per page" }),
-      "5"
+      "5",
     );
     expect(screen.getByRole("navigation")).toHaveTextContent("5/page");
   });
@@ -54,7 +54,7 @@ describe("<TablePagination />", () => {
     expect(screen.getByRole("navigation")).toHaveTextContent("2/page");
     await userEvent.selectOptions(
       screen.getByRole("combobox", { name: "Items per page" }),
-      "5"
+      "5",
     );
     const currentPageInput = screen.getByRole("spinbutton", {
       name: "Page number",
@@ -109,7 +109,7 @@ describe("<TablePagination />", () => {
         pageSize={pageSize}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
-      />
+      />,
     );
 
     const incButton = screen.getByRole("button", { name: "Next page" });
@@ -133,7 +133,7 @@ describe("<TablePagination />", () => {
         pageSize={pageSize}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
-      />
+      />,
     );
     expect(currentPageInput).toHaveValue(1);
 
@@ -148,7 +148,7 @@ describe("<TablePagination />", () => {
         pageSize={pageSize}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
-      />
+      />,
     );
     expect(currentPageInput).toHaveValue(2);
 
@@ -163,7 +163,7 @@ describe("<TablePagination />", () => {
         pageSize={pageSize}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
-      />
+      />,
     );
     expect(currentPageInput).toHaveValue(1);
 
@@ -178,7 +178,7 @@ describe("<TablePagination />", () => {
         pageSize={pageSize}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
-      />
+      />,
     );
     expect(currentPageInput).toHaveValue(5);
 
@@ -193,7 +193,7 @@ describe("<TablePagination />", () => {
         pageSize={pageSize}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
-      />
+      />,
     );
     expect(currentPageInput).toHaveValue(5);
 
@@ -208,7 +208,7 @@ describe("<TablePagination />", () => {
         pageSize={pageSize}
         onPageChange={handlePageChange}
         onPageSizeChange={handlePageSizeChange}
-      />
+      />,
     );
     expect(currentPageInput).toHaveValue(4);
   });
@@ -227,10 +227,10 @@ describe("<TablePagination />", () => {
           pageSize={5}
           onPageChange={jest.fn()}
           onPageSizeChange={jest.fn()}
-        />
-      )
+        />,
+      ),
     ).toThrow(
-      "pageSize must be a valid option in pageLimits, pageLimits is set to [10,20,50]"
+      "pageSize must be a valid option in pageLimits, pageLimits is set to [10,20,50]",
     );
   });
 });

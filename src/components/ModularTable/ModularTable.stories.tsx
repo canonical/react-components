@@ -79,7 +79,7 @@ export const Default: Story = {
             className: "u-align-text--right",
           },
         ],
-        []
+        [],
       )}
       // eslint-disable-next-line react-hooks/rules-of-hooks
       data={React.useMemo(
@@ -106,7 +106,7 @@ export const Default: Story = {
             finished: "ages ago",
           },
         ],
-        []
+        [],
       )}
     />
   ),
@@ -143,7 +143,7 @@ export const Empty: Story = {
             className: "u-align-text--right",
           },
         ],
-        []
+        [],
       )}
       data={[]}
       emptyMsg="Waiting for data..."
@@ -217,7 +217,7 @@ export const Sortable: Story = {
             sortType: "basic",
           },
         ],
-        []
+        [],
       )}
       // eslint-disable-next-line react-hooks/rules-of-hooks
       data={React.useMemo(
@@ -244,7 +244,7 @@ export const Sortable: Story = {
             finished: "ages ago",
           },
         ],
-        []
+        [],
       )}
     />
   ),
@@ -290,7 +290,7 @@ export const Subrows: Story = {
               ),
           },
         ],
-        []
+        [],
       )}
       // eslint-disable-next-line react-hooks/rules-of-hooks
       data={React.useMemo(
@@ -334,7 +334,7 @@ export const Subrows: Story = {
             ],
           },
         ],
-        []
+        [],
       )}
     />
   ),

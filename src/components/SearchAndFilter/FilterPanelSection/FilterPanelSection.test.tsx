@@ -18,7 +18,7 @@ describe("Filter panel section", () => {
         searchTerm=""
         toggleSelected={jest.fn()}
         data={sampleData}
-      />
+      />,
     );
     // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".p-filter-panel-section")).toMatchSnapshot();
@@ -31,23 +31,23 @@ describe("Filter panel section", () => {
         searchTerm=""
         toggleSelected={jest.fn()}
         data={sampleData}
-      />
+      />,
     );
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-filter-panel-section")
+      document.querySelector(".p-filter-panel-section"),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "us-east1" })
+      screen.getByRole("button", { name: "us-east1" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "us-east2" })
+      screen.getByRole("button", { name: "us-east2" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "us-east3" })
+      screen.getByRole("button", { name: "us-east3" }),
     ).toBeInTheDocument();
     expect(
-      screen.getByRole("heading", { name: "Regions" })
+      screen.getByRole("heading", { name: "Regions" }),
     ).toBeInTheDocument();
   });
 
@@ -68,11 +68,11 @@ describe("Filter panel section", () => {
         searchTerm=""
         toggleSelected={jest.fn()}
         data={sampleData}
-      />
+      />,
     );
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-search-and-filter__selected-count")
+      document.querySelector(".p-search-and-filter__selected-count"),
     ).not.toBeInTheDocument();
   });
 
@@ -93,13 +93,13 @@ describe("Filter panel section", () => {
         searchTerm=""
         toggleSelected={jest.fn()}
         data={sampleData}
-      />
+      />,
     );
     expect(
       // Use a query selector because the element's text is split up over
       // multiple elements so it can't be selected by its content.
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-filter-panel-section__counter")?.textContent
+      document.querySelector(".p-filter-panel-section__counter")?.textContent,
     ).toBe("+3");
   });
 
@@ -111,21 +111,21 @@ describe("Filter panel section", () => {
         toggleSelected={jest.fn()}
         data={sampleData}
         sectionHidden={false}
-      />
+      />,
     );
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-filter-panel-section__chips")
+      document.querySelector(".p-filter-panel-section__chips"),
     ).toHaveAttribute("aria-expanded", "false");
     await userEvent.click(
       // Use a query selector because the element's text is split up over
       // multiple elements so it can't be selected by its content.
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-filter-panel-section__counter") as HTMLElement
+      document.querySelector(".p-filter-panel-section__counter") as HTMLElement,
     );
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-filter-panel-section__chips")
+      document.querySelector(".p-filter-panel-section__chips"),
     ).toHaveAttribute("aria-expanded", "true");
   });
 });

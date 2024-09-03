@@ -19,7 +19,7 @@ describe("List ", () => {
   it("can define items as JSX", () => {
     render(<List items={[<button>test</button>, <span>items</span>]} />);
     expect(
-      within(screen.getAllByRole("listitem")[0]).getByRole("button")
+      within(screen.getAllByRole("listitem")[0]).getByRole("button"),
     ).toBeInTheDocument();
   });
 
@@ -32,7 +32,7 @@ describe("List ", () => {
             className: "item-class",
           },
         ]}
-      />
+      />,
     );
     const item = within(screen.getByRole("listitem")).getByText("test");
     expect(item).toBeInTheDocument();
@@ -48,7 +48,7 @@ describe("List ", () => {
     render(<List inline={true} items={items} />);
     expect(screen.getByRole("list")).toHaveClass("p-inline-list");
     expect(screen.getAllByRole("listitem")[0]).toHaveClass(
-      "p-inline-list__item"
+      "p-inline-list__item",
     );
   });
 
@@ -56,7 +56,7 @@ describe("List ", () => {
     render(<List middot={true} items={items} />);
     expect(screen.getByRole("list")).toHaveClass("p-inline-list--middot");
     expect(screen.getAllByRole("listitem")[0]).toHaveClass(
-      "p-inline-list__item"
+      "p-inline-list__item",
     );
   });
 
@@ -65,7 +65,7 @@ describe("List ", () => {
     expect(screen.getByRole("list")).toHaveClass("p-inline-list--stretch");
     expect(screen.getByRole("list")).not.toHaveClass("p-list");
     expect(screen.getAllByRole("listitem")[0]).toHaveClass(
-      "p-inline-list__item"
+      "p-inline-list__item",
     );
   });
 
@@ -97,16 +97,16 @@ describe("List ", () => {
               content: "test",
             },
           ]}
-        />
+        />,
       );
       expect(screen.getByRole("list")).toHaveClass("p-stepped-list");
       const item = screen.getAllByRole("listitem")[0];
       expect(item).toHaveClass("p-stepped-list__item");
       expect(within(item).getByText("Test title")).toHaveClass(
-        "p-stepped-list__title"
+        "p-stepped-list__title",
       );
       expect(within(item).getByText("test")).toHaveClass(
-        "p-stepped-list__content"
+        "p-stepped-list__content",
       );
     });
 
@@ -121,16 +121,16 @@ describe("List ", () => {
               content: "test",
             },
           ]}
-        />
+        />,
       );
       expect(screen.getByRole("list")).toHaveClass("p-stepped-list--detailed");
       const item = screen.getAllByRole("listitem")[0];
       expect(item).toHaveClass("p-stepped-list__item");
       expect(within(item).getByText("Test title")).toHaveClass(
-        "p-stepped-list__title"
+        "p-stepped-list__title",
       );
       expect(within(item).getByText("test")).toHaveClass(
-        "p-stepped-list__content"
+        "p-stepped-list__content",
       );
     });
 

@@ -12,7 +12,7 @@ describe("AccordionSection ", () => {
         expanded="abcd-1234"
         setExpanded={jest.fn()}
         title="Test section"
-      />
+      />,
     );
 
     expect(screen.getByRole("listitem")).toMatchSnapshot();
@@ -26,7 +26,7 @@ describe("AccordionSection ", () => {
         setExpanded={jest.fn()}
         title="Test section"
         titleElement="h4"
-      />
+      />,
     );
     // Query for the specific element as defined in the titleElement prop.
     // eslint-disable-next-line testing-library/no-node-access
@@ -47,7 +47,7 @@ describe("AccordionSection ", () => {
           expanded = id;
         }}
         title="Test section"
-      />
+      />,
     );
     await userEvent.click(screen.getByRole("tab", { name: "Test section" }));
     expect(onTitleClick).toHaveBeenCalledWith(true, ":r4:");
@@ -60,7 +60,7 @@ describe("AccordionSection ", () => {
           expanded = id;
         }}
         title="Test section"
-      />
+      />,
     );
     // Clicking the title again should close the accordion section.
     await userEvent.click(screen.getByRole("tab", { name: "Test section" }));
@@ -81,7 +81,7 @@ describe("AccordionSection ", () => {
           expanded = id;
         }}
         title="Test section"
-      />
+      />,
     );
     await userEvent.click(screen.getByRole("tab", { name: "Test section" }));
 
@@ -100,7 +100,7 @@ describe("AccordionSection ", () => {
             <span>optional</span>
           </>
         }
-      />
+      />,
     );
     const title = screen.getByRole("tab");
     expect(title.children).toHaveLength(2);

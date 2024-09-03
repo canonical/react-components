@@ -31,7 +31,7 @@ export const NotificationProvider: FC<NotifyProviderProps> = ({
   pathname,
 }) => {
   const [notification, setNotification] = useState<NotificationType | null>(
-    null
+    null,
   );
 
   const clear = () => notification !== null && setNotification(null);

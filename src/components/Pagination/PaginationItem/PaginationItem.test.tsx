@@ -7,7 +7,7 @@ describe("<PaginationItem />", () => {
   // snapshot tests
   it("renders and matches the snapshot", () => {
     const { container } = render(
-      <PaginationItem number={1} onClick={jest.fn()} />
+      <PaginationItem number={1} onClick={jest.fn()} />,
     );
 
     expect(container).toMatchSnapshot();

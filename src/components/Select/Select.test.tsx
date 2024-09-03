@@ -15,7 +15,7 @@ describe("Select", () => {
           { value: "3", label: "Xenial Xerus" },
         ]}
         wrapperClassName="select"
-      />
+      />,
     );
     expect(screen.getByRole("combobox")).toMatchSnapshot();
   });
@@ -30,7 +30,7 @@ describe("Select", () => {
     render(<Select options={[]} onChange={onChangeMock} />);
     fireEvent.change(screen.getByRole("combobox"), event);
     expect(onChangeMock.mock.calls[0][0].target).toBe(
-      screen.getByRole("combobox")
+      screen.getByRole("combobox"),
     );
   });
 

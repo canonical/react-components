@@ -26,7 +26,7 @@ const Code = ({
 }: Props): JSX.Element => {
   if (IS_DEV) {
     console.warn(
-      "Code component is deprecated. Use CodeSnippet component or inline `<code>` instead."
+      "Code component is deprecated. Use CodeSnippet component or inline `<code>` instead.",
     );
   }
   if (inline) {

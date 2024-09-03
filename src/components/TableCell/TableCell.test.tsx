@@ -34,11 +34,11 @@ describe("TableCell", () => {
 
   it("can add additional classes", () => {
     const { container } = render(
-      <TableCell expanding={true} className="extra-class" />
+      <TableCell expanding={true} className="extra-class" />,
     );
     expect(container.firstChild).toHaveClass(
       "p-table__expanding-panel",
-      "extra-class"
+      "extra-class",
     );
   });
 });

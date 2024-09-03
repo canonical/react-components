@@ -29,7 +29,7 @@ export const figureSmallScreen = () => {
 export const renderChildren = (
   children: ReactNode,
   dataForwardProp: string,
-  data: unknown[]
+  data: unknown[],
 ) => {
   return Children.map(children, (child) => {
     return cloneElement(child as ReactElement, {

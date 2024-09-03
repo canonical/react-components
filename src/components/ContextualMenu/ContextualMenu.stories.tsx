@@ -20,7 +20,7 @@ const ScrollTemplate = (args) => (
         cum dicta beatae nostrum eligendi similique earum, dolorem fuga quis,
         sequi voluptates architecto ipsa dolorum eaque rem expedita inventore
         voluptas odit aspernatur alias molestias facere.
-      </p>
+      </p>,
     )}
     <ContextualMenu {...args} />
   </div>

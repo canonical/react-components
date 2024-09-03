@@ -18,7 +18,7 @@ describe("PaginationButton", () => {
 
   it("should contain default label before the forward icon", () => {
     render(
-      <PaginationButton direction="forward" onClick={() => {}} showLabel />
+      <PaginationButton direction="forward" onClick={() => {}} showLabel />,
     );
     const defaultLabel = screen
       .getByRole("button", { name: new RegExp(Label.Next) })
@@ -29,7 +29,7 @@ describe("PaginationButton", () => {
       defaultLabel &&
         icon &&
         defaultLabel.compareDocumentPosition(icon) &
-          Node.DOCUMENT_POSITION_FOLLOWING
+          Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   });
 
@@ -44,7 +44,7 @@ describe("PaginationButton", () => {
       defaultLabel &&
         icon &&
         defaultLabel.compareDocumentPosition(icon) &
-          Node.DOCUMENT_POSITION_PRECEDING
+          Node.DOCUMENT_POSITION_PRECEDING,
     ).toBeTruthy();
   });
 
@@ -55,7 +55,7 @@ describe("PaginationButton", () => {
         onClick={() => {}}
         showLabel
         label={CustomLabel.Next}
-      />
+      />,
     );
     const customLabel = screen
       .getByRole("button", { name: new RegExp(CustomLabel.Next) })
@@ -66,7 +66,7 @@ describe("PaginationButton", () => {
       customLabel &&
         icon &&
         customLabel.compareDocumentPosition(icon) &
-          Node.DOCUMENT_POSITION_FOLLOWING
+          Node.DOCUMENT_POSITION_FOLLOWING,
     ).toBeTruthy();
   });
 
@@ -77,7 +77,7 @@ describe("PaginationButton", () => {
         onClick={() => {}}
         showLabel
         label={CustomLabel.Previous}
-      />
+      />,
     );
     const customLabel = screen
       .getByRole("button", { name: new RegExp(CustomLabel.Previous) })
@@ -88,7 +88,7 @@ describe("PaginationButton", () => {
       customLabel &&
         icon &&
         customLabel.compareDocumentPosition(icon) &
-          Node.DOCUMENT_POSITION_PRECEDING
+          Node.DOCUMENT_POSITION_PRECEDING,
     ).toBeTruthy();
   });
 
@@ -113,7 +113,7 @@ describe("PaginationButton", () => {
         direction="forward"
         onClick={mockHandleClick}
         disabled
-      />
+      />,
     );
     const disabledButton = screen.getByRole("button", { name: Label.Next });
     expect(disabledButton).toBeDisabled();
@@ -124,7 +124,7 @@ describe("PaginationButton", () => {
   it("should be diabled and onClick will not be called when clicking the back button", async () => {
     const mockHandleClick = jest.fn();
     render(
-      <PaginationButton direction="back" onClick={mockHandleClick} disabled />
+      <PaginationButton direction="back" onClick={mockHandleClick} disabled />,
     );
     const disabledButton = screen.getByRole("button", { name: Label.Previous });
     expect(disabledButton).toBeDisabled();

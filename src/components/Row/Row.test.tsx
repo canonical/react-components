@@ -13,7 +13,7 @@ describe("Row ", () => {
     render(
       <Row data-testid="row" className="extra-class">
         Test content
-      </Row>
+      </Row>,
     );
     const row = screen.getByTestId("row");
     expect(row).toHaveClass("row");

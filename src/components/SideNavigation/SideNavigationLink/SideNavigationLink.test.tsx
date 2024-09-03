@@ -38,6 +38,6 @@ it("can use a custom link component", () => {
   const label = "Test content";
   render(<SideNavigationLink label={label} component={Link} />);
   expect(screen.getByRole("button", { name: label })).toHaveClass(
-    "p-side-navigation__link"
+    "p-side-navigation__link",
   );
 });

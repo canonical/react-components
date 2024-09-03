@@ -24,7 +24,7 @@ describe("Tooltip", () => {
     const { container } = render(
       <Tooltip message="text">
         <button>button text</button>
-      </Tooltip>
+      </Tooltip>,
     );
     expect(container).toMatchSnapshot();
   });
@@ -39,11 +39,11 @@ describe("Tooltip", () => {
         }
       >
         <button>open the tooltip</button>
-      </Tooltip>
+      </Tooltip>,
     );
     await act(async () => {
       await userEventWithTimers.click(
-        screen.getByRole("button", { name: /open the tooltip/i })
+        screen.getByRole("button", { name: /open the tooltip/i }),
       );
       jest.runAllTimers();
     });
@@ -57,14 +57,14 @@ describe("Tooltip", () => {
     render(
       <Tooltip message="Additional description">
         <button>open the tooltip</button>
-      </Tooltip>
+      </Tooltip>,
     );
     await act(async () => {
       await userEventWithTimers.tab();
     });
     jest.runAllTimers();
     expect(
-      screen.getByRole("button", { name: /open the tooltip/ })
+      screen.getByRole("button", { name: /open the tooltip/ }),
     ).toHaveAccessibleDescription("Additional description");
   });
 
@@ -89,7 +89,7 @@ describe("Tooltip", () => {
         }
       >
         <button>open the tooltip</button>
-      </Tooltip>
+      </Tooltip>,
     );
 
     await act(async () => {
@@ -98,7 +98,7 @@ describe("Tooltip", () => {
     });
     await act(async () => {
       await userEventWithTimers.click(
-        screen.getByRole("link", { name: "Canonical" })
+        screen.getByRole("link", { name: "Canonical" }),
       );
     });
 
@@ -112,7 +112,7 @@ describe("Tooltip", () => {
         <Tooltip message="a message">
           <button>open the tooltip</button>
         </Tooltip>
-      </div>
+      </div>,
     );
     await act(async () => {
       await userEventWithTimers.hover(screen.getByRole("button"));
@@ -145,7 +145,7 @@ describe("Tooltip", () => {
         >
           <button>open the tooltip</button>
         </Tooltip>
-      </div>
+      </div>,
     );
     await act(async () => {
       await userEventWithTimers.hover(screen.getByRole("button"));
@@ -153,7 +153,7 @@ describe("Tooltip", () => {
     });
     await act(async () => {
       await userEventWithTimers.click(
-        screen.getByRole("link", { name: "Canonical" })
+        screen.getByRole("link", { name: "Canonical" }),
       );
     });
     expect(parentClick).not.toHaveBeenCalled();
@@ -169,7 +169,7 @@ describe("Tooltip", () => {
     render(
       <Tooltip message="tooltip text">
         <button>open the tooltip</button>
-      </Tooltip>
+      </Tooltip>,
     );
 
     expect(screen.queryByTestId("tooltip-portal")).not.toBeInTheDocument();
@@ -188,17 +188,17 @@ describe("Tooltip", () => {
         position="right"
       >
         <button>Child</button>
-      </Tooltip>
+      </Tooltip>,
     );
     global.innerWidth = 20;
     await act(async () => {
       await userEventWithTimers.hover(
-        screen.getByRole("button", { name: "Child" })
+        screen.getByRole("button", { name: "Child" }),
       );
       jest.runAllTimers();
     });
     expect(screen.getByTestId("tooltip-portal")).toHaveClass(
-      "p-tooltip--btm-left"
+      "p-tooltip--btm-left",
     );
     expect(screen.getByTestId("tooltip-portal")).toHaveClass("is-detached");
   });
@@ -209,16 +209,16 @@ describe("Tooltip", () => {
     render(
       <Tooltip message="text" position="right">
         <button>open the tooltip</button>
-      </Tooltip>
+      </Tooltip>,
     );
     await act(async () => {
       await userEventWithTimers.hover(
-        screen.getByRole("button", { name: "open the tooltip" })
+        screen.getByRole("button", { name: "open the tooltip" }),
       );
       jest.runAllTimers();
     });
     expect(screen.getByTestId("tooltip-portal")).toHaveClass(
-      "p-tooltip--right"
+      "p-tooltip--right",
     );
   });
 
@@ -226,11 +226,11 @@ describe("Tooltip", () => {
     render(
       <Tooltip message="text" zIndex={999}>
         <button>open the tooltip</button>
-      </Tooltip>
+      </Tooltip>,
     );
     await act(async () => {
       await userEventWithTimers.hover(
-        screen.getByRole("button", { name: "open the tooltip" })
+        screen.getByRole("button", { name: "open the tooltip" }),
       );
       jest.runAllTimers();
     });
@@ -242,11 +242,11 @@ describe("Tooltip", () => {
     render(
       <Tooltip delay={delay} message="text" zIndex={999}>
         <button>open the tooltip</button>
-      </Tooltip>
+      </Tooltip>,
     );
     await act(async () => {
       await userEventWithTimers.hover(
-        screen.getByRole("button", { name: "open the tooltip" })
+        screen.getByRole("button", { name: "open the tooltip" }),
       );
       jest.advanceTimersByTime(delay - 1);
     });
@@ -261,7 +261,7 @@ describe("Tooltip", () => {
     render(
       <Tooltip delay={1} message="text" zIndex={999}>
         <button>open the tooltip</button>
-      </Tooltip>
+      </Tooltip>,
     );
     await act(async () => {
       await userEventWithTimers.hover(screen.getByRole("button"));
@@ -276,7 +276,7 @@ describe("Tooltip", () => {
     render(
       <Tooltip delay={delay} message="text" zIndex={999}>
         <button>open the tooltip</button>
-      </Tooltip>
+      </Tooltip>,
     );
     const button = screen.getByRole("button");
 
@@ -360,8 +360,8 @@ describe("Tooltip", () => {
           "left",
           generateFits({
             fromLeft: { fitsLeft: false },
-          })
-        )
+          }),
+        ),
       ).toBe("top-right");
     });
 
@@ -372,8 +372,8 @@ describe("Tooltip", () => {
           generateFits({
             fromTop: { fitsAbove: false },
             fromLeft: { fitsLeft: false },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-right");
     });
 
@@ -383,8 +383,8 @@ describe("Tooltip", () => {
           "btm-left",
           generateFits({
             fromRight: { fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-left");
     });
 
@@ -395,8 +395,8 @@ describe("Tooltip", () => {
           generateFits({
             fromLeft: { fitsRight: false },
             fromRight: { fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-right");
     });
 
@@ -406,8 +406,8 @@ describe("Tooltip", () => {
           "btm-left",
           generateFits({
             fromBottom: { fitsBelow: false },
-          })
-        )
+          }),
+        ),
       ).toBe("top-left");
     });
 
@@ -418,8 +418,8 @@ describe("Tooltip", () => {
           generateFits({
             fromBottom: { fitsBelow: false },
             fromLeft: { fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("top-right");
     });
 
@@ -429,8 +429,8 @@ describe("Tooltip", () => {
           "btm-right",
           generateFits({
             fromLeft: { fitsLeft: false },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-right");
     });
 
@@ -441,8 +441,8 @@ describe("Tooltip", () => {
           generateFits({
             fromLeft: { fitsLeft: false },
             fromRight: { fitsLeft: false },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-left");
     });
 
@@ -452,8 +452,8 @@ describe("Tooltip", () => {
           "btm-right",
           generateFits({
             fromBottom: { fitsBelow: false },
-          })
-        )
+          }),
+        ),
       ).toBe("top-right");
     });
 
@@ -464,8 +464,8 @@ describe("Tooltip", () => {
           generateFits({
             fromBottom: { fitsBelow: false },
             fromRight: { fitsLeft: false },
-          })
-        )
+          }),
+        ),
       ).toBe("top-left");
     });
 
@@ -475,8 +475,8 @@ describe("Tooltip", () => {
           "right",
           generateFits({
             fromRight: { fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("top-left");
     });
 
@@ -487,8 +487,8 @@ describe("Tooltip", () => {
           generateFits({
             fromTop: { fitsAbove: false },
             fromRight: { fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-left");
     });
 
@@ -498,8 +498,8 @@ describe("Tooltip", () => {
           "top-left",
           generateFits({
             fromRight: { fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("top-left");
     });
 
@@ -510,8 +510,8 @@ describe("Tooltip", () => {
           generateFits({
             fromLeft: { fitsRight: false },
             fromRight: { fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("top-right");
     });
 
@@ -521,8 +521,8 @@ describe("Tooltip", () => {
           "top-left",
           generateFits({
             fromTop: { fitsAbove: false },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-left");
     });
 
@@ -533,8 +533,8 @@ describe("Tooltip", () => {
           generateFits({
             fromTop: { fitsAbove: false },
             fromLeft: { fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-right");
     });
 
@@ -544,8 +544,8 @@ describe("Tooltip", () => {
           "top-right",
           generateFits({
             fromLeft: { fitsLeft: false },
-          })
-        )
+          }),
+        ),
       ).toBe("top-right");
     });
 
@@ -556,8 +556,8 @@ describe("Tooltip", () => {
           generateFits({
             fromLeft: { fitsLeft: false },
             fromRight: { fitsLeft: false },
-          })
-        )
+          }),
+        ),
       ).toBe("top-left");
     });
 
@@ -567,8 +567,8 @@ describe("Tooltip", () => {
           "top-right",
           generateFits({
             fromTop: { fitsAbove: false },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-right");
     });
 
@@ -579,8 +579,8 @@ describe("Tooltip", () => {
           generateFits({
             fromTop: { fitsAbove: false },
             fromRight: { fitsLeft: false },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-left");
     });
 
@@ -591,8 +591,8 @@ describe("Tooltip", () => {
           generateFits({
             fromLeft: { fitsLeft: false, fitsRight: false },
             fromRight: { fitsLeft: false, fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("top-center");
     });
 
@@ -603,8 +603,8 @@ describe("Tooltip", () => {
           generateFits({
             fromLeft: { fitsLeft: false, fitsRight: false },
             fromRight: { fitsLeft: false, fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("top-center");
     });
 
@@ -614,8 +614,8 @@ describe("Tooltip", () => {
           "top-center",
           generateFits({
             fromCenter: { fitsCentered: { fitsLeft: false, fitsRight: false } },
-          })
-        )
+          }),
+        ),
       ).toBe("top-center");
       // top-center
     });
@@ -626,8 +626,8 @@ describe("Tooltip", () => {
           "top-center",
           generateFits({
             fromCenter: { fitsCentered: { fitsLeft: false } },
-          })
-        )
+          }),
+        ),
       ).toBe("top-left");
     });
 
@@ -637,8 +637,8 @@ describe("Tooltip", () => {
           "top-center",
           generateFits({
             fromCenter: { fitsCentered: { fitsRight: false } },
-          })
-        )
+          }),
+        ),
       ).toBe("top-right");
     });
 
@@ -649,8 +649,8 @@ describe("Tooltip", () => {
           generateFits({
             fromLeft: { fitsLeft: false, fitsRight: false },
             fromRight: { fitsLeft: false, fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-center");
     });
 
@@ -661,8 +661,8 @@ describe("Tooltip", () => {
           generateFits({
             fromLeft: { fitsLeft: false, fitsRight: false },
             fromRight: { fitsLeft: false, fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-center");
     });
 
@@ -672,8 +672,8 @@ describe("Tooltip", () => {
           "btm-center",
           generateFits({
             fromCenter: { fitsCentered: { fitsLeft: false, fitsRight: false } },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-center");
     });
 
@@ -683,8 +683,8 @@ describe("Tooltip", () => {
           "btm-center",
           generateFits({
             fromCenter: { fitsCentered: { fitsLeft: false } },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-left");
     });
 
@@ -694,8 +694,8 @@ describe("Tooltip", () => {
           "btm-center",
           generateFits({
             fromCenter: { fitsCentered: { fitsRight: false } },
-          })
-        )
+          }),
+        ),
       ).toBe("btm-right");
     });
   });

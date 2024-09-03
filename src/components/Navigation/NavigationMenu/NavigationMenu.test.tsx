@@ -12,7 +12,7 @@ it("can display when closed", () => {
   expect(
     screen.getByRole("button", {
       name: "Today's menu",
-    })
+    }),
   ).toBeInTheDocument();
 });
 
@@ -21,13 +21,13 @@ it("can open the menu", async () => {
   expect(screen.queryByRole("list")).not.toBeInTheDocument();
   await userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
   expect(screen.getByRole("listitem").className.includes("is-active")).toBe(
-    true
+    true,
   );
   expect(screen.getByRole("list")).toHaveAttribute("aria-hidden", "false");
   expect(
     screen.getByRole("button", {
       name: "Today's menu",
-    })
+    }),
   ).toBeInTheDocument();
 });
 
@@ -35,7 +35,9 @@ it("can align menu items to the right", async () => {
   render(<NavigationMenu alignRight items={[]} label="Today's menu" />);
   await userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
   expect(
-    screen.getByRole("list").className.includes("p-navigation__dropdown--right")
+    screen
+      .getByRole("list")
+      .className.includes("p-navigation__dropdown--right"),
   ).toBe(true);
 });
 
@@ -44,14 +46,14 @@ it("can display links using a standard anchor", async () => {
     <NavigationMenu
       items={[{ label: "Eggs florentine", url: "/eggs/florentine" }]}
       label="Today's menu"
-    />
+    />,
   );
   // Open the menu so the links are displayed.
   await userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
   expect(
     screen.getByRole("link", {
       name: "Eggs florentine",
-    })
+    }),
   ).toBeInTheDocument();
 });
 
@@ -61,14 +63,14 @@ it("can display links using a custom link", async () => {
       generateLink={({ label }) => <button>{label}</button>}
       items={[{ label: "Eggs benedict", url: "/eggs/benedict" }]}
       label="Today's menu"
-    />
+    />,
   );
   // Open the menu so the links are displayed.
   await userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
   expect(
     screen.getByRole("button", {
       name: "Eggs benedict",
-    })
+    }),
   ).toBeInTheDocument();
 });
 
@@ -83,13 +85,13 @@ it("can pass additional classes to the links", async () => {
         },
       ]}
       label="Today's menu"
-    />
+    />,
   );
   // Open the menu so the links are displayed.
   await userEvent.click(screen.getByRole("button", { name: "Today's menu" }));
   expect(
     screen.getByRole("link", {
       name: "Smashed avo",
-    })
+    }),
   ).toHaveClass("p-navigation__dropdown-item on-24-hour-rye");
 });

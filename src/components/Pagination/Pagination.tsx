@@ -14,7 +14,7 @@ const generatePaginationItems = (
   pageNumbers: number[],
   currentPage: number,
   truncateThreshold: number,
-  changePage: (page: number) => void
+  changePage: (page: number) => void,
 ) => {
   const lastPage = pageNumbers.length;
   const truncated = lastPage > truncateThreshold;
@@ -53,7 +53,7 @@ const generatePaginationItems = (
         number={1}
         isActive={currentPage === 1}
         onClick={() => changePage(1)}
-      />
+      />,
     );
     if (!visiblePages.includes(2)) {
       items.push(<PaginationItemSeparator key="sep1" />);
@@ -68,7 +68,7 @@ const generatePaginationItems = (
         isActive={number === currentPage}
         onClick={() => changePage(number)}
       />
-    ))
+    )),
   );
 
   if (truncated) {
@@ -82,7 +82,7 @@ const generatePaginationItems = (
         number={lastPage}
         isActive={currentPage === lastPage}
         onClick={() => changePage(lastPage)}
-      />
+      />,
     );
   }
   return items;
@@ -286,7 +286,7 @@ const Pagination = ({
               pageNumbers,
               currentPage,
               truncateThreshold,
-              changeNumberedPage
+              changeNumberedPage,
             )
           : null}
         <PaginationButton

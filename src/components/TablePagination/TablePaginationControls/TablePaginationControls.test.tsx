@@ -19,7 +19,7 @@ describe("<TablePaginationControls />", () => {
         pageSize={20}
         onPageChange={jest.fn()}
         onPageSizeChange={jest.fn()}
-      />
+      />,
     );
 
     expect(screen.getAllByRole("button")).toMatchSnapshot();
@@ -40,10 +40,10 @@ describe("<TablePaginationControls />", () => {
         onPageChange={onPageChange}
         onNextPage={onNextPage}
         onPageSizeChange={jest.fn()}
-      />
+      />,
     );
     await userEvent.click(
-      screen.getByRole("button", { name: Label.NEXT_PAGE })
+      screen.getByRole("button", { name: Label.NEXT_PAGE }),
     );
     expect(onPageChange).toHaveBeenCalledWith(3);
     expect(onNextPage).toHaveBeenCalledWith(3);
@@ -63,10 +63,10 @@ describe("<TablePaginationControls />", () => {
         onPageChange={onPageChange}
         onPreviousPage={onPreviousPage}
         onPageSizeChange={jest.fn()}
-      />
+      />,
     );
     await userEvent.click(
-      screen.getByRole("button", { name: Label.PREVIOUS_PAGE })
+      screen.getByRole("button", { name: Label.PREVIOUS_PAGE }),
     );
     expect(onPageChange).toHaveBeenCalledWith(1);
     expect(onPreviousPage).toHaveBeenCalledWith(1);
@@ -86,11 +86,11 @@ describe("<TablePaginationControls />", () => {
         onPreviousPage={jest.fn()}
         onPageSizeChange={jest.fn()}
         onInputPageChange={onInputPageChange}
-      />
+      />,
     );
     await userEvent.type(
       screen.getByRole("spinbutton", { name: Label.PAGE_NUMBER }),
-      "1"
+      "1",
     );
     expect(onInputPageChange).toHaveBeenCalledWith(21);
   });
@@ -108,10 +108,10 @@ describe("<TablePaginationControls />", () => {
         onPreviousPage={jest.fn()}
         onPageSizeChange={jest.fn()}
         showPageInput={false}
-      />
+      />,
     );
     expect(
-      screen.queryByRole("spinbutton", { name: Label.PAGE_NUMBER })
+      screen.queryByRole("spinbutton", { name: Label.PAGE_NUMBER }),
     ).not.toBeInTheDocument();
   });
 
@@ -128,10 +128,10 @@ describe("<TablePaginationControls />", () => {
         onPreviousPage={jest.fn()}
         onPageSizeChange={jest.fn()}
         showPageInput={false}
-      />
+      />,
     );
     expect(document.querySelector(".description")?.textContent).toBe(
-      "Showing 5 out of 100 items"
+      "Showing 5 out of 100 items",
     );
   });
 
@@ -148,10 +148,10 @@ describe("<TablePaginationControls />", () => {
         onPreviousPage={jest.fn()}
         onPageSizeChange={jest.fn()}
         displayDescription={false}
-      />
+      />,
     );
     expect(
-      document.querySelector(".description")?.textContent
+      document.querySelector(".description")?.textContent,
     ).not.toBeUndefined();
   });
 });

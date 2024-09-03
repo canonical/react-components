@@ -5,7 +5,7 @@ import { useCallback, useEffect } from "react";
  */
 export const useOnEscapePressed = (
   onEscape: () => void,
-  { isEnabled } = { isEnabled: true }
+  { isEnabled } = { isEnabled: true },
 ) => {
   const keyDown = useCallback(
     (evt) => {
@@ -13,7 +13,7 @@ export const useOnEscapePressed = (
         onEscape();
       }
     },
-    [onEscape]
+    [onEscape],
   );
   useEffect(() => {
     if (isEnabled) {

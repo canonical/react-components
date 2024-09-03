@@ -6,7 +6,7 @@ import Form from "./Form";
 describe("Form ", () => {
   it("renders", () => {
     render(
-      <Form name="this needs a name so RTL can find it">Test content</Form>
+      <Form name="this needs a name so RTL can find it">Test content</Form>,
     );
     expect(screen.getByRole("form")).toMatchSnapshot();
   });
@@ -27,7 +27,7 @@ describe("Form ", () => {
         name="this needs a name so RTL can find it"
         stacked={true}
         className="extra-class"
-      />
+      />,
     );
     const form = screen.getByRole("form");
     expect(form).toHaveClass("p-form");

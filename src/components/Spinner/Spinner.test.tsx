@@ -32,7 +32,7 @@ describe("<Spinner />", () => {
     expect(screen.getByText(text)).toBeInTheDocument();
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-icon--spinner")?.textContent
+      document.querySelector(".p-icon--spinner")?.textContent,
     ).not.toContain(text);
   });
 
@@ -40,7 +40,7 @@ describe("<Spinner />", () => {
     render(<Spinner />);
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-icon--spinner")?.textContent
+      document.querySelector(".p-icon--spinner")?.textContent,
     ).toBe("Loading");
   });
 
@@ -55,7 +55,7 @@ describe("<Spinner />", () => {
 
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-icon--spinner")
+      document.querySelector(".p-icon--spinner"),
     ).toHaveClass("is-light");
   });
 
@@ -64,7 +64,7 @@ describe("<Spinner />", () => {
 
     expect(screen.getByRole("alert")).toHaveAttribute(
       "aria-label",
-      "custom loading text"
+      "custom loading text",
     );
   });
 });

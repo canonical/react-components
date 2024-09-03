@@ -12,7 +12,7 @@ describe("TableHeader", () => {
             <TableHeader>Column 1</TableHeader>
           </tr>
         </thead>
-      </table>
+      </table>,
     );
     expect(screen.getByRole("columnheader")).toMatchSnapshot();
   });
@@ -25,11 +25,11 @@ describe("TableHeader", () => {
             <TableHeader sort="ascending">Column 1</TableHeader>
           </tr>
         </thead>
-      </table>
+      </table>,
     );
     expect(screen.getByRole("columnheader")).toHaveAttribute(
       "aria-sort",
-      "ascending"
+      "ascending",
     );
   });
 });

@@ -29,7 +29,7 @@ it("rounds number correctly for thousands", () => {
 
 it("rounds number correctly for millions", () => {
   render(
-    <Badge value={132456455} badgeType={BadgeType.ROUNDED_LARGE_NUMBER} />
+    <Badge value={132456455} badgeType={BadgeType.ROUNDED_LARGE_NUMBER} />,
   );
   // Check that the correct value is displayed.
   expect(screen.getByText("132M")).toBeInTheDocument();
@@ -37,7 +37,7 @@ it("rounds number correctly for millions", () => {
 
 it("rounds number correctly for billions", () => {
   render(
-    <Badge value={13245645512} badgeType={BadgeType.ROUNDED_LARGE_NUMBER} />
+    <Badge value={13245645512} badgeType={BadgeType.ROUNDED_LARGE_NUMBER} />,
   );
   // Check that the correct value is displayed.
   expect(screen.getByText("13B")).toBeInTheDocument();
@@ -45,7 +45,10 @@ it("rounds number correctly for billions", () => {
 
 it("rounds number correctly for trillions", () => {
   render(
-    <Badge value={132456455123112} badgeType={BadgeType.ROUNDED_LARGE_NUMBER} />
+    <Badge
+      value={132456455123112}
+      badgeType={BadgeType.ROUNDED_LARGE_NUMBER}
+    />,
   );
   // Check that the correct value is displayed.
   expect(screen.getByText("132T")).toBeInTheDocument();
@@ -56,7 +59,7 @@ it("displays the correct max value if it exceeds 999T", () => {
     <Badge
       value={1324564551231125}
       badgeType={BadgeType.ROUNDED_LARGE_NUMBER}
-    />
+    />,
   );
   // Check that the correct value is displayed.
   expect(screen.getByText("999T")).toBeInTheDocument();

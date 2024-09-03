@@ -20,13 +20,13 @@ describe("Input", () => {
     render(<Input type="radio" label="text label" />);
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-radio__label")
+      document.querySelector(".p-radio__label"),
     ).toBeInTheDocument();
 
     expect(screen.getByRole("radio")).toHaveAccessibleName("text label");
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-form__label")
+      document.querySelector(".p-form__label"),
     ).not.toBeInTheDocument();
   });
 
@@ -35,11 +35,11 @@ describe("Input", () => {
     expect(screen.getByRole("checkbox")).toHaveAccessibleName("text label");
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-checkbox__label")
+      document.querySelector(".p-checkbox__label"),
     ).toBeInTheDocument();
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-form__label")
+      document.querySelector(".p-form__label"),
     ).not.toBeInTheDocument();
   });
 
@@ -84,7 +84,7 @@ describe("Input", () => {
     render(<Input type="radio" labelClassName="label-class-name" />);
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-radio")
+      document.querySelector(".p-radio"),
     ).toHaveClass("label-class-name");
   });
 
@@ -92,7 +92,7 @@ describe("Input", () => {
     render(<Input type="checkbox" labelClassName="label-class-name" />);
     expect(
       // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-checkbox")
+      document.querySelector(".p-checkbox"),
     ).toHaveClass("label-class-name");
   });
 
@@ -141,15 +141,15 @@ describe("Input", () => {
         className="extra-class"
         help="additional description"
         helpClassName="additional-help-text-class"
-      />
+      />,
     );
     expect(screen.getByRole("textbox")).toHaveClass(
       "p-form-validation__input",
-      "extra-class"
+      "extra-class",
     );
     // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
     expect(container.querySelector(".p-form-help-text")).toHaveClass(
-      "additional-help-text-class"
+      "additional-help-text-class",
     );
   });
 });

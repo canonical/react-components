@@ -8,7 +8,7 @@ it("displays a link from props", () => {
   const label = "Test content";
   render(<SideNavigationItem label={label} href="#" />);
   expect(screen.getByRole("link", { name: label })).toHaveClass(
-    "p-side-navigation__link"
+    "p-side-navigation__link",
   );
 });
 
@@ -19,7 +19,7 @@ it("can use a custom link component", () => {
   const label = "Test content";
   render(<SideNavigationItem label={label} component={Link} />);
   expect(screen.getByRole("button", { name: label })).toHaveClass(
-    "p-side-navigation__link"
+    "p-side-navigation__link",
   );
 });
 
@@ -28,10 +28,10 @@ it("can replace link content with children", () => {
   render(
     <SideNavigationItem>
       <button>{label}</button>
-    </SideNavigationItem>
+    </SideNavigationItem>,
   );
   expect(screen.getByRole("button", { name: label })).toBeInTheDocument();
   expect(
-    document.querySelector(".p-side-navigation__link")
+    document.querySelector(".p-side-navigation__link"),
   ).not.toBeInTheDocument();
 });

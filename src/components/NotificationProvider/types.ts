@@ -36,7 +36,7 @@ export interface NotificationHelper {
     title: string,
     error: unknown,
     message?: ReactNode,
-    actions?: NotificationAction[]
+    actions?: NotificationAction[],
   ) => NotificationType;
   info: (message: ReactNode, title?: string) => NotificationType;
   success: (message: ReactNode, title?: string) => NotificationType;

@@ -6,7 +6,7 @@ import { MultiSelect, MultiSelectItem, MultiSelectProps } from "./MultiSelect";
 
 const Template = (props: MultiSelectProps) => {
   const [selectedItems, setSelectedItems] = useState<MultiSelectItem[]>(
-    props.selectedItems || []
+    props.selectedItems || [],
   );
   return (
     <MultiSelect
