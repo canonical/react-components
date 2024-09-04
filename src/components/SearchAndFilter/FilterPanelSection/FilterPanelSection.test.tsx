@@ -20,7 +20,6 @@ describe("Filter panel section", () => {
         data={sampleData}
       />,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".p-filter-panel-section")).toMatchSnapshot();
   });
 
@@ -34,7 +33,6 @@ describe("Filter panel section", () => {
       />,
     );
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-filter-panel-section"),
     ).toBeInTheDocument();
     expect(
@@ -71,7 +69,6 @@ describe("Filter panel section", () => {
       />,
     );
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-search-and-filter__selected-count"),
     ).not.toBeInTheDocument();
   });
@@ -98,7 +95,6 @@ describe("Filter panel section", () => {
     expect(
       // Use a query selector because the element's text is split up over
       // multiple elements so it can't be selected by its content.
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-filter-panel-section__counter")?.textContent,
     ).toBe("+3");
   });
@@ -114,17 +110,14 @@ describe("Filter panel section", () => {
       />,
     );
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-filter-panel-section__chips"),
     ).toHaveAttribute("aria-expanded", "false");
     await userEvent.click(
       // Use a query selector because the element's text is split up over
       // multiple elements so it can't be selected by its content.
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-filter-panel-section__counter") as HTMLElement,
     );
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-filter-panel-section__chips"),
     ).toHaveAttribute("aria-expanded", "true");
   });

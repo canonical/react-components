@@ -139,7 +139,6 @@ describe("Field ", () => {
     expect(field.childNodes[0]).toHaveClass("label-node");
     // The label should not be inside the control.
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-form__control .p-form__label"),
     ).not.toBeInTheDocument();
   });
@@ -151,7 +150,6 @@ describe("Field ", () => {
     expect(field.childNodes[0]).not.toHaveClass("label-node");
     // The label should be inside the control.
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-form__control .p-form__label"),
     ).toBeInTheDocument();
   });
@@ -174,13 +172,9 @@ describe("Field ", () => {
   it("can be stacked", () => {
     render(<Field stacked={true} label="Test label" data-testid="field" />);
     // The Label should be inside a col-4.
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".col-4 .p-form__label"),
-    ).toBeInTheDocument();
+    expect(document.querySelector(".col-4 .p-form__label")).toBeInTheDocument();
     // The control should be inside a col-8.
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".col-8 .p-form__control"),
     ).toBeInTheDocument();
     expect(screen.getByTestId("field")).toHaveClass("row");

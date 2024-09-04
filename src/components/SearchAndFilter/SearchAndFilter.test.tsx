@@ -26,11 +26,9 @@ const sampleData = [
     chips: [{ value: "foo" }, { value: "bar" }, { value: "baz" }],
   },
 ];
-// eslint-disable-next-line testing-library/no-node-access
 const getPanel = () => document.querySelector(".p-search-and-filter__panel");
 
 const getSearchContainer = () =>
-  // eslint-disable-next-line testing-library/no-node-access
   document.querySelector(".p-search-and-filter__search-container");
 
 describe("Search and filter", () => {
@@ -111,7 +109,6 @@ describe("Search and filter", () => {
       />,
     );
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-search-and-filter__selected-count"),
     ).not.toBeInTheDocument();
   });
@@ -135,7 +132,6 @@ describe("Search and filter", () => {
       />,
     );
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-search-and-filter__selected-count"),
     ).not.toBeInTheDocument();
     await waitFor(async () => {
@@ -196,7 +192,6 @@ describe("Search and filter", () => {
       );
     });
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-search-and-filter__search-prompt"),
     ).not.toBeInTheDocument();
     await waitFor(async () => {
@@ -228,7 +223,6 @@ describe("Search and filter", () => {
         screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
       );
     });
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
       3,
     );
@@ -243,7 +237,6 @@ describe("Search and filter", () => {
         "Unknown value",
       );
     });
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
       0,
     );
@@ -273,7 +266,6 @@ describe("Search and filter", () => {
         "Google",
       );
     });
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
       1,
     );
@@ -288,7 +280,6 @@ describe("Search and filter", () => {
         "re",
       );
     });
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
       2,
     );
@@ -319,9 +310,7 @@ describe("Search and filter", () => {
       );
     });
     const boldText = document
-      // eslint-disable-next-line testing-library/no-node-access
       .querySelectorAll(".p-chip")[0]
-      // eslint-disable-next-line testing-library/no-node-access
       .querySelector("strong");
     expect(boldText?.textContent).toEqual("Google");
   });
@@ -335,11 +324,9 @@ describe("Search and filter", () => {
         existingSearchData={[{ lead: "Cloud", value: "Google" }]}
       />,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     const lead = document.querySelector(
       ".p-search-and-filter__search-container .p-chip__lead",
     )?.textContent;
-    // eslint-disable-next-line testing-library/no-node-access
     const value = document.querySelector(
       ".p-search-and-filter__search-container .p-chip__value",
     )?.textContent;
@@ -359,19 +346,16 @@ describe("Search and filter", () => {
         ]}
       />,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     const chips = document.querySelectorAll(
       ".p-search-and-filter__search-container .p-chip",
     );
     expect(chips.length).toBe(2);
 
-    // eslint-disable-next-line testing-library/no-node-access
     const chip1Value = document.querySelector(
       ".p-search-and-filter__search-container .p-chip:nth-child(1) .p-chip__value",
     )?.textContent;
     expect(chip1Value).toEqual("Google");
 
-    // eslint-disable-next-line testing-library/no-node-access
     const chip2Value = document.querySelector(
       ".p-search-and-filter__search-container .p-chip:nth-child(2) .p-chip__value",
     )?.textContent;

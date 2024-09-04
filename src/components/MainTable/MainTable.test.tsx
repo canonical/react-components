@@ -89,13 +89,11 @@ describe("MainTable", () => {
     render(<MainTable expanding={true} headers={headers} rows={rows} />);
     expect(screen.getByRole("grid")).toHaveClass("p-table--expanding");
     // Need to query the DOM as this cell is not exposed by default.
-    // eslint-disable-next-line testing-library/no-node-access
     const heads = document.querySelectorAll("th");
     // There should be an additional hidden table header to account for the
     // expanding cell
     expect(heads.length).toEqual(headers.length + 1);
     expect(heads[heads.length - 1]).toHaveAttribute("aria-hidden", "true");
-    // eslint-disable-next-line testing-library/no-node-access
     const columns = document.querySelectorAll("tr:last-child td");
     // There should be an additional table cell for the expanding content.
     expect(columns.length).toEqual(rows[rows.length - 1].columns.length + 1);

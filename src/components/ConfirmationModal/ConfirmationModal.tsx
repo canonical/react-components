@@ -68,7 +68,9 @@ export const ConfirmationModal = ({
   ...props
 }: Props): ReactElement => {
   const handleClick =
-    <A extends Function>(action: A | null | undefined) =>
+    <A extends Function>( // eslint-disable-line @typescript-eslint/no-unsafe-function-type
+      action: A | null | undefined,
+    ) =>
     (event: MouseEvent<HTMLButtonElement>) => {
       if (!props.shouldPropagateClickEvent) {
         event.stopPropagation();

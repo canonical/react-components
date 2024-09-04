@@ -30,7 +30,6 @@ describe("CheckableInput ", () => {
         required
       ></CheckableInput>,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector("label")).toHaveClass("is-required");
   });
 
@@ -42,7 +41,6 @@ describe("CheckableInput ", () => {
         inline
       ></CheckableInput>,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector("label")).toHaveClass("p-radio--inline");
   });
 
@@ -65,7 +63,6 @@ describe("CheckableInput ", () => {
         labelClassName="label-class-name"
       />,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector("label")).toHaveClass("label-class-name");
   });
 });

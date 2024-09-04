@@ -10,7 +10,6 @@ it("renders with correct attributes", () => {
     </FadeInDown>,
   );
 
-  // eslint-disable-next-line testing-library/no-node-access
   const element = screen.getByText("Content").parentElement;
   expect(element).toHaveAttribute("aria-hidden", "false");
   expect(element).toHaveClass("fade-in--down test-class");

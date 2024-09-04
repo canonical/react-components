@@ -201,7 +201,7 @@ describe("ContextualMenuDropdown ", () => {
 
       // get the dropdown menu dom element and set its height
       // NOTE: we can only do this after the component has been rendered at least once
-      let dropdownNode = document.querySelector(
+      const dropdownNode = document.querySelector(
         ".p-contextual-menu__dropdown",
       ) as HTMLElement;
 

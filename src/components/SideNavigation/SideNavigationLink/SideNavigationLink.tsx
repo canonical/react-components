@@ -18,7 +18,7 @@ export type Props<L = LinkDefaultElement> = Omit<
   component?: SideNavigationBaseProps<L>["component"];
 };
 const SideNavigationLink = forwardRef<HTMLAnchorElement, Props>(
-  ({ component, ref, ...props }: Props) => {
+  ({ component, ...props }: Props) => {
     let className: string | null = null;
     if ("className" in props && typeof props.className === "string") {
       className = props.className;

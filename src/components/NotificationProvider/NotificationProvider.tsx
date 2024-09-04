@@ -50,6 +50,7 @@ export const NotificationProvider: FC<NotifyProviderProps> = ({
     } else {
       clear();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, pathname]);
 
   const helper: NotificationHelper = {

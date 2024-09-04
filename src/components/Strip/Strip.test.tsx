@@ -89,7 +89,6 @@ describe("Strip ", () => {
         Test content
       </Strip>,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".row .col-4")).toBeInTheDocument();
   });
 
@@ -99,7 +98,6 @@ describe("Strip ", () => {
         Test content
       </Strip>,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".row .col-12")).not.toBeInTheDocument();
   });
 
@@ -109,7 +107,6 @@ describe("Strip ", () => {
         Test content
       </Strip>,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".row")).toHaveClass("row--extra");
   });
 

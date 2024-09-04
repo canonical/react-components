@@ -14,7 +14,6 @@ const items = [
   },
 ];
 
-/* eslint-disable testing-library/no-node-access */
 it("displays light theme", () => {
   render(<Navigation logo={<img src="" alt="" />} theme={Theme.LIGHT} />);
   expect(screen.getByRole("banner").className.includes("is-light")).toBe(true);
@@ -85,7 +84,7 @@ it("can display a standard logo with a generated link", () => {
     <Navigation
       generateLink={(link) => {
         if (isNavigationAnchor(link)) {
-          const { url, label, isSelected, ...props } = link;
+          const { url, label, isSelected: _, ...props } = link;
           return (
             <a {...props} aria-current="page" href={url}>
               {label}
@@ -305,9 +304,11 @@ it("closes the search form when clicking on the overlay", async () => {
   await userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
   expect(banner.className.includes("has-search-open")).toBe(true);
   expect(screen.getByRole("searchbox")).toBeInTheDocument();
-  await userEvent.click(
-    document.querySelector(".p-navigation__search-overlay"),
-  );
+  const overlay = document.querySelector(".p-navigation__search-overlay");
+  expect(overlay).toBeInTheDocument();
+  if (overlay) {
+    await userEvent.click(overlay);
+  }
   expect(banner.className.includes("has-search-open")).toBe(false);
   expect(screen.queryByRole("searchbox")).not.toBeInTheDocument();
 });

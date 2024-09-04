@@ -41,7 +41,7 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
     /**
      * Optional argument to make the tables be sortable and use the `useSortBy` plugin.
      */
-    sortable?: Boolean;
+    sortable?: boolean;
     /**
      * This function is used to resolve any props needed for a particular column's header cell.
      */
@@ -246,10 +246,11 @@ function ModularTable<D extends Record<string, unknown>>({
   return (
     <Table {...getTableProps()} {...props}>
       <thead>
-        {headerGroups.map((headerGroup) => (
-          <TableRow {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
+        {headerGroups.map((headerGroup, i) => (
+          <TableRow {...headerGroup.getHeaderGroupProps()} key={i}>
+            {headerGroup.headers.map((column, j) => (
               <TableHeader
+                key={j}
                 sort={getColumnSortDirection(column)}
                 {...column.getHeaderProps([
                   {

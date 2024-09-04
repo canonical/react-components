@@ -9,7 +9,6 @@ describe("Textarea ", () => {
       <Textarea id="test-id" wrapperClassName="textarea" />,
     );
     // Get the wrapping element.
-    // eslint-disable-next-line testing-library/no-node-access, testing-library/no-container
     expect(container.firstChild).toMatchSnapshot();
   });
 
