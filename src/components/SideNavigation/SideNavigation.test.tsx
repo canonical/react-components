@@ -74,7 +74,9 @@ it("can display custom elements", () => {
               label: "Link one",
               href: "#",
             },
-            <button onClick={jest.fn()}>Hello</button>,
+            <button key="button" onClick={jest.fn()}>
+              Hello
+            </button>,
           ],
         },
       ]}
@@ -115,7 +117,7 @@ it("displays links using a custom component", () => {
             {
               label: "Link one",
             },
-            <Link>Link two</Link>,
+            <Link key="link">Link two</Link>,
           ],
         },
       ]}
@@ -136,7 +138,7 @@ it("displays a mix of links and custom components", () => {
               label: "Link one",
               href: "#",
             },
-            <Link>Link two</Link>,
+            <Link key="link">Link two</Link>,
           ],
         },
       ]}

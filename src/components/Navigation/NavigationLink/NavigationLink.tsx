@@ -37,7 +37,7 @@ const NavigationLink = ({ generateLink, link }: Props): JSX.Element | null => {
       </a>
     );
   } else if (isNavigationButton(link)) {
-    const { isSelected, label, url, ...linkProps } = link;
+    const { isSelected, label, url: _url, ...linkProps } = link;
     return (
       <button {...linkProps} aria-current={isSelected ? "page" : undefined}>
         {label}

@@ -205,7 +205,7 @@ const generateRows = ({
   Pick<Props, "headers" | "responsive" | "expanding">) =>
   rows.map(
     (
-      { columns, expanded, expandedContent, key, sortData, ...rowProps },
+      { columns, expanded, expandedContent, key, sortData: _, ...rowProps },
       index,
     ) => {
       const cellItems = columns?.map(({ content, ...cellProps }, index) => {

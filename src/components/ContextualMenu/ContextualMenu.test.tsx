@@ -49,7 +49,6 @@ describe("ContextualMenu ", () => {
   it("can have a toggle button with just an icon", () => {
     render(<ContextualMenu hasToggleIcon links={[]} />);
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(
         ".p-contextual-menu__toggle .p-contextual-menu__indicator",
       ),
@@ -63,7 +62,6 @@ describe("ContextualMenu ", () => {
       <ContextualMenu hasToggleIcon links={[]} toggleAppearance="positive" />,
     );
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(
         ".p-contextual-menu__toggle .p-contextual-menu__indicator",
       ),
@@ -100,7 +98,6 @@ describe("ContextualMenu ", () => {
     render(<ContextualMenu links={[]} toggleLabel="Toggle" />);
     expect(screen.getByRole("button", { name: "Toggle" })).toBeInTheDocument();
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-contextual-menu__indicator"),
     ).not.toBeInTheDocument();
   });
@@ -145,7 +142,6 @@ describe("ContextualMenu ", () => {
 
   it("can display links in groups", () => {
     render(<ContextualMenu links={[[{ children: "Link1" }]]} visible />);
-    // eslint-disable-next-line testing-library/no-node-access
     const group = document.querySelector(
       ".p-contextual-menu__group",
     ) as HTMLElement;
@@ -162,7 +158,6 @@ describe("ContextualMenu ", () => {
         visible
       />,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     const group = document.querySelector(
       ".p-contextual-menu__group",
     ) as HTMLElement;
@@ -184,7 +179,6 @@ describe("ContextualMenu ", () => {
     );
     expect(screen.getByTestId("content")).toBeInTheDocument();
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(".p-contextual-menu__link"),
     ).not.toBeInTheDocument();
   });

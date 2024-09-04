@@ -17,7 +17,11 @@ describe("List ", () => {
   });
 
   it("can define items as JSX", () => {
-    render(<List items={[<button>test</button>, <span>items</span>]} />);
+    render(
+      <List
+        items={[<button key="1">test</button>, <span key="2">items</span>]}
+      />,
+    );
     expect(
       within(screen.getAllByRole("listitem")[0]).getByRole("button"),
     ).toBeInTheDocument();

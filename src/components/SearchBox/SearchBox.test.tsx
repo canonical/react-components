@@ -7,7 +7,6 @@ describe("SearchBox ", () => {
   it("renders", () => {
     render(<SearchBox />);
     // Get the wrapping element for the snapshot.
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".p-search-box")).toMatchSnapshot();
   });
 
