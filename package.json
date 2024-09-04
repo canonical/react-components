@@ -114,7 +114,7 @@
     "@types/react": "18.3.5",
     "@types/react-dom": "18.3.0",
     "postcss": "^8.3.11",
-    "jackspeak": "2.3.6",
+    "jackspeak": "2.1.1",
     "strip-ansi": "6.0.1"
   },
   "peerDependencies": {
