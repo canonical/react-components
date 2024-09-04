@@ -42,7 +42,7 @@ export type MainTableCell = PropsWithSpread<
   },
   // We explicitly omit "children" otherwise it's possible to overwrite "content".
   // Might want to consider just using "children" instead.
-  Omit<TableCellProps, "children">
+  Omit<TableCellProps, "children"> & { [data: `data-${string}`]: string }
 >;
 
 export type MainTableRow = PropsWithSpread<
@@ -133,7 +133,7 @@ const updateSort = (
   sortKey: MainTableHeader["sortKey"],
   sortDirection: SortDirection,
 ) => {
-  let newDirection = null;
+  let newDirection: SortDirection = null;
   if (sortDirection === "none") {
     newDirection = "ascending";
   } else if (sortDirection === "ascending") {
