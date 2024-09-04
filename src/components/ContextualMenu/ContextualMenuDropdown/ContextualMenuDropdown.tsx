@@ -223,11 +223,11 @@ const ContextualMenuDropdown = <L,>({
 
   const updateVerticalPosition = useCallback(() => {
     if (!positionNode) {
-      return null;
+      return;
     }
     const scrollableParent = getClosestScrollableParent(positionNode);
     if (!scrollableParent) {
-      return null;
+      return;
     }
 
     const scrollableParentRect = scrollableParent.getBoundingClientRect();

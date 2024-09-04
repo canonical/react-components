@@ -5,7 +5,7 @@ it("exports all public hooks and components from the index file", () => {
   const hooksPath = "./src/hooks/";
   const componentsPath = "./src/components/";
 
-  const isNotHidden = (name) => !name.startsWith(".");
+  const isNotHidden = (name: string) => !name.startsWith(".");
 
   const hooks = fs
     .readdirSync(hooksPath)

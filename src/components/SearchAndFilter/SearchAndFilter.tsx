@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, KeyboardEvent } from "react";
 
 import FilterPanelSection from "./FilterPanelSection";
 import Chip from "../Chip";
@@ -54,8 +54,8 @@ const SearchAndFilter = ({
   const [searchContainerActive, setSearchContainerActive] = useState(false);
   const [maxHeight, setMaxHeight] = useState<number>();
 
-  const searchAndFilterRef = useRef(null);
-  const searchContainerRef = useRef(null);
+  const searchAndFilterRef = useRef<HTMLDivElement>(null);
+  const searchContainerRef = useRef<HTMLDivElement>(null);
   const searchBoxRef = useRef(null);
   const panel = useRef(null);
 
@@ -74,15 +74,11 @@ const SearchAndFilter = ({
     };
   }, [searchData, returnSearchData]);
 
-  const searchOnChange = (searchTerm) => {
-    setSearchTerm(searchTerm);
-  };
-
   // Hide manual input form field when search container is inactive
   useEffect(() => {
-    const searchContainerClickCheck = (e) => {
+    const searchContainerClickCheck = (e: Event) => {
       const clickInContainer =
-        e.target?.closest(".p-search-and-filter") !== null;
+        (e.target as HTMLElement)?.closest(".p-search-and-filter") !== null;
       setSearchContainerActive(clickInContainer);
     };
 
@@ -101,9 +97,9 @@ const SearchAndFilter = ({
   // This useEffect sets up listeners so the panel will close if user clicks
   // anywhere else on the page or hits the escape key
   useEffect(() => {
-    const mouseDown = (e) => {
+    const mouseDown = (e: MouseEvent) => {
       // Check if click is outside of filter panel
-      if (!searchAndFilterRef?.current?.contains(e.target)) {
+      if (!searchAndFilterRef?.current?.contains(e.target as HTMLElement)) {
         // If so, close the panel
         closePanel();
       }
@@ -147,10 +143,10 @@ const SearchAndFilter = ({
   // When overflow chips are shown, clicking anywhere outside search area
   // or clicking on a chip should hide them again
   useEffect(() => {
-    const hideOverflowChips = (e) => {
+    const hideOverflowChips = (e: MouseEvent) => {
       if (
-        !e.target.closest(".p-search-and-filter") &&
-        e.target.className !== "p-icon--close"
+        !(e.target as HTMLElement).closest(".p-search-and-filter") &&
+        (e.target as HTMLElement).className !== "p-icon--close"
       ) {
         setSearchBoxExpanded(false);
       }
@@ -175,7 +171,8 @@ const SearchAndFilter = ({
   // If the offsetTop is more than double height of a single chip, consider it
   // overflowing
   const updateFlowCount = function () {
-    const chips = searchContainerRef?.current?.querySelectorAll(".p-chip");
+    const chips =
+      searchContainerRef?.current?.querySelectorAll<HTMLElement>(".p-chip");
     const overflowCount = overflowingChipsCount(chips, 1);
     setOverflowSearchTermCounter(overflowCount);
   };
@@ -184,7 +181,7 @@ const SearchAndFilter = ({
   useEffect(() => {
     const resizeObserverSupported = typeof ResizeObserver !== "undefined";
     const wrapper = searchContainerRef.current;
-    let wrapperWidthObserver;
+    let wrapperWidthObserver: ResizeObserver;
     if (resizeObserverSupported && wrapper) {
       wrapperWidthObserver = new ResizeObserver(() => {
         updateFlowCount();
@@ -207,7 +204,7 @@ const SearchAndFilter = ({
   );
 
   // Add search prompt value to search on Enter key
-  const searchPromptKeyDown = (e) => {
+  const searchPromptKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter") {
       handleSubmit();
     }
@@ -291,7 +288,7 @@ const SearchAndFilter = ({
             className="p-search-and-filter__input"
             id="search-and-filter-input"
             name="search"
-            onChange={(e) => searchOnChange(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
             placeholder={placeholder}
             type="search"
             value={searchTerm}

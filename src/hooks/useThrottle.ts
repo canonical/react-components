@@ -19,7 +19,7 @@ export const useThrottle = (
   const lastArgs = useRef(null);
 
   const throttle = useCallback(
-    (...args) => {
+    (...args: unknown[]) => {
       lastArgs.current = args;
       const callCallback = () => {
         callback(...lastArgs.current);

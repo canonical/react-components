@@ -3,8 +3,9 @@ import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import Modal from "./Modal";
+import { ModalProps } from ".";
 
-const Template = (args) => {
+const Template = (args: ModalProps) => {
   return (
     <div style={{ height: "100vh", position: "relative" }}>
       <Modal {...args} />

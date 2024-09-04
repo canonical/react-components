@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import { render, screen } from "@testing-library/react";
 
 import Tabs from "./Tabs";
@@ -90,7 +90,10 @@ describe("Tabs", () => {
   });
 
   it("can use custom components as links", () => {
-    const TestLink = ({ children, ...props }) => (
+    const TestLink = ({
+      children,
+      ...props
+    }: { to: string } & PropsWithChildren) => (
       <button {...props}>{children}</button>
     );
     const name = "label1";
