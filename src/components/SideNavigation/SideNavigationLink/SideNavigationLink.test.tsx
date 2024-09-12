@@ -42,3 +42,9 @@ it("can use a custom link component", () => {
     "p-side-navigation__link",
   );
 });
+
+it("gets the ref and checks if it can be used to get the element's position", () => {
+  const ref = React.createRef<HTMLAnchorElement>();
+  render(<SideNavigationLink label="Test content" forwardRef={ref} />);
+  expect(ref.current?.getBoundingClientRect()).toBeDefined();
+});

@@ -1,16 +1,19 @@
 import React from "react";
 import classNames from "classnames";
-import type { HTMLProps } from "react";
+import type { HTMLProps, ReactNode } from "react";
 
 import type { SideNavigationBaseProps } from "../SideNavigationBase";
 import SideNavigationBase from "../SideNavigationBase";
 
 export type LinkDefaultElement = HTMLProps<HTMLAnchorElement>;
 
-export type Props<L = LinkDefaultElement, E = HTMLAnchorElement> = Omit<
-  SideNavigationBaseProps<L>,
-  "component"
+export type Props<L = LinkDefaultElement, E = HTMLAnchorElement> = Partial<
+  Omit<SideNavigationBaseProps<L>, "component">
 > & {
+  /**
+   * The navigation item's label.
+   */
+  label: ReactNode;
   /**
    * The component or element to use for the link element e.g. `a` or `NavLink`.
    * @default a
@@ -36,8 +39,8 @@ const SideNavigationLink = <L = LinkDefaultElement, E = HTMLAnchorElement>({
     <SideNavigationBase
       className={classNames("p-side-navigation__link", className)}
       component={component ?? "a"}
+      forwardRef={forwardRef}
       {...props}
-      ref={forwardRef}
     />
   );
 };
