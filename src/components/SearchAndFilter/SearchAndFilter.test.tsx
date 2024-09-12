@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen, waitFor, within } from "@testing-library/react";
 import React from "react";
 
 import SearchAndFilter from "./SearchAndFilter";
@@ -412,5 +412,41 @@ describe("Search and filter", () => {
       await userEvent.click(screen.getByRole("button", { name: "+1" }));
     });
     expect(onExpandChange).toHaveBeenCalled();
+  });
+
+  it("does not toggle the panel when a filter is dismissed", async () => {
+    const returnSearchData = jest.fn();
+    const onExpandChange = jest.fn();
+    const onPanelToggle = jest.fn();
+    render(
+      <SearchAndFilter
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+        onExpandChange={onExpandChange}
+        onPanelToggle={onPanelToggle}
+        existingSearchData={[
+          { lead: "Cloud", value: "Google" },
+          { lead: "Region", value: "eu-west-1" },
+        ]}
+      />,
+    );
+
+    // onPanelToggle is called on initial render, so we need to clear the mock before asserting
+    onPanelToggle.mockClear();
+
+    // Dismiss the Cloud: Google filter chip
+    await waitFor(async () => {
+      const cloudChip: HTMLElement = screen
+        .getByText("CLOUD")
+        .closest(".p-chip");
+
+      const dismissButton = within(cloudChip).getByRole("button", {
+        name: "Dismiss",
+      });
+
+      await userEvent.click(dismissButton);
+    });
+
+    expect(onPanelToggle).not.toHaveBeenCalled();
   });
 });
