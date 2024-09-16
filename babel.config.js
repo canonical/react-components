@@ -28,6 +28,10 @@ const esm = {
       "@babel/preset-env",
       {
         modules: false,
+        targets: {
+          esmodules: true,
+          chrome: "120",
+        },
       },
     ],
     "@babel/preset-react",
@@ -47,14 +51,6 @@ const esm = {
           types: "./src/types",
           utils: "./src/utils",
         },
-      },
-    ],
-    [
-      "@babel/plugin-transform-runtime",
-      {
-        useEsModules: true,
-        corejs: 3,
-        helpers: false,
       },
     ],
   ],
