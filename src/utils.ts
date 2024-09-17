@@ -19,7 +19,9 @@ export const highlightSubString = (
       match: false,
     };
   }
-  const caseInsensitiveRegex = new RegExp(subString, "gi");
+
+  const escapedSubstring = subString.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const caseInsensitiveRegex = new RegExp(escapedSubstring, "gi");
   const newStr = str.replace(
     caseInsensitiveRegex,
     (match) => `<strong>${match}</strong>`,
