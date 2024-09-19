@@ -16,7 +16,7 @@ describe("ConfirmationButton ", () => {
       >
         <Icon name={ICONS.delete} />
         <span>Delete</span>
-      </ConfirmationButton>
+      </ConfirmationButton>,
     );
     expect(screen.getByRole("button")).toContainHTML("p-icon--delete");
     expect(screen.getByRole("button")).toContainHTML("<span>Delete</span>");
@@ -30,10 +30,10 @@ describe("ConfirmationButton ", () => {
           confirmButtonLabel: "Confirm",
           onConfirm: jest.fn(),
         }}
-      />
+      />,
     );
     expect(screen.getByRole("button")).toContainHTML(
-      "u-animation--spin p-icon--spinner"
+      "u-animation--spin p-icon--spinner",
     );
   });
 
@@ -45,7 +45,7 @@ describe("ConfirmationButton ", () => {
           confirmButtonLabel: "Confirm",
           onConfirm: jest.fn(),
         }}
-      />
+      />,
     );
     expect(screen.getByTitle("Delete")).toBeInTheDocument();
   });
@@ -59,7 +59,7 @@ describe("ConfirmationButton ", () => {
           confirmButtonLabel: "Confirm",
           onConfirm,
         }}
-      />
+      />,
     );
     const user = userEvent.setup();
     await user.keyboard("{Shift>}");
@@ -77,7 +77,7 @@ describe("ConfirmationButton ", () => {
           confirmButtonLabel: "Confirm",
           onConfirm: jest.fn(),
         }}
-      />
+      />,
     );
     const button = screen.getByTitle("Confirm");
     const clickEvent = createEvent.click(button);
@@ -93,7 +93,7 @@ describe("ConfirmationButton ", () => {
           confirmButtonLabel: "Confirm",
           onConfirm: jest.fn(),
         }}
-      />
+      />,
     );
     const button = screen.getByTitle("Confirm");
     const clickEvent = createEvent.click(button);
@@ -109,7 +109,7 @@ describe("ConfirmationButton ", () => {
           confirmButtonLabel: "Confirm",
           onConfirm: jest.fn(),
         }}
-      />
+      />,
     );
     expect(screen.getByTitle("Confirm")).toHaveClass("extra-class");
   });

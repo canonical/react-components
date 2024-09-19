@@ -31,7 +31,6 @@ describe("ActionButton", () => {
     expect(screen.getByLabelText(Label.WAITING)).toBeInTheDocument();
     const icon = ".p-icon--spinner";
     // Check for the visual element.
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(icon)).toBeInTheDocument();
     // Move on to the success state.
     rerender(<ActionButton success>Click me</ActionButton>);
@@ -39,7 +38,6 @@ describe("ActionButton", () => {
       jest.advanceTimersByTime(LOADER_MIN_DURATION);
     });
     expect(screen.queryByLabelText(Label.WAITING)).not.toBeInTheDocument();
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(icon)).not.toBeInTheDocument();
   });
 
@@ -54,13 +52,11 @@ describe("ActionButton", () => {
     expect(screen.getByLabelText(Label.SUCCESS)).toBeInTheDocument();
     const icon = ".p-icon--success";
     // Check for the visual element.
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(icon)).toBeInTheDocument();
     act(() => {
       jest.advanceTimersByTime(SUCCESS_DURATION + 1);
     });
     expect(screen.queryByLabelText(Label.SUCCESS)).not.toBeInTheDocument();
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(icon)).not.toBeInTheDocument();
   });
 });

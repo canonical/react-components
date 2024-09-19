@@ -20,7 +20,7 @@ export const info = (message: ReactNode, title?: string): NotificationType => {
 
 export const success = (
   message: ReactNode,
-  title?: string
+  title?: string,
 ): NotificationType => {
   return {
     message,
@@ -33,7 +33,7 @@ export const failure = (
   title: string,
   error: unknown,
   message?: ReactNode,
-  actions?: NotificationAction[]
+  actions?: NotificationAction[],
 ): NotificationType => {
   return {
     actions,

@@ -63,7 +63,7 @@ const FilterPanelSection = ({
   // Search chips for character match with search term
   const searchTermInChips = highlightSubString(
     chipValues.toString(),
-    searchTerm
+    searchTerm,
   ).match;
 
   const panelSectionVisible =
@@ -114,7 +114,7 @@ const FilterPanelSection = ({
               // should display
               const searchTermInChip = highlightSubString(
                 chip.value,
-                searchTerm
+                searchTerm,
               ).match;
               const chipVisible =
                 searchTermInChip ||

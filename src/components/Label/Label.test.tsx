@@ -8,7 +8,7 @@ describe("Label ", () => {
     render(
       <Label forId="test-id" data-testid="label">
         Test content
-      </Label>
+      </Label>,
     );
     expect(screen.getByTestId("label")).toMatchSnapshot();
   });

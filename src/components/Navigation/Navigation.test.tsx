@@ -14,7 +14,6 @@ const items = [
   },
 ];
 
-/* eslint-disable testing-library/no-node-access */
 it("displays light theme", () => {
   render(<Navigation logo={<img src="" alt="" />} theme={Theme.LIGHT} />);
   expect(screen.getByRole("banner").className.includes("is-light")).toBe(true);
@@ -29,7 +28,7 @@ it("displays full width", () => {
   render(<Navigation fullWidth logo={<img src="" alt="" />} />);
 
   expect(
-    document.querySelector(".p-navigation__row--full-width")
+    document.querySelector(".p-navigation__row--full-width"),
   ).toBeInTheDocument();
   expect(document.querySelector(".p-navigation__row")).not.toBeInTheDocument();
 });
@@ -39,10 +38,10 @@ it("passes additional classes to the header element", () => {
     <Navigation
       className="not-a-footer-thats-for-sure"
       logo={<img src="" alt="" />}
-    />
+    />,
   );
   expect(screen.getByRole("banner")).toHaveClass(
-    "p-navigation not-a-footer-thats-for-sure"
+    "p-navigation not-a-footer-thats-for-sure",
   );
 });
 
@@ -51,11 +50,11 @@ it("passes additional props to the header element", () => {
     <Navigation
       aria-label="This is definitely the header"
       logo={<img src="" alt="" />}
-    />
+    />,
   );
   expect(screen.getByRole("banner")).toHaveAttribute(
     "aria-label",
-    "This is definitely the header"
+    "This is definitely the header",
   );
 });
 
@@ -68,7 +67,7 @@ it("can display a standard logo", () => {
         title: "This is the site name",
         url: "/this/is/the/logo/link",
       }}
-    />
+    />,
   );
   const homePageLink = screen.getByRole("link", { name: "Homepage" });
   expect(homePageLink).toBeInTheDocument();
@@ -85,7 +84,7 @@ it("can display a standard logo with a generated link", () => {
     <Navigation
       generateLink={(link) => {
         if (isNavigationAnchor(link)) {
-          const { url, label, isSelected, ...props } = link;
+          const { url, label, isSelected: _, ...props } = link;
           return (
             <a {...props} aria-current="page" href={url}>
               {label}
@@ -100,7 +99,7 @@ it("can display a standard logo with a generated link", () => {
         title: "This is the site name",
         url: "/this/is/the/logo/link",
       }}
-    />
+    />,
   );
   const homePageLink = screen.getByRole("link", { name: "Homepage" });
   expect(homePageLink).toBeInTheDocument();
@@ -121,12 +120,12 @@ it("can provide a custom logo", () => {
           This logo is totally not anything like the normal one.
         </a>
       }
-    />
+    />,
   );
   expect(
     screen.getByRole("link", {
       name: "This logo is totally not anything like the normal one.",
-    })
+    }),
   ).toBeInTheDocument();
 });
 
@@ -135,10 +134,10 @@ it("can display menus", () => {
     <Navigation
       items={[{ items: [], label: "THIS IS A MENU" }]}
       logo={<img src="" alt="" />}
-    />
+    />,
   );
   expect(
-    screen.getByRole("button", { name: "THIS IS A MENU" })
+    screen.getByRole("button", { name: "THIS IS A MENU" }),
   ).toBeInTheDocument();
 });
 
@@ -147,10 +146,10 @@ it("can display links", () => {
     <Navigation
       items={[{ label: "THIS IS A LINK", url: "/this/is/the/url" }]}
       logo={<img src="" alt="" />}
-    />
+    />,
   );
   expect(
-    screen.getByRole("link", { name: "THIS IS A LINK" })
+    screen.getByRole("link", { name: "THIS IS A LINK" }),
   ).toBeInTheDocument();
 });
 
@@ -165,10 +164,10 @@ it("can pass additional classes to links", () => {
         },
       ]}
       logo={<img src="" alt="" />}
-    />
+    />,
   );
   expect(screen.getByRole("link", { name: "THIS IS A LINK" })).toHaveClass(
-    "p-navigation__link this-link-has-a-very-nice-custom-class"
+    "p-navigation__link this-link-has-a-very-nice-custom-class",
   );
 });
 
@@ -184,12 +183,12 @@ it("can mark a nav item as selected", () => {
       ]}
       leftNavProps={{ "aria-label": "Left nav" }}
       logo={<img src="" alt="" />}
-    />
+    />,
   );
   expect(
     within(screen.getByLabelText("Left nav"))
       .getByRole("listitem")
-      .className.includes("is-selected")
+      .className.includes("is-selected"),
   ).toBe(true);
 });
 
@@ -198,18 +197,18 @@ it("displays without search", () => {
   expect(
     screen.queryByRole("button", {
       name: "Search",
-    })
+    }),
   ).not.toBeInTheDocument();
   expect(
     screen.queryByRole("listitem", {
       name: "Search",
-    })
+    }),
   ).not.toBeInTheDocument();
   expect(
-    document.querySelector(".p-navigation__search")
+    document.querySelector(".p-navigation__search"),
   ).not.toBeInTheDocument();
   expect(
-    document.querySelector(".p-navigation__search-overlay")
+    document.querySelector(".p-navigation__search-overlay"),
   ).not.toBeInTheDocument();
 });
 
@@ -219,19 +218,19 @@ it("displays with search", () => {
       logo={<img src="" alt="" />}
       searchProps={{ onSearch: jest.fn() }}
       rightNavProps={{ "aria-label": "Right nav" }}
-    />
+    />,
   );
   expect(
     within(screen.getByLabelText("Right nav")).getByRole("button", {
       name: "Search",
-    })
+    }),
   ).toBeInTheDocument();
   expect(
-    document.querySelector(".p-navigation__link--search-toggle")
+    document.querySelector(".p-navigation__link--search-toggle"),
   ).toBeInTheDocument();
   expect(document.querySelector(".p-navigation__search")).toBeInTheDocument();
   expect(
-    document.querySelector(".p-navigation__search-overlay")
+    document.querySelector(".p-navigation__search-overlay"),
   ).toBeInTheDocument();
 });
 
@@ -240,11 +239,11 @@ it("can open the search form", async () => {
     <Navigation
       logo={<img src="" alt="" />}
       searchProps={{ onSearch: jest.fn() }}
-    />
+    />,
   );
   await userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
   expect(screen.getByRole("banner").className.includes("has-search-open")).toBe(
-    true
+    true,
   );
   expect(screen.getByRole("searchbox")).toBeInTheDocument();
 });
@@ -254,7 +253,7 @@ it("focuses on the searchbox when it appears", async () => {
     <Navigation
       logo={<img src="" alt="" />}
       searchProps={{ onSearch: jest.fn() }}
-    />
+    />,
   );
   await userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
   expect(screen.getByRole("searchbox")).toHaveFocus();
@@ -265,11 +264,11 @@ it("closes the search form when the escape key is pressed", async () => {
     <Navigation
       logo={<img src="" alt="" />}
       searchProps={{ onSearch: jest.fn() }}
-    />
+    />,
   );
   await userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
   expect(screen.getByRole("banner").className.includes("has-search-open")).toBe(
-    true
+    true,
   );
   expect(screen.getByRole("searchbox")).toBeInTheDocument();
   fireEvent.keyDown(document, { key: "Escape", code: "Escape" });
@@ -282,7 +281,7 @@ it("closes the search form when opening the mobile menu", async () => {
       items={items}
       logo={<img src="" alt="" />}
       searchProps={{ onSearch: jest.fn() }}
-    />
+    />,
   );
   const banner = screen.getByRole("banner");
   // Open the search form.
@@ -298,16 +297,18 @@ it("closes the search form when clicking on the overlay", async () => {
     <Navigation
       logo={<img src="" alt="" />}
       searchProps={{ onSearch: jest.fn() }}
-    />
+    />,
   );
   const banner = screen.getByRole("banner");
   // Open the search form.
   await userEvent.click(screen.getAllByRole("button", { name: "Search" })[0]);
   expect(banner.className.includes("has-search-open")).toBe(true);
   expect(screen.getByRole("searchbox")).toBeInTheDocument();
-  await userEvent.click(
-    document.querySelector(".p-navigation__search-overlay")
-  );
+  const overlay = document.querySelector(".p-navigation__search-overlay");
+  expect(overlay).toBeInTheDocument();
+  if (overlay) {
+    await userEvent.click(overlay);
+  }
   expect(banner.className.includes("has-search-open")).toBe(false);
   expect(screen.queryByRole("searchbox")).not.toBeInTheDocument();
 });
@@ -318,7 +319,7 @@ it("closes the mobile menu when opening the search form", async () => {
       items={items}
       logo={<img src="" alt="" />}
       searchProps={{ onSearch: jest.fn() }}
-    />
+    />,
   );
   const banner = screen.getByRole("banner");
   // Open the mobile menu.
@@ -339,11 +340,11 @@ it("can open the mobile menu", async () => {
 
 it("hides the mobile menu button when there are no navigation items to display", () => {
   render(
-    <Navigation items={[]} itemsRight={[]} logo={<img src="" alt="" />} />
+    <Navigation items={[]} itemsRight={[]} logo={<img src="" alt="" />} />,
   );
   const banner = screen.getByRole("banner");
   expect(
-    within(banner).queryByRole("button", { name: "Menu" })
+    within(banner).queryByRole("button", { name: "Menu" }),
   ).not.toBeInTheDocument();
 });
 
@@ -352,7 +353,7 @@ it("closes the mobile menu when clicking on a nav link", async () => {
     <Navigation
       items={[{ label: "THIS IS A LINK", url: "/this/is/the/url" }]}
       logo={<img src="" alt="" />}
-    />
+    />,
   );
   const banner = screen.getByRole("banner");
   await userEvent.click(screen.getByRole("button", { name: "Menu" }));
@@ -366,7 +367,7 @@ it("does not close the mobile menu when clicking on a nav menu", async () => {
     <Navigation
       items={[{ items: [], label: "THIS IS A MENU" }]}
       logo={<img src="" alt="" />}
-    />
+    />,
   );
   const banner = screen.getByRole("banner");
   await userEvent.click(screen.getByRole("button", { name: "Menu" }));

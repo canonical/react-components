@@ -20,7 +20,6 @@ describe("<Spinner />", () => {
   // unit tests
   it("renders a spinner icon", () => {
     render(<Spinner />);
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".p-icon--spinner")).toBeInTheDocument();
     expect(screen.getByText("Loading")).toBeInTheDocument();
   });
@@ -31,17 +30,15 @@ describe("<Spinner />", () => {
 
     expect(screen.getByText(text)).toBeInTheDocument();
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-icon--spinner")?.textContent
+      document.querySelector(".p-icon--spinner")?.textContent,
     ).not.toContain(text);
   });
 
   it("renders Loading... for icon text if no text prop is provided", () => {
     render(<Spinner />);
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-icon--spinner")?.textContent
-    ).toBe("Loading");
+    expect(document.querySelector(".p-icon--spinner")?.textContent).toBe(
+      "Loading",
+    );
   });
 
   it("renders an assertive spinner", () => {
@@ -53,10 +50,7 @@ describe("<Spinner />", () => {
   it("renders a light spinner if given isLight prop", () => {
     render(<Spinner isLight />);
 
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-icon--spinner")
-    ).toHaveClass("is-light");
+    expect(document.querySelector(".p-icon--spinner")).toHaveClass("is-light");
   });
 
   it("renders a custom aria-label", () => {
@@ -64,7 +58,7 @@ describe("<Spinner />", () => {
 
     expect(screen.getByRole("alert")).toHaveAttribute(
       "aria-label",
-      "custom loading text"
+      "custom loading text",
     );
   });
 });

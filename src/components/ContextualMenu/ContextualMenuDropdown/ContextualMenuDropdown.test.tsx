@@ -19,10 +19,10 @@ describe("ContextualMenuDropdown ", () => {
       <ContextualMenuDropdown
         isOpen
         links={Array.from({ length: 10 }).map((_, i) => i)}
-      />
+      />,
     );
     expect(
-      document.querySelector(".p-contextual-menu__dropdown")
+      document.querySelector(".p-contextual-menu__dropdown"),
     ).not.toHaveAttribute("style");
   });
 
@@ -37,7 +37,7 @@ describe("ContextualMenuDropdown ", () => {
         links={links}
         positionNode={positionNode}
         scrollOverflow
-      />
+      />,
     );
     // Rerender the component so that the hooks run again once the elements have
     // been created in the DOM.
@@ -47,14 +47,14 @@ describe("ContextualMenuDropdown ", () => {
         links={links}
         positionNode={positionNode}
         scrollOverflow
-      />
+      />,
     );
     await waitFor(() => {
       expect(
-        document.querySelector(".p-contextual-menu__dropdown")
+        document.querySelector(".p-contextual-menu__dropdown"),
       ).toHaveAttribute(
         "style",
-        "min-height: 2rem; overflow-x: auto; max-height: 100px;"
+        "min-height: 2rem; overflow-x: auto; max-height: 100px;",
       );
     });
     positionNode.remove();
@@ -118,8 +118,8 @@ describe("ContextualMenuDropdown ", () => {
           "left",
           generateFits({
             fromLeft: { fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("right");
     });
 
@@ -129,8 +129,8 @@ describe("ContextualMenuDropdown ", () => {
           "right",
           generateFits({
             fromRight: { fitsLeft: false },
-          })
-        )
+          }),
+        ),
       ).toBe("left");
     });
 
@@ -142,8 +142,8 @@ describe("ContextualMenuDropdown ", () => {
             fromCenter: { fitsCentered: { fitsLeft: false, fitsRight: false } },
             fromLeft: { fitsRight: false },
             fromRight: { fitsLeft: false },
-          })
-        )
+          }),
+        ),
       ).toBe("center");
     });
 
@@ -154,8 +154,8 @@ describe("ContextualMenuDropdown ", () => {
           generateFits({
             fromCenter: { fitsCentered: { fitsLeft: false } },
             fromRight: { fitsLeft: false },
-          })
-        )
+          }),
+        ),
       ).toBe("left");
     });
 
@@ -166,8 +166,8 @@ describe("ContextualMenuDropdown ", () => {
           generateFits({
             fromCenter: { fitsCentered: { fitsRight: false } },
             fromLeft: { fitsRight: false },
-          })
-        )
+          }),
+        ),
       ).toBe("right");
     });
   });
@@ -196,13 +196,13 @@ describe("ContextualMenuDropdown ", () => {
           isOpen
           links={links}
           positionNode={positionNode}
-        />
+        />,
       );
 
       // get the dropdown menu dom element and set its height
       // NOTE: we can only do this after the component has been rendered at least once
-      let dropdownNode = document.querySelector(
-        ".p-contextual-menu__dropdown"
+      const dropdownNode = document.querySelector(
+        ".p-contextual-menu__dropdown",
       ) as HTMLElement;
 
       dropdownNode.getBoundingClientRect = jest
@@ -216,14 +216,14 @@ describe("ContextualMenuDropdown ", () => {
           isOpen
           links={links}
           positionNode={positionNode}
-        />
+        />,
       );
     };
 
     const assertMenuPosition = async (position: "above" | "below") => {
       await waitFor(() => {
         const dropdownNode = document.querySelector(
-          ".p-contextual-menu__dropdown"
+          ".p-contextual-menu__dropdown",
         ) as HTMLElement;
 
         let condition = expect(dropdownNode);

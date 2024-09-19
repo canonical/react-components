@@ -117,7 +117,7 @@ export type Props = PropsWithSpread<
       a: MainTableRow,
       b: MainTableRow,
       currentSortDirection: SortDirection,
-      currentSortKey: MainTableHeader["sortKey"]
+      currentSortKey: MainTableHeader["sortKey"],
     ) => -1 | 0 | 1;
     /**
      * A hidden caption to display on the table for screen readers
@@ -131,7 +131,7 @@ const updateSort = (
   setSortKey: (sortKey: MainTableHeader["sortKey"]) => void,
   setSortDirection: (direction: SortDirection) => void,
   sortKey: MainTableHeader["sortKey"],
-  sortDirection: SortDirection
+  sortDirection: SortDirection,
 ) => {
   let newDirection = null;
   if (sortDirection === "none") {
@@ -152,7 +152,7 @@ const generateHeaders = (
   headers: Props["headers"],
   sortable: Props["sortable"],
   setSortKey: (sortKey: MainTableHeader["sortKey"]) => void,
-  setSortDirection: (direction: SortDirection) => void
+  setSortDirection: (direction: SortDirection) => void,
 ) => {
   const headerItems = headers.map(({ content, sortKey, ...props }, index) => {
     let sortDirection: SortDirection;
@@ -174,7 +174,7 @@ const generateHeaders = (
                 setSortKey,
                 setSortDirection,
                 sortKey,
-                sortDirection
+                sortDirection,
               )
             : undefined
         }
@@ -205,8 +205,8 @@ const generateRows = ({
   Pick<Props, "headers" | "responsive" | "expanding">) =>
   rows.map(
     (
-      { columns, expanded, expandedContent, key, sortData, ...rowProps },
-      index
+      { columns, expanded, expandedContent, key, sortData: _, ...rowProps },
+      index,
     ) => {
       const cellItems = columns?.map(({ content, ...cellProps }, index) => {
         const headerContent = headers && headers[index]["content"];
@@ -242,7 +242,7 @@ const generateRows = ({
           )}
         </TableRow>
       );
-    }
+    },
   );
 
 const sortRows = ({
@@ -275,7 +275,7 @@ const sortRows = ({
       };
     }
     sortedRows.sort((a, b) =>
-      sortFunction(a, b, currentSortDirection, currentSortKey)
+      sortFunction(a, b, currentSortDirection, currentSortKey),
     );
   }
   return sortedRows;
@@ -327,7 +327,7 @@ const MainTable = ({
         sortable,
         sortFunction,
       }),
-    [currentSortDirection, currentSortKey, rows, sortable, sortFunction]
+    [currentSortDirection, currentSortKey, rows, sortable, sortFunction],
   );
 
   const {
@@ -365,7 +365,7 @@ const MainTable = ({
             headers,
             sortable,
             updateSort,
-            setSortDirection
+            setSortDirection,
           )}
         {
           // If the table has no rows, return empty state message

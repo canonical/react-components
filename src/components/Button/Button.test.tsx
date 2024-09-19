@@ -14,7 +14,7 @@ describe("Button ", () => {
     render(
       <Button element="a" href="http://example.com">
         Test content
-      </Button>
+      </Button>,
     );
     expect(screen.getByRole("link")).toMatchSnapshot();
   });
@@ -53,7 +53,7 @@ describe("Button ", () => {
         disabled={true}
         href="http://example.com"
         onClick={onClick}
-      />
+      />,
     );
     const button = screen.getByRole("link");
     expect(button).toHaveClass("is-disabled");
@@ -71,7 +71,7 @@ describe("Button ", () => {
         disabled={true}
         href="http://example.com"
         onClick={onClick}
-      />
+      />,
     );
     const button = screen.getByRole("link");
     const clickEvent = createEvent.click(button);
@@ -109,7 +109,7 @@ describe("Button ", () => {
   it("puts additional classes at the end", () => {
     render(<Button className="extra-class" dense />);
     expect(screen.getByRole("button").className).toEqual(
-      "p-button is-dense extra-class"
+      "p-button is-dense extra-class",
     );
   });
 
@@ -134,7 +134,7 @@ describe("Button ", () => {
     render(<Button element={Link} to="http://example.com" />);
     expect(screen.getByRole("link")).toHaveAttribute(
       "href",
-      "http://example.com"
+      "http://example.com",
     );
   });
 });

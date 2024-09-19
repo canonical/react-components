@@ -12,7 +12,7 @@ describe("TableRow", () => {
             <td></td>
           </TableRow>
         </tbody>
-      </table>
+      </table>,
     );
     expect(screen.getByRole("row")).toMatchSnapshot();
   });

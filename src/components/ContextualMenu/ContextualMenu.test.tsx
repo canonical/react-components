@@ -42,17 +42,16 @@ describe("ContextualMenu ", () => {
   it("can be disabled", () => {
     render(<ContextualMenu links={[]} toggleDisabled toggleLabel="Toggle" />);
     expect(screen.getByRole("button", { name: "Toggle" })).toHaveAttribute(
-      "aria-disabled"
+      "aria-disabled",
     );
   });
 
   it("can have a toggle button with just an icon", () => {
     render(<ContextualMenu hasToggleIcon links={[]} />);
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(
-        ".p-contextual-menu__toggle .p-contextual-menu__indicator"
-      )
+        ".p-contextual-menu__toggle .p-contextual-menu__indicator",
+      ),
     ).toBeInTheDocument();
     const toggle = screen.getByRole("button", { name: Label.Toggle });
     expect(toggle.childNodes).toHaveLength(1);
@@ -60,13 +59,12 @@ describe("ContextualMenu ", () => {
 
   it("makes the icon light if the toggle is positive or negative", () => {
     render(
-      <ContextualMenu hasToggleIcon links={[]} toggleAppearance="positive" />
+      <ContextualMenu hasToggleIcon links={[]} toggleAppearance="positive" />,
     );
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
       document.querySelector(
-        ".p-contextual-menu__toggle .p-contextual-menu__indicator"
-      )
+        ".p-contextual-menu__toggle .p-contextual-menu__indicator",
+      ),
     ).toHaveClass("is-light");
   });
 
@@ -77,7 +75,7 @@ describe("ContextualMenu ", () => {
         links={[]}
         toggleLabel="Toggle"
         toggleLabelFirst
-      />
+      />,
     );
     const toggle = screen.getByRole("button", { name: "Toggle" });
     expect(toggle.childNodes[0].textContent).toBe("Toggle");
@@ -90,7 +88,7 @@ describe("ContextualMenu ", () => {
         links={[]}
         toggleLabel="Toggle"
         toggleLabelFirst={false}
-      />
+      />,
     );
     const toggle = screen.getByRole("button", { name: "Toggle" });
     expect(toggle.childNodes[1].textContent).toBe("Toggle");
@@ -100,8 +98,7 @@ describe("ContextualMenu ", () => {
     render(<ContextualMenu links={[]} toggleLabel="Toggle" />);
     expect(screen.getByRole("button", { name: "Toggle" })).toBeInTheDocument();
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-contextual-menu__indicator")
+      document.querySelector(".p-contextual-menu__indicator"),
     ).not.toBeInTheDocument();
   });
 
@@ -114,21 +111,21 @@ describe("ContextualMenu ", () => {
   it("can not have a toggle button", () => {
     render(<ContextualMenu links={[]} />);
     expect(
-      screen.queryByRole("button", { name: Label.Toggle })
+      screen.queryByRole("button", { name: Label.Toggle }),
     ).not.toBeInTheDocument();
   });
 
   it("can use the toggle button to display the menu", async () => {
     render(<ContextualMenu links={[]} toggleLabel="Toggle" />);
     expect(
-      screen.queryByLabelText(DropdownLabel.Dropdown)
+      screen.queryByLabelText(DropdownLabel.Dropdown),
     ).not.toBeInTheDocument();
     expect(
-      screen.getByRole("button", { name: "Toggle", expanded: false })
+      screen.getByRole("button", { name: "Toggle", expanded: false }),
     ).toBeInTheDocument();
     await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
     expect(
-      screen.getByRole("button", { name: "Toggle", expanded: true })
+      screen.getByRole("button", { name: "Toggle", expanded: true }),
     ).toBeInTheDocument();
     expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
   });
@@ -145,13 +142,12 @@ describe("ContextualMenu ", () => {
 
   it("can display links in groups", () => {
     render(<ContextualMenu links={[[{ children: "Link1" }]]} visible />);
-    // eslint-disable-next-line testing-library/no-node-access
     const group = document.querySelector(
-      ".p-contextual-menu__group"
+      ".p-contextual-menu__group",
     ) as HTMLElement;
     expect(group).toBeInTheDocument();
     expect(
-      within(group).getByRole("button", { name: "Link1" })
+      within(group).getByRole("button", { name: "Link1" }),
     ).toBeInTheDocument();
   });
 
@@ -160,18 +156,17 @@ describe("ContextualMenu ", () => {
       <ContextualMenu
         links={[[{ children: "Link1" }], { children: "Link2" }]}
         visible
-      />
+      />,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     const group = document.querySelector(
-      ".p-contextual-menu__group"
+      ".p-contextual-menu__group",
     ) as HTMLElement;
     expect(group).toBeInTheDocument();
     expect(
-      within(group).getByRole("button", { name: "Link1" })
+      within(group).getByRole("button", { name: "Link1" }),
     ).toBeInTheDocument();
     expect(
-      within(group).queryByRole("button", { name: "Link2" })
+      within(group).queryByRole("button", { name: "Link2" }),
     ).not.toBeInTheDocument();
     expect(screen.getByRole("button", { name: "Link2" })).toBeInTheDocument();
   });
@@ -180,12 +175,11 @@ describe("ContextualMenu ", () => {
     render(
       <ContextualMenu visible>
         <span data-testid="content">content</span>
-      </ContextualMenu>
+      </ContextualMenu>,
     );
     expect(screen.getByTestId("content")).toBeInTheDocument();
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-contextual-menu__link")
+      document.querySelector(".p-contextual-menu__link"),
     ).not.toBeInTheDocument();
   });
 
@@ -194,7 +188,7 @@ describe("ContextualMenu ", () => {
       <ContextualMenu
         links={[{ onClick: jest.fn(), children: "Link1" }]}
         toggleLabel="Toggle"
-      />
+      />,
     );
     // Open the menu:
     await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
@@ -202,7 +196,7 @@ describe("ContextualMenu ", () => {
     // Click on an item:
     await userEvent.click(screen.getByRole("button", { name: "Link1" }));
     expect(
-      screen.queryByLabelText(DropdownLabel.Dropdown)
+      screen.queryByLabelText(DropdownLabel.Dropdown),
     ).not.toBeInTheDocument();
   });
 
@@ -217,7 +211,7 @@ describe("ContextualMenu ", () => {
       <ContextualMenu
         links={[{ children: "Link1", element: Link, to: "http://example.com" }]}
         visible
-      />
+      />,
     );
     expect(screen.getByRole("link", { name: "Link1" })).toBeInTheDocument();
   });
@@ -238,13 +232,13 @@ describe("ContextualMenu ", () => {
           appearance: "negative",
           "data-testid": "extra-prop",
         }}
-      />
+      />,
     );
     expect(screen.getByTestId("extra-prop")).toBeInTheDocument();
     expect(screen.getByTestId("extra-prop")).toHaveClass("p-button--negative");
     // Check that the props were applied to the toggle element:
     expect(screen.getByTestId("extra-prop")).toHaveClass(
-      "p-contextual-menu__toggle"
+      "p-contextual-menu__toggle",
     );
   });
 
@@ -256,14 +250,14 @@ describe("ContextualMenu ", () => {
         dropdownProps={{
           "data-testid": "extra-prop",
         }}
-      />
+      />,
     );
     // Open the menu.
     await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
     expect(screen.getByTestId("extra-prop")).toBeInTheDocument();
     // Check that the props were applied to the dropdown element:
     expect(screen.getByTestId("extra-prop")).toHaveClass(
-      "p-contextual-menu__dropdown"
+      "p-contextual-menu__dropdown",
     );
   });
 
@@ -273,7 +267,7 @@ describe("ContextualMenu ", () => {
         links={[]}
         position="right"
         toggleLabel={<span>toggleLabel component text</span>}
-      />
+      />,
     );
     expect(screen.getByText("toggleLabel component text")).toBeInTheDocument();
   });
@@ -282,7 +276,7 @@ describe("ContextualMenu ", () => {
     render(
       <ContextualMenu position="right" toggleLabel="Toggle">
         {(close: () => void) => <Button onClick={close}>child</Button>}
-      </ContextualMenu>
+      </ContextualMenu>,
     );
 
     await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
@@ -290,7 +284,7 @@ describe("ContextualMenu ", () => {
     // Click on an item:
     await userEvent.click(screen.getByRole("button", { name: "child" }));
     expect(
-      screen.queryByLabelText(DropdownLabel.Dropdown)
+      screen.queryByLabelText(DropdownLabel.Dropdown),
     ).not.toBeInTheDocument();
   });
 
@@ -298,7 +292,7 @@ describe("ContextualMenu ", () => {
     render(
       <ContextualMenu position="right" toggleLabel="Toggle">
         <span data-testid="child-span">child</span>
-      </ContextualMenu>
+      </ContextualMenu>,
     );
 
     await userEvent.click(screen.getByRole("button", { name: "Toggle" }));

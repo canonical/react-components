@@ -38,7 +38,7 @@ const NavigationMenu = ({
         "p-navigation__item--dropdown-toggle",
         {
           "is-active": isOpen,
-        }
+        },
       )}
       ref={menuRef}
     >
@@ -67,7 +67,7 @@ const NavigationMenu = ({
                 ...item,
                 className: classNames(
                   "p-navigation__dropdown-item",
-                  item.className
+                  item.className,
                 ),
               }}
             />

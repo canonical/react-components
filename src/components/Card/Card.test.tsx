@@ -12,14 +12,13 @@ describe("Card ", () => {
   it("can have a title", () => {
     render(<Card title="This is the title">Test content</Card>);
     expect(
-      screen.getByRole("group", { name: "This is the title" })
+      screen.getByRole("group", { name: "This is the title" }),
     ).toBeInTheDocument();
   });
 
   it("can display a header", () => {
     render(<Card thumbnail="test.png"></Card>);
     // Find the visible image in the DOM.
-    // eslint-disable-next-line testing-library/no-node-access
     const image = document.querySelector(".p-card__thumbnail");
     expect(image).toBeInTheDocument();
     expect(image).toHaveAttribute("src", "test.png");

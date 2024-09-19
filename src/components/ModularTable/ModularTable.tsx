@@ -41,24 +41,24 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
     /**
      * Optional argument to make the tables be sortable and use the `useSortBy` plugin.
      */
-    sortable?: Boolean;
+    sortable?: boolean;
     /**
      * This function is used to resolve any props needed for a particular column's header cell.
      */
     getHeaderProps?: (
-      header: HeaderGroup<D>
+      header: HeaderGroup<D>,
     ) => Partial<TableHeaderProps & HTMLProps<HTMLTableHeaderCellElement>>;
     /**
      * This function is used to resolve any props needed for a particular row.
      */
     getRowProps?: (
-      row: Row<D>
+      row: Row<D>,
     ) => Partial<TableRowProps & HTMLProps<HTMLTableRowElement>>;
     /**
      * This function is used to resolve any props needed for a particular cell.
      */
     getCellProps?: (
-      cell: Cell<D>
+      cell: Cell<D>,
     ) => Partial<TableCellProps & HTMLProps<HTMLTableCellElement>>;
     getRowId?: UseTableOptions<D>["getRowId"];
     /**
@@ -79,7 +79,7 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
 
 const generateCell = <D extends Record<string, unknown>>(
   cell: Cell<D>,
-  getCellProps: Props<D>["getCellProps"]
+  getCellProps: Props<D>["getCellProps"],
 ) => {
   const hasColumnIcon = cell.column.getCellIcon;
   const iconName = hasColumnIcon && cell.column.getCellIcon?.(cell);
@@ -106,7 +106,7 @@ const generateRows = <D extends Record<string, unknown>>(
   rows: Row<D>[],
   prepareRow: (row: Row<D>) => void,
   getRowProps: Props<D>["getRowProps"],
-  getCellProps: Props<D>["getCellProps"]
+  getCellProps: Props<D>["getCellProps"],
 ) => {
   let tableRows: ReactNode[] = [];
   rows.forEach((row) => {
@@ -117,11 +117,11 @@ const generateRows = <D extends Record<string, unknown>>(
     tableRows.push(
       <TableRow {...row.getRowProps(getRowProps?.(row))}>
         {row.cells.map((cell) => generateCell<D>(cell, getCellProps))}
-      </TableRow>
+      </TableRow>,
     );
     if (row.subRows?.length) {
       tableRows = tableRows.concat(
-        generateRows<D>(row.subRows, prepareRow, getRowProps, getCellProps)
+        generateRows<D>(row.subRows, prepareRow, getRowProps, getCellProps),
       );
     }
   });
@@ -205,7 +205,7 @@ function ModularTable<D extends Record<string, unknown>>({
             },
           ]
         : [],
-    [initialSortColumn, initialSortDirection]
+    [initialSortColumn, initialSortDirection],
   );
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable<D>(
@@ -218,7 +218,7 @@ function ModularTable<D extends Record<string, unknown>>({
         },
         autoResetSortBy,
       },
-      sortable ? useSortBy : undefined
+      sortable ? useSortBy : undefined,
     );
 
   const showEmpty: boolean = !!emptyMsg && (!rows || rows.length === 0);
@@ -246,10 +246,11 @@ function ModularTable<D extends Record<string, unknown>>({
   return (
     <Table {...getTableProps()} {...props}>
       <thead>
-        {headerGroups.map((headerGroup) => (
-          <TableRow {...headerGroup.getHeaderGroupProps()}>
-            {headerGroup.headers.map((column) => (
+        {headerGroups.map((headerGroup, i) => (
+          <TableRow {...headerGroup.getHeaderGroupProps()} key={i}>
+            {headerGroup.headers.map((column, j) => (
               <TableHeader
+                key={j}
                 sort={getColumnSortDirection(column)}
                 {...column.getHeaderProps([
                   {

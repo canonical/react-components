@@ -37,7 +37,7 @@ export default function CodeSnippet({
       className={classNames(
         "p-code-snippet",
         { "is-bordered": blocks.some((block) => block.content) },
-        className
+        className,
       )}
       {...props}
     >

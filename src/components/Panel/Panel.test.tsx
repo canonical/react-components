@@ -21,17 +21,17 @@ it("displays a logo", () => {
         name: "name.svg",
         nameAlt: "Name SVG",
       }}
-    />
+    />,
   );
   const link = screen.getByRole("link", { name: "Icon SVG Name SVG" });
   expect(link).toHaveAttribute("href", "http://example.com");
   expect(within(link).getByRole("img", { name: "Icon SVG" })).toHaveAttribute(
     "src",
-    "icon.svg"
+    "icon.svg",
   );
   expect(within(link).getByRole("img", { name: "Name SVG" })).toHaveAttribute(
     "src",
-    "name.svg"
+    "name.svg",
   );
 });
 
@@ -49,10 +49,10 @@ it("logo handles different components", () => {
         name: "name.svg",
         nameAlt: "Name SVG",
       }}
-    />
+    />,
   );
   expect(
-    screen.getByRole("button", { name: "Icon SVG Name SVG" })
+    screen.getByRole("button", { name: "Icon SVG Name SVG" }),
   ).toHaveAttribute("title", "http://example.com");
 });
 

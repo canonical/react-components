@@ -13,11 +13,11 @@ it("can set an appearance", () => {
   render(
     <StatusLabel appearance="caution" data-testid="StatusLabel">
       Test
-    </StatusLabel>
+    </StatusLabel>,
   );
   // Check that the wrapping element contains the default class.
   expect(screen.getByTestId("StatusLabel")).toHaveClass(
-    "p-status-label--caution"
+    "p-status-label--caution",
   );
 });
 
@@ -29,10 +29,10 @@ it("can pass additional classes", () => {
       data-testid="StatusLabel"
     >
       Test
-    </StatusLabel>
+    </StatusLabel>,
   );
   // Check that the wrapping element contains the custon class.
   expect(screen.getByTestId("StatusLabel")).toHaveClass(
-    "p-status-label--caution custom"
+    "p-status-label--caution custom",
   );
 });

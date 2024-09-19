@@ -92,19 +92,19 @@ describe("ModularTable", () => {
         initialSortColumn="disks"
         initialSortDirection="descending"
         sortable
-      />
+      />,
     );
     const tableBody = screen.getAllByRole("rowgroup")[1];
     const rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(3);
     expect(within(rowItems[0]).queryAllByRole("cell")[3]).toHaveTextContent(
-      "3"
+      "3",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[3]).toHaveTextContent(
-      "2"
+      "2",
     );
     expect(within(rowItems[2]).queryAllByRole("cell")[3]).toHaveTextContent(
-      "2"
+      "2",
     );
   });
 
@@ -136,13 +136,13 @@ describe("ModularTable", () => {
     const rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(3);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Waiting"
+      "Waiting",
     );
     expect(within(rowItems[2]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
   });
 
@@ -179,30 +179,30 @@ describe("ModularTable", () => {
     const tableBody = screen.getAllByRole("rowgroup")[1];
     let rowItems = within(tableBody).getAllByRole("row");
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Waiting"
+      "Waiting",
     );
     expect(within(rowItems[2]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Error"
+      "Error",
     );
     expect(within(rowItems[3]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
     await userEvent.click(screen.getByRole("columnheader", { name: "Cores" }));
     rowItems = within(tableBody).getAllByRole("row");
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
     expect(within(rowItems[2]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Error"
+      "Error",
     );
     expect(within(rowItems[3]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Waiting"
+      "Waiting",
     );
   });
 
@@ -215,7 +215,7 @@ describe("ModularTable", () => {
 
   it("renders empty message when data is empty", () => {
     render(
-      <ModularTable columns={columns} data={[]} emptyMsg="Nothing here" />
+      <ModularTable columns={columns} data={[]} emptyMsg="Nothing here" />,
     );
 
     const rowItems = screen.getAllByRole("row");
@@ -223,13 +223,13 @@ describe("ModularTable", () => {
     expect(
       within(rowItems[rowItems.length - 1]).getByRole("gridcell", {
         name: "Nothing here",
-      })
+      }),
     ).toBeInTheDocument();
   });
 
   it("renders a row with footer content", () => {
     render(
-      <ModularTable columns={columns} data={data} footer="This is a footer" />
+      <ModularTable columns={columns} data={data} footer="This is a footer" />,
     );
 
     const rowItems = screen.getAllByRole("row");
@@ -237,7 +237,7 @@ describe("ModularTable", () => {
     expect(
       within(rowItems[rowItems.length - 1]).getByRole("gridcell", {
         name: "This is a footer",
-      })
+      }),
     ).toBeInTheDocument();
   });
 
@@ -258,11 +258,11 @@ describe("ModularTable", () => {
               ? "This is a cell with custom label"
               : undefined,
         })}
-      />
+      />,
     );
 
     expect(
-      screen.getByRole("cell", { name: "This is a cell with custom label" })
+      screen.getByRole("cell", { name: "This is a cell with custom label" }),
     ).toBeInTheDocument();
   });
 
@@ -274,7 +274,7 @@ describe("ModularTable", () => {
         getCellProps={({ column }) => ({
           role: column.id === "status" ? "rowheader" : undefined,
         })}
-      />
+      />,
     );
     const tableBody = screen.getAllByRole("rowgroup")[1];
     const rowItems = within(tableBody).getAllByRole("row");
@@ -294,13 +294,13 @@ describe("ModularTable", () => {
           "aria-label":
             row.values.status === "Idle" ? "Custom idle row label" : undefined,
         })}
-      />
+      />,
     );
     const tableBody = screen.getAllByRole("rowgroup")[1];
     expect(
       within(tableBody).getByRole("row", {
         name: "Custom idle row label",
-      })
+      }),
     ).toBeInTheDocument();
   });
 
@@ -347,33 +347,33 @@ describe("ModularTable", () => {
     let rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(2);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
     await userEvent.click(screen.getByRole("columnheader", { name: "Cores" }));
     rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(2);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
     await userEvent.click(
-      screen.getByRole("button", { name: "Change table data" })
+      screen.getByRole("button", { name: "Change table data" }),
     );
     rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(3);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Error"
+      "Error",
     );
     expect(within(rowItems[2]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
   });
 
@@ -396,33 +396,33 @@ describe("ModularTable", () => {
 
     expect(screen.getAllByRole("columnheader")).toHaveLength(2);
     expect(
-      screen.getByRole("columnheader", { name: "Status" })
+      screen.getByRole("columnheader", { name: "Status" }),
     ).toHaveAttribute("aria-sort", "none");
     expect(
-      screen.getByRole("columnheader", { name: "Not Sortable" })
+      screen.getByRole("columnheader", { name: "Not Sortable" }),
     ).not.toHaveAttribute("aria-sort");
 
     const tableBody = screen.getAllByRole("rowgroup")[1];
     let rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(2);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
 
     await userEvent.click(
-      screen.getByRole("columnheader", { name: "Not Sortable" })
+      screen.getByRole("columnheader", { name: "Not Sortable" }),
     );
 
     rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(2);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
   });
 
@@ -458,10 +458,10 @@ describe("ModularTable", () => {
     let rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(2);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
 
     await userEvent.click(header[1]);
@@ -469,10 +469,10 @@ describe("ModularTable", () => {
     rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(2);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
 
     await userEvent.click(header[2]);
@@ -480,10 +480,10 @@ describe("ModularTable", () => {
     rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(2);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
   });
 
@@ -510,21 +510,21 @@ describe("ModularTable", () => {
 
     expect(screen.getAllByRole("columnheader")).toHaveLength(2);
     expect(
-      screen.getByRole("columnheader", { name: "Status" })
+      screen.getByRole("columnheader", { name: "Status" }),
     ).toHaveAttribute("aria-sort", "none");
     expect(screen.getByRole("columnheader", { name: "0" })).toHaveAttribute(
       "aria-sort",
-      "none"
+      "none",
     );
 
     const tableBody = screen.getAllByRole("rowgroup")[1];
     let rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(2);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
 
     await userEvent.click(screen.getByRole("columnheader", { name: "0" }));
@@ -532,10 +532,10 @@ describe("ModularTable", () => {
     rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(2);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
   });
 
@@ -562,21 +562,21 @@ describe("ModularTable", () => {
 
     expect(screen.getAllByRole("columnheader")).toHaveLength(2);
     expect(
-      screen.getByRole("columnheader", { name: "Status" })
+      screen.getByRole("columnheader", { name: "Status" }),
     ).toHaveAttribute("aria-sort", "none");
     expect(screen.getByRole("columnheader", { name: "JSX" })).toHaveAttribute(
       "aria-sort",
-      "none"
+      "none",
     );
 
     const tableBody = screen.getAllByRole("rowgroup")[1];
     let rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(2);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
 
     await userEvent.click(screen.getByRole("columnheader", { name: "JSX" }));
@@ -584,10 +584,10 @@ describe("ModularTable", () => {
     rowItems = within(tableBody).getAllByRole("row");
     expect(rowItems).toHaveLength(2);
     expect(within(rowItems[0]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Ready"
+      "Ready",
     );
     expect(within(rowItems[1]).queryAllByRole("cell")[0]).toHaveTextContent(
-      "Idle"
+      "Idle",
     );
   });
 });

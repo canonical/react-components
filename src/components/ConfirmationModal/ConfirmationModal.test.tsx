@@ -13,7 +13,7 @@ describe("ConfirmationModal ", () => {
         onConfirm={jest.fn()}
       >
         Test cancel button label
-      </ConfirmationModal>
+      </ConfirmationModal>,
     );
     expect(container.innerHTML).toContain("Go back");
     expect(container.innerHTML).not.toContain("Cancel");
@@ -27,7 +27,7 @@ describe("ConfirmationModal ", () => {
         onConfirm={jest.fn()}
       >
         Test confirm button appearance
-      </ConfirmationModal>
+      </ConfirmationModal>,
     );
     expect(screen.getByText("Proceed")).toHaveClass("p-button--positive");
   });
@@ -40,7 +40,7 @@ describe("ConfirmationModal ", () => {
         onConfirm={jest.fn()}
       >
         Test confirm extra
-      </ConfirmationModal>
+      </ConfirmationModal>,
     );
     expect(screen.getByTestId("extraElement")).toBeInTheDocument();
   });
@@ -50,7 +50,7 @@ describe("ConfirmationModal ", () => {
     render(
       <ConfirmationModal confirmButtonLabel="Proceed" onConfirm={onConfirm}>
         Test confirm button click
-      </ConfirmationModal>
+      </ConfirmationModal>,
     );
     await userEvent.click(screen.getByText("Proceed"));
     expect(onConfirm).toHaveBeenCalled();
@@ -67,7 +67,7 @@ describe("ConfirmationModal ", () => {
         >
           Test click propagation
         </ConfirmationModal>
-      </div>
+      </div>,
     );
 
     await userEvent.click(screen.getByText("Go back"));
@@ -86,7 +86,7 @@ describe("ConfirmationModal ", () => {
         >
           Test click propagation
         </ConfirmationModal>
-      </div>
+      </div>,
     );
 
     await userEvent.click(screen.getByText("Go back"));
@@ -100,7 +100,7 @@ describe("ConfirmationModal ", () => {
         <ConfirmationModal confirmButtonLabel="Proceed" onConfirm={jest.fn()}>
           Test click propagation
         </ConfirmationModal>
-      </div>
+      </div>,
     );
 
     await userEvent.click(screen.getByText("Proceed"));
@@ -118,7 +118,7 @@ describe("ConfirmationModal ", () => {
         >
           Test click propagation
         </ConfirmationModal>
-      </div>
+      </div>,
     );
 
     await userEvent.click(screen.getByText("Proceed"));
@@ -139,15 +139,15 @@ describe("ConfirmationModal ", () => {
         onConfirm={jest.fn()}
       >
         Test
-      </ConfirmationModal>
+      </ConfirmationModal>,
     );
     expect(screen.getByRole("button", { name: "cancel" })).toHaveAttribute(
       "type",
-      "button"
+      "button",
     );
     expect(screen.getByRole("button", { name: "submit" })).toHaveAttribute(
       "type",
-      "submit"
+      "submit",
     );
   });
 });

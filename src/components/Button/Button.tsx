@@ -94,7 +94,7 @@ const Button = <P,>({
       "is-inline": inline,
       "is-small": small,
     },
-    className
+    className,
   );
   const onClickDisabled = (e: MouseEvent) => e.preventDefault();
 

@@ -15,7 +15,7 @@ describe("EmptyState ", () => {
       <EmptyState
         title="Test title"
         image={<img alt="pic" src="path/to/image" />}
-      />
+      />,
     );
     expect(screen.getByRole("img")).toHaveAttribute("src", "path/to/image");
   });
@@ -24,7 +24,7 @@ describe("EmptyState ", () => {
     render(
       <EmptyState title="Test title" image={<img alt="" src="" />}>
         Empty
-      </EmptyState>
+      </EmptyState>,
     );
     expect(screen.getByText("Empty")).toBeInTheDocument();
   });
@@ -38,7 +38,7 @@ describe("EmptyState ", () => {
         data-testid="wrapper"
       >
         Empty
-      </EmptyState>
+      </EmptyState>,
     );
     expect(screen.getByTestId("wrapper")).toHaveClass("extra-class");
   });

@@ -82,7 +82,7 @@ export type Props = {
 
 const getPositionStyle = (
   pos: Position,
-  wrapperNode: HTMLElement
+  wrapperNode: HTMLElement,
 ): PositionStyle => {
   if (!wrapperNode) {
     return null;
@@ -128,7 +128,7 @@ const getPositionStyle = (
 
 export const adjustForWindow = (
   position: Position,
-  fitsWindow: WindowFitment
+  fitsWindow: WindowFitment,
 ): Position => {
   let newPosition: string = position;
   if (!fitsWindow.fromLeft.fitsLeft && newPosition === "left") {
@@ -209,7 +209,7 @@ const Tooltip = ({
   });
   const tooltipId = useId();
   const [timer, setTimer] = useState<ReturnType<typeof setTimeout> | null>(
-    null
+    null,
   );
   const cancelableClosePortal = useCallback(() => {
     clearTimeout(timer);
@@ -238,7 +238,7 @@ const Tooltip = ({
     (fitsWindow) => {
       setAdjustedPosition(adjustForWindow(position, fitsWindow));
     },
-    [setAdjustedPosition, position]
+    [setAdjustedPosition, position],
   );
 
   // Handle mouse events.
@@ -247,7 +247,7 @@ const Tooltip = ({
     mouseHandler,
     "mousemove",
     true,
-    followMouse && isOpen
+    followMouse && isOpen,
   );
 
   // Handle adjusting the position of the tooltip so that it remains on screen.
@@ -257,7 +257,7 @@ const Tooltip = ({
     onUpdateWindowFitment,
     20,
     isOpen,
-    autoAdjust && followMouse
+    autoAdjust && followMouse,
   );
 
   const handleKeyPress = useCallback(
@@ -266,7 +266,7 @@ const Tooltip = ({
         cancelableClosePortal();
       }
     },
-    [cancelableClosePortal]
+    [cancelableClosePortal],
   );
 
   useEffect(() => {
@@ -333,7 +333,7 @@ const Tooltip = ({
                 ? React.cloneElement(child, {
                     "aria-describedby": isOpen ? tooltipId : undefined,
                   } as React.HTMLAttributes<HTMLElement>)
-                : child
+                : child,
             )}
           </span>
           {isOpen ? (
@@ -342,7 +342,7 @@ const Tooltip = ({
                 className={classNames(
                   `p-tooltip--${adjustedPosition}`,
                   "is-detached",
-                  tooltipClassName
+                  tooltipClassName,
                 )}
                 data-testid="tooltip-portal"
                 style={positionStyle as React.CSSProperties}

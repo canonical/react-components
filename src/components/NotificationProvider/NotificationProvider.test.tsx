@@ -28,7 +28,7 @@ describe("NotificationProvider", () => {
               label: "Retry",
               onClick: handleRetry,
             },
-          ]
+          ],
         );
 
       return (
@@ -49,7 +49,7 @@ describe("NotificationProvider", () => {
             <NotificationConsumer />
           </div>
         </NotificationProvider>
-      </div>
+      </div>,
     );
 
     const clickBtn = async (testId: string) =>

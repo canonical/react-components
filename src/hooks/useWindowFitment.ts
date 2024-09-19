@@ -119,7 +119,7 @@ export const useWindowFitment = (
   callback: (fitsWindow: WindowFitment) => void,
   spacer = 0,
   shouldCheck = true,
-  fromMouse = false
+  fromMouse = false,
 ): void => {
   const htmlRef = useRef<HTMLElement>(document.querySelector("html"));
 
@@ -210,7 +210,7 @@ export const useWindowFitment = (
         });
       }
     },
-    [shouldCheck, targetNode, callback, spacer, fromMouse, referenceNode]
+    [shouldCheck, targetNode, callback, spacer, fromMouse, referenceNode],
   );
 
   useListener(window, update, "resize", true, shouldCheck && !fromMouse);
@@ -222,7 +222,7 @@ export const useWindowFitment = (
     update,
     "mousemove",
     true,
-    fromMouse && shouldCheck
+    fromMouse && shouldCheck,
   );
 
   useEffect(() => {

@@ -30,12 +30,12 @@ export type Props = PropsWithSpread<
      * Function for handling chip div click event.
      */
     onClick?: (
-      event: MouseEvent<HTMLButtonElement> | { lead: string; value: string }
+      event: MouseEvent<HTMLButtonElement> | { lead: string; value: string },
     ) => void;
     /**
      * Function for handling dismissing a chip.
      */
-    onDismiss?: () => void;
+    onDismiss?: (event: MouseEvent<HTMLButtonElement>) => void;
     /**
      * Whether the chip is selected.
      */
@@ -103,7 +103,7 @@ const Chip = ({
       [`p-chip--${appearance}`]: !!appearance,
       "p-chip": !appearance,
     },
-    props.className
+    props.className,
   );
 
   if (onDismiss) {

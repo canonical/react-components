@@ -102,7 +102,7 @@ const generateError = (
   error: Props["error"],
   caution: Props["caution"],
   success: Props["success"],
-  validationId: Props["validationId"]
+  validationId: Props["validationId"],
 ) => {
   if (!error && !caution && !success) {
     return null;
@@ -119,7 +119,7 @@ const generateLabel = (
   required: Props["required"],
   label: Props["label"],
   labelClassName: Props["labelClassName"],
-  stacked: Props["stacked"]
+  stacked: Props["stacked"],
 ) => {
   if (!label) {
     return null;
@@ -195,7 +195,7 @@ const Field = ({
     required,
     label,
     labelClassName,
-    stacked
+    stacked,
   );
 
   const content = generateContent({

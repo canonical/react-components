@@ -22,7 +22,7 @@ describe("Accordion", () => {
             content: <>More test content</>,
           },
         ]}
-      />
+      />,
     );
     expect(screen.getByRole("tablist")).toMatchSnapshot();
   });
@@ -37,11 +37,11 @@ describe("Accordion", () => {
           },
         ]}
         titleElement="h4"
-      />
+      />,
     );
     // Check for the specific element as defined in the titleElement prop.
     expect(
-      within(screen.getByRole("listitem")).getByRole("heading").tagName
+      within(screen.getByRole("listitem")).getByRole("heading").tagName,
     ).toBe("H4");
   });
 
@@ -60,7 +60,7 @@ describe("Accordion", () => {
             content: <>More test content</>,
           },
         ]}
-      />
+      />,
     );
     const tab = screen.getByRole("tab", { name: "Advanced topics" });
     await userEvent.click(tab);
@@ -86,7 +86,7 @@ describe("Accordion", () => {
             key: "networking",
           },
         ]}
-      />
+      />,
     );
     expect(screen.getByRole("tabpanel", { name: "Networking" })).toBeVisible();
   });

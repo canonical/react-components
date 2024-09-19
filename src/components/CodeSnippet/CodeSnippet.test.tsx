@@ -13,7 +13,7 @@ describe("CodeSnippet ", () => {
   it("renders title for a code block", () => {
     render(<CodeSnippet blocks={[{ title: "Title", code: "Test" }]} />);
     expect(screen.getByRole("heading", { name: "Title" })).toHaveClass(
-      "p-code-snippet__title"
+      "p-code-snippet__title",
     );
   });
 
@@ -24,7 +24,7 @@ describe("CodeSnippet ", () => {
           { title: "Title", code: "Test" },
           { title: "Title 2", code: "Test 2" },
         ]}
-      />
+      />,
     );
     expect(screen.getByText("Test")).toBeInTheDocument();
     expect(screen.getByText("Test 2")).toBeInTheDocument();
@@ -43,11 +43,10 @@ describe("CodeSnippet ", () => {
             code: multilineCode,
           },
         ]}
-      />
+      />,
     );
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-code-snippet__block--numbered")
+      document.querySelector(".p-code-snippet__block--numbered"),
     ).toBeInTheDocument();
     expect(screen.getByText("Test line 1;")).toBeInTheDocument();
     expect(screen.getByText("Test line 2;")).toBeInTheDocument();
@@ -57,7 +56,7 @@ describe("CodeSnippet ", () => {
   it("renders line numbers when an array is passed in", () => {
     const multilineCode = [
       "Test line 1;",
-      <strong>Test line 2;</strong>,
+      <strong key="strong">Test line 2;</strong>,
       "Test line 3;",
     ];
 
@@ -69,16 +68,12 @@ describe("CodeSnippet ", () => {
             code: multilineCode,
           },
         ]}
-      />
+      />,
     );
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-code-snippet__block--numbered")
+      document.querySelector(".p-code-snippet__block--numbered"),
     ).toBeInTheDocument();
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelectorAll(".p-code-snippet__line")
-    ).toHaveLength(3);
+    expect(document.querySelectorAll(".p-code-snippet__line")).toHaveLength(3);
     expect(screen.getByText("Test line 1;")).toBeInTheDocument();
     expect(screen.getByText("Test line 2;")).toBeInTheDocument();
     expect(screen.getByText("Test line 3;")).toBeInTheDocument();
@@ -96,11 +91,11 @@ describe("CodeSnippet ", () => {
             ),
           },
         ]}
-      />
+      />,
     );
     expect(screen.getByTestId("jsx-content")).toBeInTheDocument();
     expect(
-      screen.getByRole("link", { name: "functionCall()" })
+      screen.getByRole("link", { name: "functionCall()" }),
     ).toBeInTheDocument();
   });
 
@@ -110,11 +105,10 @@ describe("CodeSnippet ", () => {
         blocks={[
           { appearance: CodeSnippetBlockAppearance.LINUX_PROMPT, code: "Test" },
         ]}
-      />
+      />,
     );
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-code-snippet__block--icon")
+      document.querySelector(".p-code-snippet__block--icon"),
     ).toBeInTheDocument();
   });
 
@@ -127,11 +121,10 @@ describe("CodeSnippet ", () => {
             code: "Test",
           },
         ]}
-      />
+      />,
     );
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-code-snippet__block--icon.is-windows-prompt")
+      document.querySelector(".p-code-snippet__block--icon.is-windows-prompt"),
     ).toBeInTheDocument();
   });
 
@@ -139,17 +132,15 @@ describe("CodeSnippet ", () => {
     render(
       <CodeSnippet
         blocks={[{ appearance: CodeSnippetBlockAppearance.URL, code: "Test" }]}
-      />
+      />,
     );
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-code-snippet__block--icon.is-url")
+      document.querySelector(".p-code-snippet__block--icon.is-url"),
     ).toBeInTheDocument();
   });
 
   it("renders code block with line wrapping", () => {
     render(<CodeSnippet blocks={[{ wrapLines: true, code: "Test" }]} />);
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".is-wrapped")).toBeInTheDocument();
   });
 
@@ -173,7 +164,7 @@ describe("CodeSnippet ", () => {
             ],
           },
         ]}
-      />
+      />,
     );
     expect(screen.getByRole("combobox")).toBeInTheDocument();
     expect(screen.getAllByRole("option")[0]).toHaveValue("js");
@@ -194,11 +185,9 @@ describe("CodeSnippet ", () => {
             ),
           },
         ]}
-      />
+      />,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".test")).toBeInTheDocument();
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".is-bordered")).toBeInTheDocument();
   });
 
@@ -216,7 +205,7 @@ describe("CodeSnippet ", () => {
           },
         ]}
         data-testid="testID"
-      />
+      />,
     );
     expect(screen.getByTestId("testID")).toBeInTheDocument();
   });

@@ -67,7 +67,7 @@ const generateItem = <L = SideNavigationLinkDefaultElement,>(
   item: NavItem<L>,
   index: number,
   linkComponent?: Props<L>["linkComponent"],
-  dark?: boolean
+  dark?: boolean,
 ) => {
   if (isReactNode(item)) {
     return <SideNavigationItem key={index}>{item}</SideNavigationItem>;
@@ -97,7 +97,7 @@ const generateItems = <L = SideNavigationLinkDefaultElement,>(
   groups: (NavItemGroup<L> | null)[] | (NavGroup<L> | null)[] | null,
   listClassName?: string,
   linkComponent?: SideNavigationLinkProps["component"],
-  dark?: boolean
+  dark?: boolean,
 ) => {
   return groups
     ?.filter(Boolean)
@@ -115,7 +115,7 @@ const generateItems = <L = SideNavigationLinkDefaultElement,>(
           className={classNames(
             "p-side-navigation__list",
             listClassName,
-            "className" in group ? group.className : null
+            "className" in group ? group.className : null,
           )}
           key={g}
         >
@@ -128,12 +128,12 @@ const generateItems = <L = SideNavigationLinkDefaultElement,>(
 };
 
 const getHasIcons = <L = SideNavigationLinkDefaultElement,>(
-  groups: (NavItemGroup<L> | null)[] | (NavGroup<L> | null)[]
+  groups: (NavItemGroup<L> | null)[] | (NavGroup<L> | null)[],
 ) =>
   groups?.some((group) =>
     (group && "items" in group ? group.items : group)?.some((item) =>
-      isReactNode(item) ? false : item && "icon" in item && !!item.icon
-    )
+      isReactNode(item) ? false : item && "icon" in item && !!item.icon,
+    ),
   );
 
 /**

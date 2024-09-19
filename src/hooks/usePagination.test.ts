@@ -4,7 +4,7 @@ import { usePagination } from "./usePagination";
 
 it("returns correct data", () => {
   const { result } = renderHook(() =>
-    usePagination([1, 2, 3], { itemsPerPage: 2 })
+    usePagination([1, 2, 3], { itemsPerPage: 2 }),
   );
   const { pageData, currentPage, paginate, itemsPerPage, totalItems } =
     result.current;
@@ -17,7 +17,7 @@ it("returns correct data", () => {
 
 it("correctly sets the initial page", () => {
   const { result } = renderHook(() =>
-    usePagination([1, 2], { itemsPerPage: 1, initialPage: 2 })
+    usePagination([1, 2], { itemsPerPage: 1, initialPage: 2 }),
   );
   const { pageData, currentPage } = result.current;
   expect(currentPage).toBe(2);
@@ -33,7 +33,7 @@ it("goes to the last available page if the current page is out of bounds", () =>
         data: [1, 2, 3],
         options,
       },
-    }
+    },
   );
   expect(result.current.currentPage).toBe(3);
   expect(result.current.pageData).toEqual([3]);
@@ -51,7 +51,7 @@ it("go to the initial page if autoResetPage is true", () => {
         data: [1, 2, 3],
         options,
       },
-    }
+    },
   );
   expect(result.current.currentPage).toBe(3);
   expect(result.current.pageData).toEqual([3]);

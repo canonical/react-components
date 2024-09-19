@@ -10,7 +10,7 @@ describe("FormikField", () => {
     render(
       <Formik initialValues={{}} onSubmit={jest.fn()}>
         <FormikField component={Component} name="username" />
-      </Formik>
+      </Formik>,
     );
 
     expect(screen.getByRole("combobox")).toBeInTheDocument();
@@ -26,7 +26,7 @@ describe("FormikField", () => {
         onSubmit={jest.fn()}
       >
         <FormikField name="username" />
-      </Formik>
+      </Formik>,
     );
 
     expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage("Uh oh!");
@@ -41,7 +41,7 @@ describe("FormikField", () => {
         onSubmit={jest.fn()}
       >
         <FormikField displayError={false} name="username" />
-      </Formik>
+      </Formik>,
     );
 
     expect(screen.getByRole("textbox")).not.toHaveAccessibleErrorMessage();

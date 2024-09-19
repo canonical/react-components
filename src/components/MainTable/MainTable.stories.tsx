@@ -226,7 +226,7 @@ export const Sortable: Story = {
 export const Expanding: Story = {
   render: () => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    let [expandedRow, setExpandedRow] = useState(1);
+    const [expandedRow, setExpandedRow] = useState(1);
 
     return (
       <MainTable

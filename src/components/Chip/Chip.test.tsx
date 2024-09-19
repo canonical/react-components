@@ -18,7 +18,7 @@ describe("Chip ", () => {
   it("displays the value", () => {
     render(<Chip data-testid="chip" value="positive" />);
     expect(
-      within(screen.getByTestId("chip")).getByText("positive")
+      within(screen.getByTestId("chip")).getByText("positive"),
     ).toBeInTheDocument();
   });
 
@@ -32,25 +32,35 @@ describe("Chip ", () => {
   it("displays the dismiss action", () => {
     const onDismiss = jest.fn();
     render(
-      <Chip data-testid="chip" lead="Owner" value="Bob" onDismiss={onDismiss} />
+      <Chip
+        data-testid="chip"
+        lead="Owner"
+        value="Bob"
+        onDismiss={onDismiss}
+      />,
     );
     expect(
       within(screen.getByTestId("chip")).getByRole("button", {
         name: Label.Dismiss,
-      })
+      }),
     ).toBeInTheDocument();
   });
 
   it("calls onDismiss when clicked", async () => {
     const onDismiss = jest.fn();
     render(
-      <Chip data-testid="chip" lead="Owner" value="Bob" onDismiss={onDismiss} />
+      <Chip
+        data-testid="chip"
+        lead="Owner"
+        value="Bob"
+        onDismiss={onDismiss}
+      />,
     );
     const dismissButton = within(screen.getByTestId("chip")).getByRole(
       "button",
       {
         name: Label.Dismiss,
-      }
+      },
     );
     await userEvent.click(dismissButton);
     expect(onDismiss).toHaveBeenCalledTimes(1);
@@ -59,7 +69,7 @@ describe("Chip ", () => {
   it("calls onKeyDown when key pressed", async () => {
     const onClick = jest.fn();
     render(
-      <Chip data-testid="chip" lead="Owner" value="Bob" onClick={onClick} />
+      <Chip data-testid="chip" lead="Owner" value="Bob" onClick={onClick} />,
     );
     const chip = screen.getByTestId("chip");
     await userEvent.type(chip, "{enter}");
@@ -69,7 +79,7 @@ describe("Chip ", () => {
   it("calls onClick when clicking on the chip", async () => {
     const onClick = jest.fn();
     render(
-      <Chip data-testid="chip" lead="Owner" value="Bob" onClick={onClick} />
+      <Chip data-testid="chip" lead="Owner" value="Bob" onClick={onClick} />,
     );
     await userEvent.click(screen.getByTestId("chip"));
     expect(onClick).toHaveBeenCalledTimes(1);
@@ -92,7 +102,7 @@ describe("Chip ", () => {
 
   it("renders information chip", () => {
     render(
-      <Chip data-testid="chip" appearance="information" value="information" />
+      <Chip data-testid="chip" appearance="information" value="information" />,
     );
     expect(screen.getByTestId("chip")).toHaveClass("p-chip--information");
   });
@@ -105,7 +115,7 @@ describe("Chip ", () => {
         lead="Owner"
         value="Bob"
         disabled
-      />
+      />,
     );
     expect(screen.getByTestId("chip")).toBeDisabled();
   });
@@ -117,7 +127,7 @@ describe("Chip ", () => {
         className="extra-extra"
         lead="Owner"
         value="Bob"
-      />
+      />,
     );
     expect(screen.getByTestId("chip")).toHaveClass("extra-extra");
   });
@@ -130,7 +140,7 @@ describe("Chip ", () => {
         lead="Owner"
         onDismiss={jest.fn()}
         value="Bob"
-      />
+      />,
     );
     expect(screen.getByTestId("chip")).toHaveClass("extra-extra");
   });
@@ -140,7 +150,7 @@ describe("Chip ", () => {
     render(
       <form onSubmit={onSubmit}>
         <Chip data-testid="chip" lead="Owner" value="Bob" />
-      </form>
+      </form>,
     );
     await userEvent.click(screen.getByTestId("chip"));
     expect(onSubmit).not.toHaveBeenCalled();
@@ -156,13 +166,13 @@ describe("Chip ", () => {
           onDismiss={jest.fn()}
           value="Bob"
         />
-      </form>
+      </form>,
     );
     const dismissButton = within(screen.getByTestId("chip")).getByRole(
       "button",
       {
         name: Label.Dismiss,
-      }
+      },
     );
     await userEvent.click(dismissButton);
     expect(onSubmit).not.toHaveBeenCalled();

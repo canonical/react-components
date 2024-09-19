@@ -8,7 +8,7 @@ describe("Field ", () => {
     render(
       <Field forId="test-id" label="Test label" data-testid="field">
         Test content
-      </Field>
+      </Field>,
     );
     expect(screen.getByTestId("field")).toMatchSnapshot();
   });
@@ -24,10 +24,10 @@ describe("Field ", () => {
     render(
       <Field caution="Are you sure?" validationId="id-1" data-testid="field">
         <input aria-errormessage="id-1" aria-invalid="true" />
-      </Field>
+      </Field>,
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
-      "Are you sure?"
+      "Are you sure?",
     );
     expect(screen.getByTestId("field")).toHaveClass("is-caution");
   });
@@ -40,10 +40,10 @@ describe("Field ", () => {
         data-testid="field"
       >
         <input aria-errormessage="id-1" aria-invalid="true" />
-      </Field>
+      </Field>,
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
-      "Are you sure?"
+      "Are you sure?",
     );
     expect(screen.getByTestId("field")).toHaveClass("is-caution");
   });
@@ -52,10 +52,10 @@ describe("Field ", () => {
     render(
       <Field error="You can't do that" validationId="id-1" data-testid="field">
         <input aria-errormessage="id-1" aria-invalid="true" />
-      </Field>
+      </Field>,
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
-      "You can't do that"
+      "You can't do that",
     );
     expect(screen.getByTestId("field")).toHaveClass("is-error");
   });
@@ -68,10 +68,10 @@ describe("Field ", () => {
         data-testid="field"
       >
         <input aria-errormessage="id-1" aria-invalid="true" />
-      </Field>
+      </Field>,
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleErrorMessage(
-      "You can't do that"
+      "You can't do that",
     );
     expect(screen.getByTestId("field")).toHaveClass("is-error");
   });
@@ -80,10 +80,10 @@ describe("Field ", () => {
     render(
       <Field success="You did it!" validationId="id-1" data-testid="field">
         <input aria-describedby="id-1" />
-      </Field>
+      </Field>,
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
-      "You did it!"
+      "You did it!",
     );
     expect(screen.getByTestId("field")).toHaveClass("is-success");
   });
@@ -96,10 +96,10 @@ describe("Field ", () => {
         data-testid="field"
       >
         <input aria-describedby="id-1" />
-      </Field>
+      </Field>,
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
-      "You did it!"
+      "You did it!",
     );
     expect(screen.getByTestId("field")).toHaveClass("is-success");
   });
@@ -108,10 +108,10 @@ describe("Field ", () => {
     render(
       <Field help="This is how you do it" helpId="id-1">
         <input aria-describedby="id-1" />
-      </Field>
+      </Field>,
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
-      "This is how you do it"
+      "This is how you do it",
     );
   });
 
@@ -119,10 +119,10 @@ describe("Field ", () => {
     render(
       <Field help={<span>This is how you do it</span>} helpId="id-1">
         <input aria-describedby="id-1" />
-      </Field>
+      </Field>,
     );
     expect(screen.getByRole("textbox")).toHaveAccessibleDescription(
-      "This is how you do it"
+      "This is how you do it",
     );
   });
 
@@ -133,14 +133,13 @@ describe("Field ", () => {
         label="Test label"
         labelClassName="label-node"
         data-testid="field"
-      />
+      />,
     );
     const field = screen.getByTestId("field");
     expect(field.childNodes[0]).toHaveClass("label-node");
     // The label should not be inside the control.
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-form__control .p-form__label")
+      document.querySelector(".p-form__control .p-form__label"),
     ).not.toBeInTheDocument();
   });
 
@@ -151,8 +150,7 @@ describe("Field ", () => {
     expect(field.childNodes[0]).not.toHaveClass("label-node");
     // The label should be inside the control.
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-form__control .p-form__label")
+      document.querySelector(".p-form__control .p-form__label"),
     ).toBeInTheDocument();
   });
 
@@ -174,14 +172,10 @@ describe("Field ", () => {
   it("can be stacked", () => {
     render(<Field stacked={true} label="Test label" data-testid="field" />);
     // The Label should be inside a col-4.
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".col-4 .p-form__label")
-    ).toBeInTheDocument();
+    expect(document.querySelector(".col-4 .p-form__label")).toBeInTheDocument();
     // The control should be inside a col-8.
     expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".col-8 .p-form__control")
+      document.querySelector(".col-8 .p-form__control"),
     ).toBeInTheDocument();
     expect(screen.getByTestId("field")).toHaveClass("row");
   });

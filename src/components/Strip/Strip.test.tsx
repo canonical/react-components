@@ -13,7 +13,7 @@ describe("Strip ", () => {
     render(
       <Strip data-testid="strip" background="test.png">
         Test content
-      </Strip>
+      </Strip>,
     );
     expect(screen.getByTestId("strip")).toHaveStyle({
       backgroundImage: "url('test.png')",
@@ -24,7 +24,7 @@ describe("Strip ", () => {
     render(
       <Strip data-testid="strip" type="dark">
         Test content
-      </Strip>
+      </Strip>,
     );
     expect(screen.getByTestId("strip")).toHaveClass("p-strip--dark");
   });
@@ -33,7 +33,7 @@ describe("Strip ", () => {
     render(
       <Strip data-testid="strip" element="section">
         Test content
-      </Strip>
+      </Strip>,
     );
     expect(screen.getByTestId("strip").nodeName).toEqual("SECTION");
   });
@@ -42,7 +42,7 @@ describe("Strip ", () => {
     render(
       <Strip data-testid="strip" bordered={true}>
         Test content
-      </Strip>
+      </Strip>,
     );
     expect(screen.getByTestId("strip")).toHaveClass("is-bordered");
   });
@@ -51,7 +51,7 @@ describe("Strip ", () => {
     render(
       <Strip data-testid="strip" dark={true}>
         Test content
-      </Strip>
+      </Strip>,
     );
     expect(screen.getByTestId("strip")).toHaveClass("is-dark");
   });
@@ -60,7 +60,7 @@ describe("Strip ", () => {
     render(
       <Strip data-testid="strip" deep={true}>
         Test content
-      </Strip>
+      </Strip>,
     );
     expect(screen.getByTestId("strip")).toHaveClass("is-deep");
   });
@@ -69,7 +69,7 @@ describe("Strip ", () => {
     render(
       <Strip data-testid="strip" light={true}>
         Test content
-      </Strip>
+      </Strip>,
     );
     expect(screen.getByTestId("strip")).toHaveClass("is-light");
   });
@@ -78,7 +78,7 @@ describe("Strip ", () => {
     render(
       <Strip data-testid="strip" shallow={true}>
         Test content
-      </Strip>
+      </Strip>,
     );
     expect(screen.getByTestId("strip")).toHaveClass("is-shallow");
   });
@@ -87,9 +87,8 @@ describe("Strip ", () => {
     render(
       <Strip data-testid="strip" colSize={4}>
         Test content
-      </Strip>
+      </Strip>,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".row .col-4")).toBeInTheDocument();
   });
 
@@ -97,9 +96,8 @@ describe("Strip ", () => {
     render(
       <Strip data-testid="strip" includeCol={false}>
         Test content
-      </Strip>
+      </Strip>,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".row .col-12")).not.toBeInTheDocument();
   });
 
@@ -107,9 +105,8 @@ describe("Strip ", () => {
     render(
       <Strip data-testid="strip" rowClassName="row--extra">
         Test content
-      </Strip>
+      </Strip>,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".row")).toHaveClass("row--extra");
   });
 
@@ -117,7 +114,7 @@ describe("Strip ", () => {
     render(
       <Strip data-testid="strip" className="extra-class">
         Test content
-      </Strip>
+      </Strip>,
     );
     const strip = screen.getByTestId("strip");
     expect(strip).toHaveClass("p-strip");

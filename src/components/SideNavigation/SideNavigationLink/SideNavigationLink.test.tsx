@@ -1,6 +1,5 @@
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import type { ButtonHTMLAttributes } from "react";
 
 import SideNavigationLink from "./SideNavigationLink";
 
@@ -32,12 +31,26 @@ it("displays a dark icon", () => {
 });
 
 it("can use a custom link component", () => {
-  const Link = ({ ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => (
-    <button {...props} />
-  );
   const label = "Test content";
-  render(<SideNavigationLink label={label} component={Link} />);
-  expect(screen.getByRole("button", { name: label })).toHaveClass(
-    "p-side-navigation__link"
+  const Link = ({ to, ...props }: { to: () => void }) => (
+    <button {...props} onClick={to}>
+      {label}
+    </button>
   );
+  render(<SideNavigationLink label={label} component={Link} to={jest.fn()} />);
+  expect(screen.getByRole("button", { name: label })).toHaveClass(
+    "p-side-navigation__link",
+  );
+});
+
+it("gets the ref and checks if it can be used to get the element's position", () => {
+  const ref = React.createRef<HTMLAnchorElement>();
+  render(
+    <SideNavigationLink
+      label="Test content"
+      onClick={jest.fn()}
+      forwardRef={ref}
+    />,
+  );
+  expect(ref.current?.getBoundingClientRect()).toBeDefined();
 });

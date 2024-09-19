@@ -31,7 +31,7 @@ export const NotificationProvider: FC<NotifyProviderProps> = ({
   pathname,
 }) => {
   const [notification, setNotification] = useState<NotificationType | null>(
-    null
+    null,
   );
 
   const clear = () => notification !== null && setNotification(null);
@@ -50,6 +50,7 @@ export const NotificationProvider: FC<NotifyProviderProps> = ({
     } else {
       clear();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, pathname]);
 
   const helper: NotificationHelper = {

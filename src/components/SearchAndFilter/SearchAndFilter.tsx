@@ -128,7 +128,7 @@ const SearchAndFilter = ({
       const updatedCurrentSelected = currentSelected.filter(
         (currentSelectedChip) => {
           return currentSelectedChip.value !== chip.value;
-        }
+        },
       );
       setSearchData(updatedCurrentSelected);
     }
@@ -138,7 +138,7 @@ const SearchAndFilter = ({
   const removeFromSelected = (chip: SearchAndFilterChip) => {
     if (searchData.includes(chip)) {
       const updatedSelected = searchData.filter(
-        (searchDataChip) => searchDataChip !== chip
+        (searchDataChip) => searchDataChip !== chip,
       );
       setSearchData(updatedSelected);
     }
@@ -203,7 +203,7 @@ const SearchAndFilter = ({
     searchAndFilterRef.current,
     (fitsWindow) => setMaxHeight(fitsWindow.fromBottom.spaceBelow - 16),
     0,
-    !filterPanelHidden
+    !filterPanelHidden,
   );
 
   // Add search prompt value to search on Enter key
@@ -264,7 +264,11 @@ const SearchAndFilter = ({
               lead={chip.lead}
               value={chip.value}
               key={`search-${chip.lead}+${chip.value}`}
-              onDismiss={() => removeFromSelected(chip)}
+              onDismiss={(event) => {
+                // Prevent filter chip dismissals from bubbling up and triggering the parent onClick handler
+                event.stopPropagation();
+                removeFromSelected(chip);
+              }}
               selected={true}
               quoteValue={chip.quoteValue}
             />

@@ -6,7 +6,7 @@ import CheckableInput from "./CheckableInput";
 describe("CheckableInput ", () => {
   it("renders a checkable input", () => {
     render(
-      <CheckableInput inputType="checkbox" label="Test label"></CheckableInput>
+      <CheckableInput inputType="checkbox" label="Test label"></CheckableInput>,
     );
     expect(screen.getByRole("checkbox")).toBeInTheDocument();
   });
@@ -17,7 +17,7 @@ describe("CheckableInput ", () => {
         inputType="checkbox"
         label="Test disabled"
         disabled
-      ></CheckableInput>
+      ></CheckableInput>,
     );
     expect(screen.getByRole("checkbox")).toBeDisabled();
   });
@@ -28,9 +28,8 @@ describe("CheckableInput ", () => {
         inputType="radio"
         label="Test required"
         required
-      ></CheckableInput>
+      ></CheckableInput>,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector("label")).toHaveClass("is-required");
   });
 
@@ -40,9 +39,8 @@ describe("CheckableInput ", () => {
         inputType="radio"
         label="Test required"
         inline
-      ></CheckableInput>
+      ></CheckableInput>,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector("label")).toHaveClass("p-radio--inline");
   });
 
@@ -52,7 +50,7 @@ describe("CheckableInput ", () => {
         inputType="checkbox"
         label="Test label"
         indeterminate
-      ></CheckableInput>
+      ></CheckableInput>,
     );
     expect(screen.getByRole("checkbox")).toBePartiallyChecked();
   });
@@ -63,9 +61,8 @@ describe("CheckableInput ", () => {
         inputType="checkbox"
         label="Test label"
         labelClassName="label-class-name"
-      />
+      />,
     );
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector("label")).toHaveClass("label-class-name");
   });
 });

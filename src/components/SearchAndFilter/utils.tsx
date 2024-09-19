@@ -23,5 +23,5 @@ export const overflowingChipsCount = (chips, overflowRowLimit) => {
 export const isChipInArray = (chip, existingArr) =>
   existingArr?.some(
     (searchDataItem) =>
-      searchDataItem.lead === chip.lead && searchDataItem.value === chip.value
+      searchDataItem.lead === chip.lead && searchDataItem.value === chip.value,
   );

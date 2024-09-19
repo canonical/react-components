@@ -11,7 +11,7 @@ describe("ArticlePagination ", () => {
         nextURL="#next"
         previousLabel="Lorem ipsum dolor sit amet"
         previousURL="#previous"
-      />
+      />,
     );
     expect(screen.getByRole("contentinfo")).toMatchSnapshot();
   });

@@ -18,29 +18,17 @@ describe("Input", () => {
 
   it("moves the label for radio buttons", () => {
     render(<Input type="radio" label="text label" />);
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-radio__label")
-    ).toBeInTheDocument();
+    expect(document.querySelector(".p-radio__label")).toBeInTheDocument();
 
     expect(screen.getByRole("radio")).toHaveAccessibleName("text label");
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-form__label")
-    ).not.toBeInTheDocument();
+    expect(document.querySelector(".p-form__label")).not.toBeInTheDocument();
   });
 
   it("moves the label for checkboxes", () => {
     render(<Input type="checkbox" label="text label" />);
     expect(screen.getByRole("checkbox")).toHaveAccessibleName("text label");
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-checkbox__label")
-    ).toBeInTheDocument();
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-form__label")
-    ).not.toBeInTheDocument();
+    expect(document.querySelector(".p-checkbox__label")).toBeInTheDocument();
+    expect(document.querySelector(".p-form__label")).not.toBeInTheDocument();
   });
 
   it("can take focus on first render", () => {
@@ -82,18 +70,14 @@ describe("Input", () => {
 
   it("can set a label class name for a radiobutton", () => {
     render(<Input type="radio" labelClassName="label-class-name" />);
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-radio")
-    ).toHaveClass("label-class-name");
+    expect(document.querySelector(".p-radio")).toHaveClass("label-class-name");
   });
 
   it("can set a label class name for a checkbox", () => {
     render(<Input type="checkbox" labelClassName="label-class-name" />);
-    expect(
-      // eslint-disable-next-line testing-library/no-node-access
-      document.querySelector(".p-checkbox")
-    ).toHaveClass("label-class-name");
+    expect(document.querySelector(".p-checkbox")).toHaveClass(
+      "label-class-name",
+    );
   });
 
   it("renders", () => {
@@ -141,15 +125,14 @@ describe("Input", () => {
         className="extra-class"
         help="additional description"
         helpClassName="additional-help-text-class"
-      />
+      />,
     );
     expect(screen.getByRole("textbox")).toHaveClass(
       "p-form-validation__input",
-      "extra-class"
+      "extra-class",
     );
-    // eslint-disable-next-line testing-library/no-container, testing-library/no-node-access
     expect(container.querySelector(".p-form-help-text")).toHaveClass(
-      "additional-help-text-class"
+      "additional-help-text-class",
     );
   });
 });

@@ -29,7 +29,7 @@ export type Props<L = SideNavigationLinkDefaultElement> =
   | ContentProps<L>;
 
 const SideNavigationItem = <L = SideNavigationLinkDefaultElement,>(
-  props: Props<L>
+  props: Props<L>,
 ) => {
   let content: ReactNode;
   let liProps: HTMLProps<HTMLLIElement> = {};
@@ -37,7 +37,7 @@ const SideNavigationItem = <L = SideNavigationLinkDefaultElement,>(
     const { nonInteractive: _, ...textProps } = props;
     content = <SideNavigationText {...textProps} />;
   } else if (!("children" in props)) {
-    content = <SideNavigationLink {...props} />;
+    content = <SideNavigationLink<L> {...props} />;
   } else {
     ({ children: content, ...liProps } = props);
   }

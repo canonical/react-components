@@ -19,7 +19,7 @@ export const useListener = (
   eventType: string,
   shouldThrottle = false,
   shouldListen = true,
-  options?: boolean | AddEventListenerOptions
+  options?: boolean | AddEventListenerOptions,
 ): void => {
   const isListening = useRef(false);
   const throttle = useThrottle(callback);
@@ -43,7 +43,7 @@ export const useListener = (
       previousTargetNode.removeEventListener(
         previousEventType,
         eventListener.current,
-        previousOptions
+        previousOptions,
       );
       isListening.current = false;
     }
@@ -83,10 +83,10 @@ export const useListener = (
         targetNode.removeEventListener(
           eventType,
           eventListener.current,
-          options
+          options,
         );
       }
     },
-    [eventType, targetNode, options]
+    [eventType, targetNode, options],
   );
 };

@@ -13,7 +13,7 @@ it("exports all public hooks and components from the index file", () => {
       (fileName) =>
         fileName !== "index.ts" &&
         isNotHidden(fileName) &&
-        fileName.match(/(?<!test)\.(ts|tsx)$/)
+        fileName.match(/(?<!test)\.(ts|tsx)$/),
     )
     .map((file) => file.replace(".ts", ""));
   expect(hooks.length).toBeGreaterThan(0);

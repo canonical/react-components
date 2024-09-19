@@ -7,24 +7,23 @@ describe("SearchBox ", () => {
   it("renders", () => {
     render(<SearchBox />);
     // Get the wrapping element for the snapshot.
-    // eslint-disable-next-line testing-library/no-node-access
     expect(document.querySelector(".p-search-box")).toMatchSnapshot();
   });
 
   it("shows the clear button when there is a value", () => {
     render(<SearchBox value="admin" />);
     expect(
-      screen.getByRole("button", { name: Label.Clear })
+      screen.getByRole("button", { name: Label.Clear }),
     ).toBeInTheDocument();
   });
 
   it("can externally control the value", () => {
     const { rerender } = render(
-      <SearchBox externallyControlled onChange={jest.fn()} value="admin" />
+      <SearchBox externallyControlled onChange={jest.fn()} value="admin" />,
     );
     expect(screen.getByRole("searchbox")).toHaveAttribute("value", "admin");
     rerender(
-      <SearchBox externallyControlled onChange={jest.fn()} value="new-admin" />
+      <SearchBox externallyControlled onChange={jest.fn()} value="new-admin" />,
     );
     expect(screen.getByRole("searchbox")).toHaveAttribute("value", "new-admin");
   });
@@ -55,7 +54,7 @@ describe("SearchBox ", () => {
     render(<SearchBox data-testid="testID" />);
     expect(screen.getByRole("searchbox")).toHaveAttribute(
       "data-testid",
-      "testID"
+      "testID",
     );
   });
 
@@ -68,7 +67,7 @@ describe("SearchBox ", () => {
 
   it("after pressing the clear button focus remains on the button", async () => {
     render(
-      <SearchBox externallyControlled onChange={jest.fn()} value="admin" />
+      <SearchBox externallyControlled onChange={jest.fn()} value="admin" />,
     );
     const searchInput = screen.getByRole("searchbox");
     const clearButton = screen.getByRole("button", {
@@ -86,7 +85,7 @@ describe("SearchBox ", () => {
         shouldRefocusAfterReset
         onChange={jest.fn()}
         value="admin"
-      />
+      />,
     );
     const searchInput = screen.getByRole("searchbox");
     const clearButton = screen.getByRole("button", {
@@ -105,7 +104,7 @@ describe("SearchBox ", () => {
         onChange={jest.fn()}
         onClear={handleOnClear}
         value="admin"
-      />
+      />,
     );
     await userEvent.click(screen.getByRole("button", { name: Label.Clear }));
     expect(handleOnClear).toBeCalled();
