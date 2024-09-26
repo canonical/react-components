@@ -25,6 +25,10 @@ export type Props<C> = PropsWithSpread<
      * The navigation item's status.
      */
     status?: ReactNode;
+    /**
+     * A ref to pass to the element.
+     */
+    forwardRef?: React.Ref<C> | null;
   },
   C
 >;
@@ -35,10 +39,11 @@ const SideNavigationBase = <C,>({
   icon,
   label,
   status,
+  forwardRef,
   ...props
 }: Props<C>) => {
   return (
-    <Component {...props}>
+    <Component ref={forwardRef} {...props}>
       {icon ? (
         <Icon name={icon} light={dark} className="p-side-navigation__icon" />
       ) : null}

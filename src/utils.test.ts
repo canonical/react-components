@@ -21,4 +21,11 @@ describe("highlightSubString function ", () => {
       match: false,
     });
   });
+
+  it("handles special substrings for regex matching", () => {
+    expect(highlightSubString("somestring\\", "\\")).toEqual({
+      text: "somestring<strong>\\</strong>",
+      match: true,
+    });
+  });
 });
