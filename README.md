@@ -1,7 +1,7 @@
 # React components for Vanilla Framework
 ![CI](https://github.com/canonical/react-components/workflows/CI/badge.svg?branch=main)
 
-This is a collection of components designed to be the way to consume [Vanilla Framework](http://vanillaframework.io) when using React.
+This is a collection of components designed to be the way to consume [Vanilla Framework](http://vanillaframework.io) when using React. The library exposes both a cjs and an esm build.
 
  **[Storybook](https://canonical.github.io/react-components/)** contains component docs with usage instructions.
 
