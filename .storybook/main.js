@@ -7,10 +7,9 @@ const config = {
     "@storybook/addon-docs",
     "@storybook/addon-controls",
     "@storybook/addon-a11y",
-    "@storybook/addon-webpack5-compiler-babel",
+    "@storybook/addon-webpack5-compiler-babel"
   ],
   webpackFinal: async (config) => {
-    process.env.BABEL_ENV = "cjs";
     config.module.rules.push({
       test: /\.scss$/,
       use: ["style-loader", "css-loader", "sass-loader"],
