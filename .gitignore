@@ -1,7 +1,5 @@
 node_modules
 dist
-dist-esm
-dist-types
 .env.local
 .DS_Store
 .idea
