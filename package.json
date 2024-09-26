@@ -128,9 +128,10 @@
   },
   "scripts": {
     "build": "yarn build-cjs && yarn build-declaration && yarn build-esm",
-    "build-cjs": "rm -rf dist && NODE_ENV=production BABEL_ENV=cjs babel src --out-dir dist --copy-files --extensions '.js,.jsx,.ts,.tsx'",
-    "build-esm": "rm -rf dist-esm && NODE_ENV=production BABEL_ENV=esm babel src --out-dir dist-esm --copy-files --extensions '.js,.jsx,.ts,.tsx'",
-    "build-declaration": "rm -rf dist-types && tsc --project tsconfig.json --outDir dist-types && tsc-alias -p tsconfig.json --outDir dist-types",
+    "build-base": "rm -rf $OUT_DIR && NODE_ENV=production BABEL_ENV=$BABEL_ENV babel src --out-dir $OUT_DIR --copy-files --no-copy-ignored --extensions '.js,.jsx,.ts,.tsx,.snap' --ignore '**/*.test.ts','**/*.test.tsx','**/*.stories.tsx','**/__snapshots__','src/setupTests.js','src/testing'",
+    "build-cjs": "OUT_DIR=dist BABEL_ENV=cjs yarn run build-base",
+    "build-esm": "OUT_DIR=dist-esm BABEL_ENV=esm yarn run build-base",
+    "build-declaration": "rm -rf dist-types && tsc --project tsconfig.build.json --outDir dist-types && tsc-alias -p tsconfig.build.json --outDir dist-types",
     "build-watch": "yarn run build-cjs --watch",
     "build-docs": "storybook build -c .storybook -o docs",
     "clean": "rm -rf node_modules dist .out",
