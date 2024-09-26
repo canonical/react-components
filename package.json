@@ -13,6 +13,8 @@
     "dist/**/*.js",
     "dist/**/*.d.*",
     "dist/**/*.scss",
+    "dist-types/**/*.d.ts",
+    "dist-esm/**/*.js",
     "!dist/**/*.test.js",
     "!dist/testing",
     "!dist/setupTests.js"
