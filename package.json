@@ -2,7 +2,8 @@
   "name": "@canonical/react-components",
   "version": "0.47.3",
   "main": "dist/index.js",
-  "module": "dist/index.js",
+  "module": "dist-esm/index.js",
+  "types": "dist-types/index.d.ts",
   "author": {
     "email": "webteam@canonical.com",
     "name": "Canonical Webteam"
@@ -126,10 +127,12 @@
     "vanilla-framework": "^3.15.1 || ^4.0.0"
   },
   "scripts": {
-    "build": "rm -rf dist && yarn build-local; yarn build-declaration",
-    "build-local": "NODE_ENV=production babel src --out-dir dist --copy-files --no-copy-ignored --extensions '.js,.jsx,.ts,.tsx,.snap' --ignore '**/*.test.ts','**/*.test.tsx','**/*.stories.tsx','**/__snapshots__','src/setupTests.js','src/testing'",
-    "build-declaration": "tsc --project tsconfig.build.json && tsc-alias -p tsconfig.build.json",
-    "build-watch": "yarn run build-local --watch",
+    "build": "yarn build-cjs && yarn build-declaration && yarn build-esm",
+    "build-base": "rm -rf $OUT_DIR && NODE_ENV=production BABEL_ENV=$BABEL_ENV babel src --out-dir $OUT_DIR --copy-files --no-copy-ignored --extensions '.js,.jsx,.ts,.tsx,.snap' --ignore '**/*.test.ts','**/*.test.tsx','**/*.stories.tsx','**/__snapshots__','src/setupTests.js','src/testing'",
+    "build-cjs": "OUT_DIR=dist BABEL_ENV=cjs yarn run build-base",
+    "build-esm": "OUT_DIR=dist-esm BABEL_ENV=esm yarn run build-base",
+    "build-declaration": "rm -rf dist-types && tsc --project tsconfig.build.json --outDir dist-types && tsc-alias -p tsconfig.build.json --outDir dist-types",
+    "build-watch": "yarn run build-cjs --watch",
     "build-docs": "storybook build -c .storybook -o docs",
     "clean": "rm -rf node_modules dist .out",
     "docs": "storybook dev -p ${PORT:-9009} --no-open",
