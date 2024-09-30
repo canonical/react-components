@@ -20,6 +20,7 @@ import AppStatus from "./AppStatus";
 import Application from "./Application";
 import Button from "components/Button";
 import Icon from "components/Icon";
+import SkipLink from "components/SkipLink";
 
 export type BaseProps<
   NI = SideNavigationLinkDefaultElement,
@@ -86,6 +87,10 @@ export type BaseProps<
      * Classes to apply to the status area.
      */
     statusClassName?: string;
+    /**
+     * Id to apply to the main area. Used for the "Skip to main content" link.
+     */
+    mainId?: string;
   },
   HTMLProps<HTMLDivElement>
 >;
@@ -134,6 +139,7 @@ const ApplicationLayout = <
   sideNavigation,
   status,
   statusClassName,
+  mainId = "main-content",
   ...props
 }: Props<NI, PL>) => {
   const [internalMenuPinned, setInternalMenuPinned] = useState(false);
@@ -145,6 +151,7 @@ const ApplicationLayout = <
 
   return (
     <Application {...props}>
+      <SkipLink mainId={mainId} />
       {(navItems || sideNavigation) && (
         <>
           <AppNavigationBar className={navigationBarClassName}>
@@ -222,7 +229,9 @@ const ApplicationLayout = <
           </AppNavigation>
         </>
       )}
-      <AppMain className={mainClassName}>{children}</AppMain>
+      <AppMain id={mainId} className={mainClassName}>
+        {children}
+      </AppMain>
       {aside}
       {status && <AppStatus className={statusClassName}>{status}</AppStatus>}
     </Application>
