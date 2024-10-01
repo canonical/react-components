@@ -4,6 +4,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import CodeSnippet from "./CodeSnippet";
 import { CodeSnippetBlockAppearance } from "./CodeSnippetBlock";
+import Button from "components/Button";
 
 const meta: Meta<typeof CodeSnippet> = {
   component: CodeSnippet,
@@ -351,13 +352,12 @@ export const Content: Story = {
     <CodeSnippet
       blocks={[
         {
-          title: "With embedded iframe",
-          code: "<iframe src='./iframe.html?viewMode=story&id=components-button--default&args='></iframe>",
+          title: "A button example",
+          code: "<Button>Button</Button>",
           content: (
-            <iframe
-              title="iframe"
-              src="./iframe.html?viewMode=story&id=components-button--default&args="
-            ></iframe>
+            <div style={{ margin: "0.5rem" }}>
+              <Button>Button</Button>
+            </div>
           ),
         },
       ]}
@@ -377,9 +377,9 @@ export const JsxCodeElements: Story = {
         {
           code: (
             <>
-              <strong>snap</strong>install<a href="#test">toto</a>
+              <strong>snap</strong> install <a href="#test">toto</a>
               <br />
-              <strong>apt</strong>install<a href="#test">toto</a>
+              <strong>apt</strong> install <a href="#test">toto</a>
             </>
           ),
         },
