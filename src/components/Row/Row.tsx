@@ -13,6 +13,10 @@ export type Props = PropsWithSpread<
      * Optional class(es) to pass to the wrapping div element.
      */
     className?: ClassName;
+    /**
+     * Whether the row should have 4 columns on medium screens.
+     */
+    fourColumnMedium?: boolean;
   },
   HTMLProps<HTMLDivElement>
 >;
@@ -22,8 +26,19 @@ export type Props = PropsWithSpread<
  *
  * Vanilla has a responsive grid using a combination of rows and columns.
  */
-const Row = ({ children, className, ...props }: Props): JSX.Element => (
-  <div className={classNames(className, "row")} {...props}>
+const Row = ({
+  children,
+  className,
+  fourColumnMedium = false,
+  ...props
+}: Props): JSX.Element => (
+  <div
+    className={classNames(
+      className,
+      fourColumnMedium ? "row--4-cols-medium" : "row",
+    )}
+    {...props}
+  >
     {children}
   </div>
 );
