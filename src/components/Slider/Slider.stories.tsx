@@ -3,8 +3,9 @@ import { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import Slider from "./Slider";
+import { SliderProps } from ".";
 
-const Template = (args) => {
+const Template = (args: SliderProps) => {
   const [selectedValue, setSelectedValue] = useState(50);
   return (
     <Slider

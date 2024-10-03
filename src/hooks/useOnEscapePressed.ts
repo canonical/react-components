@@ -8,7 +8,7 @@ export const useOnEscapePressed = (
   { isEnabled } = { isEnabled: true },
 ) => {
   const keyDown = useCallback(
-    (evt) => {
+    (evt: KeyboardEvent) => {
       if (evt.code === "Escape") {
         onEscape();
       }
