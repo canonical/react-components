@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Stepper component renders the stepper 1`] = `
+<ul
+  class="stepper-vertical p-list"
+>
+  <li
+    class="p-list__item"
+  >
+    <div
+      class="step progress-line"
+    >
+      <i
+        class="step-status-icon p-icon--success"
+      />
+      <div
+        class="step-content"
+      >
+        <span
+          class="step-enabled"
+        >
+          Step 1
+        </span>
+        <span
+          class="step-optional-content u-no-margin--bottom"
+        >
+          Optional label
+        </span>
+      </div>
+    </div>
+  </li>
+  <li
+    class="p-list__item"
+  >
+    <div
+      class="step progress-line"
+    >
+      <i
+        class="step-status-icon p-icon--success"
+      />
+      <div
+        class="step-content"
+      >
+        <span
+          class="step-enabled"
+        >
+          Step 2
+        </span>
+        <span
+          class="step-optional-content u-no-margin--bottom"
+        >
+          Optional label
+        </span>
+      </div>
+    </div>
+  </li>
+  <li
+    class="p-list__item"
+  >
+    <div
+      class="step progress-line"
+    >
+      <span
+        class="step-number"
+      >
+        3
+      </span>
+      <div
+        class="step-content"
+      >
+        <span
+          class="step-enabled"
+        >
+          Step 3
+        </span>
+        <span
+          class="step-optional-content u-no-margin--bottom"
+        >
+          Optional label
+        </span>
+        <a
+          class="p-text--small u-no-margin--bottom step-optional-content"
+          href="#"
+        >
+          Optional link
+        </a>
+      </div>
+    </div>
+  </li>
+  <li
+    class="p-list__item"
+  >
+    <div
+      class="step"
+    >
+      <span
+        class="step-number step-number-disabled"
+      >
+        4
+      </span>
+      <div
+        class="step-content"
+      >
+        <span
+          class="step-disabled"
+        >
+          Step 4
+        </span>
+        <a
+          class="p-text--small u-no-margin--bottom step-optional-content"
+          href="#"
+        >
+          Optional link
+        </a>
+      </div>
+    </div>
+  </li>
+</ul>
+`;

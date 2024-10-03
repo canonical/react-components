@@ -71,6 +71,7 @@ export {
   default as StatusLabel,
   StatusLabelAppearance,
 } from "./components/StatusLabel";
+export { default as Stepper, Step } from "./components/Stepper";
 export { default as Strip } from "./components/Strip";
 export { default as SummaryButton } from "./components/SummaryButton";
 export { default as Table } from "./components/Table";
@@ -158,6 +159,7 @@ export type { SkipLinkProps } from "./components/SkipLink";
 export type { SliderProps } from "./components/Slider";
 export type { SpinnerProps } from "./components/Spinner";
 export type { StatusLabelProps } from "./components/StatusLabel";
+export type { StepperProps, StepProps } from "./components/Stepper";
 export type { StripProps } from "./components/Strip";
 export type { SummaryButtonProps } from "./components/SummaryButton";
 export type { TableProps } from "./components/Table";
