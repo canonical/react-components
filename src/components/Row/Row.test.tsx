@@ -17,6 +17,18 @@ describe("Row ", () => {
     );
     const row = screen.getByTestId("row");
     expect(row).toHaveClass("row");
+    expect(row).not.toHaveClass("row--4-cols-medium");
     expect(row).toHaveClass("extra-class");
+  });
+
+  it("can use a four column grid on medium screens", () => {
+    render(
+      <Row data-testid="row" fourColumnMedium={true}>
+        Test content
+      </Row>,
+    );
+    const row = screen.getByTestId("row");
+    expect(row).toHaveClass("row--4-cols-medium");
+    expect(row).not.toHaveClass("row");
   });
 });
