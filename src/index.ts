@@ -22,6 +22,7 @@ export { default as Col } from "./components/Col";
 export { default as ConfirmationButton } from "./components/ConfirmationButton";
 export { default as ConfirmationModal } from "./components/ConfirmationModal";
 export { default as ContextualMenu } from "./components/ContextualMenu";
+export { default as DoughnutChart } from "./components/DoughnutChart";
 export { default as EmptyState } from "./components/EmptyState";
 export { default as Field } from "./components/Field";
 export { default as Form } from "./components/Form";
@@ -63,6 +64,7 @@ export { default as SideNavigation } from "./components/SideNavigation";
 export { default as SideNavigationItem } from "./components/SideNavigation/SideNavigationItem";
 export { default as SideNavigationLink } from "./components/SideNavigation/SideNavigationLink";
 export { default as SideNavigationText } from "./components/SideNavigation/SideNavigationText";
+export { default as SkipLink } from "./components/SkipLink";
 export { default as Slider } from "./components/Slider";
 export { default as Switch } from "./components/Switch";
 export { default as Spinner } from "./components/Spinner";
@@ -70,6 +72,7 @@ export {
   default as StatusLabel,
   StatusLabelAppearance,
 } from "./components/StatusLabel";
+export { default as Stepper, Step } from "./components/Stepper";
 export { default as Strip } from "./components/Strip";
 export { default as SummaryButton } from "./components/SummaryButton";
 export { default as Table } from "./components/Table";
@@ -112,6 +115,7 @@ export type {
   MenuLink,
   Position,
 } from "./components/ContextualMenu";
+export type { DoughnutChartProps, Segment } from "./components/DoughnutChart";
 export type { EmptyStateProps } from "./components/EmptyState";
 export type { FieldProps } from "./components/Field";
 export type { FormProps } from "./components/Form";
@@ -153,9 +157,11 @@ export type { SideNavigationProps } from "./components/SideNavigation";
 export type { SideNavigationItemProps } from "./components/SideNavigation/SideNavigationItem";
 export type { SideNavigationLinkProps } from "./components/SideNavigation/SideNavigationLink";
 export type { SideNavigationTextProps } from "./components/SideNavigation/SideNavigationText";
+export type { SkipLinkProps } from "./components/SkipLink";
 export type { SliderProps } from "./components/Slider";
 export type { SpinnerProps } from "./components/Spinner";
 export type { StatusLabelProps } from "./components/StatusLabel";
+export type { StepperProps, StepProps } from "./components/Stepper";
 export type { StripProps } from "./components/Strip";
 export type { SummaryButtonProps } from "./components/SummaryButton";
 export type { TableProps } from "./components/Table";
