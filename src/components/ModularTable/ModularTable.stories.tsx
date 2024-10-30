@@ -344,7 +344,8 @@ export const Subrows: Story = {
 
 /**
 Example below shows a basic `ModularTable` with `SummaryButton` component in the footer.
-```
+
+```js
 export const getSampleData = (i = 0) => [
   { data: ++i * 100 + i },
   { data: ++i * 100 + i },

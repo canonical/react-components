@@ -6,16 +6,12 @@ import SideNavigation from "../SideNavigation";
 import SideNavigationItem from "./SideNavigationItem";
 import SideNavigationText from "../SideNavigationText";
 
+const Template = (args) => (
+  <SideNavigation dark={false} items={[{ items: [args] }]} />
+);
+
 const meta: Meta<typeof SideNavigationItem> = {
-  component: SideNavigationItem,
-  render: (args) => (
-    <SideNavigation
-      dark={false}
-      items={[
-        { items: [<SideNavigationItem key="item" {...args} dark={false} />] },
-      ]}
-    />
-  ),
+  component: Template,
   tags: ["autodocs"],
 };
 

@@ -14,14 +14,24 @@ const ScrollTemplate = (args) => (
     }}
   >
     <ContextualMenu {...args} />
-    {Array(3).fill(
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur
-        cum dicta beatae nostrum eligendi similique earum, dolorem fuga quis,
-        sequi voluptates architecto ipsa dolorum eaque rem expedita inventore
-        voluptas odit aspernatur alias molestias facere.
-      </p>,
-    )}
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur cum
+      dicta beatae nostrum eligendi similique earum, dolorem fuga quis, sequi
+      voluptates architecto ipsa dolorum eaque rem expedita inventore voluptas
+      odit aspernatur alias molestias facere.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur cum
+      dicta beatae nostrum eligendi similique earum, dolorem fuga quis, sequi
+      voluptates architecto ipsa dolorum eaque rem expedita inventore voluptas
+      odit aspernatur alias molestias facere.
+    </p>
+    <p>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur cum
+      dicta beatae nostrum eligendi similique earum, dolorem fuga quis, sequi
+      voluptates architecto ipsa dolorum eaque rem expedita inventore voluptas
+      odit aspernatur alias molestias facere.
+    </p>
     <ContextualMenu {...args} />
   </div>
 );
