@@ -3,7 +3,7 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import Icon, {
   ICONS,
-  STANDART_ICONS,
+  STANDARD_ICONS,
   ADDITIONAL_ICONS,
   SOCIAL_ICONS,
   STATUS_ICONS,
@@ -11,8 +11,12 @@ import Icon, {
 
 import "./Icon.stories.scss";
 
+const Template = ({ name }: { name: keyof typeof ICONS }) => (
+  <Icon name={ICONS[name]} />
+);
+
 const meta: Meta<typeof Icon> = {
-  component: Icon,
+  component: Template,
   tags: ["autodocs"],
 };
 
@@ -33,16 +37,16 @@ export const Base: Story = {
   },
 };
 
-export const Standart: Story = {
-  name: "Standart",
+export const Standard: Story = {
+  name: "Standard",
   argTypes: {
     name: {
-      options: Object.keys(STANDART_ICONS),
+      options: Object.keys(STANDARD_ICONS),
       control: { type: "select" },
     },
   },
   args: {
-    name: STANDART_ICONS.plus,
+    name: STANDARD_ICONS.plus,
   },
 };
 
@@ -88,7 +92,7 @@ export const Additional: Story = {
 };
 
 const allIcons = {
-  Standard: STANDART_ICONS,
+  Standard: STANDARD_ICONS,
   Additional: ADDITIONAL_ICONS,
   Social: SOCIAL_ICONS,
   Status: STATUS_ICONS,
@@ -101,19 +105,19 @@ export const AllIcons: Story = {
   render: () => (
     <>
       {Object.entries(allIcons).map(([name, icons]) => (
-        <>
+        <div key={name}>
           <h2>{name}</h2>
           <div className="grid-row">
             {Object.keys(icons).map((icon) => (
               <div key={icon} className="p-card grid-col-2">
                 <p>
-                  <Icon name={icon} style={{ marginRight: ".5rem" }} />
+                  <Icon name={ICONS[icon]} style={{ marginRight: ".5rem" }} />
                   <span>{icon}</span>
                 </p>
               </div>
             ))}
           </div>
-        </>
+        </div>
       ))}
     </>
   ),
