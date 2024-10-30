@@ -1,14 +1,14 @@
 # React components for Vanilla Framework
 ![CI](https://github.com/canonical/react-components/workflows/CI/badge.svg?branch=main)
 
-This is a collection of components designed to be the way to consume [Vanilla Framework](http://vanillaframework.io) when using React.
+This is a collection of components designed to be the way to consume [Vanilla Framework](http://vanillaframework.io) when using React. The library exposes both a CJS and an ESM build.
 
  **[Storybook](https://canonical.github.io/react-components/)** contains component docs with usage instructions.
 
 
 ## Requirements
 
-Canonical react components currently require that your build is configured with [sass-loader](https://github.com/webpack-contrib/sass-loader) (or equivalent), to compile sass.
+Canonical react components currently require that your build is configured with [sass-loader](https://github.com/webpack-contrib/sass-loader) (or equivalent), to compile Sass.
 
 ## Install
 
