@@ -138,9 +138,9 @@ const TablePaginationControls = ({
             value={currentPage}
             type="number"
           />{" "}
+          {typeof totalPages === "number" ? `of ${totalPages}` : null}
         </>
       ) : null}
-      {typeof totalPages === "number" ? `of ${totalPages}` : null}
       <Button
         aria-label={Label.NEXT_PAGE}
         className="next"

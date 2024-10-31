@@ -112,6 +112,7 @@ describe("<TablePaginationControls />", () => {
     expect(
       screen.queryByRole("spinbutton", { name: Label.PAGE_NUMBER }),
     ).not.toBeInTheDocument();
+    expect(screen.queryByText("of 5")).not.toBeInTheDocument();
   });
 
   it("can display the description", async () => {
