@@ -5,6 +5,9 @@ import { Meta, StoryObj } from "@storybook/react";
 import SummaryButton from "../SummaryButton";
 import ModularTable from "./ModularTable";
 import { ICONS } from "../Icon";
+import { CellProps, Column } from "react-table";
+
+type Cell<D extends object = Record<string, string>> = CellProps<D>;
 
 const getSampleData = (i = 0) => [
   { data: ++i * 100 + i },
@@ -25,7 +28,7 @@ type Story = StoryObj<typeof ModularTable>;
 
 export const Default: Story = {
   render: () => (
-    <ModularTable<Record<string, unknown>>
+    <ModularTable<Record<string, string>>
       getCellProps={({ value }) => ({
         className: value === "1 minute" ? "p-heading--5" : "",
       })}
@@ -35,8 +38,7 @@ export const Default: Story = {
           {
             Header: "ID",
             accessor: "buildId",
-
-            Cell: ({ value }) => <a href="#test">#{value}</a>,
+            Cell: ({ value }: Cell) => <a href="#test">#{value}</a>,
           },
           {
             Header: "Architecture",
@@ -51,7 +53,7 @@ export const Default: Story = {
             Header: "Result",
             accessor: "result",
 
-            Cell: ({ value }) => {
+            Cell: ({ value }: Cell) => {
               switch (value) {
                 case "released":
                   return "Released";
@@ -155,7 +157,7 @@ export const Empty: Story = {
 
 export const Sortable: Story = {
   render: () => (
-    <ModularTable<Record<string, unknown>>
+    <ModularTable<Record<string, string>>
       sortable
       initialSortColumn="duration"
       initialSortDirection="ascending"
@@ -170,7 +172,7 @@ export const Sortable: Story = {
             accessor: "buildId",
             sortType: "basic",
 
-            Cell: ({ value }) => <a href="#test">#{value}</a>,
+            Cell: ({ value }: Cell) => <a href="#test">#{value}</a>,
           },
           {
             Header: "Architecture",
@@ -188,7 +190,7 @@ export const Sortable: Story = {
             accessor: "result",
             sortType: "basic",
 
-            Cell: ({ value }) => {
+            Cell: ({ value }: Cell) => {
               switch (value) {
                 case "released":
                   return "Released";
@@ -259,7 +261,7 @@ sort the group rows, then sort the sub-rows, but the group header always comes f
  */
 export const Subrows: Story = {
   render: () => (
-    <ModularTable
+    <ModularTable<Record<string, unknown>>
       sortable
       // eslint-disable-next-line react-hooks/rules-of-hooks
       columns={React.useMemo(
@@ -268,9 +270,8 @@ export const Subrows: Story = {
             Header: "Flavour",
             accessor: "flavour",
             sortType: "basic",
-
-            Cell: (props) =>
-              props.row.depth === 0 ? (
+            Cell: (props: Cell<Record<string, unknown>>) =>
+              "depth" in props.row && props.row.depth === 0 ? (
                 <strong>{props.value}</strong>
               ) : (
                 <>
@@ -282,8 +283,8 @@ export const Subrows: Story = {
             Header: "Scoops",
             accessor: "scoops",
             sortType: "basic",
-            Cell: (props) =>
-              props.row.depth === 0 ? (
+            Cell: (props: Cell<Record<string, unknown>>) =>
+              "depth" in props.row && props.row.depth === 0 ? (
                 <span className="u-text--muted">{props.value}</span>
               ) : (
                 props.value
@@ -364,7 +365,7 @@ export const LoadMore: Story = {
       setData(data.concat(getSampleData(data.length)));
     };
 
-    const columns = [
+    const columns: Column[] = [
       {
         Header: "Id",
         accessor: (_d, i) => i,

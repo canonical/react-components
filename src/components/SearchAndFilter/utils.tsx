@@ -1,10 +1,15 @@
+import { SearchAndFilterChip } from "./types";
+
 /**
  * Return number of overflowing chips given a row threshold
  * @param {array} chips - An array of chips
  * @param {Integer} overflowRowLimit - Number of rows to show before counting
  * overflow
  */
-export const overflowingChipsCount = (chips, overflowRowLimit) => {
+export const overflowingChipsCount = (
+  chips: NodeListOf<HTMLElement>,
+  overflowRowLimit: number,
+) => {
   let overflowChips = 0;
   if (chips) {
     chips.forEach((chip) => {
@@ -20,7 +25,10 @@ export const overflowingChipsCount = (chips, overflowRowLimit) => {
  * @param {Object} chip - A chip object {lead: 'foo', value: 'bar'}
  * @param {Array} existingArr - An array of chip objects
  */
-export const isChipInArray = (chip, existingArr) =>
+export const isChipInArray = (
+  chip: SearchAndFilterChip,
+  existingArr: SearchAndFilterChip[],
+) =>
   existingArr?.some(
     (searchDataItem) =>
       searchDataItem.lead === chip.lead && searchDataItem.value === chip.value,
