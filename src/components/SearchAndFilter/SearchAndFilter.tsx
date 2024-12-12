@@ -343,6 +343,7 @@ const SearchAndFilter = ({
                   toggleSelected={toggleSelected}
                   searchData={searchData}
                   searchTerm={searchTerm}
+                  sectionHidden={filterPanelHidden}
                 />
               );
             })}
