@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ChangeEvent } from "react";
 import { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
@@ -140,14 +140,14 @@ exposeResult "Successful pre-deploy." 0 "true"`,
  */
 export const Dropdown: Story = {
   render: () => {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [lang, setLang] = useState("html");
-
     const code = {
       js: `console.log("Example 1");`,
       css: `.p-heading--2 { color: red; }`,
       html: `<h1 class="p-heading--2">How to use code snippets</h1>`,
     };
+
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [lang, setLang] = useState<keyof typeof code>("html");
 
     return (
       <CodeSnippet
@@ -174,8 +174,8 @@ export const Dropdown: Story = {
 
                 value: lang,
 
-                onChange: (event) => {
-                  setLang(event.target.value);
+                onChange: (event: ChangeEvent<HTMLSelectElement>) => {
+                  setLang(event.target.value as keyof typeof code);
                 },
               },
             ],
@@ -229,7 +229,7 @@ export const Dropdowns: Story = {
 
                 value: channel,
 
-                onChange: (event) => {
+                onChange: (event: ChangeEvent<HTMLSelectElement>) => {
                   setChannel(event.target.value);
                 },
               },
@@ -251,7 +251,7 @@ export const Dropdowns: Story = {
 
                 value: snap,
 
-                onChange: (event) => {
+                onChange: (event: ChangeEvent<HTMLSelectElement>) => {
                   setSnap(event.target.value);
                 },
               },
@@ -308,7 +308,7 @@ export const DropdownsStacked: Story = {
 
                 value: channel,
 
-                onChange: (event) => {
+                onChange: (event: ChangeEvent<HTMLSelectElement>) => {
                   setChannel(event.target.value);
                 },
               },
@@ -330,7 +330,7 @@ export const DropdownsStacked: Story = {
 
                 value: snap,
 
-                onChange: (event) => {
+                onChange: (event: ChangeEvent<HTMLSelectElement>) => {
                   setSnap(event.target.value);
                 },
               },
