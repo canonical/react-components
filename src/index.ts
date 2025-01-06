@@ -84,6 +84,7 @@ export { default as Textarea } from "./components/Textarea";
 export { default as Tooltip } from "./components/Tooltip";
 export { default as TablePagination } from "./components/TablePagination";
 export { default as TablePaginationControls } from "./components/TablePagination/TablePaginationControls";
+export { default as CustomSelect } from "./components/CustomSelect";
 
 export type { AccordionProps } from "./components/Accordion";
 export type { ActionButtonProps } from "./components/ActionButton";
@@ -172,6 +173,11 @@ export type { TabsProps } from "./components/Tabs";
 export type { TextareaProps } from "./components/Textarea";
 export type { TooltipProps } from "./components/Tooltip";
 export type { TablePaginationProps } from "./components/TablePagination";
+export type {
+  CustomSelectProps,
+  CustomSelectDropdownProps,
+  CustomSelectOption,
+} from "./components/CustomSelect";
 
 export {
   useOnClickOutside,
