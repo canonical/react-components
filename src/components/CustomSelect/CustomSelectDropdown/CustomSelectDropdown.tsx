@@ -155,16 +155,6 @@ export const getOptionText = (option: CustomSelectOption): string => {
   );
 };
 
-export const sortOptions = (
-  a: CustomSelectOption,
-  b: CustomSelectOption,
-): number => {
-  // sort options alphabetically
-  const textA = getOptionText(a) || a.value;
-  const textB = getOptionText(b) || b.value;
-  return textA.localeCompare(textB);
-};
-
 const CustomSelectDropdown: FC<Props> = ({
   searchable,
   name,
