@@ -26,6 +26,7 @@ export type Props = {
   name: string;
   options: CustomSelectOption[];
   onSelect: (value: string) => void;
+  onSearch?: (value: string) => void;
   onClose: () => void;
   header?: ReactNode;
   toggleId: string;
@@ -160,13 +161,14 @@ const CustomSelectDropdown: FC<Props> = ({
   name,
   options,
   onSelect,
+  onSearch,
   onClose,
   header,
   toggleId,
 }) => {
   const [search, setSearch] = useState("");
-  // track selected option index for keyboard actions
-  const [selectedIndex, setSelectedIndex] = useState(0);
+  // track highlighted option index for keyboard actions
+  const [highlightedOptionIndex, setHighlightedOptionIndex] = useState(0);
   // use ref to keep a reference to all option HTML elements so we do not need to make DOM calls later for scrolling
   const optionsRef = useRef<HTMLLIElement[]>([]);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -215,17 +217,19 @@ const CustomSelectDropdown: FC<Props> = ({
 
   // track selected index from key board action and scroll into view if needed
   useEffect(() => {
-    optionsRef.current[selectedIndex]?.scrollIntoView({
+    optionsRef.current[highlightedOptionIndex]?.scrollIntoView({
       block: "nearest",
       inline: "nearest",
     });
-  }, [selectedIndex]);
+  }, [highlightedOptionIndex]);
 
-  const filteredOptions = options?.filter((option) => {
-    if (!search || option.disabled) return true;
-    const searchText = getOptionText(option) || option.value;
-    return searchText.toLowerCase().includes(search);
-  });
+  const filteredOptions = onSearch
+    ? options
+    : options?.filter((option) => {
+        if (!search || option.disabled) return true;
+        const searchText = getOptionText(option) || option.value;
+        return searchText.toLowerCase().includes(search);
+      });
 
   const getNextOptionIndex = (goingUp: boolean, prevIndex: number) => {
     const increment = goingUp ? -1 : 1;
@@ -256,14 +260,14 @@ const CustomSelectDropdown: FC<Props> = ({
     }
 
     if (upDownKeys.includes(event.key)) {
-      setSelectedIndex((prevIndex) => {
+      setHighlightedOptionIndex((prevIndex) => {
         const goingUp = event.key === "ArrowUp";
         return getNextOptionIndex(goingUp, prevIndex);
       });
     }
 
-    if (event.key === "Enter" && filteredOptions[selectedIndex]) {
-      onSelect(filteredOptions[selectedIndex].value);
+    if (event.key === "Enter" && filteredOptions[highlightedOptionIndex]) {
+      onSelect(filteredOptions[highlightedOptionIndex].value);
     }
 
     if (event.key === "Escape" || event.key === "Tab") {
@@ -274,8 +278,12 @@ const CustomSelectDropdown: FC<Props> = ({
   const handleSearch = (value: string) => {
     setSearch(value.toLowerCase());
     // reset selected index when search text changes
-    setSelectedIndex(0);
+    setHighlightedOptionIndex(0);
     optionsRef.current = [];
+
+    if (onSearch) {
+      onSearch(value);
+    }
   };
 
   const handleSelect = (option: CustomSelectOption) => {
@@ -297,7 +305,7 @@ const CustomSelectDropdown: FC<Props> = ({
           "u-truncate",
           {
             disabled: option.disabled,
-            highlight: idx === selectedIndex && !option.disabled,
+            highlight: idx === highlightedOptionIndex && !option.disabled,
           },
         )}
         // adding option elements to a ref array makes it easier to scroll the element later
@@ -307,7 +315,7 @@ const CustomSelectDropdown: FC<Props> = ({
           optionsRef.current[idx] = el;
         }}
         role="option"
-        onMouseMove={() => setSelectedIndex(idx)}
+        onMouseMove={() => setHighlightedOptionIndex(idx)}
       >
         <span
           className={classnames({

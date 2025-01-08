@@ -30,6 +30,8 @@ export type Props = PropsWithSpread<
     options: CustomSelectOption[];
     // Function to run when select value changes.
     onChange: (value: string) => void;
+    // Function to run when the search input changes. If provided, the parent should handle the filtering of options.
+    onSearch?: (value: string) => void;
     // id for the select component
     id?: string | null;
     // Name for the select element
@@ -64,6 +66,7 @@ const CustomSelect = ({
   value,
   options,
   onChange,
+  onSearch,
   id,
   name,
   disabled,
@@ -183,6 +186,7 @@ const CustomSelect = ({
         {(close: () => void) => (
           <CustomSelectDropdown
             searchable={searchable}
+            onSearch={onSearch}
             name={name || ""}
             options={options || []}
             onSelect={handleSelect}
