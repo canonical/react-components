@@ -111,7 +111,7 @@ export const CustomOptions: Story = {
 };
 
 /**
- * For each option, if `disable` is set to `true`, the option will be disabled.
+ * For each option, if `disabled` is set to `true`, the option will be disabled.
  */
 export const DisabledOptions: Story = {
   args: {

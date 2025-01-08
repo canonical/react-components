@@ -46,7 +46,7 @@ export type Props = PropsWithSpread<
     searchable?: "auto" | "always" | "never";
     // Whether to focus on the element on initial render.
     takeFocus?: boolean;
-    // Additional component to display above the dropdwon list.
+    // Additional component to display above the dropdown list.
     header?: ReactNode;
     // Ref for the select component which exposes internal methods and state for programatic control at the parent level.
     selectRef?: SelectRef;
