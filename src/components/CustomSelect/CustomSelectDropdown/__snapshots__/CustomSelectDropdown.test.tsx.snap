@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CustomSelectDropdown renders 1`] = `
+<div>
+  <div
+    class="p-custom-select__dropdown u-no-padding"
+    role="combobox"
+    style="min-width: 0px;"
+    tabindex="-1"
+  >
+    <div
+      class="p-custom-select__search u-no-padding--bottom"
+    >
+      <div
+        class="p-search-box u-no-margin--bottom"
+      >
+        <label
+          class="u-off-screen"
+          for="search"
+        >
+          Search
+        </label>
+        <input
+          aria-label="Search for test-dropdown"
+          autocomplete="off"
+          class="p-search-box__input"
+          id="select-search-test-dropdown"
+          name="select-search-test-dropdown"
+          placeholder="Search"
+          type="text"
+          value=""
+        />
+        <button
+          class="p-search-box__button"
+        >
+          <i
+            class="p-icon--search"
+          >
+            Search
+          </i>
+        </button>
+      </div>
+    </div>
+    <ul
+      class="p-list u-no-margin--bottom"
+      role="listbox"
+      style="height: auto;"
+    >
+      <li
+        class="p-list__item p-custom-select__option u-truncate highlight"
+        role="option"
+      >
+        <span
+          class=""
+        >
+          Option 1
+        </span>
+      </li>
+      <li
+        class="p-list__item p-custom-select__option u-truncate"
+        role="option"
+      >
+        <span
+          class=""
+        >
+          Option 2
+        </span>
+      </li>
+      <li
+        class="p-list__item p-custom-select__option u-truncate"
+        role="option"
+      >
+        <span
+          class=""
+        >
+          Option 3
+        </span>
+      </li>
+      <li
+        class="p-list__item p-custom-select__option u-truncate"
+        role="option"
+      >
+        <span
+          class=""
+        >
+          Option 4
+        </span>
+      </li>
+      <li
+        class="p-list__item p-custom-select__option u-truncate"
+        role="option"
+      >
+        <span
+          class=""
+        >
+          Option 5
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
+`;
