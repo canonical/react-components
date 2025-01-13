@@ -31,6 +31,7 @@ export type MultiSelectProps = {
   dropdownFooter?: ReactNode;
   showDropdownFooter?: boolean;
   variant?: "condensed" | "search";
+  scrollOverflow?: boolean;
 };
 
 type ValueSet = Set<MultiSelectItem["value"]>;
@@ -191,6 +192,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   dropdownFooter,
   showDropdownFooter = true,
   variant = "search",
+  scrollOverflow = false,
 }: MultiSelectProps) => {
   const buttonRef = useRef();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -326,6 +328,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         )
       }
       visible={isDropdownOpen}
+      scrollOverflow={scrollOverflow}
     >
       <MultiSelectDropdown
         id={dropdownId}
