@@ -39,7 +39,7 @@ const FilterPanelSection = ({
   const [expanded, setExpanded] = useState(false);
   const chipWrapper = useRef(null);
 
-  const handleChipClick = (chip) => {
+  const handleChipClick = (chip: SearchAndFilterChip) => {
     toggleSelected(chip);
   };
 
@@ -55,7 +55,7 @@ const FilterPanelSection = ({
   const searchTermInHeading = highlightSubString(heading, searchTerm).match;
 
   // Serialise chip values into string so it can be interrogated with subString
-  const chipValues = [];
+  const chipValues: string[] = [];
   Object.entries(chips).forEach((chipValue) => {
     chipValues.push(chipValue[1].value);
   });

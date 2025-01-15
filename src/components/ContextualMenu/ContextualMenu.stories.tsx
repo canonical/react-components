@@ -3,8 +3,9 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import Button from "../Button";
 import ContextualMenu from "./ContextualMenu";
+import { ContextualMenuProps } from ".";
 
-const ScrollTemplate = (args) => (
+const ScrollTemplate = (args: ContextualMenuProps<null>) => (
   <div
     style={{
       maxWidth: "30rem",
@@ -26,7 +27,7 @@ const ScrollTemplate = (args) => (
   </div>
 );
 
-const Template = (args) => (
+const Template = (args: ContextualMenuProps<null>) => (
   <div className="u-align--center">
     <ContextualMenu {...args} />
   </div>
