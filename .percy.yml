@@ -3,6 +3,9 @@ snapshot:
   widths: [1280]
   enable-javascript: true
 discovery:
+  # we have to set concurrency relatively low to avoid overloading storybook server which causes random test failures
+  # see references: https://github.com/percy/percy-storybook/issues/1008
+  concurrency: 2
   network-idle-timeout: 700
   retry: true
   launch-options:
