@@ -3,6 +3,7 @@ snapshot:
   widths: [1280]
   enable-javascript: true
 discovery:
+  concurrency: 2
   network-idle-timeout: 700
   retry: true
   launch-options:
