@@ -180,7 +180,7 @@ const ContextualMenu = <L,>({
   toggleProps,
   visible = false,
   ...wrapperProps
-}: Props<L>): JSX.Element => {
+}: Props<L>): React.JSX.Element => {
   const id = useId();
   const wrapper = useRef<HTMLDivElement | null>(null);
   const [positionCoords, setPositionCoords] = useState<DOMRect>();

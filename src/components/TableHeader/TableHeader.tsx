@@ -16,7 +16,11 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLTableHeaderCellElement>
 >;
 
-const TableHeader = ({ children, sort, ...props }: Props): JSX.Element => {
+const TableHeader = ({
+  children,
+  sort,
+  ...props
+}: Props): React.JSX.Element => {
   return (
     <th role="columnheader" aria-sort={sort} {...props}>
       {children}

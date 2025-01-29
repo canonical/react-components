@@ -31,7 +31,7 @@ const Table = ({
   expanding = false,
   responsive = false,
   ...props
-}: Props): JSX.Element => (
+}: Props): React.JSX.Element => (
   <table
     role="grid"
     className={classNames(className, {

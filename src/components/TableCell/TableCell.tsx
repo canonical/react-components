@@ -37,7 +37,7 @@ const TableCell = ({
   hidden = false,
   role = "gridcell",
   ...props
-}: Props): JSX.Element => (
+}: Props): React.JSX.Element => (
   <td
     role={role}
     aria-hidden={hidden}

@@ -136,7 +136,7 @@ const Notification = ({
   titleElement: TitleComponent = "h5",
   type,
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const timeoutId = useRef(null);
   const hasActions = actions?.length > 0;
   const showMeta = !!timestamp || hasActions;

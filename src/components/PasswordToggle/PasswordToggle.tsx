@@ -88,7 +88,7 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
       ...inputProps
     },
     ref,
-  ): JSX.Element => {
+  ): React.JSX.Element => {
     const [isPassword, setIsPassword] = useState(true);
     const validationId = useId();
     const helpId = useId();

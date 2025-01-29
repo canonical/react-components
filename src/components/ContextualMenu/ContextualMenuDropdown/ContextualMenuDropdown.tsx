@@ -1,11 +1,5 @@
 import classNames from "classnames";
-import React, {
-  ReactElement,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { HTMLProps, ReactNode } from "react";
 
 import { useWindowFitment } from "hooks";
@@ -36,7 +30,7 @@ export type Props<L = null> = {
   handleClose?: (evt?: MouseEvent) => void;
   constrainPanelWidth?: boolean;
   dropdownClassName?: string;
-  dropdownContent?: ReactNode | ((close: () => void) => ReactElement);
+  dropdownContent?: ReactNode | ((close: () => void) => React.JSX.Element);
   id?: string;
   isOpen?: boolean;
   links?: MenuLink<L>[];
@@ -200,7 +194,7 @@ const ContextualMenuDropdown = <L,>({
   setAdjustedPosition,
   contextualMenuClassName,
   ...props
-}: Props<L>): JSX.Element => {
+}: Props<L>): React.JSX.Element => {
   const dropdown = useRef<HTMLDivElement>(null);
   const [verticalPosition, setVerticalPosition] =
     useState<VerticalPosition>("bottom");

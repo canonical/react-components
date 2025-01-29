@@ -72,7 +72,7 @@ const Chip = ({
   subString = "",
   value,
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   // When user tabs over chip and presses Enter or Space key, chip will trigger
   // click functionality
   const onKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {

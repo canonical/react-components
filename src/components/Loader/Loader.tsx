@@ -7,7 +7,7 @@ import { IS_DEV } from "../../utils";
 /**
  * @deprecated Loader component is deprecated. Use Spinner component instead.
  */
-const Loader = (props: SpinnerProps): JSX.Element => {
+const Loader = (props: SpinnerProps): React.JSX.Element => {
   if (IS_DEV) {
     console.warn(
       "The Loader component has been renamed to Spinner and will be removed in a future release. https://canonical.github.io/react-components/?path=/story/spinner--default-story",

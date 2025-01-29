@@ -107,7 +107,7 @@ describe("Modal ", () => {
       onEscPress,
     }: {
       onEscPress: () => void;
-    }): JSX.Element => {
+    }): React.JSX.Element => {
       useEffect(() => {
         const handleEscPress = (e: KeyboardEvent) => {
           if (e.code === "Escape") {

@@ -88,7 +88,7 @@ const generatePaginationItems = (
   return items;
 };
 
-const PaginationItemSeparator = (): JSX.Element => (
+const PaginationItemSeparator = (): React.JSX.Element => (
   <li className="p-pagination__item p-pagination__item--truncation">
     &hellip;
   </li>
@@ -224,7 +224,7 @@ const Pagination = ({
   forwardLabel,
   backLabel,
   ...navProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const isNumberedPagination =
     !!itemsPerPage && !!totalItems && !!currentPage && !!paginate;
 

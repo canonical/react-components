@@ -10,7 +10,7 @@ export type Props = Omit<CheckableInputProps, "inputType">;
  *
  * Use radio buttons to select one of the given set of options.
  */
-const RadioInput = ({ label, ...radioProps }: Props): JSX.Element => {
+const RadioInput = ({ label, ...radioProps }: Props): React.JSX.Element => {
   return (
     <CheckableInput
       inputType="radio"

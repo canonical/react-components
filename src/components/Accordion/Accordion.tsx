@@ -80,7 +80,7 @@ const Accordion = ({
   sections,
   titleElement,
   ...asideProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const [expandedSection, setExpandedSection] = useState(expanded);
   const setExpanded = (id: string, title: string) => {
     setExpandedSection(id);

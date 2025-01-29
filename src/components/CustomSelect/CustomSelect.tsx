@@ -82,7 +82,7 @@ const CustomSelect = ({
   selectRef,
   initialPosition = "left",
   ...fieldProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const validationId = useId();
   const defaultSelectId = useId();

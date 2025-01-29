@@ -60,7 +60,7 @@ const Step = ({
   iconClassName,
   handleClick,
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const stepStatusClass = enabled ? "step-enabled" : "step-disabled";
 
   return (

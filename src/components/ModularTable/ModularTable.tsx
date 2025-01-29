@@ -194,7 +194,7 @@ function ModularTable<D extends Record<string, unknown>>({
   initialSortDirection,
   autoResetSortBy = false,
   ...props
-}: Props<D>): JSX.Element {
+}: Props<D>): React.JSX.Element {
   const sortBy = useMemo(
     () =>
       initialSortColumn

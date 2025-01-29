@@ -194,7 +194,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   variant = "search",
   scrollOverflow = false,
 }: MultiSelectProps) => {
-  const buttonRef = useRef();
+  const buttonRef = useRef(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [filter, setFilter] = useState("");
 

@@ -33,7 +33,7 @@ const FilterPanelSection = ({
   searchTerm = "",
   sectionHidden,
   toggleSelected,
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const { chips, heading } = data;
   const [overflowCounter, setOverflowCounter] = useState(0);
   const [expanded, setExpanded] = useState(false);

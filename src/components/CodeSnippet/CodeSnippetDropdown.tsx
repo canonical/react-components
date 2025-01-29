@@ -23,7 +23,7 @@ export default function CodeSnippetDropdown({
   options,
   onChange,
   ...props
-}: Props): JSX.Element {
+}: Props): React.JSX.Element {
   return (
     <select className="p-code-snippet__dropdown" onChange={onChange} {...props}>
       {options.map(({ label, value, ...props }) => (

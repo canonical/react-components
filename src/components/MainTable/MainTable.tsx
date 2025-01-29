@@ -298,7 +298,7 @@ const MainTable = ({
   sortFunction,
   hiddenCaption,
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const [currentSortKey, setSortKey] = useState(defaultSort);
   const [currentSortDirection, setSortDirection] =
     useState(defaultSortDirection);

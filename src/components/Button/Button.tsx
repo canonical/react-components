@@ -84,7 +84,7 @@ const Button = <P,>({
   onClick,
   small,
   ...buttonProps
-}: Props<P>): JSX.Element => {
+}: Props<P>): React.JSX.Element => {
   const classes = classNames(
     appearance ? `p-button--${appearance}` : "p-button",
     {

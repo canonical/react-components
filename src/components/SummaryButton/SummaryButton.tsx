@@ -38,7 +38,7 @@ const SummaryButton = ({
   summary,
   label,
   onClick,
-}: Props): JSX.Element => (
+}: Props): React.JSX.Element => (
   <small className={className}>
     {summary && <span className="u-text--muted">{summary}</span>}
     {onClick && (

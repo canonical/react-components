@@ -51,7 +51,7 @@ const Tabs = <P,>({
   className,
   links,
   listClassName,
-}: Props<P>): JSX.Element => {
+}: Props<P>): React.JSX.Element => {
   return (
     <nav className={classNames("p-tabs", className)}>
       <ul className={classNames("p-tabs__list", listClassName)}>

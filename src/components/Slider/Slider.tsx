@@ -82,7 +82,7 @@ export const Slider = ({
   required = false,
   showInput = false,
   ...inputProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const validationId = useId();
   const helpId = useId();
   const defaultSliderId = useId();

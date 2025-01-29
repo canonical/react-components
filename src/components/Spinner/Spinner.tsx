@@ -36,7 +36,7 @@ const Spinner = ({
   ariaLive = "polite",
   role = "alert",
   ...props
-}: Props): JSX.Element => (
+}: Props): React.JSX.Element => (
   <span
     {...props}
     className={classNames(className, "p-text--default")}

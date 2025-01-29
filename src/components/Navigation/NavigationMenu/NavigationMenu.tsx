@@ -24,7 +24,7 @@ const NavigationMenu = ({
   items,
   label,
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);
   const closeMenu = useCallback(() => setIsOpen(false), [setIsOpen]);
   const menuRef = useRef(null);
