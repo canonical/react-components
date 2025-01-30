@@ -1,4 +1,4 @@
-import React, { HTMLProps } from "react";
+import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
 
 import Tooltip from "components/Tooltip";
@@ -75,20 +75,16 @@ export const Link = {
 
   args: {
     children: "Link button",
-    appearance: "base",
-    element: "a",
-    href: "#test",
+    appearance: "link",
   },
 };
 
-export const LinkDisabled: Story<HTMLProps<HTMLAnchorElement>> = {
+export const LinkDisabled = {
   name: "Link disabled",
 
   args: {
     children: "Link button disabled",
-    appearance: "base",
-    element: "a",
-    href: "#test",
+    appearance: "link",
     disabled: true,
   },
 };
