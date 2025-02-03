@@ -171,4 +171,22 @@ describe("Modal ", () => {
     await userEvent.click(closeButton!);
     expect(handleExternalClick).toHaveBeenCalledTimes(1);
   });
+
+  it("should not close modal on outside click if closeOnOutsideClick is false", async () => {
+    const handleCloseModal = jest.fn();
+    const { container } = render(
+      <div>
+        <Modal
+          title="Test"
+          close={handleCloseModal}
+          closeOnOutsideClick={false}
+        >
+          Bare bones
+        </Modal>
+      </div>,
+    );
+
+    await userEvent.click(container);
+    expect(handleCloseModal).toHaveBeenCalledTimes(0);
+  });
 });

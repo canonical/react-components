@@ -29,6 +29,10 @@ export type Props = PropsWithSpread<
      * Whether the button click event should propagate.
      */
     shouldPropagateClickEvent?: boolean;
+    /**
+     * Whether the modal should close when clicking outside the modal.
+     */
+    closeOnOutsideClick?: boolean;
   },
   HTMLProps<HTMLDivElement>
 >;
@@ -45,6 +49,7 @@ export const Modal = ({
   close,
   title,
   shouldPropagateClickEvent = false,
+  closeOnOutsideClick = true,
   ...wrapperProps
 }: Props): ReactElement => {
   // list of focusable selectors is based on this Stack Overflow answer:
@@ -136,7 +141,7 @@ export const Modal = ({
   const handleOverlayOnMouseDown = (
     event: React.MouseEvent<HTMLDivElement>,
   ) => {
-    if (event.target === modalRef.current) {
+    if (event.target === modalRef.current && closeOnOutsideClick) {
       shouldClose.current = true;
     }
   };

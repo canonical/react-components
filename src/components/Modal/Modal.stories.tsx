@@ -29,6 +29,10 @@ const meta: Meta<typeof Modal> = {
         disable: true,
       },
     },
+
+    closeOnOutsideClick: {
+      control: "boolean",
+    },
   },
 };
 
@@ -37,7 +41,7 @@ export default meta;
 type Story = StoryObj<typeof Modal>;
 
 export const Default: Story = {
-  render: () => {
+  render: ({ closeOnOutsideClick }) => {
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [modalOpen, setModalOpen] = useState(true);
     const closeHandler = () => setModalOpen(false);
@@ -49,6 +53,7 @@ export const Default: Story = {
           <Modal
             close={closeHandler}
             title="Confirm delete"
+            closeOnOutsideClick={closeOnOutsideClick}
             buttonRow={
               <>
                 <button className="u-no-margin--bottom" onClick={closeHandler}>
