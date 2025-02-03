@@ -69,7 +69,7 @@ const DoughnutChart: FC<Props> = ({
   segments,
   size,
   chartID,
-}): JSX.Element => {
+}): React.JSX.Element => {
   const [tooltipMessage, setTooltipMessage] = useState<
     Segment["tooltip"] | null
   >(null);

@@ -17,7 +17,6 @@ exports[`SearchBox  renders 1`] = `
     name="search"
     placeholder="Search"
     type="search"
-    value=""
   />
   <button
     class="p-search-box__button"

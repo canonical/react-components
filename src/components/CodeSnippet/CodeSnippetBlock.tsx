@@ -52,7 +52,7 @@ export default function CodeSnippetBlock({
   stacked = false,
   title,
   wrapLines = false,
-}: Props): JSX.Element {
+}: Props): React.JSX.Element {
   let className = "p-code-snippet__block";
   const isNumbered = appearance === CodeSnippetBlockAppearance.NUMBERED;
   const hasIcon =

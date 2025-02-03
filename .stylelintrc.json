@@ -22,7 +22,7 @@
 
     "scss/at-extend-no-missing-placeholder": true,
     "scss/load-no-partial-leading-underscore": true,
-    "scss/at-import-partial-extension": "never",
+    "scss/load-partial-extension": "never",
 
     "order/properties-alphabetical-order": true,
     "no-descending-specificity": [true, { "severity": "warning" }],

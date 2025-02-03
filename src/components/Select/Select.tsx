@@ -106,7 +106,7 @@ const Select = ({
   takeFocus,
   wrapperClassName,
   ...selectProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const selectRef = useRef(null);
   const validationId = useId();
   const defaultSelectId = useId();

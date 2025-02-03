@@ -67,7 +67,7 @@ const TablePaginationControls = ({
   totalItems,
   visibleCount,
   ...divProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const isSmallScreen = useFigureSmallScreen();
 
   const totalPages = totalItems ? Math.ceil(totalItems / pageSize) : null;

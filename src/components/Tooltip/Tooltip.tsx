@@ -193,7 +193,7 @@ const Tooltip = ({
   tooltipClassName,
   zIndex,
   delay = 350,
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const wrapperRef = useRef<HTMLElement>(null);
   const messageRef = useRef<HTMLElement>(null);
   const [adjustedPosition, setAdjustedPosition] = useState(position);

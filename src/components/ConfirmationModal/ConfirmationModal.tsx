@@ -1,4 +1,4 @@
-import React, { MouseEvent, ReactElement } from "react";
+import React, { MouseEvent } from "react";
 import type { ReactNode } from "react";
 import { PropsWithSpread, ValueOf } from "types";
 import Button, { ButtonAppearance, ButtonProps } from "components/Button";
@@ -66,7 +66,7 @@ export const ConfirmationModal = ({
   confirmButtonDisabled,
   confirmButtonProps,
   ...props
-}: Props): ReactElement => {
+}: Props): React.JSX.Element => {
   const handleClick =
     <A extends Function>( // eslint-disable-line @typescript-eslint/no-unsafe-function-type
       action: A | null | undefined,

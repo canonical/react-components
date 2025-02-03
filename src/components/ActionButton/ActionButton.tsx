@@ -65,7 +65,7 @@ const ActionButton = ({
   loading = false,
   success = false,
   ...buttonProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const [height, setHeight] = useState<number | null>();
   const [width, setWidth] = useState<number | null>();
   const [showLoader, setShowLoader] = useState(false);

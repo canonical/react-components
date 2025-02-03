@@ -31,7 +31,7 @@ export default function CodeSnippet({
   className,
   blocks,
   ...props
-}: Props): JSX.Element {
+}: Props): React.JSX.Element {
   return (
     <div
       className={classNames(

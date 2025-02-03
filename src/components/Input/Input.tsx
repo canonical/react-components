@@ -95,7 +95,7 @@ const Input = ({
   type,
   wrapperClassName,
   ...inputProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const inputRef = useRef(null);
   const fieldLabel = !["checkbox", "radio"].includes(type) ? label : "";
   const defaultInputId = useId();

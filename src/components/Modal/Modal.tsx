@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { ReactElement, useId, useRef, useEffect } from "react";
+import React, { useId, useRef, useEffect } from "react";
 import type { HTMLProps, ReactNode, MutableRefObject, RefObject } from "react";
 import { ClassName, PropsWithSpread } from "types";
 
@@ -51,7 +51,7 @@ export const Modal = ({
   shouldPropagateClickEvent = false,
   closeOnOutsideClick = true,
   ...wrapperProps
-}: Props): ReactElement => {
+}: Props): React.JSX.Element => {
   // list of focusable selectors is based on this Stack Overflow answer:
   // https://stackoverflow.com/a/30753870/3732840
   const focusableElementSelectors =

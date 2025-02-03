@@ -66,7 +66,7 @@ const Badge = ({
   className,
   isNegative,
   ...spanProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const badgeClassName = classNames(
     {
       [`p-badge--negative`]: !!isNegative,

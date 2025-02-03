@@ -1,11 +1,4 @@
-import {
-  Children,
-  ReactElement,
-  ReactNode,
-  cloneElement,
-  useEffect,
-  useState,
-} from "react";
+import { Children, ReactNode, cloneElement, useEffect, useState } from "react";
 
 /**
  * Determine if we are working with a small screen.
@@ -32,7 +25,7 @@ export const renderChildren = (
   data: unknown[],
 ) => {
   return Children.map(children, (child) => {
-    return cloneElement(child as ReactElement, {
+    return cloneElement(child as React.JSX.Element, {
       [dataForwardProp]: data,
     });
   });

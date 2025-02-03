@@ -86,7 +86,7 @@ const Strip = ({
   shallow = false,
   type,
   ...props
-}: Props): JSX.Element => (
+}: Props): React.JSX.Element => (
   <Component
     className={classNames(className, {
       [`p-strip--${type}`]: !!type,

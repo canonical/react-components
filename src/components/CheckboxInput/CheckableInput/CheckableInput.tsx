@@ -39,7 +39,7 @@ const CheckableInput = ({
   indeterminate = false,
   inline,
   ...checkboxProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const inputId = useId();
   const inputRef = useRef<HTMLInputElement | null>(null);
 

@@ -24,7 +24,7 @@ export const Switch = ({
   label,
   disabled = false,
   ...inputProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   return (
     <label className="p-switch">
       <input

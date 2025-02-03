@@ -178,8 +178,8 @@ const Navigation = ({
   searchProps,
   theme,
   ...headerProps
-}: Props): JSX.Element => {
-  const searchRef = useRef<HTMLInputElement>();
+}: Props): React.JSX.Element => {
+  const searchRef = useRef<HTMLInputElement>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   // Display the search box if the props have been provided.

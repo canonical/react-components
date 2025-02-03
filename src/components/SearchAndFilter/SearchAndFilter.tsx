@@ -45,7 +45,7 @@ const SearchAndFilter = ({
   onPanelToggle = () => {},
   onExpandChange = () => {},
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const [searchData, setSearchData] = useState(existingSearchData);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterPanelHidden, setFilterPanelHidden] = useState(true);
@@ -57,7 +57,7 @@ const SearchAndFilter = ({
   const searchAndFilterRef = useRef(null);
   const searchContainerRef = useRef(null);
   const searchBoxRef = useRef(null);
-  const panel = useRef();
+  const panel = useRef(null);
 
   // Call onPanelToggle when the filterPanelHidden state changes
   useEffect(onPanelToggle, [onPanelToggle, filterPanelHidden]);

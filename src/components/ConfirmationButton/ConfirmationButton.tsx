@@ -1,4 +1,4 @@
-import React, { MouseEvent, ReactElement, ReactNode } from "react";
+import React, { MouseEvent, ReactNode } from "react";
 import { PropsWithSpread, SubComponentProps } from "types";
 import ActionButton, { ActionButtonProps } from "../ActionButton";
 import ConfirmationModal, {
@@ -48,7 +48,7 @@ export const ConfirmationButton = ({
   shiftClickEnabled = false,
   showShiftClickHint = false,
   ...actionButtonProps
-}: Props): ReactElement => {
+}: Props): React.JSX.Element => {
   const { openPortal, closePortal, isOpen, Portal } = usePortal();
 
   const handleCancelModal = () => {

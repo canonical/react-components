@@ -53,10 +53,6 @@ export type Props = PropsWithSpread<
      */
     shouldRefocusAfterReset?: boolean;
     /**
-     * A ref that is passed to the input element.
-     */
-    ref?: string;
-    /**
      * The value of the search input when the state is externally controlled.
      */
     value?: string;
@@ -86,8 +82,8 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
       ...props
     }: Props,
     forwardedRef,
-  ): JSX.Element => {
-    const internalRef = useRef<HTMLInputElement>();
+  ): React.JSX.Element => {
+    const internalRef = useRef<HTMLInputElement>(null);
     const resetInput = () => {
       onChange?.("");
       onClear?.();

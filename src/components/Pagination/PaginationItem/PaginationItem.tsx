@@ -21,7 +21,7 @@ const PaginationItem = ({
   number,
   onClick,
   isActive = false,
-}: Props): JSX.Element => (
+}: Props): React.JSX.Element => (
   <li className="p-pagination__item">
     <button
       className={classNames("p-pagination__link", {

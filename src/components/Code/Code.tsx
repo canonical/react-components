@@ -23,7 +23,7 @@ const Code = ({
   copyable,
   numbered,
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   if (IS_DEV) {
     console.warn(
       "Code component is deprecated. Use CodeSnippet component or inline `<code>` instead.",
