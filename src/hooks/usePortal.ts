@@ -27,7 +27,7 @@ type CustomEventHandler<T = HTMLElement> = (
 export type UsePortalOptions = {
   closeOnOutsideClick?: boolean;
   closeOnEsc?: boolean;
-  bindTo?: HTMLElement; // attach the portal to this node in the DOM
+  bindTo?: RefObject<HTMLElement>; // attach the portal to this node in the DOM
   isOpen?: boolean;
   onOpen?: CustomEventHandler;
   onClose?: CustomEventHandler;
@@ -71,7 +71,7 @@ export const usePortal = ({
 
   const elToMountTo = useMemo(() => {
     if (isServer) return null;
-    return bindTo || document.body;
+    return (bindTo && bindTo.current) || document.body;
   }, [isServer, bindTo]);
 
   const createCustomEvent = (e?: SyntheticEvent<HTMLElement, Event>) => {
