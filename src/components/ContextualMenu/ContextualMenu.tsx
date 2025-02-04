@@ -1,8 +1,7 @@
 import classNames from "classnames";
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { HTMLProps, ReactNode } from "react";
-import usePortal from "react-useportal";
-import { useListener, usePrevious } from "hooks";
+import { useListener, usePortal, usePrevious } from "hooks";
 import Button from "../Button";
 import type { ButtonProps } from "../Button";
 import ContextualMenuDropdown from "./ContextualMenuDropdown";
@@ -300,7 +299,7 @@ const ContextualMenu = <L,>({
         className={classNames("p-contextual-menu__toggle", toggleClassName)}
         disabled={toggleDisabled}
         hasIcon={hasToggleIcon}
-        onClick={(evt: React.MouseEvent) => {
+        onClick={(evt: React.MouseEvent<HTMLButtonElement>) => {
           if (!isOpen) {
             openPortal(evt);
           } else {

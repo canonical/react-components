@@ -27,7 +27,7 @@ type VerticalPosition = "top" | "bottom";
 export type Props<L = null> = {
   adjustedPosition?: Position;
   autoAdjust?: boolean;
-  handleClose?: (evt?: MouseEvent) => void;
+  handleClose?: (evt?: React.MouseEvent<HTMLButtonElement>) => void;
   constrainPanelWidth?: boolean;
   dropdownClassName?: string;
   dropdownContent?: ReactNode | ((close: () => void) => React.JSX.Element);
@@ -148,7 +148,9 @@ const generateLink = <L,>(
       onClick={
         onClick
           ? (evt) => {
-              handleClose(evt.nativeEvent);
+              handleClose(
+                evt.nativeEvent as unknown as React.MouseEvent<HTMLButtonElement>,
+              );
               onClick(evt);
             }
           : null
