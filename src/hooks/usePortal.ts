@@ -7,7 +7,6 @@ import {
   useCallback,
   useMemo,
   ReactNode,
-  DOMAttributes,
   SyntheticEvent,
   RefObject,
   MouseEvent,
@@ -24,18 +23,6 @@ type CustomEvent<T = HTMLElement> = {
 type CustomEventHandler<T = HTMLElement> = (
   customEvent: CustomEvent<T>,
 ) => void;
-type CustomEventHandlers<T = HTMLElement> = {
-  [K in keyof DOMAttributes<T>]?: CustomEventHandler<T>;
-};
-
-type EventListenerMap = {
-  [K in keyof DOMAttributes<HTMLElement>]: keyof GlobalEventHandlersEventMap;
-};
-type EventListenersRef = RefObject<{
-  [K in keyof DOMAttributes<HTMLElement>]?: (
-    event: SyntheticEvent<HTMLElement, Event>,
-  ) => void;
-}>;
 
 export type UsePortalOptions = {
   closeOnOutsideClick?: boolean;
@@ -46,7 +33,7 @@ export type UsePortalOptions = {
   onClose?: CustomEventHandler;
   onPortalClick?: CustomEventHandler;
   programmaticallyOpen?: boolean;
-} & CustomEventHandlers;
+};
 
 export const errorMessage1 =
   "You must either add a `ref` to the element you are interacting with or pass an `event` to openPortal(e) or togglePortal(e) when the `programmaticallyOpen` option is not set to `true`.";
@@ -60,7 +47,6 @@ export const usePortal = ({
   onClose,
   onPortalClick,
   programmaticallyOpen = false,
-  ...eventHandlers
 }: UsePortalOptions = {}) => {
   const { isServer, isBrowser } = useSSR();
   const [isOpen, makeOpen] = useState(defaultIsOpen);
@@ -104,19 +90,6 @@ export const usePortal = ({
       targetEl.current = event.currentTarget;
     return event;
   };
-
-  // this should handle all eventHandlers like onClick, onMouseOver, etc. passed into the config
-  const customEventHandlers: CustomEventHandlers = Object.entries(
-    eventHandlers,
-  ).reduce((acc, [handlerName, eventHandler]) => {
-    acc[handlerName as keyof DOMAttributes<HTMLElement>] = (
-      event?: SyntheticEvent<HTMLElement, Event>,
-    ) => {
-      if (isServer) return;
-      eventHandler(createCustomEvent(event));
-    };
-    return acc;
-  }, {});
 
   const openPortal = useCallback(
     (e?: SyntheticEvent<HTMLElement, Event>) => {
@@ -193,9 +166,6 @@ export const usePortal = ({
     [handleOutsideMouseClick, isServer],
   );
 
-  // used to remove the event listeners on unmount
-  const eventListeners = useRef({}) as EventListenersRef;
-
   useEffect(() => {
     if (isServer) return null;
     if (
@@ -204,31 +174,9 @@ export const usePortal = ({
     )
       return null;
 
-    // TODO: eventually will need to figure out a better solution for this.
-    // Surely we can find a way to map onScroll/onWheel -> scroll/wheel better,
-    // but for all other event handlers. For now this works.
-    const eventHandlerMap: EventListenerMap = {
-      onScroll: "scroll",
-      onWheel: "wheel",
-    };
     const node = portal.current;
     elToMountTo.appendChild(portal.current);
-    // handles all special case handlers. Currently only onScroll and onWheel
-    Object.entries(eventHandlerMap).forEach(
-      ([handlerName /* onScroll */, eventListenerName /* scroll */]) => {
-        if (!eventHandlers[handlerName as keyof EventListenerMap]) return;
-        eventListeners.current[handlerName as keyof EventListenerMap] = (e) =>
-          eventHandlers[handlerName as keyof EventListenerMap](
-            createCustomEvent(e),
-          );
-        document.addEventListener(
-          eventListenerName as keyof GlobalEventHandlersEventMap,
-          eventListeners.current[
-            handlerName as keyof EventListenerMap
-          ] as unknown as EventListener,
-        );
-      },
-    );
+
     document.addEventListener("keydown", handleKeydown);
     document.addEventListener(
       "mousedown",
@@ -236,19 +184,6 @@ export const usePortal = ({
     );
 
     return () => {
-      // handles all special case handlers. Currently only onScroll and onWheel
-      Object.entries(eventHandlerMap).forEach(
-        ([handlerName, eventListenerName]) => {
-          if (!eventHandlers[handlerName as keyof EventListenerMap]) return;
-          document.removeEventListener(
-            eventListenerName as keyof GlobalEventHandlersEventMap,
-            eventListeners.current[
-              handlerName as keyof EventListenerMap
-            ] as unknown as EventListener,
-          );
-          delete eventListeners.current[handlerName as keyof EventListenerMap];
-        },
-      );
       document.removeEventListener("keydown", handleKeydown);
       document.removeEventListener(
         "mousedown",
@@ -284,11 +219,9 @@ export const usePortal = ({
       togglePortal,
       Portal,
       portalRef: portal,
-      ...customEventHandlers,
       bind: {
         // used if you want to spread all html attributes onto the target element
         ref: targetEl,
-        ...customEventHandlers,
       },
     },
   );
