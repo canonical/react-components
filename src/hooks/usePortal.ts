@@ -1,5 +1,7 @@
-// NOTE: this is a copy of the original usePortal.ts file from react-useportal https://github.com/iamthesiz/react-useportal/blob/master/usePortal.ts
-// NOTE: due to the original react-useportal no longer being maintained, the react v19 update has caused the library to become imcompatible with the project
+/**
+ * This is a reference implementation of the usePortal hook from react-useportal: https://github.com/iamthesiz/react-useportal/blob/master/usePortal.ts
+ * The license for the content in this file is goverened by the original project's license: https://github.com/iamthesiz/react-useportal/blob/master/license.md
+ */
 import {
   useState,
   useRef,

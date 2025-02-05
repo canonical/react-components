@@ -1,5 +1,7 @@
-// NOTE: this is a copy of the original useSSR.ts file from use-ssr https://github.com/iamthesiz/use-ssr/blob/master/useSSR.ts
-// NOTE: due to the original use-ssr no longer being maintained, the react v19 update has caused the library to become imcompatible with the project due to peer dependency conflicts
+/**
+ * This is a reference implementation of the useSSR hook from use-ssr: https://github.com/iamthesiz/use-ssr/blob/master/useSSR.ts
+ * The license for the content in this file is goverened by the original project's license: https://github.com/iamthesiz/use-ssr/blob/master/license.md
+ */
 interface UseSSRReturn {
   isBrowser: boolean;
   isServer: boolean;

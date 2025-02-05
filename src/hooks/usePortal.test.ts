@@ -1,3 +1,8 @@
+/**
+ * This is a reference implementation of the usePortal hook from react-useportal: https://github.com/iamthesiz/react-useportal/blob/master/usePortal.test.ts
+ * The license for the content in this file is goverened by the original project's license: https://github.com/iamthesiz/react-useportal/blob/master/license.md
+ */
+
 import { renderHook, act } from "@testing-library/react";
 import { usePortal, errorMessage1 } from "./usePortal";
 
