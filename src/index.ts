@@ -204,3 +204,6 @@ export type {
   ValueOf,
 } from "./types";
 export { Theme } from "./enums";
+
+export type { UsePortalOptions } from "external";
+export { usePortal } from "external";

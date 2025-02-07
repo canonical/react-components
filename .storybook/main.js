@@ -16,6 +16,10 @@ const config = {
       use: ["style-loader", "css-loader", "sass-loader"],
       include: path.resolve(__dirname, "../"),
     });
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      external: path.resolve(__dirname, "../src/external"),
+    };
     return config;
   },
   docs: {
