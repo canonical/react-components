@@ -2,10 +2,12 @@ import classNames from "classnames";
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { MouseEventHandler, ReactNode } from "react";
 
-import { useWindowFitment, useListener, usePortal } from "hooks";
+import { useWindowFitment, useListener } from "hooks";
 import type { WindowFitment } from "hooks";
 
 import type { ClassName, ValueOf } from "types";
+
+import { usePortal } from "external";
 
 export type CSSPosition =
   | "static"

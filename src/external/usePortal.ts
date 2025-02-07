@@ -197,7 +197,8 @@ export const usePortal = ({
 
   const Portal = useCallback(
     ({ children }: { children: ReactNode }) => {
-      if (portal.current != null) return createPortal(children, portal.current);
+      if (portal.current != null)
+        return createPortal(children, portal.current) as React.JSX.Element;
       return null;
     },
     [portal],

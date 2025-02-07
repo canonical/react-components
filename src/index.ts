@@ -189,8 +189,6 @@ export {
   usePrevious,
   useThrottle,
   useWindowFitment,
-  usePortal,
-  useSSR,
 } from "hooks";
 export type { WindowFitment } from "hooks";
 
@@ -206,3 +204,6 @@ export type {
   ValueOf,
 } from "./types";
 export { Theme } from "./enums";
+
+export type { UsePortalOptions } from "external";
+export { usePortal } from "external";

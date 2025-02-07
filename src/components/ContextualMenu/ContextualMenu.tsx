@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { HTMLProps, ReactNode } from "react";
-import { useListener, usePortal, usePrevious } from "hooks";
+import { useListener, usePrevious } from "hooks";
 import Button from "../Button";
 import type { ButtonProps } from "../Button";
 import ContextualMenuDropdown from "./ContextualMenuDropdown";
@@ -13,6 +13,7 @@ import {
   PropsWithSpread,
   SubComponentProps,
 } from "types";
+import { usePortal } from "external";
 
 export enum Label {
   Toggle = "Toggle menu",

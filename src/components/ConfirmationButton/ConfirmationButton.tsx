@@ -4,7 +4,7 @@ import ActionButton, { ActionButtonProps } from "../ActionButton";
 import ConfirmationModal, {
   ConfirmationModalProps,
 } from "../ConfirmationModal";
-import { usePortal } from "hooks";
+import { usePortal } from "external";
 
 const generateTitle = (title: ReactNode) => {
   if (typeof title === "string") {

@@ -6,6 +6,4 @@ export { usePrevious } from "./usePrevious";
 export { useThrottle } from "./useThrottle";
 export { usePagination } from "./usePagination";
 export { useWindowFitment } from "./useWindowFitment";
-export { usePortal } from "./usePortal";
-export { useSSR } from "./useSSR";
 export type { WindowFitment } from "./useWindowFitment";
