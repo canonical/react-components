@@ -28,6 +28,7 @@ export const DefaultTitles = {
 type NotificationAction = {
   label: string;
   onClick: () => void;
+  disabled?: boolean;
 };
 
 /**
@@ -177,6 +178,7 @@ const Notification = ({
         <p className="p-notification__message">{children}</p>
         {onDismiss && (
           <button
+            type="button"
             className="p-notification__close"
             data-testid="notification-close-button"
             onClick={onDismiss}
@@ -199,11 +201,13 @@ const Notification = ({
             <div className="p-notification__actions">
               {actions.map((action, i) => (
                 <Button
+                  type="button"
                   appearance={ButtonAppearance.LINK}
                   className="p-notification__action"
                   data-testid="notification-action"
                   key={`${action.label}-${i}`}
                   onClick={action.onClick}
+                  disabled={action.disabled}
                 >
                   {action.label}
                 </Button>
