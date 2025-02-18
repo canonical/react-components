@@ -182,7 +182,7 @@ const ContextualMenu = <L,>({
   ...wrapperProps
 }: Props<L>): React.JSX.Element => {
   const id = useId();
-  const wrapper = useRef<HTMLDivElement | null>(null);
+  const wrapper = useRef<HTMLSpanElement | null>(null);
   const [positionCoords, setPositionCoords] = useState<DOMRect>();
   const [adjustedPosition, setAdjustedPosition] = useState(position);
 
@@ -194,7 +194,7 @@ const ContextualMenu = <L,>({
   const updatePositionCoords = useCallback(() => {
     const parent = getPositionNode(wrapper.current, positionNode);
     if (!parent) {
-      return null;
+      return;
     }
     setPositionCoords(parent.getBoundingClientRect());
   }, [wrapper, positionNode]);
@@ -231,7 +231,7 @@ const ContextualMenu = <L,>({
   // The callback ref pattern:
   // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
   const wrapperRef = useCallback(
-    (node) => {
+    (node: HTMLSpanElement) => {
       wrapper.current = node;
       if (node !== null) {
         updatePositionCoords();
@@ -252,28 +252,25 @@ const ContextualMenu = <L,>({
     }
   }, [closePortal, openPortal, visible, isOpen, previousVisible]);
 
-  const onResize = useCallback(
-    (evt) => {
-      const parent = getPositionNode(wrapper.current, positionNode);
-      if (parent && !getPositionNodeVisible(parent)) {
-        // Hide the menu if the item has become hidden. This might happen in
-        // a responsive table when columns become hidden as the page
-        // becomes smaller.
-        closePortal(evt);
-      } else {
-        // Update the coordinates so that the menu stays relative to the
-        // toggle button.
-        updatePositionCoords();
-      }
-    },
-    [closePortal, positionNode, updatePositionCoords],
-  );
+  const onResize = useCallback(() => {
+    const parent = getPositionNode(wrapper.current, positionNode);
+    if (parent && !getPositionNodeVisible(parent)) {
+      // Hide the menu if the item has become hidden. This might happen in
+      // a responsive table when columns become hidden as the page
+      // becomes smaller.
+      closePortal();
+    } else {
+      // Update the coordinates so that the menu stays relative to the
+      // toggle button.
+      updatePositionCoords();
+    }
+  }, [closePortal, positionNode, updatePositionCoords]);
 
   const onScroll = useCallback(
-    (e) => {
+    (e: Event) => {
       const parent = getPositionNode(wrapper.current, positionNode);
       // update position if the scroll event is triggered by the parent of the menu
-      if (parent && e.target.contains(parent)) {
+      if (parent && (e.target as HTMLElement).contains(parent)) {
         // Update the coordinates so that the menu stays relative to the
         // toggle button.
         updatePositionCoords();

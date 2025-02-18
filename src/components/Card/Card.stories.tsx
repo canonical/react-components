@@ -1,7 +1,7 @@
 import React from "react";
 import type { Meta } from "@storybook/react";
 
-import Card from "./";
+import Card, { CardProps } from "./";
 import Col from "../Col";
 import Row from "../Row";
 
@@ -45,7 +45,7 @@ the web a pleasure again. Ubuntu also includes Chrome, Opera and
 other browsers that can be installed from the Ubuntu Software
 Centre.`,
   },
-  render: (args) => (
+  render: (args: CardProps) => (
     <section
       className="p-strip--image is-light"
       style={{
