@@ -5,7 +5,7 @@ const commonJs = {
     "@babel/preset-typescript",
   ],
   plugins: [
-    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-class-properties",
     "babel-plugin-typescript-to-proptypes",
     [
       "module-resolver",
@@ -38,7 +38,7 @@ const esm = {
     "@babel/preset-typescript",
   ],
   plugins: [
-    "@babel/plugin-proposal-class-properties",
+    "@babel/plugin-transform-class-properties",
     "babel-plugin-typescript-to-proptypes",
     [
       "module-resolver",
