@@ -20,6 +20,9 @@ const compat = new FlatCompat({
 });
 
 export default [
+  {
+    ignores: ["src/external/"],
+  },
   ...fixupConfigRules(
     compat.extends("plugin:cypress/recommended", "plugin:prettier/recommended"),
   ),
