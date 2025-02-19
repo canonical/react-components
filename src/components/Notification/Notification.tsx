@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { ElementType, useEffect, useRef } from "react";
+import React, { ElementType, Fragment, useEffect, useRef } from "react";
 import type { HTMLProps, ReactNode } from "react";
 
 import Button, { ButtonAppearance } from "../Button";
@@ -28,7 +28,6 @@ export const DefaultTitles = {
 type NotificationAction = {
   label: string;
   onClick: () => void;
-  disabled?: boolean;
 };
 
 /**
@@ -39,7 +38,7 @@ export type Props = PropsWithSpread<
     /**
      * A list of up to two actions that the notification can perform.
      */
-    actions?: NotificationAction[];
+    actions?: (NotificationAction | ReactNode)[];
     /**
      * Whether the notification should not have a border.
      */
@@ -200,17 +199,21 @@ const Notification = ({
           {hasActions ? (
             <div className="p-notification__actions">
               {actions.map((action, i) => (
-                <Button
-                  type="button"
-                  appearance={ButtonAppearance.LINK}
-                  className="p-notification__action"
-                  data-testid="notification-action"
-                  key={`${action.label}-${i}`}
-                  onClick={action.onClick}
-                  disabled={action.disabled}
-                >
-                  {action.label}
-                </Button>
+                <Fragment key={i}>
+                  {typeof action === "object" && "label" in action ? (
+                    <Button
+                      type="button"
+                      appearance={ButtonAppearance.LINK}
+                      className="p-notification__action"
+                      data-testid="notification-action"
+                      onClick={action.onClick}
+                    >
+                      {action.label}
+                    </Button>
+                  ) : (
+                    action
+                  )}
+                </Fragment>
               ))}
             </div>
           ) : null}
