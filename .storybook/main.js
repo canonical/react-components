@@ -1,4 +1,7 @@
-const path = require("path");
+import path from "path";
+
+const dirname =
+  typeof __dirname === "undefined" ? import.meta?.dirname : __dirname;
 
 const config = {
   stories: ["../src/**/*.@(mdx|stories.@(js|ts|jsx|tsx))"],
@@ -14,11 +17,11 @@ const config = {
     config.module.rules.push({
       test: /\.scss$/,
       use: ["style-loader", "css-loader", "sass-loader"],
-      include: path.resolve(__dirname, "../"),
+      include: path.resolve(dirname, "../"),
     });
     config.resolve.alias = {
       ...config.resolve.alias,
-      external: path.resolve(__dirname, "../src/external"),
+      external: path.resolve(dirname, "../src/external"),
     };
     return config;
   },
