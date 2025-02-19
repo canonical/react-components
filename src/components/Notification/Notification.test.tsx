@@ -88,6 +88,14 @@ describe("Notification", () => {
     expect(onActionClick).toHaveBeenCalled();
   });
 
+  it("can be given ReactNodes as actions", () => {
+    const CustomAction = () => (
+      <div data-testid="custom-action">Custom Action</div>
+    );
+    render(<Notification actions={[<CustomAction key="custom" />]} />);
+    expect(screen.getByTestId("custom-action")).toBeInTheDocument();
+  });
+
   it("can automatically dismiss the notification after a given timeout period", () => {
     const onDismiss = jest.fn();
     const timeout = 1000;
