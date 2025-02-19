@@ -5,7 +5,7 @@ import classNames from "classnames";
 
 import NavigationLink from "./NavigationLink";
 import NavigationMenu from "./NavigationMenu";
-import type { GenerateLink, NavItem, NavMenu, LogoProps } from "./types";
+import { GenerateLink, NavItem, NavMenu, LogoProps } from "./types";
 import { PropsWithSpread, SubComponentProps } from "types";
 import SearchBox, { SearchBoxProps } from "components/SearchBox";
 import { useOnEscapePressed } from "hooks";
@@ -148,7 +148,10 @@ const generateItems = (
           link={{
             ...item,
             className: classNames("p-navigation__link", item.className),
-            onClick: (evt) => {
+            onClick: (
+              evt: React.MouseEvent<HTMLAnchorElement, MouseEvent> &
+                React.MouseEvent<HTMLButtonElement, MouseEvent>,
+            ) => {
               item.onClick?.(evt);
               closeMobileMenu();
             },

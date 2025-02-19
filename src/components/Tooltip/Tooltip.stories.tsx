@@ -3,8 +3,9 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import Button from "../Button";
 import Tooltip, { position } from "./Tooltip";
+import { TooltipProps } from ".";
 
-const Template = (args) => {
+const Template = (args: TooltipProps) => {
   return (
     <div style={{ display: "flex", justifyContent: "center", padding: "3rem" }}>
       <Tooltip {...args}>

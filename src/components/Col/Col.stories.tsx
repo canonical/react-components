@@ -3,8 +3,9 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import Col from "./Col";
 import Row from "../Row";
+import { ColProps } from ".";
 
-const Template = (args) => {
+const Template = (args: ColProps) => {
   return (
     <div className="grid-demo">
       <Row>

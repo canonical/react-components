@@ -130,10 +130,12 @@ const generateItems = <L = SideNavigationLinkDefaultElement,>(
 const getHasIcons = <L = SideNavigationLinkDefaultElement,>(
   groups: (NavItemGroup<L> | null)[] | (NavGroup<L> | null)[],
 ) =>
-  groups?.some((group) =>
-    (group && "items" in group ? group.items : group)?.some((item) =>
-      isReactNode(item) ? false : item && "icon" in item && !!item.icon,
-    ),
+  groups?.some(
+    (group) =>
+      group &&
+      ("items" in group ? group.items : group)?.some((item) =>
+        isReactNode(item) ? false : item && "icon" in item && !!item.icon,
+      ),
   );
 
 /**

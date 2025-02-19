@@ -1,6 +1,11 @@
 import classNames from "classnames";
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
-import type { MouseEventHandler, ReactNode } from "react";
+import type {
+  FocusEvent,
+  MouseEvent,
+  MouseEventHandler,
+  ReactNode,
+} from "react";
 
 import { useWindowFitment, useListener } from "hooks";
 import type { WindowFitment } from "hooks";
@@ -236,7 +241,7 @@ const Tooltip = ({
   }, []);
 
   const onUpdateWindowFitment = useCallback(
-    (fitsWindow) => {
+    (fitsWindow: WindowFitment) => {
       setAdjustedPosition(adjustForWindow(position, fitsWindow));
     },
     [setAdjustedPosition, position],
@@ -277,7 +282,7 @@ const Tooltip = ({
     };
   }, [handleKeyPress]);
 
-  const handleBlur = (e) => {
+  const handleBlur = (e: FocusEvent | MouseEvent) => {
     // do not close if the focus is within the tooltip wrapper
     if (wrapperRef?.current?.contains(document.activeElement)) {
       return;
@@ -285,21 +290,21 @@ const Tooltip = ({
 
     if (
       e.relatedTarget
-        ? !messageRef.current?.contains(e.relatedTarget) &&
-          !wrapperRef.current?.contains(e.relatedTarget)
+        ? !messageRef.current?.contains(e.relatedTarget as HTMLElement) &&
+          !wrapperRef.current?.contains(e.relatedTarget as HTMLElement)
         : e.target !== messageRef.current
     ) {
       cancelableClosePortal();
     }
   };
 
-  const handleClick = (e) => {
+  const handleClick = (e: MouseEvent) => {
     // ignore clicks within the tooltip message
-    if (messageRef.current?.contains(e.target)) {
+    if (messageRef.current?.contains(e.target as HTMLElement)) {
       return;
     }
-    e.target.focus();
-    openPortal(e);
+    (e.target as HTMLElement).focus();
+    openPortal();
   };
 
   const delayedOpenPortal: MouseEventHandler = useCallback(() => {

@@ -4,6 +4,7 @@ import Badge from "components/Badge";
 
 import SideNavigationLink from "./SideNavigationLink";
 import React from "react";
+import { ButtonProps } from "components/Button";
 
 const meta: Meta<typeof SideNavigationLink> = {
   component: SideNavigationLink,
@@ -24,7 +25,7 @@ export const Default: Story = {
 
 export const CustomComponent: Story = {
   args: {
-    component: (props) => <button {...props} />,
+    component: (props: ButtonProps) => <button {...props} />,
     icon: "drag",
     label: "Models",
   },

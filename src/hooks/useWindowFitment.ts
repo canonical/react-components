@@ -124,7 +124,7 @@ export const useWindowFitment = (
   const htmlRef = useRef<HTMLElement>(document.querySelector("html"));
 
   const update = useCallback(
-    (evt?) => {
+    (evt?: Event) => {
       let referenceCoordinates: {
         height: number;
         left: number;
@@ -136,8 +136,8 @@ export const useWindowFitment = (
           referenceCoordinates = {
             // The mouse is a single point so use 0 for the height and width.
             height: 0,
-            left: evt.x || 0,
-            top: evt.y || 0,
+            left: ("x" in evt && typeof evt.x === "number" ? evt.x : null) || 0,
+            top: ("y" in evt && typeof evt.y === "number" ? evt.y : null) || 0,
             width: 0,
           };
         }

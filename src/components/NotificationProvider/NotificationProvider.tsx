@@ -6,12 +6,13 @@ import React, {
   useRef,
   useState,
 } from "react";
+import fastDeepEqual from "fast-deep-equal";
+
 import {
   NotificationType,
   NotificationHelper,
   NotifyProviderProps,
 } from "./types";
-import isEqual from "lodash/isEqual";
 import { info, failure, success, queue } from "./messageBuilder";
 import Notification, { DefaultTitles } from "../Notification/Notification";
 
@@ -37,7 +38,7 @@ export const NotificationProvider: FC<NotifyProviderProps> = ({
   const clear = () => notification !== null && setNotification(null);
 
   const setDeduplicated = (value: NotificationType) => {
-    if (!isEqual(value, notification)) {
+    if (!fastDeepEqual(value, notification)) {
       setNotification(value);
     }
     return value;
