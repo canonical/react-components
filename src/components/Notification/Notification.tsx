@@ -200,7 +200,7 @@ const Notification = ({
             <div className="p-notification__actions">
               {actions.map((action, i) => (
                 <Fragment key={i}>
-                  {typeof action === "object" && "label" in action ? (
+                  {action && typeof action === "object" && "label" in action ? (
                     <Button
                       type="button"
                       appearance={ButtonAppearance.LINK}
