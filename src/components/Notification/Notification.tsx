@@ -3,7 +3,7 @@ import React, { ElementType, useEffect, useRef } from "react";
 import type { HTMLProps, ReactNode } from "react";
 
 import Button, { ButtonAppearance } from "../Button";
-import { IS_DEV } from "../../utils";
+import { IS_DEV, isReactNode } from "../../utils";
 
 import type { ClassName, PropsWithSpread, ValueOf } from "types";
 
@@ -38,7 +38,7 @@ export type Props = PropsWithSpread<
     /**
      * A list of up to two actions that the notification can perform.
      */
-    actions?: NotificationAction[];
+    actions?: (NotificationAction | ReactNode)[];
     /**
      * Whether the notification should not have a border.
      */
@@ -177,6 +177,7 @@ const Notification = ({
         <p className="p-notification__message">{children}</p>
         {onDismiss && (
           <button
+            type="button"
             className="p-notification__close"
             data-testid="notification-close-button"
             onClick={onDismiss}
@@ -197,17 +198,22 @@ const Notification = ({
           )}
           {hasActions ? (
             <div className="p-notification__actions">
-              {actions.map((action, i) => (
-                <Button
-                  appearance={ButtonAppearance.LINK}
-                  className="p-notification__action"
-                  data-testid="notification-action"
-                  key={`${action.label}-${i}`}
-                  onClick={action.onClick}
-                >
-                  {action.label}
-                </Button>
-              ))}
+              {actions.map((action, i) =>
+                isReactNode(action) ? (
+                  action
+                ) : (
+                  <Button
+                    type="button"
+                    appearance={ButtonAppearance.LINK}
+                    className="p-notification__action"
+                    data-testid="notification-action"
+                    key={`${action.label}-${i}`}
+                    onClick={action.onClick}
+                  >
+                    {action.label}
+                  </Button>
+                ),
+              )}
             </div>
           ) : null}
         </div>
