@@ -1,5 +1,11 @@
 import classNames from "classnames";
-import React, { ElementType, Fragment, useEffect, useRef } from "react";
+import React, {
+  ElementType,
+  Fragment,
+  isValidElement,
+  useEffect,
+  useRef,
+} from "react";
 import type { HTMLProps, ReactNode } from "react";
 
 import Button, { ButtonAppearance } from "../Button";
@@ -211,7 +217,7 @@ const Notification = ({
                       {action.label}
                     </Button>
                   ) : (
-                    action
+                    isValidElement(action) && action
                   )}
                 </Fragment>
               ))}
