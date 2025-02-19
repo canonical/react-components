@@ -1,6 +1,7 @@
 import path from "path";
 
-const dirname = __dirname || import.meta?.dirname;
+const dirname =
+  typeof __dirname === "undefined" ? import.meta?.dirname : __dirname;
 
 const config = {
   stories: ["../src/**/*.@(mdx|stories.@(js|ts|jsx|tsx))"],
