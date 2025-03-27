@@ -13,6 +13,9 @@ $dropdown-max-height: 20rem;
   margin-bottom: $input-margin-bottom;
   position: relative;
   width: 100%;
+
+  // Ensure the dropdown is above the modal backdrop
+  z-index: var(--menu-z-index, 151); 
 }
 
 .multi-select .p-form-validation__message {
