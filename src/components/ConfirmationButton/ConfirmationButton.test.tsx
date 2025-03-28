@@ -113,4 +113,47 @@ describe("ConfirmationButton ", () => {
     );
     expect(screen.getByTitle("Confirm")).toHaveClass("extra-class");
   });
+
+  it("does not show the modal if shouldShowModal returns false", () => {
+    const shouldShowModal = jest.fn().mockReturnValue(false);
+    const onConfirm = jest.fn();
+
+    render(
+      <ConfirmationButton
+        preModalOpenHook={shouldShowModal}
+        confirmationModalProps={{
+          confirmButtonLabel: "Confirm",
+          onConfirm,
+        }}
+      />,
+    );
+
+    const button = screen.getByRole("button");
+    fireEvent.click(button);
+
+    expect(shouldShowModal).toHaveBeenCalled();
+    expect(screen.queryByText("Confirm")).not.toBeInTheDocument();
+    expect(onConfirm).not.toHaveBeenCalled();
+  });
+
+  it("shows the modal if shouldShowModal returns true", () => {
+    const shouldShowModal = jest.fn().mockReturnValue(true);
+    const onConfirm = jest.fn();
+
+    render(
+      <ConfirmationButton
+        preModalOpenHook={shouldShowModal}
+        confirmationModalProps={{
+          confirmButtonLabel: "Confirm",
+          onConfirm,
+        }}
+      />,
+    );
+
+    const button = screen.getByRole("button");
+    fireEvent.click(button);
+
+    expect(shouldShowModal).toHaveBeenCalled();
+    expect(screen.getByText("Confirm")).toBeInTheDocument();
+  });
 });
