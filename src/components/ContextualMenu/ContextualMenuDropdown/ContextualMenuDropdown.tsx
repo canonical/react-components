@@ -179,6 +179,25 @@ const getClosestScrollableParent = (
   return document.body;
 };
 
+// nearest parents z-index that is not 0 or auto
+export const getNearestParentsZIndex = (
+  element: HTMLElement | null,
+): string => {
+  if (!window || !element) {
+    return "0";
+  }
+  const zIndex = window
+    .getComputedStyle(element, null)
+    .getPropertyValue("z-index");
+  if (!element.parentElement) {
+    return zIndex;
+  }
+  if (zIndex === "auto" || zIndex === "0" || zIndex === "") {
+    return getNearestParentsZIndex(element.parentElement);
+  }
+  return zIndex;
+};
+
 const ContextualMenuDropdown = <L,>({
   adjustedPosition,
   autoAdjust,
@@ -293,6 +312,17 @@ const ContextualMenuDropdown = <L,>({
   useEffect(() => {
     updateVerticalPosition();
   }, [updateVerticalPosition]);
+
+  useEffect(() => {
+    if (!dropdown.current) return;
+
+    // align z-index: when we are in a modal context, we want the dropdown to be above the modal
+    // apply the nearest parents z-index + 1
+    const zIndex = getNearestParentsZIndex(positionNode);
+    if (parseInt(zIndex) > 0) {
+      dropdown.current.parentElement?.style.setProperty("z-index", zIndex + 1);
+    }
+  }, [positionNode]);
 
   return (
     // Vanilla Framework uses .p-contextual-menu parent modifier classnames to determine the correct position of the .p-contextual-menu__dropdown dropdown (left, center, right).

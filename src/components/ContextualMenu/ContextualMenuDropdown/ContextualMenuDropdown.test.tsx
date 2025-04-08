@@ -182,9 +182,12 @@ describe("ContextualMenuDropdown ", () => {
             return {
               overflowY: "auto",
               overflowX: "auto",
+              getPropertyValue: (_: string) => "",
             } as CSSStyleDeclaration;
           }
-          return {} as CSSStyleDeclaration;
+          return {
+            getPropertyValue: (_: string) => "",
+          } as CSSStyleDeclaration;
         });
 
       // render the component once to setup initial jsdom elements
