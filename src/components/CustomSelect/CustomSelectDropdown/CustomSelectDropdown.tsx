@@ -124,24 +124,6 @@ export const adjustDropdownHeight = (
   adjustDropdownHeightBelow(dropdown);
 };
 
-export const getNearestParentsZIndex = (
-  element: HTMLElement | null,
-): string => {
-  if (!document.defaultView || !element) {
-    return "0";
-  }
-  const zIndex = document.defaultView
-    .getComputedStyle(element, null)
-    .getPropertyValue("z-index");
-  if (!element.parentElement) {
-    return zIndex;
-  }
-  if (zIndex === "auto" || zIndex === "0" || zIndex === "") {
-    return getNearestParentsZIndex(element.parentElement);
-  }
-  return zIndex;
-};
-
 export const getOptionText = (option: CustomSelectOption): string => {
   if (option.text) {
     return option.text;
@@ -186,16 +168,6 @@ const CustomSelectDropdown: FC<Props> = ({
       // align width with wrapper toggle width
       const toggleWidth = toggle?.getBoundingClientRect()?.width ?? 0;
       dropdownRef.current.style.setProperty("min-width", `${toggleWidth}px`);
-
-      // align z-index: when we are in a modal context, we want the dropdown to be above the modal
-      // apply the nearest parents z-index + 1
-      const zIndex = getNearestParentsZIndex(toggle);
-      if (parseInt(zIndex) > 0) {
-        dropdownRef.current.parentElement?.style.setProperty(
-          "z-index",
-          zIndex + 1,
-        );
-      }
     }
 
     setTimeout(() => {

@@ -2,7 +2,6 @@ import React from "react";
 import { fireEvent, render, screen } from "@testing-library/react";
 import CustomSelectDropdown, {
   CustomSelectOption,
-  getNearestParentsZIndex,
 } from "./CustomSelectDropdown";
 import { CustomSelectDropdownProps } from ".";
 
@@ -285,41 +284,6 @@ describe("CustomSelectDropdown", () => {
       fireEvent.keyDown(dropdown, { key: "Escape" });
       fireEvent.keyDown(dropdown, { key: "Tab" });
       expect(onCloseMock).toHaveBeenCalledTimes(2);
-    });
-  });
-
-  describe("getNearestParentsZIndex", () => {
-    it("should return '0' if the element is not available", () => {
-      const actual = getNearestParentsZIndex(null);
-      expect(actual).toBe("0");
-    });
-
-    it("should return the element's z-index if it does not have a parent", () => {
-      const div = document.createElement("div");
-      div.style.zIndex = "5";
-      document.body.appendChild(div);
-
-      const actual = getNearestParentsZIndex(div);
-      expect(actual).toBe("5");
-
-      document.body.removeChild(div);
-    });
-
-    it("should return the z-index of the closest parent with a defined value", () => {
-      const grandparent = document.createElement("div");
-      grandparent.style.zIndex = "5";
-      const parent = document.createElement("div");
-      parent.style.zIndex = "auto";
-      const child = document.createElement("div");
-      child.style.zIndex = "auto";
-      parent.appendChild(child);
-      grandparent.appendChild(parent);
-      document.body.appendChild(grandparent);
-
-      const actual = getNearestParentsZIndex(child);
-      expect(actual).toBe("5");
-
-      document.body.removeChild(grandparent);
     });
   });
 });
