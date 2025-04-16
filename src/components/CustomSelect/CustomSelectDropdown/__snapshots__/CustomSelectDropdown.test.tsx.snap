@@ -16,7 +16,7 @@ exports[`CustomSelectDropdown renders 1`] = `
       >
         <label
           class="u-off-screen"
-          for="search"
+          for="select-search-test-dropdown"
         >
           Search
         </label>
