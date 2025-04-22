@@ -132,6 +132,7 @@ export const Slider = ({
         />
         {showInput && (
           <input
+            aria-label={typeof label === "string" ? label : undefined}
             aria-describedby={help ? helpId : null}
             aria-errormessage={hasError ? validationId : null}
             aria-invalid={hasError}
