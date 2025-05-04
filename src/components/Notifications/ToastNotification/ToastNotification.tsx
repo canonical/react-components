@@ -1,5 +1,5 @@
-import Notification from "components/Notification";
-import { DefaultTitles } from "components/Notification/Notification";
+import Notification from "components/Notifications";
+import { DefaultTitles } from "components/Notifications/Notification/Notification";
 import type { ToastNotificationType } from "./ToastNotificationProvider";
 import type { FC } from "react";
 import { createPortal } from "react-dom";

@@ -1,8 +1,8 @@
 import type { ValueOf } from "types";
 import Button from "components/Button";
 import Icon from "components/Icon";
-import Notification from "components/Notification/Notification";
-import { DefaultTitles } from "components/Notification/Notification";
+import Notification from "components/Notifications/Notification";
+import { DefaultTitles } from "components/Notifications/Notification/Notification";
 import {
   GroupedNotificationCount,
   ToastNotificationType,
@@ -11,10 +11,10 @@ import type { FC } from "react";
 import { useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Animate from "./Animate";
-import { usePrefersReducedMotion } from "./usePreferReducedMotion";
+import { usePrefersReducedMotion } from "../../../hooks";
 import React from "react";
 import { ICONS } from "components/Icon";
-import type { NotificationSeverity } from "components/Notification/Notification";
+import type { NotificationSeverity } from "components/Notifications/Notification";
 import "./Toast.scss";
 
 export type FilterTypes = ValueOf<typeof NotificationSeverity>;
@@ -247,7 +247,7 @@ const ToastNotificationList: FC<Props> = ({
         ref={containerRef}
       >
         {notificationEls}
-        <div className="dismiss">
+        <li className="dismiss">
           {getSeverityFilters()}
           <Button
             className="u-no-margin--bottom dismiss-button"
@@ -257,7 +257,7 @@ const ToastNotificationList: FC<Props> = ({
             <Icon name="tidy" />
             {getDismissText()}
           </Button>
-        </div>
+        </li>
       </ul>
     </Animate>,
     document.body,

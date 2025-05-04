@@ -2,8 +2,8 @@ import classNames from "classnames";
 import React, { ElementType, useEffect, useRef } from "react";
 import type { HTMLProps, ReactNode } from "react";
 
-import Button, { ButtonAppearance } from "../Button";
-import { IS_DEV, isReactNode } from "../../utils";
+import Button, { ButtonAppearance } from "../../Button";
+import { IS_DEV, isReactNode } from "../../../utils";
 
 import type { ClassName, PropsWithSpread, ValueOf } from "types";
 

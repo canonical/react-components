@@ -14,7 +14,8 @@ import {
   NotifyProviderProps,
 } from "./types";
 import { info, failure, success, queue } from "./messageBuilder";
-import Notification, { DefaultTitles } from "../Notification/Notification";
+import Notification from "../Notifications";
+import { DefaultTitles } from "../Notifications/Notification/Notification";
 
 const NotifyContext = createContext<NotificationHelper>({
   notification: null,

@@ -6,6 +6,7 @@ it("exports all public hooks and components from the index file", () => {
   const componentsPath = "./src/components/";
 
   const isNotHidden = (name: string) => !name.startsWith(".");
+  const ignoreDir = ["Notifications"];
 
   const hooks = fs
     .readdirSync(hooksPath)
@@ -18,7 +19,11 @@ it("exports all public hooks and components from the index file", () => {
     .map((file) => file.replace(".ts", ""));
   expect(hooks.length).toBeGreaterThan(0);
 
-  const components = fs.readdirSync(componentsPath).filter(isNotHidden);
+  const components = fs
+    .readdirSync(componentsPath)
+    .filter(
+      (filename) => isNotHidden(filename) && !ignoreDir.includes(filename),
+    );
   expect(components.length).toBeGreaterThan(0);
 
   const actualExports = Object.keys(index);

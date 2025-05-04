@@ -41,7 +41,7 @@ export * from "./components/MultiSelect";
 export {
   default as Notification,
   NotificationSeverity,
-} from "./components/Notification";
+} from "./components/Notifications";
 export {
   NotificationConsumer,
   NotificationProvider,
@@ -86,7 +86,7 @@ export {
   ToastNotificationList,
   ToastNotificationProvider,
   useToastNotification,
-} from "./components/Notification";
+} from "./components/Notifications";
 export { default as Tooltip } from "./components/Tooltip";
 export { default as TablePagination } from "./components/TablePagination";
 export { default as TablePaginationControls } from "./components/TablePagination/TablePaginationControls";
@@ -145,7 +145,7 @@ export type {
   NavLinkBase,
   NavLinkButton,
 } from "./components/Navigation";
-export type { NotificationProps } from "./components/Notification";
+export type { NotificationProps } from "./components/Notifications";
 export type {
   NotificationAction,
   NotificationType,
@@ -177,7 +177,7 @@ export type { TableHeaderProps } from "./components/TableHeader";
 export type { TableRowProps } from "./components/TableRow";
 export type { TabsProps } from "./components/Tabs";
 export type { TextareaProps } from "./components/Textarea";
-export type { ToastNotificationType } from "./components/Notification";
+export type { ToastNotificationType } from "./components/Notifications";
 export type { TooltipProps } from "./components/Tooltip";
 export type { TablePaginationProps } from "./components/TablePagination";
 export type {
@@ -194,6 +194,7 @@ export {
   useOnEscapePressed,
   usePagination,
   usePrevious,
+  usePrefersReducedMotion,
   useThrottle,
   useWindowFitment,
 } from "hooks";

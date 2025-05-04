@@ -1,24 +1,6 @@
 @import "vanilla-framework/scss/settings";
 @import "vanilla-framework/scss/build";
 
-@mixin medium {
-  @media screen and (min-width: $breakpoint-small) and (max-width: $breakpoint-large) {
-    @content;
-  }
-}
-
-@mixin large {
-  @media screen and (min-width: $breakpoint-large) {
-    @content;
-  }
-}
-
-@mixin mobile {
-  @media screen and (max-width: $breakpoint-small) {
-    @content;
-  }
-}
-
 .toast-animate {
   position: relative;
   z-index: 101;
@@ -31,11 +13,11 @@
   position: absolute;
   right: 0;
 
-  @include medium {
+  @media screen and (min-width: $breakpoint-small) and (max-width: $breakpoint-large) {
     width: 500px;
   }
 
-  @include large {
+  @media screen and (min-width: $breakpoint-large) {
     width: 600px;
   }
 }
@@ -45,7 +27,7 @@
   overflow: hidden;
   z-index: 101;
 
-  @include mobile {
+  @media screen and (max-width: $breakpoint-small) {
     left: 0;
     margin: 1.5rem auto;
     max-width: 400px;
@@ -116,7 +98,7 @@
       }
     }
 
-    @include mobile {
+    @media screen and (max-width: $breakpoint-small) {
       align-items: flex-start;
       flex-direction: column;
       gap: 0.5rem;
@@ -124,7 +106,7 @@
     }
   }
 
-  @include mobile {
+  @media screen and (max-width: $breakpoint-small) {
     bottom: 2rem;
     left: 0;
     margin: 1.5rem auto;

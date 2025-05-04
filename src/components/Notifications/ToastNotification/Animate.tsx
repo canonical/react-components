@@ -1,7 +1,7 @@
 import type { FC, PropsWithChildren } from "react";
 import { useLayoutEffect, useRef, useState } from "react";
 import React from "react";
-import { usePrefersReducedMotion } from "./usePreferReducedMotion";
+import { usePrefersReducedMotion } from "../../../hooks";
 
 interface Props {
   show: boolean;
