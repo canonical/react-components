@@ -24,6 +24,7 @@ export { default as ConfirmationModal } from "./components/ConfirmationModal";
 export { default as ContextualMenu } from "./components/ContextualMenu";
 export { default as DoughnutChart } from "./components/DoughnutChart";
 export { default as EmptyState } from "./components/EmptyState";
+export { createEventQueue } from "./components/EventQueue";
 export { default as Field } from "./components/Field";
 export { default as Form } from "./components/Form";
 export { default as FormikField } from "./components/FormikField";
@@ -124,6 +125,7 @@ export type {
 } from "./components/ContextualMenu";
 export type { DoughnutChartProps, Segment } from "./components/DoughnutChart";
 export type { EmptyStateProps } from "./components/EmptyState";
+export type { EventCallback, EventQueue } from "./components/EventQueue";
 export type { FieldProps } from "./components/Field";
 export type { FormProps } from "./components/Form";
 export type { FormikFieldProps } from "./components/FormikField";
