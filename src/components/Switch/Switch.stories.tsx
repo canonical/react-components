@@ -27,3 +27,12 @@ export const Disabled: Story = {
     label: "Disabled switch",
   },
 };
+
+export const HelpText: Story = {
+  name: "Help Text",
+
+  args: {
+    label: "Switch with help text",
+    help: "This is some help text",
+  },
+};
