@@ -4,7 +4,7 @@ import {
   QueuedNotification,
 } from "./types";
 import React, { ReactNode } from "react";
-import { NotificationSeverity } from "../Notification";
+import { NotificationSeverity } from "../Notifications";
 
 export const queue = (notification: NotificationType): QueuedNotification => {
   return { state: { queuedNotification: notification } };
