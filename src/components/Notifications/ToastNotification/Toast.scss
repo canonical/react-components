@@ -1,5 +1,4 @@
 @import "vanilla-framework/scss/settings";
-@import "vanilla-framework/scss/build";
 
 .toast-animate {
   position: relative;
@@ -87,12 +86,6 @@
         span {
           padding: 0;
           text-align: center;
-        }
-
-        /* stylelint-disable-next-line selector-class-pattern */
-        .p-icon--info--notification {
-          @extend %icon;
-          @include vf-icon-info-coloured-themed;
         }
         /* stylelint-enable max-nesting-depth */
       }
