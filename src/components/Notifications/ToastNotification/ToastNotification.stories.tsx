@@ -44,6 +44,7 @@ const PreloadedList = () => {
       "Please try again.",
     );
     toastNotify.toggleListView();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -47,6 +47,7 @@ const Animate: FC<PropsWithChildren<Props>> = ({
         element.style.display = "none";
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [show, removeState]);
 
   if (removeState) {

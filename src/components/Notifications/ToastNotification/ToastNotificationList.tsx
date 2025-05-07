@@ -54,6 +54,7 @@ const ToastNotificationList: FC<Props> = ({
 
   useLayoutEffect(() => {
     adjustScrollPosition();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notifications]);
 
   // this layout effect is used to maintain scroll position of the
