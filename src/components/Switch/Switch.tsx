@@ -2,6 +2,7 @@ import React from "react";
 import classNames from "classnames";
 import type { HTMLProps, ReactNode } from "react";
 import type { PropsWithSpread } from "types";
+import { useId } from "react";
 import "./Switch.scss";
 
 export type Props = PropsWithSpread<
@@ -36,6 +37,8 @@ export const Switch = ({
   helpClassName,
   ...inputProps
 }: Props): React.JSX.Element => {
+  const helpId = useId();
+
   return (
     <>
       <label className="p-switch">
@@ -56,7 +59,7 @@ export const Switch = ({
             "switch-help-text",
             helpClassName,
           )}
-          id={inputProps["aria-describedby"]}
+          id={helpId}
         >
           {help}
         </p>
