@@ -6,7 +6,8 @@ it("exports all public hooks and components from the index file", () => {
   const componentsPath = "./src/components/";
 
   const isNotHidden = (name: string) => !name.startsWith(".");
-  const ignoreDir = ["Notifications"];
+  // exclude directories that are not meant to be components
+  const ignoreDir = ["Notifications", "EventQueue"];
 
   const hooks = fs
     .readdirSync(hooksPath)
