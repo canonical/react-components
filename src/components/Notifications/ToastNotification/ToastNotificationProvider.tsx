@@ -139,6 +139,7 @@ const ToastNotificationProvider: FC<PropsWithChildren> = ({ children }) => {
         clearTimeout(notificationTimer);
       }
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const showNotificationWithDelay = () => {
