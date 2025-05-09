@@ -1,7 +1,9 @@
 import React from "react";
+import classNames from "classnames";
 import type { HTMLProps, ReactNode } from "react";
-
 import type { PropsWithSpread } from "types";
+import { useId } from "react";
+import "./Switch.scss";
 
 export type Props = PropsWithSpread<
   {
@@ -13,6 +15,14 @@ export type Props = PropsWithSpread<
      * Whether the switch is disabled or not
      */
     disabled?: boolean;
+    /**
+     * Help text to show below the field.
+     */
+    help?: ReactNode;
+    /**
+     * Optional class(es) to pass to the help text element.
+     */
+    helpClassName?: string;
   },
   HTMLProps<HTMLInputElement>
 >;
@@ -23,20 +33,38 @@ export type Props = PropsWithSpread<
 export const Switch = ({
   label,
   disabled = false,
+  help,
+  helpClassName,
   ...inputProps
 }: Props): React.JSX.Element => {
+  const helpId = useId();
+
   return (
-    <label className="p-switch">
-      <input
-        type="checkbox"
-        className="p-switch__input"
-        role="switch"
-        disabled={disabled}
-        {...inputProps}
-      ></input>
-      <span className="p-switch__slider"></span>
-      <span className="p-switch__label">{label}</span>
-    </label>
+    <>
+      <label className="p-switch">
+        <input
+          type="checkbox"
+          className="p-switch__input"
+          role="switch"
+          disabled={disabled}
+          {...inputProps}
+        ></input>
+        <span className="p-switch__slider"></span>
+        <span className="p-switch__label">{label}</span>
+      </label>
+      {help && (
+        <p
+          className={classNames(
+            "p-form-help-text",
+            "switch-help-text",
+            helpClassName,
+          )}
+          id={helpId}
+        >
+          {help}
+        </p>
+      )}
+    </>
   );
 };
 

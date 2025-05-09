@@ -85,7 +85,7 @@
   }
 }
 
-.stepper-vertical {
+.stepper-vertical:not(.stepper-horizontal) {
   .p-list__item {
     padding-bottom: 0;
     padding-top: 0;
