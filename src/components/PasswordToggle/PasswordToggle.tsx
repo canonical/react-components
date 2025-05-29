@@ -1,12 +1,14 @@
 import classNames from "classnames";
-import React, { useId, useState } from "react";
 import type { InputHTMLAttributes, ReactNode } from "react";
+import React, { useId, useState } from "react";
 
 import Button from "../Button";
 import Field from "../Field";
 import VanillaLabel from "../Label";
 
 import type { ClassName, PropsWithSpread } from "types";
+
+import "./PasswordToggle.scss";
 
 export enum Label {
   Hide = "Hide",
@@ -108,6 +110,7 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
       <Field
         caution={caution}
         className={wrapperClassName}
+        contentClassName="password-toggle"
         error={error}
         help={help}
         helpId={helpId}
@@ -115,6 +118,22 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
         success={success}
         validationId={validationId}
       >
+        <input
+          aria-describedby={[
+            help ? helpId : null,
+            success ? validationId : null,
+          ]
+            .filter(Boolean)
+            .join(" ")}
+          aria-errormessage={hasError ? validationId : null}
+          aria-invalid={hasError}
+          className={classNames("p-form-validation__input", className)}
+          id={passwordToggleId}
+          readOnly={readOnly}
+          ref={ref}
+          type={isPassword ? "password" : "text"}
+          {...inputProps}
+        />
         <div className="p-form-password-toggle">
           <VanillaLabel forId={passwordToggleId} required={required}>
             {label}
@@ -134,22 +153,6 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
             <i className={isPassword ? "p-icon--show" : "p-icon--hide"}></i>
           </Button>
         </div>
-        <input
-          aria-describedby={[
-            help ? helpId : null,
-            success ? validationId : null,
-          ]
-            .filter(Boolean)
-            .join(" ")}
-          aria-errormessage={hasError ? validationId : null}
-          aria-invalid={hasError}
-          className={classNames("p-form-validation__input", className)}
-          id={passwordToggleId}
-          readOnly={readOnly}
-          ref={ref}
-          type={isPassword ? "password" : "text"}
-          {...inputProps}
-        />
       </Field>
     );
   },
