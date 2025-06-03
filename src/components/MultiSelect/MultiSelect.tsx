@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 
-import "./MultiSelect.scss";
 import { Button, CheckboxInput, ContextualMenu, SearchBox } from "../../index";
+import "./MultiSelect.scss";
 
 import { FadeInDown } from "./FadeInDown";
 
@@ -32,8 +32,8 @@ export type MultiSelectProps = {
   showDropdownFooter?: boolean;
   variant?: "condensed" | "search";
   scrollOverflow?: boolean;
-  sortedAlphabetically?: boolean;
-  sortedBySelection?: boolean;
+  isSortedAlphabetically?: boolean;
+  hasSelectedItemsFirst?: boolean;
 };
 
 type ValueSet = Set<MultiSelectItem["value"]>;
@@ -53,7 +53,7 @@ type MultiSelectDropdownProps = {
   footer?: ReactNode;
   groupFn?: GroupFn;
   sortFn: SortFn;
-  sortedBySelection?: boolean;
+  hasSelectedItemsFirst?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const sortAlphabetically = (a: MultiSelectItem, b: MultiSelectItem) => {
@@ -97,7 +97,7 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
   footer,
   sortFn,
   groupFn = getGroupedItems,
-  sortedBySelection = true,
+  hasSelectedItemsFirst = true,
   ...props
 }: MultiSelectDropdownProps) => {
   const selectedItemValues = useMemo(
@@ -153,7 +153,7 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
               {items
                 .toSorted(sortFn)
                 .toSorted(
-                  sortedBySelection
+                  hasSelectedItemsFirst
                     ? createSortSelectedItems(previouslySelectedItemValues)
                     : undefined,
                 )
@@ -201,8 +201,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   showDropdownFooter = true,
   variant = "search",
   scrollOverflow = false,
-  sortedAlphabetically = true,
-  sortedBySelection = true,
+  isSortedAlphabetically = true,
+  hasSelectedItemsFirst = true,
 }: MultiSelectProps) => {
   const buttonRef = useRef(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -357,8 +357,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         onSelectItem={onSelectItem}
         onDeselectItem={onDeselectItem}
         footer={footer}
-        sortFn={sortedAlphabetically ? sortAlphabetically : undefined}
-        sortedBySelection={sortedBySelection}
+        sortFn={isSortedAlphabetically ? sortAlphabetically : undefined}
+        hasSelectedItemsFirst={hasSelectedItemsFirst}
       />
     </ContextualMenu>
   );
