@@ -8,7 +8,7 @@ import {
   ToastNotificationType,
 } from "./ToastNotificationProvider";
 import type { FC } from "react";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import Animate from "./Animate";
 import { usePrefersReducedMotion } from "../../../hooks";
@@ -200,6 +200,13 @@ const ToastNotificationList: FC<Props> = ({
   const filteredNotifications = hasFilters
     ? notifications.filter((notification) => filters.has(notification.type))
     : notifications;
+
+  useEffect(() => {
+    if (hasFilters && filteredNotifications.length === 0) {
+      // if there are no filtered notifications, reset the filters
+      setFilters(new Set());
+    }
+  }, [hasFilters, filteredNotifications]);
 
   // Don't assign alert role for notifications when expanded since we don't want
   // screen readers to announce every existing notification
