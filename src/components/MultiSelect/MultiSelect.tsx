@@ -52,7 +52,7 @@ type MultiSelectDropdownProps = {
   onSelectItem?: (item: MultiSelectItem) => void;
   footer?: ReactNode;
   groupFn?: GroupFn;
-  sortFn: SortFn;
+  sortFn?: SortFn;
   hasSelectedItemsFirst?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
@@ -95,7 +95,7 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
   onDeselectItem,
   isOpen,
   footer,
-  sortFn,
+  sortFn = sortAlphabetically,
   groupFn = getGroupedItems,
   hasSelectedItemsFirst = true,
   ...props
@@ -155,7 +155,7 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
                 .toSorted(
                   hasSelectedItemsFirst
                     ? createSortSelectedItems(previouslySelectedItemValues)
-                    : undefined,
+                    : () => 0,
                 )
                 .map((item) => (
                   <li key={item.value} className="multi-select__dropdown-item">
@@ -357,7 +357,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         onSelectItem={onSelectItem}
         onDeselectItem={onDeselectItem}
         footer={footer}
-        sortFn={isSortedAlphabetically ? sortAlphabetically : undefined}
+        sortFn={isSortedAlphabetically ? sortAlphabetically : () => 0}
         hasSelectedItemsFirst={hasSelectedItemsFirst}
       />
     </ContextualMenu>
