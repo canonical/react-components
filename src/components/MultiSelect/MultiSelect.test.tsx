@@ -278,3 +278,46 @@ it("opens and closes the dropdown on click", async () => {
   await userEvent.click(screen.getByRole("combobox"));
   expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
 });
+
+it("can render without sorting alphabetically", async () => {
+  const itemsUnsorted = [
+    { label: "item B", value: 2 },
+    { label: "item A", value: 1 },
+    { label: "other B", value: 3 },
+    { label: "other A", value: 4 },
+  ];
+
+  render(<MultiSelect items={itemsUnsorted} isSortedAlphabetically={false} />);
+  await userEvent.click(screen.getByRole("combobox"));
+  const list = screen.getByRole("list");
+
+  const expectedLabels = itemsUnsorted.map((item) => item.label);
+  await waitFor(() =>
+    within(list)
+      .getAllByRole("listitem")
+      .forEach((item, index) =>
+        expect(item).toHaveTextContent(expectedLabels[index]),
+      ),
+  );
+});
+
+it("can render without sorting selected items first", async () => {
+  render(
+    <MultiSelect
+      items={items}
+      selectedItems={[items[1]]}
+      hasSelectedItemsFirst={false}
+    />,
+  );
+  await userEvent.click(screen.getByRole("combobox"));
+  const list = screen.getByRole("list");
+
+  const expectedLabels = items.map((item) => item.label);
+  await waitFor(() =>
+    within(list)
+      .getAllByRole("listitem")
+      .forEach((item, index) =>
+        expect(item).toHaveTextContent(expectedLabels[index]),
+      ),
+  );
+});
