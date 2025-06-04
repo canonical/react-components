@@ -1,8 +1,8 @@
 import type { ReactNode } from "react";
 import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 
-import { Button, CheckboxInput, ContextualMenu, SearchBox } from "../../index";
 import "./MultiSelect.scss";
+import { Button, CheckboxInput, ContextualMenu, SearchBox } from "../../index";
 
 import { FadeInDown } from "./FadeInDown";
 

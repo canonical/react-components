@@ -1,5 +1,6 @@
+import React from "react";
+import { useState } from "react";
 import { Meta, StoryObj } from "@storybook/react";
-import React, { useState } from "react";
 
 import { MultiSelect, MultiSelectItem, MultiSelectProps } from "./MultiSelect";
 
