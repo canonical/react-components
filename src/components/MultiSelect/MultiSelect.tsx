@@ -32,6 +32,8 @@ export type MultiSelectProps = {
   showDropdownFooter?: boolean;
   variant?: "condensed" | "search";
   scrollOverflow?: boolean;
+  isSortedAlphabetically?: boolean;
+  hasSelectedItemsFirst?: boolean;
 };
 
 type ValueSet = Set<MultiSelectItem["value"]>;
@@ -51,6 +53,7 @@ type MultiSelectDropdownProps = {
   footer?: ReactNode;
   groupFn?: GroupFn;
   sortFn?: SortFn;
+  hasSelectedItemsFirst?: boolean;
 } & React.HTMLAttributes<HTMLDivElement>;
 
 const sortAlphabetically = (a: MultiSelectItem, b: MultiSelectItem) => {
@@ -94,6 +97,7 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
   footer,
   sortFn = sortAlphabetically,
   groupFn = getGroupedItems,
+  hasSelectedItemsFirst = true,
   ...props
 }: MultiSelectDropdownProps) => {
   const selectedItemValues = useMemo(
@@ -147,8 +151,12 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
             ) : null}
             <ul className="multi-select__dropdown-list" aria-label={group}>
               {items
-                .sort(sortFn)
-                .sort(createSortSelectedItems(previouslySelectedItemValues))
+                .toSorted(sortFn)
+                .toSorted(
+                  hasSelectedItemsFirst
+                    ? createSortSelectedItems(previouslySelectedItemValues)
+                    : () => 0,
+                )
                 .map((item) => (
                   <li key={item.value} className="multi-select__dropdown-item">
                     <CheckboxInput
@@ -193,6 +201,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   showDropdownFooter = true,
   variant = "search",
   scrollOverflow = false,
+  isSortedAlphabetically = true,
+  hasSelectedItemsFirst = true,
 }: MultiSelectProps) => {
   const buttonRef = useRef(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -347,6 +357,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         onSelectItem={onSelectItem}
         onDeselectItem={onDeselectItem}
         footer={footer}
+        sortFn={isSortedAlphabetically ? sortAlphabetically : () => 0}
+        hasSelectedItemsFirst={hasSelectedItemsFirst}
       />
     </ContextualMenu>
   );
