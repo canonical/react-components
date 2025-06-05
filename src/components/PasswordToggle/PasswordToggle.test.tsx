@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
-import PasswordToggle, { Label } from "./PasswordToggle";
 import userEvent from "@testing-library/user-event";
+import PasswordToggle, { Label } from "./PasswordToggle";
 
 describe("PasswordToggle", () => {
   it("can add additional classes", () => {
@@ -58,5 +58,13 @@ describe("PasswordToggle", () => {
     const help = "Save me!";
     render(<PasswordToggle help={help} id="test-id" label="password" />);
     expect(screen.getByLabelText("password")).toHaveAccessibleDescription(help);
+  });
+
+  it("focuses the field before the toggle button", async () => {
+    render(<PasswordToggle label="password" id="test-id" />);
+    await userEvent.tab();
+    expect(screen.getByLabelText("password")).toHaveFocus();
+    await userEvent.tab();
+    expect(screen.getByRole("button", { name: Label.Show })).toHaveFocus();
   });
 });

@@ -110,7 +110,6 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
       <Field
         caution={caution}
         className={wrapperClassName}
-        contentClassName="password-toggle"
         error={error}
         help={help}
         helpId={helpId}
@@ -118,40 +117,42 @@ const PasswordToggle = React.forwardRef<HTMLInputElement, Props>(
         success={success}
         validationId={validationId}
       >
-        <input
-          aria-describedby={[
-            help ? helpId : null,
-            success ? validationId : null,
-          ]
-            .filter(Boolean)
-            .join(" ")}
-          aria-errormessage={hasError ? validationId : null}
-          aria-invalid={hasError}
-          className={classNames("p-form-validation__input", className)}
-          id={passwordToggleId}
-          readOnly={readOnly}
-          ref={ref}
-          type={isPassword ? "password" : "text"}
-          {...inputProps}
-        />
-        <div className="p-form-password-toggle">
-          <VanillaLabel forId={passwordToggleId} required={required}>
-            {label}
-          </VanillaLabel>
-          <Button
-            appearance="base"
-            type={type ? type : "button"}
-            className="u-no-margin--bottom"
-            hasIcon
-            aria-controls={id}
-            aria-live="polite"
-            onClick={() => togglePassword()}
-          >
-            <span className="p-form-password-toggle__label">
-              {isPassword ? Label.Show : Label.Hide}
-            </span>
-            <i className={isPassword ? "p-icon--show" : "p-icon--hide"}></i>
-          </Button>
+        <div className="password-toggle">
+          <input
+            aria-describedby={[
+              help ? helpId : null,
+              success ? validationId : null,
+            ]
+              .filter(Boolean)
+              .join(" ")}
+            aria-errormessage={hasError ? validationId : null}
+            aria-invalid={hasError}
+            className={classNames("p-form-validation__input", className)}
+            id={passwordToggleId}
+            readOnly={readOnly}
+            ref={ref}
+            type={isPassword ? "password" : "text"}
+            {...inputProps}
+          />
+          <div className="p-form-password-toggle">
+            <VanillaLabel forId={passwordToggleId} required={required}>
+              {label}
+            </VanillaLabel>
+            <Button
+              appearance="base"
+              type={type ? type : "button"}
+              className="u-no-margin--bottom"
+              hasIcon
+              aria-controls={id}
+              aria-live="polite"
+              onClick={() => togglePassword()}
+            >
+              <span className="p-form-password-toggle__label">
+                {isPassword ? Label.Show : Label.Hide}
+              </span>
+              <i className={isPassword ? "p-icon--show" : "p-icon--hide"}></i>
+            </Button>
+          </div>
         </div>
       </Field>
     );

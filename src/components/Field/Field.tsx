@@ -24,10 +24,6 @@ export type Props = {
    */
   className?: ClassName;
   /**
-   * Optional class(es) to pass to the content element.
-   */
-  contentClassName?: string;
-  /**
    * The content for error validation.
    */
   error?: ReactNode;
@@ -142,7 +138,6 @@ const generateLabel = (
 const generateContent = ({
   isSelect,
   children,
-  contentClassName,
   labelFirst,
   labelNode,
   help,
@@ -158,7 +153,7 @@ const generateContent = ({
   validationId: string;
   helpId: string;
 }) => (
-  <div className={classNames("p-form__control u-clearfix", contentClassName)}>
+  <div className="p-form__control u-clearfix">
     {isSelect ? (
       <div className="p-form-validation__select-wrapper">{children}</div>
     ) : (
@@ -179,7 +174,6 @@ const Field = ({
   caution,
   children,
   className,
-  contentClassName,
   error,
   forId,
   help,
@@ -208,7 +202,6 @@ const Field = ({
     isSelect,
     isTickElement,
     children,
-    contentClassName,
     labelFirst,
     labelNode,
     help,
