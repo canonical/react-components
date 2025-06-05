@@ -1,8 +1,8 @@
 import { render, screen } from "@testing-library/react";
 import React from "react";
 
-import userEvent from "@testing-library/user-event";
 import PasswordToggle, { Label } from "./PasswordToggle";
+import userEvent from "@testing-library/user-event";
 
 describe("PasswordToggle", () => {
   it("can add additional classes", () => {

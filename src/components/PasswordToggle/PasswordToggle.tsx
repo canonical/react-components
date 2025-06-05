@@ -1,13 +1,12 @@
 import classNames from "classnames";
-import type { InputHTMLAttributes, ReactNode } from "react";
 import React, { useId, useState } from "react";
+import type { InputHTMLAttributes, ReactNode } from "react";
 
 import Button from "../Button";
 import Field from "../Field";
 import VanillaLabel from "../Label";
 
 import type { ClassName, PropsWithSpread } from "types";
-
 import "./PasswordToggle.scss";
 
 export enum Label {
