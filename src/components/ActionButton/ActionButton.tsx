@@ -71,12 +71,16 @@ const ActionButton = ({
   const [showLoader, setShowLoader] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
+  const loadingTimeTracker = useRef<number>(0);
+  const startLoadTime = useRef<Date | undefined>(undefined);
 
   // Set up loader timer
   useEffect(() => {
     let loaderTimeout: number;
 
     if (loading) {
+      // Keep track of time when loading is occured.
+      startLoadTime.current = new Date();
       // Explicitly set button dimensions
       if (ref.current && !!ref.current.getBoundingClientRect()) {
         setHeight(ref.current.getBoundingClientRect().height);
@@ -86,13 +90,23 @@ const ActionButton = ({
     }
 
     if (!loading && showLoader) {
+      const now = new Date();
+      // calculate elasped time of loading from user and do subtraction to LOADER_MIN_DURATION,
+      // also add an edge case when time diff is less than 0 to be 0.
+      const loadingMilliseconds: number = now.getTime() - (startLoadTime.current ?? now).getTime();
+      loadingTimeTracker.current = Math.max(
+        LOADER_MIN_DURATION - loadingMilliseconds,
+        0,
+      );
       loaderTimeout = window.setTimeout(() => {
+        loadingTimeTracker.current = 0;
+        startLoadTime.current = undefined;
         setShowLoader(false);
 
         if (success) {
           setShowSuccess(true);
         }
-      }, LOADER_MIN_DURATION);
+      }, loadingTimeTracker.current);
     }
 
     if (!loading && !showLoader) {
