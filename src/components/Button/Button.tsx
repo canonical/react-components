@@ -103,6 +103,7 @@ const Button = <P,>({
       className={classes}
       onClick={disabled ? onClickDisabled : onClick}
       aria-disabled={disabled || undefined}
+      disabled={disabled}
       {...buttonProps}
     >
       {children}
