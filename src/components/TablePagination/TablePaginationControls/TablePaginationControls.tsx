@@ -138,7 +138,7 @@ const TablePaginationControls = ({
             value={currentPage}
             type="number"
           />{" "}
-          {typeof totalPages === "number" ? `of ${totalPages}` : null}
+          {typeof totalPages === "number" ? <>of&nbsp;{totalPages}</> : null}
         </>
       ) : null}
       <Button
