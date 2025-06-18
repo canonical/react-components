@@ -138,8 +138,8 @@ const TablePaginationControls = ({
             value={currentPage}
             type="number"
             disabled={totalPages === 1}
-            min={totalPages === 1 ? 1 : 1}
-            max={totalPages === 1 ? 1 : totalPages}
+            min={1}
+            max={typeof totalPages === "number" ? totalPages : 1}
           />{" "}
           {typeof totalPages === "number" ? <>of&nbsp;{totalPages}</> : null}
         </>
