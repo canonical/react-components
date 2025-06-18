@@ -137,6 +137,9 @@ const TablePaginationControls = ({
             onChange={handleInputPageChange}
             value={currentPage}
             type="number"
+            disabled={totalPages === 1}
+            min={totalPages === 1 ? 1 : 1}
+            max={totalPages === 1 ? 1 : totalPages}
           />{" "}
           {typeof totalPages === "number" ? <>of&nbsp;{totalPages}</> : null}
         </>

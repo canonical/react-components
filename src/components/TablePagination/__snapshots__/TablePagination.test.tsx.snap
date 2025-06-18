@@ -35,7 +35,10 @@ exports[`<TablePagination /> renders table pagination and matches the snapshot 1
       <input
         aria-invalid="false"
         class="p-form-validation__input u-no-margin--bottom pagination-input"
+        disabled=""
         id="paginationPageInput"
+        max="1"
+        min="1"
         type="number"
         value="1"
       />
