@@ -154,4 +154,48 @@ describe("<TablePaginationControls />", () => {
       document.querySelector(".description")?.textContent,
     ).not.toBeUndefined();
   });
+
+  it("disables page input when there is only one page", () => {
+    render(
+      <TablePaginationControls
+        visibleCount={5}
+        itemName="item"
+        pageLimits={[20, 50, 100]}
+        totalItems={5}
+        currentPage={1}
+        pageSize={20}
+        onPageChange={jest.fn()}
+        onPageSizeChange={jest.fn()}
+      />,
+    );
+
+    const pageInput = screen.getByRole("spinbutton", {
+      name: Label.PAGE_NUMBER,
+    });
+    expect(pageInput).toBeDisabled();
+    expect(pageInput).toHaveAttribute("min", "1");
+    expect(pageInput).toHaveAttribute("max", "1");
+  });
+
+  it("enables page input when there are multiple pages", () => {
+    render(
+      <TablePaginationControls
+        visibleCount={20}
+        itemName="item"
+        pageLimits={[20, 50, 100]}
+        totalItems={100}
+        currentPage={1}
+        pageSize={20}
+        onPageChange={jest.fn()}
+        onPageSizeChange={jest.fn()}
+      />,
+    );
+
+    const pageInput = screen.getByRole("spinbutton", {
+      name: Label.PAGE_NUMBER,
+    });
+    expect(pageInput).not.toBeDisabled();
+    expect(pageInput).toHaveAttribute("min", "1");
+    expect(pageInput).toHaveAttribute("max", "5");
+  });
 });
