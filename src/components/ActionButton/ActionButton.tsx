@@ -79,8 +79,12 @@ const ActionButton = ({
     let loaderTimeout: number;
 
     if (loading) {
-      // Keep track of time when loading is occured.
-      startLoadTime.current = new Date();
+      // add a condition to prevent double set startLoadTime
+      // when showLoader changes.
+      if (startLoadTime.current === undefined) {
+        // Keep track of time when loading is occured.
+        startLoadTime.current = new Date();
+      }
       // Explicitly set button dimensions
       if (ref.current && !!ref.current.getBoundingClientRect()) {
         setHeight(ref.current.getBoundingClientRect().height);
@@ -93,7 +97,8 @@ const ActionButton = ({
       const now = new Date();
       // calculate elasped time of loading from user and do subtraction to LOADER_MIN_DURATION,
       // also add an edge case when time diff is less than 0 to be 0.
-      const loadingMilliseconds: number = now.getTime() - (startLoadTime.current ?? now).getTime();
+      const loadingMilliseconds: number =
+        now.getTime() - (startLoadTime.current ?? now).getTime();
       loadingTimeTracker.current = Math.max(
         LOADER_MIN_DURATION - loadingMilliseconds,
         0,
