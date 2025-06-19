@@ -4,6 +4,8 @@
 
 ## QA
 
+Pinging @canonical/react-library-maintainers for a review.
+
 ### Storybook
 
 To see rendered examples of all react-components, run:
