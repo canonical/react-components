@@ -36,7 +36,7 @@
   .pagination-input {
     margin: 0 $spv--small 0 $spv--large;
     min-width: 0;
-    width: 3rem;
+    width: 4rem;
   }
 
   .pagination-select {
@@ -44,5 +44,17 @@
     margin-left: $spv--x-large;
     min-width: 0;
     width: 7rem;
+  }
+
+  @media screen and (max-width: $breakpoint-small) {
+    .back,
+    .pagination-input {
+      margin-left: 0;
+    }
+
+    .next {
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 }

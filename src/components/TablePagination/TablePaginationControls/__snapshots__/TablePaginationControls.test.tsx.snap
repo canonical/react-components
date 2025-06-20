@@ -26,6 +26,8 @@ exports[`<TablePaginationControls /> renders table pagination controls and match
   aria-invalid="false"
   class="p-form-validation__input u-no-margin--bottom pagination-input"
   id="paginationPageInput"
+  max="5"
+  min="1"
   type="number"
   value="0"
 />

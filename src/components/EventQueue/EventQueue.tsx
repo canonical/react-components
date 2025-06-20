@@ -18,39 +18,6 @@ export interface EventQueue<T> {
   remove: (operationId: string) => void;
 }
 
-/**
- * This provides an event queue system for managing callbacks associated with
- * asynchronous operations (e.g., API calls) in an application.
- *
- * It allows components to register success, failure,
- * and optional finish handlers for a given operation ID, and later retrieve or remove them.
- *
- * This is useful for handling side effects when dealing
- * with multiple operations that need to be tracked and updated independently.
- *
- * The `createEventQueue` function should be used to create a single provider and context that are shared throughout your application.
- * The returned `EventQueueProvider` and `useEventQueue` hook should be exported
- * from a shared module and reused across the app to ensure a single
- * context instance is used.
- *
- * Usage pattern:
- * // eventQueue.ts
- * export const { EventQueueProvider, useEventQueue } = createEventQueue<EventType>();
- *
- * // App.tsx
- * import { EventQueueProvider } from "./eventQueue";
- * ...
- * <EventQueueProvider>
- *   <App />
- * </EventQueueProvider>
- *
- * // In any other component
- * import { useEventQueue } from "./eventQueue";
- * ...
- * const eventQueue = useEventQueue();
- * eventQueue.set(operationId, onSuccess, onFailure);
- */
-
 export function createEventQueue<T>() {
   const EventQueueContext = createContext<EventQueue<T> | undefined>(undefined);
 
