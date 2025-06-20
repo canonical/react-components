@@ -101,10 +101,6 @@ describe("ActionButton", () => {
       jest.advanceTimersByTime(LOADER_MIN_DURATION + 3000);
     });
     rerender(<ActionButton success>Click me</ActionButton>);
-    // wait 1ms more after success to finish setTimeout with 0ms
-    act(() => {
-      jest.advanceTimersByTime(1);
-    });
     // the ActionButton should finish its loading job at LOADER_MIN_DURATION + 3s
     expect(screen.getByLabelText(Label.SUCCESS)).toBeInTheDocument();
     expect(screen.getByRole("button")).toBeEnabled();

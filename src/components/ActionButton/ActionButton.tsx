@@ -71,7 +71,6 @@ const ActionButton = ({
   const [showLoader, setShowLoader] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
-  const loadingTimeTracker = useRef<number>(0);
   const startLoadTime = useRef<Date | undefined>(undefined);
 
   // Set up loader timer
@@ -82,7 +81,7 @@ const ActionButton = ({
       // add a condition to prevent double set startLoadTime
       // when showLoader changes.
       if (startLoadTime.current === undefined) {
-        // Keep track of time when loading is occured.
+        // Keep track of the time when loading starts
         startLoadTime.current = new Date();
       }
       // Explicitly set button dimensions
@@ -95,23 +94,29 @@ const ActionButton = ({
 
     if (!loading && showLoader) {
       const now = new Date();
-      // calculate elasped time of loading from user and do subtraction to LOADER_MIN_DURATION,
-      // also add an edge case when time diff is less than 0 to be 0.
+      // Keep track of time when loading is occured.
       const loadingMilliseconds: number =
         now.getTime() - (startLoadTime.current ?? now).getTime();
-      loadingTimeTracker.current = Math.max(
+
+      // also add an edge case when time diff is less than 0 to be 0.
+      const loadingTimeout = Math.max(
         LOADER_MIN_DURATION - loadingMilliseconds,
         0,
       );
-      loaderTimeout = window.setTimeout(() => {
-        loadingTimeTracker.current = 0;
+
+      const loadFinishHandler = () => {
         startLoadTime.current = undefined;
         setShowLoader(false);
-
         if (success) {
           setShowSuccess(true);
         }
-      }, loadingTimeTracker.current);
+      };
+
+      if (loadingTimeout > 0) {
+        loaderTimeout = window.setTimeout(loadFinishHandler, loadingTimeout);
+      } else {
+        loadFinishHandler();
+      }
     }
 
     if (!loading && !showLoader) {
