@@ -63,6 +63,7 @@ describe("ActionButton", () => {
   it("renders loading for LOADER_MIN_DURATION time when loading is shorter", () => {
     const { rerender } = render(<ActionButton loading>Click me</ActionButton>);
     expect(screen.getByLabelText(Label.WAITING)).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeDisabled();
 
     // use a very short time of loading (1ms)
     act(() => {
@@ -71,6 +72,7 @@ describe("ActionButton", () => {
     rerender(<ActionButton success>Click me</ActionButton>);
     // it should still waiting for at least LOADER_MIN_DURATION
     expect(screen.getByLabelText(Label.WAITING)).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeDisabled();
 
     // make sure 1ms before the time of LOADER_MIN_DURATION is met
     // it should still render label as waiting
@@ -78,6 +80,7 @@ describe("ActionButton", () => {
       jest.advanceTimersByTime(LOADER_MIN_DURATION - 2);
     });
     expect(screen.getByLabelText(Label.WAITING)).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeDisabled();
 
     // add the last 1ms to match LOADER_MIN_DURATION
     act(() => {
@@ -85,11 +88,13 @@ describe("ActionButton", () => {
     });
     // the ActionButton should finish its loading job
     expect(screen.getByLabelText(Label.SUCCESS)).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeEnabled();
   });
 
   it("renders loading for LOADER_MIN_DURATION + 3s when loading is longer", () => {
     const { rerender } = render(<ActionButton loading>Click me</ActionButton>);
     expect(screen.getByLabelText(Label.WAITING)).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeDisabled();
 
     // use a long time of loading (LOADER_MIN_DURATION + 3 seconds)
     act(() => {
@@ -102,5 +107,6 @@ describe("ActionButton", () => {
     });
     // the ActionButton should finish its loading job at LOADER_MIN_DURATION + 3s
     expect(screen.getByLabelText(Label.SUCCESS)).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeEnabled();
   });
 });
