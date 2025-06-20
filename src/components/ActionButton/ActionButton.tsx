@@ -143,7 +143,7 @@ const ActionButton = ({
     appearance ? `p-button--${appearance}` : "p-button",
     {
       "is-processing": showLoader || showSuccess,
-      "is-disabled": disabled === null? showLoader : disabled,
+      "is-disabled": disabled === null ? showLoader : disabled,
       "is-inline": inline,
     },
   );
@@ -158,7 +158,7 @@ const ActionButton = ({
   return (
     <button
       className={buttonClasses}
-      disabled={disabled === null? showLoader : disabled}
+      disabled={disabled === null ? showLoader : disabled}
       ref={ref}
       style={
         height && width
