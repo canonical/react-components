@@ -94,12 +94,14 @@ const ActionButton = ({
 
     if (!loading && showLoader) {
       const now = new Date();
-      // Keep track of time when loading is occured.
+      // calculate elapsed loading time
       const loadingMilliseconds: number =
         now.getTime() - (startLoadTime.current ?? now).getTime();
 
+      // and subtract it from LOADER_MIN_DURATION,
+
       // also add an edge case when time diff is less than 0 to be 0.
-      const loadingTimeout = Math.max(
+      const timeoutDuration = Math.max(
         LOADER_MIN_DURATION - loadingMilliseconds,
         0,
       );
@@ -112,8 +114,8 @@ const ActionButton = ({
         }
       };
 
-      if (loadingTimeout > 0) {
-        loaderTimeout = window.setTimeout(loadFinishHandler, loadingTimeout);
+      if (timeoutDuration > 0) {
+        loaderTimeout = window.setTimeout(loadFinishHandler, timeoutDuration);
       } else {
         loadFinishHandler();
       }
