@@ -60,7 +60,7 @@ const ActionButton = ({
   appearance,
   children,
   className,
-  disabled = false,
+  disabled = null,
   inline = false,
   loading = false,
   success = false,
@@ -71,12 +71,19 @@ const ActionButton = ({
   const [showLoader, setShowLoader] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
+  const startLoadTime = useRef<Date | undefined>(undefined);
 
   // Set up loader timer
   useEffect(() => {
     let loaderTimeout: number;
 
     if (loading) {
+      // add a condition to prevent double set startLoadTime
+      // when showLoader changes.
+      if (startLoadTime.current === undefined) {
+        // Keep track of the time when loading starts
+        startLoadTime.current = new Date();
+      }
       // Explicitly set button dimensions
       if (ref.current && !!ref.current.getBoundingClientRect()) {
         setHeight(ref.current.getBoundingClientRect().height);
@@ -86,13 +93,32 @@ const ActionButton = ({
     }
 
     if (!loading && showLoader) {
-      loaderTimeout = window.setTimeout(() => {
-        setShowLoader(false);
+      const now = new Date();
+      // calculate elapsed loading time
+      const loadingMilliseconds: number =
+        now.getTime() - (startLoadTime.current ?? now).getTime();
 
+      // and subtract it from LOADER_MIN_DURATION,
+
+      // also add an edge case when time diff is less than 0 to be 0.
+      const timeoutDuration = Math.max(
+        LOADER_MIN_DURATION - loadingMilliseconds,
+        0,
+      );
+
+      const loadFinishHandler = () => {
+        startLoadTime.current = undefined;
+        setShowLoader(false);
         if (success) {
           setShowSuccess(true);
         }
-      }, LOADER_MIN_DURATION);
+      };
+
+      if (timeoutDuration > 0) {
+        loaderTimeout = window.setTimeout(loadFinishHandler, timeoutDuration);
+      } else {
+        loadFinishHandler();
+      }
     }
 
     if (!loading && !showLoader) {
@@ -124,7 +150,7 @@ const ActionButton = ({
     appearance ? `p-button--${appearance}` : "p-button",
     {
       "is-processing": showLoader || showSuccess,
-      "is-disabled": disabled,
+      "is-disabled": disabled === null ? showLoader : disabled,
       "is-inline": inline,
     },
   );
@@ -139,7 +165,7 @@ const ActionButton = ({
   return (
     <button
       className={buttonClasses}
-      disabled={disabled}
+      disabled={disabled === null ? showLoader : disabled}
       ref={ref}
       style={
         height && width

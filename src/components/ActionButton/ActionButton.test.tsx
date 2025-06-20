@@ -59,4 +59,50 @@ describe("ActionButton", () => {
     expect(screen.queryByLabelText(Label.SUCCESS)).not.toBeInTheDocument();
     expect(document.querySelector(icon)).not.toBeInTheDocument();
   });
+
+  it("renders loading for LOADER_MIN_DURATION time when loading is shorter", () => {
+    const { rerender } = render(<ActionButton loading>Click me</ActionButton>);
+    expect(screen.getByLabelText(Label.WAITING)).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeDisabled();
+
+    // use a very short time of loading (1ms)
+    act(() => {
+      jest.advanceTimersByTime(1);
+    });
+    rerender(<ActionButton success>Click me</ActionButton>);
+    // it should still waiting for at least LOADER_MIN_DURATION
+    expect(screen.getByLabelText(Label.WAITING)).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeDisabled();
+
+    // make sure 1ms before the time of LOADER_MIN_DURATION is met
+    // it should still render label as waiting
+    act(() => {
+      jest.advanceTimersByTime(LOADER_MIN_DURATION - 2);
+    });
+    expect(screen.getByLabelText(Label.WAITING)).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeDisabled();
+
+    // add the last 1ms to match LOADER_MIN_DURATION
+    act(() => {
+      jest.advanceTimersByTime(1);
+    });
+    // the ActionButton should finish its loading job
+    expect(screen.getByLabelText(Label.SUCCESS)).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeEnabled();
+  });
+
+  it("renders loading for LOADER_MIN_DURATION + 3s when loading is longer", () => {
+    const { rerender } = render(<ActionButton loading>Click me</ActionButton>);
+    expect(screen.getByLabelText(Label.WAITING)).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeDisabled();
+
+    // use a long time of loading (LOADER_MIN_DURATION + 3 seconds)
+    act(() => {
+      jest.advanceTimersByTime(LOADER_MIN_DURATION + 3000);
+    });
+    rerender(<ActionButton success>Click me</ActionButton>);
+    // the ActionButton should finish its loading job at LOADER_MIN_DURATION + 3s
+    expect(screen.getByLabelText(Label.SUCCESS)).toBeInTheDocument();
+    expect(screen.getByRole("button")).toBeEnabled();
+  });
 });
