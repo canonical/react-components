@@ -87,6 +87,7 @@ export const ConfirmationModal = ({
           {confirmExtra}
           <Button
             {...cancelButtonProps}
+            type={cancelButtonProps?.type ?? "button"}
             className="u-no-margin--bottom"
             onClick={handleClick(props.close)}
           >

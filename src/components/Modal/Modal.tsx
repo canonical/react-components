@@ -185,6 +185,7 @@ export const Modal = ({
             </h2>
             {!!close && (
               <button
+                type="button"
                 className="p-modal__close"
                 aria-label="Close active modal"
                 onClick={handleClose}
