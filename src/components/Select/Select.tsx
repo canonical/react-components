@@ -146,6 +146,7 @@ const Select = ({
         id={selectId}
         onChange={(evt) => onChange && onChange(evt)}
         ref={selectRef}
+        required={required}
         {...selectProps}
       >
         {generateOptions(options)}
