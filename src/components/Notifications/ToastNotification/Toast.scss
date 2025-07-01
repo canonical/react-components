@@ -1,3 +1,5 @@
+@import "vanilla-framework";
+
 .toast-animate {
   position: relative;
   z-index: 101;
@@ -33,7 +35,7 @@
 }
 
 .toast-notification-list {
-  background-color: white;
+  background-color: $colors--theme--background-default;
   box-shadow: 0 0 2rem 0.5rem rgb(0 0 0 / 22%);
   max-height: calc(100dvh - 4.5rem);
   overflow: auto;
@@ -47,7 +49,7 @@
 
   .dismiss {
     align-items: center;
-    background-color: white;
+    background-color: $colors--theme--background-default;
     bottom: 0;
     display: flex;
     justify-content: space-between;
