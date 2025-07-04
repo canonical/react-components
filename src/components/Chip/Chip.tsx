@@ -1,4 +1,4 @@
-import React from "react";
+import React, { type ReactNode } from "react";
 import { highlightSubString } from "../../utils";
 import type { KeyboardEvent, MouseEvent, HTMLProps } from "react";
 import { ValueOf, PropsWithSpread } from "types";
@@ -22,6 +22,29 @@ export type Props = PropsWithSpread<
      */
     appearance?: ValueOf<typeof ChipType>;
 
+    /**
+     * Whether the chip is read-only.
+     * If true, the chip will not be interactive.
+     */
+    isReadOnly?: boolean;
+    /**
+     * A badge to display on the chip.
+     */
+    badge?: ReactNode;
+    /**
+     * The name of an icon to display on the chip.
+     */
+    iconName?: string;
+    /**
+     * Whether the chip is dense.
+     * Reduces the height of the chip by removing padding.
+     */
+    isDense?: boolean;
+    /**
+     * Whether the chip is inline.
+     * If true, the chip will be displayed inline with other content (such as text).
+     */
+    isInline?: boolean;
     /**
      * The lead for the chip.
      */
@@ -70,6 +93,11 @@ const Chip = ({
   quoteValue,
   selected,
   subString = "",
+  isReadOnly = false,
+  isDense = false,
+  isInline = false,
+  iconName,
+  badge,
   value,
   ...props
 }: Props): React.JSX.Element => {
@@ -88,6 +116,7 @@ const Chip = ({
 
   const chipContent = (
     <>
+      {iconName && <i className={`p-icon--${iconName}`} />}
       {lead && <span className="p-chip__lead">{lead.toUpperCase()}</span>}
       <span
         className="p-chip__value"
@@ -95,6 +124,7 @@ const Chip = ({
           __html: quoteValue ? `'${chipValue}'` : chipValue,
         }}
       />
+      {badge && badge}
     </>
   );
 
@@ -102,11 +132,20 @@ const Chip = ({
     {
       [`p-chip--${appearance}`]: !!appearance,
       "p-chip": !appearance,
+      "is-dense": isDense,
+      "is-readonly": isReadOnly,
+      "is-inline": isInline,
     },
     props.className,
   );
 
-  if (onDismiss) {
+  if (isReadOnly) {
+    return (
+      <span {...props} className={chipClassName}>
+        {chipContent}
+      </span>
+    );
+  } else if (onDismiss) {
     return (
       <span {...props} className={chipClassName}>
         {chipContent}

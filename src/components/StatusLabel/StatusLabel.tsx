@@ -35,8 +35,8 @@ export type Props = PropsWithSpread<
 
 /**
  * This is a [React](https://reactjs.org/) component for the Vanilla [Label](https://vanillaframework.io/docs/patterns/labels).
- *
  * Labels are static elements which you can apply to signify status, tags or any other information you find useful.
+ * @deprecated StatusLabel is deprecated. Use Read-only Chip instead.
  */
 const StatusLabel = ({
   appearance,
