@@ -52,16 +52,17 @@ export const getDescription = ({
   if (description) {
     return description;
   }
+  const closing = totalItems ? ` out of ${totalItems}` : "";
 
   if (isSmallScreen) {
-    return `${visibleCount} out of ${totalItems}`;
+    return `${visibleCount}${closing}`;
   }
 
   if (visibleCount === totalItems && visibleCount > 1) {
     return `Showing all ${totalItems} ${itemName}s`;
   }
 
-  return `Showing ${visibleCount} out of ${totalItems} ${itemName}${
+  return `Showing ${visibleCount}${closing} ${itemName}${
     totalItems !== 1 ? "s" : ""
   }`;
 };
