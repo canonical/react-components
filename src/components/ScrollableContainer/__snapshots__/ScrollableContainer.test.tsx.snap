@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`respects above spacing 1`] = `
+<div
+  role="main"
+>
+  <h1>
+    Above
+  </h1>
+  <div
+    class="scrollable-container"
+  >
+    <div
+      class="content-details"
+      id="content-details"
+      style="height: calc(100dvh - 9px); min-height: calc(100dvh - 9px)"
+    >
+      Scrollable contents
+    </div>
+  </div>
+</div>
+`;
+
+exports[`respects below spacing 1`] = `
+<div
+  role="main"
+>
+  <h1>
+    Above
+  </h1>
+  <div
+    class="scrollable-container"
+  >
+    <div
+      class="content-details"
+      id="content-details"
+      style="height: calc(100dvh - 10px); min-height: calc(100dvh - 10px)"
+    >
+      Scrollable contents
+    </div>
+  </div>
+  <div
+    id="footer"
+  >
+    <h2>
+      Below
+    </h2>
+  </div>
+</div>
+`;
