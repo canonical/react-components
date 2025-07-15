@@ -70,7 +70,7 @@ The sidepanel component should be used to show additional information relating t
 
 * **SidePanel.HeaderControls:** To show controls in the header, such as buttons or icons for actions like closing the panel.
 
-* **SidePanel.Sticky:** Can be wrapped around the header or footer to make them sticky when scrolling.
+* **SidePanel.Sticky:** Can be wrapped around the header or footer to make them sticky when scrolling. The scrollbar will use the full area of the side panel, not just the content area. To limit the scrollbar to the content area, use the `ScrollableContainer` component instead of this one.
 
 * **SidePanel.Content:** To show the main content of the side panel.
 

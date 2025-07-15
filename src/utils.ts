@@ -52,3 +52,38 @@ export const isNavigationButton = (link: NavLink): link is NavLinkButton =>
  */
 export const isReactNode = (element: unknown): element is ReactNode =>
   isValidElement(element);
+
+export const getElementAbsoluteHeight = (element: HTMLElement) => {
+  if (!element) {
+    return 0;
+  }
+  const style = window.getComputedStyle(element);
+  const margin = toFloat(style.marginTop) + toFloat(style.marginBottom);
+  const padding = toFloat(style.paddingTop) + toFloat(style.paddingBottom);
+  return element.offsetHeight + margin + padding + 1;
+};
+
+export const getAbsoluteHeightBelowById = (belowId: string): number => {
+  const element = belowId ? document.getElementById(belowId) : undefined;
+  if (!element) {
+    return 0;
+  }
+  return getElementAbsoluteHeight(element);
+};
+
+export const getParentsBottomSpacing = (element: Element): number => {
+  let sum = 0;
+  while (element.parentElement) {
+    element = element.parentElement;
+    const style = window.getComputedStyle(element);
+    const margin = toFloat(style.marginBottom);
+    const padding = toFloat(style.paddingBottom);
+    sum += margin + padding;
+  }
+  return sum;
+};
+
+export const toFloat = (value: string): number => {
+  const result = parseFloat(value);
+  return Number.isNaN(result) ? 0 : result;
+};

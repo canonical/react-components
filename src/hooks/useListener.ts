@@ -60,6 +60,19 @@ export const useListener = (
       targetNode.addEventListener(eventType, eventListener.current, options);
       isListening.current = true;
     }
+
+    return () => {
+      // Unattach the listener if the component gets unmounted while
+      // listening.
+      if (targetNode && eventListener.current && isListening.current) {
+        targetNode.removeEventListener(
+          eventType,
+          eventListener.current,
+          options,
+        );
+        isListening.current = false;
+      }
+    };
   }, [
     callback,
     eventType,
@@ -74,19 +87,4 @@ export const useListener = (
     targetNode,
     throttle,
   ]);
-
-  useEffect(
-    () => () => {
-      // Unattach the listener if the component gets unmounted while
-      // listening.
-      if (targetNode && isListening.current) {
-        targetNode.removeEventListener(
-          eventType,
-          eventListener.current,
-          options,
-        );
-      }
-    },
-    [eventType, targetNode, options],
-  );
 };
