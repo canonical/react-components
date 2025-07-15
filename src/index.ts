@@ -58,6 +58,8 @@ export { default as Panel } from "./components/Panel";
 export { default as PasswordToggle } from "./components/PasswordToggle";
 export { default as RadioInput } from "./components/RadioInput";
 export { default as Row } from "./components/Row";
+export { default as ScrollableContainer } from "./components/ScrollableContainer";
+export { default as ScrollableTable } from "./components/ScrollableTable";
 export { default as SearchAndFilter } from "./components/SearchAndFilter";
 export { default as SearchBox } from "./components/SearchBox";
 export { default as Select } from "./components/Select";
@@ -167,6 +169,8 @@ export type { PaginationProps } from "./components/Pagination";
 export type { PanelProps } from "./components/Panel";
 export type { RadioInputProps } from "./components/RadioInput";
 export type { RowProps } from "./components/Row";
+export type { ScrollableTableProps } from "./components/ScrollableTable";
+export type { ScrollableContainerProps } from "./components/ScrollableContainer";
 export type { SearchAndFilterProps } from "./components/SearchAndFilter";
 export type { SearchBoxProps } from "./components/SearchBox";
 export type { SelectProps } from "./components/Select";
@@ -211,7 +215,13 @@ export {
 } from "hooks";
 export type { WindowFitment } from "hooks";
 
-export { isNavigationAnchor, isNavigationButton } from "utils";
+export {
+  isNavigationAnchor,
+  isNavigationButton,
+  getElementAbsoluteHeight,
+  getAbsoluteHeightBelowById,
+  getParentsBottomSpacing,
+} from "utils";
 
 export type {
   ClassName,
