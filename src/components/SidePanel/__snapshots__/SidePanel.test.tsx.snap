@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`assembles complex structure 1`] = `
+<aside
+  aria-label="Side panel"
+  class="l-aside side-panel is-narrow"
+>
+  <div
+    class="sticky-wrapper sticky-wrapper--top"
+  >
+    <div
+      class="p-panel__header"
+    >
+      <h2
+        class="p-panel__title"
+      >
+        Edit panel
+      </h2>
+    </div>
+  </div>
+  <div
+    class="p-panel__content u-no-padding"
+  >
+    <p>
+      Here be dragons!
+    </p>
+  </div>
+  <div
+    class="sticky-wrapper sticky-wrapper--bottom"
+  >
+    <div
+      class="panel-footer u-align--right"
+      id="panel-footer"
+    >
+      <hr
+        class="rule"
+      />
+      Footer content
+    </div>
+  </div>
+</aside>
+`;
