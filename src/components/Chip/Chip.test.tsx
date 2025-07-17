@@ -107,6 +107,21 @@ describe("Chip ", () => {
     expect(screen.getByTestId("chip")).toHaveClass("p-chip--information");
   });
 
+  it("renders dense chip", () => {
+    render(<Chip data-testid="chip" isDense={true} value="dense" />);
+    expect(screen.getByTestId("chip")).toHaveClass("is-dense");
+  });
+
+  it("renders inline chip", () => {
+    render(<Chip data-testid="chip" isInline={true} value="inline" />);
+    expect(screen.getByTestId("chip")).toHaveClass("is-inline");
+  });
+
+  it("renders readonly chip", () => {
+    render(<Chip data-testid="chip" isReadOnly={true} value="readonly" />);
+    expect(screen.getByTestId("chip")).toHaveClass("is-readonly");
+  });
+
   it("renders extra props", () => {
     render(
       <Chip
@@ -118,6 +133,29 @@ describe("Chip ", () => {
       />,
     );
     expect(screen.getByTestId("chip")).toBeDisabled();
+  });
+
+  it("renders icon chip", () => {
+    render(<Chip data-testid="chip" iconName="user" value="Users" />);
+    const chip = screen.getByTestId("chip");
+    // Icons don't have roles (they are decorative), so we need to use query selector
+    const icon = chip.querySelector(".p-icon--user");
+    expect(icon).toBeInTheDocument();
+  });
+
+  it("renders chip with badge", () => {
+    render(
+      <Chip
+        data-testid="chip"
+        lead="Owner"
+        value="Bob"
+        badge={<span className="p-badge">1</span>}
+      />,
+    );
+
+    const chip = screen.getByTestId("chip");
+    const badge = within(chip).getByText("1");
+    expect(badge).toBeInTheDocument();
   });
 
   it("passes additional classes", () => {
@@ -176,5 +214,55 @@ describe("Chip ", () => {
     );
     await userEvent.click(dismissButton);
     expect(onSubmit).not.toHaveBeenCalled();
+  });
+
+  it("does not render a dismiss button when isReadOnly is true", () => {
+    const onDismiss = jest.fn();
+    render(
+      <Chip
+        data-testid="chip"
+        lead="Owner"
+        value="Bob"
+        isReadOnly={true}
+        onDismiss={onDismiss}
+      />,
+    );
+    const chip = screen.getByTestId("chip");
+
+    const dismissButton = within(chip).queryByRole("button", {
+      name: Label.Dismiss,
+    });
+    expect(dismissButton).not.toBeInTheDocument();
+  });
+
+  it("does not call onClick when isReadOnly is true", async () => {
+    const onClick = jest.fn();
+    render(
+      <Chip
+        data-testid="chip"
+        lead="Owner"
+        onClick={onClick}
+        value="Bob"
+        isReadOnly={true}
+      />,
+    );
+    await userEvent.click(screen.getByTestId("chip"));
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it("cannot be focused when isReadOnly is true", async () => {
+    const onClick = jest.fn();
+    render(
+      <Chip
+        data-testid="chip"
+        lead="Owner"
+        onClick={onClick}
+        value="Bob"
+        isReadOnly={true}
+      />,
+    );
+    const chip = screen.getByTestId("chip");
+    await userEvent.tab();
+    expect(chip).not.toHaveFocus();
   });
 });
