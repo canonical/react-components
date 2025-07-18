@@ -31,7 +31,7 @@ it("displays as pinned", () => {
 });
 
 it("displays as wide", () => {
-  render(<SidePanel wide>SidePanel</SidePanel>);
+  render(<SidePanel width="wide">SidePanel</SidePanel>);
   expect(screen.getByText("SidePanel")).toHaveClass("is-wide");
 });
 

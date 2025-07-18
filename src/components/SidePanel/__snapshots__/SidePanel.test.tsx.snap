@@ -3,7 +3,7 @@
 exports[`assembles complex structure 1`] = `
 <aside
   aria-label="Side panel"
-  class="l-aside side-panel is-narrow"
+  class="l-aside side-panel"
 >
   <div
     class="sticky-wrapper sticky-wrapper--top"

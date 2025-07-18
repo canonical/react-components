@@ -20,7 +20,6 @@ const meta: Meta<typeof SidePanel> = {
         if (el) {
           const wrapper = el?.parentElement?.parentElement?.parentElement;
           const parent = wrapper?.parentElement?.parentElement?.parentElement;
-          console.log(wrapper);
           if (wrapper) {
             wrapper.style.setProperty("border", "0", "important");
           }
@@ -80,7 +79,7 @@ const StoryExample = (args: Story["args"]) => {
           hasError={args.hasError}
           parentId={parentId}
           pinned={args.pinned}
-          wide={args.wide}
+          width={args.width}
           className="u-no-padding--top u-no-padding--bottom"
         >
           <SidePanel.Sticky>
@@ -182,7 +181,7 @@ export const Default: Story = {
     pinned: false,
     loading: false,
     overlay: true,
-    wide: false,
+    width: "",
   },
   render: StoryExample,
 };
@@ -195,7 +194,7 @@ export const Pinned: Story = {
     pinned: true,
     loading: false,
     overlay: false,
-    wide: false,
+    width: "",
   },
   render: StoryExample,
   parameters: {
@@ -213,7 +212,7 @@ export const Loading: Story = {
     pinned: false,
     loading: true,
     overlay: true,
-    wide: false,
+    width: "",
   },
   render: StoryExample,
 };
@@ -226,7 +225,20 @@ export const Error: Story = {
     pinned: false,
     loading: false,
     overlay: true,
-    wide: false,
+    width: "",
+  },
+  render: StoryExample,
+};
+
+export const Narrow: Story = {
+  args: {
+    className: "",
+    hasError: false,
+    parentId: "l-application-narrow",
+    pinned: false,
+    loading: false,
+    overlay: true,
+    width: "narrow",
   },
   render: StoryExample,
 };
@@ -239,7 +251,7 @@ export const Wide: Story = {
     pinned: false,
     loading: false,
     overlay: true,
-    wide: true,
+    width: "wide",
   },
   render: StoryExample,
 };
