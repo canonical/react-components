@@ -49,6 +49,12 @@ const meta: Meta<typeof Select> = {
         disable: true,
       },
     },
+
+    required: {
+      control: {
+        type: "boolean",
+      },
+    },
   },
 };
 
@@ -118,4 +124,44 @@ export const SelectMultiple: Story = {
   ),
 
   name: "Select multiple",
+};
+
+export const RequiredSelect: Story = {
+  args: {
+    required: true,
+  },
+
+  render: (args) => (
+    <form>
+      <Select
+        name="exampleSelectRequired"
+        id="exampleSelectRequired"
+        options={[
+          {
+            value: "",
+            disabled: true,
+            label: "Select an option",
+          },
+          {
+            value: "1",
+            label: "Cosmic Cuttlefish",
+          },
+          {
+            value: "2",
+            label: "Bionic Beaver",
+          },
+          {
+            value: "3",
+            label: "Xenial Xerus",
+          },
+        ]}
+        label="Ubuntu releases (required)"
+        required={args.required}
+        defaultValue=""
+      />
+      <button type="submit">Submit</button>
+    </form>
+  ),
+
+  name: "Select with required",
 };
