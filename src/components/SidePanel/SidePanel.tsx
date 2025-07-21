@@ -54,9 +54,9 @@ export type Props = {
   pinned?: boolean;
 
   /**
-   * Whether the side panel should be wide.
+   * Width of the side panel, available options are wide and narrow and the default.
    */
-  wide?: boolean;
+  width?: "wide" | "narrow" | "";
 };
 
 /**
@@ -106,7 +106,7 @@ const SidePanelComponent = ({
   loading = false,
   overlay,
   pinned,
-  wide,
+  width = "",
   parentId = "l-application",
 }: Props): React.JSX.Element => {
   const container = document.getElementById(parentId) || document.body;
@@ -120,8 +120,8 @@ const SidePanelComponent = ({
           })}
           aria-label="Side panel"
           pinned={pinned}
-          narrow={!wide}
-          wide={wide}
+          narrow={width === "narrow"}
+          wide={width === "wide"}
         >
           {loading ? (
             <div className="loading">
