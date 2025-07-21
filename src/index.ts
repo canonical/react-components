@@ -84,6 +84,12 @@ export { default as TableRow } from "./components/TableRow";
 export { default as Tabs } from "./components/Tabs";
 export { default as Textarea } from "./components/Textarea";
 export {
+  default as ThemeSwitcher,
+  loadTheme,
+  isDarkTheme,
+  applyTheme,
+} from "./components/ThemeSwitcher";
+export {
   ToastNotification,
   ToastNotificationList,
   ToastNotificationProvider,
