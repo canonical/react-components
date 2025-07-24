@@ -2,6 +2,7 @@ import React, { HTMLProps } from "react";
 import classNames from "classnames";
 
 import type { ClassName } from "types";
+import CustomLayout from "components/CustomLayout";
 
 export type Props = {
   /**
@@ -24,6 +25,12 @@ export type Props = {
    * The politeness setting of the spinner alert.
    */
   ariaLive?: "assertive" | "off" | "polite";
+  /**
+   * Whether the Loader is replacing the main component in the application layout.
+   * In that case, the loader has to be wrapped with a main panel of the application
+   * layout. This is important for the mobile view. This prop enables the wrapping.
+   */
+  isMainComponent?: boolean;
 } & HTMLProps<HTMLSpanElement>;
 
 /**
@@ -35,28 +42,33 @@ const Spinner = ({
   isLight = false,
   ariaLive = "polite",
   role = "alert",
+  isMainComponent = false,
   ...props
-}: Props): React.JSX.Element => (
-  <span
-    {...props}
-    className={classNames(className, "p-text--default")}
-    role={role}
-    aria-live={ariaLive}
-  >
-    <i
-      className={classNames("p-icon--spinner", "u-animation--spin", {
-        "is-light": isLight,
-      })}
+}: Props) => {
+  const loader = (
+    <span
+      {...props}
+      className={classNames(className, "p-text--default")}
+      role={role}
+      aria-live={ariaLive}
     >
-      {text ? "" : "Loading"}
-    </i>
-    {text && (
-      <>
-        &ensp;
-        <span>{text}</span>
-      </>
-    )}
-  </span>
-);
+      <i
+        className={classNames("p-icon--spinner", "u-animation--spin", {
+          "is-light": isLight,
+        })}
+      >
+        {text ? "" : "Loading"}
+      </i>
+      {text && (
+        <>
+          &ensp;
+          <span>{text}</span>
+        </>
+      )}
+    </span>
+  );
+
+  return isMainComponent ? <CustomLayout>{loader}</CustomLayout> : loader;
+};
 
 export default Spinner;

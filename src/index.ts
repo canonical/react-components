@@ -98,6 +98,7 @@ export {
 export { default as Tooltip } from "./components/Tooltip";
 export { default as TablePagination } from "./components/TablePagination";
 export { default as TablePaginationControls } from "./components/TablePagination/TablePaginationControls";
+export { default as CustomLayout } from "./components/CustomLayout";
 export { default as CustomSelect } from "./components/CustomSelect";
 
 export type { AccordionProps } from "./components/Accordion";
