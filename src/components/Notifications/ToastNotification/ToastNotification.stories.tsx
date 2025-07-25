@@ -43,6 +43,7 @@ const PreloadedList = () => {
       new Error("500 Internal Server Error"),
       "Please try again.",
     );
+    toastNotify.caution("You have unsaved changes.");
     toastNotify.toggleListView();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

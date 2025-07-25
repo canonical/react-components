@@ -3,7 +3,7 @@ import type {
   NotificationType,
 } from "components/NotificationProvider";
 import type { ValueOf } from "types";
-import { failure, info } from "components/NotificationProvider";
+import { failure } from "components/NotificationProvider";
 import { NotificationSeverity } from "components/Notifications";
 import ToastNotification from "./ToastNotification";
 import ToastNotificationList from "./ToastNotificationList";
@@ -23,13 +23,23 @@ interface ToastNotificationHelper {
   success: (
     message: ReactNode,
     actions?: NotificationAction[],
+    title?: string,
   ) => ToastNotificationType;
-  info: (message: ReactNode, title?: string) => ToastNotificationType;
+  info: (
+    message: ReactNode,
+    title?: string,
+    actions?: NotificationAction[],
+  ) => ToastNotificationType;
   failure: (
     title: string,
     error: unknown,
     message?: ReactNode,
     actions?: NotificationAction[],
+  ) => ToastNotificationType;
+  caution: (
+    message: ReactNode,
+    actions?: NotificationAction[],
+    title?: string,
   ) => ToastNotificationType;
   clear: (notification?: ToastNotificationType[]) => void;
   toggleListView: () => void;
@@ -51,14 +61,17 @@ const ToastNotificationContext = createContext<ToastNotificationHelper>({
   /** List of all active toast notifications */
   notifications: [],
 
-  /** Show a success toast. Optionally pass actions. */
+  /** Show a success toast. Optionally pass actions and a title. */
   success: () => initialNotification,
 
-  /** Show an info toast. Optionally pass a custom title. */
+  /** Show an info toast. Optionally pass a custom title and actions. */
   info: () => initialNotification,
 
   /** Show a failure toast with an error and optional message/actions. */
   failure: () => initialNotification,
+
+  /** Show a caution toast. Optionally pass actions and a title. */
+  caution: () => initialNotification,
 
   /** Clear one or more specific toasts, or all if none provided. */
   clear: () => null,
@@ -79,11 +92,12 @@ const ToastNotificationContext = createContext<ToastNotificationHelper>({
 Wrap your application with this provider, and in any child component you can get the helper with `const toastNotify = useToastNotification()` to trigger notifications.
 Notifications automatically dismiss after a delay unless manually dismissed or expanded.
 
-| **Values**                        | **Description**                                                                 |
-|----------------------------------|---------------------------------------------------------------------------------|
-| `toastNotify.success()`          | Displays a success toast. Optionally accepts actions.                          |
+| **Values**                       | **Description**                                                                |
+|----------------------------------|--------------------------------------------------------------------------------|
+| `toastNotify.success()`          | Displays a success toast. Optionally accepts actions and a title.              |
 | `toastNotify.info()`             | Displays an info toast. Optionally accepts a custom title.                     |
 | `toastNotify.failure()`          | Displays a failure toast with an error and optional message or actions.        |
+| `toastNotify.caution()`          | Displays a caution toast. Optionally accepts actions and a title.              |
 | `toastNotify.clear()`            | Clears specific toasts, or all toasts if none are specified.                   |
 | `toastNotify.toggleListView()`   | Toggles the notification list view open or closed.                             |
 | `toastNotify.countBySeverity`    | Returns the count of notifications grouped by severity (e.g., success, info).  |
@@ -95,6 +109,7 @@ Some example usages:
 toastNotify.success("Your changes have been saved.");
 toastNotify.success("Your changes have been saved.", [{label: "Undo", onClick: () => console.log("Undo clicked")}]);
 ```
+
 2. **Show an info toast:**
 ```
 toastNotify.info("Your changes are syncing in the background.");
@@ -106,16 +121,25 @@ toastNotify.info("Your changes are syncing in the background.", "Syncing");
 toastNotify.failure("Save failed", new Error("500 Internal Server Error"), "Please try again.");
 toastNotify.failure("Save failed", new Error("500 Internal Server Error"), "Please try again.", [{label: "Retry", onClick: () => console.log("Retry clicked")}]);
 ```
-4. **Clear notifications:**
+
+4. **Show a caution toast:**
+```
+toastNotify.caution("Your changes have not been saved.");
+toastNotify.caution("Your changes have not been saved.", [{label: "Undo", onClick: () => console.log("Undo clicked")}]);
+```
+
+5. **Clear notifications:**
 ```
 toastNotify.clear(); // clears all toast notifications
 toastNotify.clear([notificationId]); // clears specific toast notifications
 ```
-5. **Toggle the notification list view:**
+
+6. **Toggle the notification list view:**
 ```
 toastNotify.toggleListView();
 ```
-6. **Get the count of notifications by severity:**
+
+7. **Get the count of notifications by severity:**
 ```
 const count = toastNotify.countBySeverity;
 console.log(count.positive);
@@ -229,13 +253,27 @@ const ToastNotificationProvider: FC<PropsWithChildren> = ({ children }) => {
     notifications,
     failure: (title, error, message, actions) =>
       addNotification(failure(title, error, message, actions)),
-    info: (message, title) => addNotification(info(message, title)),
-    success: (message, actions) =>
+    info: (message, title, actions) =>
       addNotification({
         message,
         actions,
+        title,
+        type: NotificationSeverity.INFORMATION,
+      }),
+    success: (message, actions, title) =>
+      addNotification({
+        message,
+        actions,
+        title,
         type: NotificationSeverity.POSITIVE,
       } as NotificationType),
+    caution: (message, actions, title) =>
+      addNotification({
+        message,
+        actions,
+        title,
+        type: NotificationSeverity.CAUTION,
+      }),
     clear,
     toggleListView,
     isListView: showList,
