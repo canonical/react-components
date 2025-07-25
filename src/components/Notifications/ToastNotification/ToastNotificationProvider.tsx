@@ -3,7 +3,7 @@ import type {
   NotificationType,
 } from "components/NotificationProvider";
 import type { ValueOf } from "types";
-import { failure, info } from "components/NotificationProvider";
+import { failure } from "components/NotificationProvider";
 import { NotificationSeverity } from "components/Notifications";
 import ToastNotification from "./ToastNotification";
 import ToastNotificationList from "./ToastNotificationList";
@@ -23,6 +23,7 @@ interface ToastNotificationHelper {
   success: (
     message: ReactNode,
     actions?: NotificationAction[],
+    title?: string,
   ) => ToastNotificationType;
   info: (
     message: ReactNode,
@@ -38,6 +39,7 @@ interface ToastNotificationHelper {
   caution: (
     message: ReactNode,
     actions?: NotificationAction[],
+    title?: string,
   ) => ToastNotificationType;
   clear: (notification?: ToastNotificationType[]) => void;
   toggleListView: () => void;
@@ -59,7 +61,7 @@ const ToastNotificationContext = createContext<ToastNotificationHelper>({
   /** List of all active toast notifications */
   notifications: [],
 
-  /** Show a success toast. Optionally pass actions. */
+  /** Show a success toast. Optionally pass actions and a title. */
   success: () => initialNotification,
 
   /** Show an info toast. Optionally pass a custom title and actions. */
@@ -68,7 +70,7 @@ const ToastNotificationContext = createContext<ToastNotificationHelper>({
   /** Show a failure toast with an error and optional message/actions. */
   failure: () => initialNotification,
 
-  /** Show a caution toast. Optionally pass actions. */
+  /** Show a caution toast. Optionally pass actions and a title. */
   caution: () => initialNotification,
 
   /** Clear one or more specific toasts, or all if none provided. */
@@ -92,10 +94,10 @@ Notifications automatically dismiss after a delay unless manually dismissed or e
 
 | **Values**                       | **Description**                                                                |
 |----------------------------------|--------------------------------------------------------------------------------|
-| `toastNotify.success()`          | Displays a success toast. Optionally accepts actions.                          |
+| `toastNotify.success()`          | Displays a success toast. Optionally accepts actions and a title.              |
 | `toastNotify.info()`             | Displays an info toast. Optionally accepts a custom title.                     |
 | `toastNotify.failure()`          | Displays a failure toast with an error and optional message or actions.        |
-| `toastNotify.caution()`          | Displays a caution toast. Optionally accepts actions.                          |
+| `toastNotify.caution()`          | Displays a caution toast. Optionally accepts actions and a title.              |
 | `toastNotify.clear()`            | Clears specific toasts, or all toasts if none are specified.                   |
 | `toastNotify.toggleListView()`   | Toggles the notification list view open or closed.                             |
 | `toastNotify.countBySeverity`    | Returns the count of notifications grouped by severity (e.g., success, info).  |
@@ -251,17 +253,25 @@ const ToastNotificationProvider: FC<PropsWithChildren> = ({ children }) => {
     notifications,
     failure: (title, error, message, actions) =>
       addNotification(failure(title, error, message, actions)),
-    info: (message, title) => addNotification(info(message, title)),
-    success: (message, actions) =>
+    info: (message, title, actions) =>
       addNotification({
         message,
         actions,
+        title,
+        type: NotificationSeverity.INFORMATION,
+      }),
+    success: (message, actions, title) =>
+      addNotification({
+        message,
+        actions,
+        title,
         type: NotificationSeverity.POSITIVE,
       } as NotificationType),
-    caution: (message, actions) =>
+    caution: (message, actions, title) =>
       addNotification({
         message,
         actions,
+        title,
         type: NotificationSeverity.CAUTION,
       }),
     clear,
