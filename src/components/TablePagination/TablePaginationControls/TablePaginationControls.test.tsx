@@ -135,6 +135,44 @@ describe("<TablePaginationControls />", () => {
     );
   });
 
+  it("can display the description when entries are partially known", async () => {
+    render(
+      <TablePaginationControls
+        visibleCount={5}
+        itemName="item"
+        pageLimits={[20, 50, 100]}
+        currentPage={2}
+        pageSize={20}
+        onPageChange={jest.fn()}
+        onPreviousPage={jest.fn()}
+        onPageSizeChange={jest.fn()}
+        showPageInput={false}
+      />,
+    );
+    expect(document.querySelector(".description")?.textContent).toBe(
+      "Showing 5 of more than 5 items",
+    );
+  });
+
+  it("can display the description when entries are unknown", async () => {
+    render(
+      <TablePaginationControls
+        visibleCount={5}
+        itemName="item"
+        pageLimits={[20, 50, 100]}
+        currentPage={1}
+        pageSize={20}
+        onPageChange={jest.fn()}
+        onPreviousPage={jest.fn()}
+        onPageSizeChange={jest.fn()}
+        showPageInput={false}
+      />,
+    );
+    expect(document.querySelector(".description")?.textContent).toBe(
+      "Showing 5 items",
+    );
+  });
+
   it("can hide the description", async () => {
     render(
       <TablePaginationControls
@@ -194,8 +232,29 @@ describe("<TablePaginationControls />", () => {
     const pageInput = screen.getByRole("spinbutton", {
       name: Label.PAGE_NUMBER,
     });
-    expect(pageInput).not.toBeDisabled();
+    expect(pageInput).toBeEnabled();
     expect(pageInput).toHaveAttribute("min", "1");
     expect(pageInput).toHaveAttribute("max", "5");
+  });
+
+  it("enables page input when there are unknown number of entries", () => {
+    render(
+      <TablePaginationControls
+        visibleCount={20}
+        itemName="item"
+        pageLimits={[20, 50, 100]}
+        currentPage={1}
+        pageSize={20}
+        onPageChange={jest.fn()}
+        onPageSizeChange={jest.fn()}
+      />,
+    );
+
+    const pageInput = screen.getByRole("spinbutton", {
+      name: Label.PAGE_NUMBER,
+    });
+    expect(pageInput).toBeEnabled();
+    expect(pageInput).toHaveAttribute("min", "1");
+    expect(pageInput).toHaveAttribute("max", "1");
   });
 });
