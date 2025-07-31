@@ -194,8 +194,29 @@ describe("<TablePaginationControls />", () => {
     const pageInput = screen.getByRole("spinbutton", {
       name: Label.PAGE_NUMBER,
     });
-    expect(pageInput).not.toBeDisabled();
+    expect(pageInput).toBeEnabled();
     expect(pageInput).toHaveAttribute("min", "1");
     expect(pageInput).toHaveAttribute("max", "5");
+  });
+
+  it("enables page input when there are unknown number of entries", () => {
+    render(
+      <TablePaginationControls
+        visibleCount={20}
+        itemName="item"
+        pageLimits={[20, 50, 100]}
+        currentPage={1}
+        pageSize={20}
+        onPageChange={jest.fn()}
+        onPageSizeChange={jest.fn()}
+      />,
+    );
+
+    const pageInput = screen.getByRole("spinbutton", {
+      name: Label.PAGE_NUMBER,
+    });
+    expect(pageInput).toBeEnabled();
+    expect(pageInput).toHaveAttribute("min", "1");
+    expect(pageInput).toHaveAttribute("max", "1");
   });
 });
