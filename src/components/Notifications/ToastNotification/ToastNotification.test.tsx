@@ -170,4 +170,21 @@ describe("ToastNotification", () => {
     expect(screen.queryByText("Success")).not.toBeInTheDocument();
     expect(screen.queryByText("Failure")).not.toBeInTheDocument();
   });
+
+  it("calls onDismiss for an unfiltered list of notifications", async () => {
+    const onDismiss = jest.fn();
+
+    render(
+      <ToastNotificationList
+        notifications={notifications}
+        onDismiss={onDismiss}
+        groupedCount={groupedCount}
+        show={true}
+      />,
+    );
+
+    await userEvent.click(screen.getByRole("button", { name: "Dismiss all" }));
+
+    expect(onDismiss).toHaveBeenCalledWith(notifications);
+  });
 });

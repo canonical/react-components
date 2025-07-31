@@ -106,7 +106,7 @@ const ToastNotificationList: FC<Props> = ({
       return;
     }
 
-    onDismiss();
+    onDismiss(notifications);
   };
 
   const getSeverityFilters = () => {

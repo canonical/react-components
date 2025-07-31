@@ -18,6 +18,10 @@ export type ToastNotificationType = NotificationType & {
   id: string;
 };
 
+interface Props {
+  onDismiss?: (notifications?: ToastNotificationType[]) => void;
+}
+
 interface ToastNotificationHelper {
   notifications: ToastNotificationType[];
   success: (
@@ -148,7 +152,10 @@ console.log(count.positive);
 Alternatively, you can use the `ToastNotification` and `ToastNotificationList` components directly, without using the provider.
 */
 
-const ToastNotificationProvider: FC<PropsWithChildren> = ({ children }) => {
+const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
+  children,
+  onDismiss,
+}) => {
   const [notifications, setNotifications] = useState<ToastNotificationType[]>(
     [],
   );
@@ -210,6 +217,10 @@ const ToastNotificationProvider: FC<PropsWithChildren> = ({ children }) => {
   };
 
   const clear = (notifications?: ToastNotificationType[]) => {
+    if (onDismiss) {
+      onDismiss(notifications);
+    }
+
     if (!notifications) {
       setNotifications([]);
       setShowList(false);
