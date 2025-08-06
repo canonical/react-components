@@ -3,7 +3,6 @@ import type {
   NotificationType,
 } from "components/NotificationProvider";
 import type { ValueOf } from "types";
-import { failure } from "components/NotificationProvider";
 import { NotificationSeverity } from "components/Notifications";
 import ToastNotification from "./ToastNotification";
 import ToastNotificationList from "./ToastNotificationList";
@@ -15,36 +14,28 @@ const HIDE_NOTIFICATION_DELAY = 5_000;
 
 export type ToastNotificationType = NotificationType & {
   timestamp?: ReactNode;
-  id: string;
+  id: string | number;
 };
 
 interface Props {
   onDismiss?: (notifications?: ToastNotificationType[]) => void;
 }
 
+interface NotifyFunctionProps {
+  message: ReactNode;
+  title?: string;
+  actions?: NotificationAction[];
+  id?: string | number;
+}
+
 interface ToastNotificationHelper {
   notifications: ToastNotificationType[];
-  success: (
-    message: ReactNode,
-    actions?: NotificationAction[],
-    title?: string,
-  ) => ToastNotificationType;
-  info: (
-    message: ReactNode,
-    title?: string,
-    actions?: NotificationAction[],
-  ) => ToastNotificationType;
+  success: (props: NotifyFunctionProps) => ToastNotificationType;
+  info: (props: NotifyFunctionProps) => ToastNotificationType;
   failure: (
-    title: string,
-    error: unknown,
-    message?: ReactNode,
-    actions?: NotificationAction[],
+    props: NotifyFunctionProps & { error?: unknown },
   ) => ToastNotificationType;
-  caution: (
-    message: ReactNode,
-    actions?: NotificationAction[],
-    title?: string,
-  ) => ToastNotificationType;
+  caution: (props: NotifyFunctionProps) => ToastNotificationType;
   clear: (notification?: ToastNotificationType[]) => void;
   toggleListView: () => void;
   isListView: boolean;
@@ -199,12 +190,14 @@ const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
   };
 
   const addNotification = (
-    notification: NotificationType & { error?: unknown },
+    notification: ToastNotificationType & { error?: unknown },
   ) => {
     const notificationToAdd = {
       ...notification,
       timestamp: new Date().toLocaleString(),
-      id: Date.now().toString() + (Math.random() + 1).toString(36).substring(7),
+      id:
+        notification.id ??
+        Date.now().toString() + (Math.random() + 1).toString(36).substring(7),
     };
 
     setNotifications((prev) => {
@@ -262,28 +255,38 @@ const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
 
   const helper: ToastNotificationHelper = {
     notifications,
-    failure: (title, error, message, actions) =>
-      addNotification(failure(title, error, message, actions)),
-    info: (message, title, actions) =>
+    failure: ({ title, error, message, actions, id }) =>
+      addNotification({
+        title,
+        error,
+        message,
+        actions,
+        id,
+        type: NotificationSeverity.NEGATIVE,
+      }),
+    info: ({ message, title, actions, id }) =>
       addNotification({
         message,
         actions,
         title,
         type: NotificationSeverity.INFORMATION,
+        id,
       }),
-    success: (message, actions, title) =>
+    success: ({ message, actions, title, id }) =>
       addNotification({
         message,
         actions,
         title,
         type: NotificationSeverity.POSITIVE,
-      } as NotificationType),
-    caution: (message, actions, title) =>
+        id,
+      }),
+    caution: ({ message, actions, title, id }) =>
       addNotification({
         message,
         actions,
         title,
         type: NotificationSeverity.CAUTION,
+        id,
       }),
     clear,
     toggleListView,
