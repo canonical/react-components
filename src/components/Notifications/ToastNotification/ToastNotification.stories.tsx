@@ -90,6 +90,9 @@ const PreloadedList = () => {
       >
         Add Error
       </Button>
+      <Button onClick={() => toastNotify.caution("You have unsaved changes")}>
+        Add Warning
+      </Button>
       <Button onClick={toastNotify.toggleListView}>Toggle List View</Button>
     </div>
   );

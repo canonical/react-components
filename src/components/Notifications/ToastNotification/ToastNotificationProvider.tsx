@@ -3,7 +3,12 @@ import type {
   NotificationType,
 } from "components/NotificationProvider";
 import type { ValueOf } from "types";
-import { failure } from "components/NotificationProvider";
+import {
+  failure,
+  info,
+  caution,
+  success,
+} from "components/NotificationProvider";
 import { NotificationSeverity } from "components/Notifications";
 import ToastNotification from "./ToastNotification";
 import ToastNotificationList from "./ToastNotificationList";
@@ -28,22 +33,26 @@ interface ToastNotificationHelper {
     message: ReactNode,
     actions?: NotificationAction[],
     title?: string,
+    id?: ToastNotificationType["id"],
   ) => ToastNotificationType;
   info: (
     message: ReactNode,
     title?: string,
     actions?: NotificationAction[],
+    id?: ToastNotificationType["id"],
   ) => ToastNotificationType;
   failure: (
     title: string,
     error: unknown,
     message?: ReactNode,
     actions?: NotificationAction[],
+    id?: ToastNotificationType["id"],
   ) => ToastNotificationType;
   caution: (
     message: ReactNode,
     actions?: NotificationAction[],
     title?: string,
+    id?: ToastNotificationType["id"],
   ) => ToastNotificationType;
   clear: (notification?: ToastNotificationType[]) => void;
   toggleListView: () => void;
@@ -199,12 +208,16 @@ const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
   };
 
   const addNotification = (
-    notification: NotificationType & { error?: unknown },
+    notification: NotificationType & { error?: unknown } & {
+      id?: ToastNotificationType["id"];
+    },
   ) => {
     const notificationToAdd = {
       ...notification,
       timestamp: new Date().toLocaleString(),
-      id: Date.now().toString() + (Math.random() + 1).toString(36).substring(7),
+      id:
+        notification.id ??
+        Date.now().toString() + (Math.random() + 1).toString(36).substring(7),
     };
 
     setNotifications((prev) => {
@@ -262,29 +275,14 @@ const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
 
   const helper: ToastNotificationHelper = {
     notifications,
-    failure: (title, error, message, actions) =>
-      addNotification(failure(title, error, message, actions)),
-    info: (message, title, actions) =>
-      addNotification({
-        message,
-        actions,
-        title,
-        type: NotificationSeverity.INFORMATION,
-      }),
-    success: (message, actions, title) =>
-      addNotification({
-        message,
-        actions,
-        title,
-        type: NotificationSeverity.POSITIVE,
-      } as NotificationType),
-    caution: (message, actions, title) =>
-      addNotification({
-        message,
-        actions,
-        title,
-        type: NotificationSeverity.CAUTION,
-      }),
+    failure: (title, error, message, actions, id) =>
+      addNotification({ ...failure(title, error, message, actions), id }),
+    info: (message, title, actions, id) =>
+      addNotification({ ...info(message, title, actions), id }),
+    success: (message, actions, title, id) =>
+      addNotification({ ...success(message, title, actions), id }),
+    caution: (message, actions, title, id) =>
+      addNotification({ ...caution(message, title, actions), id }),
     clear,
     toggleListView,
     isListView: showList,
