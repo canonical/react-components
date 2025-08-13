@@ -45,8 +45,12 @@ exports[`<TablePagination /> renders table pagination and matches the snapshot 1
     </div>
   </div>
    
-  of 
-  1
+  <div
+    class="pagination-item-count"
+  >
+    of 
+    1
+  </div>
   <button
     aria-disabled="true"
     aria-label="Next page"

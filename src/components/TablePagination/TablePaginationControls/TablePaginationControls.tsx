@@ -54,7 +54,7 @@ const TablePaginationControls = ({
   description,
   displayDescription = true,
   onInputPageChange,
-  itemName,
+  itemName = "row",
   nextButtonProps,
   onNextPage,
   onPageChange,
@@ -77,6 +77,7 @@ const TablePaginationControls = ({
     isSmallScreen,
     totalItems,
     itemName,
+    currentPage,
   });
 
   const handleDecrementPage = (currentPage: number) => {
@@ -103,7 +104,8 @@ const TablePaginationControls = ({
     onPageSizeChange(parseInt(e.target.value));
   };
 
-  const isInputDisabled = !totalPages || totalPages == 1;
+  const isInputDisabled =
+    typeof totalItems === "number" && (!totalPages || totalPages == 1);
   const maxPageValue = typeof totalPages === "number" ? totalPages : 1;
 
   return (
@@ -144,7 +146,9 @@ const TablePaginationControls = ({
             min={1}
             max={maxPageValue}
           />{" "}
-          {typeof totalPages === "number" ? <>of&nbsp;{totalPages}</> : null}
+          {typeof totalPages === "number" ? (
+            <div className="pagination-item-count">of&nbsp;{totalPages}</div>
+          ) : null}
         </>
       ) : null}
       <Button
