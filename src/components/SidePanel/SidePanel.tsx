@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import classnames from "classnames";
 import { FC, PropsWithChildren, ReactNode } from "react";
 import { createPortal } from "react-dom";
@@ -52,6 +52,11 @@ export type Props = {
    * Whether the side panel should be pinned. When pinned, it will remain visible alongside the main content.
    */
   pinned?: boolean;
+
+  /**
+   * Whether to show the side panel or not.
+   */
+  show?: boolean;
 
   /**
    * Width of the side panel, available options are wide and narrow and the default.
@@ -108,20 +113,35 @@ const SidePanelComponent = ({
   pinned,
   width = "",
   parentId = "l-application",
+  show = true,
 }: Props): React.JSX.Element => {
+  const [hiding, setHiding] = useState(true);
+  const [previousShow, setPreviousShow] = useState(false);
+
   const container = document.getElementById(parentId) || document.body;
+
+  if (show !== previousShow) {
+    setPreviousShow(show);
+    setHiding(true);
+  }
+
+  if (!show && !hiding) {
+    return null;
+  }
 
   return (
     <>
       {createPortal(
         <AppAside
-          className={classnames("side-panel", className, {
+          className={classnames("side-panel", "slide-in", className, {
             "is-overlay": overlay,
           })}
+          collapsed={!show}
           aria-label="Side panel"
           pinned={pinned}
           narrow={width === "narrow"}
           wide={width === "wide"}
+          onTransitionEnd={() => setHiding(false)}
         >
           {loading ? (
             <div className="loading">

@@ -43,3 +43,19 @@
     bottom: 0;
   }
 }
+
+.slide-in {
+  animation: slideIn 0.1s;
+}
+
+@keyframes slideIn {
+  from {
+    box-shadow: 0 0 0 0 transparent;
+    transform: translateX(100%);
+    visibility: hidden;
+  }
+
+  to {
+    box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.2);
+  }
+}

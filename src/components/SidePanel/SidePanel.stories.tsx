@@ -72,7 +72,6 @@ const StoryExample = (args: Story["args"]) => {
           Close side panel
         </Button>
       </AppMain>
-      {isOpen && (
         <SidePanel
           overlay={args.overlay}
           loading={args.loading}
@@ -81,6 +80,7 @@ const StoryExample = (args: Story["args"]) => {
           pinned={args.pinned}
           width={args.width}
           className="u-no-padding--top u-no-padding--bottom"
+          show={isOpen}
         >
           <SidePanel.Sticky>
             <SidePanel.Header>
@@ -168,7 +168,6 @@ const StoryExample = (args: Story["args"]) => {
             </SidePanel.Footer>
           </SidePanel.Sticky>
         </SidePanel>
-      )}
     </Application>
   );
 };
