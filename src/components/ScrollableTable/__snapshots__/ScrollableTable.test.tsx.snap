@@ -1,0 +1,100 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`respects above spacing 1`] = `
+<div
+  role="main"
+>
+  <h1>
+    Above
+  </h1>
+  <div
+    class="scrollable-table"
+  >
+    <table
+      class=""
+      id="test-table"
+      role="grid"
+    >
+      <thead>
+        <tr
+          role="row"
+        >
+          <th
+            role="columnheader"
+          >
+            Fact
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        style="height: calc(100dvh - 9px); min-height: calc(100dvh - 9px)"
+      >
+        <tr
+          role="row"
+        >
+          <td
+            aria-hidden="false"
+            class=""
+            role="gridcell"
+          >
+            foo
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+`;
+
+exports[`respects below spacing 1`] = `
+<div
+  role="main"
+>
+  <h1>
+    Above
+  </h1>
+  <div
+    class="scrollable-table"
+  >
+    <table
+      class=""
+      id="test-table"
+      role="grid"
+    >
+      <thead>
+        <tr
+          role="row"
+        >
+          <th
+            role="columnheader"
+          >
+            Fact
+          </th>
+        </tr>
+      </thead>
+      <tbody
+        style="height: calc(100dvh - 10px); min-height: calc(100dvh - 10px)"
+      >
+        <tr
+          role="row"
+        >
+          <td
+            aria-hidden="false"
+            class=""
+            role="gridcell"
+          >
+            foo
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div
+    id="footer"
+  >
+    <h2>
+      Below
+    </h2>
+  </div>
+</div>
+`;
