@@ -113,12 +113,15 @@ const SidePanelComponent = ({
   pinned,
   width = "",
   parentId = "l-application",
-  show = true,
+  show,
 }: Props): React.JSX.Element => {
   const [hiding, setHiding] = useState(true);
   const [previousShow, setPreviousShow] = useState(false);
 
   const container = document.getElementById(parentId) || document.body;
+
+  const animated = show !== undefined;
+  show ??= true;
 
   if (show !== previousShow) {
     setPreviousShow(show);
@@ -133,8 +136,9 @@ const SidePanelComponent = ({
     <>
       {createPortal(
         <AppAside
-          className={classnames("side-panel", "slide-in", className, {
+          className={classnames("side-panel", className, {
             "is-overlay": overlay,
+            "slide-in": animated,
           })}
           collapsed={!show}
           aria-label="Side panel"
