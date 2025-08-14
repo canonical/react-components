@@ -261,7 +261,7 @@ export const Animated: Story = {
     parentId: "l-application-default",
     pinned: false,
     loading: false,
-    overlay: true,
+    overlay: false,
     width: "",
     isAnimated: true,
   },

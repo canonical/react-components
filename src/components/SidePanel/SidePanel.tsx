@@ -34,7 +34,7 @@ export type Props = {
   hasError?: boolean;
 
   /**
-   * Whether or not the side panel animates on open or close. This requires the side panel to be controlled by the `isOpen` prop instead of conditional rendering.
+   * Whether the side panel animates on open and close. This requires the side panel to be controlled by the `isOpen` prop instead of conditional rendering. If you use `overlay: true`, you must also include `overflow: hidden` on the document body.
    */
   isAnimated?: boolean;
 
@@ -132,9 +132,9 @@ const SidePanelComponent = ({
   }
 
   // Pinned side panels don't get animation in Vanilla
-  isAnimated &&= !pinned;
+  const isAnimatedFinal = isAnimated && !pinned;
 
-  if (!isOpen && !(isAnimated && hiding)) {
+  if (!isOpen && !(isAnimatedFinal && hiding)) {
     return null;
   }
 
@@ -144,7 +144,7 @@ const SidePanelComponent = ({
         <AppAside
           className={classnames("side-panel", className, {
             "is-overlay": overlay,
-            "slide-in": isAnimated,
+            "slide-in": isAnimatedFinal,
           })}
           collapsed={!isOpen}
           aria-label="Side panel"
