@@ -13,13 +13,12 @@ export default meta;
 
 type Story = StoryObj<typeof ScrollableTable>;
 
-const StoryExample = (args: Story["args"]) => {
+const StoryExample = (args: Story["args"] & { responsive?: boolean }) => {
   const headers = [
     { content: "Fact" },
     { content: "Relevancy score" },
     { content: "Size" },
     { content: "ID" },
-    { "aria-label": "Actions", className: "actions" },
   ];
 
   const facts = [
@@ -57,7 +56,12 @@ const StoryExample = (args: Story["args"]) => {
         dependencies={[headers, rows]}
         tableId="facts-about-dragons"
       >
-        <MainTable headers={headers} rows={rows} id="facts-about-dragons" />
+        <MainTable
+          headers={headers}
+          rows={rows}
+          responsive={args["responsive"]}
+          id="facts-about-dragons"
+        />
       </ScrollableTable>
       <div id="footer">
         <h2 className="u-no-margin">Below contents</h2>
@@ -72,6 +76,24 @@ export const Default: Story = {
     belowIds: ["footer"],
   },
   render: StoryExample,
+  parameters: {
+    docs: {
+      page: () => (
+        <>
+          <Title />
+          <Subtitle />
+          <Description />
+        </>
+      ),
+    },
+  },
+};
+
+export const Responsive: Story = {
+  args: {
+    belowIds: ["footer"],
+  },
+  render: (args) => StoryExample({ ...args, responsive: true }),
   parameters: {
     docs: {
       page: () => (
