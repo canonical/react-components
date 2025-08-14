@@ -80,7 +80,8 @@ const StoryExample = (args: Story["args"]) => {
         pinned={args.pinned}
         width={args.width}
         className="u-no-padding--top u-no-padding--bottom"
-        show={isOpen}
+        isOpen={isOpen}
+        isAnimated={args.isAnimated}
       >
         <SidePanel.Sticky>
           <SidePanel.Header>
@@ -249,6 +250,20 @@ export const Wide: Story = {
     loading: false,
     overlay: true,
     width: "wide",
+  },
+  render: StoryExample,
+};
+
+export const Animated: Story = {
+  args: {
+    className: "",
+    hasError: false,
+    parentId: "l-application-default",
+    pinned: false,
+    loading: false,
+    overlay: true,
+    width: "",
+    isAnimated: true,
   },
   render: StoryExample,
 };

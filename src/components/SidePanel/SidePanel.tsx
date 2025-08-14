@@ -34,6 +34,16 @@ export type Props = {
   hasError?: boolean;
 
   /**
+   * Whether or not the side panel animates on open or close. This requires the side panel to be controlled by the `isOpen` prop instead of conditional rendering.
+   */
+  isAnimated?: boolean;
+
+  /**
+   * Whether the side panel is open or not.
+   */
+  isOpen?: boolean;
+
+  /**
    * Whether the side panel is currently loading. This will show a spinner in the panel instead of rendering the children.
    */
   loading?: boolean;
@@ -52,11 +62,6 @@ export type Props = {
    * Whether the side panel should be pinned. When pinned, it will remain visible alongside the main content.
    */
   pinned?: boolean;
-
-  /**
-   * Whether to show the side panel or not.
-   */
-  show?: boolean;
 
   /**
    * Width of the side panel, available options are wide and narrow and the default.
@@ -113,22 +118,23 @@ const SidePanelComponent = ({
   pinned,
   width = "",
   parentId = "l-application",
-  show,
+  isOpen = true,
+  isAnimated,
 }: Props): React.JSX.Element => {
   const [hiding, setHiding] = useState(true);
-  const [previousShow, setPreviousShow] = useState(false);
+  const [previousIsOpen, setPreviousIsOpen] = useState(false);
 
   const container = document.getElementById(parentId) || document.body;
 
-  const animated = show !== undefined;
-  show ??= true;
-
-  if (show !== previousShow) {
-    setPreviousShow(show);
+  if (isOpen !== previousIsOpen) {
+    setPreviousIsOpen(isOpen);
     setHiding(true);
   }
 
-  if (!show && !hiding) {
+  // Pinned side panels don't get animation in Vanilla
+  isAnimated &&= !pinned;
+
+  if (!isOpen && !(isAnimated && hiding)) {
     return null;
   }
 
@@ -138,9 +144,9 @@ const SidePanelComponent = ({
         <AppAside
           className={classnames("side-panel", className, {
             "is-overlay": overlay,
-            "slide-in": animated,
+            "slide-in": isAnimated,
           })}
-          collapsed={!show}
+          collapsed={!isOpen}
           aria-label="Side panel"
           pinned={pinned}
           narrow={width === "narrow"}
