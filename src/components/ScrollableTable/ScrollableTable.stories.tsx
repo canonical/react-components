@@ -104,5 +104,10 @@ export const Responsive: Story = {
         </>
       ),
     },
+    // Percy settings to capture at multiple widths
+    percy: {
+      responsiveSnapshotCapture: true,
+      widths: [768, 1280],
+    },
   },
 };
