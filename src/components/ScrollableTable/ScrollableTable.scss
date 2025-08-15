@@ -45,12 +45,12 @@
         display: block;
       }
 
-      tbody tr {
-        display: block;
+      tbody {
+        display: grid;
       }
 
-      tbody tr:first-child {
-        margin-top: $spv--x-large;
+      tbody tr {
+        display: block;
       }
     }
   }
