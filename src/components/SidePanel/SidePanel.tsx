@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import classnames from "classnames";
 import { FC, PropsWithChildren, ReactNode } from "react";
 import { createPortal } from "react-dom";
@@ -32,6 +32,16 @@ export type Props = {
    * Whether the side panel has an error. This will show an error message in the panel instead of rendering the children.
    */
   hasError?: boolean;
+
+  /**
+   * Whether the side panel animates on open and close. This requires the side panel to be controlled by the `isOpen` prop instead of conditional rendering. If you use `overlay: true`, you must also include `overflow: hidden` on the document body.
+   */
+  isAnimated?: boolean;
+
+  /**
+   * Whether the side panel is open or not.
+   */
+  isOpen?: boolean;
 
   /**
    * Whether the side panel is currently loading. This will show a spinner in the panel instead of rendering the children.
@@ -108,8 +118,25 @@ const SidePanelComponent = ({
   pinned,
   width = "",
   parentId = "l-application",
+  isOpen = true,
+  isAnimated,
 }: Props): React.JSX.Element => {
+  const [hiding, setHiding] = useState(true);
+  const [previousIsOpen, setPreviousIsOpen] = useState(false);
+
   const container = document.getElementById(parentId) || document.body;
+
+  if (isOpen !== previousIsOpen) {
+    setPreviousIsOpen(isOpen);
+    setHiding(true);
+  }
+
+  // Pinned side panels don't get animation in Vanilla
+  const isAnimatedFinal = isAnimated && !pinned;
+
+  if (!isOpen && !(isAnimatedFinal && hiding)) {
+    return null;
+  }
 
   return (
     <>
@@ -117,11 +144,14 @@ const SidePanelComponent = ({
         <AppAside
           className={classnames("side-panel", className, {
             "is-overlay": overlay,
+            "slide-in": isAnimatedFinal,
           })}
+          collapsed={!isOpen}
           aria-label="Side panel"
           pinned={pinned}
           narrow={width === "narrow"}
           wide={width === "wide"}
+          onTransitionEnd={() => setHiding(false)}
         >
           {loading ? (
             <div className="loading">
