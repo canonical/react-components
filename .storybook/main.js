@@ -16,7 +16,16 @@ const config = {
     process.env.BABEL_ENV = "cjs";
     config.module.rules.push({
       test: /\.scss$/,
-      use: ["style-loader", "css-loader", "sass-loader"],
+      use: [
+        "style-loader",
+        "css-loader",
+        {
+          loader: "sass-loader",
+          options: {
+            sassOptions: { loadPaths: [path.resolve(dirname, "../src/scss")] },
+          },
+        },
+      ],
       include: path.resolve(dirname, "../"),
     });
     config.resolve.alias = {
@@ -25,13 +34,8 @@ const config = {
     };
     return config;
   },
-  docs: {
-    autodocs: "tag",
-  },
-  framework: {
-    name: "@storybook/react-webpack5",
-    options: {},
-  },
+  docs: { autodocs: "tag" },
+  framework: { name: "@storybook/react-webpack5", options: {} },
 };
 
 export default config;
