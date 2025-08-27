@@ -13086,10 +13086,10 @@ validate-npm-package-name@^5.0.1:
   resolved "https://registry.yarnpkg.com/validate-npm-package-name/-/validate-npm-package-name-5.0.1.tgz#a316573e9b49f3ccd90dbb6eb52b3f06c6d604e8"
   integrity sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ==
 
-vanilla-framework@4.30.0:
-  version "4.30.0"
-  resolved "https://registry.yarnpkg.com/vanilla-framework/-/vanilla-framework-4.30.0.tgz#165195e32cbfee1506eccb6d550bf1241304a971"
-  integrity sha512-76bFHDNcmRboRD01RcM0CEDcU+gDd8rCMJe2SFF9MJcVeRG/5nla5nBBgT+30dc/ASQOrs3Fiz5kmAT/AQlhFw==
+vanilla-framework@4.31.0:
+  version "4.31.0"
+  resolved "https://registry.yarnpkg.com/vanilla-framework/-/vanilla-framework-4.31.0.tgz#b0685c6f44061d37a3c5092f64262e511f351ccb"
+  integrity sha512-4IIw1W8+LAIcCms8jU04PM7Cpqounlvyos2FxzZgGOo2lh3pQ+D2GdLx38hcn+XZspuoH87/W8sSIvJrgpzPBQ==
 
 verror@1.10.0:
   version "1.10.0"
