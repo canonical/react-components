@@ -122,6 +122,87 @@ resolve: {
 
 If you do not wish do use dotrun then replace dotrun in the command above. Note that you must use dotrun or yarn on one project you must use the same command on the other project so that they both link the same node modules.
 
+
+
+
+## Overriding SCSS variables
+
+If your project overrides any Vanilla SCSS variables, you can pass them to `react-components` by using the `additionalData` option in your build configuration. This allows you to inject custom variable definitions before the component styles are processed.
+
+### With Vite
+
+In your `vite.config.ts`:
+
+```typescript
+export default defineConfig({
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          $color-brand: #bada55;
+          $breakpoint-large: 1234px;
+        `,
+      },
+    },
+  },
+});
+```
+
+See [Vite CSS preprocessorOptions](https://vite.dev/config/shared-options.html#css-preprocessoroptions-extension-additionaldata) for more information.
+
+### With Webpack
+
+In your webpack configuration:
+
+```javascript
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              additionalData: `
+                $color-brand: #bada55;
+                $breakpoint-large: 1234px;
+              `,
+            },
+          },
+        ],
+      },
+    ],
+  },
+};
+```
+
+See [Webpack documentation on sass-loader additionalData](https://webpack.js.org/loaders/sass-loader/#additionaldata) for more information.
+
+### Reading variables from SCSS file
+
+This approach ensures that your custom variables take precedence over the default ones defined in the component library.
+
+To avoid duplicating the variable definitions, consider creating a separate SCSS file (e.g., `_settings.scss`) and importing it in the `additionalData` option. Just make sure this file contains just variable definitions, without any other imports or styles.
+
+```js
+// Read the file contents
+const scssSettings = fs.readFileSync("templates/sass/_settings.scss", "utf-8").trim();
+
+// ...
+
+// and then in your Vite or Webpack configuration pass the file contents instead:
+{
+  // ...
+  additionalData: scssSettings,
+}
+```
+
+NOTE: As this is part of build configuration file, the changes to `_settings.scss` will require a rebuild of the project to take effect, and will not be hot-reloaded.
+
+
 ## Developing integration tests with cypress
 
 ### Running against a local storybook
