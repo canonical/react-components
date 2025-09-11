@@ -106,17 +106,19 @@ export const Modal = ({
     modalRef.current.focus();
   }, [modalRef]);
 
+  const hasCloseButton = !!close;
+
   useEffect(() => {
     focusableModalElements.current = modalRef.current.querySelectorAll(
       focusableElementSelectors,
     );
     let focusIndex = 0;
     // when the close button is rendered, focus on the 2nd content element and not the close btn.
-    if (close && focusableModalElements.current.length > 1) {
+    if (hasCloseButton && focusableModalElements.current.length > 1) {
       focusIndex = 1;
     }
     focusableModalElements.current[focusIndex]?.focus({ preventScroll: true });
-  }, [close]);
+  }, [hasCloseButton]);
 
   useEffect(() => {
     const keyDown = (event: KeyboardEvent) => {
@@ -183,7 +185,7 @@ export const Modal = ({
             <h2 className="p-modal__title" id={titleId}>
               {title}
             </h2>
-            {!!close && (
+            {hasCloseButton && (
               <button
                 type="button"
                 className="p-modal__close"
