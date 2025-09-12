@@ -1,7 +1,9 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
-import React, { useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 
+import Button from "components/Button";
+import Input from "components/Input";
 import Modal from "./Modal";
 
 describe("Modal ", () => {
@@ -188,5 +190,36 @@ describe("Modal ", () => {
 
     await userEvent.click(container);
     expect(handleCloseModal).toHaveBeenCalledTimes(0);
+  });
+
+  it("doesn't lose focus when close prop changes", async () => {
+    const TestComponent: FC = () => {
+      const [inputText, setInputText] = useState("");
+
+      const handleCloseModal = () => {
+        setInputText("");
+      };
+
+      return (
+        <div>
+          <Modal title="Delete item1" close={handleCloseModal}>
+            <Button>Show help</Button>
+            <p>Type "delete item1" to confirm.</p>
+            <Input
+              type="text"
+              value={inputText}
+              onChange={(event) => setInputText(event.target.value)}
+            />
+          </Modal>
+        </div>
+      );
+    };
+
+    const { container } = render(<TestComponent />);
+
+    const input = container.querySelector("input");
+    await userEvent.type(container.querySelector("input"), "delete item1");
+    expect(input).toHaveFocus();
+    expect(input).toHaveValue("delete item1");
   });
 });
