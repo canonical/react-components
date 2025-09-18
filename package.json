@@ -93,7 +93,7 @@
     "tsc-alias": "1.8.10",
     "typescript": "5.7.3",
     "typescript-eslint": "8.24.1",
-    "vanilla-framework": "4.33.0",
+    "vanilla-framework": "4.34.0",
     "wait-on": "8.0.2",
     "webpack": "5.98.0"
   },
