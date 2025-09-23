@@ -58,6 +58,7 @@ export const SearchExample: Story = {
         group: i % 2 === 0 ? "Group 1" : "Group 2",
       })),
     ],
+    id: "search-id",
   },
 };
 
@@ -120,5 +121,6 @@ export const WithoutSorting: Story = {
     variant: "condensed",
     isSortedAlphabetically: false,
     hasSelectedItemsFirst: false,
+    id: "external-id",
   },
 };

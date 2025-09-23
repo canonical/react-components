@@ -34,6 +34,7 @@ export type MultiSelectProps = {
   scrollOverflow?: boolean;
   isSortedAlphabetically?: boolean;
   hasSelectedItemsFirst?: boolean;
+  id?: string;
 };
 
 type ValueSet = Set<MultiSelectItem["value"]>;
@@ -203,6 +204,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   scrollOverflow = false,
   isSortedAlphabetically = true,
   hasSelectedItemsFirst = true,
+  id,
 }: MultiSelectProps) => {
   const buttonRef = useRef(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -286,7 +288,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
             externallyControlled
             aria-controls={dropdownId}
             aria-expanded={isDropdownOpen}
-            id={inputId}
+            id={id ?? inputId}
             role="combobox"
             aria-label={label || placeholder || "Search"}
             disabled={disabled}
@@ -328,6 +330,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               }
             }}
             ref={buttonRef}
+            id={id}
           >
             <span className="multi-select__condensed-text">
               {listSelected && selectedItems.length > 0
