@@ -331,6 +331,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
             }}
             ref={buttonRef}
             id={id}
+            disabled={disabled}
           >
             <span className="multi-select__condensed-text">
               {listSelected && selectedItems.length > 0
