@@ -149,4 +149,9 @@ $dropdown-max-height: 20rem;
       transform: translateY(-50%) rotate(0);
     }
   }
+
+  &[disabled],
+  &[disabled="disabled"] {
+    border-top: 0;
+  }
 }

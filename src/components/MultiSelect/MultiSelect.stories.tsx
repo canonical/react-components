@@ -124,3 +124,10 @@ export const WithoutSorting: Story = {
     id: "external-id",
   },
 };
+
+export const Disabled: Story = {
+  args: {
+    ...CondensedExample.args,
+    disabled: true,
+  },
+};
