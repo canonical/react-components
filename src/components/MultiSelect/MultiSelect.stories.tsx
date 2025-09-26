@@ -131,3 +131,14 @@ export const Disabled: Story = {
     disabled: true,
   },
 };
+
+export const HelpText: Story = {
+  args: {
+    ...CondensedExample.args,
+    help: (
+      <span>
+        This is a help text, that should appear underneath the component.
+      </span>
+    ),
+  },
+};

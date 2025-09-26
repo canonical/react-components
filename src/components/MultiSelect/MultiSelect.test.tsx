@@ -321,3 +321,40 @@ it("can render without sorting selected items first", async () => {
       ),
   );
 });
+
+it("can render help", async () => {
+  const { container } = render(
+    <MultiSelect
+      items={items}
+      selectedItems={[items[1]]}
+      help={<span>This is a help text</span>}
+    />,
+  );
+
+  const helpTextList = container.querySelectorAll(".p-form-help-text");
+  expect(helpTextList).toHaveLength(1);
+  const helpText = helpTextList[0];
+  expect(helpText).toBeVisible();
+});
+
+it("doesn't render help", async () => {
+  const { container } = render(
+    <MultiSelect items={items} selectedItems={[items[1]]} />,
+  );
+  expect(container.querySelectorAll(".p-form-help-text")).toHaveLength(0);
+});
+
+it("can add additional classes to help", () => {
+  const { container } = render(
+    <MultiSelect
+      items={items}
+      selectedItems={[items[1]]}
+      help={<span>This is a help text</span>}
+      helpClassName="additional-help-text-class"
+    />,
+  );
+  expect(container.querySelectorAll(".p-form-help-text")).toHaveLength(1);
+  expect(container.querySelector(".p-form-help-text")).toHaveClass(
+    "additional-help-text-class",
+  );
+});

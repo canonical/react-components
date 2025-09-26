@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import classNames from "classnames";
 import React, { useEffect, useId, useMemo, useRef, useState } from "react";
 
 import "./MultiSelect.scss";
@@ -16,7 +17,8 @@ export type MultiSelectProps = {
   disabled?: boolean;
   error?: string;
   selectedItems?: MultiSelectItem[];
-  help?: string;
+  help?: ReactNode;
+  helpClassName?: string;
   label?: string | null;
   listSelected?: boolean;
   onDeselectItem?: (item: MultiSelectItem) => void;
@@ -205,6 +207,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   isSortedAlphabetically = true,
   hasSelectedItemsFirst = true,
   id,
+  help,
+  helpClassName,
 }: MultiSelectProps) => {
   const buttonRef = useRef(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -214,6 +218,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     MultiSelectItem[]
   >([]);
   const selectedItems = externalSelectedItems || internalSelectedItems;
+  const helpId = useId();
 
   const updateItems = (newItems: MultiSelectItem[]) => {
     const uniqueItems = Array.from(new Set(newItems));
@@ -268,102 +273,113 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     );
   }
   return (
-    <ContextualMenu
-      className="multi-select"
-      onToggleMenu={(isOpen) => {
-        if (!isOpen) {
-          setFilter("");
+    <>
+      <ContextualMenu
+        className="multi-select"
+        onToggleMenu={(isOpen) => {
+          if (!isOpen) {
+            setFilter("");
+          }
+          // Handle syncing the state when toggling the menu from within the
+          // contextual menu component e.g. when clicking outside.
+          if (isOpen !== isDropdownOpen) {
+            setIsDropdownOpen(isOpen);
+          }
+        }}
+        position="left"
+        constrainPanelWidth
+        toggle={
+          variant === "search" ? (
+            <SearchBox
+              externallyControlled
+              aria-controls={dropdownId}
+              aria-expanded={isDropdownOpen}
+              id={id ?? inputId}
+              role="combobox"
+              aria-label={label || placeholder || "Search"}
+              disabled={disabled}
+              autoComplete="off"
+              onChange={(value) => {
+                setFilter(value);
+                // reopen if dropdown has been closed via ESC
+                setIsDropdownOpen(true);
+              }}
+              onFocus={() => setIsDropdownOpen(true)}
+              placeholder={placeholder ?? "Search"}
+              required={required}
+              type="text"
+              value={filter}
+              className="multi-select__input"
+            />
+          ) : (
+            <button
+              role="combobox"
+              type="button"
+              aria-label={label || placeholder || "Select items"}
+              aria-controls={dropdownId}
+              aria-expanded={isDropdownOpen}
+              className="multi-select__select-button"
+              onClick={() => {
+                setIsDropdownOpen(!isDropdownOpen);
+              }}
+              onMouseDown={(event) => {
+                // If the dropdown is open when this button is clicked the
+                // click-outside event will fire which will close the dropdown, but
+                // then the button click event will fire which will immediately
+                // reopen the dropdown.
+                // To prevent this we can stop the propagation to the click event
+                // while `isDropdownOpen` is still set to `true` (by the time we
+                // get to the `onClick` event `isDropdownOpen` will already be `false`,
+                // hence having to do this on mouse down).
+                if (isDropdownOpen) {
+                  event.stopPropagation();
+                }
+              }}
+              ref={buttonRef}
+              id={id}
+              disabled={disabled}
+            >
+              <span className="multi-select__condensed-text">
+                {listSelected && selectedItems.length > 0
+                  ? selectedItemsLabel
+                  : (placeholder ?? "Select items")}
+              </span>
+            </button>
+          )
         }
-        // Handle syncing the state when toggling the menu from within the
-        // contextual menu component e.g. when clicking outside.
-        if (isOpen !== isDropdownOpen) {
-          setIsDropdownOpen(isOpen);
-        }
-      }}
-      position="left"
-      constrainPanelWidth
-      toggle={
-        variant === "search" ? (
-          <SearchBox
-            externallyControlled
-            aria-controls={dropdownId}
-            aria-expanded={isDropdownOpen}
-            id={id ?? inputId}
-            role="combobox"
-            aria-label={label || placeholder || "Search"}
-            disabled={disabled}
-            autoComplete="off"
-            onChange={(value) => {
-              setFilter(value);
-              // reopen if dropdown has been closed via ESC
-              setIsDropdownOpen(true);
-            }}
-            onFocus={() => setIsDropdownOpen(true)}
-            placeholder={placeholder ?? "Search"}
-            required={required}
-            type="text"
-            value={filter}
-            className="multi-select__input"
-          />
-        ) : (
-          <button
-            role="combobox"
-            type="button"
-            aria-label={label || placeholder || "Select items"}
-            aria-controls={dropdownId}
-            aria-expanded={isDropdownOpen}
-            className="multi-select__select-button"
-            onClick={() => {
-              setIsDropdownOpen(!isDropdownOpen);
-            }}
-            onMouseDown={(event) => {
-              // If the dropdown is open when this button is clicked the
-              // click-outside event will fire which will close the dropdown, but
-              // then the button click event will fire which will immediately
-              // reopen the dropdown.
-              // To prevent this we can stop the propagation to the click event
-              // while `isDropdownOpen` is still set to `true` (by the time we
-              // get to the `onClick` event `isDropdownOpen` will already be `false`,
-              // hence having to do this on mouse down).
-              if (isDropdownOpen) {
-                event.stopPropagation();
-              }
-            }}
-            ref={buttonRef}
-            id={id}
-            disabled={disabled}
-          >
-            <span className="multi-select__condensed-text">
-              {listSelected && selectedItems.length > 0
-                ? selectedItemsLabel
-                : (placeholder ?? "Select items")}
-            </span>
-          </button>
-        )
-      }
-      visible={isDropdownOpen}
-      scrollOverflow={scrollOverflow}
-    >
-      <MultiSelectDropdown
-        id={dropdownId}
-        isOpen={isDropdownOpen}
-        items={
-          filter.length > 0
-            ? items.filter((item) =>
-                item.label.toLowerCase().includes(filter.toLowerCase()),
-              )
-            : items
-        }
-        selectedItems={selectedItems}
-        disabledItems={disabledItems}
-        header={dropdownHeader}
-        updateItems={updateItems}
-        onSelectItem={onSelectItem}
-        onDeselectItem={onDeselectItem}
-        footer={footer}
-        sortFn={isSortedAlphabetically ? sortAlphabetically : () => 0}
-        hasSelectedItemsFirst={hasSelectedItemsFirst}
-      />
-    </ContextualMenu>
+        visible={isDropdownOpen}
+        scrollOverflow={scrollOverflow}
+        aria-describedby={help ? helpId : undefined}
+      >
+        <MultiSelectDropdown
+          id={dropdownId}
+          isOpen={isDropdownOpen}
+          items={
+            filter.length > 0
+              ? items.filter((item) =>
+                  item.label.toLowerCase().includes(filter.toLowerCase()),
+                )
+              : items
+          }
+          selectedItems={selectedItems}
+          disabledItems={disabledItems}
+          header={dropdownHeader}
+          updateItems={updateItems}
+          onSelectItem={onSelectItem}
+          onDeselectItem={onDeselectItem}
+          footer={footer}
+          sortFn={isSortedAlphabetically ? sortAlphabetically : () => 0}
+          hasSelectedItemsFirst={hasSelectedItemsFirst}
+        />
+      </ContextualMenu>
+      {help && (
+        <p
+          className={classNames("p-form-help-text", helpClassName)}
+          id={helpId}
+        >
+          {help}
+        </p>
+      )}
+    </>
   );
 };
