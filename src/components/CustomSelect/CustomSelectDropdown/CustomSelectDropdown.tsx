@@ -19,6 +19,8 @@ export type CustomSelectOption = LiHTMLAttributes<HTMLLIElement> & {
   // text must be provided if label is not a string
   text?: string;
   disabled?: boolean;
+  // What is displayed in toggle button once an option is selected. If selectedLabel is not provided, fall back onto text
+  selectedLabel?: ReactNode;
 };
 
 export type Props = {

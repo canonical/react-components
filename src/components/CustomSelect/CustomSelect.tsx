@@ -126,7 +126,9 @@ const CustomSelect = ({
 
   const toggleLabel = (
     <span className="toggle-label u-truncate">
-      {selectedOption ? getOptionText(selectedOption) : "Select an option"}
+      {selectedOption
+        ? selectedOption.selectedLabel || getOptionText(selectedOption)
+        : "Select an option"}
     </span>
   );
 

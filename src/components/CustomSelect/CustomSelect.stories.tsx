@@ -50,6 +50,107 @@ const generateCustomOptions = (): CustomSelectOption[] => {
   ];
 };
 
+const generateCustomOptionsWithSelectedLabel = () => {
+  const options = [
+    {
+      type: "ovn",
+      name: "ovntest",
+      config: {
+        "security.acls": "foo,bar",
+      },
+    },
+    {
+      type: "bridge",
+      name: "lxdbr0",
+      config: {},
+    },
+    {
+      type: "bridge",
+      name: "microbr0",
+      config: {},
+    },
+    {
+      type: "macvlan",
+      name: "macvlantest",
+      config: {},
+    },
+  ].map((network) => {
+    return {
+      label: (
+        <div className="label" style={{ display: "flex", gap: "5px" }}>
+          <span
+            title={network.name}
+            className="network-option u-truncate"
+            style={{ width: "12rem" }}
+          >
+            {network.name}
+          </span>
+          <span
+            title={network.type}
+            className="network-option u-truncate"
+            style={{ width: "8rem" }}
+          >
+            {network.type}
+          </span>
+          <span
+            title="network ACLs"
+            className="network-option u-truncate u-align--right"
+            style={{ paddingRight: "8px", width: "4rem" }}
+          >
+            {network.config["security.acls"]?.length || "-"}
+          </span>
+        </div>
+      ),
+      value: network.name,
+      text: `${network.name} - ${network.type}`,
+      disabled: false,
+      selectedLabel: (
+        <span>
+          {network.name}&nbsp;
+          <span className="u-text--muted">&#40;{network.type}&#41;</span>
+        </span>
+      ),
+    };
+  });
+
+  return options;
+};
+
+const getHeader = () => {
+  return (
+    <div
+      className="header"
+      style={{
+        backgroundColor: "$colors--theme--background-alt",
+        display: "flex",
+        gap: "$sph--small",
+        padding: "$sph--x-small $sph--small",
+        position: "sticky",
+        top: 0,
+      }}
+    >
+      <span
+        className="network-option u-no-margin--bottom"
+        style={{ color: "$colors--theme--text-default", width: "12rem" }}
+      >
+        Name
+      </span>
+      <span
+        className="network-option u-no-margin--bottom"
+        style={{ color: "$colors--theme--text-default", width: "8rem" }}
+      >
+        Type
+      </span>
+      <span
+        className="network-option u-no-margin--bottom"
+        style={{ color: "$colors--theme--text-default", width: "4rem" }}
+      >
+        ACLs
+      </span>
+    </div>
+  );
+};
+
 const Template = ({ ...props }: StoryProps) => {
   const [selected, setSelected] = useState<string>(props.value || "");
   return (
@@ -107,6 +208,19 @@ export const StandardOptions: Story = {
 export const CustomOptions: Story = {
   args: {
     options: generateCustomOptions(),
+  },
+};
+
+/**
+ * If `label` is of `ReactNode` type. You can render custom content.
+ * In this case, the `selectedLabel` for each option is provided and will be displayed in the toggle instead of `text`
+ * The `text` property for each option is still required and is used for search and sort functionalities.
+ */
+export const CustomOptionsAndSelectedLabel: Story = {
+  args: {
+    options: generateCustomOptionsWithSelectedLabel(),
+    header: getHeader(),
+    dropdownClassName: "network-select-dropdown",
   },
 };
 
