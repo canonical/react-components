@@ -1,0 +1,15 @@
+@import "vanilla-framework";
+@include vf-b-placeholders;
+@include vf-p-icon-settings;
+
+.column-selector-column-list {
+  min-width: 12rem;
+
+  .p-checkbox {
+    margin-left: 1rem;
+  }
+
+  .size-hidden > * {
+    opacity: 0.33;
+  }
+}
