@@ -19,6 +19,7 @@
 
   .doughnut-chart__segment {
     fill: transparent;
+    shape-rendering: crispedges;
 
     // Animate stroke size changes on hover.
     transition: stroke-width 0.3s ease;
