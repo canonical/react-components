@@ -114,8 +114,11 @@ describe("Input", () => {
 
   it("can display help for a checkbox", async () => {
     const help = "Save me!";
-    render(<Input help={help} type="checkbox" />);
+    const { container } = render(<Input help={help} type="checkbox" />);
     expect(screen.getByRole("checkbox")).toHaveAccessibleDescription(help);
+    expect(container.querySelector(".p-form-help-text")).not.toHaveClass(
+      "undefined",
+    );
   });
 
   it("can add additional classes", () => {
