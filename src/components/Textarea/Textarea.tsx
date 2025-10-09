@@ -190,6 +190,7 @@ const Textarea = ({
           }) ||
           style
         }
+        required={required}
         {...props}
         value={props.value ?? innerValue}
       />
