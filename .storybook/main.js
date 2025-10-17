@@ -14,6 +14,11 @@ const config = {
   ],
   webpackFinal: async (config) => {
     process.env.BABEL_ENV = "cjs";
+
+    // Include the "sass" named export from vanilla-frameworks package.json
+    // @see https://webpack.js.org/configuration/resolve/#resolveconditionnames
+    config.resolve.conditionNames = ["...", "sass"];
+
     config.module.rules.push({
       test: /\.scss$/,
       use: ["style-loader", "css-loader", "sass-loader"],
