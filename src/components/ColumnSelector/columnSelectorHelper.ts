@@ -18,7 +18,9 @@ export const visibleHeaderColumns = (
   headers: MainTableHeader[],
   hiddenCols: string[],
 ): MainTableHeader[] =>
-  headers.filter(
-    (item) =>
-      typeof item.content !== "string" || !hiddenCols.includes(item.content),
-  );
+  headers.filter((item) => {
+    if (typeof item.content === "string") {
+      return !hiddenCols.includes(item.content);
+    }
+    return !hiddenCols.includes(item["aria-label"]);
+  });

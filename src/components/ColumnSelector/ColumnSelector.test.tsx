@@ -270,7 +270,7 @@ describe("visibleHeaderColumns", () => {
     { content: "Name", sortKey: "Name" },
     { content: "Status", sortKey: "Status" },
     { content: "Role", sortKey: "Role" },
-    { content: <button>Actions</button>, sortKey: "actions" },
+    { "aria-label": "Actions", sortKey: "actions" },
   ];
 
   it("should not filter any headers if hiddenCols is empty", () => {
@@ -293,11 +293,18 @@ describe("visibleHeaderColumns", () => {
     expect(result.map((h) => h.content)).not.toContain("Role");
   });
 
-  it("should never filter headers where content is not a string", () => {
-    const hiddenCols = ["Name", "Status", "Role", "actions"];
+  it("should filter headers based on aria label, where content is not a string", () => {
+    const hiddenCols = ["Name", "Status", "Role", "Actions"];
+    const result = visibleHeaderColumns(mockHeaders, hiddenCols);
+    expect(result).toHaveLength(0);
+  });
+
+  it("should return headers based on aria label, where content is not a string", () => {
+    const hiddenCols = ["Name", "Status", "Role"];
     const result = visibleHeaderColumns(mockHeaders, hiddenCols);
     expect(result).toHaveLength(1);
-    expect(typeof result[0].content).toBe("object");
+    expect(result[0]["aria-label"]).toBe("Actions");
+    expect(result[0].content).toBe(undefined);
   });
 
   it("should return headers unchanged if hidden columns are not found", () => {
