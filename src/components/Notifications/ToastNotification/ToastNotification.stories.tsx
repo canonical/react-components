@@ -6,6 +6,27 @@ import Button from "components/Button";
 const meta: Meta<typeof ToastNotificationProvider> = {
   component: ToastNotificationProvider,
   tags: ["autodocs"],
+  argTypes: {
+    autoDismissDelay: {
+      control: {
+        type: "select",
+      },
+      options: [1000, 2000, 3000, 5000, 10000, 0],
+      labels: {
+        1000: "1 second",
+        2000: "2 seconds",
+        3000: "3 seconds",
+        5000: "5 seconds (default)",
+        10000: "10 seconds",
+        0: "Persistent (no auto-hide)",
+      },
+      description:
+        "Delay in milliseconds before hiding notification, or 0 for persistent notifications",
+    },
+  },
+  args: {
+    autoDismissDelay: 5000,
+  },
 };
 
 export default meta;
@@ -14,10 +35,16 @@ type Story = StoryObj<typeof ToastNotificationProvider>;
 
 export const Default: Story = {
   name: "Default",
-  render: () => <ToastNotificationStoryWrapper />,
+  render: (args: { autoDismissDelay?: number }) => (
+    <ToastNotificationStoryWrapper {...args} />
+  ),
 };
 
-const ToastNotificationStoryWrapper = () => {
+const ToastNotificationStoryWrapper = ({
+  autoDismissDelay,
+}: {
+  autoDismissDelay?: number;
+}) => {
   useEffect(() => {
     const root = document.getElementById("storybook-root");
     if (root) {
@@ -26,7 +53,7 @@ const ToastNotificationStoryWrapper = () => {
   }, []);
 
   return (
-    <ToastNotificationProvider>
+    <ToastNotificationProvider autoDismissDelay={autoDismissDelay}>
       <PreloadedList />
     </ToastNotificationProvider>
   );
