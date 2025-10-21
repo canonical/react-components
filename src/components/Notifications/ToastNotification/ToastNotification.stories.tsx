@@ -7,7 +7,7 @@ const meta: Meta<typeof ToastNotificationProvider> = {
   component: ToastNotificationProvider,
   tags: ["autodocs"],
   argTypes: {
-    hideDelay: {
+    autoDismissDelay: {
       control: {
         type: "select",
       },
@@ -25,7 +25,7 @@ const meta: Meta<typeof ToastNotificationProvider> = {
     },
   },
   args: {
-    hideDelay: 5000,
+    autoDismissDelay: 5000,
   },
 };
 
@@ -35,15 +35,15 @@ type Story = StoryObj<typeof ToastNotificationProvider>;
 
 export const Default: Story = {
   name: "Default",
-  render: (args: { hideDelay?: number }) => (
+  render: (args: { autoDismissDelay?: number }) => (
     <ToastNotificationStoryWrapper {...args} />
   ),
 };
 
 const ToastNotificationStoryWrapper = ({
-  hideDelay,
+  autoDismissDelay,
 }: {
-  hideDelay?: number;
+  autoDismissDelay?: number;
 }) => {
   useEffect(() => {
     const root = document.getElementById("storybook-root");
@@ -53,7 +53,7 @@ const ToastNotificationStoryWrapper = ({
   }, []);
 
   return (
-    <ToastNotificationProvider hideDelay={hideDelay}>
+    <ToastNotificationProvider autoDismissDelay={autoDismissDelay}>
       <PreloadedList />
     </ToastNotificationProvider>
   );

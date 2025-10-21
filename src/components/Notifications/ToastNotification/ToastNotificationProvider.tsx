@@ -25,7 +25,7 @@ export type ToastNotificationType = NotificationType & {
 
 interface Props {
   onDismiss?: (notifications?: ToastNotificationType[]) => void;
-  hideDelay?: number;
+  autoDismissDelay?: number;
 }
 
 interface ToastNotificationHelper {
@@ -106,7 +106,7 @@ const ToastNotificationContext = createContext<ToastNotificationHelper>({
 Wrap your application with this provider, and in any child component you can get the helper with `const toastNotify = useToastNotification()` to trigger notifications.
 Notifications automatically dismiss after a delay unless manually dismissed or expanded.
 
-To make the notification persistent (i.e., not auto-dismiss), set the `hideDelay` prop to `0` when using the provider: `<ToastNotificationProvider hideDelay={0}>`
+To make the notification persistent (i.e., not auto-dismiss), set the `autoDismissDelay` prop to `0` when using the provider: `<ToastNotificationProvider autoDismissDelay={0}>`
 
 | **Values**                       | **Description**                                                                |
 |----------------------------------|--------------------------------------------------------------------------------|
@@ -167,7 +167,7 @@ Alternatively, you can use the `ToastNotification` and `ToastNotificationList` c
 const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
   children,
   onDismiss,
-  hideDelay = HIDE_NOTIFICATION_DELAY,
+  autoDismissDelay = HIDE_NOTIFICATION_DELAY,
 }) => {
   const [notifications, setNotifications] = useState<ToastNotificationType[]>(
     [],
@@ -194,14 +194,14 @@ const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
       }
 
       if (!showList) {
-        // If hideDelay is 0, make notification persistent (no auto-hide)
-        if (!hideDelay) {
+        // If autoDismissDelay is 0, make notification persistent (no auto-hide)
+        if (!autoDismissDelay) {
           return true; // Set a truthy value to indicate notification should show
         }
 
         return setTimeout(() => {
           setNotificationTimer(null);
-        }, hideDelay);
+        }, autoDismissDelay);
       }
 
       return null;
