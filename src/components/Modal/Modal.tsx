@@ -1,6 +1,6 @@
 import classNames from "classnames";
+import React, { useId, useRef, useEffect } from "react";
 import type { HTMLProps, ReactNode, RefObject } from "react";
-import React, { useEffect, useId, useRef } from "react";
 import { ClassName, PropsWithSpread } from "types";
 
 export type Props = PropsWithSpread<
@@ -21,6 +21,10 @@ export type Props = PropsWithSpread<
      * Function to handle closing the modal.
      */
     close?: () => void | null;
+    /**
+     * The element that will be focused upon opening the modal.
+     */
+    focusRef?: RefObject<HTMLElement | null>;
     /**
      * The title of the modal.
      */
@@ -47,6 +51,7 @@ export const Modal = ({
   children,
   className,
   close,
+  focusRef,
   title,
   shouldPropagateClickEvent = false,
   closeOnOutsideClick = true,
@@ -98,13 +103,10 @@ export const Modal = ({
     }
   };
 
-  const keyListenersMap = new Map([
-    ["Escape", handleEscKey],
-    ["Tab", handleTabKey],
-  ]);
-
   useEffect(() => {
-    if (closeButtonRef.current) {
+    if (focusRef?.current) {
+      focusRef.current.focus();
+    } else if (closeButtonRef.current) {
       closeButtonRef.current.focus();
     } else {
       modalRef.current.focus();
@@ -113,9 +115,14 @@ export const Modal = ({
     focusableModalElements.current = modalRef.current.querySelectorAll(
       focusableElementSelectors,
     );
-  }, []);
+  }, [focusRef]);
 
   useEffect(() => {
+    const keyListenersMap = new Map([
+      ["Escape", handleEscKey],
+      ["Tab", handleTabKey],
+    ]);
+
     const keyDown = (event: KeyboardEvent) => {
       const listener = keyListenersMap.get(event.code);
       return listener && listener(event);

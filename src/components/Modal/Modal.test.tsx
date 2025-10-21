@@ -85,11 +85,11 @@ describe("Modal ", () => {
     const closeButton = container.querySelector("button.p-modal__close");
     const cancelButton = container.querySelector("button#test-cancel");
 
-    expect(cancelButton).toHaveFocus();
+    expect(closeButton).toHaveFocus();
 
     await user.tab();
 
-    expect(closeButton).toHaveFocus();
+    expect(cancelButton).toHaveFocus();
   });
 
   it("focuses on close button if there are no other focusable elements", async () => {
