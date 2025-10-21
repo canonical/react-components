@@ -173,13 +173,14 @@ const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
     [],
   );
   const [showList, setShowList] = useState(false);
-  const [notificationTimer, setNotificationTimer] =
-    useState<NodeJS.Timeout | null>(null);
+  const [notificationTimer, setNotificationTimer] = useState<
+    NodeJS.Timeout | boolean | null
+  >(null);
 
   // cleanup on timer if unmounted
   useEffect(() => {
     return () => {
-      if (notificationTimer) {
+      if (notificationTimer && typeof notificationTimer !== "boolean") {
         clearTimeout(notificationTimer);
       }
     };
@@ -188,7 +189,7 @@ const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
 
   const showNotificationWithDelay = () => {
     setNotificationTimer((prevTimer) => {
-      if (prevTimer) {
+      if (prevTimer && typeof prevTimer !== "boolean") {
         clearTimeout(prevTimer);
       }
 
@@ -209,7 +210,7 @@ const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
 
   const clearNotificationTimer = () => {
     setNotificationTimer((prevTimer) => {
-      if (prevTimer) {
+      if (prevTimer && typeof prevTimer !== "boolean") {
         clearTimeout(prevTimer);
       }
       return null;
