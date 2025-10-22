@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import React, { useId, useRef, useEffect } from "react";
-import type { HTMLProps, ReactNode, MutableRefObject, RefObject } from "react";
+import type { HTMLProps, ReactNode, RefObject } from "react";
 import { ClassName, PropsWithSpread } from "types";
 
 export type Props = PropsWithSpread<
@@ -21,6 +21,10 @@ export type Props = PropsWithSpread<
      * Function to handle closing the modal.
      */
     close?: () => void | null;
+    /**
+     * The element that will be focused upon opening the modal.
+     */
+    focusRef?: RefObject<HTMLElement | null>;
     /**
      * The title of the modal.
      */
@@ -47,6 +51,7 @@ export const Modal = ({
   children,
   className,
   close,
+  focusRef,
   title,
   shouldPropagateClickEvent = false,
   closeOnOutsideClick = true,
@@ -60,7 +65,8 @@ export const Modal = ({
   const titleId = useId();
   const shouldClose = useRef(false);
 
-  const modalRef: MutableRefObject<HTMLElement> = useRef(null);
+  const modalRef: RefObject<HTMLDivElement> = useRef(null);
+  const closeButtonRef: RefObject<HTMLButtonElement> = useRef(null);
   const focusableModalElements = useRef(null);
   const handleTabKey = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (focusableModalElements.current.length > 0) {
@@ -97,30 +103,26 @@ export const Modal = ({
     }
   };
 
-  const keyListenersMap = new Map([
-    ["Escape", handleEscKey],
-    ["Tab", handleTabKey],
-  ]);
-
   useEffect(() => {
-    modalRef.current.focus();
-  }, [modalRef]);
+    if (focusRef?.current) {
+      focusRef.current.focus();
+    } else if (closeButtonRef.current) {
+      closeButtonRef.current.focus();
+    } else {
+      modalRef.current.focus();
+    }
 
-  const hasCloseButton = !!close;
-
-  useEffect(() => {
     focusableModalElements.current = modalRef.current.querySelectorAll(
       focusableElementSelectors,
     );
-    let focusIndex = 0;
-    // when the close button is rendered, focus on the 2nd content element and not the close btn.
-    if (hasCloseButton && focusableModalElements.current.length > 1) {
-      focusIndex = 1;
-    }
-    focusableModalElements.current[focusIndex]?.focus({ preventScroll: true });
-  }, [hasCloseButton]);
+  }, [focusRef]);
 
   useEffect(() => {
+    const keyListenersMap = new Map([
+      ["Escape", handleEscKey],
+      ["Tab", handleTabKey],
+    ]);
+
     const keyDown = (event: KeyboardEvent) => {
       const listener = keyListenersMap.get(event.code);
       return listener && listener(event);
@@ -169,7 +171,7 @@ export const Modal = ({
       onClick={handleOverlayOnClick}
       onMouseDown={handleOverlayOnMouseDown}
       {...wrapperProps}
-      ref={modalRef as RefObject<HTMLDivElement>}
+      ref={modalRef}
     >
       <section
         className="p-modal__dialog"
@@ -185,12 +187,13 @@ export const Modal = ({
             <h2 className="p-modal__title" id={titleId}>
               {title}
             </h2>
-            {hasCloseButton && (
+            {close && (
               <button
                 type="button"
                 className="p-modal__close"
                 aria-label="Close active modal"
                 onClick={handleClose}
+                ref={closeButtonRef}
               >
                 Close
               </button>
