@@ -260,11 +260,18 @@ const ContextualMenu = <L,>({
       // becomes smaller.
       closePortal();
     } else {
-      // Update the coordinates so that the menu stays relative to the
-      // toggle button.
-      updatePositionCoords();
+      // Only update if the coordinates have changed.
+      // The check fixes a bug with chrome, where an input receiving focus and
+      // opening the keyboard causes a resize and the keyboard closes right after
+      // opening.
+      const coords = parent.getBoundingClientRect();
+      if (JSON.stringify(coords) !== JSON.stringify(positionCoords)) {
+        // Update the coordinates so that the menu stays relative to the
+        // toggle button.
+        updatePositionCoords();
+      }
     }
-  }, [closePortal, positionNode, updatePositionCoords]);
+  }, [closePortal, positionNode, positionCoords, updatePositionCoords]);
 
   const onScroll = useCallback(
     (e: Event) => {
