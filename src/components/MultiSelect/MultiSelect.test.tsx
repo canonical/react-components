@@ -337,6 +337,18 @@ it("can render help", async () => {
   expect(helpText).toBeVisible();
 });
 
+it("can connect help text to combobox with aria-describedby for search variant", async () => {
+  const helpText = "This is helpful information";
+  render(<MultiSelect items={items} variant="search" help={helpText} />);
+  expect(screen.getByRole("combobox")).toHaveAccessibleDescription(helpText);
+});
+
+it("can connect help text to combobox with aria-describedby for condensed variant", async () => {
+  const helpText = "This is helpful information";
+  render(<MultiSelect items={items} variant="condensed" help={helpText} />);
+  expect(screen.getByRole("combobox")).toHaveAccessibleDescription(helpText);
+});
+
 it("doesn't render help", async () => {
   const { container } = render(
     <MultiSelect items={items} selectedItems={[items[1]]} />,

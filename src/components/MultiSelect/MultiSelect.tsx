@@ -294,6 +294,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               externallyControlled
               aria-controls={dropdownId}
               aria-expanded={isDropdownOpen}
+              aria-describedby={help ? helpId : undefined}
               id={id ?? inputId}
               role="combobox"
               aria-label={label || placeholder || "Search"}
@@ -316,6 +317,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               role="combobox"
               type="button"
               aria-label={label || placeholder || "Select items"}
+              aria-describedby={help ? helpId : undefined}
               aria-controls={dropdownId}
               aria-expanded={isDropdownOpen}
               className="multi-select__select-button"
@@ -349,7 +351,6 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         }
         visible={isDropdownOpen}
         scrollOverflow={scrollOverflow}
-        aria-describedby={help ? helpId : undefined}
       >
         <MultiSelectDropdown
           id={dropdownId}
