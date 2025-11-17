@@ -4,6 +4,7 @@ import { PropsWithSpread, ValueOf } from "types";
 import Button, { ButtonAppearance, ButtonProps } from "components/Button";
 import Modal, { ModalProps } from "components/Modal";
 import ActionButton, { ActionButtonProps } from "components/ActionButton";
+import { usePortal } from "external";
 
 export type Props = PropsWithSpread<
   {
@@ -47,6 +48,10 @@ export type Props = PropsWithSpread<
      * Whether the confirm button should be disabled.
      */
     confirmButtonDisabled?: boolean;
+    /**
+     * Whether to render the modal inside a Portal component.
+     */
+    renderInPortal?: boolean;
   },
   Omit<ModalProps, "buttonRow">
 >;
@@ -65,8 +70,11 @@ export const ConfirmationModal = ({
   confirmButtonLoading,
   confirmButtonDisabled,
   confirmButtonProps,
+  renderInPortal = false,
   ...props
 }: Props): React.JSX.Element => {
+  const { Portal } = usePortal();
+
   const handleClick =
     <A extends Function>( // eslint-disable-line @typescript-eslint/no-unsafe-function-type
       action: A | null | undefined,
@@ -80,7 +88,7 @@ export const ConfirmationModal = ({
       }
     };
 
-  return (
+  const ModalElement = (
     <Modal
       buttonRow={
         <>
@@ -110,6 +118,8 @@ export const ConfirmationModal = ({
       {children}
     </Modal>
   );
+
+  return renderInPortal ? <Portal>{ModalElement}</Portal> : ModalElement;
 };
 
 export default ConfirmationModal;
