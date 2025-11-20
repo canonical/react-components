@@ -248,13 +248,7 @@ const Tooltip = ({
   );
 
   // Handle mouse events.
-  useListener(
-    wrapperRef.current,
-    mouseHandler,
-    "mousemove",
-    true,
-    followMouse && isOpen,
-  );
+  useListener(wrapperRef.current, mouseHandler, "mousemove", true, followMouse);
 
   // Handle adjusting the position of the tooltip so that it remains on screen.
   useWindowFitment(
@@ -307,6 +301,14 @@ const Tooltip = ({
     openPortal();
   };
 
+  const handleFocus = () => {
+    if (followMouse && wrapperRef.current) {
+      // set initial position for the tooltip
+      setPositionStyle(getPositionStyle(adjustedPosition, wrapperRef.current));
+    }
+    openPortal();
+  };
+
   const delayedOpenPortal: MouseEventHandler = useCallback(() => {
     if (isOpen) {
       return;
@@ -325,7 +327,7 @@ const Tooltip = ({
           className={className}
           onBlur={handleBlur}
           onClick={handleClick}
-          onFocus={openPortal}
+          onFocus={handleFocus}
           onMouseOut={handleBlur}
           onMouseOver={delayedOpenPortal}
         >
