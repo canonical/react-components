@@ -253,7 +253,7 @@ const Tooltip = ({
     mouseHandler,
     "mousemove",
     true,
-    followMouse && isOpen,
+    followMouse,
   );
 
   // Handle adjusting the position of the tooltip so that it remains on screen.
