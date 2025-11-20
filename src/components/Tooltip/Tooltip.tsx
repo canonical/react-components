@@ -307,6 +307,18 @@ const Tooltip = ({
     openPortal();
   };
 
+  const handleFocus = () => {
+  if (followMouse) {
+    if (wrapperRef.current) {
+      // set initial position for the tooltip
+      setPositionStyle(
+        getPositionStyle(adjustedPosition, wrapperRef.current)
+      );
+    }
+  }
+  openPortal();
+}
+
   const delayedOpenPortal: MouseEventHandler = useCallback(() => {
     if (isOpen) {
       return;
@@ -325,7 +337,7 @@ const Tooltip = ({
           className={className}
           onBlur={handleBlur}
           onClick={handleClick}
-          onFocus={openPortal}
+          onFocus={handleFocus}
           onMouseOut={handleBlur}
           onMouseOver={delayedOpenPortal}
         >
