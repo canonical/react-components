@@ -165,9 +165,9 @@ describe("Tooltip", () => {
     expect(screen.queryByTestId("tooltip-portal")).not.toBeInTheDocument();
   });
 
-  it("renders tooltip message on focus", async () => {
+  it("shows tooltip message on focus", async () => {
     render(
-      <Tooltip message="tooltip text">
+      <Tooltip message="tooltip text" followMouse>
         <button>open the tooltip</button>
       </Tooltip>,
     );
@@ -177,8 +177,24 @@ describe("Tooltip", () => {
     await act(async () => {
       await userEventWithTimers.tab();
     });
-    expect(screen.getByTestId("tooltip-portal")).toBeInTheDocument();
-    expect(screen.getByText("tooltip text")).toBeInTheDocument();
+    expect(screen.getByTestId("tooltip-portal")).toBeVisible();
+    expect(screen.getByText("tooltip text")).toBeVisible();
+  });
+
+  it("shows tooltip message on focus, with followMouse active", async () => {
+    render(
+      <Tooltip message="tooltip text" followMouse>
+        <button>open the tooltip</button>
+      </Tooltip>,
+    );
+
+    expect(screen.queryByTestId("tooltip-portal")).not.toBeInTheDocument();
+    expect(screen.queryByText("tooltip text")).not.toBeInTheDocument();
+    await act(async () => {
+      await userEventWithTimers.tab();
+    });
+    expect(screen.getByTestId("tooltip-portal")).toBeVisible();
+    expect(screen.getByText("tooltip text")).toBeVisible();
   });
 
   it("updates the tooltip to fit on the screen", async () => {
