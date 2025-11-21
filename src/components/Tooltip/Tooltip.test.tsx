@@ -167,7 +167,7 @@ describe("Tooltip", () => {
 
   it("shows tooltip message on focus", async () => {
     render(
-      <Tooltip message="tooltip text" followMouse>
+      <Tooltip message="tooltip text">
         <button>open the tooltip</button>
       </Tooltip>,
     );
