@@ -38,6 +38,12 @@ export type Props = PropsWithSpread<
     name?: string;
     // Whether if the select is disabled
     disabled?: boolean;
+    /**
+     * Toggle label when no option is selected
+     *
+     * @default - "Select an option"
+     */
+    defaultToggleLabel?: string;
     // Styling for the wrapping Field component
     wrapperClassName?: ClassName;
     // The styling for the select toggle button
@@ -76,6 +82,7 @@ const CustomSelect = ({
   wrapperClassName,
   toggleClassName,
   dropdownClassName,
+  defaultToggleLabel = "Select an option",
   searchable = "auto",
   takeFocus,
   header,
@@ -128,7 +135,7 @@ const CustomSelect = ({
     <span className="toggle-label u-truncate">
       {selectedOption
         ? selectedOption.selectedLabel || getOptionText(selectedOption)
-        : "Select an option"}
+        : defaultToggleLabel}
     </span>
   );
 
