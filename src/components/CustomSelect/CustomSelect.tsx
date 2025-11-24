@@ -50,8 +50,16 @@ export type Props = PropsWithSpread<
     toggleClassName?: ClassName;
     // The styling for the select dropdown
     dropdownClassName?: string;
-    // Whether the select is searchable. Option "auto" is the default, the select will be searchable if it has 5 or more options.
-    searchable?: "auto" | "always" | "never";
+    /**
+     * Whether the select is searchable.
+     * - `auto`: the select will be searchable if it has 5 or more options.
+     * - `always`: the select will always be searchable if there is at least 1 option.
+     * - `async`: the select will always be searchable.
+     * - `never`: the select will never be searchable.
+     *
+     * @default - "auto"
+     */
+    searchable?: "auto" | "always" | "async" | "never";
     // Whether to focus on the element on initial render.
     takeFocus?: boolean;
     // Additional component to display above the dropdown list.
