@@ -25,6 +25,7 @@ export type CustomSelectOption = LiHTMLAttributes<HTMLLIElement> & {
 
 export type Props = {
   searchable?: "auto" | "always" | "async" | "never";
+  searchPlaceholder?: string;
   name: string;
   options: CustomSelectOption[];
   onSelect: (value: string) => void;
@@ -169,6 +170,7 @@ const getIsSearchable = (
 
 const CustomSelectDropdown: FC<Props> = ({
   searchable,
+  searchPlaceholder,
   name,
   options,
   onSelect,
@@ -349,6 +351,7 @@ const CustomSelectDropdown: FC<Props> = ({
             name={`select-search-${name}`}
             type="text"
             aria-label={`Search for ${name}`}
+            placeholder={searchPlaceholder}
             className="u-no-margin--bottom"
             onChange={handleSearch}
             value={search}

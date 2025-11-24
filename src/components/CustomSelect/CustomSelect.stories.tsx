@@ -171,6 +171,7 @@ const meta: Meta<StoryProps> = {
     label: "Custom Select",
     defaultToggleLabel: "Select an option",
     searchable: "auto",
+    searchPlaceholder: "Search",
     initialPosition: "left",
   },
   argTypes: {

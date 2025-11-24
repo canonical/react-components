@@ -60,6 +60,12 @@ export type Props = PropsWithSpread<
      * @default - "auto"
      */
     searchable?: "auto" | "always" | "async" | "never";
+    /**
+     * Placeholder text for the search input when searchable is enabled.
+     *
+     * @default - "Search"
+     */
+    searchPlaceholder?: string;
     // Whether to focus on the element on initial render.
     takeFocus?: boolean;
     // Additional component to display above the dropdown list.
@@ -92,6 +98,7 @@ const CustomSelect = ({
   dropdownClassName,
   defaultToggleLabel = "Select an option",
   searchable = "auto",
+  searchPlaceholder = "Search",
   takeFocus,
   header,
   selectRef,
@@ -203,6 +210,7 @@ const CustomSelect = ({
         {(close: () => void) => (
           <CustomSelectDropdown
             searchable={searchable}
+            searchPlaceholder={searchPlaceholder}
             onSearch={onSearch}
             name={name || ""}
             options={options || []}
