@@ -141,6 +141,15 @@ describe("CustomSelectDropdown", () => {
       expect(searchBox).toBeInTheDocument();
     });
 
+    it("should render the search box when `searchable` is `async` and there are no options", () => {
+      setup("async", []);
+
+      const searchBox = screen.queryByRole("textbox", {
+        name: /search for test-dropdown/i,
+      });
+      expect(searchBox).toBeInTheDocument();
+    });
+
     it("should not render search box when `searchable` is `never`", () => {
       setup("never");
 

@@ -24,7 +24,8 @@ export type CustomSelectOption = LiHTMLAttributes<HTMLLIElement> & {
 };
 
 export type Props = {
-  searchable?: "auto" | "always" | "never";
+  searchable?: "auto" | "always" | "async" | "never";
+  searchPlaceholder?: string;
   name: string;
   options: CustomSelectOption[];
   onSelect: (value: string) => void;
@@ -140,8 +141,36 @@ export const getOptionText = (option: CustomSelectOption): string => {
   );
 };
 
+const getIsSearchable = (
+  searchable: Props["searchable"],
+  numberOfOptions: number,
+) => {
+  if (searchable === "async") {
+    return true;
+  }
+
+  if (searchable === "never") {
+    return false;
+  }
+
+  if (numberOfOptions <= 1) {
+    return false;
+  }
+
+  if (searchable === "always") {
+    return true;
+  }
+
+  if (searchable === "auto" && numberOfOptions >= 5) {
+    return true;
+  }
+
+  return false;
+};
+
 const CustomSelectDropdown: FC<Props> = ({
   searchable,
+  searchPlaceholder,
   name,
   options,
   onSelect,
@@ -158,10 +187,8 @@ const CustomSelectDropdown: FC<Props> = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
   const dropdownListRef = useRef<HTMLUListElement>(null);
-  const isSearchable =
-    searchable !== "never" &&
-    options.length > 1 &&
-    (searchable === "always" || (searchable === "auto" && options.length >= 5));
+
+  const isSearchable = getIsSearchable(searchable, options.length);
 
   useEffect(() => {
     if (dropdownRef.current) {
@@ -324,6 +351,7 @@ const CustomSelectDropdown: FC<Props> = ({
             name={`select-search-${name}`}
             type="text"
             aria-label={`Search for ${name}`}
+            placeholder={searchPlaceholder}
             className="u-no-margin--bottom"
             onChange={handleSearch}
             value={search}

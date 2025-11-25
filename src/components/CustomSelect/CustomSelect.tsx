@@ -38,14 +38,34 @@ export type Props = PropsWithSpread<
     name?: string;
     // Whether if the select is disabled
     disabled?: boolean;
+    /**
+     * Toggle label when no option is selected
+     *
+     * @default - "Select an option"
+     */
+    defaultToggleLabel?: string;
     // Styling for the wrapping Field component
     wrapperClassName?: ClassName;
     // The styling for the select toggle button
     toggleClassName?: ClassName;
     // The styling for the select dropdown
     dropdownClassName?: string;
-    // Whether the select is searchable. Option "auto" is the default, the select will be searchable if it has 5 or more options.
-    searchable?: "auto" | "always" | "never";
+    /**
+     * Whether the select is searchable.
+     * - `auto`: the select will be searchable if it has 5 or more options.
+     * - `always`: the select will always be searchable if there is at least 1 option.
+     * - `async`: the select will always be searchable.
+     * - `never`: the select will never be searchable.
+     *
+     * @default - "auto"
+     */
+    searchable?: "auto" | "always" | "async" | "never";
+    /**
+     * Placeholder text for the search input when searchable is enabled.
+     *
+     * @default - "Search"
+     */
+    searchPlaceholder?: string;
     // Whether to focus on the element on initial render.
     takeFocus?: boolean;
     // Additional component to display above the dropdown list.
@@ -76,7 +96,9 @@ const CustomSelect = ({
   wrapperClassName,
   toggleClassName,
   dropdownClassName,
+  defaultToggleLabel = "Select an option",
   searchable = "auto",
+  searchPlaceholder = "Search",
   takeFocus,
   header,
   selectRef,
@@ -128,7 +150,7 @@ const CustomSelect = ({
     <span className="toggle-label u-truncate">
       {selectedOption
         ? selectedOption.selectedLabel || getOptionText(selectedOption)
-        : "Select an option"}
+        : defaultToggleLabel}
     </span>
   );
 
@@ -188,6 +210,7 @@ const CustomSelect = ({
         {(close: () => void) => (
           <CustomSelectDropdown
             searchable={searchable}
+            searchPlaceholder={searchPlaceholder}
             onSearch={onSearch}
             name={name || ""}
             options={options || []}
