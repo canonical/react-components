@@ -217,6 +217,20 @@ const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
     });
   };
 
+  const pauseTimer = () => {
+    if (notificationTimer && typeof notificationTimer !== "boolean") {
+      clearTimeout(notificationTimer);
+      setNotificationTimer(true); // mark as paused
+    }
+  };
+
+  const resumeTimer = () => {
+    if (notificationTimer === true) {
+      // only resume if previously paused
+      showNotificationWithDelay();
+    }
+  };
+
   const addNotification = (
     notification: NotificationType & { error?: unknown } & {
       id?: ToastNotificationType["id"];
@@ -311,6 +325,8 @@ const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
         notification={latestNotification}
         onDismiss={clear}
         show={!!showNotification}
+        onHoverStart={pauseTimer}
+        onHoverEnd={resumeTimer}
       />
       <ToastNotificationList
         notifications={notifications}
