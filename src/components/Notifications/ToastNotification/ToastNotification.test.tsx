@@ -187,4 +187,28 @@ describe("ToastNotification", () => {
 
     expect(onDismiss).toHaveBeenCalledWith(notifications);
   });
+
+  it("calls onHoverStart on mouse enter and onHoverEnd on mouse leave", async () => {
+    const onHoverStart = jest.fn();
+    const onHoverEnd = jest.fn();
+
+    render(
+      <ToastNotification
+        notification={baseNotification}
+        show={true}
+        onDismiss={jest.fn()}
+        onHoverStart={onHoverStart}
+        onHoverEnd={onHoverEnd}
+      />,
+    );
+
+    const toast = screen.getByRole("alert");
+    const user = userEvent.setup();
+
+    await user.hover(toast);
+    expect(onHoverStart).toHaveBeenCalledTimes(1);
+
+    await user.unhover(toast);
+    expect(onHoverEnd).toHaveBeenCalledTimes(1);
+  });
 });

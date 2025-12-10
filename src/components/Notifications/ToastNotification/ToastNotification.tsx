@@ -11,9 +11,17 @@ interface Props {
   notification: ToastNotificationType;
   onDismiss: (notification?: ToastNotificationType[]) => void;
   show: boolean;
+  onHoverStart?: () => void;
+  onHoverEnd?: () => void;
 }
 
-const ToastNotification: FC<Props> = ({ notification, onDismiss, show }) => {
+const ToastNotification: FC<Props> = ({
+  notification,
+  onDismiss,
+  show,
+  onHoverStart,
+  onHoverEnd,
+}) => {
   if (!notification) {
     return null;
   }
@@ -36,7 +44,11 @@ const ToastNotification: FC<Props> = ({ notification, onDismiss, show }) => {
           options={{ duration: 200 }}
           className="toast-animate"
         >
-          <div className="toast-notification">
+          <div
+            className="toast-notification"
+            onMouseEnter={onHoverStart}
+            onMouseLeave={onHoverEnd}
+          >
             <Notification
               title={notification.title ?? DefaultTitles[notification.type]}
               actions={notification.actions}
