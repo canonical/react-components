@@ -1,4 +1,5 @@
 # React components for Vanilla Framework
+
 ![CI](https://github.com/canonical/react-components/workflows/CI/badge.svg?branch=main)
 
 This is a collection of components designed to be the way to consume [Vanilla Framework](http://vanillaframework.io) when using React. The library exposes both a CJS and an ESM build.
@@ -33,9 +34,7 @@ Please file any issues at [GitHub](https://github.com/canonical/react-components
 You might want to:
 
 - [View the source](https://github.com/canonical/react-components) on GitHub.
-- Read about [developing components](https://github.com/canonical/react-components/blob/main/HACKING.md).
-- Find out how to [publish to NPM](https://github.com/canonical/react-components/blob/main/PUBLISH-NPM-PACKAGE.md).
-- Know how to [publish the docs](https://github.com/canonical/react-components/blob/main/PUBLISHING-DOCS.md) to GitHub Pages.
+- Read about [developing components](HACKING.md).
 
 ## Developing locally using this repository
 
