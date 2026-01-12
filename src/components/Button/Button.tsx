@@ -100,6 +100,7 @@ const Button = <P,>({
 
   return (
     <Component
+      disabled={disabled}
       className={classes}
       onClick={disabled ? onClickDisabled : onClick}
       aria-disabled={disabled || undefined}
