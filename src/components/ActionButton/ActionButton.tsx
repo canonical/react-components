@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useRef, useState } from "react";
+import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 import type { ButtonProps } from "../Button";
@@ -42,8 +42,13 @@ export type Props = PropsWithSpread<
      */
     loading?: boolean;
     /**
+     * Function for handling button click event.
+     */
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+    /**
      * Whether the button should be in the success state.
      */
+
     success?: boolean;
   },
   ButtonHTMLAttributes<HTMLButtonElement>
@@ -60,6 +65,7 @@ const ActionButton = ({
   appearance,
   children,
   className,
+  onClick,
   disabled = null,
   inline = false,
   loading = false,
@@ -155,8 +161,11 @@ const ActionButton = ({
     },
   );
   const showIcon = showLoader || showSuccess;
+  const isDisabled = disabled === null ? showLoader : disabled;
   const icon = (showLoader && "spinner") || (showSuccess && "success") || null;
   const iconLight = appearance === "positive" || appearance === "negative";
+  const onClickDisabled: MouseEventHandler<HTMLButtonElement> = (e) =>
+    e.preventDefault();
 
   // This component uses the base button element instead of the Button component
   // as the button requires a ref and Button would have to be updated to use
@@ -165,8 +174,9 @@ const ActionButton = ({
   return (
     <button
       className={buttonClasses}
-      disabled={disabled === null ? showLoader : disabled}
       ref={ref}
+      onClick={isDisabled ? onClickDisabled : onClick}
+      aria-disabled={isDisabled || undefined}
       style={
         height && width
           ? {
