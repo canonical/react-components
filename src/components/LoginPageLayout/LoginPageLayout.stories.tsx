@@ -57,7 +57,7 @@ export const RegistrationPage: Story = {
       </>
     ),
     logo: {
-      src: "https://anbox-cloud.io/static/logo.svg",
+      src: "https://assets.ubuntu.com/v1/04242fd4-anbox-cloud-logo.svg",
       title: "Anbox Cloud",
       url: "/",
     },
