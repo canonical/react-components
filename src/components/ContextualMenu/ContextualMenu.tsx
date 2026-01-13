@@ -77,6 +77,12 @@ export type BaseProps<L> = PropsWithSpread<
      * Whether the menu should be visible.
      */
     visible?: boolean;
+    /**
+     * Whether to focus the first interactive element within the menu when it opens.
+     * This defaults to true.
+     * In instances where the user needs to interact with some other element on opening the menu (like a text input), set this to false.
+     */
+    focusFirstItemOnOpen?: boolean;
   },
   HTMLProps<HTMLSpanElement>
 >;
@@ -179,6 +185,7 @@ const ContextualMenu = <L,>({
   toggleLabelFirst = true,
   toggleProps,
   visible = false,
+  focusFirstItemOnOpen = true,
   ...wrapperProps
 }: Props<L>): React.JSX.Element => {
   const id = useId();
@@ -355,6 +362,7 @@ const ContextualMenu = <L,>({
             positionNode={getPositionNode(wrapper.current)}
             scrollOverflow={scrollOverflow}
             setAdjustedPosition={setAdjustedPosition}
+            focusFirstItemOnOpen={focusFirstItemOnOpen}
             {...dropdownProps}
           />
         </Portal>
