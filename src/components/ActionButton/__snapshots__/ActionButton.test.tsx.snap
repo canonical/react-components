@@ -2,8 +2,8 @@
 
 exports[`ActionButton matches loading snapshot 1`] = `
 <button
+  aria-disabled="true"
   class="p-action-button p-button is-processing is-disabled"
-  disabled=""
 >
   <i
     aria-label="Waiting for action to complete"
