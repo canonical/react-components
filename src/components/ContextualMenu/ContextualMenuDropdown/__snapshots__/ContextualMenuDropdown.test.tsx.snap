@@ -6,6 +6,7 @@ exports[`ContextualMenuDropdown  renders 1`] = `
   aria-label="submenu"
   class="p-contextual-menu__dropdown"
   data-testid="dropdown"
+  role="menu"
 >
   <div
     class="p-contextual-menu__non-interactive"

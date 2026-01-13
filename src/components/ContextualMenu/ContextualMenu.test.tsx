@@ -137,17 +137,15 @@ describe("ContextualMenu ", () => {
 
   it("can display links", () => {
     render(<ContextualMenu links={[{ children: "Link1" }]} visible />);
-    expect(screen.getByRole("button", { name: "Link1" })).toBeInTheDocument();
+    expect(screen.getByRole("menuitem", { name: "Link1" })).toBeInTheDocument();
   });
 
   it("can display links in groups", () => {
     render(<ContextualMenu links={[[{ children: "Link1" }]]} visible />);
-    const group = document.querySelector(
-      ".p-contextual-menu__group",
-    ) as HTMLElement;
+    const group = screen.getByRole("group");
     expect(group).toBeInTheDocument();
     expect(
-      within(group).getByRole("button", { name: "Link1" }),
+      within(group).getByRole("menuitem", { name: "Link1" }),
     ).toBeInTheDocument();
   });
 
@@ -158,17 +156,15 @@ describe("ContextualMenu ", () => {
         visible
       />,
     );
-    const group = document.querySelector(
-      ".p-contextual-menu__group",
-    ) as HTMLElement;
+    const group = screen.getByRole("group") as HTMLElement;
     expect(group).toBeInTheDocument();
     expect(
-      within(group).getByRole("button", { name: "Link1" }),
+      within(group).getByRole("menuitem", { name: "Link1" }),
     ).toBeInTheDocument();
     expect(
-      within(group).queryByRole("button", { name: "Link2" }),
+      within(group).queryByRole("menuitem", { name: "Link2" }),
     ).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Link2" })).toBeInTheDocument();
+    expect(screen.getByRole("menuitem", { name: "Link2" })).toBeInTheDocument();
   });
 
   it("can supply content instead of links", () => {
@@ -194,7 +190,7 @@ describe("ContextualMenu ", () => {
     await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
     expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
     // Click on an item:
-    await userEvent.click(screen.getByRole("button", { name: "Link1" }));
+    await userEvent.click(screen.getByRole("menuitem", { name: "Link1" }));
     expect(
       screen.queryByLabelText(DropdownLabel.Dropdown),
     ).not.toBeInTheDocument();
