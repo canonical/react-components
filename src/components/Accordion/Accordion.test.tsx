@@ -64,7 +64,7 @@ describe("Accordion", () => {
     );
     const tab = screen.getByRole("tab", { name: "Advanced topics" });
     await userEvent.click(tab);
-    expect(onExpandedChange).toHaveBeenCalledWith(":r6:", "Advanced topics");
+    expect(onExpandedChange).toHaveBeenCalledWith("_r_6_", "Advanced topics");
     // Clicking the tab again should close the accordion section.
     await userEvent.click(tab);
     expect(onExpandedChange).toHaveBeenCalledWith(null, null);
