@@ -49,7 +49,7 @@ describe("AccordionSection ", () => {
       />,
     );
     await userEvent.click(screen.getByRole("tab", { name: "Test section" }));
-    expect(onTitleClick).toHaveBeenCalledWith(true, ":r4:");
+    expect(onTitleClick).toHaveBeenCalledWith(true, "_r_4_");
     rerender(
       <AccordionSection
         content={<span>Test</span>}
@@ -64,7 +64,7 @@ describe("AccordionSection ", () => {
     // Clicking the title again should close the accordion section.
     await userEvent.click(screen.getByRole("tab", { name: "Test section" }));
 
-    expect(onTitleClick.mock.calls[1]).toEqual([false, ":r4:"]);
+    expect(onTitleClick.mock.calls[1]).toEqual([false, "_r_4_"]);
   });
 
   it("can use a key for expanded state", async () => {
