@@ -287,6 +287,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           }
         }}
         position="left"
+        focusFirstItemOnOpen={false}
         constrainPanelWidth
         toggle={
           variant === "search" ? (
