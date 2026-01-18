@@ -1,4 +1,4 @@
-import { render, screen, waitFor, within } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import React from "react";
 
 import SearchAndFilter from "./SearchAndFilter";
@@ -67,9 +67,7 @@ describe("Search and filter", () => {
       />,
     );
     expect(getPanel()).toHaveAttribute("aria-hidden", "true");
-    await waitFor(async () => {
-      await userEvent.click(screen.getByTestId("searchandfilter"));
-    });
+    await userEvent.click(screen.getByTestId("searchandfilter"));
     expect(getPanel()).toHaveAttribute("aria-hidden", "false");
   });
 
@@ -82,11 +80,9 @@ describe("Search and filter", () => {
       />,
     );
     expect(getPanel()).toHaveAttribute("aria-hidden", "true");
-    await waitFor(async () => {
-      await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
+    await userEvent.click(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
     expect(getPanel()).toHaveAttribute("aria-hidden", "false");
   });
 
@@ -134,14 +130,10 @@ describe("Search and filter", () => {
     expect(
       document.querySelector(".p-search-and-filter__selected-count"),
     ).not.toBeInTheDocument();
-    await waitFor(async () => {
-      await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
-    await waitFor(async () => {
-      await userEvent.click(screen.getByRole("button", { name: "us-east1" }));
-    });
+    await userEvent.click(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
+    await userEvent.click(screen.getByRole("button", { name: "us-east1" }));
     expect(screen.getByRole("button", { name: "+1" })).toBeInTheDocument();
   });
 
@@ -164,17 +156,12 @@ describe("Search and filter", () => {
       />,
     );
     expect(getSearchContainer()).toHaveAttribute("aria-expanded", "false");
-    await waitFor(async () => {
-      await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
-    await waitFor(async () => {
-      await userEvent.click(screen.getByRole("button", { name: "us-east1" }));
-    });
-    await waitFor(async () => {
-      await userEvent.click(screen.getByRole("button", { name: "+1" }));
-    });
+    await userEvent.click(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
+    await userEvent.click(screen.getByRole("button", { name: "us-east1" }));
+    await userEvent.click(screen.getByRole("button", { name: "+1" }));
+
     expect(getSearchContainer()).toHaveAttribute("aria-expanded", "true");
   });
 
@@ -186,25 +173,19 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />,
     );
-    await waitFor(async () => {
-      await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
+    await userEvent.click(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
     expect(
       document.querySelector(".p-search-and-filter__search-prompt"),
     ).not.toBeInTheDocument();
-    await waitFor(async () => {
-      await userEvent.clear(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
-    await waitFor(async () => {
-      await userEvent.type(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-        "My new value",
-      );
-    });
+    await userEvent.clear(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
+    await userEvent.type(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+      "My new value",
+    );
     expect(
       screen.getByRole("button", { name: "Search for My new value ..." }),
     ).toBeInTheDocument();
@@ -218,25 +199,19 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />,
     );
-    await waitFor(async () => {
-      await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
+    await userEvent.click(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
     expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
       3,
     );
-    await waitFor(async () => {
-      await userEvent.clear(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
-    await waitFor(async () => {
-      await userEvent.type(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-        "Unknown value",
-      );
-    });
+    await userEvent.clear(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
+    await userEvent.type(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+      "Unknown value",
+    );
     expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
       0,
     );
@@ -250,36 +225,26 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />,
     );
-    await waitFor(async () => {
-      await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
-    await waitFor(async () => {
-      await userEvent.clear(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
-    await waitFor(async () => {
-      await userEvent.type(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-        "Google",
-      );
-    });
+    await userEvent.click(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
+    await userEvent.clear(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
+    await userEvent.type(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+      "Google",
+    );
     expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
       1,
     );
-    await waitFor(async () => {
-      await userEvent.clear(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
-    await waitFor(async () => {
-      await userEvent.type(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-        "re",
-      );
-    });
+    await userEvent.clear(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
+    await userEvent.type(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+      "re",
+    );
     expect(document.querySelectorAll(".p-filter-panel-section").length).toEqual(
       2,
     );
@@ -293,22 +258,16 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />,
     );
-    await waitFor(async () => {
-      await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
-    await waitFor(async () => {
-      await userEvent.clear(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
-    await waitFor(async () => {
-      await userEvent.type(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-        "Google",
-      );
-    });
+    await userEvent.click(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
+    await userEvent.clear(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
+    await userEvent.type(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+      "Google",
+    );
     const boldText = document
       .querySelectorAll(".p-chip")[0]
       .querySelector("strong");
@@ -372,11 +331,9 @@ describe("Search and filter", () => {
         onPanelToggle={onPanelToggle}
       />,
     );
-    await waitFor(async () => {
-      await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
+    await userEvent.click(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
     expect(onPanelToggle).toHaveBeenCalled();
   });
 
@@ -400,17 +357,11 @@ describe("Search and filter", () => {
         onExpandChange={onExpandChange}
       />,
     );
-    await waitFor(async () => {
-      await userEvent.click(
-        screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
-      );
-    });
-    await waitFor(async () => {
-      await userEvent.click(screen.getByRole("button", { name: "us-east1" }));
-    });
-    await waitFor(async () => {
-      await userEvent.click(screen.getByRole("button", { name: "+1" }));
-    });
+    await userEvent.click(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
+    await userEvent.click(screen.getByRole("button", { name: "us-east1" }));
+    await userEvent.click(screen.getByRole("button", { name: "+1" }));
     expect(onExpandChange).toHaveBeenCalled();
   });
 
@@ -435,17 +386,11 @@ describe("Search and filter", () => {
     onPanelToggle.mockClear();
 
     // Dismiss the Cloud: Google filter chip
-    await waitFor(async () => {
-      const cloudChip: HTMLElement = screen
-        .getByText("CLOUD")
-        .closest(".p-chip");
-
-      const dismissButton = within(cloudChip).getByRole("button", {
-        name: "Dismiss",
-      });
-
-      await userEvent.click(dismissButton);
+    const cloudChip: HTMLElement = screen.getByText("CLOUD").closest(".p-chip");
+    const dismissButton = within(cloudChip).getByRole("button", {
+      name: "Dismiss",
     });
+    await userEvent.click(dismissButton);
 
     expect(onPanelToggle).not.toHaveBeenCalled();
   });
