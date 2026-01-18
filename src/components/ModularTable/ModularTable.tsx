@@ -73,6 +73,10 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
      * Whether the sort by needs to be reset after each data change.
      */
     autoResetSortBy?: boolean;
+    /**
+     * This will render between the header and the content.
+     */
+    subhead?: ReactNode;
   },
   HTMLProps<HTMLTableElement>
 >;
@@ -193,6 +197,7 @@ function ModularTable<D extends Record<string, unknown>>({
   initialSortColumn,
   initialSortDirection,
   autoResetSortBy = false,
+  subhead,
   ...props
 }: Props<D>): React.JSX.Element {
   const sortBy = useMemo(
@@ -273,6 +278,7 @@ function ModularTable<D extends Record<string, unknown>>({
             ))}
           </TableRow>
         ))}
+        {subhead}
       </thead>
       <tbody {...getTableBodyProps()}>
         {generateRows(rows, prepareRow, getRowProps, getCellProps)}
