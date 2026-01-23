@@ -217,34 +217,34 @@ const ContextualMenu = <L,>({
    * Gets the dropdopwn element (`ContextualMenuDropdown`).
    * @returns The dropdown element or null if it does not exist.
    */
-  const getDropdown = () => {
+  const getDropdown = useCallback(() => {
     if (typeof document === "undefined") return null;
     /**
      * This is Using `document` instead of refs because `dropdownProps` may include a ref,
      * while `dropdownId` is unique and controlled by us.
      */
     return document.getElementById(dropdownId);
-  };
+  }, [dropdownId]);
 
   /**
    * Gets all focusable items in the dropdown element.
    * @returns Array of focusable items in the dropdown element.
    */
-  const getFocusableDropdownItems = () => {
+  const getFocusableDropdownItems = useCallback(() => {
     return Array.from(
       getDropdown()?.querySelectorAll<HTMLElement>(focusableElementSelectors) ||
         [],
     );
-  };
+  }, [getDropdown]);
 
   /**
    * Focuses the first focusable item in the dropdown element.
    * This is useful for keyboard users (who expect focus to move into the menu when it opens).
    */
-  const focusFirstDropdownItem = () => {
+  const focusFirstDropdownItem = useCallback(() => {
     const focusableElements = getFocusableDropdownItems();
     focusableElements[0]?.focus();
-  };
+  }, [getFocusableDropdownItems]);
 
   /**
    * Cleans up any pending dropdown focus animation frames.
