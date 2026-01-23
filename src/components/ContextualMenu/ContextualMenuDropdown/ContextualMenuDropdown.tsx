@@ -40,13 +40,11 @@ export type Props<L = null> = {
   scrollOverflow?: boolean;
   setAdjustedPosition?: (position: Position) => void;
   contextualMenuClassName?: string;
-  focusFirstItemOnOpen?: boolean;
 } & HTMLProps<HTMLSpanElement>;
 
 /**
  * Calculate the styles for the menu.
  * @param position - The menu position.
- * @param verticalPosition - The vertical position (top or bottom).
  * @param positionCoords - The coordinates of the position node.
  * @param constrainPanelWidth - Whether the menu width should be constrained to the position width.
  */
@@ -147,7 +145,6 @@ const generateLink = <L,>(
     <Button<L>
       className={classNames("p-contextual-menu__link", className)}
       key={key}
-      role={props.role || "menuitem"}
       onClick={
         onClick
           ? (evt) => {
@@ -217,7 +214,6 @@ const ContextualMenuDropdown = <L,>({
   scrollOverflow,
   setAdjustedPosition,
   contextualMenuClassName,
-  focusFirstItemOnOpen = true,
   ...props
 }: Props<L>): React.JSX.Element => {
   const dropdown = useRef<HTMLDivElement>(null);
@@ -243,56 +239,6 @@ const ContextualMenuDropdown = <L,>({
       ),
     );
   }, [adjustedPosition, positionCoords, verticalPosition, constrainPanelWidth]);
-
-  const focusableElementSelectors =
-    'a[href]:not([tabindex="-1"]), button:not([disabled]):not([aria-disabled="true"]), textarea:not([disabled]):not([aria-disabled="true"]):not([tabindex="-1"]), input:not([disabled]):not([aria-disabled="true"]):not([tabindex="-1"]), select:not([disabled]):not([aria-disabled="true"]):not([tabindex="-1"]), area[href]:not([tabindex="-1"]), iframe:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"]), [contentEditable=true]:not([tabindex="-1"])';
-
-  const getFocusableElements = useCallback(() => {
-    if (!dropdown.current) return [];
-    return Array.from(
-      dropdown.current.querySelectorAll(focusableElementSelectors),
-    ) as HTMLElement[];
-  }, [dropdown]);
-
-  const focusFirstItem = useCallback(() => {
-    if (!focusFirstItemOnOpen) return;
-    requestAnimationFrame(() => {
-      const [firstItem] = getFocusableElements();
-      if (firstItem) {
-        firstItem.focus();
-      }
-    });
-  }, [getFocusableElements, focusFirstItemOnOpen]);
-
-  // Focus trap: handle Tab/Shift+Tab to keep focus inside dropdown
-  useEffect(() => {
-    if (!isOpen || !dropdown.current) return undefined;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key !== "Tab") return;
-      const items = getFocusableElements();
-      if (items.length === 0) return;
-      const active = document.activeElement;
-      const first = items[0];
-      const last = items[items.length - 1];
-      if (!e.shiftKey && active === last) {
-        e.preventDefault();
-        first.focus();
-      } else if (e.shiftKey && active === first) {
-        e.preventDefault();
-        last.focus();
-      }
-    };
-    const node = dropdown.current;
-    node.addEventListener("keydown", handleKeyDown);
-    return () => {
-      node.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [isOpen, getFocusableElements]);
-
-  useEffect(() => {
-    if (!isOpen || !dropdown.current) return undefined;
-    focusFirstItem();
-  }, [dropdown, focusFirstItem, isOpen]);
 
   const updateVerticalPosition = useCallback(() => {
     if (!positionNode) {
@@ -388,7 +334,6 @@ const ContextualMenuDropdown = <L,>({
         aria-hidden={isOpen ? "false" : "true"}
         aria-label={Label.Dropdown}
         ref={dropdown}
-        role={props.role || "menu"}
         style={{
           ...(constrainPanelWidth && positionStyle?.width
             ? { width: positionStyle.width, minWidth: 0, maxWidth: "none" }
@@ -407,11 +352,7 @@ const ContextualMenuDropdown = <L,>({
           : links.map((item, i) => {
               if (Array.isArray(item)) {
                 return (
-                  <span
-                    className="p-contextual-menu__group"
-                    key={i}
-                    role="group"
-                  >
+                  <span className="p-contextual-menu__group" key={i}>
                     {item.map((link, j) =>
                       generateLink<L>(link, j, handleClose),
                     )}

@@ -1,19 +1,25 @@
 import classNames from "classnames";
-import React, { useCallback, useEffect, useId, useRef, useState } from "react";
-import type { HTMLProps, ReactNode } from "react";
+import { usePortal } from "external";
 import { useListener, usePrevious } from "hooks";
-import Button from "../Button";
-import type { ButtonProps } from "../Button";
-import ContextualMenuDropdown from "./ContextualMenuDropdown";
-import type { ContextualMenuDropdownProps } from "./ContextualMenuDropdown";
-import type { MenuLink, Position } from "./ContextualMenuDropdown";
+import type { HTMLProps, ReactNode } from "react";
+import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import {
   ClassName,
   ExclusiveProps,
   PropsWithSpread,
   SubComponentProps,
 } from "types";
-import { usePortal } from "external";
+import type { ButtonProps } from "../Button";
+import Button from "../Button";
+import type {
+  ContextualMenuDropdownProps,
+  MenuLink,
+  Position,
+} from "./ContextualMenuDropdown";
+import ContextualMenuDropdown from "./ContextualMenuDropdown";
+
+const focusableElementSelectors =
+  'a[href]:not([tabindex="-1"]), button:not([disabled]):not([aria-disabled="true"]), textarea:not([disabled]):not([aria-disabled="true"]):not([tabindex="-1"]), input:not([disabled]):not([aria-disabled="true"]):not([tabindex="-1"]), select:not([disabled]):not([aria-disabled="true"]):not([tabindex="-1"]), area[href]:not([tabindex="-1"]), iframe:not([tabindex="-1"]), [tabindex]:not([tabindex="-1"]), [contentEditable=true]:not([tabindex="-1"])';
 
 export enum Label {
   Toggle = "Toggle menu",
@@ -74,15 +80,15 @@ export type BaseProps<L> = PropsWithSpread<
      */
     scrollOverflow?: boolean;
     /**
-     * Whether the menu should be visible.
-     */
-    visible?: boolean;
-    /**
      * Whether to focus the first interactive element within the menu when it opens.
      * This defaults to true.
      * In instances where the user needs to interact with some other element on opening the menu (like a text input), set this to false.
      */
     focusFirstItemOnOpen?: boolean;
+    /**
+     * Whether the menu should be visible.
+     */
+    visible?: boolean;
   },
   HTMLProps<HTMLSpanElement>
 >;
@@ -188,10 +194,11 @@ const ContextualMenu = <L,>({
   focusFirstItemOnOpen = true,
   ...wrapperProps
 }: Props<L>): React.JSX.Element => {
-  const id = useId();
+  const dropdownId = useId();
   const wrapper = useRef<HTMLSpanElement | null>(null);
   const [positionCoords, setPositionCoords] = useState<DOMRect>();
   const [adjustedPosition, setAdjustedPosition] = useState(position);
+  const focusAnimationFrameId = useRef<number | null>(null);
 
   useEffect(() => {
     setAdjustedPosition(position);
@@ -206,22 +213,115 @@ const ContextualMenu = <L,>({
     setPositionCoords(parent.getBoundingClientRect());
   }, [wrapper, positionNode]);
 
+  /**
+   * Gets the dropdopwn element (`ContextualMenuDropdown`).
+   * @returns The dropdown element or null if it does not exist.
+   */
+  const getDropdown = () => {
+    if (typeof document === "undefined") return null;
+    /**
+     * This is Using `document` instead of refs because `dropdownProps` may include a ref,
+     * while `dropdownId` is unique and controlled by us.
+     */
+    return document.getElementById(dropdownId);
+  };
+
+  /**
+   * Gets all focusable items in the dropdown element.
+   * @returns Array of focusable items in the dropdown element.
+   */
+  const getFocusableDropdownItems = () => {
+    return Array.from(
+      getDropdown()?.querySelectorAll<HTMLElement>(focusableElementSelectors) ||
+        [],
+    );
+  };
+
+  /**
+   * Focuses the first focusable item in the dropdown element.
+   * This is useful for keyboard users (who expect focus to move into the menu when it opens).
+   */
+  const focusFirstDropdownItem = () => {
+    const focusableElements = getFocusableDropdownItems();
+    focusableElements[0]?.focus();
+  };
+
+  /**
+   * Cleans up any pending dropdown focus animation frames.
+   */
+  const cleanupDropdownFocus = () => {
+    if (focusAnimationFrameId.current) {
+      cancelAnimationFrame(focusAnimationFrameId.current);
+      focusAnimationFrameId.current = null;
+    }
+  };
+
+  useEffect(() => {
+    return () => cleanupDropdownFocus();
+  }, []);
+
   const { openPortal, closePortal, isOpen, Portal } = usePortal({
     closeOnEsc,
     closeOnOutsideClick,
     isOpen: visible,
-    onOpen: () => {
+    onOpen: (event) => {
       // Call the toggle callback, if supplied.
       onToggleMenu?.(true);
       // When the menu opens then update the coordinates of the parent.
       updatePositionCoords();
+
+      if (
+        focusFirstItemOnOpen &&
+        // Don't focus the item unless it was opened by a keyboard event
+        // This type silliness is because `detail` isn't on the type for `event.nativeEvent` passed from `usePortal`,
+        // as we are using `CustomEvent<HTMLElement>` which does not have `detail` defined.
+        event?.nativeEvent &&
+        "detail" in event.nativeEvent &&
+        event.nativeEvent.detail === 0
+      ) {
+        cleanupDropdownFocus();
+        // We need to wait a frame for any pending focus events to complete.
+        focusAnimationFrameId.current = requestAnimationFrame(() =>
+          focusFirstDropdownItem(),
+        );
+      }
     },
     onClose: () => {
       // Call the toggle callback, if supplied.
       onToggleMenu?.(false);
+      cleanupDropdownFocus();
     },
     programmaticallyOpen: true,
   });
+
+  /**
+   * Trap focus within the dropdown
+   */
+  useEffect(() => {
+    if (!isOpen) return undefined;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const items = getFocusableDropdownItems();
+      if (items.length === 0) return;
+      const active = document.activeElement;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (!e.shiftKey && active === last) {
+        // Tab on the last item: wrap back to the first focusable item
+        e.preventDefault();
+        first.focus();
+      } else if (e.shiftKey && active === first) {
+        // Shift+Tab on the first item: wrap back to the last focusable item
+        e.preventDefault();
+        last.focus();
+      }
+    };
+    const dropdown = getDropdown();
+    dropdown.addEventListener("keydown", handleKeyDown);
+    return () => {
+      dropdown.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isOpen, getDropdown, getFocusableDropdownItems]);
 
   const previousVisible = usePrevious(visible);
   const labelNode =
@@ -303,7 +403,7 @@ const ContextualMenu = <L,>({
     toggleNode = (
       <Button
         appearance={toggleAppearance}
-        aria-controls={id}
+        aria-controls={dropdownId}
         aria-expanded={isOpen ? "true" : "false"}
         aria-label={toggleLabel ? null : Label.Toggle}
         aria-pressed={isOpen ? "true" : "false"}
@@ -353,7 +453,7 @@ const ContextualMenu = <L,>({
             constrainPanelWidth={constrainPanelWidth}
             dropdownClassName={dropdownClassName}
             dropdownContent={children}
-            id={id}
+            id={dropdownId}
             isOpen={isOpen}
             links={links}
             position={position}
@@ -362,7 +462,6 @@ const ContextualMenu = <L,>({
             positionNode={getPositionNode(wrapper.current)}
             scrollOverflow={scrollOverflow}
             setAdjustedPosition={setAdjustedPosition}
-            focusFirstItemOnOpen={focusFirstItemOnOpen}
             {...dropdownProps}
           />
         </Portal>
