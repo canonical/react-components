@@ -298,9 +298,8 @@ const ContextualMenu = <L,>({
    * Trap focus within the dropdown
    */
   useEffect(() => {
-    if (!isOpen) return undefined;
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key !== "Tab") return;
+      if (e.key !== "Tab" || !isOpen) return;
       const items = getFocusableDropdownItems();
       if (items.length === 0) return;
       const active = document.activeElement;
@@ -317,11 +316,12 @@ const ContextualMenu = <L,>({
       }
     };
     const dropdown = getDropdown();
+    if (!dropdown) return undefined;
     dropdown.addEventListener("keydown", handleKeyDown);
     return () => {
       dropdown.removeEventListener("keydown", handleKeyDown);
     };
-  }, [isOpen, getDropdown, getFocusableDropdownItems]);
+  }, [getDropdown, getFocusableDropdownItems, isOpen]);
 
   const previousVisible = usePrevious(visible);
   const labelNode =
