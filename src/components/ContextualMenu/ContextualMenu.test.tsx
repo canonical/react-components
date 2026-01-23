@@ -1,10 +1,10 @@
 import { render, screen, within } from "@testing-library/react";
 import React from "react";
 
-import ContextualMenu, { Label } from "./ContextualMenu";
-import { Label as DropdownLabel } from "./ContextualMenuDropdown/ContextualMenuDropdown";
 import userEvent from "@testing-library/user-event";
 import Button from "../Button";
+import ContextualMenu, { Label } from "./ContextualMenu";
+import { Label as DropdownLabel } from "./ContextualMenuDropdown/ContextualMenuDropdown";
 
 describe("ContextualMenu ", () => {
   afterEach(() => {
@@ -137,15 +137,17 @@ describe("ContextualMenu ", () => {
 
   it("can display links", () => {
     render(<ContextualMenu links={[{ children: "Link1" }]} visible />);
-    expect(screen.getByRole("menuitem", { name: "Link1" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Link1" })).toBeInTheDocument();
   });
 
   it("can display links in groups", () => {
     render(<ContextualMenu links={[[{ children: "Link1" }]]} visible />);
-    const group = screen.getByRole("group");
+    const group = document.querySelector(
+      ".p-contextual-menu__group",
+    ) as HTMLElement;
     expect(group).toBeInTheDocument();
     expect(
-      within(group).getByRole("menuitem", { name: "Link1" }),
+      within(group).getByRole("button", { name: "Link1" }),
     ).toBeInTheDocument();
   });
 
@@ -156,15 +158,17 @@ describe("ContextualMenu ", () => {
         visible
       />,
     );
-    const group = screen.getByRole("group") as HTMLElement;
+    const group = document.querySelector(
+      ".p-contextual-menu__group",
+    ) as HTMLElement;
     expect(group).toBeInTheDocument();
     expect(
-      within(group).getByRole("menuitem", { name: "Link1" }),
+      within(group).getByRole("button", { name: "Link1" }),
     ).toBeInTheDocument();
     expect(
-      within(group).queryByRole("menuitem", { name: "Link2" }),
+      within(group).queryByRole("button", { name: "Link2" }),
     ).not.toBeInTheDocument();
-    expect(screen.getByRole("menuitem", { name: "Link2" })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: "Link2" })).toBeInTheDocument();
   });
 
   it("can supply content instead of links", () => {
@@ -190,7 +194,7 @@ describe("ContextualMenu ", () => {
     await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
     expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
     // Click on an item:
-    await userEvent.click(screen.getByRole("menuitem", { name: "Link1" }));
+    await userEvent.click(screen.getByRole("button", { name: "Link1" }));
     expect(
       screen.queryByLabelText(DropdownLabel.Dropdown),
     ).not.toBeInTheDocument();
@@ -296,5 +300,95 @@ describe("ContextualMenu ", () => {
     // Click on an item:
     await userEvent.click(screen.getByTestId("child-span"));
     expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
+  });
+
+  describe("focus behavior", () => {
+    const setup = (props = {}) => {
+      const links = [0, 1, 2].map((i) => ({
+        "data-testid": `item-${i}`,
+        children: `Item ${i}`,
+      }));
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+      const utils = render(
+        <ContextualMenu
+          links={links}
+          dropdownProps={{ "data-testid": "dropdown" }}
+          position="right"
+          toggleLabel={<span>toggle</span>}
+          {...props}
+        />,
+      );
+      const toggle = screen.getByRole("button", { name: /toggle/i });
+      return { ...utils, user, toggle, links };
+    };
+
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    it("focuses the first item when menu opens", async () => {
+      const { user, toggle } = setup();
+
+      await user.tab();
+      expect(toggle).toHaveFocus();
+      await user.keyboard("{Enter}");
+
+      jest.runOnlyPendingTimers();
+      expect(screen.getByTestId("item-0")).toHaveFocus();
+    });
+
+    it("traps focus", async () => {
+      const { user, links } = setup();
+
+      await user.tab();
+      await user.keyboard("{Enter}");
+      jest.runOnlyPendingTimers();
+
+      const firstItem = screen.getByTestId("item-0");
+      const lastItem = screen.getByTestId(`item-${links.length - 1}`);
+
+      // Tab to the end
+      for (let i = 0; i < links.length - 1; i++) {
+        await user.keyboard("{Tab}");
+      }
+      expect(lastItem).toHaveFocus();
+
+      // Wrap to start
+      await user.keyboard("{Tab}");
+      expect(firstItem).toHaveFocus();
+
+      // Wrap backwards
+      await user.keyboard("{Shift>}{Tab}{/Shift}");
+      expect(lastItem).toHaveFocus();
+    });
+
+    it("does not autofocus when opened by a mouse", async () => {
+      const { user, toggle } = setup();
+
+      await user.click(toggle);
+      jest.runOnlyPendingTimers();
+
+      expect(screen.getByTestId("item-0")).not.toHaveFocus();
+    });
+
+    it("cleans up focus event listeners when unmounted", async () => {
+      const { user, toggle, unmount } = setup();
+
+      await user.click(toggle);
+      unmount();
+      jest.runOnlyPendingTimers();
+
+      expect(document.activeElement).not.toBe(toggle);
+    });
+
+    it("does not autofocus when focusFirstItemOnOpen is false", async () => {
+      const { user, toggle } = setup({ focusFirstItemOnOpen: false });
+
+      await user.tab();
+      await user.keyboard("{Enter}");
+
+      jest.runOnlyPendingTimers();
+      expect(toggle).toHaveFocus();
+    });
   });
 });

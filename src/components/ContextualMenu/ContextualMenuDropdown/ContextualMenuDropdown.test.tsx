@@ -1,5 +1,4 @@
 import { render, screen, waitFor } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import merge from "deepmerge";
 import React from "react";
 
@@ -399,50 +398,6 @@ describe("ContextualMenuDropdown ", () => {
       expect(actual).toBe("5");
 
       document.body.removeChild(grandparent);
-    });
-  });
-
-  describe("focus behavior", () => {
-    it("focuses the first item when menu opens", async () => {
-      const links = Array.from({ length: 10 }).map((_, i) => i);
-      render(<ContextualMenuDropdown isOpen links={links} />);
-      const dropdown: HTMLElement = screen.getByRole("menu");
-      await waitFor(() => {
-        expect(dropdown).toBeInTheDocument();
-      });
-
-      const firstItem = dropdown.querySelector('[role="menuitem"]');
-      await waitFor(() => {
-        expect(firstItem).toHaveFocus();
-      });
-    });
-
-    it("moves focus from the last item to the first item (focus trap)", async () => {
-      const userEventWithTimers = userEvent.setup({
-        advanceTimers: jest.advanceTimersByTime,
-      });
-      const links = Array.from({ length: 3 }).map((_, i) => ({
-        children: `Item ${i}`,
-      }));
-
-      render(<ContextualMenuDropdown isOpen links={links} />);
-
-      const dropdown: HTMLElement = screen.getByRole("menu");
-      await waitFor(() => {
-        expect(dropdown).toBeInTheDocument();
-      });
-
-      const menuItems = await screen.findAllByRole("menuitem");
-      await waitFor(() => expect(menuItems[0]).toHaveFocus());
-
-      for (let i = 0; i < menuItems.length - 1; i++) {
-        await userEventWithTimers.tab();
-        await waitFor(() => expect(menuItems[i + 1]).toHaveFocus());
-      }
-      await userEventWithTimers.tab();
-
-      // Should wrap back to the first item
-      expect(menuItems[0]).toHaveFocus();
     });
   });
 });
