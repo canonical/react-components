@@ -256,6 +256,17 @@ const ContextualMenu = <L,>({
     }
   };
 
+  const returnFocusToTrigger = () => {
+    // Button element does not accept refs.
+    const trigger = wrapper.current?.querySelector<HTMLElement>(
+      ".p-contextual-menu__toggle",
+    );
+    // return focus to the trigger button when the menu closes
+    if (trigger) {
+      trigger.focus();
+    }
+  };
+
   useEffect(() => {
     return () => cleanupDropdownFocus();
   }, []);
@@ -290,6 +301,7 @@ const ContextualMenu = <L,>({
       // Call the toggle callback, if supplied.
       onToggleMenu?.(false);
       cleanupDropdownFocus();
+      returnFocusToTrigger();
     },
     programmaticallyOpen: true,
   });
