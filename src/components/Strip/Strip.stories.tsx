@@ -118,6 +118,11 @@ export const ImageStrip: Story = {
   ),
 
   name: "Image strip",
+  parameters: {
+    percy: {
+      waitForTimeout: 1000, // Wait for 1 second before taking a snapshot to allow the image to load
+    },
+  },
 };
 
 export const BorderedStrip: Story = {
