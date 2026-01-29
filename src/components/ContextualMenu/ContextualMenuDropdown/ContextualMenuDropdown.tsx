@@ -145,6 +145,7 @@ const generateLink = <L,>(
     <Button<L>
       className={classNames("p-contextual-menu__link", className)}
       key={key}
+      role="menuitem"
       onClick={
         onClick
           ? (evt) => {
@@ -330,6 +331,7 @@ const ContextualMenuDropdown = <L,>({
     <span className={contextualMenuClassName} style={positionStyle}>
       <span
         className={classNames("p-contextual-menu__dropdown", dropdownClassName)}
+        role="menu"
         id={id}
         aria-hidden={isOpen ? "false" : "true"}
         aria-label={Label.Dropdown}

@@ -178,6 +178,7 @@ const CustomSelect = ({
           .join(" ")}
         aria-errormessage={hasError ? validationId : undefined}
         aria-invalid={hasError}
+        focusFirstItemOnOpen={false}
         toggleClassName={classNames(
           "p-custom-select__toggle",
           "p-form-validation__input",
