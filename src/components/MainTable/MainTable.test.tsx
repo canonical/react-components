@@ -197,7 +197,9 @@ describe("MainTable", () => {
       );
 
       await userEvent.click(
-        screen.getByRole("columnheader", { name: "Status" }),
+        within(screen.getByRole("columnheader", { name: "Status" })).getByRole(
+          "button",
+        ),
       );
       // The status should now be ascending.
       expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
@@ -213,7 +215,9 @@ describe("MainTable", () => {
       );
 
       await userEvent.click(
-        screen.getByRole("columnheader", { name: "Status" }),
+        within(screen.getByRole("columnheader", { name: "Status" })).getByRole(
+          "button",
+        ),
       );
       // The status should now be descending.
       expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
@@ -229,7 +233,9 @@ describe("MainTable", () => {
       );
 
       await userEvent.click(
-        screen.getByRole("columnheader", { name: "Status" }),
+        within(screen.getByRole("columnheader", { name: "Status" })).getByRole(
+          "button",
+        ),
       );
       // The status be back to the original order.
       expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
@@ -249,7 +255,9 @@ describe("MainTable", () => {
       render(<MainTable headers={headers} rows={rows} sortable={true} />);
       const rowItems = screen.getAllByRole("row");
       await userEvent.click(
-        screen.getByRole("columnheader", { name: "Status" }),
+        within(screen.getByRole("columnheader", { name: "Status" })).getByRole(
+          "button",
+        ),
       );
 
       const expectedOrder = ["Idle", "Ready", "Waiting"];
@@ -260,6 +268,14 @@ describe("MainTable", () => {
         );
       }
 
+      // Non-sortable columns don't have sort buttons.
+      expect(
+        within(screen.getByRole("columnheader", { name: "RAM" })).queryByRole(
+          "button",
+        ),
+      ).not.toBeInTheDocument();
+
+      // Clicking a column header, not a sort button.
       await userEvent.click(screen.getByRole("columnheader", { name: "RAM" }));
       // The status should not change
       for (let i = 1; i < 4; i++) {
@@ -275,6 +291,46 @@ describe("MainTable", () => {
           expectedOrder[i - 1],
         );
       }
+    });
+
+    it("can be sorted with the keyboard", async () => {
+      render(<MainTable headers={headers} rows={rows} sortable={true} />);
+      const rowItems = screen.getAllByRole("row");
+      // Check the initial status order.
+      expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
+        "Ready",
+      );
+
+      expect(within(rowItems[2]).getByRole("rowheader").textContent).toBe(
+        "Waiting",
+      );
+
+      expect(within(rowItems[3]).getByRole("rowheader").textContent).toBe(
+        "Idle",
+      );
+
+      await userEvent.tab();
+      expect(
+        within(screen.getByRole("columnheader", { name: "Status" })).getByRole(
+          "button",
+        ),
+      ).toHaveFocus();
+      await userEvent.keyboard("{Enter}");
+      // The status should now be ascending.
+      expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
+        "Idle",
+      );
+      // You should also be able to sort with the Spacebar.
+      await userEvent.keyboard(" ");
+      // The status should now be descending.
+      expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
+        "Waiting",
+      );
+      await userEvent.keyboard("{Enter}");
+      // The status be back to the original order.
+      expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
+        "Ready",
+      );
     });
 
     it("can set a default sort", () => {
