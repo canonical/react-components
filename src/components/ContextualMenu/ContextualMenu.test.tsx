@@ -390,5 +390,19 @@ describe("ContextualMenu ", () => {
       jest.runOnlyPendingTimers();
       expect(toggle).toHaveFocus();
     });
+
+    it("returns focus to the trigger when the menu is closed", async () => {
+      const { user, toggle } = setup();
+
+      await user.tab();
+      expect(toggle).toHaveFocus();
+      await user.keyboard("{Enter}");
+      jest.runOnlyPendingTimers();
+      expect(screen.getByTestId("item-0")).toHaveFocus();
+
+      // Close the menu
+      await user.keyboard("{Escape}");
+      expect(toggle).toHaveFocus();
+    });
   });
 });
