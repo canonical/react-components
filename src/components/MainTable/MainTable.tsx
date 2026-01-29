@@ -167,7 +167,7 @@ const generateHeaders = (
       <TableHeader
         key={index}
         sort={sortDirection}
-        onClick={
+        onSort={
           sortable && sortKey
             ? updateSort.bind(
                 this,
