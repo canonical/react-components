@@ -16,6 +16,9 @@
     "!dist/testing",
     "!dist/setupTests.js"
   ],
+  "sideEffects": [
+    "**/*.scss"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:canonical/react-components.git"
