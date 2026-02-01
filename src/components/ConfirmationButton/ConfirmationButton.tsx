@@ -55,7 +55,7 @@ export const ConfirmationButton = ({
   preModalOpenHook,
   ...actionButtonProps
 }: Props): React.JSX.Element => {
-  const { openPortal, closePortal, isOpen, Portal } = usePortal();
+  const { openPortal, closePortal, isOpen } = usePortal();
 
   const handleCancelModal = () => {
     closePortal();
@@ -90,22 +90,21 @@ export const ConfirmationButton = ({
   return (
     <>
       {isOpen && (
-        <Portal>
-          <ConfirmationModal
-            {...confirmationModalProps}
-            close={handleCancelModal}
-            confirmButtonLabel={confirmationModalProps.confirmButtonLabel}
-            onConfirm={handleConfirmModal}
-          >
-            {confirmationModalProps.children}
-            {showShiftClickHint && (
-              <p className="p-text--small u-text--muted u-hide--small">
-                Next time, you can skip this confirmation by holding{" "}
-                <code>SHIFT</code> and clicking the action.
-              </p>
-            )}
-          </ConfirmationModal>
-        </Portal>
+        <ConfirmationModal
+          {...confirmationModalProps}
+          close={handleCancelModal}
+          confirmButtonLabel={confirmationModalProps.confirmButtonLabel}
+          onConfirm={handleConfirmModal}
+          renderInPortal={true}
+        >
+          {confirmationModalProps.children}
+          {showShiftClickHint && (
+            <p className="p-text--small u-text--muted u-hide--small">
+              Next time, you can skip this confirmation by holding{" "}
+              <code>SHIFT</code> and clicking the action.
+            </p>
+          )}
+        </ConfirmationModal>
       )}
       <ActionButton
         {...actionButtonProps}
