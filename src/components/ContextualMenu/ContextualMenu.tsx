@@ -1,5 +1,12 @@
 import classNames from "classnames";
-import React, { useCallback, useEffect, useId, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import type { HTMLProps, ReactNode } from "react";
 import { useListener, usePrevious } from "hooks";
 import Button from "../Button";
@@ -240,6 +247,12 @@ const ContextualMenu = <L,>({
     [updatePositionCoords],
   );
 
+  // Memoize the computed position node to avoid accessing ref during render
+  const computedPositionNode = useMemo(
+    () => getPositionNode(wrapper.current, positionNode),
+    [positionNode],
+  );
+
   // Handle controlling updates to the menu visibility from outside
   // the component.
   useEffect(() => {
@@ -352,7 +365,7 @@ const ContextualMenu = <L,>({
             position={position}
             positionCoords={positionCoords}
             contextualMenuClassName={contextualMenuClassName}
-            positionNode={getPositionNode(wrapper.current)}
+            positionNode={computedPositionNode}
             scrollOverflow={scrollOverflow}
             setAdjustedPosition={setAdjustedPosition}
             {...dropdownProps}

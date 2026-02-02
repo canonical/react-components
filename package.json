@@ -101,10 +101,10 @@
     "webpack": "5.105.0"
   },
   "dependencies": {
-    "@types/jest": "29.5.14",
+    "@types/jest": "30.0.0",
     "@types/node": "20.19.30",
-    "@types/react": "19.0.10",
-    "@types/react-dom": "19.0.4",
+    "@types/react": "19.2.0",
+    "@types/react-dom": "19.2.0",
     "@types/react-table": "7.7.20",
     "classnames": "2.5.1",
     "fast-deep-equal": "3.1.3",
