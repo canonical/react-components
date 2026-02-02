@@ -23,9 +23,7 @@ export default [
   {
     ignores: ["src/external/"],
   },
-  ...fixupConfigRules(
-    compat.extends("plugin:cypress/recommended", "plugin:prettier/recommended"),
-  ),
+  ...fixupConfigRules(compat.extends("plugin:prettier/recommended")),
   ...tseslint.configs.recommended,
   react.configs.flat.recommended,
   {
@@ -91,6 +89,7 @@ export default [
           varsIgnorePattern: "^_",
         },
       ],
+      "react-hooks/exhaustive-deps": "warn",
     },
   },
   ...fixupConfigRules(compat.extends("plugin:prettier/recommended")).map(
@@ -132,6 +131,26 @@ export default [
       "testing-library/no-node-access": "off",
       "testing-library/no-container": "off",
       "testing-library/no-render-in-lifecycle": "off",
+    },
+  },
+  {
+    files: ["cypress/**/*.js"],
+    plugins: {
+      cypress: fixupPluginRules(cypress),
+    },
+    rules: {
+      "cypress/no-assigning-return-values": "error",
+      "cypress/no-unnecessary-waiting": "error",
+      "cypress/assertion-before-screenshot": "warn",
+      "cypress/no-force": "warn",
+      "cypress/no-async-tests": "error",
+      "cypress/no-pause": "error",
+    },
+    languageOptions: {
+      globals: {
+        cy: "readonly",
+        Cypress: "readonly",
+      },
     },
   },
 ];

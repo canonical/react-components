@@ -1,4 +1,4 @@
-import { useMemo, useEffect, useState } from "react";
+import { useMemo, useEffect, useState, useEffectEvent } from "react";
 
 /**
  * A hook that handles pagination.
@@ -38,22 +38,21 @@ export function usePagination<D, I = number | null>(
     typeof itemsPerPage === "number" ? pageIndex * itemsPerPage : 0;
   const paginate = (pageNumber: number) => setPageIndex(pageNumber - 1);
 
+  const updatePageIndex = useEffectEvent((pageIndex: number) => {
+    setPageIndex(pageIndex);
+  });
+
   useEffect(() => {
     if (typeof itemsPerPage === "number" && startIndex >= totalItems) {
-      !autoResetPage && Math.floor(totalItems / itemsPerPage) > 0
-        ? // go to the last available page if the current page is out of bounds
-          setPageIndex(Math.floor(totalItems / itemsPerPage) - 1)
-        : // go to the initial page if autoResetPage is true
-          setPageIndex(0);
+      const newPageIndex =
+        !autoResetPage && Math.floor(totalItems / itemsPerPage) > 0
+          ? // go to the last available page if the current page is out of bounds
+            Math.floor(totalItems / itemsPerPage) - 1
+          : // go to the initial page if autoResetPage is true
+            0;
+      updatePageIndex(newPageIndex);
     }
-  }, [
-    pageIndex,
-    startIndex,
-    setPageIndex,
-    totalItems,
-    itemsPerPage,
-    autoResetPage,
-  ]);
+  }, [pageIndex, startIndex, totalItems, itemsPerPage, autoResetPage]);
 
   const pageData = useMemo(
     () =>

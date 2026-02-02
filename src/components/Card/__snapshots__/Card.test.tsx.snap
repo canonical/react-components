@@ -1,14 +1,14 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`Card  renders 1`] = `
 <div
-  aria-labelledby=":r0:"
+  aria-labelledby="_r_0_"
   class="p-card"
   role="group"
 >
   <h3
     class="p-card__title"
-    id=":r0:"
+    id="_r_0_"
   >
     This is the title
   </h3>
