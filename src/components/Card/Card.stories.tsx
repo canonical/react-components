@@ -60,4 +60,9 @@ Centre.`,
       </Row>
     </section>
   ),
+  parameters: {
+    percy: {
+      waitForTimeout: 1000, // Wait for 1 second before taking a snapshot to allow the image to load
+    },
+  },
 };

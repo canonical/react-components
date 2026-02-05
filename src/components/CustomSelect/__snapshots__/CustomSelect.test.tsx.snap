@@ -7,7 +7,7 @@ exports[`CustomSelect renders 1`] = `
 >
   <label
     class="p-form__label"
-    for=":r1:"
+    for="_r_1_"
   >
     Test Select
   </label>
@@ -24,12 +24,12 @@ exports[`CustomSelect renders 1`] = `
         style="width: 100%;"
       >
         <button
-          aria-controls=":r3:"
+          aria-controls="_r_3_"
           aria-expanded="false"
           aria-haspopup="true"
           aria-pressed="false"
           class="p-button p-contextual-menu__toggle p-custom-select__toggle p-form-validation__input"
-          id=":r1:"
+          id="_r_1_"
           tabindex="0"
           type="button"
         >
