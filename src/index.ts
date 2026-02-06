@@ -61,6 +61,17 @@ export { default as LoginPageLayout } from "./components/LoginPageLayout";
 export { default as Pagination } from "./components/Pagination";
 export { default as Panel } from "./components/Panel";
 export { default as PasswordToggle } from "./components/PasswordToggle";
+export { default as PrefixedInput } from "./components/PrefixedInput";
+export {
+  default as PrefixedIpInput,
+  isIPv4,
+  getIpRangeFromCidr,
+  getFirstValidIp,
+  convertIpToUint32,
+  isIpInSubnet,
+  getImmutableAndEditableOctets,
+  getImmutableAndEditable,
+} from "./components/PrefixedIpInput";
 export { default as RadioInput } from "./components/RadioInput";
 export { default as Row } from "./components/Row";
 export { default as ScrollableContainer } from "./components/ScrollableContainer";
@@ -173,6 +184,8 @@ export type {
 export type { LoginPageLayoutProps } from "./components/LoginPageLayout";
 export type { PaginationProps } from "./components/Pagination";
 export type { PanelProps } from "./components/Panel";
+export type { PrefixedInputProps } from "./components/PrefixedInput";
+export type { PrefixedIpInputProps } from "./components/PrefixedIpInput";
 export type { RadioInputProps } from "./components/RadioInput";
 export type { RowProps } from "./components/Row";
 export type { ScrollableTableProps } from "./components/ScrollableTable";
