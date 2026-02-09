@@ -43,7 +43,7 @@ const Link = ({
   soft = false,
   top = false,
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const link = (
     <a
       className={classNames(className, {

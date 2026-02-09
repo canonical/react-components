@@ -35,6 +35,10 @@ export type Props = PropsWithSpread<
      */
     help?: ReactNode;
     /**
+     * Optional class(es) to pass to the help text element.
+     */
+    helpClassName?: string;
+    /**
      * The id of the input.
      */
     id?: string | null;
@@ -95,6 +99,7 @@ const Select = ({
   className,
   error,
   help,
+  helpClassName,
   id,
   label,
   labelClassName,
@@ -106,7 +111,7 @@ const Select = ({
   takeFocus,
   wrapperClassName,
   ...selectProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const selectRef = useRef(null);
   const validationId = useId();
   const defaultSelectId = useId();
@@ -127,6 +132,7 @@ const Select = ({
       error={error}
       forId={selectId}
       help={help}
+      helpClassName={helpClassName}
       helpId={helpId}
       isSelect={true}
       label={label}
@@ -146,6 +152,7 @@ const Select = ({
         id={selectId}
         onChange={(evt) => onChange && onChange(evt)}
         ref={selectRef}
+        required={required}
         {...selectProps}
       >
         {generateOptions(options)}

@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect, useRef, useState } from "react";
+import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 
 import type { ButtonProps } from "../Button";
@@ -42,8 +42,13 @@ export type Props = PropsWithSpread<
      */
     loading?: boolean;
     /**
+     * Function for handling button click event.
+     */
+    onClick?: MouseEventHandler<HTMLButtonElement>;
+    /**
      * Whether the button should be in the success state.
      */
+
     success?: boolean;
   },
   ButtonHTMLAttributes<HTMLButtonElement>
@@ -60,23 +65,31 @@ const ActionButton = ({
   appearance,
   children,
   className,
-  disabled = false,
+  onClick,
+  disabled = null,
   inline = false,
   loading = false,
   success = false,
   ...buttonProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const [height, setHeight] = useState<number | null>();
   const [width, setWidth] = useState<number | null>();
   const [showLoader, setShowLoader] = useState(false);
   const [showSuccess, setShowSuccess] = useState(false);
   const ref = useRef<HTMLButtonElement>(null);
+  const startLoadTime = useRef<Date | undefined>(undefined);
 
   // Set up loader timer
   useEffect(() => {
     let loaderTimeout: number;
 
     if (loading) {
+      // add a condition to prevent double set startLoadTime
+      // when showLoader changes.
+      if (startLoadTime.current === undefined) {
+        // Keep track of the time when loading starts
+        startLoadTime.current = new Date();
+      }
       // Explicitly set button dimensions
       if (ref.current && !!ref.current.getBoundingClientRect()) {
         setHeight(ref.current.getBoundingClientRect().height);
@@ -86,13 +99,32 @@ const ActionButton = ({
     }
 
     if (!loading && showLoader) {
-      loaderTimeout = window.setTimeout(() => {
-        setShowLoader(false);
+      const now = new Date();
+      // calculate elapsed loading time
+      const loadingMilliseconds: number =
+        now.getTime() - (startLoadTime.current ?? now).getTime();
 
+      // and subtract it from LOADER_MIN_DURATION,
+
+      // also add an edge case when time diff is less than 0 to be 0.
+      const timeoutDuration = Math.max(
+        LOADER_MIN_DURATION - loadingMilliseconds,
+        0,
+      );
+
+      const loadFinishHandler = () => {
+        startLoadTime.current = undefined;
+        setShowLoader(false);
         if (success) {
           setShowSuccess(true);
         }
-      }, LOADER_MIN_DURATION);
+      };
+
+      if (timeoutDuration > 0) {
+        loaderTimeout = window.setTimeout(loadFinishHandler, timeoutDuration);
+      } else {
+        loadFinishHandler();
+      }
     }
 
     if (!loading && !showLoader) {
@@ -124,13 +156,16 @@ const ActionButton = ({
     appearance ? `p-button--${appearance}` : "p-button",
     {
       "is-processing": showLoader || showSuccess,
-      "is-disabled": disabled,
+      "is-disabled": disabled === null ? showLoader : disabled,
       "is-inline": inline,
     },
   );
   const showIcon = showLoader || showSuccess;
+  const isDisabled = disabled === null ? showLoader : disabled;
   const icon = (showLoader && "spinner") || (showSuccess && "success") || null;
   const iconLight = appearance === "positive" || appearance === "negative";
+  const onClickDisabled: MouseEventHandler<HTMLButtonElement> = (e) =>
+    e.preventDefault();
 
   // This component uses the base button element instead of the Button component
   // as the button requires a ref and Button would have to be updated to use
@@ -139,8 +174,9 @@ const ActionButton = ({
   return (
     <button
       className={buttonClasses}
-      disabled={disabled}
       ref={ref}
+      onClick={isDisabled ? onClickDisabled : onClick}
+      aria-disabled={isDisabled || undefined}
       style={
         height && width
           ? {

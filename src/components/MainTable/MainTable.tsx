@@ -42,7 +42,7 @@ export type MainTableCell = PropsWithSpread<
   },
   // We explicitly omit "children" otherwise it's possible to overwrite "content".
   // Might want to consider just using "children" instead.
-  Omit<TableCellProps, "children">
+  Omit<TableCellProps, "children"> & { [data: `data-${string}`]: string }
 >;
 
 export type MainTableRow = PropsWithSpread<
@@ -133,7 +133,7 @@ const updateSort = (
   sortKey: MainTableHeader["sortKey"],
   sortDirection: SortDirection,
 ) => {
-  let newDirection = null;
+  let newDirection: SortDirection = null;
   if (sortDirection === "none") {
     newDirection = "ascending";
   } else if (sortDirection === "ascending") {
@@ -190,7 +190,11 @@ const generateHeaders = (
     <thead>
       <TableRow>
         {headerItems}
-        {expanding && <TableHeader aria-hidden="true"></TableHeader>}
+        {expanding && (
+          <TableHeader aria-hidden="true">
+            <span className="u-off-screen">Empty</span>
+          </TableHeader>
+        )}
       </TableRow>
     </thead>
   );
@@ -298,7 +302,7 @@ const MainTable = ({
   sortFunction,
   hiddenCaption,
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const [currentSortKey, setSortKey] = useState(defaultSort);
   const [currentSortDirection, setSortDirection] =
     useState(defaultSortDirection);

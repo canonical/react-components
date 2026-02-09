@@ -1,0 +1,57 @@
+@import "vanilla-framework";
+
+.side-panel.is-overlay {
+  position: absolute;
+  right: 0;
+  z-index: 103 !important;
+}
+
+.side-panel {
+  background-color: $colors--theme--background-default;
+  height: 100dvh;
+  padding: 0 $sph--x-large;
+  padding-bottom: $spv--medium;
+  padding-top: $spv--small;
+
+  .error,
+  .loading {
+    padding-top: $spv--medium;
+  }
+
+  .p-panel__header {
+    padding: 0;
+  }
+
+  .panel-footer {
+    .rule {
+      margin-bottom: $spv--medium;
+    }
+  }
+
+  .sticky-wrapper {
+    background: $colors--theme--background-default;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+  }
+
+  .sticky-wrapper--top {
+    top: 0;
+  }
+
+  .sticky-wrapper--bottom {
+    bottom: 0;
+  }
+}
+
+.slide-in {
+  animation: slideIn 0.1s;
+}
+
+@keyframes slideIn {
+  from {
+    box-shadow: 0 0 0 0 transparent;
+    transform: translateX(100%);
+    visibility: hidden;
+  }
+}

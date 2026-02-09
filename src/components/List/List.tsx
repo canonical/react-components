@@ -123,7 +123,7 @@ const List = ({
   stepped,
   ticked,
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const Component = stepped ? "ol" : "ul";
   return (
     <Component

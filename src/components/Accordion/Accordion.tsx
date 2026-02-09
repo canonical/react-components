@@ -52,9 +52,9 @@ export type Props = PropsWithSpread<
 
 const generateSections = (
   sections: Section[],
-  setExpanded,
-  expanded,
-  titleElement,
+  setExpanded: AccordionSectionProps["setExpanded"],
+  expanded: AccordionSectionProps["expanded"],
+  titleElement: AccordionSectionProps["titleElement"],
 ) =>
   sections.map(({ key, ...props }, i) => (
     <AccordionSection
@@ -80,7 +80,7 @@ const Accordion = ({
   sections,
   titleElement,
   ...asideProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const [expandedSection, setExpandedSection] = useState(expanded);
   const setExpanded = (id: string, title: string) => {
     setExpandedSection(id);

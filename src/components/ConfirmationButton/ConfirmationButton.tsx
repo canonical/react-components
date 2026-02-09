@@ -1,10 +1,10 @@
-import React, { MouseEvent, ReactElement, ReactNode } from "react";
+import React, { MouseEvent, ReactNode } from "react";
 import { PropsWithSpread, SubComponentProps } from "types";
 import ActionButton, { ActionButtonProps } from "../ActionButton";
 import ConfirmationModal, {
   ConfirmationModalProps,
 } from "../ConfirmationModal";
-import usePortal from "react-useportal";
+import { usePortal } from "external";
 
 const generateTitle = (title: ReactNode) => {
   if (typeof title === "string") {
@@ -35,6 +35,11 @@ export type Props = PropsWithSpread<
      * Whether to show a hint about the SHIFT+Click shortcut to skip the confirmation modal.
      */
     showShiftClickHint?: boolean;
+    /**
+     * A handler that determines whether the confirmation modal should be shown.
+     * If it returns `true`, the modal is shown. If it returns `false`, the modal is not shown.
+     */
+    preModalOpenHook?: (event: MouseEvent<HTMLButtonElement>) => boolean;
   },
   ActionButtonProps
 >;
@@ -47,8 +52,9 @@ export const ConfirmationButton = ({
   onHoverText,
   shiftClickEnabled = false,
   showShiftClickHint = false,
+  preModalOpenHook,
   ...actionButtonProps
-}: Props): ReactElement => {
+}: Props): React.JSX.Element => {
   const { openPortal, closePortal, isOpen, Portal } = usePortal();
 
   const handleCancelModal = () => {
@@ -69,6 +75,16 @@ export const ConfirmationButton = ({
     } else {
       openPortal(e);
     }
+  };
+
+  const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
+    if (preModalOpenHook) {
+      const result = preModalOpenHook(e);
+
+      if (!result) return;
+    }
+
+    shiftClickEnabled ? handleShiftClick(e) : openPortal(e);
   };
 
   return (
@@ -93,7 +109,7 @@ export const ConfirmationButton = ({
       )}
       <ActionButton
         {...actionButtonProps}
-        onClick={shiftClickEnabled ? handleShiftClick : openPortal}
+        onClick={handleClick}
         title={generateTitle(
           onHoverText ?? confirmationModalProps.confirmButtonLabel,
         )}

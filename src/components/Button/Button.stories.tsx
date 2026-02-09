@@ -40,6 +40,13 @@ export const Default: Story = {
   args: {
     children: "Button",
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "Button with default appearance",
+      },
+    },
+  },
 };
 
 export const DefaultDisabled: Story = {
@@ -49,6 +56,13 @@ export const DefaultDisabled: Story = {
     children: "Button",
     disabled: true,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "Disabled button with default appearance",
+      },
+    },
+  },
 };
 
 export const Base: Story = {
@@ -57,6 +71,13 @@ export const Base: Story = {
   args: {
     children: "Base button",
     appearance: "base",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Button with base appearance",
+      },
+    },
   },
 };
 
@@ -68,6 +89,13 @@ export const BaseDisabled: Story = {
     appearance: "base",
     disabled: true,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "Disabled button with base appearance",
+      },
+    },
+  },
 };
 
 export const Link = {
@@ -75,21 +103,31 @@ export const Link = {
 
   args: {
     children: "Link button",
-    appearance: "base",
-    element: "a",
-    href: "#test",
+    appearance: "link",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Button with link appearance",
+      },
+    },
   },
 };
 
-export const LinkDisabled: Story<HTMLProps<HTMLAnchorElement>> = {
+export const LinkDisabled = {
   name: "Link disabled",
 
   args: {
     children: "Link button disabled",
-    appearance: "base",
-    element: "a",
-    href: "#test",
+    appearance: "link",
     disabled: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Disabled button with link appearance",
+      },
+    },
   },
 };
 
@@ -99,6 +137,13 @@ export const Positive: Story = {
   args: {
     children: "Positive button",
     appearance: "positive",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Button with positive appearance",
+      },
+    },
   },
 };
 
@@ -110,6 +155,13 @@ export const PositiveDisabled: Story = {
     appearance: "positive",
     disabled: true,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "Disabled button with positive appearance",
+      },
+    },
+  },
 };
 
 export const Negative: Story = {
@@ -118,6 +170,13 @@ export const Negative: Story = {
   args: {
     children: "Negative button",
     appearance: "negative",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Button with negative appearance",
+      },
+    },
   },
 };
 
@@ -129,6 +188,13 @@ export const NegativeDisabled: Story = {
     appearance: "negative",
     disabled: true,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "Disabled button with negative appearance",
+      },
+    },
+  },
 };
 
 export const Brand: Story = {
@@ -137,6 +203,13 @@ export const Brand: Story = {
   args: {
     children: "Brand button",
     appearance: "brand",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Button with brand appearance",
+      },
+    },
   },
 };
 
@@ -147,6 +220,13 @@ export const BrandDisabled: Story = {
     children: "Brand button disabled",
     appearance: "brand",
     disabled: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Disabled button with brand appearance",
+      },
+    },
   },
 };
 
@@ -161,6 +241,13 @@ export const Inline: Story = {
   ),
 
   name: "Inline",
+  parameters: {
+    docs: {
+      description: {
+        story: "Button that displays on the same line as the sibling elements",
+      },
+    },
+  },
 };
 
 export const Dense: Story = {
@@ -172,6 +259,13 @@ export const Dense: Story = {
   ),
 
   name: "Dense",
+  parameters: {
+    docs: {
+      description: {
+        story: "Button with reduced vertical padding",
+      },
+    },
+  },
 };
 
 export const Small: Story = {
@@ -185,6 +279,13 @@ export const Small: Story = {
   ),
 
   name: "Small",
+  parameters: {
+    docs: {
+      description: {
+        story: "Button that can fit small text inside",
+      },
+    },
+  },
 };
 
 export const Icon: Story = {
@@ -193,6 +294,13 @@ export const Icon: Story = {
   args: {
     children: <i className="p-icon--plus"></i>,
     hasIcon: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Button with an icon inside",
+      },
+    },
   },
 };
 
@@ -208,9 +316,16 @@ export const IconText: Story = {
 
     hasIcon: true,
   },
+  parameters: {
+    docs: {
+      description: {
+        story: "Button with both an icon and text inside",
+      },
+    },
+  },
 };
 
-export const IconWithTooltip: Story = {
+export const DisabledWithTooltip: Story = {
   name: "Disabled with tooltip",
 
   args: {
@@ -224,4 +339,48 @@ export const IconWithTooltip: Story = {
       </Tooltip>
     </div>
   ),
+  parameters: {
+    docs: {
+      description: {
+        story: "Disabled button that displays a tooltip when hovered",
+      },
+    },
+  },
+};
+
+export const ButtonAsLink = {
+  name: "Button as link",
+
+  args: {
+    children: "Button as link",
+    appearance: "base",
+    element: "a",
+    href: "#test",
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Button that is rendered as an `a` element",
+      },
+    },
+  },
+};
+
+export const ButtonAsLinkDisabled: Story<HTMLProps<HTMLAnchorElement>> = {
+  name: "Button as link disabled",
+
+  args: {
+    children: "Button as link disabled",
+    appearance: "base",
+    element: "a",
+    href: "#test",
+    disabled: true,
+  },
+  parameters: {
+    docs: {
+      description: {
+        story: "Disabled button that is rendered as an `a` element",
+      },
+    },
+  },
 };

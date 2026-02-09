@@ -13,7 +13,7 @@ export type Props = PropsWithSpread<
   HTMLProps<HTMLTableRowElement>
 >;
 
-const TableRow = ({ children, ...trProps }: Props): JSX.Element => (
+const TableRow = ({ children, ...trProps }: Props): React.JSX.Element => (
   <tr role="row" {...trProps}>
     {children}
   </tr>

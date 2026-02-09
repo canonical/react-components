@@ -278,3 +278,83 @@ it("opens and closes the dropdown on click", async () => {
   await userEvent.click(screen.getByRole("combobox"));
   expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
 });
+
+it("can render without sorting alphabetically", async () => {
+  const itemsUnsorted = [
+    { label: "item B", value: 2 },
+    { label: "item A", value: 1 },
+    { label: "other B", value: 3 },
+    { label: "other A", value: 4 },
+  ];
+
+  render(<MultiSelect items={itemsUnsorted} isSortedAlphabetically={false} />);
+  await userEvent.click(screen.getByRole("combobox"));
+  const list = screen.getByRole("list");
+
+  const expectedLabels = itemsUnsorted.map((item) => item.label);
+  await waitFor(() =>
+    within(list)
+      .getAllByRole("listitem")
+      .forEach((item, index) =>
+        expect(item).toHaveTextContent(expectedLabels[index]),
+      ),
+  );
+});
+
+it("can render without sorting selected items first", async () => {
+  render(
+    <MultiSelect
+      items={items}
+      selectedItems={[items[1]]}
+      hasSelectedItemsFirst={false}
+    />,
+  );
+  await userEvent.click(screen.getByRole("combobox"));
+  const list = screen.getByRole("list");
+
+  const expectedLabels = items.map((item) => item.label);
+  await waitFor(() =>
+    within(list)
+      .getAllByRole("listitem")
+      .forEach((item, index) =>
+        expect(item).toHaveTextContent(expectedLabels[index]),
+      ),
+  );
+});
+
+it("can render help", async () => {
+  const { container } = render(
+    <MultiSelect
+      items={items}
+      selectedItems={[items[1]]}
+      help={<span>This is a help text</span>}
+    />,
+  );
+
+  const helpTextList = container.querySelectorAll(".p-form-help-text");
+  expect(helpTextList).toHaveLength(1);
+  const helpText = helpTextList[0];
+  expect(helpText).toBeVisible();
+});
+
+it("doesn't render help", async () => {
+  const { container } = render(
+    <MultiSelect items={items} selectedItems={[items[1]]} />,
+  );
+  expect(container.querySelectorAll(".p-form-help-text")).toHaveLength(0);
+});
+
+it("can add additional classes to help", () => {
+  const { container } = render(
+    <MultiSelect
+      items={items}
+      selectedItems={[items[1]]}
+      help={<span>This is a help text</span>}
+      helpClassName="additional-help-text-class"
+    />,
+  );
+  expect(container.querySelectorAll(".p-form-help-text")).toHaveLength(1);
+  expect(container.querySelector(".p-form-help-text")).toHaveClass(
+    "additional-help-text-class",
+  );
+});

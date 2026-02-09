@@ -319,7 +319,7 @@ describe("ModularTable", () => {
         disks: 2,
       },
     ];
-    const MockTableWithChangeDataButton = (): JSX.Element => {
+    const MockTableWithChangeDataButton = (): React.JSX.Element => {
       const [tableData, setTableData] = useState(data);
       return (
         <>

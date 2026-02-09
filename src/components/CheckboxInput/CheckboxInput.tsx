@@ -14,7 +14,7 @@ const CheckboxInput = ({
   label,
   indeterminate = false,
   ...checkboxProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   return (
     <CheckableInput
       label={label}

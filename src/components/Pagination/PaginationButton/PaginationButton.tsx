@@ -37,7 +37,7 @@ const PaginationButton = ({
   disabled = false,
   showLabel,
   label,
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const buttonLabel =
     label || (direction === "back" ? Label.Previous : Label.Next);
   return (

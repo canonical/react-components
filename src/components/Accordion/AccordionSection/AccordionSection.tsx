@@ -44,7 +44,7 @@ const AccordionSection = ({
   title,
   titleElement,
   headingLevel = 3,
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const sectionId = useId();
   const tabId = useId();
   const key = sectionKey || sectionId;

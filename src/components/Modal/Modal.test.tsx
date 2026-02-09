@@ -1,7 +1,9 @@
 import userEvent from "@testing-library/user-event";
 import { render, screen } from "@testing-library/react";
-import React, { useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 
+import Button from "components/Button";
+import Input from "components/Input";
 import Modal from "./Modal";
 
 describe("Modal ", () => {
@@ -83,11 +85,11 @@ describe("Modal ", () => {
     const closeButton = container.querySelector("button.p-modal__close");
     const cancelButton = container.querySelector("button#test-cancel");
 
-    expect(cancelButton).toHaveFocus();
+    expect(closeButton).toHaveFocus();
 
     await user.tab();
 
-    expect(closeButton).toHaveFocus();
+    expect(cancelButton).toHaveFocus();
   });
 
   it("focuses on close button if there are no other focusable elements", async () => {
@@ -107,7 +109,7 @@ describe("Modal ", () => {
       onEscPress,
     }: {
       onEscPress: () => void;
-    }): JSX.Element => {
+    }): React.JSX.Element => {
       useEffect(() => {
         const handleEscPress = (e: KeyboardEvent) => {
           if (e.code === "Escape") {
@@ -170,5 +172,94 @@ describe("Modal ", () => {
     expect(closeButton).not.toBeNull();
     await userEvent.click(closeButton!);
     expect(handleExternalClick).toHaveBeenCalledTimes(1);
+  });
+
+  it("should not close modal on outside click if closeOnOutsideClick is false", async () => {
+    const handleCloseModal = jest.fn();
+    const { container } = render(
+      <div>
+        <Modal
+          title="Test"
+          close={handleCloseModal}
+          closeOnOutsideClick={false}
+        >
+          Bare bones
+        </Modal>
+      </div>,
+    );
+
+    await userEvent.click(container);
+    expect(handleCloseModal).toHaveBeenCalledTimes(0);
+  });
+
+  it("doesn't lose focus when close prop changes", async () => {
+    const TestComponent: FC = () => {
+      const [inputText, setInputText] = useState("");
+
+      const handleCloseModal = () => {
+        setInputText("");
+      };
+
+      return (
+        <div>
+          <Modal title="Delete item1" close={handleCloseModal}>
+            <Button>Show help</Button>
+            <p>Type "delete item1" to confirm.</p>
+            <Input
+              type="text"
+              value={inputText}
+              onChange={(event) => setInputText(event.target.value)}
+            />
+          </Modal>
+        </div>
+      );
+    };
+
+    const { container } = render(<TestComponent />);
+
+    const input = container.querySelector("input");
+    await userEvent.type(container.querySelector("input"), "delete item1");
+    expect(input).toHaveFocus();
+    expect(input).toHaveValue("delete item1");
+  });
+
+  it("updates focusable elements when an initially disabled button becomes enabled", async () => {
+    const user = userEvent.setup();
+
+    const DynamicButtonModal: FC = () => {
+      const [enabled, setEnabled] = useState(false);
+
+      return (
+        <Modal
+          title="Test"
+          close={jest.fn()}
+          buttonRow={<button disabled={!enabled}>Proceed</button>}
+        >
+          <p>Content</p>
+          <Button onClick={() => setEnabled(true)}>Enable proceed</Button>
+        </Modal>
+      );
+    };
+
+    const { container } = render(<DynamicButtonModal />);
+
+    const closeButton = container.querySelector("button.p-modal__close");
+
+    await user.tab();
+    const enableButton = screen.getByRole("button", {
+      name: /enable proceed/i,
+    });
+    expect(enableButton).toHaveFocus();
+
+    await user.tab();
+    expect(closeButton).toHaveFocus();
+    await user.tab();
+    expect(enableButton).toHaveFocus();
+
+    await user.click(enableButton);
+
+    await user.tab();
+    const proceedButton = screen.getByRole("button", { name: /^proceed$/i });
+    expect(proceedButton).toHaveFocus();
   });
 });

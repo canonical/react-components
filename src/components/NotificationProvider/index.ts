@@ -3,7 +3,7 @@ export {
   NotificationProvider,
   useNotify,
 } from "./NotificationProvider";
-export { info, success, failure, queue } from "./messageBuilder";
+export { info, success, failure, caution, queue } from "./messageBuilder";
 export type {
   NotificationAction,
   NotificationType,

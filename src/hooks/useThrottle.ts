@@ -14,12 +14,12 @@ export const useThrottle = (
   callback: Callback,
   delay = THROTTLE_DELAY,
 ): Callback => {
-  const timeout = useRef<number>();
-  const lastCall = useRef<number>();
+  const timeout = useRef<number>(null);
+  const lastCall = useRef<number>(null);
   const lastArgs = useRef(null);
 
   const throttle = useCallback(
-    (...args) => {
+    (...args: unknown[]) => {
       lastArgs.current = args;
       const callCallback = () => {
         callback(...lastArgs.current);

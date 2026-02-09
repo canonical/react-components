@@ -54,7 +54,7 @@ const TablePaginationControls = ({
   description,
   displayDescription = true,
   onInputPageChange,
-  itemName,
+  itemName = "row",
   nextButtonProps,
   onNextPage,
   onPageChange,
@@ -67,7 +67,7 @@ const TablePaginationControls = ({
   totalItems,
   visibleCount,
   ...divProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const isSmallScreen = useFigureSmallScreen();
 
   const totalPages = totalItems ? Math.ceil(totalItems / pageSize) : null;
@@ -77,6 +77,7 @@ const TablePaginationControls = ({
     isSmallScreen,
     totalItems,
     itemName,
+    currentPage,
   });
 
   const handleDecrementPage = (currentPage: number) => {
@@ -103,6 +104,10 @@ const TablePaginationControls = ({
     onPageSizeChange(parseInt(e.target.value));
   };
 
+  const isInputDisabled =
+    typeof totalItems === "number" && (!totalPages || totalPages == 1);
+  const maxPageValue = typeof totalPages === "number" ? totalPages : 1;
+
   return (
     <div
       className={classnames("pagination", className)}
@@ -117,7 +122,7 @@ const TablePaginationControls = ({
         className="back"
         appearance="base"
         hasIcon
-        disabled={currentPage === 1}
+        disabled={isInputDisabled || currentPage === 1}
         onClick={() => handleDecrementPage(currentPage)}
         {...previousButtonProps}
       >
@@ -137,8 +142,13 @@ const TablePaginationControls = ({
             onChange={handleInputPageChange}
             value={currentPage}
             type="number"
+            disabled={isInputDisabled}
+            min={1}
+            max={maxPageValue}
           />{" "}
-          {typeof totalPages === "number" ? `of ${totalPages}` : null}
+          {typeof totalPages === "number" ? (
+            <div className="pagination-item-count">of&nbsp;{totalPages}</div>
+          ) : null}
         </>
       ) : null}
       <Button
@@ -146,7 +156,7 @@ const TablePaginationControls = ({
         className="next"
         appearance="base"
         hasIcon
-        disabled={currentPage === totalPages}
+        disabled={isInputDisabled || currentPage === totalPages}
         onClick={() => handleIncrementPage(currentPage, totalPages)}
         {...nextButtonProps}
       >

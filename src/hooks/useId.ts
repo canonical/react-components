@@ -3,7 +3,7 @@ import { useId as useIdReact } from "react";
 import { IS_DEV } from "utils";
 
 /**
- * @deprecated Code component is deprecated. Use CodeSnippet component or inline `<code>` instead.
+ * @deprecated Code component is deprecated. Use useId from React directly instead.
  */
 export const useId = () => {
   const id = useIdReact();

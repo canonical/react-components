@@ -1,7 +1,6 @@
 import classNames from "classnames";
 import React, { useCallback, useEffect, useId, useRef, useState } from "react";
 import type { HTMLProps, ReactNode } from "react";
-import usePortal from "react-useportal";
 import { useListener, usePrevious } from "hooks";
 import Button from "../Button";
 import type { ButtonProps } from "../Button";
@@ -14,6 +13,7 @@ import {
   PropsWithSpread,
   SubComponentProps,
 } from "types";
+import { usePortal } from "external";
 
 export enum Label {
   Toggle = "Toggle menu",
@@ -180,9 +180,9 @@ const ContextualMenu = <L,>({
   toggleProps,
   visible = false,
   ...wrapperProps
-}: Props<L>): JSX.Element => {
+}: Props<L>): React.JSX.Element => {
   const id = useId();
-  const wrapper = useRef<HTMLDivElement | null>(null);
+  const wrapper = useRef<HTMLSpanElement | null>(null);
   const [positionCoords, setPositionCoords] = useState<DOMRect>();
   const [adjustedPosition, setAdjustedPosition] = useState(position);
 
@@ -194,7 +194,7 @@ const ContextualMenu = <L,>({
   const updatePositionCoords = useCallback(() => {
     const parent = getPositionNode(wrapper.current, positionNode);
     if (!parent) {
-      return null;
+      return;
     }
     setPositionCoords(parent.getBoundingClientRect());
   }, [wrapper, positionNode]);
@@ -231,7 +231,7 @@ const ContextualMenu = <L,>({
   // The callback ref pattern:
   // https://reactjs.org/docs/hooks-faq.html#how-can-i-measure-a-dom-node
   const wrapperRef = useCallback(
-    (node) => {
+    (node: HTMLSpanElement) => {
       wrapper.current = node;
       if (node !== null) {
         updatePositionCoords();
@@ -252,28 +252,32 @@ const ContextualMenu = <L,>({
     }
   }, [closePortal, openPortal, visible, isOpen, previousVisible]);
 
-  const onResize = useCallback(
-    (evt) => {
-      const parent = getPositionNode(wrapper.current, positionNode);
-      if (parent && !getPositionNodeVisible(parent)) {
-        // Hide the menu if the item has become hidden. This might happen in
-        // a responsive table when columns become hidden as the page
-        // becomes smaller.
-        closePortal(evt);
-      } else {
+  const onResize = useCallback(() => {
+    const parent = getPositionNode(wrapper.current, positionNode);
+    if (parent && !getPositionNodeVisible(parent)) {
+      // Hide the menu if the item has become hidden. This might happen in
+      // a responsive table when columns become hidden as the page
+      // becomes smaller.
+      closePortal();
+    } else {
+      // Only update if the coordinates have changed.
+      // The check fixes a bug with chrome, where an input receiving focus and
+      // opening the keyboard causes a resize and the keyboard closes right after
+      // opening.
+      const coords = parent.getBoundingClientRect();
+      if (JSON.stringify(coords) !== JSON.stringify(positionCoords)) {
         // Update the coordinates so that the menu stays relative to the
         // toggle button.
         updatePositionCoords();
       }
-    },
-    [closePortal, positionNode, updatePositionCoords],
-  );
+    }
+  }, [closePortal, positionNode, positionCoords, updatePositionCoords]);
 
   const onScroll = useCallback(
-    (e) => {
+    (e: Event) => {
       const parent = getPositionNode(wrapper.current, positionNode);
       // update position if the scroll event is triggered by the parent of the menu
-      if (parent && e.target.contains(parent)) {
+      if (parent && (e.target as HTMLElement).contains(parent)) {
         // Update the coordinates so that the menu stays relative to the
         // toggle button.
         updatePositionCoords();
@@ -300,7 +304,7 @@ const ContextualMenu = <L,>({
         className={classNames("p-contextual-menu__toggle", toggleClassName)}
         disabled={toggleDisabled}
         hasIcon={hasToggleIcon}
-        onClick={(evt: React.MouseEvent) => {
+        onClick={(evt: React.MouseEvent<HTMLButtonElement>) => {
           if (!isOpen) {
             openPortal(evt);
           } else {

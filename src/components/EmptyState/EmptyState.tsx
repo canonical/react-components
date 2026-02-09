@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { ReactNode, HTMLProps, ReactElement } from "react";
+import React, { ReactNode, HTMLProps } from "react";
 import { PropsWithSpread } from "types";
 
 export type Props = PropsWithSpread<
@@ -33,7 +33,7 @@ export const EmptyState = ({
   image,
   title,
   ...props
-}: Props): ReactElement => {
+}: Props): React.JSX.Element => {
   return (
     <div className={classNames(["row", className])} {...props}>
       <div className="u-align--right col-4 col-medium-2 col-small-1">

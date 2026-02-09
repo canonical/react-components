@@ -154,3 +154,49 @@ export const BaseAppearance: Story = {
 
   name: "Base appearance",
 };
+
+export const WithPreModalOpenHook: Story = {
+  render: () => {
+    const dontOpenModal = () => false;
+    const openModal = () => true;
+
+    return (
+      <>
+        <ConfirmationButton
+          preModalOpenHook={dontOpenModal}
+          confirmationModalProps={{
+            title: "Confirm delete",
+            confirmButtonLabel: "Delete",
+            children: (
+              <p>
+                This will permanently delete the user "Simon".
+                <br />
+                You cannot undo this action.
+              </p>
+            ),
+          }}
+        >
+          Don't open modal
+        </ConfirmationButton>
+        <ConfirmationButton
+          preModalOpenHook={openModal}
+          confirmationModalProps={{
+            title: "Confirm delete",
+            confirmButtonLabel: "Delete",
+            children: (
+              <p>
+                This will permanently delete the user "Simon".
+                <br />
+                You cannot undo this action.
+              </p>
+            ),
+          }}
+        >
+          Open modal
+        </ConfirmationButton>
+      </>
+    );
+  },
+
+  name: "With preModalOpenHook handler",
+};

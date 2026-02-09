@@ -53,10 +53,6 @@ export type Props = PropsWithSpread<
      */
     shouldRefocusAfterReset?: boolean;
     /**
-     * A ref that is passed to the input element.
-     */
-    ref?: string;
-    /**
      * The value of the search input when the state is externally controlled.
      */
     value?: string;
@@ -72,6 +68,8 @@ export type Props = PropsWithSpread<
 const SearchBox = React.forwardRef<HTMLInputElement, Props>(
   (
     {
+      name = "search",
+      id = "search",
       autocomplete = "on",
       className,
       disabled,
@@ -86,8 +84,8 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
       ...props
     }: Props,
     forwardedRef,
-  ): JSX.Element => {
-    const internalRef = useRef<HTMLInputElement>();
+  ): React.JSX.Element => {
+    const internalRef = useRef<HTMLInputElement>(null);
     const resetInput = () => {
       onChange?.("");
       onClear?.();
@@ -112,15 +110,15 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
 
     return (
       <div className={classNames("p-search-box", className)}>
-        <label className="u-off-screen" htmlFor="search">
+        <label className="u-off-screen" htmlFor={id}>
           {placeholder || "Search"}
         </label>
         <input
           autoComplete={autocomplete}
           className="p-search-box__input"
           disabled={disabled}
-          id="search"
-          name="search"
+          id={id}
+          name={name}
           onChange={(evt) => onChange?.(evt.target.value)}
           onKeyDown={onKeyDown}
           placeholder={placeholder}

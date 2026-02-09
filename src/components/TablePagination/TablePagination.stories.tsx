@@ -419,3 +419,51 @@ export const ControlsOnly: Story = {
     );
   },
 };
+
+/** The `TablePaginationControls` component can be used when the total
+ *  number of entries is unknown.
+ */
+export const ControlsWithUnknownEntries: Story = {
+  render: () => {
+    return (
+      <TablePaginationControls
+        currentPage={1}
+        itemName="row"
+        nextButtonProps={{ disabled: false }}
+        onInputPageChange={console.log}
+        onNextPage={console.log}
+        onPageSizeChange={console.log}
+        onPreviousPage={console.log}
+        pageLimits={[10, 25, 50]}
+        pageSize={20}
+        previousButtonProps={{ disabled: false }}
+        showPageInput
+        visibleCount={10}
+      />
+    );
+  },
+};
+
+/** The `TablePaginationControls` component can be used when it is known
+ *  that there are more entries than the amount displayed on the current page.
+ */
+export const ControlsWithPartiallyKnownEntries: Story = {
+  render: () => {
+    return (
+      <TablePaginationControls
+        currentPage={3}
+        itemName="row"
+        nextButtonProps={{ disabled: false }}
+        onInputPageChange={console.log}
+        onNextPage={console.log}
+        onPageSizeChange={console.log}
+        onPreviousPage={console.log}
+        pageLimits={[10, 25, 50]}
+        pageSize={20}
+        previousButtonProps={{ disabled: false }}
+        showPageInput
+        visibleCount={10}
+      />
+    );
+  },
+};

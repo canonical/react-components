@@ -11,7 +11,10 @@ type Props = {
 /**
  * This component is used internally to display links inside the Navigation component.
  */
-const NavigationLink = ({ generateLink, link }: Props): JSX.Element | null => {
+const NavigationLink = ({
+  generateLink,
+  link,
+}: Props): React.JSX.Element | null => {
   // const ariaCurrent = isSelected ? "page" : undefined;
   if (generateLink) {
     const { isSelected, ...linkProps } = link;

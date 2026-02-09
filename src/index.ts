@@ -19,11 +19,17 @@ export {
   CodeSnippetBlockAppearance,
 } from "./components/CodeSnippet";
 export { default as Col } from "./components/Col";
+export {
+  default as ColumnSelector,
+  visibleHeaderColumns,
+  visibleRowColumns,
+} from "./components/ColumnSelector";
 export { default as ConfirmationButton } from "./components/ConfirmationButton";
 export { default as ConfirmationModal } from "./components/ConfirmationModal";
 export { default as ContextualMenu } from "./components/ContextualMenu";
 export { default as DoughnutChart } from "./components/DoughnutChart";
 export { default as EmptyState } from "./components/EmptyState";
+export { createEventQueue } from "./components/EventQueue";
 export { default as Field } from "./components/Field";
 export { default as Form } from "./components/Form";
 export { default as FormikField } from "./components/FormikField";
@@ -41,7 +47,7 @@ export * from "./components/MultiSelect";
 export {
   default as Notification,
   NotificationSeverity,
-} from "./components/Notification";
+} from "./components/Notifications";
 export {
   NotificationConsumer,
   NotificationProvider,
@@ -57,6 +63,8 @@ export { default as Panel } from "./components/Panel";
 export { default as PasswordToggle } from "./components/PasswordToggle";
 export { default as RadioInput } from "./components/RadioInput";
 export { default as Row } from "./components/Row";
+export { default as ScrollableContainer } from "./components/ScrollableContainer";
+export { default as ScrollableTable } from "./components/ScrollableTable";
 export { default as SearchAndFilter } from "./components/SearchAndFilter";
 export { default as SearchBox } from "./components/SearchBox";
 export { default as Select } from "./components/Select";
@@ -64,6 +72,7 @@ export { default as SideNavigation } from "./components/SideNavigation";
 export { default as SideNavigationItem } from "./components/SideNavigation/SideNavigationItem";
 export { default as SideNavigationLink } from "./components/SideNavigation/SideNavigationLink";
 export { default as SideNavigationText } from "./components/SideNavigation/SideNavigationText";
+export { default as SidePanel } from "./components/SidePanel";
 export { default as SkipLink } from "./components/SkipLink";
 export { default as Slider } from "./components/Slider";
 export { default as Switch } from "./components/Switch";
@@ -81,9 +90,23 @@ export { default as TableHeader } from "./components/TableHeader";
 export { default as TableRow } from "./components/TableRow";
 export { default as Tabs } from "./components/Tabs";
 export { default as Textarea } from "./components/Textarea";
+export {
+  default as ThemeSwitcher,
+  loadTheme,
+  isDarkTheme,
+  applyTheme,
+} from "./components/ThemeSwitcher";
+export {
+  ToastNotification,
+  ToastNotificationList,
+  ToastNotificationProvider,
+  useToastNotification,
+} from "./components/Notifications";
 export { default as Tooltip } from "./components/Tooltip";
 export { default as TablePagination } from "./components/TablePagination";
 export { default as TablePaginationControls } from "./components/TablePagination/TablePaginationControls";
+export { default as CustomLayout } from "./components/CustomLayout";
+export { default as CustomSelect } from "./components/CustomSelect";
 
 export type { AccordionProps } from "./components/Accordion";
 export type { ActionButtonProps } from "./components/ActionButton";
@@ -107,6 +130,7 @@ export type {
   CodeSnippetDropdownProps,
 } from "./components/CodeSnippet";
 export type { ColProps, ColSize } from "./components/Col";
+export type { ColumnSelectorProps } from "./components/ColumnSelector";
 export type { ConfirmationButtonProps } from "./components/ConfirmationButton";
 export type { ConfirmationModalProps } from "./components/ConfirmationModal";
 export type {
@@ -117,6 +141,7 @@ export type {
 } from "./components/ContextualMenu";
 export type { DoughnutChartProps, Segment } from "./components/DoughnutChart";
 export type { EmptyStateProps } from "./components/EmptyState";
+export type { EventCallback, EventQueue } from "./components/EventQueue";
 export type { FieldProps } from "./components/Field";
 export type { FormProps } from "./components/Form";
 export type { FormikFieldProps } from "./components/FormikField";
@@ -138,7 +163,7 @@ export type {
   NavLinkBase,
   NavLinkButton,
 } from "./components/Navigation";
-export type { NotificationProps } from "./components/Notification";
+export type { NotificationProps } from "./components/Notifications";
 export type {
   NotificationAction,
   NotificationType,
@@ -150,6 +175,8 @@ export type { PaginationProps } from "./components/Pagination";
 export type { PanelProps } from "./components/Panel";
 export type { RadioInputProps } from "./components/RadioInput";
 export type { RowProps } from "./components/Row";
+export type { ScrollableTableProps } from "./components/ScrollableTable";
+export type { ScrollableContainerProps } from "./components/ScrollableContainer";
 export type { SearchAndFilterProps } from "./components/SearchAndFilter";
 export type { SearchBoxProps } from "./components/SearchBox";
 export type { SelectProps } from "./components/Select";
@@ -157,6 +184,7 @@ export type { SideNavigationProps } from "./components/SideNavigation";
 export type { SideNavigationItemProps } from "./components/SideNavigation/SideNavigationItem";
 export type { SideNavigationLinkProps } from "./components/SideNavigation/SideNavigationLink";
 export type { SideNavigationTextProps } from "./components/SideNavigation/SideNavigationText";
+export type { SidePanelProps } from "./components/SidePanel";
 export type { SkipLinkProps } from "./components/SkipLink";
 export type { SliderProps } from "./components/Slider";
 export type { SpinnerProps } from "./components/Spinner";
@@ -170,8 +198,14 @@ export type { TableHeaderProps } from "./components/TableHeader";
 export type { TableRowProps } from "./components/TableRow";
 export type { TabsProps } from "./components/Tabs";
 export type { TextareaProps } from "./components/Textarea";
+export type { ToastNotificationType } from "./components/Notifications";
 export type { TooltipProps } from "./components/Tooltip";
 export type { TablePaginationProps } from "./components/TablePagination";
+export type {
+  CustomSelectProps,
+  CustomSelectDropdownProps,
+  CustomSelectOption,
+} from "./components/CustomSelect";
 
 export {
   useOnClickOutside,
@@ -181,12 +215,19 @@ export {
   useOnEscapePressed,
   usePagination,
   usePrevious,
+  usePrefersReducedMotion,
   useThrottle,
   useWindowFitment,
 } from "hooks";
 export type { WindowFitment } from "hooks";
 
-export { isNavigationAnchor, isNavigationButton } from "utils";
+export {
+  isNavigationAnchor,
+  isNavigationButton,
+  getElementAbsoluteHeight,
+  getAbsoluteHeightBelowById,
+  getParentsBottomSpacing,
+} from "utils";
 
 export type {
   ClassName,
@@ -198,3 +239,6 @@ export type {
   ValueOf,
 } from "./types";
 export { Theme } from "./enums";
+
+export type { UsePortalOptions } from "external";
+export { usePortal } from "external";

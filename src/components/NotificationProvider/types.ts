@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { ValueOf } from "types";
-import { NotificationSeverity } from "../Notification";
+import { NotificationSeverity } from "../Notifications";
 
 export interface NotifyProviderProps {
   state?: {

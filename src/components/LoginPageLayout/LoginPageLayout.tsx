@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useLayoutEffect } from "react";
+import React, { FC, ReactNode } from "react";
 import Card from "components/Card";
 import Col from "components/Col";
 import Navigation from "components/Navigation";
@@ -27,20 +27,6 @@ const LoginPageLayout: FC<Props> = ({
   title,
   logo = defaultLogo,
 }) => {
-  useLayoutEffect(() => {
-    const bodyInitiallyContainsIsPaper = document
-      .querySelector("body")
-      ?.classList.contains("is-paper");
-    if (!bodyInitiallyContainsIsPaper) {
-      document.querySelector("body")?.classList.add("is-paper");
-    }
-    return () => {
-      if (!bodyInitiallyContainsIsPaper) {
-        document.querySelector("body")?.classList.remove("is-paper");
-      }
-    };
-  }, []);
-
   return (
     <Row className="p-strip page-row">
       <Col emptyLarge={4} size={6}>

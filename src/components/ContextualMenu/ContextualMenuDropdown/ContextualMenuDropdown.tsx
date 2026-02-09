@@ -1,11 +1,5 @@
 import classNames from "classnames";
-import React, {
-  ReactElement,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import type { HTMLProps, ReactNode } from "react";
 
 import { useWindowFitment } from "hooks";
@@ -33,10 +27,10 @@ type VerticalPosition = "top" | "bottom";
 export type Props<L = null> = {
   adjustedPosition?: Position;
   autoAdjust?: boolean;
-  handleClose?: (evt?: MouseEvent) => void;
+  handleClose?: (evt?: React.MouseEvent<HTMLButtonElement>) => void;
   constrainPanelWidth?: boolean;
   dropdownClassName?: string;
-  dropdownContent?: ReactNode | ((close: () => void) => ReactElement);
+  dropdownContent?: ReactNode | ((close: () => void) => React.JSX.Element);
   id?: string;
   isOpen?: boolean;
   links?: MenuLink<L>[];
@@ -154,7 +148,9 @@ const generateLink = <L,>(
       onClick={
         onClick
           ? (evt) => {
-              handleClose(evt.nativeEvent);
+              handleClose(
+                evt.nativeEvent as unknown as React.MouseEvent<HTMLButtonElement>,
+              );
               onClick(evt);
             }
           : null
@@ -183,6 +179,25 @@ const getClosestScrollableParent = (
   return document.body;
 };
 
+// nearest parents z-index that is not 0 or auto
+export const getNearestParentsZIndex = (
+  element: HTMLElement | null,
+): string => {
+  if (!window || !element) {
+    return "0";
+  }
+  const zIndex = window
+    .getComputedStyle(element, null)
+    .getPropertyValue("z-index");
+  if (!element.parentElement) {
+    return zIndex;
+  }
+  if (zIndex === "auto" || zIndex === "0" || zIndex === "") {
+    return getNearestParentsZIndex(element.parentElement);
+  }
+  return zIndex;
+};
+
 const ContextualMenuDropdown = <L,>({
   adjustedPosition,
   autoAdjust,
@@ -200,7 +215,7 @@ const ContextualMenuDropdown = <L,>({
   setAdjustedPosition,
   contextualMenuClassName,
   ...props
-}: Props<L>): JSX.Element => {
+}: Props<L>): React.JSX.Element => {
   const dropdown = useRef<HTMLDivElement>(null);
   const [verticalPosition, setVerticalPosition] =
     useState<VerticalPosition>("bottom");
@@ -227,11 +242,11 @@ const ContextualMenuDropdown = <L,>({
 
   const updateVerticalPosition = useCallback(() => {
     if (!positionNode) {
-      return null;
+      return;
     }
     const scrollableParent = getClosestScrollableParent(positionNode);
     if (!scrollableParent) {
-      return null;
+      return;
     }
 
     const scrollableParentRect = scrollableParent.getBoundingClientRect();
@@ -297,6 +312,17 @@ const ContextualMenuDropdown = <L,>({
   useEffect(() => {
     updateVerticalPosition();
   }, [updateVerticalPosition]);
+
+  useEffect(() => {
+    if (!dropdown.current) return;
+
+    // align z-index: when we are in a modal context, we want the dropdown to be above the modal
+    // apply the nearest parents z-index + 1
+    const zIndex = getNearestParentsZIndex(positionNode);
+    if (parseInt(zIndex) > 0) {
+      dropdown.current.parentElement?.style.setProperty("z-index", zIndex + 1);
+    }
+  }, [positionNode]);
 
   return (
     // Vanilla Framework uses .p-contextual-menu parent modifier classnames to determine the correct position of the .p-contextual-menu__dropdown dropdown (left, center, right).

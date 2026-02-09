@@ -1,6 +1,6 @@
 import classNames from "classnames";
-import React, { ReactElement, useId, useRef, useEffect } from "react";
-import type { HTMLProps, ReactNode, MutableRefObject, RefObject } from "react";
+import React, { useId, useRef, useEffect } from "react";
+import type { HTMLProps, ReactNode, RefObject } from "react";
 import { ClassName, PropsWithSpread } from "types";
 
 export type Props = PropsWithSpread<
@@ -22,6 +22,10 @@ export type Props = PropsWithSpread<
      */
     close?: () => void | null;
     /**
+     * The element that will be focused upon opening the modal.
+     */
+    focusRef?: RefObject<HTMLElement | null>;
+    /**
      * The title of the modal.
      */
     title?: ReactNode | null;
@@ -29,6 +33,10 @@ export type Props = PropsWithSpread<
      * Whether the button click event should propagate.
      */
     shouldPropagateClickEvent?: boolean;
+    /**
+     * Whether the modal should close when clicking outside the modal.
+     */
+    closeOnOutsideClick?: boolean;
   },
   HTMLProps<HTMLDivElement>
 >;
@@ -43,10 +51,12 @@ export const Modal = ({
   children,
   className,
   close,
+  focusRef,
   title,
   shouldPropagateClickEvent = false,
+  closeOnOutsideClick = true,
   ...wrapperProps
-}: Props): ReactElement => {
+}: Props): React.JSX.Element => {
   // list of focusable selectors is based on this Stack Overflow answer:
   // https://stackoverflow.com/a/30753870/3732840
   const focusableElementSelectors =
@@ -55,15 +65,16 @@ export const Modal = ({
   const titleId = useId();
   const shouldClose = useRef(false);
 
-  const modalRef: MutableRefObject<HTMLElement> = useRef(null);
-  const focusableModalElements = useRef(null);
+  const modalRef: RefObject<HTMLDivElement> = useRef(null);
+  const closeButtonRef: RefObject<HTMLButtonElement> = useRef(null);
   const handleTabKey = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (focusableModalElements.current.length > 0) {
-      const firstElement = focusableModalElements.current[0];
+    const focusableModalElements = modalRef.current.querySelectorAll(
+      focusableElementSelectors,
+    );
+    if (focusableModalElements.length > 0) {
+      const firstElement = focusableModalElements[0];
       const lastElement =
-        focusableModalElements.current[
-          focusableModalElements.current.length - 1
-        ];
+        focusableModalElements[focusableModalElements.length - 1];
 
       if (!event.shiftKey && document.activeElement === lastElement) {
         (firstElement as HTMLElement).focus();
@@ -92,28 +103,22 @@ export const Modal = ({
     }
   };
 
-  const keyListenersMap = new Map([
-    ["Escape", handleEscKey],
-    ["Tab", handleTabKey],
-  ]);
-
   useEffect(() => {
-    modalRef.current.focus();
-  }, [modalRef]);
-
-  useEffect(() => {
-    focusableModalElements.current = modalRef.current.querySelectorAll(
-      focusableElementSelectors,
-    );
-    let focusIndex = 0;
-    // when the close button is rendered, focus on the 2nd content element and not the close btn.
-    if (close && focusableModalElements.current.length > 1) {
-      focusIndex = 1;
+    if (focusRef?.current) {
+      focusRef.current.focus();
+    } else if (closeButtonRef.current) {
+      closeButtonRef.current.focus();
+    } else {
+      modalRef.current.focus();
     }
-    focusableModalElements.current[focusIndex]?.focus({ preventScroll: true });
-  }, [close]);
+  }, [focusRef]);
 
   useEffect(() => {
+    const keyListenersMap = new Map([
+      ["Escape", handleEscKey],
+      ["Tab", handleTabKey],
+    ]);
+
     const keyDown = (event: KeyboardEvent) => {
       const listener = keyListenersMap.get(event.code);
       return listener && listener(event);
@@ -136,7 +141,7 @@ export const Modal = ({
   const handleOverlayOnMouseDown = (
     event: React.MouseEvent<HTMLDivElement>,
   ) => {
-    if (event.target === modalRef.current) {
+    if (event.target === modalRef.current && closeOnOutsideClick) {
       shouldClose.current = true;
     }
   };
@@ -162,7 +167,7 @@ export const Modal = ({
       onClick={handleOverlayOnClick}
       onMouseDown={handleOverlayOnMouseDown}
       {...wrapperProps}
-      ref={modalRef as RefObject<HTMLDivElement>}
+      ref={modalRef}
     >
       <section
         className="p-modal__dialog"
@@ -178,11 +183,13 @@ export const Modal = ({
             <h2 className="p-modal__title" id={titleId}>
               {title}
             </h2>
-            {!!close && (
+            {close && (
               <button
+                type="button"
                 className="p-modal__close"
                 aria-label="Close active modal"
                 onClick={handleClose}
+                ref={closeButtonRef}
               >
                 Close
               </button>

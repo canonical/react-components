@@ -59,4 +59,12 @@ describe("PasswordToggle", () => {
     render(<PasswordToggle help={help} id="test-id" label="password" />);
     expect(screen.getByLabelText("password")).toHaveAccessibleDescription(help);
   });
+
+  it("focuses the field before the toggle button", async () => {
+    render(<PasswordToggle label="password" id="test-id" />);
+    await userEvent.tab();
+    expect(screen.getByLabelText("password")).toHaveFocus();
+    await userEvent.tab();
+    expect(screen.getByRole("button", { name: Label.Show })).toHaveFocus();
+  });
 });

@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ThemeSwitcher renders 1`] = `
+<div
+  class="p-segmented-control"
+>
+  <div
+    aria-label="Theme switcher"
+    class="p-segmented-control__list"
+  >
+    <button
+      aria-selected="false"
+      class="p-segmented-control__button"
+      type="button"
+    >
+      dark
+    </button>
+    <button
+      aria-selected="false"
+      class="p-segmented-control__button"
+      type="button"
+    >
+      light
+    </button>
+    <button
+      aria-selected="true"
+      class="p-segmented-control__button"
+      type="button"
+    >
+      system
+    </button>
+  </div>
+</div>
+`;

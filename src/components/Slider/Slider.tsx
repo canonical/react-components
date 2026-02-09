@@ -82,7 +82,7 @@ export const Slider = ({
   required = false,
   showInput = false,
   ...inputProps
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const validationId = useId();
   const helpId = useId();
   const defaultSliderId = useId();
@@ -132,6 +132,7 @@ export const Slider = ({
         />
         {showInput && (
           <input
+            aria-label={typeof label === "string" ? label : undefined}
             aria-describedby={help ? helpId : null}
             aria-errormessage={hasError ? validationId : null}
             aria-invalid={hasError}

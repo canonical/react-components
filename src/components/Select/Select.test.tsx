@@ -63,4 +63,22 @@ describe("Select", () => {
     render(<Select help={help} />);
     expect(screen.getByRole("combobox")).toHaveAccessibleDescription(help);
   });
+
+  it("can add additional classes", () => {
+    const help = "Save me!";
+    const { container } = render(
+      <Select
+        className="extra-class"
+        help={help}
+        helpClassName="additional-help-text-class"
+      />,
+    );
+    expect(screen.getByRole("combobox")).toHaveClass(
+      "p-form-validation__input",
+      "extra-class",
+    );
+    expect(container.querySelector(".p-form-help-text")).toHaveClass(
+      "additional-help-text-class",
+    );
+  });
 });

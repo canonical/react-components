@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactElement } from "react";
 import List from "components/List";
 import { StepProps } from "./Step";
 import classNames from "classnames";
@@ -11,14 +11,14 @@ export type Props = {
   /**
    * A list of steps.
    */
-  steps: React.ReactElement<StepProps>[];
+  steps: ReactElement<StepProps>[];
 };
 
 /**
  * This is a stepper component that is used to guide users through a series of sequential steps, providing a clear start and end point. It helps users understand their current position in the process and anticipate upcoming actions. The stepper component should accept a list of Step components for the steps.
  */
 
-const Stepper = ({ variant = "vertical", steps }: Props): JSX.Element => {
+const Stepper = ({ variant = "vertical", steps }: Props): React.JSX.Element => {
   return (
     <List
       items={steps}

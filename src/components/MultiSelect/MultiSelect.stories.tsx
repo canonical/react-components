@@ -58,6 +58,7 @@ export const SearchExample: Story = {
         group: i % 2 === 0 ? "Group 1" : "Group 2",
       })),
     ],
+    id: "search-id",
   },
 };
 
@@ -68,5 +69,76 @@ export const WithDisabledItems: Story = {
       { label: "Item 1", value: 1 },
       { label: "Item 2", value: 2 },
     ],
+  },
+};
+
+export const WithoutSorting: Story = {
+  args: {
+    items: [
+      {
+        label: "Sunday",
+        value: 0,
+      },
+      {
+        label: "Monday",
+        value: 1,
+      },
+      {
+        label: "Tuesday",
+        value: 2,
+      },
+      {
+        label: "Wednesday",
+        value: 3,
+      },
+      {
+        label: "Thursday",
+        value: 4,
+      },
+      {
+        label: "Friday",
+        value: 5,
+      },
+      {
+        label: "Saturday",
+        value: 6,
+      },
+    ],
+    selectedItems: [
+      {
+        label: "Monday",
+        value: 1,
+      },
+      {
+        label: "Wednesday",
+        value: 3,
+      },
+      {
+        label: "Friday",
+        value: 5,
+      },
+    ],
+    variant: "condensed",
+    isSortedAlphabetically: false,
+    hasSelectedItemsFirst: false,
+    id: "external-id",
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    ...CondensedExample.args,
+    disabled: true,
+  },
+};
+
+export const HelpText: Story = {
+  args: {
+    ...CondensedExample.args,
+    help: (
+      <span>
+        This is a help text, that should appear underneath the component.
+      </span>
+    ),
   },
 };

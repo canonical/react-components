@@ -31,7 +31,7 @@ const Form = ({
   inline,
   stacked,
   ...props
-}: Props): JSX.Element => (
+}: Props): React.JSX.Element => (
   <form
     className={classNames(className, {
       "p-form": inline || stacked,

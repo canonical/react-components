@@ -1,4 +1,7 @@
-const path = require("path");
+import path from "path";
+
+const dirname =
+  typeof __dirname === "undefined" ? import.meta?.dirname : __dirname;
 
 const config = {
   stories: ["../src/**/*.@(mdx|stories.@(js|ts|jsx|tsx))"],
@@ -11,11 +14,20 @@ const config = {
   ],
   webpackFinal: async (config) => {
     process.env.BABEL_ENV = "cjs";
+
+    // Include the "sass" named export from vanilla-frameworks package.json
+    // @see https://webpack.js.org/configuration/resolve/#resolveconditionnames
+    config.resolve.conditionNames = ["...", "sass"];
+
     config.module.rules.push({
       test: /\.scss$/,
       use: ["style-loader", "css-loader", "sass-loader"],
-      include: path.resolve(__dirname, "../"),
+      include: path.resolve(dirname, "../"),
     });
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      external: path.resolve(dirname, "../src/external"),
+    };
     return config;
   },
   docs: {

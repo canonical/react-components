@@ -1,0 +1,109 @@
+@import "vanilla-framework";
+
+.toast-animate {
+  position: relative;
+  z-index: 105;
+}
+
+.toast-notification,
+.toast-notification-list {
+  bottom: 3.5rem;
+  margin: 0 1.5rem;
+  position: absolute;
+  right: 0;
+
+  @media screen and (min-width: 620px) and (max-width: 1036px) {
+    width: 500px;
+  }
+
+  @media screen and (min-width: 1036px) {
+    width: 600px;
+  }
+}
+
+.toast-notification {
+  box-shadow: 0 0 2rem 0.5rem rgb(0 0 0 / 15%);
+  overflow: hidden;
+  z-index: 101;
+
+  @media screen and (max-width: 620px) {
+    left: 0;
+    margin: 1.5rem auto;
+    max-width: 400px;
+    width: 95vw;
+  }
+}
+
+.toast-notification-list {
+  background-color: $colors--theme--background-default;
+  box-shadow: 0 0 2rem 0.5rem rgb(0 0 0 / 22%);
+  max-height: calc(100dvh - 4.5rem);
+  overflow: auto;
+  padding: 0 0.5rem;
+  z-index: 102;
+
+  .individual-notification {
+    margin: 0.5rem 0;
+    overflow: hidden;
+  }
+
+  .dismiss {
+    align-items: center;
+    background-color: $colors--theme--background-default;
+    bottom: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    padding-left: 0.8rem;
+    position: sticky;
+    z-index: 10;
+
+    .dismiss-button {
+      align-items: center;
+      display: flex;
+
+      .dismiss-text {
+        align-items: center;
+        display: flex;
+        gap: 0.25rem;
+      }
+    }
+
+    .filters {
+      display: flex;
+
+      .filter-button {
+        align-items: center;
+        border: none;
+        display: flex;
+        gap: 0.25rem;
+        justify-content: center;
+        margin-right: 0.5rem !important;
+        padding: calc(0.4rem - 1px);
+
+        /* stylelint-disable max-nesting-depth */
+        /* stylelint-disable-next-line selector-max-type */
+        span {
+          padding: 0;
+          text-align: center;
+        }
+        /* stylelint-enable max-nesting-depth */
+      }
+    }
+
+    @media screen and (max-width: 620px) {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  @media screen and (max-width: 620px) {
+    bottom: 2rem;
+    left: 0;
+    margin: 1.5rem auto;
+    max-width: 400px;
+    width: 95vw;
+  }
+}

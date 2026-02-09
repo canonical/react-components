@@ -22,7 +22,7 @@ export type Props = PropsWithSpread<
  *
  * Vanilla has a responsive grid using a combination of rows and columns.
  */
-const Row = ({ children, className, ...props }: Props): JSX.Element => (
+const Row = ({ children, className, ...props }: Props): React.JSX.Element => (
   <div className={classNames(className, "row")} {...props}>
     {children}
   </div>

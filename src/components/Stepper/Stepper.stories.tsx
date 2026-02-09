@@ -213,53 +213,55 @@ export const HorizontalOptional: Story = {
 export const VerticalSelected: Story = {
   name: "Vertical variant: Selected step",
   render: () => (
-    <Stepper
-      steps={[
-        <Step
-          key="Vertical Selected Step 1"
-          title="Step 1"
-          index={1}
-          enabled={true}
-          hasProgressLine={true}
-          iconName="success"
-          label="Optional label"
-          handleClick={() => {}}
-        />,
-        <Step
-          key="Vertical Selected Step 2"
-          title="Step 2"
-          index={2}
-          enabled={true}
-          hasProgressLine={true}
-          iconName="success"
-          handleClick={() => {}}
-          label="Optional label"
-          selected={true}
-        />,
-        <Step
-          key="Vertical Selected Step 3"
-          title="Step 3"
-          index={3}
-          enabled={true}
-          hasProgressLine={true}
-          iconName="number"
-          label="Optional label"
-          linkProps={{ children: "Optional link" }}
-          handleClick={() => {}}
-        />,
-        <Step
-          key="Vertical Selected Step 4"
-          title="Step 4"
-          index={4}
-          enabled={false}
-          hasProgressLine={false}
-          linkProps={{ children: "Optional link" }}
-          iconName="number"
-          label="Optional label"
-          handleClick={() => {}}
-        />,
-      ]}
-    />
+    <div style={{ width: "50%" }}>
+      <Stepper
+        steps={[
+          <Step
+            key="Vertical Selected Step 1"
+            title="Step 1"
+            index={1}
+            enabled={true}
+            hasProgressLine={true}
+            iconName="success"
+            label="Optional label"
+            handleClick={() => {}}
+          />,
+          <Step
+            key="Vertical Selected Step 2"
+            title="Step 2"
+            index={2}
+            enabled={true}
+            hasProgressLine={true}
+            iconName="success"
+            handleClick={() => {}}
+            label="Optional label"
+            selected={true}
+          />,
+          <Step
+            key="Vertical Selected Step 3"
+            title="Step 3"
+            index={3}
+            enabled={true}
+            hasProgressLine={true}
+            iconName="number"
+            label="Optional label"
+            linkProps={{ children: "Optional link" }}
+            handleClick={() => {}}
+          />,
+          <Step
+            key="Vertical Selected Step 4"
+            title="Step 4"
+            index={4}
+            enabled={false}
+            hasProgressLine={false}
+            linkProps={{ children: "Optional link" }}
+            iconName="number"
+            label="Optional label"
+            handleClick={() => {}}
+          />,
+        ]}
+      />
+    </div>
   ),
 };
 

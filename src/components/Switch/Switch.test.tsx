@@ -1,5 +1,5 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 // import userEvent from "@testing-library/user-event";
 
 import Switch from "./Switch";
@@ -31,5 +31,13 @@ describe("<Switch />", () => {
     expect(container.querySelector("input.p-switch__input")).toHaveAttribute(
       "disabled",
     );
+  });
+
+  it("renders a switch with help text", () => {
+    render(
+      <Switch label="Switch with help text" help="This is some help text" />,
+    );
+
+    expect(screen.getByText("This is some help text")).toBeInTheDocument();
   });
 });

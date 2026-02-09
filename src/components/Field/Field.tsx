@@ -149,7 +149,7 @@ const generateContent = ({
   helpId,
   isTickElement,
 }: Partial<Props> & {
-  labelNode: JSX.Element | null;
+  labelNode: React.JSX.Element | null;
   validationId: string;
   helpId: string;
 }) => (
@@ -189,7 +189,7 @@ const Field = ({
   success,
   validationId,
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const labelNode = generateLabel(
     forId,
     required,

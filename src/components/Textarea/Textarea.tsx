@@ -101,7 +101,7 @@ const Textarea = ({
   takeFocus = false,
   wrapperClassName,
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const textareaRef = useRef(null);
   const validationId = useId();
   const helpId = useId();
@@ -190,6 +190,7 @@ const Textarea = ({
           }) ||
           style
         }
+        required={required}
         {...props}
         value={props.value ?? innerValue}
       />

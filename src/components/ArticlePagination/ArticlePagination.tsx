@@ -42,7 +42,7 @@ const ArticlePagination = ({
   previousURL,
   previousLabel,
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   return (
     <footer
       className={classNames(className, "p-article-pagination")}

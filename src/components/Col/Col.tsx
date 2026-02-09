@@ -71,7 +71,7 @@ const Col = ({
   size,
   small,
   ...props
-}: Props): JSX.Element => (
+}: Props): React.JSX.Element => (
   <Component
     className={classNames(className, `col-${size}`, {
       [`col-small-${small}`]: !!small,

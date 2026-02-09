@@ -73,6 +73,10 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
      * Whether the sort by needs to be reset after each data change.
      */
     autoResetSortBy?: boolean;
+    /**
+     * This will render between the header and the content.
+     */
+    subhead?: ReactNode;
   },
   HTMLProps<HTMLTableElement>
 >;
@@ -136,7 +140,7 @@ ModularTable components accepts `columns` and `data` arguments in the same forma
 `columns` - The core columns configuration object for the entire table. https://react-table.tanstack.com/docs/api/useTable#column-options
 `data` - The data array that you want to display on the table.
 ### Important note!
-Values passed to both of these params have to me memoized (for example via{" "}
+Values passed to both of these params have to be memoized (for example via{" "}
   <code>React.useMemo</code>). Memoization ensures that our data isn't recreated
   on every render. If we didn't use <code>React.useMemo</code>, the table would
   think it was receiving new data on every render and attempt to recalulate a
@@ -193,8 +197,9 @@ function ModularTable<D extends Record<string, unknown>>({
   initialSortColumn,
   initialSortDirection,
   autoResetSortBy = false,
+  subhead,
   ...props
-}: Props<D>): JSX.Element {
+}: Props<D>): React.JSX.Element {
   const sortBy = useMemo(
     () =>
       initialSortColumn
@@ -273,6 +278,7 @@ function ModularTable<D extends Record<string, unknown>>({
             ))}
           </TableRow>
         ))}
+        {subhead}
       </thead>
       <tbody {...getTableBodyProps()}>
         {generateRows(rows, prepareRow, getRowProps, getCellProps)}

@@ -1,11 +1,4 @@
-import {
-  Children,
-  ReactElement,
-  ReactNode,
-  cloneElement,
-  useEffect,
-  useState,
-} from "react";
+import { Children, ReactNode, cloneElement, useEffect, useState } from "react";
 
 /**
  * Determine if we are working with a small screen.
@@ -32,7 +25,7 @@ export const renderChildren = (
   data: unknown[],
 ) => {
   return Children.map(children, (child) => {
-    return cloneElement(child as ReactElement, {
+    return cloneElement(child as React.JSX.Element, {
       [dataForwardProp]: data,
     });
   });
@@ -49,26 +42,34 @@ export const getDescription = ({
   totalItems,
   itemName,
   visibleCount,
+  currentPage,
 }: {
   description: ReactNode;
   isSmallScreen: boolean;
   totalItems: number;
   itemName: string;
   visibleCount: number;
+  currentPage: number;
 }) => {
   if (description) {
     return description;
   }
+  let closing = "";
+  if (typeof totalItems === "number") {
+    closing = ` out of ${totalItems}`;
+  } else if (currentPage !== 1) {
+    closing = ` of more than ${visibleCount}`;
+  }
 
   if (isSmallScreen) {
-    return `${visibleCount} out of ${totalItems}`;
+    return `${visibleCount}${closing}`;
   }
 
   if (visibleCount === totalItems && visibleCount > 1) {
     return `Showing all ${totalItems} ${itemName}s`;
   }
 
-  return `Showing ${visibleCount} out of ${totalItems} ${itemName}${
+  return `Showing ${visibleCount}${closing} ${itemName}${
     totalItems !== 1 ? "s" : ""
   }`;
 };

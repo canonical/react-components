@@ -3,8 +3,10 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import Button from "../Button";
 import ContextualMenu from "./ContextualMenu";
+import { ContextualMenuProps } from ".";
+import Modal from "components/Modal";
 
-const ScrollTemplate = (args) => (
+const ScrollTemplate = (args: ContextualMenuProps<null>) => (
   <div
     style={{
       maxWidth: "30rem",
@@ -26,7 +28,7 @@ const ScrollTemplate = (args) => (
   </div>
 );
 
-const Template = (args) => (
+const Template = (args: ContextualMenuProps<null>) => (
   <div className="u-align--center">
     <ContextualMenu {...args} />
   </div>
@@ -143,4 +145,23 @@ export const ChildElement: Story = {
     position: "right",
     toggleLabel: "Click me!",
   },
+};
+
+export const InsideModal: Story = {
+  name: "Inside modal",
+  args: {
+    links: Array.from({ length: 5 }, (_, index) => ({
+      children: `Link ${index + 1}`,
+      onClick: () => {},
+    })),
+    hasToggleIcon: true,
+    position: "right",
+    toggleLabel: "Click me!",
+  },
+
+  render: (args: ContextualMenuProps<null>) => (
+    <Modal title="Contextual Menu inside Modal">
+      <Template {...args} />
+    </Modal>
+  ),
 };

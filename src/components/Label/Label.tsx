@@ -35,7 +35,7 @@ const Label = ({
   forId,
   required,
   ...props
-}: Props): JSX.Element => (
+}: Props): React.JSX.Element => (
   <label
     className={classNames(className, "p-form__label", {
       "is-required": required,

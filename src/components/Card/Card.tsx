@@ -48,7 +48,7 @@ const Card = ({
   thumbnail,
   title,
   ...props
-}: Props): JSX.Element => {
+}: Props): React.JSX.Element => {
   const titleId = useId();
   return (
     <div
