@@ -90,6 +90,7 @@ export default [
         },
       ],
       "react-hooks/exhaustive-deps": "warn",
+      "react-hooks/refs": "off",
     },
   },
   ...fixupConfigRules(compat.extends("plugin:prettier/recommended")).map(
