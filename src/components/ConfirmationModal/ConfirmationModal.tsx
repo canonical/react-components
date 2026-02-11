@@ -52,9 +52,23 @@ export type Props = PropsWithSpread<
      * Whether to render the modal inside a Portal component.
      */
     renderInPortal?: boolean;
+    /**
+     * Optional custom portal renderer. If provided, it takes precedence
+     * over `renderInPortal`.
+     */
+    portalRenderer?: React.ComponentType<{ children: ReactNode }>;
   },
   Omit<ModalProps, "buttonRow">
 >;
+
+const InternalPortalRenderer = ({
+  children,
+}: {
+  children: ReactNode;
+}): React.JSX.Element => {
+  const { Portal } = usePortal();
+  return <Portal>{children}</Portal>;
+};
 
 /**
  * `ConfirmationModal` is a specialised version of the [Modal](?path=/docs/modal--default-story) component to prompt a confirmation from the user before executing an action.
@@ -71,10 +85,9 @@ export const ConfirmationModal = ({
   confirmButtonDisabled,
   confirmButtonProps,
   renderInPortal = false,
+  portalRenderer: PortalRenderer,
   ...props
 }: Props): React.JSX.Element => {
-  const { Portal } = usePortal();
-
   const handleClick =
     <A extends Function>( // eslint-disable-line @typescript-eslint/no-unsafe-function-type
       action: A | null | undefined,
@@ -119,7 +132,13 @@ export const ConfirmationModal = ({
     </Modal>
   );
 
-  return renderInPortal ? <Portal>{ModalElement}</Portal> : ModalElement;
+  if (PortalRenderer) {
+    return <PortalRenderer>{ModalElement}</PortalRenderer>;
+  } else if (renderInPortal) {
+    return <InternalPortalRenderer>{ModalElement}</InternalPortalRenderer>;
+  } else {
+    return ModalElement;
+  }
 };
 
 export default ConfirmationModal;

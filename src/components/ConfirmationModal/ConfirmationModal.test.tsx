@@ -181,4 +181,31 @@ describe("ConfirmationModal ", () => {
 
     expect(document.body.contains(modal)).toBe(true);
   });
+
+  it("prioritises portalRenderer over renderInPortal", () => {
+    const PortalRenderer = ({
+      children,
+    }: {
+      children: React.ReactNode;
+    }): React.JSX.Element => (
+      <div data-testid="custom-portal-renderer">{children}</div>
+    );
+
+    render(
+      <ConfirmationModal
+        confirmButtonLabel="Proceed"
+        onConfirm={jest.fn()}
+        renderInPortal={true}
+        portalRenderer={PortalRenderer}
+      >
+        Test custom portal renderer
+      </ConfirmationModal>,
+    );
+
+    const modal = document.querySelector<HTMLElement>(".p-modal");
+    expect(modal).toBeInTheDocument();
+    expect(screen.getByTestId("custom-portal-renderer")).toContainElement(
+      modal,
+    );
+  });
 });

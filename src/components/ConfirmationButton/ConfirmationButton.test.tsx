@@ -156,4 +156,53 @@ describe("ConfirmationButton ", () => {
     expect(shouldShowModal).toHaveBeenCalled();
     expect(screen.getByText("Confirm")).toBeInTheDocument();
   });
+
+  it("executes onConfirm when clicking the modal confirm button", async () => {
+    const onConfirm = jest.fn();
+    render(
+      <ConfirmationButton
+        confirmationModalProps={{
+          confirmButtonLabel: "Proceed",
+          onConfirm,
+        }}
+      >
+        Delete
+      </ConfirmationButton>,
+    );
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Delete" }));
+    await user.click(screen.getByRole("button", { name: "Proceed" }));
+
+    expect(onConfirm).toHaveBeenCalledTimes(1);
+  });
+
+  it("ignores portal overrides passed through confirmationModalProps", async () => {
+    const onConfirm = jest.fn();
+    render(
+      <ConfirmationButton
+        confirmationModalProps={
+          {
+            confirmButtonLabel: "Proceed",
+            onConfirm,
+            renderInPortal: true,
+            portalRenderer: ({ children }: { children: React.ReactNode }) => (
+              <div data-testid="unsafe-portal">{children}</div>
+            ),
+          } as unknown as React.ComponentProps<
+            typeof ConfirmationButton
+          >["confirmationModalProps"]
+        }
+      >
+        Delete
+      </ConfirmationButton>,
+    );
+
+    const user = userEvent.setup();
+    await user.click(screen.getByRole("button", { name: "Delete" }));
+    await user.click(screen.getByRole("button", { name: "Proceed" }));
+
+    expect(onConfirm).toHaveBeenCalledTimes(1);
+    expect(screen.queryByTestId("unsafe-portal")).not.toBeInTheDocument();
+  });
 });

@@ -20,8 +20,11 @@ export type Props = PropsWithSpread<
   {
     /**
      * Additional props to pass to the confirmation modal.
+     * The `renderInPortal` and `portalRenderer` props are controlled internally by this component.
      */
-    confirmationModalProps: SubComponentProps<ConfirmationModalProps>;
+    confirmationModalProps: SubComponentProps<
+      Omit<ConfirmationModalProps, "renderInPortal" | "portalRenderer">
+    >;
     /**
      * An optional text to be shown when hovering over the button.<br/>
      * Defaults to the label of the confirm button in the modal.
@@ -55,7 +58,12 @@ export const ConfirmationButton = ({
   preModalOpenHook,
   ...actionButtonProps
 }: Props): React.JSX.Element => {
-  const { openPortal, closePortal, isOpen } = usePortal();
+  const { openPortal, closePortal, isOpen, Portal } = usePortal();
+  const {
+    renderInPortal: _ignoredRenderInPortal,
+    portalRenderer: _ignoredPortalRenderer,
+    ...safeConfirmationModalProps
+  } = confirmationModalProps as SubComponentProps<ConfirmationModalProps>;
 
   const handleCancelModal = () => {
     closePortal();
@@ -91,11 +99,11 @@ export const ConfirmationButton = ({
     <>
       {isOpen && (
         <ConfirmationModal
-          {...confirmationModalProps}
+          {...safeConfirmationModalProps}
           close={handleCancelModal}
           confirmButtonLabel={confirmationModalProps.confirmButtonLabel}
           onConfirm={handleConfirmModal}
-          renderInPortal={true}
+          portalRenderer={Portal}
         >
           {confirmationModalProps.children}
           {showShiftClickHint && (
