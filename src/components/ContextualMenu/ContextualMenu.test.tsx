@@ -301,4 +301,16 @@ describe("ContextualMenu ", () => {
     await userEvent.click(screen.getByTestId("child-span"));
     expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
   });
+  it("closes the menu on Escape key", async () => {
+    render(<ContextualMenu links={[]} toggleLabel="Toggle" />);
+
+    await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
+    expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
+
+    await userEvent.keyboard("{Escape}");
+
+    expect(
+      screen.queryByLabelText(DropdownLabel.Dropdown),
+    ).not.toBeInTheDocument();
+  });
 });

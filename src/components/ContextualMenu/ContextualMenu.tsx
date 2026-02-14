@@ -215,7 +215,25 @@ const ContextualMenu = <L,>({
     },
     programmaticallyOpen: true,
   });
+  // Listens for Escape key while the menu is open.
+  // Closes the portal when Escape is pressed.
+  // Added in capture phase so it still works even if
+  // a nested component stops event propagation.
+  useEffect(() => {
+    if (!isOpen) return undefined;
 
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.stopPropagation();
+        closePortal?.();
+      }
+    };
+    document.addEventListener("keydown", onKeyDown, true);
+
+    return () => {
+      document.removeEventListener("keydown", onKeyDown, true);
+    };
+  }, [isOpen, closePortal]);
   const previousVisible = usePrevious(visible);
   const labelNode =
     toggleLabel && typeof toggleLabel === "string" ? (
