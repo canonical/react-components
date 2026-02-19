@@ -8,7 +8,7 @@ import type { ButtonProps } from "../../Button";
 import type { WindowFitment } from "hooks";
 
 export enum Label {
-  Dropdown = "submenu",
+  Dropdown = "sub",
 }
 
 /**

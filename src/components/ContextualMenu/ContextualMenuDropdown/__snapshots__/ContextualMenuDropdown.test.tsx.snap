@@ -3,7 +3,7 @@
 exports[`ContextualMenuDropdown  renders 1`] = `
 <span
   aria-hidden="true"
-  aria-label="submenu"
+  aria-label="sub"
   class="p-contextual-menu__dropdown"
   data-testid="dropdown"
   role="menu"
