@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react/*";
+import { Meta, StoryObj } from "@storybook/react";
 import CustomSelect from "./CustomSelect";
 import React, { ComponentProps, useState } from "react";
 import { CustomSelectOption } from ".";

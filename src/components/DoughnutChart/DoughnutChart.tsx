@@ -87,63 +87,82 @@ const DoughnutChart: FC<Props> = ({
     (totalValue, segment) => (totalValue += segment.value),
     0,
   );
-  let accumulatedLength = 0;
-  const segmentNodes = segments.map(({ color, tooltip, value }, i) => {
+
+  // Pre-calculate the accumulated lengths.
+  const segmentsWithOffsets = segments.reduce((acc, segment, i) => {
+    const previousSegment = i > 0 ? acc[i - 1] : null;
     // The start position is the value of all previous segments.
-    const startPosition = accumulatedLength;
+    const startPosition =
+      i === 0
+        ? 0
+        : previousSegment.startPosition + previousSegment.segmentLength;
     // The length of the segment (as a portion of the doughnut circumference)
-    const segmentLength = (value / total) * circumference;
+    const segmentLength = (segment.value / total) * circumference;
     // The space left until the end of the circle.
     const remainingSpace = circumference - (segmentLength + startPosition);
-    // Add this segment length to the running tally.
-    accumulatedLength += segmentLength;
 
-    return (
-      <circle
-        className="doughnut-chart__segment"
-        cx={radius - segmentThickness / 2 - hoverIncrease}
-        cy={radius + segmentThickness / 2 + hoverIncrease}
-        data-testid={TestIds.Segment}
-        key={i}
-        tabIndex={0}
-        aria-label={tooltip ? `${tooltip}: ${value}` : `${value}`}
-        onMouseOut={
-          tooltip
-            ? () => {
-                // Hide the tooltip.
-                setTooltipMessage(null);
-              }
-            : undefined
-        }
-        onMouseOver={
-          tooltip
-            ? () => {
-                setTooltipMessage(tooltip);
-              }
-            : undefined
-        }
-        r={radius}
-        style={{
-          stroke: color,
-          strokeWidth: segmentThickness,
-          // The dash array used is:
-          // 1 - We want there to be a space before the first visible dash so
-          //     by setting this to 0 we can use the next dash for the space.
-          // 2 - This gap is the distance of all previous segments
-          //     so that the segment starts in the correct spot.
-          // 3 - A dash that is the length of the segment.
-          // 4 - A gap from the end of the segment to the start of the circle
-          //     so that the dash array doesn't repeat and be visible.
-          strokeDasharray: `0 ${startPosition.toFixed(
-            2,
-          )} ${segmentLength.toFixed(2)} ${remainingSpace.toFixed(2)}`,
-        }}
-        // Rotate the segment so that the segments start at the top of
-        // the chart.
-        transform={`rotate(-90 ${radius},${radius})`}
-      />
-    );
-  });
+    acc.push({
+      ...segment,
+      startPosition,
+      segmentLength,
+      remainingSpace,
+    });
+    return acc;
+  }, []);
+
+  // Map over the enriched data.
+  const segmentNodes = segmentsWithOffsets.map(
+    (
+      { color, tooltip, value, startPosition, segmentLength, remainingSpace },
+      i,
+    ) => {
+      return (
+        <circle
+          className="doughnut-chart__segment"
+          cx={radius - segmentThickness / 2 - hoverIncrease}
+          cy={radius + segmentThickness / 2 + hoverIncrease}
+          data-testid={TestIds.Segment}
+          key={i}
+          tabIndex={0}
+          aria-label={tooltip ? `${tooltip}: ${value}` : `${value}`}
+          onMouseOut={
+            tooltip
+              ? () => {
+                  // Hide the tooltip.
+                  setTooltipMessage(null);
+                }
+              : undefined
+          }
+          onMouseOver={
+            tooltip
+              ? () => {
+                  setTooltipMessage(tooltip);
+                }
+              : undefined
+          }
+          r={radius}
+          style={{
+            stroke: color,
+            strokeWidth: segmentThickness,
+            // The dash array used is:
+            // 1 - We want there to be a space before the first visible dash so
+            //     by setting this to 0 we can use the next dash for the space.
+            // 2 - This gap is the distance of all previous segments
+            //     so that the segment starts in the correct spot.
+            // 3 - A dash that is the length of the segment.
+            // 4 - A gap from the end of the segment to the start of the circle
+            //     so that the dash array doesn't repeat and be visible.
+            strokeDasharray: `0 ${startPosition.toFixed(
+              2,
+            )} ${segmentLength.toFixed(2)} ${remainingSpace.toFixed(2)}`,
+          }}
+          // Rotate the segment so that the segments start at the top of
+          // the chart.
+          transform={`rotate(-90 ${radius},${radius})`}
+        />
+      );
+    },
+  );
 
   return (
     <div

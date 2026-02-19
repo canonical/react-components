@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useEffectEvent, useRef, useState } from "react";
 import Chip from "../../Chip";
 import { overflowingChipsCount, isChipInArray } from "../utils";
 import { highlightSubString } from "../../../utils";
@@ -45,11 +45,11 @@ const FilterPanelSection = ({
 
   // If the offsetTop is more than double height of a single chip, consider it
   // overflowing
-  const updateFlowCount = function () {
+  const updateFlowCount = useEffectEvent(() => {
     const chips = chipWrapper?.current?.querySelectorAll(".p-chip");
     const overflowCount = overflowingChipsCount(chips, 2);
     setOverflowCounter(overflowCount);
-  };
+  });
 
   // Check if search term characters matches any characters in panel heading
   const searchTermInHeading = highlightSubString(heading, searchTerm).match;

@@ -47,7 +47,7 @@ describe("SearchBox ", () => {
     const onChangeMock = jest.fn();
     render(<SearchBox onChange={onChangeMock} />);
     await userEvent.type(screen.getByRole("searchbox"), "test");
-    expect(onChangeMock).toBeCalledWith("test");
+    expect(onChangeMock).toHaveBeenCalledWith("test");
   });
 
   it("renders extra props", () => {
@@ -107,7 +107,7 @@ describe("SearchBox ", () => {
       />,
     );
     await userEvent.click(screen.getByRole("button", { name: Label.Clear }));
-    expect(handleOnClear).toBeCalled();
+    expect(handleOnClear).toHaveBeenCalledWith();
   });
 
   it("blurs when searching", async () => {
