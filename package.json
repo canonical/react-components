@@ -84,7 +84,7 @@
     "sass": "1.97.2",
     "sass-loader": "16.0.6",
     "semantic-release": "25.0.2",
-    "storybook": "8.6.15",
+    "storybook": "8.6.17",
     "strip-ansi": "7.1.2",
     "style-loader": "4.0.0",
     "stylelint": "17.0.0",
