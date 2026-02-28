@@ -1,5 +1,5 @@
 import React, { act } from "react";
-import { render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 import ActionButton, {
   Label,
@@ -61,48 +61,80 @@ describe("ActionButton", () => {
   });
 
   it("renders loading for LOADER_MIN_DURATION time when loading is shorter", () => {
-    const { rerender } = render(<ActionButton loading>Click me</ActionButton>);
+    const onClick = jest.fn();
+    const { rerender } = render(
+      <ActionButton onClick={onClick} loading>
+        Click me
+      </ActionButton>,
+    );
     expect(screen.getByLabelText(Label.WAITING)).toBeInTheDocument();
-    expect(screen.getByRole("button")).toBeDisabled();
+    const buttonWhileLoading = screen.getByRole("button");
+    expect(buttonWhileLoading).toHaveAttribute("aria-disabled", "true");
+    fireEvent.click(buttonWhileLoading);
+    expect(onClick).toHaveBeenCalledTimes(0);
 
     // use a very short time of loading (1ms)
     act(() => {
       jest.advanceTimersByTime(1);
     });
-    rerender(<ActionButton success>Click me</ActionButton>);
+    rerender(
+      <ActionButton onClick={onClick} success>
+        Click me
+      </ActionButton>,
+    );
     // it should still waiting for at least LOADER_MIN_DURATION
     expect(screen.getByLabelText(Label.WAITING)).toBeInTheDocument();
-    expect(screen.getByRole("button")).toBeDisabled();
-
+    const buttonStillLoading = screen.getByRole("button");
+    expect(buttonStillLoading).toHaveAttribute("aria-disabled", "true");
+    fireEvent.click(buttonStillLoading);
+    expect(onClick).toHaveBeenCalledTimes(0);
     // make sure 1ms before the time of LOADER_MIN_DURATION is met
     // it should still render label as waiting
     act(() => {
       jest.advanceTimersByTime(LOADER_MIN_DURATION - 2);
     });
-    expect(screen.getByLabelText(Label.WAITING)).toBeInTheDocument();
-    expect(screen.getByRole("button")).toBeDisabled();
-
+    const buttonAlmostDone = screen.getByRole("button");
+    expect(buttonAlmostDone).toHaveAttribute("aria-disabled", "true");
+    fireEvent.click(buttonAlmostDone);
+    expect(onClick).toHaveBeenCalledTimes(0);
     // add the last 1ms to match LOADER_MIN_DURATION
     act(() => {
       jest.advanceTimersByTime(1);
     });
     // the ActionButton should finish its loading job
     expect(screen.getByLabelText(Label.SUCCESS)).toBeInTheDocument();
-    expect(screen.getByRole("button")).toBeEnabled();
+    const buttonAfterSuccess = screen.getByRole("button");
+    expect(buttonAfterSuccess).not.toHaveAttribute("aria-disabled", "true");
+    fireEvent.click(buttonAfterSuccess);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 
   it("renders loading for LOADER_MIN_DURATION + 3s when loading is longer", () => {
-    const { rerender } = render(<ActionButton loading>Click me</ActionButton>);
+    const onClick = jest.fn();
+    const { rerender } = render(
+      <ActionButton onClick={onClick} loading>
+        Click me
+      </ActionButton>,
+    );
     expect(screen.getByLabelText(Label.WAITING)).toBeInTheDocument();
-    expect(screen.getByRole("button")).toBeDisabled();
-
+    const buttonLongLoad = screen.getByRole("button");
+    expect(buttonLongLoad).toHaveAttribute("aria-disabled", "true");
+    fireEvent.click(buttonLongLoad);
+    expect(onClick).toHaveBeenCalledTimes(0);
     // use a long time of loading (LOADER_MIN_DURATION + 3 seconds)
     act(() => {
       jest.advanceTimersByTime(LOADER_MIN_DURATION + 3000);
     });
-    rerender(<ActionButton success>Click me</ActionButton>);
+    rerender(
+      <ActionButton onClick={onClick} success>
+        Click me
+      </ActionButton>,
+    );
     // the ActionButton should finish its loading job at LOADER_MIN_DURATION + 3s
     expect(screen.getByLabelText(Label.SUCCESS)).toBeInTheDocument();
-    expect(screen.getByRole("button")).toBeEnabled();
+    const buttonAfterLongLoad = screen.getByRole("button");
+    expect(buttonAfterLongLoad).not.toHaveAttribute("aria-disabled", "true");
+    fireEvent.click(buttonAfterLongLoad);
+    expect(onClick).toHaveBeenCalledTimes(1);
   });
 });

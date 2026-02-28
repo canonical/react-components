@@ -135,13 +135,38 @@ const getPositionStyle = (
 export const adjustForWindow = (
   position: Position,
   fitsWindow: WindowFitment,
+  messageHeight: number = 0,
 ): Position => {
   let newPosition: string = position;
   if (!fitsWindow.fromLeft.fitsLeft && newPosition === "left") {
     newPosition = "top-right";
   }
+  if (
+    fitsWindow.fromTop.spaceAbove < messageHeight / 2 &&
+    newPosition === "left"
+  ) {
+    newPosition = "btm-left";
+  }
+  if (
+    fitsWindow.fromBottom.spaceBelow < messageHeight / 2 &&
+    newPosition === "left"
+  ) {
+    newPosition = "top-left";
+  }
   if (!fitsWindow.fromRight.fitsRight && newPosition === "right") {
     newPosition = "top-left";
+  }
+  if (
+    fitsWindow.fromTop.spaceAbove < messageHeight / 2 &&
+    newPosition === "right"
+  ) {
+    newPosition = "btm-right";
+  }
+  if (
+    fitsWindow.fromBottom.spaceBelow < messageHeight / 2 &&
+    newPosition === "right"
+  ) {
+    newPosition = "top-right";
   }
   if (!fitsWindow.fromRight.fitsLeft && newPosition.endsWith("-right")) {
     newPosition = newPosition.replace("right", "left");
@@ -242,7 +267,9 @@ const Tooltip = ({
 
   const onUpdateWindowFitment = useCallback(
     (fitsWindow: WindowFitment) => {
-      setAdjustedPosition(adjustForWindow(position, fitsWindow));
+      const messageHeight =
+        messageRef.current?.getBoundingClientRect().height ?? 0;
+      setAdjustedPosition(adjustForWindow(position, fitsWindow, messageHeight));
     },
     [setAdjustedPosition, position],
   );

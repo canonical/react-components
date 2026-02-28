@@ -1,9 +1,9 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`ActionButton matches loading snapshot 1`] = `
 <button
+  aria-disabled="true"
   class="p-action-button p-button is-processing is-disabled"
-  disabled=""
 >
   <i
     aria-label="Waiting for action to complete"

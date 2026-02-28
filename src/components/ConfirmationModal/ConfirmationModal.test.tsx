@@ -150,4 +150,62 @@ describe("ConfirmationModal ", () => {
       "submit",
     );
   });
+
+  it("renders without portal by default", () => {
+    const { container } = render(
+      <ConfirmationModal confirmButtonLabel="Proceed" onConfirm={jest.fn()}>
+        Test default rendering
+      </ConfirmationModal>,
+    );
+
+    const modal = container.querySelector(".p-modal");
+    expect(modal).toBeInTheDocument();
+    expect(container.contains(modal)).toBe(true);
+  });
+
+  it("renders inside a portal when renderInPortal is true", () => {
+    const { container } = render(
+      <ConfirmationModal
+        confirmButtonLabel="Proceed"
+        onConfirm={jest.fn()}
+        renderInPortal={true}
+      >
+        Test portal rendering
+      </ConfirmationModal>,
+    );
+
+    const modal = document.querySelector(".p-modal");
+    expect(modal).toBeInTheDocument();
+
+    expect(container.contains(modal)).toBe(false);
+
+    expect(document.body.contains(modal)).toBe(true);
+  });
+
+  it("prioritises portalRenderer over renderInPortal", () => {
+    const PortalRenderer = ({
+      children,
+    }: {
+      children: React.ReactNode;
+    }): React.JSX.Element => (
+      <div data-testid="custom-portal-renderer">{children}</div>
+    );
+
+    render(
+      <ConfirmationModal
+        confirmButtonLabel="Proceed"
+        onConfirm={jest.fn()}
+        renderInPortal={true}
+        portalRenderer={PortalRenderer}
+      >
+        Test custom portal renderer
+      </ConfirmationModal>,
+    );
+
+    const modal = document.querySelector<HTMLElement>(".p-modal");
+    expect(modal).toBeInTheDocument();
+    expect(screen.getByTestId("custom-portal-renderer")).toContainElement(
+      modal,
+    );
+  });
 });

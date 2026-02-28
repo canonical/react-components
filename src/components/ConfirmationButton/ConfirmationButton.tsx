@@ -20,8 +20,11 @@ export type Props = PropsWithSpread<
   {
     /**
      * Additional props to pass to the confirmation modal.
+     * The `renderInPortal` and `portalRenderer` props are controlled internally by this component.
      */
-    confirmationModalProps: SubComponentProps<ConfirmationModalProps>;
+    confirmationModalProps: SubComponentProps<
+      Omit<ConfirmationModalProps, "renderInPortal" | "portalRenderer">
+    >;
     /**
      * An optional text to be shown when hovering over the button.<br/>
      * Defaults to the label of the confirm button in the modal.
@@ -56,6 +59,11 @@ export const ConfirmationButton = ({
   ...actionButtonProps
 }: Props): React.JSX.Element => {
   const { openPortal, closePortal, isOpen, Portal } = usePortal();
+  const {
+    renderInPortal: _ignoredRenderInPortal,
+    portalRenderer: _ignoredPortalRenderer,
+    ...safeConfirmationModalProps
+  } = confirmationModalProps as SubComponentProps<ConfirmationModalProps>;
 
   const handleCancelModal = () => {
     closePortal();
@@ -90,22 +98,21 @@ export const ConfirmationButton = ({
   return (
     <>
       {isOpen && (
-        <Portal>
-          <ConfirmationModal
-            {...confirmationModalProps}
-            close={handleCancelModal}
-            confirmButtonLabel={confirmationModalProps.confirmButtonLabel}
-            onConfirm={handleConfirmModal}
-          >
-            {confirmationModalProps.children}
-            {showShiftClickHint && (
-              <p className="p-text--small u-text--muted u-hide--small">
-                Next time, you can skip this confirmation by holding{" "}
-                <code>SHIFT</code> and clicking the action.
-              </p>
-            )}
-          </ConfirmationModal>
-        </Portal>
+        <ConfirmationModal
+          {...safeConfirmationModalProps}
+          close={handleCancelModal}
+          confirmButtonLabel={confirmationModalProps.confirmButtonLabel}
+          onConfirm={handleConfirmModal}
+          portalRenderer={Portal}
+        >
+          {confirmationModalProps.children}
+          {showShiftClickHint && (
+            <p className="p-text--small u-text--muted u-hide--small">
+              Next time, you can skip this confirmation by holding{" "}
+              <code>SHIFT</code> and clicking the action.
+            </p>
+          )}
+        </ConfirmationModal>
       )}
       <ActionButton
         {...actionButtonProps}

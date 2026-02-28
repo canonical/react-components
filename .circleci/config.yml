@@ -6,6 +6,7 @@ version: 2
 jobs:
   percy:
     <<: *defaults
+    resource_class: large
     steps:
       - checkout
       - run:

@@ -1,4 +1,4 @@
-import { Meta, StoryObj } from "@storybook/react/*";
+import { Meta, StoryObj } from "@storybook/react";
 import CustomSelect from "./CustomSelect";
 import React, { ComponentProps, useState } from "react";
 import { CustomSelectOption } from ".";
@@ -169,12 +169,14 @@ const meta: Meta<StoryProps> = {
   args: {
     name: "customSelect",
     label: "Custom Select",
+    defaultToggleLabel: "Select an option",
     searchable: "auto",
+    searchPlaceholder: "Search",
     initialPosition: "left",
   },
   argTypes: {
     searchable: {
-      options: ["auto", "always", "never"],
+      options: ["auto", "always", "async", "never"],
       control: {
         type: "select",
       },
@@ -253,5 +255,16 @@ export const ManualSearchable: Story = {
   args: {
     options: generateStandardOptions(4),
     searchable: "always",
+  },
+};
+
+/**
+ * Search can be enabled manually by setting `searchable` to `async`.
+ * This will always show the search input regardless of the number of options.
+ */
+export const AsyncSearchable: Story = {
+  args: {
+    options: generateStandardOptions(0),
+    searchable: "async",
   },
 };

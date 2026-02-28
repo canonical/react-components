@@ -87,6 +87,18 @@ describe("CustomSelect", () => {
     expect(screen.getByText("Select an option")).toBeInTheDocument();
   });
 
+  it("should allow customizing the placeholder when no option is selected", () => {
+    render(
+      <CustomSelect
+        options={options}
+        defaultToggleLabel="Custom label"
+        value={null}
+        onChange={() => {}}
+      />,
+    );
+    expect(screen.getByText("Custom label")).toBeInTheDocument();
+  });
+
   it("should display the standard label when selected option has no selectedLabel", () => {
     render(<CustomSelect options={options} value="1" onChange={() => {}} />);
     expect(screen.getByText("Option 1")).toBeInTheDocument();

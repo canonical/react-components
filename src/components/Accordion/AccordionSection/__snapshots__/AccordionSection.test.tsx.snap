@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`AccordionSection  renders 1`] = `
 <li
@@ -10,10 +10,10 @@ exports[`AccordionSection  renders 1`] = `
     role="heading"
   >
     <button
-      aria-controls="#:r0:"
+      aria-controls="#_r_0_"
       aria-expanded="false"
       class="p-accordion__tab"
-      id=":r1:"
+      id="_r_1_"
       role="tab"
       type="button"
     >
@@ -22,9 +22,9 @@ exports[`AccordionSection  renders 1`] = `
   </div>
   <section
     aria-hidden="true"
-    aria-labelledby=":r1:"
+    aria-labelledby="_r_1_"
     class="p-accordion__panel"
-    id=":r0:"
+    id="_r_0_"
     role="tabpanel"
   >
     <span>

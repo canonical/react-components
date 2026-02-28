@@ -222,4 +222,44 @@ describe("Modal ", () => {
     expect(input).toHaveFocus();
     expect(input).toHaveValue("delete item1");
   });
+
+  it("updates focusable elements when an initially disabled button becomes enabled", async () => {
+    const user = userEvent.setup();
+
+    const DynamicButtonModal: FC = () => {
+      const [enabled, setEnabled] = useState(false);
+
+      return (
+        <Modal
+          title="Test"
+          close={jest.fn()}
+          buttonRow={<button disabled={!enabled}>Proceed</button>}
+        >
+          <p>Content</p>
+          <Button onClick={() => setEnabled(true)}>Enable proceed</Button>
+        </Modal>
+      );
+    };
+
+    const { container } = render(<DynamicButtonModal />);
+
+    const closeButton = container.querySelector("button.p-modal__close");
+
+    await user.tab();
+    const enableButton = screen.getByRole("button", {
+      name: /enable proceed/i,
+    });
+    expect(enableButton).toHaveFocus();
+
+    await user.tab();
+    expect(closeButton).toHaveFocus();
+    await user.tab();
+    expect(enableButton).toHaveFocus();
+
+    await user.click(enableButton);
+
+    await user.tab();
+    const proceedButton = screen.getByRole("button", { name: /^proceed$/i });
+    expect(proceedButton).toHaveFocus();
+  });
 });

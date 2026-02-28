@@ -1,0 +1,22 @@
+@import "vanilla-framework";
+
+.prefixed-input {
+  position: relative;
+
+  .prefixed-input__input {
+    padding-top: 0.25rem;
+  }
+
+  .prefixed-input__text {
+    padding-left: $spv--large;
+    padding-top: 0.3rem;
+    pointer-events: none;
+    position: absolute;
+  }
+
+  &--with-label {
+    .prefixed-input__text {
+      top: 2.5rem;
+    }
+  }
+}

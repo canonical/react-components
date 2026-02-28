@@ -67,14 +67,14 @@ export const Modal = ({
 
   const modalRef: RefObject<HTMLDivElement> = useRef(null);
   const closeButtonRef: RefObject<HTMLButtonElement> = useRef(null);
-  const focusableModalElements = useRef(null);
   const handleTabKey = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (focusableModalElements.current.length > 0) {
-      const firstElement = focusableModalElements.current[0];
+    const focusableModalElements = modalRef.current.querySelectorAll(
+      focusableElementSelectors,
+    );
+    if (focusableModalElements.length > 0) {
+      const firstElement = focusableModalElements[0];
       const lastElement =
-        focusableModalElements.current[
-          focusableModalElements.current.length - 1
-        ];
+        focusableModalElements[focusableModalElements.length - 1];
 
       if (!event.shiftKey && document.activeElement === lastElement) {
         (firstElement as HTMLElement).focus();
@@ -111,10 +111,6 @@ export const Modal = ({
     } else {
       modalRef.current.focus();
     }
-
-    focusableModalElements.current = modalRef.current.querySelectorAll(
-      focusableElementSelectors,
-    );
   }, [focusRef]);
 
   useEffect(() => {
