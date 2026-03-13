@@ -145,6 +145,7 @@ const generateLink = <L,>(
     <Button<L>
       className={classNames("p-contextual-menu__link", className)}
       key={key}
+      role="menuitem"
       onClick={
         onClick
           ? (evt) => {
