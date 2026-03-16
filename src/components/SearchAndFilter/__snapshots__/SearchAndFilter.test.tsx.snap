@@ -6,10 +6,10 @@ exports[`Search and filter renders 1`] = `
   data-testid="searchandfilter"
 >
   <div
-    aria-expanded="false"
     class="p-search-and-filter__search-container"
     data-active="true"
     data-empty="true"
+    data-expanded="false"
   >
     <form
       class="p-search-and-filter__box"
