@@ -1,76 +1,70 @@
-import React, { type ReactElement } from "react";
-import { useLayoutEffect, useRef, useCallback } from "react";
-
-import Input, { type InputProps } from "components/Input";
+import React, { type ReactElement, useId } from "react";
 import classNames from "classnames";
+import Input, { type InputProps } from "components/Input";
+import Field from "components/Field";
 import "./PrefixedInput.scss";
-import { PropsWithSpread } from "types";
-import { useListener } from "hooks/useListener";
 
-// export type PrefixedInputProps = Omit<InputProps, "type"> & {
-//   /**
-//    * The immutable text that appears at the beginning of the input field.
-//    * This text is not editable by the user and visually appears inside the input.
-//    */
-//   immutableText: string;
-// };
-
-export type PrefixedInputProps = PropsWithSpread<
-  {
-    /**
-     * The immutable text that appears at the beginning of the input field.
-     * This text is not editable by the user and visually appears inside the input.
-     */
-    immutableText: string;
-  },
-  Omit<InputProps, "type">
->;
+export type PrefixedInputProps = {
+  /**
+   * The immutable text that appears at the beginning of the input field.
+   * This text is not editable by the user and visually appears inside the input.
+   */
+  immutableText: string;
+} & Omit<InputProps, "type">;
 
 const PrefixedInput = ({
   immutableText,
+  disabled,
+  className,
+  wrapperClassName,
+  label,
+  error,
+  help,
+  caution,
+  success,
+  id,
+  required,
   ...props
 }: PrefixedInputProps): ReactElement => {
-  const prefixTextRef = useRef<HTMLDivElement>(null);
-  const inputWrapperRef = useRef<HTMLDivElement>(null);
-
-  const updatePadding = useCallback(() => {
-    const prefixElement = prefixTextRef.current;
-    const inputElement = inputWrapperRef.current?.querySelector("input");
-
-    if (prefixElement && inputElement) {
-      // Adjust the left padding of the input to be the same width as the immutable text.
-      // This displays the user input and the unchangeable text together as one combined string.
-      const prefixWidth = prefixElement.getBoundingClientRect().width;
-      inputElement.style.paddingLeft = `${prefixWidth}px`;
-    }
-  }, []);
-
-  useListener(window, updatePadding, "resize", true);
-  useLayoutEffect(() => {
-    updatePadding();
-  }, [immutableText, props.label, updatePadding]);
+  const defaultId = useId();
+  const inputId = id || defaultId;
 
   return (
-    <div
-      className={classNames("prefixed-input", {
-        "prefixed-input--with-label": !!props.label,
-      })}
+    <Field
+      label={label}
+      error={error}
+      help={help}
+      caution={caution}
+      success={success}
+      required={required}
+      forId={inputId}
+      className={classNames("p-prefixed-input", wrapperClassName)}
     >
-      <div className="prefixed-input__text" ref={prefixTextRef}>
-        {immutableText}
-      </div>
-      <div ref={inputWrapperRef}>
+      <div
+        className={classNames("p-prefixed-input__flex-container", {
+          "is-disabled": disabled,
+          "is-error": !!error,
+          "is-caution": !!caution,
+          "is-success": !!success,
+        })}
+      >
+        <span className="p-prefixed-input__prefix">{immutableText}</span>
         <Input
           {...props}
-          className={classNames("prefixed-input__input", props.className)}
+          id={inputId}
+          disabled={disabled}
+          required={required}
+          // IMPORTANT: pass nulls so Input doesn't trigger its own Field wrapper
+          label={null}
+          error={null}
+          help={null}
+          caution={null}
+          success={null}
           type="text"
-          wrapperClassName={classNames(
-            "prefixed-input__wrapper",
-            props.wrapperClassName,
-          )}
+          className={classNames("p-prefixed-input__input-field", className)}
         />
       </div>
-    </div>
+    </Field>
   );
 };
 

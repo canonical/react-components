@@ -1,120 +1,106 @@
 import React from "react";
-import { render } from "@testing-library/react";
-
+import { render, screen } from "@testing-library/react";
 import PrefixedInput, { PrefixedInputProps } from "./PrefixedInput";
 
-// Mock the Input component
-jest.mock("components/Input", () => {
-  return function MockInput(props: PrefixedInputProps) {
-    return <input data-testid="mock-input" type="text" {...props} />;
+jest.mock("../Input", () => {
+  return function MockInput({
+    label,
+    error,
+    help,
+    ...props
+  }: PrefixedInputProps) {
+    return (
+      <div data-testid="input-wrapper">
+        <input data-testid="mock-input" {...props} />
+        {!label && !error && !help && <span data-testid="input-is-headless" />}
+      </div>
+    );
   };
 });
 
-jest.mock("classnames", () => {
-  return jest.fn((...args) => {
-    return args
-      .filter(Boolean)
-      .map((arg) => {
-        if (typeof arg === "string") {
-          return arg;
-        }
-        if (typeof arg === "object" && arg !== null) {
-          return Object.keys(arg)
-            .filter((key) => arg[key])
-            .join(" ");
-        }
-        return "";
-      })
-      .filter(Boolean)
-      .join(" ");
-  });
+jest.mock("../Field", () => {
+  return function MockField({
+    children,
+    label,
+    error,
+    help,
+    required,
+  }: PrefixedInputProps) {
+    return (
+      <div data-testid="mock-field" className={error ? "is-error" : ""}>
+        {label && (
+          <label>
+            {label}
+            {required && "*"}
+          </label>
+        )}
+        {children}
+        {help && <div data-testid="field-help">{help}</div>}
+        {error && <div data-testid="field-error">{error}</div>}
+      </div>
+    );
+  };
 });
 
 describe("PrefixedInput", () => {
-  beforeEach(() => {
-    // Mock getBoundingClientRect
-    HTMLElement.prototype.getBoundingClientRect = jest.fn(() => ({
-      width: 50,
-      height: 20,
-      top: 0,
-      left: 0,
-      bottom: 20,
-      right: 50,
-      x: 0,
-      y: 0,
-      toJSON: () => {},
-    }));
-  });
-
-  afterEach(() => {
-    jest.restoreAllMocks();
-  });
-
   it("renders the immutable text", () => {
-    const { container } = render(<PrefixedInput immutableText="https://" />);
-    expect(container).toContainHTML("https://");
+    render(<PrefixedInput immutableText="https://" />);
+    expect(screen.getByText("https://")).toBeInTheDocument();
   });
 
-  it("passes extra classes to the input element", () => {
-    const { container } = render(
-      <PrefixedInput immutableText="prefix" className="extra-class" />,
-    );
-    const input = container.querySelector("input") as HTMLInputElement;
-    expect(input).toHaveClass("prefixed-input__input extra-class");
-  });
-
-  it("renders with label class when label is provided", () => {
-    const { container } = render(
-      <PrefixedInput immutableText="prefix" label="Test Label" />,
-    );
-    const element = container.querySelector(".prefixed-input");
-    expect(element).toHaveClass("prefixed-input prefixed-input--with-label");
-  });
-
-  it("renders without label class when label is not provided", () => {
+  it("applies the prefix and input within a flex container", () => {
     const { container } = render(<PrefixedInput immutableText="prefix" />);
-    expect(container.querySelector(".prefixed-input--with-label")).toBeNull();
+    const flexContainer = container.querySelector(
+      ".p-prefixed-input__flex-container",
+    );
+    expect(flexContainer).toBeInTheDocument();
+    expect(flexContainer).toContainElement(screen.getByText("prefix"));
+    expect(flexContainer).toContainElement(screen.getByTestId("mock-input"));
   });
 
-  it("updates padding on window resize", () => {
-    const { container } = render(<PrefixedInput immutableText="https://" />);
-    const input = container.querySelector("input");
-
-    expect(input?.style.paddingLeft).toBe("50px");
-
-    HTMLElement.prototype.getBoundingClientRect = jest.fn(() => ({
-      width: 100,
-      height: 20,
-      top: 0,
-      left: 0,
-      bottom: 20,
-      right: 100,
-      x: 0,
-      y: 0,
-      toJSON: () => {},
-    }));
-
-    window.dispatchEvent(new Event("resize"));
-
-    expect(input?.style.paddingLeft).toBe("100px");
+  it("passes label and required props to the Field wrapper", () => {
+    render(<PrefixedInput immutableText="prefix" label="Website" required />);
+    expect(screen.getByText(/Website/)).toBeInTheDocument();
+    expect(screen.getByText(/\*/)).toBeInTheDocument();
   });
 
-  it("passes additional props to the Input component", () => {
-    const { container } = render(
+  it("strips label/error/help from the inner Input to avoid duplication", () => {
+    render(
       <PrefixedInput
         immutableText="prefix"
-        placeholder="Enter text"
-        disabled
+        label="Label"
+        error="Error"
+        help="Help"
       />,
     );
-    const input = container.querySelector("input");
-    expect(input).toHaveAttribute("placeholder", "Enter text");
-    expect(input).toHaveAttribute("disabled");
+    expect(screen.getByTestId("input-is-headless")).toBeInTheDocument();
   });
 
-  it("sets input type to text", () => {
-    const { container } = render(<PrefixedInput immutableText="prefix" />);
-    const input = container.querySelector("input");
-    expect(input).toHaveAttribute("type", "text");
+  it("applies the error class to the flex container for visual styling", () => {
+    const { container } = render(
+      <PrefixedInput immutableText="prefix" error="Invalid URL" />,
+    );
+    const flexContainer = container.querySelector(
+      ".p-prefixed-input__flex-container",
+    );
+    expect(flexContainer).toHaveClass("is-error");
+  });
+
+  it("applies the disabled class and passes disabled prop", () => {
+    const { container } = render(
+      <PrefixedInput immutableText="prefix" disabled />,
+    );
+    const flexContainer = container.querySelector(
+      ".p-prefixed-input__flex-container",
+    );
+    const input = screen.getByTestId("mock-input");
+
+    expect(flexContainer).toHaveClass("is-disabled");
+    expect(input).toBeDisabled();
+  });
+
+  it("passes additional input props like placeholder", () => {
+    render(<PrefixedInput immutableText="prefix" placeholder="example.com" />);
+    expect(screen.getByPlaceholderText("example.com")).toBeInTheDocument();
   });
 });
