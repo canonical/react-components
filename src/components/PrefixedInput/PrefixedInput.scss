@@ -1,22 +1,68 @@
+@use "sass:map";
 @import "vanilla-framework";
+@include vf-b-placeholders;
 
-.prefixed-input {
-  position: relative;
+.p-prefixed-input {
+  @include vf-b-forms;
 
-  .prefixed-input__input {
-    padding-top: 0.25rem;
+  &__flex-container {
+    @extend %vf-input-elements;
+    align-items: center;
+    display: flex;
+
+    &:focus-within {
+      outline: 0.1875rem solid var(--vf-focus-outline-color);
+      outline-offset: -0.1875rem;
+    }
+
+    &.is-disabled {
+      cursor: not-allowed;
+      opacity: 0.33;
+    }
+
+    &.is-error {
+      background-color: var(--vf-color-background-negative-default);
+      border-bottom-color: var(--vf-color-border-negative);
+    }
+
+    &.is-success {
+      background-color: var(--vf-color-background-positive-default);
+      border-bottom-color: var(--vf-color-border-positive);
+    }
+
+    &.is-caution {
+      background-color: var(--vf-color-background-caution-default);
+      border-bottom-color: var(--vf-color-border-caution);
+    }
   }
 
-  .prefixed-input__text {
-    padding-left: $spv--large;
-    padding-top: 0.3rem;
+  &__prefix {
     pointer-events: none;
-    position: absolute;
+    user-select: none;
+    white-space: nowrap;
   }
 
-  &--with-label {
-    .prefixed-input__text {
-      top: 2.5rem;
+  .p-form-validation {
+    flex: 1;
+  }
+
+  // Reset the actual <input> rendered by the Input component
+  .p-prefixed-input__input-field.p-form-validation__input {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    flex: 1;
+    height: 100%;
+    margin: 0 !important;
+    min-width: 0;
+    padding: 0 !important;
+
+    &:focus {
+      outline: none !important;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
     }
   }
 }

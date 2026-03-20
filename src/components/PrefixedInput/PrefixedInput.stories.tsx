@@ -43,6 +43,24 @@ export const WithError: Story = {
   },
 };
 
+export const WithSuccess: Story = {
+  args: {
+    immutableText: "https://",
+    label: "Website URL",
+    placeholder: "example.com",
+    success: "Valid URL format",
+  },
+};
+
+export const WithCaution: Story = {
+  args: {
+    immutableText: "https://",
+    label: "Website URL",
+    placeholder: "example.com",
+    caution: "This URL might be problematic",
+  },
+};
+
 export const WithHelpText: Story = {
   args: {
     immutableText: "User ID:",
