@@ -1,6 +1,7 @@
+import React from "react";
 import { Meta, StoryObj } from "@storybook/react";
-
 import ActionButton from "./ActionButton";
+import Icon from "components/Icon/Icon";
 
 const meta: Meta<typeof ActionButton> = {
   component: ActionButton,
@@ -36,5 +37,32 @@ export const Loading: Story = {
     loading: true,
     disabled: true,
     children: "Click me!",
+  },
+};
+
+export const IconOnly: Story = {
+  name: "Icon",
+
+  args: {
+    hasIcon: true,
+    children: (
+      <>
+        <Icon name="close" />
+      </>
+    ),
+  },
+};
+
+export const IconText: Story = {
+  name: "Icon & Text",
+
+  args: {
+    hasIcon: true,
+    children: (
+      <>
+        <Icon name="close" />
+        <span>Detach ISO</span>
+      </>
+    ),
   },
 };

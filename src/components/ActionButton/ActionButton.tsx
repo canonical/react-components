@@ -50,6 +50,10 @@ export type Props = PropsWithSpread<
      */
 
     success?: boolean;
+    /**
+     * Whether the button has an icon in the content.
+     */
+    hasIcon?: boolean;
   },
   ButtonHTMLAttributes<HTMLButtonElement>
 >;
@@ -70,6 +74,7 @@ const ActionButton = ({
   inline = false,
   loading = false,
   success = false,
+  hasIcon = false,
   ...buttonProps
 }: Props): React.JSX.Element => {
   const [height, setHeight] = useState<number | null>();
@@ -158,6 +163,7 @@ const ActionButton = ({
       "is-processing": showLoader || showSuccess,
       "is-disabled": disabled === null ? showLoader : disabled,
       "is-inline": inline,
+      "has-icon": hasIcon,
     },
   );
   const showIcon = showLoader || showSuccess;
