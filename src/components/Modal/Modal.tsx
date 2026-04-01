@@ -91,6 +91,19 @@ export const Modal = ({
   const handleEscKey = (
     event: KeyboardEvent | React.KeyboardEvent<HTMLDivElement>,
   ) => {
+    // If there is an open contextual menu dropdown inside (or alongside) this
+    // modal, let the Escape event propagate so that the menu's own keydown
+    // handler can close it first. The modal should only intercept Escape when
+    // no child overlay is open. This fixes the bug where a ContextualMenu
+    // rendered inside a Modal cannot be closed with the Escape key because
+    // stopImmediatePropagation() was called unconditionally, preventing the
+    // menu's document-level keydown listener from ever firing.
+    const hasOpenDropdown = !!document.querySelector(
+      '.p-contextual-menu__dropdown[aria-hidden="false"]',
+    );
+    if (hasOpenDropdown) {
+      return;
+    }
     if ("nativeEvent" in event && event.nativeEvent.stopImmediatePropagation) {
       event.nativeEvent.stopImmediatePropagation();
     } else if ("stopImmediatePropagation" in event) {
