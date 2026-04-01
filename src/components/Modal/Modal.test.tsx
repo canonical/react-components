@@ -4,6 +4,7 @@ import React, { FC, useEffect, useState } from "react";
 
 import Button from "components/Button";
 import Input from "components/Input";
+import ContextualMenu from "components/ContextualMenu";
 import Modal from "./Modal";
 
 describe("Modal ", () => {
@@ -221,6 +222,41 @@ describe("Modal ", () => {
     await userEvent.type(container.querySelector("input"), "delete item1");
     expect(input).toHaveFocus();
     expect(input).toHaveValue("delete item1");
+  });
+
+  it("should allow Escape to close a ContextualMenu inside the modal before closing the modal", async () => {
+    const handleCloseModal = jest.fn();
+    const handleMenuToggle = jest.fn();
+
+    render(
+      <Modal title="Test" close={handleCloseModal}>
+        <ContextualMenu
+          toggleLabel="Open menu"
+          links={[{ children: "Item 1" }]}
+          onToggleMenu={handleMenuToggle}
+          visible={true}
+        />
+      </Modal>,
+    );
+
+    // The contextual menu dropdown should be open (aria-hidden="false")
+    const dropdown = document.querySelector(
+      '.p-contextual-menu__dropdown[aria-hidden="false"]',
+    );
+    expect(dropdown).toBeInTheDocument();
+
+    // Press Escape — should close the menu, not the modal
+    await userEvent.keyboard("{Escape}");
+
+    // The modal close handler should NOT have been called
+    expect(handleCloseModal).not.toHaveBeenCalled();
+
+    // The dropdown should now be closed (no longer present with aria-hidden="false")
+    expect(
+      document.querySelector(
+        '.p-contextual-menu__dropdown[aria-hidden="false"]',
+      ),
+    ).not.toBeInTheDocument();
   });
 
   it("updates focusable elements when an initially disabled button becomes enabled", async () => {
