@@ -176,6 +176,7 @@ const ActionButton = ({
       className={buttonClasses}
       ref={ref}
       onClick={isDisabled ? onClickDisabled : onClick}
+      aria-describedby={buttonProps["aria-describedby"]}
       aria-disabled={isDisabled || undefined}
       style={
         height && width
