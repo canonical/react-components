@@ -59,6 +59,10 @@ export type Props<L = SideNavigationLinkDefaultElement> = PropsWithSpread<
      * Classes to apply to the nav element.
      */
     navClassName?: string;
+    /**
+     * Aria label to apply to the nav element.
+     */
+    ariaLabel?: string;
   },
   HTMLProps<HTMLDivElement>
 >;
@@ -151,6 +155,7 @@ const SideNavigation = <L = SideNavigationLinkDefaultElement,>({
   linkComponent,
   listClassName,
   navClassName,
+  ariaLabel,
   ...props
 }: Props<L>) => {
   return (
@@ -161,7 +166,7 @@ const SideNavigation = <L = SideNavigationLinkDefaultElement,>({
       })}
       {...props}
     >
-      <nav className={navClassName}>
+      <nav aria-label={ariaLabel} className={navClassName}>
         {children ?? generateItems(items, listClassName, linkComponent, dark)}
       </nav>
     </div>
