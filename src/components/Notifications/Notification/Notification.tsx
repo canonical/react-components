@@ -60,6 +60,10 @@ export type Props = PropsWithSpread<
      */
     inline?: boolean;
     /**
+     * Optional element or component to use for the message.
+     */
+    messageElement?: ElementType;
+    /**
      * The function to run when dismissing/closing the notification.
      */
     onDismiss?: () => void;
@@ -127,6 +131,7 @@ const Notification = ({
   className,
   close,
   inline = false,
+  messageElement: MessageComponent = "p",
   onDismiss,
   severity = NotificationSeverity.INFORMATION,
   status,
@@ -174,7 +179,9 @@ const Notification = ({
           </TitleComponent>
         )}
         {inline && <>&ensp;</>}
-        <p className="p-notification__message">{children}</p>
+        <MessageComponent className="p-notification__message">
+          {children}
+        </MessageComponent>
         {onDismiss && (
           <button
             type="button"
