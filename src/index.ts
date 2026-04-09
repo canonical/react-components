@@ -58,6 +58,7 @@ export {
   queue,
 } from "./components/NotificationProvider";
 export { default as LoginPageLayout } from "./components/LoginPageLayout";
+export { default as OutputField } from "./components/OutputField";
 export { default as Pagination } from "./components/Pagination";
 export { default as Panel } from "./components/Panel";
 export { default as PasswordToggle } from "./components/PasswordToggle";
@@ -182,6 +183,7 @@ export type {
   NotificationHelper,
 } from "./components/NotificationProvider";
 export type { LoginPageLayoutProps } from "./components/LoginPageLayout";
+export type { OutputFieldProps } from "./components/OutputField";
 export type { PaginationProps } from "./components/Pagination";
 export type { PanelProps } from "./components/Panel";
 export type { PrefixedInputProps } from "./components/PrefixedInput";
