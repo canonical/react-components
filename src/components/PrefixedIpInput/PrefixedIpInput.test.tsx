@@ -80,14 +80,14 @@ describe("PrefixedIpInput", () => {
   it("displays the editable portion of IPv6 address", () => {
     const { container } = render(
       <PrefixedIpInput
-        cidr="2001:db8::/32"
+        cidr="2001:db8::/31"
         ip="2001:db8::1"
         name="ip"
         onIpChange={jest.fn()}
       />,
     );
     const input = container.querySelector("input");
-    expect(input).toHaveValue(":1");
+    expect(input).toHaveValue("db8::1");
   });
 
   it("renders default help text for IPv4", () => {
@@ -111,7 +111,7 @@ describe("PrefixedIpInput", () => {
         onIpChange={jest.fn()}
       />,
     );
-    expect(container).toContainHTML("The available IPV6 address range is");
+    expect(container).toContainHTML("The subnet CIDR is");
   });
 
   it("renders custom help text when provided", () => {
@@ -192,7 +192,7 @@ describe("PrefixedIpInput", () => {
     const input = container.querySelector("input") as HTMLInputElement;
 
     await userEvent.click(input);
-    await userEvent.paste("2001:db8::5");
+    await userEvent.paste(":5");
 
     expect(onIpChange).toHaveBeenCalledWith("2001:db8::5");
   });

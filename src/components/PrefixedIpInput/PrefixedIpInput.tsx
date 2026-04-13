@@ -93,11 +93,7 @@ const PrefixedIpInput = ({
             ) : (
               <>
                 {" "}
-                The available IPV6 address range is{" "}
-                <code>
-                  {immutable}
-                  {editable}{" "}
-                </code>
+                The subnet CIDR is <code>{cidr}</code>
               </>
             )}
             .
