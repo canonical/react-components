@@ -101,6 +101,8 @@
     "webpack": "5.105.0"
   },
   "dependencies": {
+    "@canonical/react-ds-global": "0.24.0",
+    "@canonical/styles": "0.24.0",
     "@types/jest": "30.0.0",
     "@types/node": "20.19.30",
     "@types/react": "19.2.0",
@@ -161,8 +163,12 @@
   },
   "jest": {
     "moduleNameMapper": {
-      ".scss$": "<rootDir>/src/testing/mock-scss.js"
+      "\\.(css|scss)$": "<rootDir>/src/testing/mock-scss.js",
+      "^@canonical/react-ds-global(.*)$": "<rootDir>/node_modules/@canonical/react-ds-global/dist/esm/$1"
     },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(@canonical)/)"
+    ],
     "preset": "ts-jest/presets/js-with-babel",
     "roots": [
       "<rootDir>/src/"
@@ -183,5 +189,8 @@
       "prefer-alphabetical-dependencies": "error",
       "prefer-alphabetical-devDependencies": "error"
     }
+  },
+  "resolutions": {
+    "@canonical/styles-old": "npm:@canonical/styles@^0.24.0"
   }
 }

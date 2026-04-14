@@ -5,6 +5,7 @@ import ConfirmationModal, {
   ConfirmationModalProps,
 } from "../ConfirmationModal";
 import { usePortal } from "external";
+import { KeyboardKey } from "@canonical/react-ds-global";
 
 const generateTitle = (title: ReactNode) => {
   if (typeof title === "string") {
@@ -109,7 +110,7 @@ export const ConfirmationButton = ({
           {showShiftClickHint && (
             <p className="p-text--small u-text--muted u-hide--small">
               Next time, you can skip this confirmation by holding{" "}
-              <code>SHIFT</code> and clicking the action.
+              <KeyboardKey keyValue="shift" /> and clicking the action.
             </p>
           )}
         </ConfirmationModal>

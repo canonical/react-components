@@ -82,7 +82,9 @@ describe("ConfirmationButton ", () => {
     const button = screen.getByTitle("Confirm");
     const clickEvent = createEvent.click(button);
     fireEvent(button, clickEvent);
-    expect(document.body).toContainHTML("<code>SHIFT</code>");
+    expect(document.body).toContainHTML(
+      '<kbd class="ds keyboard-key">Shift</kbd>',
+    );
   });
 
   it("passes extra classes to the modal wrapper", async () => {
