@@ -21,8 +21,13 @@ export const getIpRangeFromCidr = (cidr: string): string[] => {
   // https://gist.github.com/binarymax/6114792
 
   // Get start IP and number of valid addresses
-  const [startIp, mask] = cidr.split("/");
-  const numberOfAddresses = (1 << (32 - parseInt(mask))) - 1;
+  const [unmaskedStartIp, mask] = cidr.split("/");
+  const maskBits = parseInt(mask, 10);
+  const subnetMask = maskBits === 0 ? 0 : (0xffffffff << (32 - maskBits)) >>> 0;
+  const startIp = convertUint32ToIp(
+    convertIpToUint32(unmaskedStartIp) & subnetMask,
+  );
+  const numberOfAddresses = (1 << (32 - maskBits)) - 1;
 
   // IPv4 can be represented by an unsigned 32-bit integer, so we can use a Uint32Array to store the IP
   const buffer = new ArrayBuffer(4); //4 octets
@@ -62,6 +67,14 @@ export const convertIpToUint32 = (ip: string) => {
   int32[0] =
     (octets[0] << 24) + (octets[1] << 16) + (octets[2] << 8) + octets[3];
   return int32[0];
+};
+
+export const convertUint32ToIp = (ipAsUint32: number) => {
+  const buffer = new ArrayBuffer(4); //4 octets
+  const int32 = new Uint32Array(buffer);
+  int32[0] = ipAsUint32;
+  const octets = Array.from(new Uint8Array(buffer));
+  return octets.reverse().join(".");
 };
 
 /**
@@ -110,10 +123,47 @@ export const getImmutableAndEditableOctets = (
 };
 
 /**
+ * Separates the immutable and editable parts of an IPv6 subnet range.
+ * For simplcity, if the prefix is not on a group boundary, the entire last group is considered editable.
+ *
+ * @param cidr The CIDR notation of the subnet
+ * @returns The immutable and editable parts as two strings in a list
+ */
+export const getImmutableAndEditableIPv6 = (cidr: string): string[] => {
+  const [address, prefix] = cidr.split("/");
+  const prefixLength = parseInt(prefix, 10);
+
+  const [left = "", right = ""] = address.split("::");
+  const leftGroups = left ? left.split(":").filter(Boolean) : [];
+  const rightGroups = right ? right.split(":").filter(Boolean) : [];
+  const missingGroups = Math.max(
+    0,
+    8 - (leftGroups.length + rightGroups.length),
+  );
+
+  const expandedGroups: string[] = [
+    ...leftGroups,
+    ...Array(missingGroups).fill("0"),
+    ...Array(rightGroups.length).fill("0"),
+  ];
+
+  const immutableGroupCount = Math.floor(prefixLength / 16);
+  let immutableIPV6 =
+    immutableGroupCount > 0
+      ? `${expandedGroups.slice(0, immutableGroupCount).join(":")}`
+      : "";
+  if (immutableGroupCount < 8) {
+    immutableIPV6 += immutableIPV6 ? ":" : "";
+  }
+  const editableIPV6 = `${expandedGroups.slice(immutableGroupCount).join(":")}`;
+  return [immutableIPV6, editableIPV6];
+};
+
+/**
  * Get the immutable and editable parts of an IPv4 or IPv6 subnet.
  *
  * @param cidr The CIDR notation of the subnet
- * @returns The immutable and editable  as two strings in a list
+ * @returns The immutable and editable as two strings in a list
  */
 export const getImmutableAndEditable = (cidr: string) => {
   const isIPV4 = isIPv4(cidr.split("/")[0]);
@@ -121,14 +171,5 @@ export const getImmutableAndEditable = (cidr: string) => {
     const [startIp, endIp] = getIpRangeFromCidr(cidr);
     return getImmutableAndEditableOctets(startIp, endIp);
   }
-
-  const [networkAddress] = cidr.split("/");
-  const immutableIPV6 = networkAddress.substring(
-    0,
-    networkAddress.lastIndexOf(":"),
-  );
-  const ipv6PlaceholderColons = 7 - (immutableIPV6.match(/:/g) || []).length; // 7 is the maximum number of colons in an IPv6 address
-  const editableIPV6 = `${"0000:".repeat(ipv6PlaceholderColons)}0000`;
-
-  return [immutableIPV6, editableIPV6];
+  return getImmutableAndEditableIPv6(cidr);
 };
