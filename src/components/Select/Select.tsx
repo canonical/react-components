@@ -10,6 +10,7 @@ import type {
 import Field from "../Field";
 
 import type { ClassName, PropsWithSpread } from "types";
+import { ColSize } from "components/Col";
 
 type Option = OptionHTMLAttributes<HTMLOptionElement>;
 
@@ -34,6 +35,10 @@ export type Props = PropsWithSpread<
      * Help text to show below the field.
      */
     help?: ReactNode;
+    /**
+     * Whether the help should appear after the label (by default it will appear below the field).
+     */
+    helpAfterLabel?: boolean;
     /**
      * Optional class(es) to pass to the help text element.
      */
@@ -67,6 +72,14 @@ export type Props = PropsWithSpread<
      */
     stacked?: boolean;
     /**
+     * The number of columns the field should have when stacked.
+     */
+    stackedFieldColumns?: ColSize;
+    /**
+     * The number of columns the label should have when stacked.
+     */
+    stackedLabelColumns?: ColSize;
+    /**
      * The content for success validation.
      */
     success?: ReactNode;
@@ -99,6 +112,7 @@ const Select = ({
   className,
   error,
   help,
+  helpAfterLabel,
   helpClassName,
   id,
   label,
@@ -107,6 +121,8 @@ const Select = ({
   options,
   required,
   stacked,
+  stackedFieldColumns,
+  stackedLabelColumns,
   success,
   takeFocus,
   wrapperClassName,
@@ -132,6 +148,7 @@ const Select = ({
       error={error}
       forId={selectId}
       help={help}
+      helpAfterLabel={helpAfterLabel}
       helpClassName={helpClassName}
       helpId={helpId}
       isSelect={true}
@@ -139,6 +156,8 @@ const Select = ({
       labelClassName={labelClassName}
       required={required}
       stacked={stacked}
+      stackedFieldColumns={stackedFieldColumns}
+      stackedLabelColumns={stackedLabelColumns}
       success={success}
       validationId={validationId}
     >
