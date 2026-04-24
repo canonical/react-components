@@ -7,6 +7,7 @@ import CheckboxInput from "../CheckboxInput";
 import RadioInput from "../RadioInput";
 
 import type { ClassName, PropsWithSpread } from "types";
+import { ColSize } from "components/Col";
 
 /**
  * The props for the Input component.
@@ -38,6 +39,10 @@ export type Props = PropsWithSpread<
      */
     id?: string;
     /**
+     * Whether the help should appear after the label (by default it will appear below the field).
+     */
+    helpAfterLabel?: boolean;
+    /**
      * The label for the field.
      */
     label?: ReactNode;
@@ -53,6 +58,14 @@ export type Props = PropsWithSpread<
      * Whether the form field should have a stacked appearance.
      */
     stacked?: boolean;
+    /**
+     * The number of columns the field should have when stacked.
+     */
+    stackedFieldColumns?: ColSize;
+    /**
+     * The number of columns the label should have when stacked.
+     */
+    stackedLabelColumns?: ColSize;
     /**
      * The content for success validation.
      */
@@ -83,12 +96,15 @@ const Input = ({
   className,
   error,
   help,
+  helpAfterLabel,
   helpClassName,
   id,
   label,
   labelClassName,
   required,
   stacked,
+  stackedFieldColumns,
+  stackedLabelColumns,
   success,
   takeFocus,
   takeFocusDelay,
@@ -160,6 +176,7 @@ const Input = ({
       error={error}
       forId={inputId}
       help={help}
+      helpAfterLabel={helpAfterLabel}
       helpClassName={helpClassName}
       helpId={helpId}
       isTickElement={type === "checkbox" || type === "radio"}
@@ -167,6 +184,8 @@ const Input = ({
       labelClassName={labelClassName}
       required={required}
       stacked={stacked}
+      stackedFieldColumns={stackedFieldColumns}
+      stackedLabelColumns={stackedLabelColumns}
       success={success}
       validationId={validationId}
     >

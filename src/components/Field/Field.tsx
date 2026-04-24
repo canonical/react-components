@@ -3,7 +3,7 @@ import React from "react";
 import type { ReactNode } from "react";
 
 import Label from "../Label";
-import Col from "../Col";
+import Col, { ColSize } from "../Col";
 
 import type { ClassName } from "types";
 
@@ -40,6 +40,10 @@ export type Props = {
    */
   helpClassName?: string;
   /**
+   * Whether the help should appear after the label (by default it will appear below the field).
+   */
+  helpAfterLabel?: boolean;
+  /**
    * An id to give to the help element.
    */
   helpId?: string;
@@ -71,6 +75,14 @@ export type Props = {
    * Whether the form field should have a stacked appearance.
    */
   stacked?: boolean;
+  /**
+   * The number of columns the field should have when stacked.
+   */
+  stackedFieldColumns?: ColSize;
+  /**
+   * The number of columns the label should have when stacked.
+   */
+  stackedLabelColumns?: ColSize;
   /**
    * The content for success validation.
    */
@@ -120,17 +132,23 @@ const generateLabel = (
   label: Props["label"],
   labelClassName: Props["labelClassName"],
   stacked: Props["stacked"],
+  stackedLabelColumns: Props["stackedLabelColumns"],
+  help: ReactNode,
+  helpAfterLabel: Props["helpAfterLabel"],
 ) => {
   if (!label) {
     return null;
   }
   const labelNode = (
-    <Label className={labelClassName} forId={forId} required={required}>
-      {label}
-    </Label>
+    <>
+      <Label className={labelClassName} forId={forId} required={required}>
+        {label}
+      </Label>
+      {helpAfterLabel ? help : null}
+    </>
   );
   if (stacked) {
-    return <Col size={4}>{labelNode}</Col>;
+    return <Col size={stackedLabelColumns}>{labelNode}</Col>;
   }
   return labelNode;
 };
@@ -141,17 +159,15 @@ const generateContent = ({
   labelFirst,
   labelNode,
   help,
-  helpClassName,
   error,
   caution,
   success,
   validationId,
-  helpId,
-  isTickElement,
+  helpAfterLabel,
 }: Partial<Props> & {
   labelNode: React.JSX.Element | null;
   validationId: string;
-  helpId: string;
+  help: ReactNode;
 }) => (
   <div className="p-form__control u-clearfix">
     {isSelect ? (
@@ -160,12 +176,7 @@ const generateContent = ({
       children
     )}
     {!labelFirst && labelNode}
-    {generateHelpText({
-      helpId,
-      help,
-      helpClassName,
-      isTickElement,
-    })}
+    {helpAfterLabel ? null : help}
     {generateError(error, caution, success, validationId)}
   </div>
 );
@@ -178,6 +189,7 @@ const Field = ({
   forId,
   help,
   helpClassName,
+  helpAfterLabel,
   helpId,
   isSelect,
   isTickElement,
@@ -186,31 +198,40 @@ const Field = ({
   labelFirst = true,
   required,
   stacked,
+  stackedFieldColumns = 8,
+  stackedLabelColumns = 4,
   success,
   validationId,
   ...props
 }: Props): React.JSX.Element => {
+  const helpNode = generateHelpText({
+    helpId,
+    help,
+    helpClassName,
+    isTickElement,
+  });
   const labelNode = generateLabel(
     forId,
     required,
     label,
     labelClassName,
     stacked,
+    stackedLabelColumns,
+    helpNode,
+    helpAfterLabel,
   );
 
   const content = generateContent({
     isSelect,
-    isTickElement,
     children,
     labelFirst,
     labelNode,
-    help,
-    helpClassName,
+    help: helpNode,
     error,
     caution,
     success,
     validationId,
-    helpId,
+    helpAfterLabel,
   });
   return (
     <div
@@ -223,7 +244,7 @@ const Field = ({
       {...props}
     >
       {labelFirst && labelNode}
-      {stacked ? <Col size={8}>{content}</Col> : content}
+      {stacked ? <Col size={stackedFieldColumns}>{content}</Col> : content}
     </div>
   );
 };

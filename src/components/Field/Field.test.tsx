@@ -126,6 +126,20 @@ describe("Field ", () => {
     );
   });
 
+  it("can display the help message after the label", () => {
+    render(
+      <Field
+        label="Test label"
+        help="This is how you do it"
+        data-testid="field"
+        helpAfterLabel
+      />,
+    );
+    const field = screen.getByTestId("field");
+    expect(field.childNodes[0]).toHaveClass("p-form__label");
+    expect(field.childNodes[1]).toHaveClass("p-form-help-text");
+  });
+
   it("can display the label before the input", () => {
     render(
       <Field
@@ -176,6 +190,25 @@ describe("Field ", () => {
     // The control should be inside a col-8.
     expect(
       document.querySelector(".col-8 .p-form__control"),
+    ).toBeInTheDocument();
+    expect(screen.getByTestId("field")).toHaveClass("row");
+  });
+
+  it("can set custom column widths when stacked", () => {
+    render(
+      <Field
+        stacked={true}
+        label="Test label"
+        data-testid="field"
+        stackedFieldColumns={6}
+        stackedLabelColumns={2}
+      />,
+    );
+    // The Label should be inside a col-2.
+    expect(document.querySelector(".col-2 .p-form__label")).toBeInTheDocument();
+    // The control should be inside a col-6.
+    expect(
+      document.querySelector(".col-6 .p-form__control"),
     ).toBeInTheDocument();
     expect(screen.getByTestId("field")).toHaveClass("row");
   });
