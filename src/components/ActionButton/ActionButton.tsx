@@ -1,11 +1,12 @@
 import classNames from "classnames";
 import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
+import type { ReactNode } from "react";
 
 import type { ButtonProps } from "../Button";
 import Icon from "../Icon";
 
 import type { ClassName, PropsWithSpread } from "types";
+import Button from "../Button";
 
 export const LOADER_MIN_DURATION = 400; // minimium duration (ms) loader displays
 export const SUCCESS_DURATION = 2000; // duration (ms) success tick is displayed
@@ -51,7 +52,7 @@ export type Props = PropsWithSpread<
 
     success?: boolean;
   },
-  ButtonHTMLAttributes<HTMLButtonElement>
+  ButtonProps
 >;
 
 /**
@@ -172,7 +173,7 @@ const ActionButton = ({
   // forwardRef which is not currently supported by components that use
   // typescript generics.
   return (
-    <button
+    <Button
       className={buttonClasses}
       ref={ref}
       onClick={isDisabled ? onClickDisabled : onClick}
@@ -180,9 +181,9 @@ const ActionButton = ({
       style={
         height && width
           ? {
-              height: `${height}px`,
-              width: `${width}px`,
-            }
+            height: `${height}px`,
+            width: `${width}px`,
+          }
           : undefined
       }
       {...buttonProps}
@@ -197,7 +198,7 @@ const ActionButton = ({
       ) : (
         children
       )}
-    </button>
+    </Button>
   );
 };
 

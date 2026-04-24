@@ -6,6 +6,7 @@ import type {
   ElementType,
   MouseEventHandler,
   ReactNode,
+  Ref,
 } from "react";
 
 import type { ClassName, ValueOf } from "types";
@@ -64,6 +65,10 @@ export type Props<P = null> = {
    * Whether the button should be small.
    */
   small?: boolean;
+  /**
+   * A ref to the button.
+   */
+  ref?: Ref<HTMLButtonElement>;
 } & (Omit<ButtonHTMLAttributes<HTMLButtonElement>, "onClick"> | P);
 
 /**

@@ -4,8 +4,9 @@ import { Meta, StoryObj } from "@storybook/react";
 
 import ConfirmationModal from "./ConfirmationModal";
 import Input from "../Input";
+import Icon from "components/Icon";
 
-const doNothing = () => {};
+const doNothing = () => { };
 
 const meta: Meta<typeof ConfirmationModal> = {
   component: ConfirmationModal,
@@ -30,9 +31,12 @@ export const Default: Story = {
         {modalOpen ? (
           <ConfirmationModal
             title="Confirm delete"
-            confirmButtonLabel="Delete"
+            confirmButtonLabel={<><Icon name="delete" light /><span>Delete</span></>}
             onConfirm={doNothing}
             close={closeHandler}
+            confirmButtonProps={{
+              hasIcon: true
+            }}
           >
             <p>
               This will permanently delete the user "Simon".
