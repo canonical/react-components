@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 import type { ButtonProps } from "../Button";
 import Icon from "../Icon";
@@ -122,16 +122,14 @@ const ActionButton = ({
     return () => window.clearTimeout(successTimeout);
   }, [showSuccess]);
 
-  const buttonClasses = classNames(
-    className,
-    "p-action-button",
-    {
-      "is-processing": showLoader || showSuccess,
-    },
-  );
+  const buttonClasses = classNames(className, "p-action-button", {
+    "is-processing": showLoader || showSuccess,
+  });
   const showIcon = showLoader || showSuccess;
   const icon = (showLoader && "spinner") || (showSuccess && "success") || null;
-  const iconLight = buttonProps.appearance === "positive" || buttonProps.appearance === "negative";
+  const iconLight =
+    buttonProps.appearance === "positive" ||
+    buttonProps.appearance === "negative";
 
   return (
     <Button
