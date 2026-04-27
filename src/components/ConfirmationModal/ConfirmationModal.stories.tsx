@@ -31,7 +31,12 @@ export const Default: Story = {
         {modalOpen ? (
           <ConfirmationModal
             title="Confirm delete"
-            confirmButtonLabel={<><Icon name="delete" light /><span>Delete</span></>}
+            confirmButtonLabel={
+              <>
+                <Icon name="delete" light />
+                <span>Delete</span>
+              </>
+            }
             onConfirm={doNothing}
             close={closeHandler}
             confirmButtonProps={{
