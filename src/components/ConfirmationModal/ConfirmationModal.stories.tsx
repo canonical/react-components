@@ -6,7 +6,7 @@ import ConfirmationModal from "./ConfirmationModal";
 import Input from "../Input";
 import Icon from "components/Icon";
 
-const doNothing = () => { };
+const doNothing = () => {};
 
 const meta: Meta<typeof ConfirmationModal> = {
   component: ConfirmationModal,
@@ -35,7 +35,7 @@ export const Default: Story = {
             onConfirm={doNothing}
             close={closeHandler}
             confirmButtonProps={{
-              hasIcon: true
+              hasIcon: true,
             }}
           >
             <p>

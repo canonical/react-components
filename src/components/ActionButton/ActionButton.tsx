@@ -1,11 +1,10 @@
 import classNames from "classnames";
 import React, { MouseEventHandler, useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
 
 import type { ButtonProps } from "../Button";
 import Icon from "../Icon";
 
-import type { ClassName, PropsWithSpread } from "types";
+import type { PropsWithSpread } from "types";
 import Button from "../Button";
 
 export const LOADER_MIN_DURATION = 400; // minimium duration (ms) loader displays
@@ -19,37 +18,12 @@ export enum Label {
 export type Props = PropsWithSpread<
   {
     /**
-     * The appearance of the button.
-     */
-    appearance?: ButtonProps["appearance"];
-    /**
-     * The content of the button.
-     */
-    children?: ReactNode;
-    /**
-     * Optional class(es) to pass to the button element.
-     */
-    className?: ClassName;
-    /**
-     * Whether the button should be disabled.
-     */
-    disabled?: boolean;
-    /**
-     * Whether the button should display inline.
-     */
-    inline?: boolean;
-    /**
      * Whether the button should be in the loading state.
      */
     loading?: boolean;
     /**
-     * Function for handling button click event.
-     */
-    onClick?: MouseEventHandler<HTMLButtonElement>;
-    /**
      * Whether the button should be in the success state.
      */
-
     success?: boolean;
   },
   ButtonProps
@@ -63,12 +37,9 @@ export type Props = PropsWithSpread<
  * props table:
  */
 const ActionButton = ({
-  appearance,
   children,
   className,
-  onClick,
   disabled = null,
-  inline = false,
   loading = false,
   success = false,
   ...buttonProps
@@ -154,36 +125,25 @@ const ActionButton = ({
   const buttonClasses = classNames(
     className,
     "p-action-button",
-    appearance ? `p-button--${appearance}` : "p-button",
     {
       "is-processing": showLoader || showSuccess,
-      "is-disabled": disabled === null ? showLoader : disabled,
-      "is-inline": inline,
     },
   );
   const showIcon = showLoader || showSuccess;
-  const isDisabled = disabled === null ? showLoader : disabled;
   const icon = (showLoader && "spinner") || (showSuccess && "success") || null;
-  const iconLight = appearance === "positive" || appearance === "negative";
-  const onClickDisabled: MouseEventHandler<HTMLButtonElement> = (e) =>
-    e.preventDefault();
+  const iconLight = buttonProps.appearance === "positive" || buttonProps.appearance === "negative";
 
-  // This component uses the base button element instead of the Button component
-  // as the button requires a ref and Button would have to be updated to use
-  // forwardRef which is not currently supported by components that use
-  // typescript generics.
   return (
     <Button
       className={buttonClasses}
       ref={ref}
-      onClick={isDisabled ? onClickDisabled : onClick}
-      aria-disabled={isDisabled || undefined}
+      disabled={disabled === null ? showLoader : disabled}
       style={
         height && width
           ? {
-            height: `${height}px`,
-            width: `${width}px`,
-          }
+              height: `${height}px`,
+              width: `${width}px`,
+            }
           : undefined
       }
       {...buttonProps}
