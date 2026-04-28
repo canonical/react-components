@@ -17,6 +17,25 @@ describe("SearchBox ", () => {
     ).toBeInTheDocument();
   });
 
+  it("shows and clears the button in uncontrolled mode", async () => {
+    const onChangeMock = jest.fn();
+    render(<SearchBox onChange={onChangeMock} />);
+
+    const searchInput = screen.getByRole("searchbox");
+    await userEvent.type(searchInput, "admin");
+
+    const clearButton = screen.getByRole("button", { name: Label.Clear });
+    expect(clearButton).toBeInTheDocument();
+
+    await userEvent.click(clearButton);
+
+    expect(searchInput).toHaveValue("");
+    expect(onChangeMock).toHaveBeenLastCalledWith("");
+    expect(
+      screen.queryByRole("button", { name: Label.Clear }),
+    ).not.toBeInTheDocument();
+  });
+
   it("can externally control the value", () => {
     const { rerender } = render(
       <SearchBox externallyControlled onChange={jest.fn()} value="admin" />,
