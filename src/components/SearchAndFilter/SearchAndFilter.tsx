@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef, KeyboardEvent } from "react";
-
 import FilterPanelSection from "./FilterPanelSection";
 import Chip from "../Chip";
 import { overflowingChipsCount, isChipInArray } from "./utils";
@@ -241,7 +240,7 @@ const SearchAndFilter = ({
     >
       <div
         className="p-search-and-filter__search-container"
-        aria-expanded={searchBoxExpanded}
+        data-expanded={searchBoxExpanded}
         data-active={searchContainerActive || searchData.length === 0}
         data-empty={searchData.length <= 0}
         ref={searchContainerRef}
