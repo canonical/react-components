@@ -39,11 +39,9 @@ export type MultiSelectProps = {
   isSortedAlphabetically?: boolean;
   hasSelectedItemsFirst?: boolean;
   id?: string;
-  searchValue?: string;
   onSearchChange?: (value: string) => void;
   onOpen?: () => void;
   onClose?: () => void;
-  onResetSearch?: () => void;
 };
 
 type ValueSet = Set<MultiSelectItem["value"]>;
@@ -229,19 +227,24 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   isSortedAlphabetically = true,
   hasSelectedItemsFirst = true,
   id,
-  searchValue,
   onSearchChange,
   onOpen,
   onClose,
-  onResetSearch,
   help,
   helpClassName,
 }: MultiSelectProps) => {
   const buttonRef = useRef(null);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [internalSearchValue, setInternalSearchValue] = useState("");
-  const previousOpenState = useRef(isDropdownOpen);
-  const filter = searchValue ?? internalSearchValue;
+  const [filter, setFilter] = useState("");
+
+  const handleSetDropdownOpen = (newState: boolean) => {
+    if (newState && !isDropdownOpen) {
+      onOpen?.();
+    } else if (!newState && isDropdownOpen) {
+      onClose?.();
+    }
+    setIsDropdownOpen(newState);
+  };
 
   const [internalSelectedItems, setInternalSelectedItems] = useState<
     MultiSelectItem[]
@@ -249,10 +252,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   const selectedItems = externalSelectedItems || internalSelectedItems;
   const helpId = useId();
 
-  const updateSearchValue = (value: string) => {
-    if (searchValue === undefined) {
-      setInternalSearchValue(value);
-    }
+  const updateFilter = (value: string) => {
+    setFilter(value);
     onSearchChange?.(value);
   };
 
@@ -260,8 +261,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     if (!filter.length) {
       return;
     }
-    updateSearchValue("");
-    onResetSearch?.();
+    updateFilter("");
   };
 
   const updateItems = (newItems: MultiSelectItem[]) => {
@@ -272,19 +272,6 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
 
   const dropdownId = useId();
   const inputId = useId();
-
-  useEffect(() => {
-    if (previousOpenState.current === isDropdownOpen) {
-      return;
-    }
-
-    if (isDropdownOpen) {
-      onOpen?.();
-    } else {
-      onClose?.();
-    }
-    previousOpenState.current = isDropdownOpen;
-  }, [isDropdownOpen, onClose, onOpen]);
 
   const selectedItemsLabel = selectedItems
     .filter((selectedItem) =>
@@ -341,7 +328,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           // Handle syncing the state when toggling the menu from within the
           // contextual menu component e.g. when clicking outside.
           if (isOpen !== isDropdownOpen) {
-            setIsDropdownOpen(isOpen);
+            handleSetDropdownOpen(isOpen);
           }
         }}
         position="left"
@@ -358,12 +345,12 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               disabled={disabled}
               autoComplete="off"
               onChange={(value) => {
-                updateSearchValue(value);
+                updateFilter(value);
                 // reopen if dropdown has been closed via ESC
-                setIsDropdownOpen(true);
+                handleSetDropdownOpen(true);
               }}
               onClear={resetSearch}
-              onFocus={() => setIsDropdownOpen(true)}
+              onFocus={() => handleSetDropdownOpen(true)}
               placeholder={placeholder ?? "Search"}
               required={required}
               type="text"
@@ -379,7 +366,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               aria-expanded={isDropdownOpen}
               className="multi-select__select-button"
               onClick={() => {
-                setIsDropdownOpen(!isDropdownOpen);
+                handleSetDropdownOpen(!isDropdownOpen);
               }}
               onMouseDown={(event) => {
                 // If the dropdown is open when this button is clicked the

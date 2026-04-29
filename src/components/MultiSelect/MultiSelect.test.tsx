@@ -97,33 +97,29 @@ it("can filter option list", async () => {
   await waitFor(() => expect(screen.getAllByRole("listitem")).toHaveLength(2));
 });
 
-it("supports controlled search input", async () => {
-  const ControlledMultiSelect = () => {
-    const [searchValue, setSearchValue] = React.useState("");
-
-    return (
-      <MultiSelect
-        variant="search"
-        items={items}
-        searchValue={searchValue}
-        onSearchChange={setSearchValue}
-      />
-    );
-  };
-
-  render(<ControlledMultiSelect />);
+it("tracks search changes via onSearchChange callback", async () => {
+  const onSearchChange = jest.fn();
+  render(
+    <MultiSelect
+      variant="search"
+      items={items}
+      onSearchChange={onSearchChange}
+    />,
+  );
 
   await userEvent.click(screen.getByRole("combobox"));
   await userEvent.type(screen.getByRole("combobox"), "item");
 
   expect(screen.getByRole("combobox")).toHaveValue("item");
-  await waitFor(() => expect(screen.getAllByRole("listitem")).toHaveLength(2));
+  expect(onSearchChange).toHaveBeenCalledWith("i");
+  expect(onSearchChange).toHaveBeenCalledWith("it");
+  expect(onSearchChange).toHaveBeenCalledWith("ite");
+  expect(onSearchChange).toHaveBeenCalledWith("item");
 });
 
-it("calls search lifecycle callbacks", async () => {
+it("calls lifecycle callbacks", async () => {
   const onOpen = jest.fn();
   const onClose = jest.fn();
-  const onResetSearch = jest.fn();
 
   render(
     <MultiSelect
@@ -131,7 +127,6 @@ it("calls search lifecycle callbacks", async () => {
       items={items}
       onOpen={onOpen}
       onClose={onClose}
-      onResetSearch={onResetSearch}
     />,
   );
 
@@ -142,7 +137,6 @@ it("calls search lifecycle callbacks", async () => {
   await userEvent.click(document.body);
 
   await waitFor(() => expect(onClose).toHaveBeenCalled());
-  expect(onResetSearch).toHaveBeenCalledTimes(1);
   expect(screen.getByRole("combobox")).toHaveValue("");
 });
 

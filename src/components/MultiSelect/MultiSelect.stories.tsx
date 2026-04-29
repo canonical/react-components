@@ -152,9 +152,8 @@ export const HelpText: Story = {
   },
 };
 
-const FormikControlledSearchAndLifecycleTemplate = () => {
+const FormikCallbacksAndEmptyStateTemplate = () => {
   const [selectedItems, setSelectedItems] = useState<MultiSelectItem[]>([]);
-  const [searchValue, setSearchValue] = useState("");
   const [events, setEvents] = useState<string[]>([]);
 
   const addEvent = (eventName: string) => {
@@ -173,14 +172,11 @@ const FormikControlledSearchAndLifecycleTemplate = () => {
           items={groupedItems}
           selectedItems={selectedItems}
           onItemsUpdate={setSelectedItems}
-          searchValue={searchValue}
           onSearchChange={(value: string) => {
-            setSearchValue(value);
             addEvent(`onSearchChange("${value}")`);
           }}
           onOpen={() => addEvent("onOpen()")}
           onClose={() => addEvent("onClose()")}
-          onResetSearch={() => addEvent("onResetSearch()")}
           emptyMessage="No ingredients found"
         />
       </Formik>
@@ -194,8 +190,8 @@ const FormikControlledSearchAndLifecycleTemplate = () => {
   );
 };
 
-export const FormikControlledSearchAndLifecycle: Story = {
-  render: FormikControlledSearchAndLifecycleTemplate,
+export const FormikCallbacksAndEmptyState: Story = {
+  render: FormikCallbacksAndEmptyStateTemplate,
 };
 
 export const EmptyMessage: Story = {
