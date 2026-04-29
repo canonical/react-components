@@ -1,7 +1,9 @@
 import React from "react";
 import { useState } from "react";
+import { Formik } from "formik";
 import { Meta, StoryObj } from "@storybook/react";
 
+import { FormikField } from "../../index";
 import { MultiSelect, MultiSelectItem, MultiSelectProps } from "./MultiSelect";
 
 const Template = (props: MultiSelectProps) => {
@@ -27,6 +29,13 @@ const meta: Meta<typeof MultiSelect> = {
 export default meta;
 
 type Story = StoryObj<typeof MultiSelect>;
+
+const groupedItems = [
+  { label: "Almond", value: "almond", group: "Nuts" },
+  { label: "Cashew", value: "cashew", group: "Nuts" },
+  { label: "Mango", value: "mango", group: "Fruit" },
+  { label: "Peach", value: "peach", group: "Fruit" },
+];
 
 export const CondensedExample: Story = {
   args: {
@@ -139,6 +148,71 @@ export const HelpText: Story = {
       <span>
         This is a help text, that should appear underneath the component.
       </span>
+    ),
+  },
+};
+
+const FormikCallbacksAndEmptyStateTemplate = () => {
+  const [selectedItems, setSelectedItems] = useState<MultiSelectItem[]>([]);
+  const [events, setEvents] = useState<string[]>([]);
+
+  const addEvent = (eventName: string) => {
+    setEvents((previousEvents) => [eventName, ...previousEvents].slice(0, 6));
+  };
+
+  return (
+    <div style={{ maxWidth: "28rem" }}>
+      <Formik initialValues={{ ingredients: "" }} onSubmit={() => {}}>
+        <FormikField
+          name="ingredients"
+          component={MultiSelect}
+          label="Ingredients"
+          variant="search"
+          placeholder="Search ingredients"
+          items={groupedItems}
+          selectedItems={selectedItems}
+          onItemsUpdate={setSelectedItems}
+          onSearchChange={(value: string) => {
+            addEvent(`onSearchChange("${value}")`);
+          }}
+          onOpen={() => addEvent("onOpen()")}
+          onClose={() => addEvent("onClose()")}
+          emptyMessage="No ingredients found"
+        />
+      </Formik>
+      <p style={{ marginBottom: "0.5rem" }}>Callback log:</p>
+      <ul style={{ margin: 0, paddingLeft: "1.25rem" }}>
+        {events.map((event, index) => (
+          <li key={`${event}-${index}`}>{event}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export const FormikCallbacksAndEmptyState: Story = {
+  render: FormikCallbacksAndEmptyStateTemplate,
+};
+
+export const EmptyMessage: Story = {
+  args: {
+    variant: "search",
+    items: groupedItems,
+    emptyMessage: "No matching ingredients.",
+    placeholder: "Try typing kiwi",
+  },
+};
+
+export const EmptyStateNode: Story = {
+  args: {
+    variant: "search",
+    items: groupedItems,
+    placeholder: "Try typing kiwi",
+    emptyState: (
+      <div className="u-align--center" style={{ padding: "0.75rem 1rem" }}>
+        <strong>No ingredient matches.</strong>
+        <p style={{ margin: "0.25rem 0 0" }}>Use a broader term.</p>
+      </div>
     ),
   },
 };
