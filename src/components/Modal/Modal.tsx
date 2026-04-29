@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React, { useId, useRef, useEffect } from "react";
 import type { HTMLProps, ReactNode, RefObject } from "react";
 import { ClassName, PropsWithSpread } from "types";
+import { useOnEscapePressed } from "hooks";
 
 export type Props = PropsWithSpread<
   {
@@ -88,33 +89,7 @@ export const Modal = ({
     }
   };
 
-  const handleEscKey = (
-    event: KeyboardEvent | React.KeyboardEvent<HTMLDivElement>,
-  ) => {
-    // If there is an open contextual menu dropdown inside (or alongside) this
-    // modal, let the Escape event propagate so that the menu's own keydown
-    // handler can close it first. The modal should only intercept Escape when
-    // no child overlay is open. This fixes the bug where a ContextualMenu
-    // rendered inside a Modal cannot be closed with the Escape key because
-    // stopImmediatePropagation() was called unconditionally, preventing the
-    // menu's document-level keydown listener from ever firing.
-    const hasOpenDropdown = !!document.querySelector(
-      '.p-contextual-menu__dropdown[aria-hidden="false"]',
-    );
-    if (hasOpenDropdown) {
-      return;
-    }
-    if ("nativeEvent" in event && event.nativeEvent.stopImmediatePropagation) {
-      event.nativeEvent.stopImmediatePropagation();
-    } else if ("stopImmediatePropagation" in event) {
-      event.stopImmediatePropagation();
-    } else if (event.stopPropagation) {
-      event.stopPropagation();
-    }
-    if (close) {
-      close();
-    }
-  };
+  useOnEscapePressed(() => close?.(), { isEnabled: !!close });
 
   useEffect(() => {
     if (focusRef?.current) {
@@ -127,14 +102,10 @@ export const Modal = ({
   }, [focusRef]);
 
   useEffect(() => {
-    const keyListenersMap = new Map([
-      ["Escape", handleEscKey],
-      ["Tab", handleTabKey],
-    ]);
-
     const keyDown = (event: KeyboardEvent) => {
-      const listener = keyListenersMap.get(event.code);
-      return listener && listener(event);
+      if (event.code === "Tab") {
+        handleTabKey(event as unknown as React.KeyboardEvent<HTMLDivElement>);
+      }
     };
 
     document.addEventListener("keydown", keyDown);

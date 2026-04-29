@@ -221,6 +221,8 @@ export type {
 } from "./components/CustomSelect";
 
 export {
+  pushEscapeHandler,
+  useEscapeStack,
   useOnClickOutside,
   useClickOutside,
   useId,
