@@ -97,6 +97,86 @@ it("can filter option list", async () => {
   await waitFor(() => expect(screen.getAllByRole("listitem")).toHaveLength(2));
 });
 
+it("supports controlled search input", async () => {
+  const ControlledMultiSelect = () => {
+    const [searchValue, setSearchValue] = React.useState("");
+
+    return (
+      <MultiSelect
+        variant="search"
+        items={items}
+        searchValue={searchValue}
+        onSearchChange={setSearchValue}
+      />
+    );
+  };
+
+  render(<ControlledMultiSelect />);
+
+  await userEvent.click(screen.getByRole("combobox"));
+  await userEvent.type(screen.getByRole("combobox"), "item");
+
+  expect(screen.getByRole("combobox")).toHaveValue("item");
+  await waitFor(() => expect(screen.getAllByRole("listitem")).toHaveLength(2));
+});
+
+it("calls search lifecycle callbacks", async () => {
+  const onOpen = jest.fn();
+  const onClose = jest.fn();
+  const onResetSearch = jest.fn();
+
+  render(
+    <MultiSelect
+      variant="search"
+      items={items}
+      onOpen={onOpen}
+      onClose={onClose}
+      onResetSearch={onResetSearch}
+    />,
+  );
+
+  await userEvent.click(screen.getByRole("combobox"));
+  expect(onOpen).toHaveBeenCalledTimes(1);
+
+  await userEvent.type(screen.getByRole("combobox"), "item");
+  await userEvent.click(document.body);
+
+  await waitFor(() => expect(onClose).toHaveBeenCalled());
+  expect(onResetSearch).toHaveBeenCalledTimes(1);
+  expect(screen.getByRole("combobox")).toHaveValue("");
+});
+
+it("renders emptyMessage when no items match", async () => {
+  render(
+    <MultiSelect
+      variant="search"
+      items={items}
+      emptyMessage="No results found"
+    />,
+  );
+
+  await userEvent.click(screen.getByRole("combobox"));
+  await userEvent.type(screen.getByRole("combobox"), "does not exist");
+
+  expect(screen.queryAllByRole("listitem")).toHaveLength(0);
+  expect(screen.getByText("No results found")).toBeInTheDocument();
+});
+
+it("renders emptyState when no items match", async () => {
+  render(
+    <MultiSelect
+      variant="search"
+      items={items}
+      emptyState={<div>No custom items</div>}
+    />,
+  );
+
+  await userEvent.click(screen.getByRole("combobox"));
+  await userEvent.type(screen.getByRole("combobox"), "does not exist");
+
+  expect(screen.getByText("No custom items")).toBeInTheDocument();
+});
+
 it("can display a custom dropdown header and footer", async () => {
   render(
     <MultiSelect
