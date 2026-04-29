@@ -105,7 +105,11 @@ describe("Modal ", () => {
     expect(closeButton).toHaveFocus();
   });
 
-  it("should stop immediate Esc press propagation", async () => {
+  it("should stop immediate Esc press propagation to other document listeners", async () => {
+    // A sibling component that registers a raw document keydown listener.
+    // It should NOT fire when the Modal handles Escape, because the global
+    // escape stack calls stopImmediatePropagation() before any other
+    // document listeners run.
     const MockEscEventComponent = ({
       onEscPress,
     }: {
@@ -113,7 +117,7 @@ describe("Modal ", () => {
     }): React.JSX.Element => {
       useEffect(() => {
         const handleEscPress = (e: KeyboardEvent) => {
-          if (e.code === "Escape") {
+          if (e.key === "Escape") {
             onEscPress();
           }
         };
@@ -224,39 +228,31 @@ describe("Modal ", () => {
     expect(input).toHaveValue("delete item1");
   });
 
-  it("should allow Escape to close a ContextualMenu inside the modal before closing the modal", async () => {
+  it("should allow Escape to close an open overlay inside the modal before closing the modal", async () => {
+    // Regression test for https://github.com/canonical/react-components/issues/1305
+    //
+    // Both Modal and ContextualMenu register on the global escape-key stack.
+    // The menu is opened after the modal, so its handler sits on top of the
+    // stack and must be called first (LIFO order).
     const handleCloseModal = jest.fn();
-    const handleMenuToggle = jest.fn();
 
     render(
       <Modal title="Test" close={handleCloseModal}>
         <ContextualMenu
           toggleLabel="Open menu"
           links={[{ children: "Item 1" }]}
-          onToggleMenu={handleMenuToggle}
           visible={true}
         />
       </Modal>,
     );
 
-    // The contextual menu dropdown should be open (aria-hidden="false")
-    const dropdown = document.querySelector(
-      '.p-contextual-menu__dropdown[aria-hidden="false"]',
-    );
-    expect(dropdown).toBeInTheDocument();
-
-    // Press Escape — should close the menu, not the modal
+    // First Escape — should dismiss the ContextualMenu, not the Modal
     await userEvent.keyboard("{Escape}");
-
-    // The modal close handler should NOT have been called
     expect(handleCloseModal).not.toHaveBeenCalled();
 
-    // The dropdown should now be closed (no longer present with aria-hidden="false")
-    expect(
-      document.querySelector(
-        '.p-contextual-menu__dropdown[aria-hidden="false"]',
-      ),
-    ).not.toBeInTheDocument();
+    // Second Escape — menu is gone, so the Modal should now close
+    await userEvent.keyboard("{Escape}");
+    expect(handleCloseModal).toHaveBeenCalledTimes(1);
   });
 
   it("updates focusable elements when an initially disabled button becomes enabled", async () => {
