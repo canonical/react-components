@@ -45,6 +45,10 @@ export type Props = PropsWithSpread<
      */
     placeholder?: string;
     /**
+     * Whether the search button should be a button or submit type.
+     */
+    searchButtonType?: "submit" | "button";
+    /**
      * Whether the search input should lose focus when searching.
      */
     shouldBlurOnSearch?: boolean;
@@ -77,6 +81,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
       onChange,
       onSearch,
       onClear,
+      searchButtonType = "submit",
       placeholder = "Search",
       shouldBlurOnSearch = true,
       shouldRefocusAfterReset,
@@ -159,6 +164,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
           className="p-search-box__button"
           disabled={disabled}
           onClick={triggerSearch}
+          type={searchButtonType}
         >
           <Icon name="search">{Label.Search}</Icon>
         </button>
