@@ -45,6 +45,7 @@ export type MultiSelectProps = {
   onSearchChange?: (value: string) => void;
   onOpen?: () => void;
   onClose?: () => void;
+  searchButtonType?: "submit" | "button";
 };
 
 type ValueSet = Set<MultiSelectItem["value"]>;
@@ -239,6 +240,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   inputClassName,
   emptyState,
   emptyMessage,
+  searchButtonType = "submit",
   showDropdownFooter = true,
   variant = "search",
   scrollOverflow = false,
@@ -373,6 +375,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               required={required}
               type="text"
               value={filter}
+              searchButtonType={searchButtonType}
               className={classNames("multi-select__input", inputClassName)}
             />
           ) : (

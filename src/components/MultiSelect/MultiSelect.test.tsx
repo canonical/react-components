@@ -456,3 +456,12 @@ it("can add custom classNames to dropdown (search variant)", async () => {
     "custom-footer-class",
   );
 });
+
+it("can change search button type to 'button'", async () => {
+  render(
+    <MultiSelect variant="search" items={items} searchButtonType="button" />,
+  );
+  await userEvent.click(screen.getByRole("combobox"));
+  const searchButton = screen.getByRole("button", { name: /search/i });
+  expect(searchButton).toHaveAttribute("type", "button");
+});
