@@ -31,6 +31,9 @@ export type MultiSelectProps = {
   renderItem?: (item: MultiSelectItem) => ReactNode;
   dropdownHeader?: ReactNode;
   dropdownFooter?: ReactNode;
+  footerClassName?: string;
+  inputClassName?: string;
+  dropdownClassName?: string;
   emptyState?: ReactNode;
   emptyMessage?: string;
   showDropdownFooter?: boolean;
@@ -42,6 +45,7 @@ export type MultiSelectProps = {
   onSearchChange?: (value: string) => void;
   onOpen?: () => void;
   onClose?: () => void;
+  searchButtonType?: "submit" | "button";
 };
 
 type ValueSet = Set<MultiSelectItem["value"]>;
@@ -59,6 +63,8 @@ type MultiSelectDropdownProps = {
   onDeselectItem?: (item: MultiSelectItem) => void;
   onSelectItem?: (item: MultiSelectItem) => void;
   footer?: ReactNode;
+  footerClassName?: string;
+  dropdownClassName?: string;
   emptyState?: ReactNode;
   emptyMessage?: string;
   groupFn?: GroupFn;
@@ -105,6 +111,8 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
   onDeselectItem,
   isOpen,
   footer,
+  dropdownClassName,
+  footerClassName,
   emptyState,
   emptyMessage,
   sortFn = sortAlphabetically,
@@ -155,7 +163,11 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
 
   return (
     <FadeInDown isVisible={isOpen}>
-      <div className="multi-select__dropdown" role="listbox" {...props}>
+      <div
+        className={classNames("multi-select__dropdown", dropdownClassName)}
+        role="listbox"
+        {...props}
+      >
         {header ? header : null}
         {hasItems
           ? groupedItems.map(({ group, items }) => (
@@ -193,7 +205,11 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
             (emptyMessage ? (
               <p className="multi-select__empty-state">{emptyMessage}</p>
             ) : null))}
-        {footer ? <div className="multi-select__footer">{footer}</div> : null}
+        {footer ? (
+          <div className={classNames("multi-select__footer", footerClassName)}>
+            {footer}
+          </div>
+        ) : null}
       </div>
     </FadeInDown>
   );
@@ -219,8 +235,12 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   disabledItems = [],
   dropdownHeader,
   dropdownFooter,
+  footerClassName,
+  dropdownClassName,
+  inputClassName,
   emptyState,
   emptyMessage,
+  searchButtonType = "submit",
   showDropdownFooter = true,
   variant = "search",
   scrollOverflow = false,
@@ -355,7 +375,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               required={required}
               type="text"
               value={filter}
-              className="multi-select__input"
+              searchButtonType={searchButtonType}
+              className={classNames("multi-select__input", inputClassName)}
             />
           ) : (
             <button
@@ -414,6 +435,8 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           onSelectItem={onSelectItem}
           onDeselectItem={onDeselectItem}
           footer={footer}
+          footerClassName={footerClassName}
+          dropdownClassName={dropdownClassName}
           emptyState={emptyState}
           emptyMessage={emptyMessage}
           sortFn={isSortedAlphabetically ? sortAlphabetically : () => 0}

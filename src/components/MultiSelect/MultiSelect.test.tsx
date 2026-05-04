@@ -432,3 +432,36 @@ it("can add additional classes to help", () => {
     "additional-help-text-class",
   );
 });
+
+it("can add custom classNames to dropdown (search variant)", async () => {
+  render(
+    <MultiSelect
+      variant="search"
+      items={items}
+      dropdownClassName="custom-dropdown-class"
+      inputClassName="custom-input-class"
+      footerClassName="custom-footer-class"
+    />,
+  );
+  const input = screen.getByRole("combobox");
+  expect(input.closest(".multi-select__input")).toHaveClass(
+    "custom-input-class",
+  );
+
+  await userEvent.click(input);
+  expect(document.querySelector(".multi-select__dropdown")).toHaveClass(
+    "custom-dropdown-class",
+  );
+  expect(document.querySelector(".multi-select__footer")).toHaveClass(
+    "custom-footer-class",
+  );
+});
+
+it("can change search button type to 'button'", async () => {
+  render(
+    <MultiSelect variant="search" items={items} searchButtonType="button" />,
+  );
+  await userEvent.click(screen.getByRole("combobox"));
+  const searchButton = screen.getByRole("button", { name: /search/i });
+  expect(searchButton).toHaveAttribute("type", "button");
+});
