@@ -254,7 +254,6 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   helpClassName,
 }: MultiSelectProps) => {
   const buttonRef = useRef(null);
-  const searchMouseDownRef = useRef(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [filter, setFilter] = useState("");
 
@@ -344,11 +343,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         className="multi-select"
         onToggleMenu={(isOpen) => {
           if (!isOpen) {
-            if (searchMouseDownRef.current) {
-              searchMouseDownRef.current = false;
-            } else {
-              resetSearch();
-            }
+            resetSearch();
           }
           // Handle syncing the state when toggling the menu from within the
           // contextual menu component e.g. when clicking outside.
@@ -369,8 +364,12 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               aria-label={label || placeholder || "Search"}
               disabled={disabled}
               autoComplete="off"
-              onMouseDown={() => {
-                if (isDropdownOpen) searchMouseDownRef.current = true;
+              onMouseDown={(event) => {
+                // When displayed as an input, clicking inside the input should not clear
+                // the text (e.g. if the user wants to edit what they've typed).
+                if (variant === "search") {
+                  event.stopPropagation();
+                }
               }}
               onChange={(value) => {
                 updateFilter(value);

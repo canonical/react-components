@@ -228,7 +228,7 @@ it("closes the dropdown when clicking outside of the dropdown", async () => {
 });
 
 it("closes the dropdown when clicking on the button", async () => {
-  render(<MultiSelect items={items} />);
+  render(<MultiSelect items={items} variant="condensed" />);
   await userEvent.click(screen.getByRole("combobox"));
   expect(screen.getByRole("listbox")).toBeInTheDocument();
   await userEvent.click(screen.getByRole("combobox"));
@@ -351,6 +351,14 @@ it("opens and closes the dropdown on click", async () => {
   expect(screen.getByRole("listbox")).toBeInTheDocument();
   await userEvent.click(screen.getByRole("combobox"));
   expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
+});
+
+it("doesn't clear the input on click", async () => {
+  render(<MultiSelect variant="search" items={items} />);
+  const input = screen.getByRole("combobox");
+  await userEvent.type(input, "hello");
+  await userEvent.click(input);
+  expect(input).toHaveValue("hello");
 });
 
 it("can render without sorting alphabetically", async () => {
