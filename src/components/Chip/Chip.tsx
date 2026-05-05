@@ -150,8 +150,15 @@ const Chip = ({
     return (
       <span {...props} className={chipClassName}>
         {chipContent}
-        <button className="p-chip__dismiss" onClick={onDismiss} type="button">
-          <i className="p-icon--close">{Label.Dismiss}</i>
+        <button
+          className="p-chip__dismiss"
+          onClick={onDismiss}
+          type="button"
+          aria-label={`Dismiss ${value}`}
+        >
+          <i className="p-icon--close" aria-hidden="true">
+            {Label.Dismiss}
+          </i>
         </button>
       </span>
     );
