@@ -364,6 +364,13 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               aria-label={label || placeholder || "Search"}
               disabled={disabled}
               autoComplete="off"
+              onMouseDown={(event) => {
+                // When displayed as an input, clicking inside the input should not clear
+                // the text (e.g. if the user wants to edit what they've typed).
+                if (variant === "search") {
+                  event.stopPropagation();
+                }
+              }}
               onChange={(value) => {
                 updateFilter(value);
                 // reopen if dropdown has been closed via ESC
