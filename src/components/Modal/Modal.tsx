@@ -114,21 +114,22 @@ export const Modal = ({
   }, [focusRef]);
 
   useEffect(() => {
-    const keyListenersMap = new Map([
-      ["Escape", handleEscKey],
-      ["Tab", handleTabKey],
-    ]);
-
     const keyDown = (event: KeyboardEvent) => {
-      const listener = keyListenersMap.get(event.code);
-      return listener && listener(event);
+      if (event.key === "Escape") {
+        handleEscKey(event);
+      }
+
+      if (event.key === "Tab") {
+        handleTabKey(event as unknown as React.KeyboardEvent<HTMLDivElement>);
+      }
     };
 
-    document.addEventListener("keydown", keyDown);
+    document.addEventListener("keydown", keyDown, true);
+
     return () => {
-      document.removeEventListener("keydown", keyDown);
+      document.removeEventListener("keydown", keyDown, true);
     };
-  });
+  }, [close]);
 
   const handleContentOnMouseDown = () => {
     shouldClose.current = false;
