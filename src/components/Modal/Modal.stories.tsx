@@ -85,7 +85,7 @@ export const Focus: Story = {
   render: ({ closeOnOutsideClick }) => {
     /* eslint-disable react-hooks/rules-of-hooks */
     const [modalOpen, setModalOpen] = useState(true);
-    const buttonRef = useRef<HTMLElement>(null);
+    const buttonRef = useRef<HTMLButtonElement>(null);
     /* eslint-enable react-hooks/rules-of-hooks */
 
     const closeHandler = () => setModalOpen(false);
