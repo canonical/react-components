@@ -108,11 +108,11 @@ export const Modal = ({
       }
     };
 
-    document.addEventListener("keydown", keyDown);
+    document.addEventListener("keydown", keyDown, true);
     return () => {
-      document.removeEventListener("keydown", keyDown);
+      document.removeEventListener("keydown", keyDown, true);
     };
-  });
+  }, [close]);
 
   const handleContentOnMouseDown = () => {
     shouldClose.current = false;
