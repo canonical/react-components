@@ -1,11 +1,11 @@
 defaults: &defaults
   docker:
-    - image: cimg/node:lts-browsers
+    - image: cimg/node:22.16-browsers
 
 version: 2.1
 
 orbs:
-  browser-tools: circleci/browser-tools@1.1.0
+  browser-tools: circleci/browser-tools@2.4.2
 
 jobs:
   percy:
@@ -14,20 +14,22 @@ jobs:
     steps:
       - checkout
       - browser-tools/install-browser-tools:
+          install-chrome: false
+          install-chrome-for-testing: true
           install-firefox: false
           install-chromedriver: false
+          install-geckodriver: false
       # Download and cache dependencies
       - restore_cache:
           keys:
-            - yarn-node:lts-{{ checksum "yarn.lock" }}
+            - yarn-node:22.16-{{ checksum "yarn.lock" }}
       - run: yarn install
       - run:
           command: yarn percy
-          no_output_timeout: 20m
           environment:
-            PERCY_BROWSER_EXECUTABLE: /usr/bin/google-chrome
+            PERCY_BROWSER_EXECUTABLE: /usr/local/bin/chrome
       - save_cache:
-          key: yarn-node:lts-{{ checksum "yarn.lock" }}
+          key: yarn-node:22.16-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
 
