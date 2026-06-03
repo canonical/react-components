@@ -13,12 +13,12 @@ jobs:
     resource_class: large
     steps:
       - checkout
-      - browser-tools/install-browser-tools:
-          install-chrome: false
-          install-chrome-for-testing: true
-          install-firefox: false
-          install-chromedriver: false
-          install-geckodriver: false
+      - browser-tools/install_browser_tools:
+          install_chrome: false
+          install_chrome_for_testing: true
+          install_firefox: false
+          install_chromedriver: false
+          install_geckodriver: false
       # Download and cache dependencies
       - restore_cache:
           keys:
