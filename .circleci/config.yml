@@ -21,7 +21,9 @@ jobs:
           keys:
             - yarn-node:lts-{{ checksum "yarn.lock" }}
       - run: yarn install
-      - run: yarn percy
+      - run:
+          command: yarn percy
+          no_output_timeout: 20m
       - save_cache:
           key: yarn-node:lts-{{ checksum "yarn.lock" }}
           paths:
