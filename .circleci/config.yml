@@ -15,6 +15,7 @@ jobs:
       - checkout
       - browser-tools/install-browser-tools:
           install-firefox: false
+          install-chromedriver: false
       # Download and cache dependencies
       - restore_cache:
           keys:
