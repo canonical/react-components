@@ -1,6 +1,6 @@
 defaults: &defaults
   docker:
-    - image: cimg/node:lts
+    - image: cimg/node:lts-browsers
 
 version: 2
 jobs:
@@ -24,6 +24,8 @@ jobs:
       - run:
           command: yarn percy
           no_output_timeout: 20m
+          environment:
+            PERCY_BROWSER_EXECUTABLE: /usr/bin/google-chrome
       - save_cache:
           key: yarn-node:lts-{{ checksum "yarn.lock" }}
           paths:
