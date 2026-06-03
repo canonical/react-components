@@ -13,7 +13,8 @@ jobs:
     resource_class: large
     steps:
       - checkout
-      - browser-tools/install-browser-tools
+      - browser-tools/install-browser-tools:
+          install-firefox: false
       # Download and cache dependencies
       - restore_cache:
           keys:
