@@ -93,6 +93,12 @@ $dropdown-max-height: 20rem;
   }
 }
 
+.multi-select__empty-state {
+  color: $colors--theme--text-muted;
+  margin: 0;
+  padding: $spv--small $sph--large;
+}
+
 .multi-select__dropdown-button {
   border: 0;
   margin-bottom: 0;

@@ -31,12 +31,21 @@ export type MultiSelectProps = {
   renderItem?: (item: MultiSelectItem) => ReactNode;
   dropdownHeader?: ReactNode;
   dropdownFooter?: ReactNode;
+  footerClassName?: string;
+  inputClassName?: string;
+  dropdownClassName?: string;
+  emptyState?: ReactNode;
+  emptyMessage?: string;
   showDropdownFooter?: boolean;
   variant?: "condensed" | "search";
   scrollOverflow?: boolean;
   isSortedAlphabetically?: boolean;
   hasSelectedItemsFirst?: boolean;
   id?: string;
+  onSearchChange?: (value: string) => void;
+  onOpen?: () => void;
+  onClose?: () => void;
+  searchButtonType?: "submit" | "button";
 };
 
 type ValueSet = Set<MultiSelectItem["value"]>;
@@ -54,6 +63,10 @@ type MultiSelectDropdownProps = {
   onDeselectItem?: (item: MultiSelectItem) => void;
   onSelectItem?: (item: MultiSelectItem) => void;
   footer?: ReactNode;
+  footerClassName?: string;
+  dropdownClassName?: string;
+  emptyState?: ReactNode;
+  emptyMessage?: string;
   groupFn?: GroupFn;
   sortFn?: SortFn;
   hasSelectedItemsFirst?: boolean;
@@ -98,6 +111,10 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
   onDeselectItem,
   isOpen,
   footer,
+  dropdownClassName,
+  footerClassName,
+  emptyState,
+  emptyMessage,
   sortFn = sortAlphabetically,
   groupFn = getGroupedItems,
   hasSelectedItemsFirst = true,
@@ -122,6 +139,7 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
   }, [isOpen]);
 
   const hasGroup = useMemo(() => items.some((item) => item.group), [items]);
+  const hasItems = items.length > 0;
   const groupedItems = useMemo(
     () => (hasGroup ? groupFn(items) : [{ group: "Ungrouped", items }]),
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -145,37 +163,53 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
 
   return (
     <FadeInDown isVisible={isOpen}>
-      <div className="multi-select__dropdown" role="listbox" {...props}>
+      <div
+        className={classNames("multi-select__dropdown", dropdownClassName)}
+        role="listbox"
+        {...props}
+      >
         {header ? header : null}
-        {groupedItems.map(({ group, items }) => (
-          <div className="multi-select__group" key={group}>
-            {hasGroup ? (
-              <h5 className="multi-select__dropdown-header">{group}</h5>
-            ) : null}
-            <ul className="multi-select__dropdown-list" aria-label={group}>
-              {items
-                .toSorted(sortFn)
-                .toSorted(
-                  hasSelectedItemsFirst
-                    ? createSortSelectedItems(previouslySelectedItemValues)
-                    : () => 0,
-                )
-                .map((item) => (
-                  <li key={item.value} className="multi-select__dropdown-item">
-                    <CheckboxInput
-                      disabled={disabledItemValues.has(item.value)}
-                      label={item.label}
-                      checked={selectedItemValues.has(item.value)}
-                      value={item.value}
-                      onChange={handleOnChange}
-                      key={item.value}
-                    />
-                  </li>
-                ))}
-            </ul>
+        {hasItems
+          ? groupedItems.map(({ group, items }) => (
+              <div className="multi-select__group" key={group}>
+                {hasGroup ? (
+                  <h5 className="multi-select__dropdown-header">{group}</h5>
+                ) : null}
+                <ul className="multi-select__dropdown-list" aria-label={group}>
+                  {items
+                    .toSorted(sortFn)
+                    .toSorted(
+                      hasSelectedItemsFirst
+                        ? createSortSelectedItems(previouslySelectedItemValues)
+                        : () => 0,
+                    )
+                    .map((item) => (
+                      <li
+                        key={item.value}
+                        className="multi-select__dropdown-item"
+                      >
+                        <CheckboxInput
+                          disabled={disabledItemValues.has(item.value)}
+                          label={item.label}
+                          checked={selectedItemValues.has(item.value)}
+                          value={item.value}
+                          onChange={handleOnChange}
+                          key={item.value}
+                        />
+                      </li>
+                    ))}
+                </ul>
+              </div>
+            ))
+          : (emptyState ??
+            (emptyMessage ? (
+              <p className="multi-select__empty-state">{emptyMessage}</p>
+            ) : null))}
+        {footer ? (
+          <div className={classNames("multi-select__footer", footerClassName)}>
+            {footer}
           </div>
-        ))}
-        {footer ? <div className="multi-select__footer">{footer}</div> : null}
+        ) : null}
       </div>
     </FadeInDown>
   );
@@ -201,12 +235,21 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   disabledItems = [],
   dropdownHeader,
   dropdownFooter,
+  footerClassName,
+  dropdownClassName,
+  inputClassName,
+  emptyState,
+  emptyMessage,
+  searchButtonType = "submit",
   showDropdownFooter = true,
   variant = "search",
   scrollOverflow = false,
   isSortedAlphabetically = true,
   hasSelectedItemsFirst = true,
   id,
+  onSearchChange,
+  onOpen,
+  onClose,
   help,
   helpClassName,
 }: MultiSelectProps) => {
@@ -214,11 +257,32 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [filter, setFilter] = useState("");
 
+  const handleSetDropdownOpen = (newState: boolean) => {
+    if (newState && !isDropdownOpen) {
+      onOpen?.();
+    } else if (!newState && isDropdownOpen) {
+      onClose?.();
+    }
+    setIsDropdownOpen(newState);
+  };
+
   const [internalSelectedItems, setInternalSelectedItems] = useState<
     MultiSelectItem[]
   >([]);
   const selectedItems = externalSelectedItems || internalSelectedItems;
   const helpId = useId();
+
+  const updateFilter = (value: string) => {
+    setFilter(value);
+    onSearchChange?.(value);
+  };
+
+  const resetSearch = () => {
+    if (!filter.length) {
+      return;
+    }
+    updateFilter("");
+  };
 
   const updateItems = (newItems: MultiSelectItem[]) => {
     const uniqueItems = Array.from(new Set(newItems));
@@ -228,6 +292,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
 
   const dropdownId = useId();
   const inputId = useId();
+
   const selectedItemsLabel = selectedItems
     .filter((selectedItem) =>
       items.some((item) => item.value === selectedItem.value),
@@ -278,12 +343,12 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
         className="multi-select"
         onToggleMenu={(isOpen) => {
           if (!isOpen) {
-            setFilter("");
+            resetSearch();
           }
           // Handle syncing the state when toggling the menu from within the
           // contextual menu component e.g. when clicking outside.
           if (isOpen !== isDropdownOpen) {
-            setIsDropdownOpen(isOpen);
+            handleSetDropdownOpen(isOpen);
           }
         }}
         position="left"
@@ -299,17 +364,26 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               aria-label={label || placeholder || "Search"}
               disabled={disabled}
               autoComplete="off"
-              onChange={(value) => {
-                setFilter(value);
-                // reopen if dropdown has been closed via ESC
-                setIsDropdownOpen(true);
+              onMouseDown={(event) => {
+                // When displayed as an input, clicking inside the input should not clear
+                // the text (e.g. if the user wants to edit what they've typed).
+                if (variant === "search") {
+                  event.stopPropagation();
+                }
               }}
-              onFocus={() => setIsDropdownOpen(true)}
+              onChange={(value) => {
+                updateFilter(value);
+                // reopen if dropdown has been closed via ESC
+                handleSetDropdownOpen(true);
+              }}
+              onClear={resetSearch}
+              onFocus={() => handleSetDropdownOpen(true)}
               placeholder={placeholder ?? "Search"}
               required={required}
               type="text"
               value={filter}
-              className="multi-select__input"
+              searchButtonType={searchButtonType}
+              className={classNames("multi-select__input", inputClassName)}
             />
           ) : (
             <button
@@ -320,7 +394,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
               aria-expanded={isDropdownOpen}
               className="multi-select__select-button"
               onClick={() => {
-                setIsDropdownOpen(!isDropdownOpen);
+                handleSetDropdownOpen(!isDropdownOpen);
               }}
               onMouseDown={(event) => {
                 // If the dropdown is open when this button is clicked the
@@ -368,6 +442,10 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           onSelectItem={onSelectItem}
           onDeselectItem={onDeselectItem}
           footer={footer}
+          footerClassName={footerClassName}
+          dropdownClassName={dropdownClassName}
+          emptyState={emptyState}
+          emptyMessage={emptyMessage}
           sortFn={isSortedAlphabetically ? sortAlphabetically : () => 0}
           hasSelectedItemsFirst={hasSelectedItemsFirst}
         />

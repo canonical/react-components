@@ -97,6 +97,80 @@ it("can filter option list", async () => {
   await waitFor(() => expect(screen.getAllByRole("listitem")).toHaveLength(2));
 });
 
+it("tracks search changes via onSearchChange callback", async () => {
+  const onSearchChange = jest.fn();
+  render(
+    <MultiSelect
+      variant="search"
+      items={items}
+      onSearchChange={onSearchChange}
+    />,
+  );
+
+  await userEvent.click(screen.getByRole("combobox"));
+  await userEvent.type(screen.getByRole("combobox"), "item");
+
+  expect(screen.getByRole("combobox")).toHaveValue("item");
+  expect(onSearchChange).toHaveBeenCalledWith("i");
+  expect(onSearchChange).toHaveBeenCalledWith("it");
+  expect(onSearchChange).toHaveBeenCalledWith("ite");
+  expect(onSearchChange).toHaveBeenCalledWith("item");
+});
+
+it("calls lifecycle callbacks", async () => {
+  const onOpen = jest.fn();
+  const onClose = jest.fn();
+
+  render(
+    <MultiSelect
+      variant="search"
+      items={items}
+      onOpen={onOpen}
+      onClose={onClose}
+    />,
+  );
+
+  await userEvent.click(screen.getByRole("combobox"));
+  expect(onOpen).toHaveBeenCalledTimes(1);
+
+  await userEvent.type(screen.getByRole("combobox"), "item");
+  await userEvent.click(document.body);
+
+  await waitFor(() => expect(onClose).toHaveBeenCalled());
+  expect(screen.getByRole("combobox")).toHaveValue("");
+});
+
+it("renders emptyMessage when no items match", async () => {
+  render(
+    <MultiSelect
+      variant="search"
+      items={items}
+      emptyMessage="No results found"
+    />,
+  );
+
+  await userEvent.click(screen.getByRole("combobox"));
+  await userEvent.type(screen.getByRole("combobox"), "does not exist");
+
+  expect(screen.queryAllByRole("listitem")).toHaveLength(0);
+  expect(screen.getByText("No results found")).toBeInTheDocument();
+});
+
+it("renders emptyState when no items match", async () => {
+  render(
+    <MultiSelect
+      variant="search"
+      items={items}
+      emptyState={<div>No custom items</div>}
+    />,
+  );
+
+  await userEvent.click(screen.getByRole("combobox"));
+  await userEvent.type(screen.getByRole("combobox"), "does not exist");
+
+  expect(screen.getByText("No custom items")).toBeInTheDocument();
+});
+
 it("can display a custom dropdown header and footer", async () => {
   render(
     <MultiSelect
@@ -154,7 +228,7 @@ it("closes the dropdown when clicking outside of the dropdown", async () => {
 });
 
 it("closes the dropdown when clicking on the button", async () => {
-  render(<MultiSelect items={items} />);
+  render(<MultiSelect items={items} variant="condensed" />);
   await userEvent.click(screen.getByRole("combobox"));
   expect(screen.getByRole("listbox")).toBeInTheDocument();
   await userEvent.click(screen.getByRole("combobox"));
@@ -279,6 +353,14 @@ it("opens and closes the dropdown on click", async () => {
   expect(screen.queryByRole("listbox")).not.toBeInTheDocument();
 });
 
+it("doesn't clear the input on click", async () => {
+  render(<MultiSelect variant="search" items={items} />);
+  const input = screen.getByRole("combobox");
+  await userEvent.type(input, "hello");
+  await userEvent.click(input);
+  expect(input).toHaveValue("hello");
+});
+
 it("can render without sorting alphabetically", async () => {
   const itemsUnsorted = [
     { label: "item B", value: 2 },
@@ -357,4 +439,37 @@ it("can add additional classes to help", () => {
   expect(container.querySelector(".p-form-help-text")).toHaveClass(
     "additional-help-text-class",
   );
+});
+
+it("can add custom classNames to dropdown (search variant)", async () => {
+  render(
+    <MultiSelect
+      variant="search"
+      items={items}
+      dropdownClassName="custom-dropdown-class"
+      inputClassName="custom-input-class"
+      footerClassName="custom-footer-class"
+    />,
+  );
+  const input = screen.getByRole("combobox");
+  expect(input.closest(".multi-select__input")).toHaveClass(
+    "custom-input-class",
+  );
+
+  await userEvent.click(input);
+  expect(document.querySelector(".multi-select__dropdown")).toHaveClass(
+    "custom-dropdown-class",
+  );
+  expect(document.querySelector(".multi-select__footer")).toHaveClass(
+    "custom-footer-class",
+  );
+});
+
+it("can change search button type to 'button'", async () => {
+  render(
+    <MultiSelect variant="search" items={items} searchButtonType="button" />,
+  );
+  await userEvent.click(screen.getByRole("combobox"));
+  const searchButton = screen.getByRole("button", { name: /search/i });
+  expect(searchButton).toHaveAttribute("type", "button");
 });

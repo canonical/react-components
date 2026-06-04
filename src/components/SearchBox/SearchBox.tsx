@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { HTMLProps, KeyboardEvent, useRef } from "react";
+import React, { HTMLProps, KeyboardEvent, useRef, useState } from "react";
 
 import Icon from "../Icon";
 
@@ -45,6 +45,10 @@ export type Props = PropsWithSpread<
      */
     placeholder?: string;
     /**
+     * Whether the search button should be a button or submit type.
+     */
+    searchButtonType?: "submit" | "button";
+    /**
      * Whether the search input should lose focus when searching.
      */
     shouldBlurOnSearch?: boolean;
@@ -77,6 +81,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
       onChange,
       onSearch,
       onClear,
+      searchButtonType = "submit",
       placeholder = "Search",
       shouldBlurOnSearch = true,
       shouldRefocusAfterReset,
@@ -86,7 +91,13 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
     forwardedRef,
   ): React.JSX.Element => {
     const internalRef = useRef<HTMLInputElement>(null);
+    const [internalValue, setInternalValue] = useState(value ?? "");
+    const hasValue = externallyControlled
+      ? Boolean(value)
+      : Boolean(internalValue);
+
     const resetInput = () => {
+      setInternalValue("");
       onChange?.("");
       onClear?.();
       if (internalRef.current) {
@@ -119,7 +130,10 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
           disabled={disabled}
           id={id}
           name={name}
-          onChange={(evt) => onChange?.(evt.target.value)}
+          onChange={(evt) => {
+            setInternalValue(evt.target.value);
+            onChange?.(evt.target.value);
+          }}
           onKeyDown={onKeyDown}
           placeholder={placeholder}
           ref={(input) => {
@@ -136,7 +150,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
           value={externallyControlled ? value : undefined}
           {...props}
         />
-        {value && (
+        {hasValue && (
           <button
             className="p-search-box__reset"
             disabled={disabled}
@@ -150,6 +164,7 @@ const SearchBox = React.forwardRef<HTMLInputElement, Props>(
           className="p-search-box__button"
           disabled={disabled}
           onClick={triggerSearch}
+          type={searchButtonType}
         >
           <Icon name="search">{Label.Search}</Icon>
         </button>
