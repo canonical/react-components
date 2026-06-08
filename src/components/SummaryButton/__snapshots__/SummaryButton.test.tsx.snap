@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<SummaryButton /> renders and matches the snapshot 1`] = `
 <small>
@@ -8,7 +8,7 @@ exports[`<SummaryButton /> renders and matches the snapshot 1`] = `
     Showing some items
   </span>
   <button
-    class="is-small is-dense is-inline p-action-button p-button"
+    class="p-button is-small is-dense is-inline p-action-button"
   >
     Show more
   </button>
