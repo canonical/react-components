@@ -232,8 +232,9 @@ describe("Modal ", () => {
     // Regression test for https://github.com/canonical/react-components/issues/1305
     //
     // Both Modal and ContextualMenu register on the global escape-key stack.
-    // The menu is opened after the modal, so its handler sits on top of the
-    // stack and must be called first (LIFO order).
+    // The menu is opened *after* the modal mounts (via a click), so its handler
+    // sits on top of the stack and must be called first (LIFO order).
+    const user = userEvent.setup();
     const handleCloseModal = jest.fn();
 
     render(
@@ -241,17 +242,20 @@ describe("Modal ", () => {
         <ContextualMenu
           toggleLabel="Open menu"
           links={[{ children: "Item 1" }]}
-          visible={true}
         />
       </Modal>,
     );
 
+    // Open the ContextualMenu after the modal is already mounted —
+    // this pushes its escape handler on top of the modal's in the LIFO stack.
+    await user.click(screen.getByRole("button", { name: /open menu/i }));
+
     // First Escape — should dismiss the ContextualMenu, not the Modal
-    await userEvent.keyboard("{Escape}");
+    await user.keyboard("{Escape}");
     expect(handleCloseModal).not.toHaveBeenCalled();
 
     // Second Escape — menu is gone, so the Modal should now close
-    await userEvent.keyboard("{Escape}");
+    await user.keyboard("{Escape}");
     expect(handleCloseModal).toHaveBeenCalledTimes(1);
   });
 

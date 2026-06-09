@@ -186,13 +186,22 @@ export const usePortal = ({
     };
   }, [isServer, handleOutsideMouseClick, elToMountTo, portal]);
 
+  // Keep a ref to closePortal so the escape-stack effect below does not need
+  // it as a dependency. This prevents closePortal identity changes (e.g. when
+  // onClose prop changes) from re-registering the handler and incorrectly
+  // moving an already-open portal to the top of the LIFO stack.
+  const closePortalRef = useRef(closePortal);
+  useEffect(() => {
+    closePortalRef.current = closePortal;
+  }, [closePortal]);
+
   // Register on the global escape-key stack only while the portal is open.
   // LIFO ordering ensures the most recently opened overlay always handles
   // Escape first, regardless of component type or DOM structure.
   useEffect(() => {
     if (isServer || !closeOnEsc || !isOpen) return undefined;
-    return pushEscapeHandler(() => closePortal());
-  }, [isOpen, closeOnEsc, isServer, closePortal]);
+    return pushEscapeHandler(() => closePortalRef.current());
+  }, [isOpen, closeOnEsc, isServer]);
 
   const Portal = useCallback(
     ({ children }: { children: ReactNode }) => {
