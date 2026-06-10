@@ -27,6 +27,9 @@ function onKeyDown(e: KeyboardEvent): void {
  * mirroring the visual stacking of overlays.
  *
  * Safe to call in SSR environments — it no-ops when `document` is unavailable.
+ *
+ * This is the imperative primitive behind `useEscapeStack` and is not part
+ * of the public package API. React consumers should use `useEscapeStack`.
  */
 export function pushEscapeHandler(handler: () => void): () => void {
   if (typeof document === "undefined") return () => undefined;
@@ -46,7 +49,7 @@ export function pushEscapeHandler(handler: () => void): () => void {
 
 /**
  * React hook that registers an Escape-key handler on the global LIFO stack
- * for the lifetime of the component (or while `isActive` is true).
+ * for the lifetime of the component (or while `isEnabled` is true).
  *
  * The most recently registered handler always fires first, so nested overlays
  * naturally dismiss in the correct order regardless of DOM structure.
@@ -57,12 +60,12 @@ export function pushEscapeHandler(handler: () => void): () => void {
  *
  * @param handler - Callback invoked when Escape is pressed and this handler
  *   is at the top of the stack.
- * @param options.isActive - When `false` the handler is not registered
+ * @param options.isEnabled - When `false` the handler is not registered
  *   (defaults to `true`).
  */
 export const useEscapeStack = (
   handler: () => void,
-  { isActive } = { isActive: true },
+  { isEnabled } = { isEnabled: true },
 ): void => {
   // Always keep the ref pointing at the latest handler without changing
   // the registered stable wrapper.
@@ -72,8 +75,8 @@ export const useEscapeStack = (
   }, [handler]);
 
   useEffect(() => {
-    if (!isActive) return undefined;
+    if (!isEnabled) return undefined;
     // Register a stable wrapper; the ref always calls the latest handler.
     return pushEscapeHandler(() => handlerRef.current());
-  }, [isActive]);
+  }, [isEnabled]);
 };
