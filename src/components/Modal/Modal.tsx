@@ -2,7 +2,7 @@ import classNames from "classnames";
 import React, { useId, useRef, useEffect } from "react";
 import type { HTMLProps, ReactNode, RefObject } from "react";
 import { ClassName, PropsWithSpread } from "types";
-import { useOnEscapePressed } from "hooks";
+import { useEscapeStack } from "hooks";
 
 export type Props = PropsWithSpread<
   {
@@ -89,7 +89,7 @@ export const Modal = ({
     }
   };
 
-  useOnEscapePressed(() => close?.(), { isEnabled: !!close });
+  useEscapeStack(() => close?.(), { isEnabled: !!close });
 
   useEffect(() => {
     if (focusRef?.current) {
