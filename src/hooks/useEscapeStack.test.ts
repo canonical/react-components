@@ -65,4 +65,70 @@ describe("pushEscapeHandler", () => {
     document.removeEventListener("keydown", outsideListener);
     unregister();
   });
+
+  it("removes the correct entry when the same handler reference is pushed twice", () => {
+    // Regression test: unregistering must not rely on the handler's
+    // identity, since the same function reference could be passed to
+    // multiple registrations.
+    const shared = jest.fn();
+    const unregisterFirst = pushEscapeHandler(shared);
+    const unregisterSecond = pushEscapeHandler(shared);
+
+    // Unregister the first (bottom) entry — the second (top) entry should
+    // remain on the stack and still fire.
+    unregisterFirst();
+    fireEscape();
+    expect(shared).toHaveBeenCalledTimes(1);
+
+    unregisterSecond();
+    shared.mockClear();
+    fireEscape();
+    expect(shared).not.toHaveBeenCalled();
+  });
+
+  describe("non-exclusive entries", () => {
+    it("calls the handler but does not stop propagation to other listeners", () => {
+      const handler = jest.fn();
+      const outsideListener = jest.fn();
+      const unregister = pushEscapeHandler(handler, { exclusive: false });
+      document.addEventListener("keydown", outsideListener);
+
+      fireEscape();
+      expect(handler).toHaveBeenCalledTimes(1);
+      expect(outsideListener).toHaveBeenCalledTimes(1);
+
+      document.removeEventListener("keydown", outsideListener);
+      unregister();
+    });
+
+    it("is skipped in favour of a non-exclusive entry above it, without stopping propagation", () => {
+      // Mirrors a ContextualMenu (non-exclusive) opened inside a Modal
+      // (exclusive): the first Escape press should be handled by the
+      // ContextualMenu only, and should not be silenced for other listeners.
+      const exclusiveHandler = jest.fn();
+      const nonExclusiveHandler = jest.fn();
+      const outsideListener = jest.fn();
+
+      const unregisterExclusive = pushEscapeHandler(exclusiveHandler);
+      const unregisterNonExclusive = pushEscapeHandler(nonExclusiveHandler, {
+        exclusive: false,
+      });
+      document.addEventListener("keydown", outsideListener);
+
+      fireEscape();
+      expect(nonExclusiveHandler).toHaveBeenCalledTimes(1);
+      expect(exclusiveHandler).not.toHaveBeenCalled();
+      expect(outsideListener).toHaveBeenCalledTimes(1);
+
+      // Once the non-exclusive entry is gone, the exclusive one underneath
+      // takes over and reclaims exclusive ownership of Escape.
+      unregisterNonExclusive();
+      fireEscape();
+      expect(exclusiveHandler).toHaveBeenCalledTimes(1);
+      expect(outsideListener).toHaveBeenCalledTimes(1);
+
+      document.removeEventListener("keydown", outsideListener);
+      unregisterExclusive();
+    });
+  });
 });
