@@ -48,6 +48,10 @@ export type Props = {
    */
   helpId?: string;
   /**
+   * Whether the component is inline.
+   */
+  inline?: boolean;
+  /**
    * Whether the component is wrapping a select element.
    */
   isSelect?: boolean;
@@ -164,22 +168,30 @@ const generateContent = ({
   success,
   validationId,
   helpAfterLabel,
+  inline,
 }: Partial<Props> & {
   labelNode: React.JSX.Element | null;
   validationId: string;
   help: ReactNode;
-}) => (
-  <div className="p-form__control u-clearfix">
-    {isSelect ? (
-      <div className="p-form-validation__select-wrapper">{children}</div>
-    ) : (
-      children
-    )}
-    {!labelFirst && labelNode}
-    {helpAfterLabel ? null : help}
-    {generateError(error, caution, success, validationId)}
-  </div>
-);
+}) => {
+  const WrapperComponent = inline ? "span" : "div";
+  return (
+    <WrapperComponent
+      className={classNames("p-form__control", {
+        "u-clearfix": !inline,
+      })}
+    >
+      {isSelect ? (
+        <div className="p-form-validation__select-wrapper">{children}</div>
+      ) : (
+        children
+      )}
+      {!labelFirst && labelNode}
+      {helpAfterLabel ? null : help}
+      {generateError(error, caution, success, validationId)}
+    </WrapperComponent>
+  );
+};
 
 const Field = ({
   caution,
@@ -191,6 +203,7 @@ const Field = ({
   helpClassName,
   helpAfterLabel,
   helpId,
+  inline,
   isSelect,
   isTickElement,
   label,
@@ -232,9 +245,12 @@ const Field = ({
     success,
     validationId,
     helpAfterLabel,
+    inline,
   });
+
+  const WrapperComponent = inline ? "span" : "div";
   return (
-    <div
+    <WrapperComponent
       className={classNames("p-form__group", "p-form-validation", className, {
         "is-error": error,
         "is-caution": caution,
@@ -245,7 +261,7 @@ const Field = ({
     >
       {labelFirst && labelNode}
       {stacked ? <Col size={stackedFieldColumns}>{content}</Col> : content}
-    </div>
+    </WrapperComponent>
   );
 };
 
