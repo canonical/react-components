@@ -53,6 +53,13 @@ export const Default: Story = {
   name: "Default",
 };
 
+export const Caution: Story = {
+  render: () => (
+    <RadioInput label="Caution" caution="This is a caution message" />
+  ),
+  name: "Caution",
+};
+
 export const Children: Story = {
   render: () => (
     <RadioInput
@@ -73,12 +80,29 @@ export const Disabled: Story = {
   name: "Disabled",
 };
 
+export const Error: Story = {
+  render: () => <RadioInput label="Error" error="This is an error message" />,
+  name: "Error",
+};
+
+export const Help: Story = {
+  render: () => <RadioInput label="Help" help="This is a help message" />,
+  name: "Help",
+};
+
+export const Inline: Story = {
+  render: () => <RadioInput inline label="Inline" />,
+  name: "Inline",
+};
+
 export const Required: Story = {
   render: () => <RadioInput label="Required" name="RadioInput" required />,
   name: "Required",
 };
 
-export const Inline: Story = {
-  render: () => <RadioInput label="Inline" name="RadioInput" inline />,
-  name: "Inline",
+export const Success: Story = {
+  render: () => (
+    <RadioInput label="Success" success="This is a success message" />
+  ),
+  name: "Success",
 };
