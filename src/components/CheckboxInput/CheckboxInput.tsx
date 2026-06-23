@@ -43,7 +43,9 @@ const CheckboxInput = ({
   return (
     <Field
       caution={caution}
-      className={classnames(className, { "p-checkbox--inline": inline })}
+      className={classnames("p-checkbox-wrapper", className, {
+        "p-checkbox--inline": inline,
+      })}
       error={error}
       forId={inputId}
       help={help}
