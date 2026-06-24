@@ -43,7 +43,9 @@ const RadioInput = ({
   return (
     <Field
       caution={caution}
-      className={classnames(className, { "p-radio--inline": inline })}
+      className={classnames("p-radio-wrapper", className, {
+        "p-radio--inline": inline,
+      })}
       error={error}
       forId={inputId}
       help={help}
