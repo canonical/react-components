@@ -113,7 +113,6 @@ const Input = ({
   ...inputProps
 }: Props): React.JSX.Element => {
   const inputRef = useRef(null);
-  const fieldLabel = !["checkbox", "radio"].includes(type) ? label : "";
   const defaultInputId = useId();
   const inputId = id || defaultInputId;
   const validationId = useId();
@@ -142,29 +141,34 @@ const Input = ({
     }
   }, [takeFocus, takeFocusDelay]);
 
-  let input: ReactNode;
   if (type === "checkbox") {
-    input = (
+    return (
       <CheckboxInput
         label={label}
         labelClassName={labelClassName}
+        caution={caution}
+        className={wrapperClassName}
+        error={error}
+        help={help}
+        helpClassName={helpClassName}
+        required={required}
+        success={success}
         {...commonProps}
       />
     );
-  } else if (type === "radio") {
-    input = (
+  }
+  if (type === "radio") {
+    return (
       <RadioInput
         label={label}
         labelClassName={labelClassName}
-        {...commonProps}
-      />
-    );
-  } else {
-    input = (
-      <input
-        className={classNames("p-form-validation__input", className)}
-        ref={inputRef}
-        type={type}
+        caution={caution}
+        className={wrapperClassName}
+        error={error}
+        help={help}
+        helpClassName={helpClassName}
+        required={required}
+        success={success}
         {...commonProps}
       />
     );
@@ -179,8 +183,7 @@ const Input = ({
       helpAfterLabel={helpAfterLabel}
       helpClassName={helpClassName}
       helpId={helpId}
-      isTickElement={type === "checkbox" || type === "radio"}
-      label={fieldLabel}
+      label={label}
       labelClassName={labelClassName}
       required={required}
       stacked={stacked}
@@ -189,7 +192,12 @@ const Input = ({
       success={success}
       validationId={validationId}
     >
-      {input}
+      <input
+        className={classNames("p-form-validation__input", className)}
+        ref={inputRef}
+        type={type}
+        {...commonProps}
+      />
     </Field>
   );
 };
