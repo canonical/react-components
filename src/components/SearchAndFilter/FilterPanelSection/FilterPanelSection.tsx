@@ -104,11 +104,7 @@ const FilterPanelSection = ({
               }}
             />
           )}
-          <div
-            className="p-filter-panel-section__chips"
-            aria-expanded={expanded}
-            ref={chipWrapper}
-          >
+          <div className="p-filter-panel-section__chips" ref={chipWrapper}>
             {chips?.map((chip) => {
               // If search term has been added to input, only matching chips
               // should display

@@ -10,6 +10,11 @@ const sampleData = {
   chips: [{ value: "us-east1" }, { value: "us-east2" }, { value: "us-east3" }],
 };
 
+const manyChipsData = {
+  ...sampleData,
+  chips: Array.from({ length: 30 }, (_, i) => ({ value: `us-east${i + 1}` })),
+};
+
 describe("Filter panel section", () => {
   it("renders", () => {
     render(
@@ -100,25 +105,45 @@ describe("Filter panel section", () => {
   });
 
   it("all chips are shown when counter is clicked", async () => {
+    // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
+    // of the chips to force the overflow counter to show.
+    Object.defineProperty(HTMLElement.prototype, "offsetHeight", {
+      configurable: true,
+      value: 40,
+    });
+    Object.defineProperty(HTMLElement.prototype, "offsetTop", {
+      configurable: true,
+      value: 100,
+    });
     render(
       <FilterPanelSection
         searchData={[]}
         searchTerm=""
         toggleSelected={jest.fn()}
-        data={sampleData}
+        data={manyChipsData}
         sectionHidden={false}
       />,
     );
+
+    const counter = document.querySelector(
+      ".p-filter-panel-section__counter",
+    ) as HTMLElement;
+    expect(counter).toBeInTheDocument();
+
+    await userEvent.click(counter);
+
     expect(
-      document.querySelector(".p-filter-panel-section__chips"),
-    ).toHaveAttribute("aria-expanded", "false");
-    await userEvent.click(
-      // Use a query selector because the element's text is split up over
-      // multiple elements so it can't be selected by its content.
-      document.querySelector(".p-filter-panel-section__counter") as HTMLElement,
-    );
+      document.querySelector(".p-filter-panel-section__counter"),
+    ).not.toBeInTheDocument();
+
     expect(
-      document.querySelector(".p-filter-panel-section__chips"),
-    ).toHaveAttribute("aria-expanded", "true");
+      screen.getByRole("button", { name: "us-east1" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "us-east15" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "us-east30" }),
+    ).toBeInTheDocument();
   });
 });

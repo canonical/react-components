@@ -41,7 +41,7 @@ describe("Chip ", () => {
     );
     expect(
       within(screen.getByTestId("chip")).getByRole("button", {
-        name: Label.Dismiss,
+        name: `${Label.Dismiss} Bob`,
       }),
     ).toBeInTheDocument();
   });
@@ -59,7 +59,7 @@ describe("Chip ", () => {
     const dismissButton = within(screen.getByTestId("chip")).getByRole(
       "button",
       {
-        name: Label.Dismiss,
+        name: `${Label.Dismiss} Bob`,
       },
     );
     await userEvent.click(dismissButton);
@@ -209,7 +209,7 @@ describe("Chip ", () => {
     const dismissButton = within(screen.getByTestId("chip")).getByRole(
       "button",
       {
-        name: Label.Dismiss,
+        name: `${Label.Dismiss} Bob`,
       },
     );
     await userEvent.click(dismissButton);
