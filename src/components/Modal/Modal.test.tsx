@@ -4,6 +4,7 @@ import React, { FC, useEffect, useState } from "react";
 
 import Button from "components/Button";
 import Input from "components/Input";
+import ContextualMenu from "components/ContextualMenu";
 import Modal from "./Modal";
 
 describe("Modal ", () => {
@@ -104,7 +105,11 @@ describe("Modal ", () => {
     expect(closeButton).toHaveFocus();
   });
 
-  it("should stop immediate Esc press propagation", async () => {
+  it("should stop immediate Esc press propagation to other document listeners", async () => {
+    // A sibling component that registers a raw document keydown listener.
+    // It should NOT fire when the Modal handles Escape, because the global
+    // escape stack calls stopImmediatePropagation() before any other
+    // document listeners run.
     const MockEscEventComponent = ({
       onEscPress,
     }: {
@@ -112,7 +117,7 @@ describe("Modal ", () => {
     }): React.JSX.Element => {
       useEffect(() => {
         const handleEscPress = (e: KeyboardEvent) => {
-          if (e.code === "Escape") {
+          if (e.key === "Escape") {
             onEscPress();
           }
         };
@@ -221,6 +226,37 @@ describe("Modal ", () => {
     await userEvent.type(container.querySelector("input"), "delete item1");
     expect(input).toHaveFocus();
     expect(input).toHaveValue("delete item1");
+  });
+
+  it("should allow Escape to close an open overlay inside the modal before closing the modal", async () => {
+    // Regression test for https://github.com/canonical/react-components/issues/1305
+    //
+    // Both Modal and ContextualMenu register on the global escape-key stack.
+    // The menu is opened *after* the modal mounts (via a click), so its handler
+    // sits on top of the stack and must be called first (LIFO order).
+    const user = userEvent.setup();
+    const handleCloseModal = jest.fn();
+
+    render(
+      <Modal title="Test" close={handleCloseModal}>
+        <ContextualMenu
+          toggleLabel="Open menu"
+          links={[{ children: "Item 1" }]}
+        />
+      </Modal>,
+    );
+
+    // Open the ContextualMenu after the modal is already mounted —
+    // this pushes its escape handler on top of the modal's in the LIFO stack.
+    await user.click(screen.getByRole("button", { name: /open menu/i }));
+
+    // First Escape — should dismiss the ContextualMenu, not the Modal
+    await user.keyboard("{Escape}");
+    expect(handleCloseModal).not.toHaveBeenCalled();
+
+    // Second Escape — menu is gone, so the Modal should now close
+    await user.keyboard("{Escape}");
+    expect(handleCloseModal).toHaveBeenCalledTimes(1);
   });
 
   it("updates focusable elements when an initially disabled button becomes enabled", async () => {

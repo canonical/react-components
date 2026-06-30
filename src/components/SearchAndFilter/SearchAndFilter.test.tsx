@@ -394,4 +394,61 @@ describe("Search and filter", () => {
 
     expect(onPanelToggle).not.toHaveBeenCalled();
   });
+
+  it("closes the filter panel when escape is pressed", async () => {
+    const returnSearchData = jest.fn();
+    render(
+      <SearchAndFilter
+        data-testid="searchandfilter"
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+      />,
+    );
+    await userEvent.click(screen.getByTestId("searchandfilter"));
+    expect(getPanel()).toHaveAttribute("aria-hidden", "false");
+
+    await userEvent.keyboard("{Escape}");
+    expect(getPanel()).toHaveAttribute("aria-hidden", "true");
+  });
+
+  it("does not occupy the escape stack while the panel is closed", async () => {
+    // Regression test for https://github.com/canonical/react-components/pull/1339#discussion_r1234
+    //
+    // SearchAndFilter must only join the global escape-key stack while its
+    // panel is open. Otherwise, if it is mounted alongside another overlay
+    // (e.g. Navigation's search box) and registers unconditionally, it can
+    // sit on top of the LIFO stack and swallow Escape presses meant for that
+    // other overlay even though its own panel is closed.
+    const returnSearchData = jest.fn();
+    const onEscPress = jest.fn();
+
+    const MockEscEventComponent = (): React.JSX.Element => {
+      React.useEffect(() => {
+        const handleEscPress = (e: KeyboardEvent) => {
+          if (e.key === "Escape") {
+            onEscPress();
+          }
+        };
+        document.addEventListener("keydown", handleEscPress);
+        return () => {
+          document.removeEventListener("keydown", handleEscPress);
+        };
+      });
+      return <div>Mock component with event on Esc key press</div>;
+    };
+
+    render(
+      <>
+        <SearchAndFilter
+          filterPanelData={sampleData}
+          returnSearchData={returnSearchData}
+        />
+        <MockEscEventComponent />
+      </>,
+    );
+
+    expect(getPanel()).toHaveAttribute("aria-hidden", "true");
+    await userEvent.keyboard("{Escape}");
+    expect(onEscPress).toHaveBeenCalledTimes(1);
+  });
 });
