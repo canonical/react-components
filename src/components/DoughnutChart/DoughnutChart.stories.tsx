@@ -37,3 +37,37 @@ export const Default: Story = {
     size: 150,
   },
 };
+
+/**
+ * Segments can optionally include an `href` to make them navigable links.
+ */
+export const WithLinks: Story = {
+  name: "With links",
+  args: {
+    chartID: "with-links",
+    segmentHoverWidth: 45,
+    segmentThickness: 40,
+    segments: [
+      {
+        color: "#0E8420",
+        href: "https://www.example.com/running",
+        tooltip: "Running",
+        value: 10,
+      },
+      {
+        color: "#CC7900",
+        href: "https://www.example.com/stopped",
+        tooltip: "Stopped",
+        value: 15,
+      },
+      {
+        color: "#C7162B",
+        href: "https://www.example.com/frozen",
+        tooltip: "Frozen",
+        value: 5,
+      },
+      { color: "#000", tooltip: "Error", value: 5 },
+    ],
+    size: 150,
+  },
+};
