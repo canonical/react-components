@@ -9,6 +9,10 @@ export type Segment = {
    */
   color: string;
   /**
+   * An optional URL that makes the segment a link.
+   */
+  href?: string;
+  /**
    * The segment tooltip.
    */
   tooltip?: string;
@@ -113,17 +117,24 @@ const DoughnutChart: FC<Props> = ({
   // Map over the enriched data.
   const segmentNodes = segmentsWithOffsets.map(
     (
-      { color, tooltip, value, startPosition, segmentLength, remainingSpace },
+      {
+        color,
+        href,
+        tooltip,
+        value,
+        startPosition,
+        segmentLength,
+        remainingSpace,
+      },
       i,
     ) => {
-      return (
+      const circle = (
         <circle
           className="doughnut-chart__segment"
           cx={radius - segmentThickness / 2 - hoverIncrease}
           cy={radius + segmentThickness / 2 + hoverIncrease}
           data-testid={TestIds.Segment}
-          key={i}
-          tabIndex={0}
+          tabIndex={href ? undefined : 0}
           aria-label={tooltip ? `${tooltip}: ${value}` : `${value}`}
           onMouseOut={
             tooltip
@@ -160,6 +171,14 @@ const DoughnutChart: FC<Props> = ({
           // the chart.
           transform={`rotate(-90 ${radius},${radius})`}
         />
+      );
+
+      return href ? (
+        <a key={i} href={href}>
+          {circle}
+        </a>
+      ) : (
+        <React.Fragment key={i}>{circle}</React.Fragment>
       );
     },
   );

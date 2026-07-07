@@ -73,4 +73,19 @@ describe("DoughnutChart", () => {
     render(<DoughnutChart {...defaultProps} />);
     expect(screen.queryByText("Test Label")).not.toBeInTheDocument();
   });
+
+  it("renders a link when href is provided on a segment", () => {
+    const segments = [
+      { ...defaultProps.segments[0], href: "/some/path" },
+      ...defaultProps.segments.slice(1),
+    ];
+    render(<DoughnutChart {...defaultProps} segments={segments} />);
+    const link = screen.getByRole("link");
+    expect(link).toHaveAttribute("href", "/some/path");
+  });
+
+  it("does not render a link when href is not provided", () => {
+    render(<DoughnutChart {...defaultProps} />);
+    expect(screen.queryByRole("link")).not.toBeInTheDocument();
+  });
 });
