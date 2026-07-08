@@ -29,8 +29,10 @@ export const isDarkTheme = (theme: string) => {
 export const applyTheme = (theme: string): void => {
   if (isDarkTheme(theme)) {
     document.body.classList.add("is-dark");
+    document.documentElement.style.colorScheme = "dark";
   } else {
     document.body.classList.remove("is-dark");
+    document.documentElement.style.colorScheme = "light";
   }
 };
 
