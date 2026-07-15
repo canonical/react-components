@@ -43,6 +43,7 @@ export const CondensedExample: Story = {
       ...Array.from({ length: 26 }, (_, i) => ({
         label: `${String.fromCharCode(i + 65)}`,
         value: `${String.fromCharCode(i + 65)}`,
+        node: <span style={{ display: "inline flex", justifyContent: "space-between", textIndent: 0, width: "100%" }}><span>{String.fromCharCode(i + 65)}</span><span className="u-text--muted">20 instances</span></span>
       })),
       ...Array.from({ length: 26 }, (_, i) => ({
         label: `Item ${i + 1}`,
