@@ -29,6 +29,10 @@
   text-decoration: underline;
 }
 
+.step-enabled {
+  @include vf-focus-themed;
+}
+
 .step-disabled {
   color: $colors--theme--text-muted;
   pointer-events: none;
