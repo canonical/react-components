@@ -79,6 +79,7 @@ export { default as ScrollableContainer } from "./components/ScrollableContainer
 export { default as ScrollableTable } from "./components/ScrollableTable";
 export { default as SearchAndFilter } from "./components/SearchAndFilter";
 export { default as SearchBox } from "./components/SearchBox";
+export { default as SegmentedControl } from "./components/SegmentedControl";
 export { default as Select } from "./components/Select";
 export { default as SideNavigation } from "./components/SideNavigation";
 export { default as SideNavigationItem } from "./components/SideNavigation/SideNavigationItem";
@@ -194,6 +195,7 @@ export type { ScrollableTableProps } from "./components/ScrollableTable";
 export type { ScrollableContainerProps } from "./components/ScrollableContainer";
 export type { SearchAndFilterProps } from "./components/SearchAndFilter";
 export type { SearchBoxProps } from "./components/SearchBox";
+export type { SegmentedControlProps } from "./components/SegmentedControl";
 export type { SelectProps } from "./components/Select";
 export type { SideNavigationProps } from "./components/SideNavigation";
 export type { SideNavigationItemProps } from "./components/SideNavigation/SideNavigationItem";
