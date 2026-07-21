@@ -262,4 +262,60 @@ describe("Modal ", () => {
     const proceedButton = screen.getByRole("button", { name: /^proceed$/i });
     expect(proceedButton).toHaveFocus();
   });
+
+  it("excludes hidden focusable elements from the focus trap", async () => {
+    const user = userEvent.setup();
+    const { container } = render(
+      <Modal
+        title="Test"
+        close={jest.fn()}
+        buttonRow={
+          <>
+            <button id="test-cancel">Cancel</button>
+            <button id="test-hidden" style={{ display: "none" }}>
+              Hidden
+            </button>
+          </>
+        }
+      >
+        Bare bones
+      </Modal>,
+    );
+
+    const closeButton = container.querySelector("button.p-modal__close");
+    const cancelButton = container.querySelector("button#test-cancel");
+
+    expect(closeButton).toHaveFocus();
+    await user.tab({ shift: true });
+    expect(cancelButton).toHaveFocus();
+
+    await user.tab();
+    expect(closeButton).toHaveFocus();
+  });
+
+  it("initially focuses the first visible focusable element when the close button is hidden", () => {
+    const style = document.createElement("style");
+    style.innerHTML = ".p-modal__close { display: none; }";
+    document.head.appendChild(style);
+
+    try {
+      const { container } = render(
+        <Modal
+          title="Test"
+          close={jest.fn()}
+          buttonRow={<button id="test-cancel">Cancel</button>}
+        >
+          Bare bones
+        </Modal>,
+      );
+
+      const closeButton = container.querySelector("button.p-modal__close");
+      const cancelButton = container.querySelector("button#test-cancel");
+
+      expect(closeButton).not.toHaveFocus();
+      expect(cancelButton).toHaveFocus();
+    } finally {
+      document.head.removeChild(style);
+    }
+  });
 });
