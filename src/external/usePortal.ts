@@ -13,6 +13,7 @@ import {
   RefObject,
   MouseEvent,
 } from "react";
+import { pushEscapeHandler } from "../hooks/useEscapeStack";
 import { createPortal } from "react-dom";
 import { useSSR } from "./useSSR";
 
@@ -126,14 +127,6 @@ export const usePortal = ({
     [closePortal, openPortal],
   );
 
-  const handleKeydown = useCallback(
-    (e: KeyboardEvent): void =>
-      e.key === "Escape" && closeOnEsc
-        ? closePortal(e as unknown as SyntheticEvent<HTMLElement, Event>)
-        : undefined,
-    [closeOnEsc, closePortal],
-  );
-
   const handleOutsideMouseClick = useCallback(
     (e: MouseEvent): void => {
       const containsTarget = (target: RefObject<HTMLElement>) =>
@@ -179,21 +172,44 @@ export const usePortal = ({
     const node = portal.current;
     elToMountTo.appendChild(portal.current);
 
-    document.addEventListener("keydown", handleKeydown);
     document.addEventListener(
       "mousedown",
       handleMouseDown as unknown as EventListener,
     );
 
     return () => {
-      document.removeEventListener("keydown", handleKeydown);
       document.removeEventListener(
         "mousedown",
         handleMouseDown as unknown as EventListener,
       );
       elToMountTo.removeChild(node);
     };
-  }, [isServer, handleOutsideMouseClick, handleKeydown, elToMountTo, portal]);
+  }, [isServer, handleOutsideMouseClick, elToMountTo, portal]);
+
+  // Keep a ref to closePortal so the escape-stack effect below does not need
+  // it as a dependency. This prevents closePortal identity changes (e.g. when
+  // onClose prop changes) from re-registering the handler and incorrectly
+  // moving an already-open portal to the top of the LIFO stack.
+  const closePortalRef = useRef(closePortal);
+  useEffect(() => {
+    closePortalRef.current = closePortal;
+  }, [closePortal]);
+
+  // Register on the global escape-key stack only while the portal is open.
+  // LIFO ordering ensures the most recently opened overlay always handles
+  // Escape first, regardless of component type or DOM structure.
+  //
+  // Registered as non-exclusive: this portal closes itself on Escape, but
+  // does not stop the event from propagating to unrelated `document`
+  // keydown listeners (e.g. useOnEscapePressed-based components elsewhere
+  // on the page). Exclusive ownership of Escape (e.g. while a Modal is open)
+  // is reserved for entries that opt into it explicitly.
+  useEffect(() => {
+    if (isServer || !closeOnEsc || !isOpen) return undefined;
+    return pushEscapeHandler(() => closePortalRef.current(), {
+      exclusive: false,
+    });
+  }, [isOpen, closeOnEsc, isServer]);
 
   const Portal = useCallback(
     ({ children }: { children: ReactNode }) => {

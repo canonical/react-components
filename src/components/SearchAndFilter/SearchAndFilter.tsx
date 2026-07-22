@@ -92,7 +92,7 @@ const SearchAndFilter = ({
   const closePanel = () => {
     setFilterPanelHidden(true);
   };
-  useOnEscapePressed(() => closePanel());
+  useOnEscapePressed(() => closePanel(), { isEnabled: !filterPanelHidden });
 
   // This useEffect sets up listeners so the panel will close if user clicks
   // anywhere else on the page or hits the escape key
