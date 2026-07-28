@@ -41,13 +41,11 @@ describe("Tabs", () => {
         ]}
       />,
     );
-    // TODO: use a more appropriate attribute once the issue below is addressed:
-    // https://github.com/canonical-web-and-design/vanilla-framework/issues/4481
-    expect(screen.getByRole("link", { name: "label1" })).toHaveAttribute(
+    expect(screen.getByRole("tab", { name: "label1" })).toHaveAttribute(
       "aria-selected",
       "true",
     );
-    expect(screen.getByRole("link", { name: "label2" })).toHaveAttribute(
+    expect(screen.getByRole("tab", { name: "label2" })).toHaveAttribute(
       "aria-selected",
       "false",
     );
@@ -69,9 +67,13 @@ describe("Tabs", () => {
       />,
     );
     expect(screen.getByRole("navigation")).toHaveClass("nav-class");
-    expect(screen.getByRole("list")).toHaveClass("list-class");
-    expect(screen.getByRole("listitem")).toHaveClass("list-item-class");
-    expect(screen.getByRole("link")).toHaveClass("link-class");
+    expect(screen.getByRole("tablist")).toHaveClass("list-class");
+    expect(screen.getByRole("tab", { name: "label1" })).toHaveClass(
+      "link-class",
+    );
+    expect(
+      screen.getByRole("tab", { name: "label1" }).closest("li"),
+    ).toHaveClass("list-item-class");
   });
 
   it("can use custom elements as links", () => {
@@ -86,7 +88,7 @@ describe("Tabs", () => {
         ]}
       />,
     );
-    expect(screen.getByRole("button", { name: "label1" })).toBeInTheDocument();
+    expect(screen.getByRole("tab", { name: "label1" })).toBeInTheDocument();
   });
 
   it("can use custom components as links", () => {
@@ -109,7 +111,7 @@ describe("Tabs", () => {
       />,
     );
 
-    expect(screen.queryByRole("link", { name })).not.toBeInTheDocument();
-    expect(screen.getByRole("button", { name })).toBeInTheDocument();
+    expect(screen.queryByRole("button", { name })).not.toBeInTheDocument();
+    expect(screen.getByRole("tab", { name })).toBeInTheDocument();
   });
 });

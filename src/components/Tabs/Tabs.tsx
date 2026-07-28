@@ -54,7 +54,7 @@ const Tabs = <P,>({
 }: Props<P>): React.JSX.Element => {
   return (
     <nav className={classNames("p-tabs", className)}>
-      <ul className={classNames("p-tabs__list", listClassName)}>
+      <ul role="tablist" className={classNames("p-tabs__list", listClassName)}>
         {links.map((link, i) => {
           const {
             active,
@@ -69,8 +69,10 @@ const Tabs = <P,>({
             <li
               className={classNames("p-tabs__item", listItemClassName)}
               key={i}
+              role="none presentation"
             >
               <Component
+                role="tab"
                 aria-selected={active}
                 className={classNames("p-tabs__link", className)}
                 data-testid={`tab-link-${label}`}
