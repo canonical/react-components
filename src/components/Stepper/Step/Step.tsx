@@ -63,6 +63,23 @@ const Step = ({
 }: Props): React.JSX.Element => {
   const stepStatusClass = enabled ? "step-enabled" : "step-disabled";
 
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLSpanElement>) => {
+    if (!enabled) {
+      return;
+    }
+    const isEnter = event.key === "Enter";
+    const isSpace = event.key === " " || event.key === "Spacebar";
+    if (isEnter || isSpace) {
+      if (event.repeat) {
+        return;
+      }
+      if (isSpace) {
+        event.preventDefault();
+      }
+      handleClick();
+    }
+  };
+
   return (
     <div
       className={classNames("step", {
@@ -86,7 +103,14 @@ const Step = ({
         />
       )}
       <div className="step-content">
-        <span className={classNames(stepStatusClass)} onClick={handleClick}>
+        <span
+          className={classNames(stepStatusClass)}
+          onClick={enabled ? handleClick : undefined}
+          onKeyDown={handleKeyDown}
+          role="button"
+          tabIndex={enabled ? 0 : -1}
+          aria-disabled={!enabled}
+        >
           {title}
         </span>
         {label && (

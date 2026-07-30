@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Stepper component renders the stepper 1`] = `
 <ul
@@ -17,7 +17,10 @@ exports[`Stepper component renders the stepper 1`] = `
         class="step-content"
       >
         <span
+          aria-disabled="false"
           class="step-enabled"
+          role="button"
+          tabindex="0"
         >
           Step 1
         </span>
@@ -42,7 +45,10 @@ exports[`Stepper component renders the stepper 1`] = `
         class="step-content"
       >
         <span
+          aria-disabled="false"
           class="step-enabled"
+          role="button"
+          tabindex="0"
         >
           Step 2
         </span>
@@ -69,7 +75,10 @@ exports[`Stepper component renders the stepper 1`] = `
         class="step-content"
       >
         <span
+          aria-disabled="false"
           class="step-enabled"
+          role="button"
+          tabindex="0"
         >
           Step 3
         </span>
@@ -102,7 +111,10 @@ exports[`Stepper component renders the stepper 1`] = `
         class="step-content"
       >
         <span
+          aria-disabled="true"
           class="step-disabled"
+          role="button"
+          tabindex="-1"
         >
           Step 4
         </span>

@@ -67,24 +67,46 @@ export const Modal = ({
 
   const modalRef: RefObject<HTMLDivElement> = useRef(null);
   const closeButtonRef: RefObject<HTMLButtonElement> = useRef(null);
+
+  // determines whether an element is visible by checking computed styles
+  // fails open: an element is only treated as hidden when getComputedStyle
+  // explicitly reports `display:none` or `visibility:hidden`
+  const isElementVisible = (element: Element): boolean => {
+    let current: Element | null = element;
+    while (current) {
+      const style = window.getComputedStyle(current);
+      if (style.display === "none" || style.visibility === "hidden") {
+        return false;
+      }
+      current = current.parentElement;
+    }
+    return true;
+  };
+
+  const getVisibleFocusableElements = (): HTMLElement[] => {
+    if (!modalRef.current) {
+      return [];
+    }
+    return Array.from(
+      modalRef.current.querySelectorAll<HTMLElement>(focusableElementSelectors),
+    ).filter(isElementVisible);
+  };
+
   const handleTabKey = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    const focusableModalElements = modalRef.current.querySelectorAll(
-      focusableElementSelectors,
-    );
-    if (focusableModalElements.length > 0) {
-      const firstElement = focusableModalElements[0];
-      const lastElement =
-        focusableModalElements[focusableModalElements.length - 1];
+    const focusableModalElements = getVisibleFocusableElements();
+    if (focusableModalElements.length === 0) {
+      return;
+    }
+    const firstElement = focusableModalElements[0];
+    const lastElement =
+      focusableModalElements[focusableModalElements.length - 1];
 
-      if (!event.shiftKey && document.activeElement === lastElement) {
-        (firstElement as HTMLElement).focus();
-        event.preventDefault();
-      }
-
-      if (event.shiftKey && document.activeElement === firstElement) {
-        (lastElement as HTMLElement).focus();
-        return event.preventDefault();
-      }
+    if (event.shiftKey && document.activeElement === firstElement) {
+      lastElement.focus();
+      event.preventDefault();
+    } else if (!event.shiftKey && document.activeElement === lastElement) {
+      firstElement.focus();
+      event.preventDefault();
     }
   };
 
@@ -103,13 +125,29 @@ export const Modal = ({
     }
   };
 
+  const focusModalWrapper = () => {
+    if (modalRef.current) {
+      modalRef.current.tabIndex = -1;
+      modalRef.current.focus();
+    }
+  };
+
   useEffect(() => {
     if (focusRef?.current) {
       focusRef.current.focus();
     } else if (closeButtonRef.current) {
-      closeButtonRef.current.focus();
+      if (isElementVisible(closeButtonRef.current)) {
+        closeButtonRef.current.focus();
+      } else {
+        const firstFocusable = getVisibleFocusableElements()[0];
+        if (firstFocusable) {
+          firstFocusable.focus();
+        } else {
+          focusModalWrapper();
+        }
+      }
     } else {
-      modalRef.current.focus();
+      focusModalWrapper();
     }
   }, [focusRef]);
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen } from "@testing-library/react";
+import { createEvent, fireEvent, render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import Step from "./Step";
 import type { Props } from "./Step";
@@ -13,6 +13,10 @@ describe("Step component", () => {
     iconName: "number",
     handleClick: jest.fn(),
   };
+
+  beforeEach(() => {
+    jest.clearAllMocks();
+  });
 
   it("renders the step with the required props", () => {
     render(<Step {...props} />);
@@ -45,6 +49,55 @@ describe("Step component", () => {
     render(<Step {...props} />);
     await userEvent.click(screen.getByText("Title"));
     expect(props.handleClick).toHaveBeenCalled();
+  });
+
+  it("exposes the title as a button role", () => {
+    render(<Step {...props} />);
+    expect(screen.getByRole("button", { name: "Title" })).toBeInTheDocument();
+  });
+
+  it("is keyboard focusable and not aria-disabled when enabled", () => {
+    render(<Step {...props} />);
+    const title = screen.getByText("Title");
+    expect(title).toHaveAttribute("tabindex", "0");
+    expect(title).toHaveAttribute("aria-disabled", "false");
+  });
+
+  it("calls handleClick when Enter is pressed and enabled", async () => {
+    render(<Step {...props} />);
+    screen.getByText("Title").focus();
+    await userEvent.keyboard("{Enter}");
+    expect(props.handleClick).toHaveBeenCalled();
+  });
+
+  it("calls handleClick and prevents default when Space is pressed and enabled", () => {
+    render(<Step {...props} />);
+    const title = screen.getByText("Title");
+    const event = createEvent.keyDown(title, { key: " " });
+    fireEvent(title, event);
+    expect(props.handleClick).toHaveBeenCalled();
+    expect(event.defaultPrevented).toBe(true);
+  });
+
+  it("is not focusable and is aria-disabled when disabled", () => {
+    render(<Step {...props} enabled={false} />);
+    const title = screen.getByText("Title");
+    expect(title).toHaveAttribute("tabindex", "-1");
+    expect(title).toHaveAttribute("aria-disabled", "true");
+  });
+
+  it("does not call handleClick on keyboard activation when disabled", () => {
+    render(<Step {...props} enabled={false} />);
+    const title = screen.getByText("Title");
+    fireEvent.keyDown(title, { key: "Enter" });
+    fireEvent.keyDown(title, { key: " " });
+    expect(props.handleClick).not.toHaveBeenCalled();
+  });
+
+  it("does not call handleClick when clicked while disabled", async () => {
+    render(<Step {...props} enabled={false} />);
+    await userEvent.click(screen.getByText("Title"));
+    expect(props.handleClick).not.toHaveBeenCalled();
   });
 
   it("can display optional label", () => {
