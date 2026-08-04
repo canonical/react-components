@@ -63,11 +63,7 @@ const SegmentedControl = ({
           );
         })}
       </div>
-      <div
-        tabIndex={activeIndex}
-        role="tabpanel"
-        aria-labelledby={segments[activeIndex].label}
-      >
+      <div role="tabpanel" aria-labelledby={segments[activeIndex].label}>
         {segments[activeIndex].content}
       </div>
     </div>
