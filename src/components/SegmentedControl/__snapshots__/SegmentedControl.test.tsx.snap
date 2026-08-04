@@ -21,7 +21,6 @@ exports[`SegmentedControl renders 1`] = `
     <div
       aria-labelledby="label1"
       role="tabpanel"
-      tabindex="0"
     >
       <p>
         content1
