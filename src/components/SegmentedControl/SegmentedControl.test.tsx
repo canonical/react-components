@@ -11,7 +11,7 @@ describe("SegmentedControl", () => {
         segments={[
           {
             label: "label1",
-            segmentContent: <p>content1</p>,
+            content: <p>content1</p>,
           },
         ]}
       />,
@@ -20,18 +20,20 @@ describe("SegmentedControl", () => {
   });
 
   it("can set className correctly", () => {
-    render(
+    const { container } = render(
       <SegmentedControl
         className="is-dense"
         segments={[
           {
             label: "label1",
-            segmentContent: <p>content1</p>,
+            content: <p>content1</p>,
           },
         ]}
       />,
     );
-    expect(screen.getByTestId("segmented-control-div")).toHaveClass("is-dense");
+    expect(container.querySelector(".p-segmented-control")).toHaveClass(
+      "is-dense",
+    );
   });
 
   it("can set active segment on segment click", async () => {
@@ -40,11 +42,11 @@ describe("SegmentedControl", () => {
         segments={[
           {
             label: "label1",
-            segmentContent: <p>content1</p>,
+            content: <p>content1</p>,
           },
           {
             label: "label2",
-            segmentContent: <p>content2</p>,
+            content: <p>content2</p>,
           },
         ]}
       />,
@@ -55,6 +57,8 @@ describe("SegmentedControl", () => {
       "aria-selected",
       "true",
     );
-    expect(screen.getByRole("tabpanel")).toHaveTextContent("content2");
+    expect(screen.getByRole("tabpanel", { name: "label2" })).toHaveTextContent(
+      "content2",
+    );
   });
 });

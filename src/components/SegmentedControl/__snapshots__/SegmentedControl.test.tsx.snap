@@ -4,7 +4,6 @@ exports[`SegmentedControl renders 1`] = `
 <div>
   <div
     class="p-segmented-control"
-    data-testid="segmented-control-div"
   >
     <div
       class="p-segmented-control__list"
@@ -13,13 +12,14 @@ exports[`SegmentedControl renders 1`] = `
       <button
         aria-selected="true"
         class="p-segmented-control__button"
+        id="label1"
         role="tab"
       >
         label1
       </button>
     </div>
     <div
-      data-testid="text-content"
+      aria-labelledby="label1"
       role="tabpanel"
       tabindex="0"
     >

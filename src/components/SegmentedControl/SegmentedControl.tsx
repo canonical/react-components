@@ -1,23 +1,24 @@
 import classNames from "classnames";
-import React, { ReactNode, HTMLProps, useState } from "react";
-import type { ClassName } from "types";
+import Icon, { ICONS } from "components/Icon";
+import React, { ReactNode, useState } from "react";
+import type { ClassName, ValueOf } from "types";
 
-export type Segments<P = null> = {
+export type Segments = {
   /**
    * Label to be displayed inside the segment.
    */
-  label: ReactNode;
+  label: string;
   /**
    * Content to be displayed inside the segment.
    */
-  segmentContent: ReactNode;
+  content: ReactNode;
   /**
    * Icon to be displayed alongside the label of the segment.
    */
-  segmentIcon?: ReactNode;
-} & (HTMLProps<HTMLElement> | P);
+  iconName?: ValueOf<typeof ICONS> | string;
+};
 
-export type Props<P = null> = {
+export type Props = {
   /**
    * Optional classes applied to the parent element.
    */
@@ -25,7 +26,7 @@ export type Props<P = null> = {
   /**
    * List of segments present in the element.
    */
-  segments: Segments<P>[];
+  segments: Segments[];
 };
 /**
  * This is the [React](https://reactjs.org/) component for Vanilla [SegmentedControl](https://vanillaframework.io/docs/patterns/segmented-control).
@@ -38,10 +39,7 @@ const SegmentedControl = ({
 }: Props): React.JSX.Element => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
   return (
-    <div
-      className={classNames("p-segmented-control", className)}
-      data-testid="segmented-control-div"
-    >
+    <div className={classNames("p-segmented-control", className)}>
       <div className={classNames("p-segmented-control__list")} role="tablist">
         {segments.map((segment, i) => {
           return (
@@ -49,12 +47,13 @@ const SegmentedControl = ({
               aria-selected={activeIndex === i}
               className={classNames("p-segmented-control__button")}
               role="tab"
-              key={i}
+              key={segment.label}
+              id={segment.label}
               onClick={() => setActiveIndex(i)}
             >
-              {segment.segmentIcon ? (
+              {segment.iconName ? (
                 <>
-                  {segment.segmentIcon}
+                  <Icon name={segment.iconName} />
                   <span>{segment.label}</span>
                 </>
               ) : (
@@ -64,8 +63,12 @@ const SegmentedControl = ({
           );
         })}
       </div>
-      <div tabIndex={activeIndex} role="tabpanel" data-testid="text-content">
-        {segments[activeIndex].segmentContent}
+      <div
+        tabIndex={activeIndex}
+        role="tabpanel"
+        aria-labelledby={segments[activeIndex].label}
+      >
+        {segments[activeIndex].content}
       </div>
     </div>
   );

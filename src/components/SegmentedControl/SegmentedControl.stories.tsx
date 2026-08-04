@@ -19,7 +19,7 @@ export const Default: Story = {
     segments: [
       {
         label: "OLM",
-        segmentContent: (
+        content: (
           <p>
             A system to help you move from configuration management to
             application management across your hybrid cloud estate - through
@@ -29,7 +29,7 @@ export const Default: Story = {
       },
       {
         label: "SDK",
-        segmentContent: (
+        content: (
           <p>
             A set of tools to help you write Charmed Operators and to package
             them as Charms.
@@ -38,7 +38,7 @@ export const Default: Story = {
       },
       {
         label: "Charmhub",
-        segmentContent: (
+        content: (
           <p>
             A repository for charms - from Observability to Data to Identity and
             more.
@@ -61,7 +61,7 @@ export const Dense: Story = {
     segments: [
       {
         label: "OLM",
-        segmentContent: (
+        content: (
           <p>
             A system to help you move from configuration management to
             application management across your hybrid cloud estate - through
@@ -71,7 +71,7 @@ export const Dense: Story = {
       },
       {
         label: "SDK",
-        segmentContent: (
+        content: (
           <p>
             A set of tools to help you write Charmed Operators and to package
             them as Charms.
@@ -80,7 +80,7 @@ export const Dense: Story = {
       },
       {
         label: "Charmhub",
-        segmentContent: (
+        content: (
           <p>
             A repository for charms - from Observability to Data to Identity and
             more.
@@ -101,34 +101,34 @@ export const WithIcon: Story = {
     segments: [
       {
         label: "OLM",
-        segmentContent: (
+        content: (
           <p>
             A system to help you move from configuration management to
             application management across your hybrid cloud estate - through
             sharable, reusable, tiny applications called Charmed Operators.
           </p>
         ),
-        segmentIcon: <i className="p-icon--information"></i>,
+        iconName: "information",
       },
       {
         label: "SDK",
-        segmentContent: (
+        content: (
           <p>
             A set of tools to help you write Charmed Operators and to package
             them as Charms.
           </p>
         ),
-        segmentIcon: <i className="p-icon--information"></i>,
+        iconName: "information",
       },
       {
         label: "Charmhub",
-        segmentContent: (
+        content: (
           <p>
             A repository for charms - from Observability to Data to Identity and
             more.
           </p>
         ),
-        segmentIcon: <i className="p-icon--information"></i>,
+        iconName: "information",
       },
     ],
   },
