@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SegmentedControl renders 1`] = `
+<div>
+  <div
+    class="p-segmented-control"
+  >
+    <div
+      class="p-segmented-control__list"
+      role="tablist"
+    >
+      <button
+        aria-selected="true"
+        class="p-segmented-control__button"
+        id="label1"
+        role="tab"
+      >
+        label1
+      </button>
+    </div>
+    <div
+      aria-labelledby="label1"
+      role="tabpanel"
+    >
+      <p>
+        content1
+      </p>
+    </div>
+  </div>
+</div>
+`;
