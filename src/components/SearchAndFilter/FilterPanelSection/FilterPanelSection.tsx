@@ -127,6 +127,7 @@ const FilterPanelSection = ({
                     key={`${chip.lead}+${chip.value}`}
                     lead={chip.lead}
                     value={chip.value}
+                    appearance={chip.appearance}
                     selected={isChipInArray(chip, searchData)}
                     subString={searchTerm}
                     onClick={() => handleChipClick(chip)}

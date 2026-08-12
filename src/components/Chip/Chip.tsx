@@ -130,9 +130,9 @@ const Chip = ({
   );
 
   const chipClassName = classNames(
+    "p-chip",
     {
       [`p-chip--${appearance}`]: !!appearance,
-      "p-chip": !appearance,
       "is-dense": isDense,
       "is-readonly": isReadOnly,
       "is-inline": isInline,
