@@ -261,6 +261,7 @@ const SearchAndFilter = ({
               lead={chip.lead}
               value={chip.value}
               key={`search-${chip.lead}+${chip.value}`}
+              appearance={chip.appearance}
               onDismiss={(event) => {
                 // Prevent filter chip dismissals from bubbling up and triggering the parent onClick handler
                 event.stopPropagation();

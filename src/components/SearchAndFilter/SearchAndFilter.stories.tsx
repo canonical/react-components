@@ -305,3 +305,49 @@ export const WithExistingSearchData: Story = {
     returnSearchData: () => {},
   },
 };
+
+export const WithChipAppearance: Story = {
+  name: "With chip appearance",
+
+  args: {
+    filterPanelData: [
+      {
+        id: 0,
+        heading: "Status",
+
+        chips: [
+          {
+            value: "new",
+          },
+          {
+            value: "acknowledged",
+          },
+          {
+            value: "resolved",
+          },
+        ],
+      },
+      {
+        id: 1,
+        heading: "Severity",
+
+        chips: [
+          {
+            value: "high",
+            appearance: "negative",
+          },
+          {
+            value: "moderate",
+            appearance: "caution",
+          },
+          {
+            value: "low",
+            appearance: "information",
+          },
+        ],
+      },
+    ],
+
+    returnSearchData: () => {},
+  },
+};
