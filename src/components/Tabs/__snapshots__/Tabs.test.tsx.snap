@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Tabs renders 1`] = `
 <div>
@@ -7,27 +7,32 @@ exports[`Tabs renders 1`] = `
   >
     <ul
       class="p-tabs__list"
+      role="tablist"
     >
       <li
         class="p-tabs__item"
+        role="none presentation"
       >
         <a
           aria-selected="true"
           class="p-tabs__link"
           data-testid="tab-link-label1"
           href="/path1"
+          role="tab"
         >
           label1
         </a>
       </li>
       <li
         class="p-tabs__item"
+        role="none presentation"
       >
         <a
           aria-selected="false"
           class="p-tabs__link"
           data-testid="tab-link-label2"
           href="/path2"
+          role="tab"
         >
           label2
         </a>
