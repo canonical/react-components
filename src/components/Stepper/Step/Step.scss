@@ -39,9 +39,9 @@
 }
 
 .step-status-icon {
-  height: 1.6rem;
-  margin-left: 0.4rem;
-  width: 1.6rem;
+  height: 1.6rem !important;
+  margin-left: 0.4rem !important;
+  width: 1.6rem !important;
 }
 
 .step-selected {
@@ -69,7 +69,7 @@
   }
 
   .step-status-icon {
-    margin-left: 0;
+    margin-left: 0 !important;
   }
 
   .step-number {
