@@ -51,9 +51,10 @@ const Tabs = <P,>({
   className,
   links,
   listClassName,
+  ...props
 }: Props<P>): React.JSX.Element => {
   return (
-    <nav className={classNames("p-tabs", className)}>
+    <nav className={classNames("p-tabs", className)} {...props}>
       <ul className={classNames("p-tabs__list", listClassName)}>
         {links.map((link, i) => {
           const {
