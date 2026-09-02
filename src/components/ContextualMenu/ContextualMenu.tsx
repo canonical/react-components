@@ -307,7 +307,7 @@ const ContextualMenu = <L,>({
   });
 
   /**
-   * Trap focus within the dropdown
+   * Trap focus within the dropdown and route keyboard focus into it.
    */
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -325,13 +325,25 @@ const ContextualMenu = <L,>({
         // Shift+Tab on the first item: wrap back to the last focusable item
         e.preventDefault();
         last.focus();
+      } else if (
+        !e.shiftKey &&
+        active ===
+          wrapper.current?.querySelector<HTMLElement>(
+            ".p-contextual-menu__toggle",
+          )
+      ) {
+        // The menu is open but focus is still on the toggle, e.g. the menu
+        // was opened with the mouse: Tab must enter the menu instead of
+        // walking the rest of the page.
+        e.preventDefault();
+        first.focus();
       }
     };
-    const dropdown = getDropdown();
-    if (!dropdown) return undefined;
-    dropdown.addEventListener("keydown", handleKeyDown);
+    // The toggle lives outside the dropdown element, so the listener is
+    // document level to catch both the wrap cases and the toggle case.
+    document.addEventListener("keydown", handleKeyDown);
     return () => {
-      dropdown.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
     };
   }, [getDropdown, getFocusableDropdownItems, isOpen]);
 
