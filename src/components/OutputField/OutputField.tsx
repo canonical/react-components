@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from "react";
 import Field from "../Field";
 import "./OutputField.scss";
+import classNames from "classnames";
 
 export type Props = {
   /**
@@ -45,7 +46,11 @@ export const OutputField: FC<Props> = ({
       className="output-field"
       required={required}
     >
-      <output id={id} className="mono-font u-sv2">
+      <output
+        id={id}
+        title={value}
+        className={classNames("mono-font", "u-sv2", "output-field-truncate")}
+      >
         <b>{value}</b>
       </output>
     </Field>
