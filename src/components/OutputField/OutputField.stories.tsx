@@ -31,6 +31,11 @@ const meta: Meta<typeof OutputField> = {
         type: "boolean",
       },
     },
+    truncate: {
+      control: {
+        type: "boolean",
+      },
+    },
   },
 
   args: {
@@ -61,5 +66,14 @@ export const Required: Story = {
   name: "Required",
   args: {
     required: true,
+  },
+};
+
+export const Truncate: Story = {
+  name: "Truncate",
+  args: {
+    value:
+      "a-very-long-value-that-should-be-truncated-with-an-ellipsis-when-it-overflows",
+    truncate: true,
   },
 };
