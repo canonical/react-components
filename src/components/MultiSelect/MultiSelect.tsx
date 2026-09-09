@@ -10,6 +10,7 @@ import { FadeInDown } from "./FadeInDown";
 export type MultiSelectItem = {
   label: string;
   value: string | number;
+  node?: ReactNode;
   group?: string;
 };
 
@@ -190,7 +191,7 @@ export const MultiSelectDropdown: React.FC<MultiSelectDropdownProps> = ({
                       >
                         <CheckboxInput
                           disabled={disabledItemValues.has(item.value)}
-                          label={item.label}
+                          label={item.node ?? item.label}
                           checked={selectedItemValues.has(item.value)}
                           value={item.value}
                           onChange={handleOnChange}
