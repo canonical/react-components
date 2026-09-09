@@ -1,6 +1,7 @@
 import React, { FC, ReactNode } from "react";
 import Field from "../Field";
 import "./OutputField.scss";
+import classNames from "classnames";
 
 export type Props = {
   /**
@@ -23,6 +24,10 @@ export type Props = {
    * Whether the output field is required.
    */
   required?: boolean;
+  /**
+   * Whether the value should be truncated with an ellipsis when it overflows, showing the full value in a title tooltip.
+   */
+  truncate?: boolean;
 };
 
 /**
@@ -35,6 +40,7 @@ export const OutputField: FC<Props> = ({
   value,
   help,
   required,
+  truncate,
 }) => {
   return (
     <Field
@@ -45,7 +51,13 @@ export const OutputField: FC<Props> = ({
       className="output-field"
       required={required}
     >
-      <output id={id} className="mono-font u-sv2">
+      <output
+        id={id}
+        title={truncate ? value : undefined}
+        className={classNames("mono-font", "u-sv2", {
+          "output-field-truncate": truncate,
+        })}
+      >
         <b>{value}</b>
       </output>
     </Field>

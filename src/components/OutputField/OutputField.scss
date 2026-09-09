@@ -8,4 +8,13 @@
   .p-form__control {
     margin-top: 0.25rem;
   }
+
+  // "output" is inline by default, text-overflow needs a block box to clip against.
+  .output-field-truncate {
+    display: block;
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
