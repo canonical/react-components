@@ -3,6 +3,7 @@ import React from "react";
 
 import userEvent from "@testing-library/user-event";
 import Button from "../Button";
+import { useOnEscapePressed } from "hooks";
 import ContextualMenu, { Label } from "./ContextualMenu";
 import { Label as DropdownLabel } from "./ContextualMenuDropdown/ContextualMenuDropdown";
 
@@ -14,6 +15,34 @@ describe("ContextualMenu ", () => {
   it("renders", () => {
     render(<ContextualMenu data-testid="menu" links={[]} />);
     expect(screen.getByTestId("menu")).toMatchSnapshot();
+  });
+
+  it("does not block other Escape handlers elsewhere on the page when open", async () => {
+    // Regression test: a standalone ContextualMenu (i.e. not nested inside a
+    // Modal) registers itself as a non-exclusive entry on the global escape
+    // stack. Opening it should not prevent unrelated useOnEscapePressed-based
+    // components elsewhere on the page from also responding to Escape.
+    const onEscape = jest.fn();
+    const Other = (): React.JSX.Element => {
+      useOnEscapePressed(onEscape);
+      return <div>other</div>;
+    };
+
+    const user = userEvent.setup();
+    render(
+      <>
+        <ContextualMenu
+          toggleLabel="Open menu"
+          links={[{ children: "Item 1" }]}
+        />
+        <Other />
+      </>,
+    );
+
+    await user.click(screen.getByRole("button", { name: /open menu/i }));
+    await user.keyboard("{Escape}");
+
+    expect(onEscape).toHaveBeenCalledTimes(1);
   });
 
   it("can be aligned to the right", () => {

@@ -225,6 +225,7 @@ export type {
 } from "./components/CustomSelect";
 
 export {
+  useEscapeStack,
   useOnClickOutside,
   useClickOutside,
   useId,

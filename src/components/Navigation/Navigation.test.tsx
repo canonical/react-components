@@ -275,6 +275,43 @@ it("closes the search form when the escape key is pressed", async () => {
   expect(screen.queryByRole("searchbox")).not.toBeInTheDocument();
 });
 
+it("does not occupy the escape stack while the search box is closed", async () => {
+  // Regression test: Navigation must only join the global escape-key stack
+  // while its search box is open. Otherwise it can sit on top of the LIFO
+  // stack indefinitely and swallow Escape presses meant for another overlay
+  // (e.g. a SearchAndFilter panel) opened elsewhere on the page.
+  const onEscPress = jest.fn();
+
+  const MockEscEventComponent = (): React.JSX.Element => {
+    React.useEffect(() => {
+      const handleEscPress = (e: KeyboardEvent) => {
+        if (e.key === "Escape") {
+          onEscPress();
+        }
+      };
+      document.addEventListener("keydown", handleEscPress);
+      return () => {
+        document.removeEventListener("keydown", handleEscPress);
+      };
+    });
+    return <div>Mock component with event on Esc key press</div>;
+  };
+
+  render(
+    <>
+      <Navigation
+        logo={<img src="" alt="" />}
+        searchProps={{ onSearch: jest.fn() }}
+      />
+      <MockEscEventComponent />
+    </>,
+  );
+
+  expect(screen.queryByRole("searchbox")).not.toBeInTheDocument();
+  fireEvent.keyDown(document, { key: "Escape", code: "Escape" });
+  expect(onEscPress).toHaveBeenCalledTimes(1);
+});
+
 it("closes the search form when opening the mobile menu", async () => {
   render(
     <Navigation

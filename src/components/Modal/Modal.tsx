@@ -2,6 +2,7 @@ import classNames from "classnames";
 import React, { useId, useRef, useEffect } from "react";
 import type { HTMLProps, ReactNode, RefObject } from "react";
 import { ClassName, PropsWithSpread } from "types";
+import { useEscapeStack } from "hooks";
 
 export type Props = PropsWithSpread<
   {
@@ -110,20 +111,7 @@ export const Modal = ({
     }
   };
 
-  const handleEscKey = (
-    event: KeyboardEvent | React.KeyboardEvent<HTMLDivElement>,
-  ) => {
-    if ("nativeEvent" in event && event.nativeEvent.stopImmediatePropagation) {
-      event.nativeEvent.stopImmediatePropagation();
-    } else if ("stopImmediatePropagation" in event) {
-      event.stopImmediatePropagation();
-    } else if (event.stopPropagation) {
-      event.stopPropagation();
-    }
-    if (close) {
-      close();
-    }
-  };
+  useEscapeStack(() => close?.(), { isEnabled: !!close });
 
   const focusModalWrapper = () => {
     if (modalRef.current) {
@@ -152,14 +140,10 @@ export const Modal = ({
   }, [focusRef]);
 
   useEffect(() => {
-    const keyListenersMap = new Map([
-      ["Escape", handleEscKey],
-      ["Tab", handleTabKey],
-    ]);
-
     const keyDown = (event: KeyboardEvent) => {
-      const listener = keyListenersMap.get(event.code);
-      return listener && listener(event);
+      if (event.code === "Tab") {
+        handleTabKey(event as unknown as React.KeyboardEvent<HTMLDivElement>);
+      }
     };
 
     document.addEventListener("keydown", keyDown, true);
