@@ -10,7 +10,6 @@ exports[`Filter panel section renders 1`] = `
     Regions
   </h3>
   <div
-    aria-expanded="false"
     class="p-filter-panel-section__chips"
   >
     <button
