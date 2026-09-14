@@ -134,7 +134,9 @@ describe("Search and filter", () => {
       screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
     );
     await userEvent.click(screen.getByRole("button", { name: "us-east1" }));
-    expect(screen.getByRole("button", { name: "+1" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Show 1 more filter" }),
+    ).toBeInTheDocument();
   });
 
   it("all chips are shown when counter is clicked", async () => {
@@ -160,7 +162,9 @@ describe("Search and filter", () => {
       screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
     );
     await userEvent.click(screen.getByRole("button", { name: "us-east1" }));
-    await userEvent.click(screen.getByRole("button", { name: "+1" }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Show 1 more filter" }),
+    );
 
     expect(getSearchContainer()).toHaveAttribute("aria-expanded", "true");
   });
@@ -361,7 +365,9 @@ describe("Search and filter", () => {
       screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
     );
     await userEvent.click(screen.getByRole("button", { name: "us-east1" }));
-    await userEvent.click(screen.getByRole("button", { name: "+1" }));
+    await userEvent.click(
+      screen.getByRole("button", { name: "Show 1 more filter" }),
+    );
     expect(onExpandChange).toHaveBeenCalled();
   });
 
@@ -393,5 +399,46 @@ describe("Search and filter", () => {
     await userEvent.click(dismissButton);
 
     expect(onPanelToggle).not.toHaveBeenCalled();
+  });
+
+  it("renders section titles with the configured heading level", async () => {
+    const returnSearchData = jest.fn();
+    render(
+      <SearchAndFilter
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+        headingElement="h2"
+      />,
+    );
+
+    await userEvent.click(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
+
+    expect(screen.getByRole("heading", { name: "Clouds" }).tagName).toBe("H2");
+  });
+
+  it("can render section titles as paragraphs", async () => {
+    const returnSearchData = jest.fn();
+    render(
+      <SearchAndFilter
+        filterPanelData={sampleData}
+        returnSearchData={returnSearchData}
+        headingElement="p"
+      />,
+    );
+
+    await userEvent.click(
+      screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
+    );
+
+    expect(
+      screen.queryByRole("heading", { name: "Clouds" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.getByText("Clouds", {
+        selector: ".p-filter-panel-section__heading",
+      }).tagName,
+    ).toBe("P");
   });
 });

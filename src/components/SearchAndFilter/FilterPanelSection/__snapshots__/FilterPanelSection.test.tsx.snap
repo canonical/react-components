@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Filter panel section renders 1`] = `
 <div
@@ -6,12 +6,14 @@ exports[`Filter panel section renders 1`] = `
 >
   <h3
     class="p-filter-panel-section__heading"
+    id="filter-panel-section-heading-_r_0_"
   >
     Regions
   </h3>
   <div
-    aria-expanded="false"
+    aria-labelledby="filter-panel-section-heading-_r_0_"
     class="p-filter-panel-section__chips"
+    role="group"
   >
     <button
       aria-pressed="false"
