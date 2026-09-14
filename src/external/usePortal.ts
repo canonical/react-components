@@ -17,11 +17,10 @@ import {
 import { createPortal } from "react-dom";
 import { useSSR } from "./useSSR";
 
-// `useLayoutEffect` warns when rendered on the server, and `useSSR` resolves to a
-// module level constant so this branch is stable across renders.
-const useIsomorphicLayoutEffect = useSSR().isBrowser
-  ? useLayoutEffect
-  : useEffect;
+const useIsomorphicLayoutEffect =
+  typeof window !== "undefined" && typeof window.document !== "undefined"
+    ? useLayoutEffect
+    : useEffect;
 
 type CustomEvent<T = HTMLElement> = {
   event?: SyntheticEvent<T, Event>;
