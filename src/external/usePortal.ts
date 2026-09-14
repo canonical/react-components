@@ -6,6 +6,7 @@ import {
   useState,
   useRef,
   useEffect,
+  useLayoutEffect,
   useCallback,
   useMemo,
   ReactNode,
@@ -15,6 +16,12 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { useSSR } from "./useSSR";
+
+// `useLayoutEffect` warns when rendered on the server, and `useSSR` resolves to a
+// module level constant so this branch is stable across renders.
+const useIsomorphicLayoutEffect = useSSR().isBrowser
+  ? useLayoutEffect
+  : useEffect;
 
 type CustomEvent<T = HTMLElement> = {
   event?: SyntheticEvent<T, Event>;
@@ -168,7 +175,9 @@ export const usePortal = ({
     [handleOutsideMouseClick, isServer],
   );
 
-  useEffect(() => {
+  // Mounts before paint so portal content is in the document on the frame it opens.
+  // Guarantees that child effects run after the portal has mounted.
+  useIsomorphicLayoutEffect(() => {
     if (isServer) return null;
     if (
       !(elToMountTo instanceof HTMLElement) ||
