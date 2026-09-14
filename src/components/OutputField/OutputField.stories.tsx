@@ -63,3 +63,11 @@ export const Required: Story = {
     required: true,
   },
 };
+
+export const Truncate: Story = {
+  name: "Truncate",
+  args: {
+    value:
+      "a-very-long-value-that-should-be-truncated-with-an-ellipsis-when-it-overflows",
+  },
+};
