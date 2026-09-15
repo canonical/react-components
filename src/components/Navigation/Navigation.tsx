@@ -203,7 +203,7 @@ const Navigation = ({
     }
   };
   // Hide the searchbox when the escape key is pressed.
-  useOnEscapePressed(() => toggleSearch(false));
+  useOnEscapePressed(() => toggleSearch(false), { isEnabled: searchOpen });
 
   useEffect(() => {
     if (searchOpen) {
