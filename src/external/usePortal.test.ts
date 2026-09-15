@@ -3,7 +3,8 @@
  * The license for the content in this file is goverened by the original project's license: https://github.com/iamthesiz/react-useportal/blob/master/license.md
  */
 
-import { renderHook, act } from "@testing-library/react";
+import { render, renderHook, act, screen } from "@testing-library/react";
+import { createElement, useEffect, useRef } from "react";
 import { usePortal, errorMessage1 } from "./usePortal";
 
 jest.mock("./useSSR", () => ({
@@ -114,5 +115,32 @@ describe("usePortal", () => {
       document.body.dispatchEvent(event);
     });
     expect(result.current.isOpen).toBe(false);
+  });
+
+  it("should attach the portal container before descendant effects run", () => {
+    const activeElementOnMount: Element[] = [];
+
+    const ComponentFocusedOnMount = () => {
+      const inputRef = useRef<HTMLInputElement>(null);
+      // Simulated effect that this component might implement
+      // Focus some element inside it on mount
+      useEffect(() => {
+        inputRef.current?.focus();
+        activeElementOnMount.push(document.activeElement);
+      }, []);
+      return createElement("input", {
+        ref: inputRef,
+        "data-testid": "portalled-input",
+      });
+    };
+
+    const PortalledContent = () => {
+      const { Portal } = usePortal({ isOpen: true });
+      return createElement(Portal, null, createElement(ComponentFocusedOnMount));
+    };
+
+    render(createElement(PortalledContent));
+
+    expect(activeElementOnMount).toEqual([screen.getByTestId("portalled-input")]);
   });
 });

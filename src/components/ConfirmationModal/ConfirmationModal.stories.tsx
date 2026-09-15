@@ -208,3 +208,44 @@ export const Extra: Story = {
 
   name: "Extra",
 };
+
+export const Portaled: Story = {
+  render: () => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const [modalOpen, setModalOpen] = useState(false);
+    const closeHandler = () => setModalOpen(false);
+
+    return (
+      <>
+        <button onClick={() => setModalOpen(true)}>
+          Open confirmation modal
+        </button>
+        {modalOpen ? (
+          <ConfirmationModal
+            renderInPortal={true}
+            title="Confirm delete"
+            confirmButtonLabel={
+              <>
+                <Icon name="delete" light />
+                <span>Delete</span>
+              </>
+            }
+            onConfirm={doNothing}
+            close={closeHandler}
+            confirmButtonProps={{
+              hasIcon: true,
+            }}
+          >
+            <p>
+              This will permanently delete the user "Simon".
+              <br />
+              You cannot undo this action.
+            </p>
+          </ConfirmationModal>
+        ) : null}
+      </>
+    );
+  },
+
+  name: "Portaled",
+};
