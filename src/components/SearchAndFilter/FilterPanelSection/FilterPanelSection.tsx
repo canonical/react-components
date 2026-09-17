@@ -1,4 +1,11 @@
-import React, { useEffect, useEffectEvent, useRef, useState } from "react";
+import React, {
+  ElementType,
+  useEffect,
+  useEffectEvent,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import Chip from "../../Chip";
 import { overflowingChipsCount, isChipInArray } from "../utils";
 import { highlightSubString } from "../../../utils";
@@ -25,6 +32,10 @@ export type Props = {
    * A function to toggle whether a chip is selected.
    */
   toggleSelected: (chip: SearchAndFilterChip) => void;
+  /**
+   * Element used for the section title. Supports heading levels or paragraph.
+   */
+  headingElement?: ElementType;
 };
 
 const FilterPanelSection = ({
@@ -33,11 +44,13 @@ const FilterPanelSection = ({
   searchTerm = "",
   sectionHidden,
   toggleSelected,
+  headingElement: HeadingTag = "h3",
 }: Props): React.JSX.Element => {
   const { chips, heading } = data;
   const [overflowCounter, setOverflowCounter] = useState(0);
   const [expanded, setExpanded] = useState(false);
   const chipWrapper = useRef(null);
+  const headingId = useId();
 
   const handleChipClick = (chip: SearchAndFilterChip) => {
     toggleSelected(chip);
@@ -97,8 +110,9 @@ const FilterPanelSection = ({
       {panelSectionVisible && (
         <div className="p-filter-panel-section">
           {heading && chips.length > 0 && (
-            <h3
+            <HeadingTag
               className="p-filter-panel-section__heading"
+              id={`filter-panel-section-heading-${headingId}`}
               dangerouslySetInnerHTML={{
                 __html: highlightSubString(heading, searchTerm).text,
               }}
@@ -106,8 +120,13 @@ const FilterPanelSection = ({
           )}
           <div
             className="p-filter-panel-section__chips"
-            aria-expanded={expanded}
             ref={chipWrapper}
+            role="group"
+            aria-labelledby={
+              heading && chips.length > 0
+                ? `filter-panel-section-heading-${headingId}`
+                : undefined
+            }
           >
             {chips?.map((chip) => {
               // If search term has been added to input, only matching chips
@@ -141,6 +160,10 @@ const FilterPanelSection = ({
                 onClick={showAllChips}
                 onKeyPress={showAllChips}
                 tabIndex={0}
+                role="button"
+                aria-label={`Show ${overflowCounter} more ${
+                  overflowCounter === 1 ? "chip" : "chips"
+                }`}
               >
                 +{overflowCounter}
               </span>

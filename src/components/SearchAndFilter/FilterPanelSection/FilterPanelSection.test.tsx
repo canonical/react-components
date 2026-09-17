@@ -49,6 +49,22 @@ describe("Filter panel section", () => {
     ).toBeInTheDocument();
   });
 
+  it("renders the heading with a custom heading level", () => {
+    render(
+      <FilterPanelSection
+        searchData={[]}
+        searchTerm=""
+        toggleSelected={jest.fn()}
+        data={sampleData}
+        headingElement="h2"
+      />,
+    );
+
+    const heading = screen.getByRole("heading", { name: "Regions" });
+    expect(heading.tagName).toBe("H2");
+    expect(heading).not.toHaveAttribute("aria-level");
+  });
+
   it("should hide chip overflow counter when none overflow", () => {
     // Jest is unaware of layout so we must mock the offsetTop and offsetHeight
     // of the chips
@@ -110,15 +126,15 @@ describe("Filter panel section", () => {
       />,
     );
     expect(
-      document.querySelector(".p-filter-panel-section__chips"),
-    ).toHaveAttribute("aria-expanded", "false");
+      document.querySelector(".p-filter-panel-section__counter"),
+    ).toBeInTheDocument();
     await userEvent.click(
       // Use a query selector because the element's text is split up over
       // multiple elements so it can't be selected by its content.
       document.querySelector(".p-filter-panel-section__counter") as HTMLElement,
     );
     expect(
-      document.querySelector(".p-filter-panel-section__chips"),
-    ).toHaveAttribute("aria-expanded", "true");
+      document.querySelector(".p-filter-panel-section__counter"),
+    ).not.toBeInTheDocument();
   });
 });
