@@ -10,6 +10,7 @@ import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
 import type { TableCellProps } from "../TableCell";
 import { usePagination } from "hooks";
+import { getNextSort, sortRows } from "./utils";
 
 export type MainTableHeader = PropsWithSpread<
   {
@@ -133,16 +134,9 @@ const updateSort = (
   sortKey: MainTableHeader["sortKey"],
   sortDirection: SortDirection,
 ) => {
-  let newDirection: SortDirection = null;
-  if (sortDirection === "none") {
-    newDirection = "ascending";
-  } else if (sortDirection === "ascending") {
-    newDirection = "descending";
-  } else {
-    sortKey = null;
-  }
-  setSortKey(sortKey);
-  setSortDirection(newDirection);
+  const next = getNextSort({ sortKey, sortDirection }, sortKey);
+  setSortKey(next.sortKey);
+  setSortDirection(next.sortDirection);
 };
 
 const generateHeaders = (
@@ -248,42 +242,6 @@ const generateRows = ({
       );
     },
   );
-
-const sortRows = ({
-  currentSortDirection,
-  currentSortKey,
-  rows,
-  sortable,
-  sortFunction,
-}: Pick<Props, "rows" | "sortable" | "sortFunction"> & {
-  currentSortDirection: Props["defaultSortDirection"];
-  currentSortKey: Props["defaultSort"];
-}): MainTableRow[] => {
-  if (!rows) {
-    return [];
-  }
-  // Clone the rows so we can restore the original order.
-  const sortedRows = [...rows];
-  if (sortable && currentSortKey) {
-    if (!sortFunction) {
-      sortFunction = (a, b) => {
-        if (!a.sortData || !b.sortData) {
-          return 0;
-        }
-        if (a.sortData[currentSortKey] > b.sortData[currentSortKey]) {
-          return currentSortDirection === "ascending" ? 1 : -1;
-        } else if (a.sortData[currentSortKey] < b.sortData[currentSortKey]) {
-          return currentSortDirection === "ascending" ? -1 : 1;
-        }
-        return 0;
-      };
-    }
-    sortedRows.sort((a, b) =>
-      sortFunction(a, b, currentSortDirection, currentSortKey),
-    );
-  }
-  return sortedRows;
-};
 
 /**
  * This is a [React](https://reactjs.org/) component to support many table use cases.
