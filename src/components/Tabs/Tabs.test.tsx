@@ -76,6 +76,24 @@ describe("Tabs", () => {
     ).toHaveClass("list-item-class");
   });
 
+  it("forwards aria-label to the navigation element", () => {
+    render(
+      <Tabs
+        aria-label="Section tabs"
+        links={[
+          {
+            href: "/path1",
+            label: "label1",
+          },
+        ]}
+      />,
+    );
+
+    expect(
+      screen.getByRole("navigation", { name: "Section tabs" }),
+    ).toHaveAttribute("aria-label", "Section tabs");
+  });
+
   it("can use custom elements as links", () => {
     render(
       <Tabs
