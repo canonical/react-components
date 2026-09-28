@@ -91,6 +91,10 @@ export type BaseProps<
      * Id to apply to the main area. Used for the "Skip to main content" link.
      */
     mainId?: string;
+    /**
+     * Label applied to the status bar for accessibility. This is used to differentiate the status bar from other complementary regions of the page for screen readers.
+     */
+    statusBarLabel?: string;
   },
   HTMLProps<HTMLDivElement>
 >;
@@ -139,6 +143,7 @@ const ApplicationLayout = <
   sideNavigation,
   status,
   statusClassName,
+  statusBarLabel,
   mainId = "main-content",
   ...props
 }: Props<NI, PL>) => {
@@ -233,7 +238,11 @@ const ApplicationLayout = <
         {children}
       </AppMain>
       {aside}
-      {status && <AppStatus className={statusClassName}>{status}</AppStatus>}
+      {status && (
+        <AppStatus className={statusClassName} aria-label={statusBarLabel}>
+          {status}
+        </AppStatus>
+      )}
     </Application>
   );
 };
