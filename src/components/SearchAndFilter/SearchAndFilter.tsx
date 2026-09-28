@@ -305,7 +305,10 @@ const SearchAndFilter = ({
             type="search"
             value={searchTerm}
           />
-          <button className="u-off-screen" type="submit">
+          <button
+            className="u-off-screen p-search-and-filter__search-button"
+            type="submit"
+          >
             Search
           </button>
         </form>
