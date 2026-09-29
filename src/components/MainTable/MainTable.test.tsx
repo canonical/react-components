@@ -454,9 +454,7 @@ describe("MainTable", () => {
 
       expect(auxiliaryNode).toBeInTheDocument();
       expect(sortButton).toBeInTheDocument();
-      expect(
-        within(sortButton).queryByTestId("status-help"),
-      ).not.toBeInTheDocument();
+      expect(auxiliaryNode.parentElement).toBe(sortButton.parentElement);
 
       const rowItems = screen.getAllByRole("row");
       expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
