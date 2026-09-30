@@ -304,6 +304,32 @@ describe("ModularTable", () => {
     ).toBeInTheDocument();
   });
 
+  it("allows setting data attributes on headers, rows and cells", async () => {
+    render(
+      <ModularTable
+        columns={columns}
+        data={data}
+        getHeaderProps={(header) => ({
+          "data-testid": `header-${header.id}`,
+        })}
+        getRowProps={(row) => ({
+          "data-testid": `row-${row.values.status}`,
+        })}
+        getCellProps={(cell) => ({
+          "data-testid": `cell-${cell.row.values.status}-${cell.column.id}`,
+        })}
+      />,
+    );
+    expect(screen.getByTestId("header-status")).toBe(
+      screen.getByRole("columnheader", { name: "Status" }),
+    );
+    expect(
+      within(screen.getByTestId("row-Idle")).getByRole("cell", {
+        name: "3.9 GiB",
+      }),
+    ).toBe(screen.getByTestId("cell-Idle-ram"));
+  });
+
   it("should not reset sort by after data change", async () => {
     const data: Record<string, unknown>[] = [
       {
