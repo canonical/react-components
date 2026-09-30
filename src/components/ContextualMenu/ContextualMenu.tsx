@@ -307,7 +307,7 @@ const ContextualMenu = <L,>({
   });
 
   /**
-   * Trap focus within the dropdown and route keyboard focus into it.
+   * Trap focus within the dropdown
    */
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -325,27 +325,36 @@ const ContextualMenu = <L,>({
         // Shift+Tab on the first item: wrap back to the last focusable item
         e.preventDefault();
         last.focus();
-      } else if (
-        !e.shiftKey &&
-        active ===
-          wrapper.current?.querySelector<HTMLElement>(
-            ".p-contextual-menu__toggle",
-          )
-      ) {
-        // The menu is open but focus is still on the toggle, e.g. the menu
-        // was opened with the mouse: Tab must enter the menu instead of
-        // walking the rest of the page.
-        e.preventDefault();
-        first.focus();
       }
     };
-    // The toggle lives outside the dropdown element, so the listener is
-    // document level to catch both the wrap cases and the toggle case.
-    document.addEventListener("keydown", handleKeyDown);
+    const dropdown = getDropdown();
+    if (!dropdown) return undefined;
+    dropdown.addEventListener("keydown", handleKeyDown);
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      dropdown.removeEventListener("keydown", handleKeyDown);
     };
   }, [getDropdown, getFocusableDropdownItems, isOpen]);
+
+  /**
+   * Move focus from the toggle into the open dropdown on Tab.
+   *
+   * When the menu is opened with a mouse the toggle keeps focus, so Tab walks
+   * the rest of the page instead of the menu options. The trap above cannot
+   * cover this: the dropdown is portalled, so the toggle and the dropdown
+   * share no common node. The toggle is inside the wrapper, so handling Tab
+   * here keeps the listener scoped to this component.
+   */
+  const onWrapperKeyDown = (e: React.KeyboardEvent<HTMLSpanElement>) => {
+    if (!isOpen || e.key !== "Tab" || e.shiftKey) return;
+    // The trap above owns Tab from within the dropdown. React events bubble
+    // through the React tree rather than the DOM tree, so this handler also
+    // receives those, even though the dropdown is portalled out of the
+    // wrapper.
+    if (getDropdown()?.contains(e.target as Node)) return;
+    if (getFocusableDropdownItems().length === 0) return;
+    e.preventDefault();
+    focusFirstDropdownItem();
+  };
 
   const previousVisible = usePrevious(visible);
   const labelNode =
@@ -464,6 +473,7 @@ const ContextualMenu = <L,>({
   return (
     <span
       className={contextualMenuClassName}
+      onKeyDown={onWrapperKeyDown}
       ref={wrapperRef}
       {...wrapperProps}
     >

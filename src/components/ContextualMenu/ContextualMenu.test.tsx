@@ -403,7 +403,9 @@ describe("ContextualMenu ", () => {
       expect(screen.getByTestId("after")).not.toHaveFocus();
     });
 
-    it("leaves Tab alone when focus is not on the toggle", async () => {
+    it("leaves Shift+Tab on the toggle alone", async () => {
+      // A focusable element rendered before the menu: Shift+Tab on the toggle
+      // must walk backwards out of the component, not jump forward into it.
       const links = [0, 1].map((i) => ({
         "data-testid": `item-${i}`,
         children: `Item ${i}`,
@@ -411,8 +413,8 @@ describe("ContextualMenu ", () => {
       const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
       render(
         <>
-          <button data-testid="outside" type="button">
-            outside
+          <button data-testid="before" type="button">
+            before
           </button>
           <ContextualMenu
             links={links}
@@ -421,12 +423,15 @@ describe("ContextualMenu ", () => {
           />
         </>,
       );
-      await user.click(screen.getByRole("button", { name: /toggle/i }));
+      const toggle = screen.getByRole("button", { name: /toggle/i });
+
+      await user.click(toggle);
       jest.runOnlyPendingTimers();
 
-      // Move focus without clicking, so the menu does not close.
-      screen.getByTestId("outside").focus();
-      await user.tab();
+      expect(toggle).toHaveFocus();
+
+      await user.tab({ shift: true });
+      expect(screen.getByTestId("before")).toHaveFocus();
       expect(screen.getByTestId("item-0")).not.toHaveFocus();
     });
 
