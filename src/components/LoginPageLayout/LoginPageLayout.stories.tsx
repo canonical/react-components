@@ -63,3 +63,26 @@ export const RegistrationPage: Story = {
     },
   },
 };
+
+/**
+ * The standard tagged logo can be replaced by passing an element to the `logo`
+ * prop, in the same way as when overriding the logo in
+ * [Navigation](?path=/docs/components-navigation--docs).
+ */
+export const OverridingTheLogo: Story = {
+  name: "Overriding the logo",
+  args: {
+    title: "Sign in",
+    children: <Spinner />,
+    logo: (
+      <a className="p-navigation__item" href="/">
+        <img
+          alt="Canonical"
+          className="p-navigation__image"
+          src="https://assets.ubuntu.com/v1/9c74eb2d-logo-canonical-white.svg"
+          width="95"
+        />
+      </a>
+    ),
+  },
+};
