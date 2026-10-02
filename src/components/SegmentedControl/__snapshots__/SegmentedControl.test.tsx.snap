@@ -10,17 +10,21 @@ exports[`SegmentedControl renders 1`] = `
       role="tablist"
     >
       <button
+        aria-controls="_r_0_-panel"
         aria-selected="true"
         class="p-segmented-control__button"
-        id="label1"
+        id="_r_0_-tab-0"
         role="tab"
+        tabindex="0"
       >
         label1
       </button>
     </div>
     <div
-      aria-labelledby="label1"
+      aria-labelledby="_r_0_-tab-0"
+      id="_r_0_-panel"
       role="tabpanel"
+      tabindex="0"
     >
       <p>
         content1

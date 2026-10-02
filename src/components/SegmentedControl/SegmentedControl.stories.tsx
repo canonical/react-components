@@ -46,6 +46,7 @@ export const Default: Story = {
         ),
       },
     ],
+    controlLabel: "Segmented Control",
   },
 };
 
@@ -88,6 +89,7 @@ export const Dense: Story = {
         ),
       },
     ],
+    controlLabel: "Segmented Control",
   },
 };
 /**
