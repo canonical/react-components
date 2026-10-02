@@ -401,5 +401,87 @@ describe("MainTable", () => {
         captionText,
       );
     });
+
+    it("renders auxiliary content for sortable headers and keeps sort behavior", async () => {
+      render(
+        <MainTable
+          headers={[
+            {
+              content: "Status",
+              sortKey: "status",
+              auxiliaryContent: <span data-testid="status-help">info</span>,
+            },
+            {
+              content: "Cores",
+              sortKey: "cores",
+              className: "u-align--right",
+            },
+          ]}
+          rows={[
+            {
+              columns: [
+                { content: "Ready", role: "rowheader" },
+                { content: 2, className: "u-align--right" },
+              ],
+              sortData: { status: "ready", cores: 2 },
+            },
+            {
+              columns: [
+                { content: "Waiting", role: "rowheader" },
+                { content: 1, className: "u-align--right" },
+              ],
+              sortData: { status: "waiting", cores: 1 },
+            },
+            {
+              columns: [
+                { content: "Idle", role: "rowheader" },
+                { content: 8, className: "u-align--right" },
+              ],
+              sortData: { status: "idle", cores: 8 },
+            },
+          ]}
+          sortable={true}
+        />,
+      );
+
+      const columnHeader = screen.getByRole("columnheader", {
+        name: /Status/i,
+      });
+      const auxiliaryNode = within(columnHeader).getByTestId("status-help");
+      const sortButton = within(columnHeader).getByRole("button", {
+        name: "Status",
+      });
+
+      expect(auxiliaryNode).toBeInTheDocument();
+      expect(sortButton).toBeInTheDocument();
+      expect(
+        within(sortButton).queryByTestId("status-help"),
+      ).not.toBeInTheDocument();
+
+      const rowItems = screen.getAllByRole("row");
+      expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
+        "Ready",
+      );
+      expect(within(rowItems[2]).getByRole("rowheader").textContent).toBe(
+        "Waiting",
+      );
+      expect(within(rowItems[3]).getByRole("rowheader").textContent).toBe(
+        "Idle",
+      );
+
+      await userEvent.click(
+        within(columnHeader).getByRole("button", { name: "Status" }),
+      );
+
+      expect(within(rowItems[1]).getByRole("rowheader").textContent).toBe(
+        "Idle",
+      );
+      expect(within(rowItems[2]).getByRole("rowheader").textContent).toBe(
+        "Ready",
+      );
+      expect(within(rowItems[3]).getByRole("rowheader").textContent).toBe(
+        "Waiting",
+      );
+    });
   });
 });

@@ -18,6 +18,10 @@ export type MainTableHeader = PropsWithSpread<
      */
     content?: ReactNode;
     /**
+     * Auxiliary content of the table header. This content will not be part of the sortable button applied to the table header if the header is sortable. This is useful for adding additional information to the header that should not be part of the sorting button, such as a tooltip or an icon.
+     */
+    auxiliaryContent?: ReactNode;
+    /**
      * Optional classes to apply to the table header.
      */
     className?: ClassName;
@@ -154,36 +158,39 @@ const generateHeaders = (
   setSortKey: (sortKey: MainTableHeader["sortKey"]) => void,
   setSortDirection: (direction: SortDirection) => void,
 ) => {
-  const headerItems = headers.map(({ content, sortKey, ...props }, index) => {
-    let sortDirection: SortDirection;
-    if (sortable && sortKey) {
-      if (currentSortKey === sortKey) {
-        sortDirection = currentSortDirection;
-      } else {
-        sortDirection = "none";
-      }
-    }
-    return (
-      <TableHeader
-        key={index}
-        sort={sortDirection}
-        onSort={
-          sortable && sortKey
-            ? updateSort.bind(
-                this,
-                setSortKey,
-                setSortDirection,
-                sortKey,
-                sortDirection,
-              )
-            : undefined
+  const headerItems = headers.map(
+    ({ content, auxiliaryContent, sortKey, ...props }, index) => {
+      let sortDirection: SortDirection;
+      if (sortable && sortKey) {
+        if (currentSortKey === sortKey) {
+          sortDirection = currentSortDirection;
+        } else {
+          sortDirection = "none";
         }
-        {...props}
-      >
-        {content}
-      </TableHeader>
-    );
-  });
+      }
+      return (
+        <TableHeader
+          key={index}
+          sort={sortDirection}
+          onSort={
+            sortable && sortKey
+              ? updateSort.bind(
+                  this,
+                  setSortKey,
+                  setSortDirection,
+                  sortKey,
+                  sortDirection,
+                )
+              : undefined
+          }
+          auxiliaryContent={auxiliaryContent}
+          {...props}
+        >
+          {content}
+        </TableHeader>
+      );
+    },
+  );
   // When there is expanding content then provide an extra hidden header to
   // account for the extra cell in the body rows.
   return (
