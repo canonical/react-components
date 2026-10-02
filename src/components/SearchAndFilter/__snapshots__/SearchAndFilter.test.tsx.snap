@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Search and filter renders 1`] = `
 <div
@@ -31,7 +31,7 @@ exports[`Search and filter renders 1`] = `
         value=""
       />
       <button
-        class="u-off-screen"
+        class="u-off-screen p-search-and-filter__search-button"
         type="submit"
       >
         Search
