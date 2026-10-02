@@ -107,6 +107,11 @@ export type Props = PropsWithSpread<
      */
     rows?: MainTableRow[];
     /**
+     * Whether to scroll to the top of the page when the page of a paginated
+     * table is changed.
+     */
+    scrollToTop?: boolean;
+    /**
      * Whether this table should be sortable.
      */
     sortable?: boolean;
@@ -298,6 +303,7 @@ const MainTable = ({
   paginate,
   rows,
   responsive,
+  scrollToTop,
   sortable,
   sortFunction,
   hiddenCaption,
@@ -392,6 +398,7 @@ const MainTable = ({
           currentPage={currentPage}
           itemsPerPage={paginate}
           paginate={setCurrentPage}
+          scrollToTop={scrollToTop}
           style={{ marginTop: "1rem" }}
           totalItems={rows.length}
         />
