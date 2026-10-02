@@ -293,3 +293,72 @@ export const NoNavigation: Story = {
     );
   },
 };
+
+/**
+ * Use `statusBarLabel` to give the status region an accessible name. This is
+ * useful when there are multiple complementary regions on the page and you want
+ * screen readers to announce the status bar clearly.
+ */
+export const StatusBarAriaLabel: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          'Inspect the bottom status bar in the accessibility tree. It should render with `aria-label="Deployment status"`.',
+      },
+    },
+  },
+  render: () => {
+    return (
+      <ApplicationLayout
+        logo={{
+          icon: "https://assets.ubuntu.com/v1/7144ec6d-logo-jaas-icon.svg",
+          name: "https://assets.ubuntu.com/v1/2e04d794-logo-jaas.svg",
+          nameAlt: "JAAS",
+          href: "/",
+        }}
+        navItems={[
+          {
+            items: [
+              {
+                icon: "drag",
+                label: "Models",
+                href: "/models",
+              },
+              {
+                icon: "menu",
+                label: "Controllers",
+                href: "/controllers",
+              },
+              {
+                icon: "user",
+                label: "Permissions",
+                href: "/users",
+              },
+            ],
+          },
+        ]}
+        statusBarLabel="Deployment status"
+        status={
+          <Panel wrapContent={false}>
+            <p className="u-no-margin--bottom">
+              Latest deployment completed successfully.{" "}
+              <Button dense appearance="base" className="u-no-margin">
+                View logs
+              </Button>
+            </p>
+          </Panel>
+        }
+      >
+        <Panel title="Application Layout status bar accessibility example">
+          <Row>
+            <Col size={12}>
+              Inspect the status bar at the bottom of this example. It should be
+              announced to assistive technologies as “Deployment status”.
+            </Col>
+          </Row>
+        </Panel>
+      </ApplicationLayout>
+    );
+  },
+};
