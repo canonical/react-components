@@ -32,4 +32,27 @@ describe("TableHeader", () => {
       "ascending",
     );
   });
+
+  it("renders auxiliary content when not sortable", () => {
+    render(
+      <table>
+        <thead>
+          <tr>
+            <TableHeader
+              auxiliaryContent={<span data-testid="header-help">info</span>}
+            >
+              Column 1
+            </TableHeader>
+          </tr>
+        </thead>
+      </table>,
+    );
+
+    const header = screen.getByRole("columnheader");
+
+    expect(screen.getByTestId("header-help")).toBeInTheDocument();
+    expect(header).not.toHaveAttribute("aria-sort");
+    expect(header).toHaveTextContent("Column 1info");
+    expect(screen.queryByRole("button")).not.toBeInTheDocument();
+  });
 });

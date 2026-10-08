@@ -6,6 +6,9 @@ import MainTable from "./MainTable";
 import Row from "../Row";
 import Col from "../Col";
 import ContextualMenu from "../ContextualMenu";
+import Button from "../Button";
+import Tooltip from "../Tooltip";
+import Icon from "../Icon";
 
 const meta: Meta<typeof MainTable> = {
   component: MainTable,
@@ -221,6 +224,98 @@ export const Sortable: Story = {
   ),
 
   name: "Sortable",
+};
+
+export const AuxiliaryContent: Story = {
+  render: () => (
+    <MainTable
+      headers={[
+        {
+          content: "Status",
+          sortKey: "status",
+          auxiliaryContent: (
+            <Tooltip
+              message={
+                <div className="instance-type-tooltip">
+                  <p>An instance can be a container or a virtual machine.</p>
+                  <p>
+                    An instance can further be classified as a base or a regular
+                    instance.
+                  </p>
+                </div>
+              }
+            >
+              <Button
+                type="button"
+                appearance="base"
+                hasIcon
+                aria-label="Instance type information"
+                className="u-no-margin u-no-padding--top"
+                style={{
+                  border: 0,
+                  display: "inline-flex",
+                  paddingLeft: 8,
+                  verticalAlign: "middle",
+                }}
+              >
+                <Icon name="help" className="help-icon" />
+              </Button>
+            </Tooltip>
+          ),
+        },
+        {
+          content: "Cores",
+          sortKey: "cores",
+          className: "u-align--right",
+        },
+        {
+          content: "RAM",
+          sortKey: "ram",
+          className: "u-align--right",
+        },
+      ]}
+      rows={[
+        {
+          columns: [
+            { content: "Ready", role: "rowheader" },
+            { content: 2, className: "u-align--right" },
+            { content: "2 GiB", className: "u-align--right" },
+          ],
+          sortData: {
+            status: "ready",
+            cores: 2,
+            ram: 2,
+          },
+        },
+        {
+          columns: [
+            { content: "Idle", role: "rowheader" },
+            { content: 1, className: "u-align--right" },
+            { content: "1 GiB", className: "u-align--right" },
+          ],
+          sortData: {
+            status: "idle",
+            cores: 1,
+            ram: 1,
+          },
+        },
+        {
+          columns: [
+            { content: "Waiting", role: "rowheader" },
+            { content: 4, className: "u-align--right" },
+            { content: "4 GiB", className: "u-align--right" },
+          ],
+          sortData: {
+            status: "waiting",
+            cores: 4,
+            ram: 4,
+          },
+        },
+      ]}
+      sortable
+    />
+  ),
+  name: "Auxiliary content",
 };
 
 export const Expanding: Story = {
