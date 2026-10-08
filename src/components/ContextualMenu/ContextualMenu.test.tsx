@@ -371,6 +371,70 @@ describe("ContextualMenu ", () => {
       expect(screen.getByTestId("item-0")).not.toHaveFocus();
     });
 
+    it("routes Tab into the menu when it was opened by a mouse", async () => {
+      // A focusable element rendered after the menu: without routing, Tab
+      // walks the page instead of entering the open menu.
+      const links = [0, 1].map((i) => ({
+        "data-testid": `item-${i}`,
+        children: `Item ${i}`,
+      }));
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+      render(
+        <>
+          <ContextualMenu
+            links={links}
+            dropdownProps={{ "data-testid": "dropdown" }}
+            toggleLabel={<span>toggle</span>}
+          />
+          <button data-testid="after" type="button">
+            after
+          </button>
+        </>,
+      );
+      const toggle = screen.getByRole("button", { name: /toggle/i });
+
+      await user.click(toggle);
+      jest.runOnlyPendingTimers();
+
+      expect(screen.getByTestId("item-0")).not.toHaveFocus();
+
+      await user.tab();
+      expect(screen.getByTestId("item-0")).toHaveFocus();
+      expect(screen.getByTestId("after")).not.toHaveFocus();
+    });
+
+    it("leaves Shift+Tab on the toggle alone", async () => {
+      // A focusable element rendered before the menu: Shift+Tab on the toggle
+      // must walk backwards out of the component, not jump forward into it.
+      const links = [0, 1].map((i) => ({
+        "data-testid": `item-${i}`,
+        children: `Item ${i}`,
+      }));
+      const user = userEvent.setup({ advanceTimers: jest.advanceTimersByTime });
+      render(
+        <>
+          <button data-testid="before" type="button">
+            before
+          </button>
+          <ContextualMenu
+            links={links}
+            dropdownProps={{ "data-testid": "dropdown" }}
+            toggleLabel={<span>toggle</span>}
+          />
+        </>,
+      );
+      const toggle = screen.getByRole("button", { name: /toggle/i });
+
+      await user.click(toggle);
+      jest.runOnlyPendingTimers();
+
+      expect(toggle).toHaveFocus();
+
+      await user.tab({ shift: true });
+      expect(screen.getByTestId("before")).toHaveFocus();
+      expect(screen.getByTestId("item-0")).not.toHaveFocus();
+    });
+
     it("cleans up focus event listeners when unmounted", async () => {
       const { user, toggle, unmount } = setup();
 

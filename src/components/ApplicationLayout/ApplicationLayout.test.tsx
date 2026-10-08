@@ -51,6 +51,19 @@ it("displays a status bar", () => {
   expect(screen.getByText(content)).toHaveClass("l-status");
 });
 
+it("applies an aria-label to the status bar", () => {
+  render(
+    <ApplicationLayout
+      logo={logo}
+      navItems={[]}
+      status={<span>Status content</span>}
+      statusBarLabel="Deployment status"
+    />,
+  );
+
+  expect(screen.getByLabelText("Deployment status")).toHaveClass("l-status");
+});
+
 it("displays an aside", () => {
   const content = "Aside content";
   render(
