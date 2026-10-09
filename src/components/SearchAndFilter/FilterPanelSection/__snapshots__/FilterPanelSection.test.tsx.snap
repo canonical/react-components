@@ -13,6 +13,7 @@ exports[`Filter panel section renders 1`] = `
   <div
     aria-labelledby="filter-panel-section-heading-_r_0_"
     class="p-filter-panel-section__chips"
+    data-expanded="false"
     role="group"
   >
     <button
