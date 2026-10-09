@@ -233,10 +233,11 @@ export {
   usePagination,
   usePrevious,
   usePrefersReducedMotion,
+  useSortTableData,
   useThrottle,
   useWindowFitment,
 } from "hooks";
-export type { WindowFitment } from "hooks";
+export type { SortTableData, SortTableDataOptions, WindowFitment } from "hooks";
 
 export {
   isNavigationAnchor,
