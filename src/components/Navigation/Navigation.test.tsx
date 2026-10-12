@@ -74,7 +74,7 @@ it("can display a standard logo", () => {
   expect(homePageLink).toHaveAttribute("href", "/this/is/the/logo/link");
   expect(homePageLink).toHaveTextContent("This is the site name");
 
-  const homepageLogo = within(homePageLink).getByRole("img");
+  const homepageLogo = within(homePageLink).getByRole("presentation");
   expect(homepageLogo).toHaveAttribute("src", "http://this.is.the.logo.svg");
   expect(homepageLogo).toHaveAttribute("class", "p-navigation__logo-icon");
 });
@@ -105,7 +105,7 @@ it("can display a standard logo with a generated link", () => {
   expect(homePageLink).toBeInTheDocument();
   expect(homePageLink).toHaveTextContent("This is the site name");
 
-  const homepageLogo = within(homePageLink).getByRole("img");
+  const homepageLogo = within(homePageLink).getByRole("presentation");
   expect(homepageLogo).toHaveAttribute("src", "http://this.is.the.logo.svg");
   expect(homepageLogo).toHaveAttribute("class", "p-navigation__logo-icon");
 });
