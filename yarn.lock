@@ -12577,10 +12577,10 @@ validate-npm-package-name@^7.0.0, validate-npm-package-name@^7.0.2:
   resolved "https://registry.yarnpkg.com/validate-npm-package-name/-/validate-npm-package-name-7.0.2.tgz#e57c3d721a4c8bbff454a246e7f7da811559ea0d"
   integrity sha512-hVDIBwsRruT73PbK7uP5ebUt+ezEtCmzZz3F59BSr2F6OVFnJ/6h8liuvdLrQ88Xmnk6/+xGGuq+pG9WwTuy3A==
 
-vanilla-framework@4.59.0:
-  version "4.59.0"
-  resolved "https://registry.yarnpkg.com/vanilla-framework/-/vanilla-framework-4.59.0.tgz#c31a136577bfc09eae69cd0dd010e82f1130ac5b"
-  integrity sha512-Bpl8fD3M+fkvziXvuZCFpXr6xkPsO1Ulkhcvpe5juIKmpJcKVqmPBs6m5R1nP64tI+dUgOe2u625Fvgm4C3kug==
+vanilla-framework@4.61.0:
+  version "4.61.0"
+  resolved "https://registry.yarnpkg.com/vanilla-framework/-/vanilla-framework-4.61.0.tgz#07e02c851037d6f0c5177a13ae7e681386bda95a"
+  integrity sha512-PvSXeqtUIyP+iSDSSWKezvYlqbPDathZTCb8aE0T5Yj5s55GfAMuTHtSHDSTDZPu1Zz4icl0WEXrgl0mMPu7Ig==
 
 verror@1.10.0:
   version "1.10.0"
