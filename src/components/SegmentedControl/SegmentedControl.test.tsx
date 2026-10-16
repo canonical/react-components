@@ -62,6 +62,42 @@ describe("SegmentedControl", () => {
     );
   });
 
+  it("calls a segment onClick handler when clicked", async () => {
+    const user = userEvent.setup();
+    let currentTarget: HTMLButtonElement | null = null;
+    const onClick = jest.fn((event: React.MouseEvent<HTMLButtonElement>) => {
+      currentTarget = event.currentTarget;
+    });
+
+    render(
+      <SegmentedControl
+        segments={[
+          {
+            label: "label1",
+            content: <p>content1</p>,
+          },
+          {
+            label: "label2",
+            content: <p>content2</p>,
+            onClick,
+          },
+        ]}
+      />,
+    );
+
+    await user.click(screen.getByRole("tab", { name: "label2" }));
+
+    expect(onClick).toHaveBeenCalledTimes(1);
+    expect(currentTarget).toBe(screen.getByRole("tab", { name: "label2" }));
+    expect(screen.getByRole("tab", { name: "label2" })).toHaveAttribute(
+      "aria-selected",
+      "true",
+    );
+    expect(screen.getByRole("tabpanel", { name: "label2" })).toHaveTextContent(
+      "content2",
+    );
+  });
+
   it("uses a roving tab index", () => {
     render(
       <SegmentedControl

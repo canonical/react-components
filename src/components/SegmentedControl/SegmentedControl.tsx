@@ -22,6 +22,10 @@ export type Segments = {
    * Icon to be displayed alongside the label of the segment.
    */
   iconName?: ValueOf<typeof ICONS> | string;
+  /**
+   * Callback function to be called when the segment is clicked.
+   */
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
 export type Props = {
@@ -112,6 +116,7 @@ const SegmentedControl = ({
       >
         {segments.map((segment, i) => {
           const tabId = `${id}-tab-${i}`;
+          const onClick = segment.onClick;
           return (
             <button
               aria-selected={activeIndex === i}
@@ -120,7 +125,10 @@ const SegmentedControl = ({
               role="tab"
               key={segment.label}
               id={tabId}
-              onClick={() => setActiveIndex(i)}
+              onClick={(event) => {
+                setActiveIndex(i);
+                onClick?.(event);
+              }}
               onKeyDown={(event) => handleSegmentKeyDown(event, i)}
               ref={(element) => {
                 tabRefs.current[i] = element;

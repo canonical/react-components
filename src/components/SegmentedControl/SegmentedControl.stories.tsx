@@ -26,6 +26,7 @@ export const Default: Story = {
             sharable, reusable, tiny applications called Charmed Operators.
           </p>
         ),
+        onClick: () => console.log("OLM clicked"),
       },
       {
         label: "SDK",
@@ -35,6 +36,7 @@ export const Default: Story = {
             them as Charms.
           </p>
         ),
+        onClick: () => console.log("SDK clicked"),
       },
       {
         label: "Charmhub",
