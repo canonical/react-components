@@ -150,6 +150,30 @@ describe("MainTable", () => {
     expect(screen.getAllByRole("rowheader")[0].textContent).toEqual("Idle");
   });
 
+  it("can scroll to the top when changing the page", async () => {
+    const scrollTo = jest
+      .spyOn(window, "scrollTo")
+      .mockImplementation(() => undefined);
+    render(<MainTable paginate={2} rows={rows} scrollToTop />);
+    await userEvent.click(
+      screen.getByRole("button", { name: PaginationButtonLabel.Next }),
+    );
+    expect(scrollTo).toHaveBeenCalledWith(0, 0);
+    scrollTo.mockRestore();
+  });
+
+  it("does not scroll to the top when changing the page by default", async () => {
+    const scrollTo = jest
+      .spyOn(window, "scrollTo")
+      .mockImplementation(() => undefined);
+    render(<MainTable paginate={2} rows={rows} />);
+    await userEvent.click(
+      screen.getByRole("button", { name: PaginationButtonLabel.Next }),
+    );
+    expect(scrollTo).not.toHaveBeenCalled();
+    scrollTo.mockRestore();
+  });
+
   describe("sorting", () => {
     beforeEach(() => {
       headers[0].sortKey = "status";
