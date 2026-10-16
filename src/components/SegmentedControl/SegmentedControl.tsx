@@ -1,6 +1,12 @@
 import classNames from "classnames";
 import Icon, { ICONS } from "components/Icon";
-import React, { ReactNode, useState } from "react";
+import React, {
+  KeyboardEvent,
+  ReactNode,
+  useId,
+  useRef,
+  useState,
+} from "react";
 import type { ClassName, ValueOf } from "types";
 
 export type Segments = {
@@ -24,10 +30,15 @@ export type Props = {
    */
   className?: ClassName;
   /**
+   * Label for the segmented control for accessibility purposes.
+   */
+  controlLabel?: string;
+  /**
    * List of segments present in the element.
    */
   segments: Segments[];
 };
+
 /**
  * This is the [React](https://reactjs.org/) component for Vanilla [SegmentedControl](https://vanillaframework.io/docs/patterns/segmented-control).
 SegmentedControl organises and allows navigation between groups of content that are related and at the same level
@@ -36,20 +47,85 @@ of hierarchy.
 const SegmentedControl = ({
   className,
   segments,
+  controlLabel = "Segmented Control",
 }: Props): React.JSX.Element => {
   const [activeIndex, setActiveIndex] = useState<number>(0);
+  const tabRefs = useRef<Array<HTMLButtonElement | null>>([]);
+  const panelRef = useRef<HTMLDivElement | null>(null);
+  const id = useId();
+
+  const focusSegment = (index: number) => {
+    setActiveIndex(index);
+    tabRefs.current[index]?.focus();
+  };
+
+  const focusPanelContent = () => {
+    const panel = panelRef.current;
+    if (!panel) {
+      return;
+    }
+
+    panel.focus();
+  };
+
+  const handleSegmentKeyDown = (
+    event: KeyboardEvent<HTMLButtonElement>,
+    index: number,
+  ) => {
+    switch (event.key) {
+      case "ArrowRight":
+        event.preventDefault();
+        focusSegment((index + 1) % segments.length);
+        break;
+      case "ArrowLeft":
+        event.preventDefault();
+        focusSegment((index - 1 + segments.length) % segments.length);
+        break;
+      case "Home":
+        event.preventDefault();
+        focusSegment(0);
+        break;
+      case "End":
+        event.preventDefault();
+        focusSegment(segments.length - 1);
+        break;
+      case "Tab":
+        if (!event.shiftKey) {
+          event.preventDefault();
+          focusPanelContent();
+        }
+        break;
+      default:
+        break;
+    }
+  };
+
+  const activeSegment = segments[activeIndex];
+  const panelId = `${id}-panel`;
+
   return (
     <div className={classNames("p-segmented-control", className)}>
-      <div className={classNames("p-segmented-control__list")} role="tablist">
+      <div
+        className={classNames("p-segmented-control__list")}
+        aria-label={controlLabel}
+        role="tablist"
+      >
         {segments.map((segment, i) => {
+          const tabId = `${id}-tab-${i}`;
           return (
             <button
               aria-selected={activeIndex === i}
+              aria-controls={panelId}
               className={classNames("p-segmented-control__button")}
               role="tab"
               key={segment.label}
-              id={segment.label}
+              id={tabId}
               onClick={() => setActiveIndex(i)}
+              onKeyDown={(event) => handleSegmentKeyDown(event, i)}
+              ref={(element) => {
+                tabRefs.current[i] = element;
+              }}
+              tabIndex={activeIndex === i ? 0 : -1}
             >
               {segment.iconName ? (
                 <>
@@ -63,8 +139,14 @@ const SegmentedControl = ({
           );
         })}
       </div>
-      <div role="tabpanel" aria-labelledby={segments[activeIndex].label}>
-        {segments[activeIndex].content}
+      <div
+        aria-labelledby={`${id}-tab-${activeIndex}`}
+        id={panelId}
+        ref={panelRef}
+        role="tabpanel"
+        tabIndex={0}
+      >
+        {activeSegment.content}
       </div>
     </div>
   );
