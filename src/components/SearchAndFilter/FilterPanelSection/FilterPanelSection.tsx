@@ -113,10 +113,9 @@ const FilterPanelSection = ({
             <HeadingTag
               className="p-filter-panel-section__heading"
               id={`filter-panel-section-heading-${headingId}`}
-              dangerouslySetInnerHTML={{
-                __html: highlightSubString(heading, searchTerm).text,
-              }}
-            />
+            >
+              {highlightSubString(heading, searchTerm).text}
+            </HeadingTag>
           )}
           <div
             className="p-filter-panel-section__chips"
