@@ -939,6 +939,47 @@ export const Paginated: Story = {
   name: "Paginated",
 };
 
+/**
+ * Set `scrollToTop` to scroll to the top of the page when the page of a
+ * paginated table is changed. Scroll down to the pagination and change the
+ * page to see this.
+ */
+export const PaginatedWithScrollToTop: Story = {
+  args: {
+    headers: [
+      {
+        content: "Machine",
+      },
+      {
+        content: "Status",
+      },
+      {
+        content: "Cores",
+        className: "u-align--right",
+      },
+    ],
+    paginate: 25,
+    rows: Array.from({ length: 100 }, (_, index) => ({
+      columns: [
+        {
+          content: `machine-${index + 1}`,
+          role: "rowheader",
+        },
+        {
+          content: ["Ready", "Deploying", "Allocated"][index % 3],
+        },
+        {
+          content: (index % 8) + 1,
+          className: "u-align--right",
+        },
+      ],
+    })),
+    scrollToTop: true,
+  },
+
+  name: "Paginated with scroll to top",
+};
+
 export const Empty: Story = {
   render: () => (
     <MainTable
