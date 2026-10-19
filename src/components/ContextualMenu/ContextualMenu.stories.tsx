@@ -5,6 +5,7 @@ import Button from "../Button";
 import ContextualMenu from "./ContextualMenu";
 import { ContextualMenuProps } from ".";
 import Modal from "components/Modal";
+import ConfirmationButton from "../ConfirmationButton";
 
 const ScrollTemplate = (args: ContextualMenuProps<null>) => (
   <div
@@ -163,5 +164,34 @@ export const InsideModal: Story = {
     <Modal title="Contextual Menu inside Modal">
       <Template {...args} />
     </Modal>
+  ),
+};
+
+export const OpensModal: Story = {
+  name: "Opens a modal",
+  args: { hasToggleIcon: true, position: "right", toggleLabel: "Actions" },
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Content opened from a menu item can be portalled elsewhere in the DOM, like this confirmation modal. Clicking inside it keeps the menu, and therefore the modal, open.",
+      },
+    },
+  },
+  render: (args: ContextualMenuProps<null>) => (
+    <ContextualMenu {...args}>
+      <ConfirmationButton
+        appearance="base"
+        className="p-contextual-menu__link"
+        confirmationModalProps={{
+          title: "Confirm delete",
+          confirmButtonLabel: "Delete",
+          onConfirm: () => {},
+          children: "This will permanently delete the item.",
+        }}
+      >
+        Delete
+      </ConfirmationButton>
+    </ContextualMenu>
   ),
 };
