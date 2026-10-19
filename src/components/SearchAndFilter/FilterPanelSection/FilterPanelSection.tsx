@@ -120,6 +120,7 @@ const FilterPanelSection = ({
           )}
           <div
             className="p-filter-panel-section__chips"
+            data-expanded={expanded}
             ref={chipWrapper}
             role="group"
             aria-labelledby={
