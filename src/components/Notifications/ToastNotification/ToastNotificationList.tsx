@@ -97,16 +97,20 @@ const ToastNotificationList: FC<Props> = ({
   };
 
   const handleGroupedDismiss = () => {
+    const dismissableNotifications = notifications.filter(
+      (notification) => notification.dismissable !== false,
+    );
+
     if (hasFilters) {
-      const notificationsToClear = notifications.filter((notification) =>
-        filters.has(notification.type),
+      const notificationsToClear = dismissableNotifications.filter(
+        (notification) => filters.has(notification.type),
       );
       onDismiss(notificationsToClear);
       setFilters(new Set());
       return;
     }
 
-    onDismiss(notifications);
+    onDismiss(dismissableNotifications);
   };
 
   const getSeverityFilters = () => {
@@ -221,9 +225,13 @@ const ToastNotificationList: FC<Props> = ({
           title={notification.title ?? DefaultTitles[notification.type]}
           actions={notification.actions}
           severity={notification.type}
-          onDismiss={() => {
-            handleDismissNotification(notification);
-          }}
+          onDismiss={
+            notification.dismissable === false
+              ? undefined
+              : () => {
+                  handleDismissNotification(notification);
+                }
+          }
           className={`u-no-margin--bottom individual-notification`}
           timestamp={notification.timestamp}
           titleElement="div"

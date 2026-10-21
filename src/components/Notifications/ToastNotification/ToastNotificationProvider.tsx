@@ -21,6 +21,7 @@ const HIDE_NOTIFICATION_DELAY = 5_000;
 export type ToastNotificationType = NotificationType & {
   timestamp?: ReactNode;
   id: string;
+  dismissable?: boolean;
 };
 
 interface Props {
@@ -35,12 +36,14 @@ interface ToastNotificationHelper {
     actions?: NotificationAction[],
     title?: string,
     id?: ToastNotificationType["id"],
+    dismissable?: boolean,
   ) => ToastNotificationType;
   info: (
     message: ReactNode,
     title?: string,
     actions?: NotificationAction[],
     id?: ToastNotificationType["id"],
+    dismissable?: boolean,
   ) => ToastNotificationType;
   failure: (
     title: string,
@@ -48,12 +51,14 @@ interface ToastNotificationHelper {
     message?: ReactNode,
     actions?: NotificationAction[],
     id?: ToastNotificationType["id"],
+    dismissable?: boolean,
   ) => ToastNotificationType;
   caution: (
     message: ReactNode,
     actions?: NotificationAction[],
     title?: string,
     id?: ToastNotificationType["id"],
+    dismissable?: boolean,
   ) => ToastNotificationType;
   clear: (notification?: ToastNotificationType[]) => void;
   toggleListView: () => void;
@@ -234,6 +239,7 @@ const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
   const addNotification = (
     notification: NotificationType & { error?: unknown } & {
       id?: ToastNotificationType["id"];
+      dismissable?: boolean;
     },
   ) => {
     const notificationToAdd = {
@@ -242,6 +248,7 @@ const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
       id:
         notification.id ??
         Date.now().toString() + (Math.random() + 1).toString(36).substring(7),
+      dismissable: notification.dismissable ?? true,
     };
 
     setNotifications((prev) => {
@@ -299,14 +306,26 @@ const ToastNotificationProvider: FC<PropsWithChildren<Props>> = ({
 
   const helper: ToastNotificationHelper = {
     notifications,
-    failure: (title, error, message, actions, id) =>
-      addNotification({ ...failure(title, error, message, actions), id }),
-    info: (message, title, actions, id) =>
-      addNotification({ ...info(message, title, actions), id }),
-    success: (message, actions, title, id) =>
-      addNotification({ ...success(message, title, actions), id }),
-    caution: (message, actions, title, id) =>
-      addNotification({ ...caution(message, title, actions), id }),
+    failure: (title, error, message, actions, id, dismissable) =>
+      addNotification({
+        ...failure(title, error, message, actions),
+        id,
+        dismissable,
+      }),
+    info: (message, title, actions, id, dismissable) =>
+      addNotification({ ...info(message, title, actions), id, dismissable }),
+    success: (message, actions, title, id, dismissable) =>
+      addNotification({
+        ...success(message, title, actions),
+        id,
+        dismissable,
+      }),
+    caution: (message, actions, title, id, dismissable) =>
+      addNotification({
+        ...caution(message, title, actions),
+        id,
+        dismissable,
+      }),
     clear,
     toggleListView,
     isListView: showList,
