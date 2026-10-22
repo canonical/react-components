@@ -71,6 +71,13 @@ const PreloadedList = () => {
       "Please try again.",
     );
     toastNotify.caution("You have unsaved changes.");
+    toastNotify.caution(
+      "This cannot be dismissed until the issue is resolved.",
+      undefined,
+      "Action required",
+      undefined,
+      false,
+    );
     toastNotify.toggleListView();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

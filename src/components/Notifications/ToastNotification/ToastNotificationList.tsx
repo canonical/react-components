@@ -96,21 +96,23 @@ const ToastNotificationList: FC<Props> = ({
     });
   };
 
+  const dismissableNotifications = notifications.filter(
+    (notification) => notification.dismissable !== false,
+  );
+
+  // The notifications that would actually be cleared if the dismiss button
+  // were clicked right now, accounting for any active severity filters.
+  const dismissableNotificationsInView = hasFilters
+    ? dismissableNotifications.filter((notification) =>
+        filters.has(notification.type),
+      )
+    : dismissableNotifications;
+
   const handleGroupedDismiss = () => {
-    const dismissableNotifications = notifications.filter(
-      (notification) => notification.dismissable !== false,
-    );
-
+    onDismiss(dismissableNotificationsInView);
     if (hasFilters) {
-      const notificationsToClear = dismissableNotifications.filter(
-        (notification) => filters.has(notification.type),
-      );
-      onDismiss(notificationsToClear);
       setFilters(new Set());
-      return;
     }
-
-    onDismiss(dismissableNotifications);
   };
 
   const getSeverityFilters = () => {
@@ -153,18 +155,11 @@ const ToastNotificationList: FC<Props> = ({
 
   const getDismissText = () => {
     if (hasFilters) {
-      const validFilters = Object.keys(groupedCount) as FilterTypes[];
-      let totalCount = 0;
-      for (const filter of validFilters) {
-        if (filters.has(filter)) {
-          totalCount += groupedCount[filter] || 0;
-        }
-      }
-
-      const dismissText = (
-        <span className="dismiss-text">Dismiss {totalCount}</span>
+      return (
+        <span className="dismiss-text">
+          Dismiss {dismissableNotificationsInView.length}
+        </span>
       );
-      return dismissText;
     }
 
     return <span>Dismiss all</span>;
@@ -264,14 +259,16 @@ const ToastNotificationList: FC<Props> = ({
         {notificationEls}
         <li className="dismiss">
           {getSeverityFilters()}
-          <Button
-            className="u-no-margin--bottom dismiss-button"
-            onClick={handleGroupedDismiss}
-            hasIcon
-          >
-            <Icon name="tidy" />
-            {getDismissText()}
-          </Button>
+          {dismissableNotificationsInView.length > 0 && (
+            <Button
+              className="u-no-margin--bottom dismiss-button"
+              onClick={handleGroupedDismiss}
+              hasIcon
+            >
+              <Icon name="tidy" />
+              {getDismissText()}
+            </Button>
+          )}
         </li>
       </ul>
     </Animate>,

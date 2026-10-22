@@ -256,6 +256,79 @@ describe("ToastNotification", () => {
     await userEvent.click(screen.getByRole("button", { name: "Dismiss all" }));
 
     expect(onDismiss).toHaveBeenCalledWith(notifications);
+    expect(screen.getByText("Cannot be dismissed.")).toBeInTheDocument();
+  });
+
+  it("does not render 'Dismiss all' when no notifications are dismissable", () => {
+    const nonDismissableNotifications: ToastNotificationType[] = [
+      {
+        id: "1",
+        type: "positive",
+        message: "Cannot be dismissed.",
+        title: "Success",
+        dismissable: false,
+      },
+      {
+        id: "2",
+        type: "negative",
+        message: "Also cannot be dismissed.",
+        title: "Failure",
+        dismissable: false,
+      },
+    ];
+
+    render(
+      <ToastNotificationList
+        notifications={nonDismissableNotifications}
+        onDismiss={jest.fn()}
+        groupedCount={groupedCount}
+        show={true}
+      />,
+    );
+
+    expect(
+      screen.queryByRole("button", { name: "Dismiss all" }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("shows a dismiss count that excludes non-dismissable notifications within a filtered severity", async () => {
+    const onDismiss = jest.fn();
+    const mixedCautionNotifications: ToastNotificationType[] = [
+      {
+        id: "1",
+        type: "caution",
+        message: "Can be dismissed.",
+        title: "Warning",
+      },
+      {
+        id: "2",
+        type: "caution",
+        message: "Cannot be dismissed.",
+        title: "Warning",
+        dismissable: false,
+      },
+    ];
+
+    render(
+      <ToastNotificationList
+        notifications={mixedCautionNotifications}
+        onDismiss={onDismiss}
+        groupedCount={{ caution: 2 }}
+        show={true}
+      />,
+    );
+
+    await userEvent.click(
+      screen.getByLabelText("Filter caution notifications"),
+    );
+
+    expect(
+      screen.getByRole("button", { name: "Dismiss 1" }),
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Dismiss 1" }));
+
+    expect(onDismiss).toHaveBeenCalledWith([mixedCautionNotifications[0]]);
   });
 
   it("calls onHoverStart on mouse enter and onHoverEnd on mouse leave", async () => {
