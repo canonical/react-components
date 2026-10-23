@@ -1,6 +1,6 @@
-import React from "react";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import React from "react";
 import ToastNotification from "./ToastNotification";
 import ToastNotificationList from "./ToastNotificationList";
 import { ToastNotificationType } from "./ToastNotificationProvider";
@@ -254,7 +254,6 @@ describe("ToastNotification", () => {
     );
 
     await userEvent.click(screen.getByRole("button", { name: "Dismiss all" }));
-
     expect(onDismiss).toHaveBeenCalledWith(notifications);
     expect(screen.getByText("Cannot be dismissed.")).toBeInTheDocument();
   });
@@ -321,13 +320,11 @@ describe("ToastNotification", () => {
     await userEvent.click(
       screen.getByLabelText("Filter caution notifications"),
     );
-
     expect(
       screen.getByRole("button", { name: "Dismiss 1" }),
     ).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole("button", { name: "Dismiss 1" }));
-
     expect(onDismiss).toHaveBeenCalledWith([mixedCautionNotifications[0]]);
   });
 

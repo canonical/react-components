@@ -109,10 +109,12 @@ const ToastNotificationList: FC<Props> = ({
     : dismissableNotifications;
 
   const handleGroupedDismiss = () => {
-    onDismiss(dismissableNotificationsInView);
     if (hasFilters) {
+      onDismiss(dismissableNotificationsInView);
       setFilters(new Set());
+      return;
     }
+    onDismiss(dismissableNotifications);
   };
 
   const getSeverityFilters = () => {
