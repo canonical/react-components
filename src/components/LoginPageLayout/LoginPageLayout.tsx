@@ -2,6 +2,7 @@ import React, { FC, ReactNode } from "react";
 import Card from "components/Card";
 import Col from "components/Col";
 import Navigation from "components/Navigation";
+import type { NavigationProps } from "components/Navigation";
 import Row from "components/Row";
 import { Theme } from "enums";
 import "./LoginPageLayout.scss";
@@ -15,7 +16,11 @@ const defaultLogo = {
 export type Props = {
   title: string;
   children?: ReactNode;
-  logo?: { src: string; title: string; url: string };
+  /**
+   * The logo can be defined either by providing props for the standard logo
+   * or the full logo markup when a custom logo is needed.
+   */
+  logo?: NavigationProps["logo"];
 };
 
 /**
