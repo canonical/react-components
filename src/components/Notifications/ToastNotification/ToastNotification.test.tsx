@@ -1,6 +1,6 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import React from "react";
 import ToastNotification from "./ToastNotification";
 import ToastNotificationList from "./ToastNotificationList";
 import { ToastNotificationType } from "./ToastNotificationProvider";
@@ -106,6 +106,19 @@ describe("ToastNotification", () => {
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
   });
 
+  it("does not render a dismiss button when the notification is not dismissable", () => {
+    render(
+      <ToastNotification
+        notification={{ ...baseNotification, dismissable: false }}
+        show={true}
+        onDismiss={jest.fn()}
+      />,
+    );
+    expect(
+      screen.queryByRole("button", { name: /close/i }),
+    ).not.toBeInTheDocument();
+  });
+
   const notifications: ToastNotificationType[] = [
     {
       id: "1",
@@ -186,6 +199,133 @@ describe("ToastNotification", () => {
     await userEvent.click(screen.getByRole("button", { name: "Dismiss all" }));
 
     expect(onDismiss).toHaveBeenCalledWith(notifications);
+  });
+
+  it("does not render a dismiss button for a non-dismissable notification in the list", () => {
+    const mixedNotifications: ToastNotificationType[] = [
+      ...notifications,
+      {
+        id: "3",
+        type: "caution",
+        message: "Cannot be dismissed.",
+        title: "Warning",
+        dismissable: false,
+      },
+    ];
+
+    render(
+      <ToastNotificationList
+        notifications={mixedNotifications}
+        onDismiss={jest.fn()}
+        groupedCount={{ ...groupedCount, caution: 1 }}
+        show={true}
+      />,
+    );
+
+    const warningItem = screen.getByText("Warning").closest("li");
+    expect(warningItem).not.toBeNull();
+    expect(
+      within(warningItem as HTMLElement).queryByTestId(
+        "notification-close-button",
+      ),
+    ).not.toBeInTheDocument();
+  });
+
+  it("excludes non-dismissable notifications from 'Dismiss all'", async () => {
+    const onDismiss = jest.fn();
+    const mixedNotifications: ToastNotificationType[] = [
+      ...notifications,
+      {
+        id: "3",
+        type: "caution",
+        message: "Cannot be dismissed.",
+        title: "Warning",
+        dismissable: false,
+      },
+    ];
+
+    render(
+      <ToastNotificationList
+        notifications={mixedNotifications}
+        onDismiss={onDismiss}
+        groupedCount={{ ...groupedCount, caution: 1 }}
+        show={true}
+      />,
+    );
+
+    await userEvent.click(screen.getByRole("button", { name: "Dismiss all" }));
+    expect(onDismiss).toHaveBeenCalledWith(notifications);
+    expect(screen.getByText("Cannot be dismissed.")).toBeInTheDocument();
+  });
+
+  it("does not render 'Dismiss all' when no notifications are dismissable", () => {
+    const nonDismissableNotifications: ToastNotificationType[] = [
+      {
+        id: "1",
+        type: "positive",
+        message: "Cannot be dismissed.",
+        title: "Success",
+        dismissable: false,
+      },
+      {
+        id: "2",
+        type: "negative",
+        message: "Also cannot be dismissed.",
+        title: "Failure",
+        dismissable: false,
+      },
+    ];
+
+    render(
+      <ToastNotificationList
+        notifications={nonDismissableNotifications}
+        onDismiss={jest.fn()}
+        groupedCount={groupedCount}
+        show={true}
+      />,
+    );
+
+    expect(
+      screen.queryByRole("button", { name: "Dismiss all" }),
+    ).not.toBeInTheDocument();
+  });
+
+  it("shows a dismiss count that excludes non-dismissable notifications within a filtered severity", async () => {
+    const onDismiss = jest.fn();
+    const mixedCautionNotifications: ToastNotificationType[] = [
+      {
+        id: "1",
+        type: "caution",
+        message: "Can be dismissed.",
+        title: "Warning",
+      },
+      {
+        id: "2",
+        type: "caution",
+        message: "Cannot be dismissed.",
+        title: "Warning",
+        dismissable: false,
+      },
+    ];
+
+    render(
+      <ToastNotificationList
+        notifications={mixedCautionNotifications}
+        onDismiss={onDismiss}
+        groupedCount={{ caution: 2 }}
+        show={true}
+      />,
+    );
+
+    await userEvent.click(
+      screen.getByLabelText("Filter caution notifications"),
+    );
+    expect(
+      screen.getByRole("button", { name: "Dismiss 1" }),
+    ).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("button", { name: "Dismiss 1" }));
+    expect(onDismiss).toHaveBeenCalledWith([mixedCautionNotifications[0]]);
   });
 
   it("calls onHoverStart on mouse enter and onHoverEnd on mouse leave", async () => {

@@ -96,17 +96,25 @@ const ToastNotificationList: FC<Props> = ({
     });
   };
 
+  const dismissableNotifications = notifications.filter(
+    (notification) => notification.dismissable !== false,
+  );
+
+  // The notifications that would actually be cleared if the dismiss button
+  // were clicked right now, accounting for any active severity filters.
+  const dismissableNotificationsInView = hasFilters
+    ? dismissableNotifications.filter((notification) =>
+        filters.has(notification.type),
+      )
+    : dismissableNotifications;
+
   const handleGroupedDismiss = () => {
     if (hasFilters) {
-      const notificationsToClear = notifications.filter((notification) =>
-        filters.has(notification.type),
-      );
-      onDismiss(notificationsToClear);
+      onDismiss(dismissableNotificationsInView);
       setFilters(new Set());
       return;
     }
-
-    onDismiss(notifications);
+    onDismiss(dismissableNotifications);
   };
 
   const getSeverityFilters = () => {
@@ -149,18 +157,11 @@ const ToastNotificationList: FC<Props> = ({
 
   const getDismissText = () => {
     if (hasFilters) {
-      const validFilters = Object.keys(groupedCount) as FilterTypes[];
-      let totalCount = 0;
-      for (const filter of validFilters) {
-        if (filters.has(filter)) {
-          totalCount += groupedCount[filter] || 0;
-        }
-      }
-
-      const dismissText = (
-        <span className="dismiss-text">Dismiss {totalCount}</span>
+      return (
+        <span className="dismiss-text">
+          Dismiss {dismissableNotificationsInView.length}
+        </span>
       );
-      return dismissText;
     }
 
     return <span>Dismiss all</span>;
@@ -221,9 +222,13 @@ const ToastNotificationList: FC<Props> = ({
           title={notification.title ?? DefaultTitles[notification.type]}
           actions={notification.actions}
           severity={notification.type}
-          onDismiss={() => {
-            handleDismissNotification(notification);
-          }}
+          onDismiss={
+            notification.dismissable === false
+              ? undefined
+              : () => {
+                  handleDismissNotification(notification);
+                }
+          }
           className={`u-no-margin--bottom individual-notification`}
           timestamp={notification.timestamp}
           titleElement="div"
@@ -256,14 +261,16 @@ const ToastNotificationList: FC<Props> = ({
         {notificationEls}
         <li className="dismiss">
           {getSeverityFilters()}
-          <Button
-            className="u-no-margin--bottom dismiss-button"
-            onClick={handleGroupedDismiss}
-            hasIcon
-          >
-            <Icon name="tidy" />
-            {getDismissText()}
-          </Button>
+          {dismissableNotificationsInView.length > 0 && (
+            <Button
+              className="u-no-margin--bottom dismiss-button"
+              onClick={handleGroupedDismiss}
+              hasIcon
+            >
+              <Icon name="tidy" />
+              {getDismissText()}
+            </Button>
+          )}
         </li>
       </ul>
     </Animate>,
