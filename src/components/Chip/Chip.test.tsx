@@ -265,4 +265,32 @@ describe("Chip ", () => {
     await userEvent.tab();
     expect(chip).not.toHaveFocus();
   });
+
+  it("emphasises the substring within the value", () => {
+    render(<Chip data-testid="chip" value="positive" subString="sit" />);
+    const chip = screen.getByTestId("chip");
+    expect(chip).toHaveTextContent("positive");
+    expect(
+      within(chip).getByText("sit", { selector: "strong" }),
+    ).toBeInTheDocument();
+  });
+
+  it("wraps the value in quotes when quoteValue is true", () => {
+    render(
+      <Chip data-testid="chip" value="positive" subString="sit" quoteValue />,
+    );
+    const chip = screen.getByTestId("chip");
+    expect(chip).toHaveTextContent("'positive'");
+    expect(
+      within(chip).getByText("sit", { selector: "strong" }),
+    ).toBeInTheDocument();
+  });
+
+  it("renders markup in the value as plain text", () => {
+    const value = "<img src=x onerror=alert(1)>";
+    render(<Chip data-testid="chip" value={value} subString="img" />);
+    const chip = screen.getByTestId("chip");
+    expect(within(chip).queryByRole("img")).not.toBeInTheDocument();
+    expect(chip).toHaveTextContent(value);
+  });
 });

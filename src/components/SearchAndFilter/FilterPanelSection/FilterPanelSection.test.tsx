@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen, within } from "@testing-library/react";
 import React from "react";
 
 import FilterPanelSection from "./FilterPanelSection";
@@ -136,5 +136,36 @@ describe("Filter panel section", () => {
     expect(
       document.querySelector(".p-filter-panel-section__counter"),
     ).not.toBeInTheDocument();
+  });
+
+  it("emphasises the search term in the heading", () => {
+    render(
+      <FilterPanelSection
+        searchData={[]}
+        searchTerm="reg"
+        toggleSelected={jest.fn()}
+        data={sampleData}
+      />,
+    );
+    const heading = screen.getByRole("heading");
+    expect(heading).toHaveTextContent("Regions");
+    expect(
+      within(heading).getByText("Reg", { selector: "strong" }),
+    ).toBeInTheDocument();
+  });
+
+  it("renders markup in the heading as plain text", () => {
+    render(
+      <FilterPanelSection
+        searchData={[]}
+        searchTerm=""
+        toggleSelected={jest.fn()}
+        data={{ ...sampleData, heading: "<b>Regions</b>" }}
+      />,
+    );
+    expect(
+      screen.getByRole("heading", { name: "<b>Regions</b>" }),
+    ).toBeInTheDocument();
+    expect(screen.queryByText("Regions")).not.toBeInTheDocument();
   });
 });

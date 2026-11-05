@@ -119,12 +119,17 @@ const Chip = ({
     <>
       {iconName && <i className={`p-icon--${iconName}`} />}
       {lead && <span className="p-chip__lead">{lead.toUpperCase()}</span>}
-      <span
-        className="p-chip__value"
-        dangerouslySetInnerHTML={{
-          __html: quoteValue ? `'${chipValue}'` : chipValue,
-        }}
-      />
+      <span className="p-chip__value">
+        {quoteValue ? (
+          <>
+            {"'"}
+            {chipValue}
+            {"'"}
+          </>
+        ) : (
+          chipValue
+        )}
+      </span>
       {badge && badge}
     </>
   );
