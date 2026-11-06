@@ -30,7 +30,9 @@
     }
 
     &:disabled,
-    &:disabled:hover {
+    &:disabled:hover,
+    &[aria-disabled="true"],
+    &[aria-disabled="true"]:hover {
       background-color: $colors--theme--background-inputs;
       cursor: not-allowed;
     }

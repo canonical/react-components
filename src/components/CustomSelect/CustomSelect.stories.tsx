@@ -170,11 +170,17 @@ const meta: Meta<StoryProps> = {
     name: "customSelect",
     label: "Custom Select",
     defaultToggleLabel: "Select an option",
+    disabled: false,
     searchable: "auto",
     searchPlaceholder: "Search",
     initialPosition: "left",
   },
   argTypes: {
+    disabled: {
+      control: {
+        type: "boolean",
+      },
+    },
     searchable: {
       options: ["auto", "always", "async", "never"],
       control: {
@@ -235,16 +241,6 @@ export const DisabledOptions: Story = {
       ...option,
       disabled: i % 2 === 0,
     })),
-  },
-};
-
-/**
- * The select toggle can be disabled independently of its options.
- */
-export const DisabledSelect: Story = {
-  args: {
-    options: generateStandardOptions(5),
-    disabled: true,
   },
 };
 
