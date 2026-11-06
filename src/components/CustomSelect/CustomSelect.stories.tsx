@@ -239,6 +239,16 @@ export const DisabledOptions: Story = {
 };
 
 /**
+ * The select toggle can be disabled independently of its options.
+ */
+export const DisabledSelect: Story = {
+  args: {
+    options: generateStandardOptions(5),
+    disabled: true,
+  },
+};
+
+/**
  * Search is enabled by default when there are 5 or more options.
  */
 export const AutoSearchable: Story = {
