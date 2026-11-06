@@ -29,6 +29,14 @@
       cursor: pointer;
     }
 
+    &:disabled,
+    &:disabled:hover,
+    &[aria-disabled="true"],
+    &[aria-disabled="true"]:hover {
+      background-color: $colors--theme--background-inputs;
+      cursor: not-allowed;
+    }
+
     // this emulates the highlight effect when the select is focused
     // without crowding the content with a border
     &.active,
