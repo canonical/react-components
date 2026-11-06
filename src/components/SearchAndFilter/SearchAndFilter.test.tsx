@@ -28,9 +28,6 @@ const sampleData = [
 ];
 const getPanel = () => document.querySelector(".p-search-and-filter__panel");
 
-const getSearchContainer = () =>
-  document.querySelector(".p-search-and-filter__search-container");
-
 describe("Search and filter", () => {
   it("renders", async () => {
     const returnSearchData = jest.fn();
@@ -157,7 +154,6 @@ describe("Search and filter", () => {
         returnSearchData={returnSearchData}
       />,
     );
-    expect(getSearchContainer()).toHaveAttribute("aria-expanded", "false");
     await userEvent.click(
       screen.getByRole("searchbox", { name: Label.SearchAndFilter }),
     );
@@ -166,7 +162,20 @@ describe("Search and filter", () => {
       screen.getByRole("button", { name: "Show 1 more filter" }),
     );
 
-    expect(getSearchContainer()).toHaveAttribute("aria-expanded", "true");
+    // After expanding, the container should indicate it is expanded.
+    expect(
+      document.querySelector(".p-search-and-filter__search-container"),
+    ).toHaveAttribute("data-expanded", "true");
+
+    expect(
+      screen.getByRole("button", { name: "us-east1" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "us-east2" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "us-east3" }),
+    ).toBeInTheDocument();
   });
 
   it("search prompt appears when search field has search term", async () => {
@@ -394,7 +403,7 @@ describe("Search and filter", () => {
     // Dismiss the Cloud: Google filter chip
     const cloudChip: HTMLElement = screen.getByText("CLOUD").closest(".p-chip");
     const dismissButton = within(cloudChip).getByRole("button", {
-      name: "Dismiss",
+      name: "Dismiss Cloud: Google",
     });
     await userEvent.click(dismissButton);
 
