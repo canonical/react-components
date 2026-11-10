@@ -1,19 +1,24 @@
 import { NavLink, NavLinkAnchor, NavLinkButton } from "components/Navigation";
-import { isValidElement, ReactNode } from "react";
+import { createElement, isValidElement, ReactNode } from "react";
 
 export const IS_DEV = process.env.NODE_ENV === "development";
 
 /**
- * Find substring and wrap in <strong /> tag
+ * Find substring and emphasise every match by wrapping it in a <strong /> element.
+ * The result is a React node, so the input is never parsed as HTML.
  * @param {string} str - The string to search
  * @param {string} subString - The substring to find
- * @return {Obj} newStr - Object with text and match bool
+ * @return {Obj} Object with the text (as React nodes) and match bool
  */
 export const highlightSubString = (
   str?: string,
   subString?: string,
-): { text: string; match: boolean } => {
-  if (typeof str !== "string" || typeof subString !== "string") {
+): { text: ReactNode; match: boolean } => {
+  if (
+    typeof str !== "string" ||
+    typeof subString !== "string" ||
+    subString === ""
+  ) {
     return {
       text: str || "",
       match: false,
@@ -21,15 +26,22 @@ export const highlightSubString = (
   }
 
   const escapedSubstring = subString.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const caseInsensitiveRegex = new RegExp(escapedSubstring, "gi");
-  const newStr = str.replace(
-    caseInsensitiveRegex,
-    (match) => `<strong>${match}</strong>`,
-  );
+  // The capture group makes split() keep the matched text, at every odd index.
+  const caseInsensitiveRegex = new RegExp(`(${escapedSubstring})`, "gi");
+  const parts = str.split(caseInsensitiveRegex);
+
+  if (parts.length === 1) {
+    return {
+      text: str,
+      match: false,
+    };
+  }
 
   return {
-    text: subString === "" ? str : newStr,
-    match: newStr !== str,
+    text: parts.map((part, index) =>
+      index % 2 === 1 ? createElement("strong", { key: index }, part) : part,
+    ),
+    match: true,
   };
 };
 

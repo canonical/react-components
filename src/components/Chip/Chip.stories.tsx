@@ -83,3 +83,16 @@ export const WithBadge: Story = {
   ),
   name: "With Badge",
 };
+
+export const SubstringHighlight: Story = {
+  render: () => <Chip lead="Status" value="Positive" subString="sit" />,
+  name: "Substring highlight",
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Use `subString` to emphasise part of the value, e.g. the current search term.",
+      },
+    },
+  },
+};
