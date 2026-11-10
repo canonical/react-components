@@ -1,8 +1,10 @@
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import React from "react";
+import { createPortal } from "react-dom";
 
 import userEvent from "@testing-library/user-event";
 import Button from "../Button";
+import ConfirmationButton from "../ConfirmationButton";
 import ContextualMenu, { Label } from "./ContextualMenu";
 import { Label as DropdownLabel } from "./ContextualMenuDropdown/ContextualMenuDropdown";
 
@@ -300,6 +302,99 @@ describe("ContextualMenu ", () => {
     // Click on an item:
     await userEvent.click(screen.getByTestId("child-span"));
     expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
+  });
+
+  describe("outside clicks", () => {
+    const openMenu = async () => {
+      await userEvent.click(screen.getByRole("button", { name: "Toggle" }));
+      expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
+    };
+
+    it("closes the menu when clicking outside", async () => {
+      render(
+        <>
+          <button>Outside</button>
+          <ContextualMenu links={[]} toggleLabel="Toggle" />
+        </>,
+      );
+      await openMenu();
+      await userEvent.click(screen.getByRole("button", { name: "Outside" }));
+      expect(
+        screen.queryByLabelText(DropdownLabel.Dropdown),
+      ).not.toBeInTheDocument();
+    });
+
+    it("does not close the menu when clicking inside the dropdown", async () => {
+      render(
+        <ContextualMenu toggleLabel="Toggle">
+          <button>Inside</button>
+        </ContextualMenu>,
+      );
+      await openMenu();
+      await userEvent.click(screen.getByRole("button", { name: "Inside" }));
+      expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
+    });
+
+    it("does not close the menu when clicking inside content portalled out of the dropdown", async () => {
+      const Portalled = () =>
+        createPortal(<button>Inside portal</button>, document.body);
+      render(
+        <ContextualMenu toggleLabel="Toggle">
+          <Portalled />
+        </ContextualMenu>,
+      );
+      await openMenu();
+      await userEvent.click(
+        screen.getByRole("button", { name: "Inside portal" }),
+      );
+      expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
+    });
+
+    it("keeps a confirmation modal opened from the menu open when it is clicked", async () => {
+      render(
+        <ContextualMenu toggleLabel="Toggle">
+          <ConfirmationButton
+            confirmationModalProps={{
+              title: "Confirm delete",
+              confirmButtonLabel: "Delete",
+              onConfirm: jest.fn(),
+              children: "Are you sure?",
+            }}
+          >
+            Delete
+          </ConfirmationButton>
+        </ContextualMenu>,
+      );
+      await openMenu();
+      await userEvent.click(screen.getByRole("button", { name: "Delete" }));
+      expect(screen.getByRole("dialog")).toBeInTheDocument();
+      await userEvent.click(screen.getByText("Are you sure?"));
+      expect(screen.getByRole("dialog")).toBeInTheDocument();
+      expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
+    });
+
+    it("does not close the menu on outside clicks when closeOnOutsideClick is false", async () => {
+      render(
+        <>
+          <button>Outside</button>
+          <ContextualMenu
+            closeOnOutsideClick={false}
+            links={[]}
+            toggleLabel="Toggle"
+          />
+        </>,
+      );
+      await openMenu();
+      await userEvent.click(screen.getByRole("button", { name: "Outside" }));
+      expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
+    });
+
+    it("ignores outside clicks that are not with the main button", async () => {
+      render(<ContextualMenu links={[]} toggleLabel="Toggle" />);
+      await openMenu();
+      fireEvent.mouseDown(document.body, { button: 2 });
+      expect(screen.getByLabelText(DropdownLabel.Dropdown)).toBeInTheDocument();
+    });
   });
 
   describe("focus behavior", () => {
