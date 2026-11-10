@@ -1,6 +1,7 @@
 import React, {
   useState,
   useEffect,
+  useId,
   useRef,
   KeyboardEvent,
   ElementType,
@@ -57,6 +58,7 @@ const SearchAndFilter = ({
   headingElement = "h3",
   ...props
 }: Props): React.JSX.Element => {
+  const searchInputId = useId();
   const [searchData, setSearchData] = useState(existingSearchData);
   const [searchTerm, setSearchTerm] = useState("");
   const [filterPanelHidden, setFilterPanelHidden] = useState(true);
@@ -292,13 +294,13 @@ const SearchAndFilter = ({
           data-overflowing={searchBoxExpanded}
           ref={searchBoxRef}
         >
-          <label className="u-off-screen" htmlFor="search-and-filter-input">
+          <label className="u-off-screen" htmlFor={searchInputId}>
             {searchData.length ? Label.AddFilter : Label.SearchAndFilter}
           </label>
           <input
             autoComplete="off"
             className="p-search-and-filter__input"
-            id="search-and-filter-input"
+            id={searchInputId}
             name="search"
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder={placeholder}

@@ -17,14 +17,14 @@ exports[`Search and filter renders 1`] = `
     >
       <label
         class="u-off-screen"
-        for="search-and-filter-input"
+        for="_r_0_"
       >
         Search and filter
       </label>
       <input
         autocomplete="off"
         class="p-search-and-filter__input"
-        id="search-and-filter-input"
+        id="_r_0_"
         name="search"
         placeholder="Search and filter"
         type="search"

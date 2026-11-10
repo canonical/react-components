@@ -41,6 +41,26 @@ describe("Search and filter", () => {
     expect(screen.getByTestId("searchandfilter")).toMatchSnapshot();
   });
 
+  it("labels each search box when multiple instances are rendered", () => {
+    const returnSearchData = jest.fn();
+    render(
+      <>
+        <SearchAndFilter
+          filterPanelData={[]}
+          returnSearchData={returnSearchData}
+        />
+        <SearchAndFilter
+          filterPanelData={[]}
+          returnSearchData={returnSearchData}
+        />
+      </>,
+    );
+
+    expect(
+      screen.getAllByRole("searchbox", { name: Label.SearchAndFilter }),
+    ).toHaveLength(2);
+  });
+
   it("hide the clear button when there is no value in search box", async () => {
     const returnSearchData = jest.fn();
     render(
