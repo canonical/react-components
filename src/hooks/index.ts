@@ -5,6 +5,8 @@ export { useOnEscapePressed } from "./useOnEscapePressed";
 export { usePrevious } from "./usePrevious";
 export { useThrottle } from "./useThrottle";
 export { usePagination } from "./usePagination";
+export { useSortTableData } from "./useSortTableData";
+export type { SortTableData, SortTableDataOptions } from "./useSortTableData";
 export { usePrefersReducedMotion } from "./usePrefersReducedMotion";
 export { useWindowFitment } from "./useWindowFitment";
 export type { WindowFitment } from "./useWindowFitment";

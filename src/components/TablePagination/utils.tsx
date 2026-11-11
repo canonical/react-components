@@ -1,4 +1,30 @@
-import { Children, ReactNode, cloneElement, useEffect, useState } from "react";
+import {
+  Children,
+  ReactElement,
+  ReactNode,
+  cloneElement,
+  isValidElement,
+  useEffect,
+  useState,
+} from "react";
+import MainTable from "../MainTable";
+import type {
+  MainTableHeader,
+  MainTableRow,
+  Props as MainTableProps,
+} from "../MainTable/MainTable";
+import { useSortTableData } from "hooks";
+
+export type SortProps = Pick<
+  MainTableProps,
+  "defaultSort" | "defaultSortDirection" | "onUpdateSort"
+>;
+
+/** Whether a child is a MainTable element. */
+export const isMainTable = (
+  child: ReactNode,
+): child is ReactElement<MainTableProps> =>
+  isValidElement(child) && child.type === MainTable;
 
 /**
  * Determine if we are working with a small screen.
@@ -18,14 +44,17 @@ export const figureSmallScreen = () => {
  * @param children - react node children to iterate
  * @param dataForwardProp - the name of the prop from the children components to override
  * @param data - actual data to be passed to the prop specified by @param dataForwardProp
+ * @param sortProps - sort props to override on MainTable children only
  */
 export const renderChildren = (
   children: ReactNode,
   dataForwardProp: string,
   data: unknown[],
+  sortProps: SortProps = {},
 ) => {
   return Children.map(children, (child) => {
     return cloneElement(child as React.JSX.Element, {
+      ...(isMainTable(child) ? sortProps : {}),
       [dataForwardProp]: data,
     });
   });
@@ -87,4 +116,41 @@ export const useFigureSmallScreen = () => {
   }, []);
 
   return isSmallScreen;
+};
+
+/**
+ * A sortable MainTable only sorts the rows it receives, so sort the whole data
+ * set before it is paginated. Returns the rows to paginate and the props that
+ * keep the MainTable child's headers in sync with that sort.
+ * @param children - The TablePagination children, searched for a MainTable.
+ * @param data - The full data set.
+ * @param enabled - Whether this component owns the data and may sort it.
+ */
+export const useSortedTable = (
+  children: ReactNode,
+  data: unknown[],
+  enabled: boolean,
+): { rows: unknown[]; sortProps: SortProps } => {
+  const table = Children.toArray(children).find(isMainTable);
+  const sortable = enabled && !!table?.props.sortable;
+  const sorted = useSortTableData({
+    rows: data as MainTableRow[],
+    defaultSort: table?.props.defaultSort,
+    defaultSortDirection: table?.props.defaultSortDirection,
+    sortFunction: table?.props.sortFunction,
+  });
+  if (!sortable) {
+    return { rows: data, sortProps: {} };
+  }
+  return {
+    rows: sorted.rows,
+    sortProps: {
+      defaultSort: sorted.sortKey,
+      defaultSortDirection: sorted.sortDirection,
+      onUpdateSort: (sortKey: MainTableHeader["sortKey"]) => {
+        sorted.updateSort(sortKey);
+        table?.props.onUpdateSort?.(sortKey);
+      },
+    },
+  };
 };

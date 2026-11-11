@@ -10,6 +10,7 @@ import {
   DEFAULT_PAGE_LIMITS,
   generatePagingOptions,
   renderChildren,
+  useSortedTable,
 } from "./utils";
 import { usePagination } from "hooks";
 
@@ -113,6 +114,11 @@ You can refer to the props table below on how to set these props.
 In this mode, the component assumes that the input data is not paginated. The component will implement the pagination logic and apply it to the input data
 then inject the paged data into direct child components. This is the default mode of operations for the component where `externallyControlled` prop is set
 to `false`.
+
+#### Sorting a paginated `MainTable`
+
+A sortable `MainTable` wrapped in this component sorts the whole data set before it is paginated, not just the visible page
+(see the `RenderAbove` and `RenderBelow` stories). The same can be done outside of this component with the `useSortTableData` hook.
  */
 const TablePagination = (props: Props) => {
   const {
@@ -149,11 +155,18 @@ const TablePagination = (props: Props) => {
   const [internalPageSize, setInternalPageSize] = useState(() => {
     return generatePagingOptions(pageLimits)[0].value;
   });
+
+  const { rows, sortProps } = useSortedTable(
+    children,
+    data,
+    !externallyControlled,
+  );
+
   const {
     paginate,
     currentPage: internalCurrentPage,
     pageData: internalData,
-  } = usePagination(externallyControlled ? [] : data, {
+  } = usePagination(externallyControlled ? [] : rows, {
     itemsPerPage: internalPageSize,
     autoResetPage: true,
   });
@@ -188,7 +201,12 @@ const TablePagination = (props: Props) => {
     setInternalPageSize(pageSize);
   };
 
-  const clonedChildren = renderChildren(children, dataForwardProp, controlData);
+  const clonedChildren = renderChildren(
+    children,
+    dataForwardProp,
+    controlData,
+    sortProps,
+  );
   const controls = (
     <TablePaginationControls
       {...divProps}
