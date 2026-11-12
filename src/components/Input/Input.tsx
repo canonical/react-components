@@ -5,9 +5,12 @@ import type { InputHTMLAttributes, ReactNode } from "react";
 import Field from "../Field";
 import CheckboxInput from "../CheckboxInput";
 import RadioInput from "../RadioInput";
+import Icon from "../Icon";
 
 import type { ClassName, PropsWithSpread } from "types";
 import { ColSize } from "components/Col";
+
+import "./Input.scss";
 
 /**
  * The props for the Input component.
@@ -101,6 +104,7 @@ const Input = ({
   id,
   label,
   labelClassName,
+  readOnly,
   required,
   stacked,
   stackedFieldColumns,
@@ -127,6 +131,7 @@ const Input = ({
     "aria-errormessage": hasError ? validationId : null,
     "aria-invalid": hasError,
     id: inputId,
+    readOnly,
     required: required,
     ...inputProps,
   };
@@ -183,7 +188,16 @@ const Input = ({
       helpAfterLabel={helpAfterLabel}
       helpClassName={helpClassName}
       helpId={helpId}
-      label={label}
+      label={
+        readOnly && label ? (
+          <>
+            {label}
+            <Icon name="read-only" aria-hidden="true" />
+          </>
+        ) : (
+          label
+        )
+      }
       labelClassName={labelClassName}
       required={required}
       stacked={stacked}

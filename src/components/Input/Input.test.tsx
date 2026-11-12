@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import Input from "./Input";
@@ -57,6 +58,77 @@ describe("Input", () => {
     render(<Input type="text" required />);
     expect(screen.getByRole("textbox")).toBeRequired();
   });
+
+  it("keeps read-only inputs focusable without allowing edits", async () => {
+    const user = userEvent.setup();
+    render(
+      <Input
+        type="text"
+        label="Email address"
+        defaultValue="example@canonical.com"
+        readOnly
+      />,
+    );
+    const input = screen.getByRole("textbox", { name: "Email address" });
+
+    expect(input).toHaveAttribute("readonly");
+    expect(input).toBeEnabled();
+
+    await user.tab();
+    expect(input).toHaveFocus();
+
+    await user.keyboard("changed");
+    expect(input).toHaveValue("example@canonical.com");
+  });
+
+  it("adds a decorative icon after a read-only JSX label", async () => {
+    const user = userEvent.setup();
+    render(<Input label={<span>Email address</span>} readOnly />);
+    const label = screen.getByText("Email address").closest("label");
+
+    expect(label.lastElementChild).toHaveClass("p-icon--read-only");
+    expect(label.lastElementChild).toHaveAttribute("aria-hidden", "true");
+    expect(screen.getByRole("textbox")).toHaveAccessibleName("Email address");
+
+    await user.click(label);
+    expect(screen.getByRole("textbox")).toHaveFocus();
+  });
+
+  it("updates the icon when readOnly changes", () => {
+    const { rerender } = render(<Input label="Email address" />);
+    const label = screen.getByText("Email address");
+
+    expect(label.querySelector(".p-icon--read-only")).not.toBeInTheDocument();
+
+    rerender(<Input label="Email address" readOnly />);
+    expect(label.querySelector(".p-icon--read-only")).toBeInTheDocument();
+
+    rerender(<Input label="Email address" readOnly={false} />);
+    expect(label.querySelector(".p-icon--read-only")).not.toBeInTheDocument();
+    expect(screen.getByRole("textbox")).not.toHaveAttribute("readonly");
+  });
+
+  it("does not add an icon without a label", () => {
+    const { container } = render(<Input readOnly />);
+
+    expect(container.querySelector("label")).not.toBeInTheDocument();
+    expect(
+      container.querySelector(".p-icon--read-only"),
+    ).not.toBeInTheDocument();
+  });
+
+  it.each(["checkbox", "radio"])(
+    "does not add a read-only icon to %s labels",
+    (type) => {
+      const { container } = render(
+        <Input type={type} label="Option" readOnly />,
+      );
+
+      expect(
+        container.querySelector(".p-icon--read-only"),
+      ).not.toBeInTheDocument();
+    },
+  );
 
   it("can set required for a radiobutton", () => {
     render(<Input type="radio" required />);

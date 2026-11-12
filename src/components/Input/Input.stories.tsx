@@ -103,6 +103,17 @@ export const Disabled: Story = {
   name: "Disabled",
 };
 
+export const ReadOnly: Story = {
+  args: {
+    type: "text",
+    defaultValue: "example@canonical.com",
+    readOnly: true,
+    label: "Email address",
+  },
+
+  name: "Read only",
+};
+
 export const Error: Story = {
   render: () => (
     <Input
