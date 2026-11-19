@@ -89,7 +89,10 @@ export const Slider = ({
   const sliderId = id || defaultSliderId;
   const hasError = !!error;
   let style = {};
-  if (navigator?.userAgent?.includes("AppleWebKit")) {
+  if (
+    typeof navigator !== "undefined" &&
+    navigator.userAgent?.includes("AppleWebKit")
+  ) {
     // Range inputs on Webkit browsers don't have a built-in "filled" portion,
     // so instead it is handled here as a background.
     const val = inputProps.value ?? inputProps.defaultValue;
