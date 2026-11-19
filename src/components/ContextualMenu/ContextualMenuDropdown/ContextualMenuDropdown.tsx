@@ -163,23 +163,6 @@ const generateLink = <L,>(
   );
 };
 
-const getClosestScrollableParent = (
-  node: HTMLElement | null,
-): HTMLElement | null => {
-  let currentNode = node;
-  while (currentNode && currentNode !== document.body) {
-    const { overflowY, overflowX } = window.getComputedStyle(currentNode);
-    if (
-      ["auto", "scroll", "overlay"].includes(overflowY) &&
-      ["auto", "scroll", "overlay"].includes(overflowX)
-    ) {
-      return currentNode;
-    }
-    currentNode = currentNode.parentElement;
-  }
-  return document.body;
-};
-
 // nearest parents z-index that is not 0 or auto
 export const getNearestParentsZIndex = (
   element: HTMLElement | null,
@@ -218,82 +201,86 @@ const ContextualMenuDropdown = <L,>({
   ...props
 }: Props<L>): React.JSX.Element => {
   const dropdown = useRef<HTMLDivElement>(null);
-  const [verticalPosition, setVerticalPosition] =
-    useState<VerticalPosition>("bottom");
+  const [verticalLayout, setVerticalLayout] = useState<{
+    position: VerticalPosition;
+    maxHeight?: number;
+  }>({ position: "bottom" });
   const [positionStyle, setPositionStyle] = useState(
     getPositionStyle(
       adjustedPosition,
-      verticalPosition,
+      verticalLayout.position,
       positionCoords,
       constrainPanelWidth,
     ),
   );
-  const [maxHeight, setMaxHeight] = useState<number>();
   // Update the styles to position the menu.
   const updatePositionStyle = useCallback(() => {
     setPositionStyle(
       getPositionStyle(
         adjustedPosition,
-        verticalPosition,
+        verticalLayout.position,
         positionCoords,
         constrainPanelWidth,
       ),
     );
-  }, [adjustedPosition, positionCoords, verticalPosition, constrainPanelWidth]);
+  }, [
+    adjustedPosition,
+    positionCoords,
+    verticalLayout.position,
+    constrainPanelWidth,
+  ]);
 
   const updateVerticalPosition = useCallback(() => {
-    if (!positionNode) {
+    if (!positionNode || !dropdown.current) {
       return;
     }
-    const scrollableParent = getClosestScrollableParent(positionNode);
-    if (!scrollableParent) {
-      return;
-    }
-
-    const scrollableParentRect = scrollableParent.getBoundingClientRect();
     const toggleRect = positionNode.getBoundingClientRect();
+    const spaceAbove = Math.max(0, toggleRect.top);
+    const spaceBelow = Math.max(0, window.innerHeight - toggleRect.bottom);
+    const safetyMargin = scrollOverflow ? 16 : 0;
+    const availableAbove = Math.max(0, spaceAbove - safetyMargin);
+    const availableBelow = Math.max(0, spaceBelow - safetyMargin);
+    const desiredHeight =
+      dropdown.current.scrollHeight ||
+      dropdown.current.getBoundingClientRect().height ||
+      0;
 
-    // Calculate the rect in relation to the scrollableParent
-    const relativeToScrollParentRect = {
-      top: toggleRect.top - scrollableParentRect.top,
-      bottom: toggleRect.bottom - scrollableParentRect.top,
+    let nextPosition = verticalLayout.position;
+    if (autoAdjust) {
+      if (desiredHeight <= availableBelow) {
+        nextPosition = "bottom";
+      } else if (desiredHeight <= availableAbove) {
+        nextPosition = "top";
+      } else {
+        nextPosition = availableBelow >= availableAbove ? "bottom" : "top";
+      }
+    }
+
+    const availableHeight =
+      nextPosition === "bottom" ? availableBelow : availableAbove;
+    const nextLayout = {
+      position: nextPosition,
+      maxHeight: scrollOverflow ? availableHeight : undefined,
     };
-
-    const scrollParentSpaceBelow =
-      scrollableParentRect.height - relativeToScrollParentRect.bottom;
-    const scrollParentSpaceAbove = relativeToScrollParentRect.top;
-
-    const dropdownHeight = dropdown.current.getBoundingClientRect().height ?? 0;
-
-    const windowSpaceBelow = window.innerHeight - toggleRect.bottom;
-
-    setVerticalPosition(
-      (scrollParentSpaceBelow >= dropdownHeight &&
-        windowSpaceBelow >= dropdownHeight) ||
-        windowSpaceBelow > scrollParentSpaceAbove
-        ? "bottom"
-        : "top",
-    );
-  }, [positionNode]);
+    setVerticalLayout((currentLayout) => {
+      if (
+        currentLayout.position === nextLayout.position &&
+        currentLayout.maxHeight === nextLayout.maxHeight
+      ) {
+        return currentLayout;
+      }
+      return nextLayout;
+    });
+  }, [autoAdjust, positionNode, scrollOverflow, verticalLayout.position]);
 
   // Update the position when the window fitment info changes.
   const onUpdateWindowFitment = useCallback(
     (fitsWindow: WindowFitment) => {
       if (autoAdjust) {
         setAdjustedPosition(adjustForWindow(position, fitsWindow));
-        updateVerticalPosition();
-      }
-      if (scrollOverflow) {
-        setMaxHeight(fitsWindow.fromBottom.spaceBelow - 16);
       }
     },
-    [
-      autoAdjust,
-      position,
-      scrollOverflow,
-      setAdjustedPosition,
-      updateVerticalPosition,
-    ],
+    [autoAdjust, position, setAdjustedPosition],
   );
 
   // Handle adjusting the horizontal position and scrolling of the dropdown so that it remains on screen.
@@ -302,7 +289,7 @@ const ContextualMenuDropdown = <L,>({
     positionNode,
     onUpdateWindowFitment,
     0,
-    isOpen && (autoAdjust || scrollOverflow),
+    isOpen && autoAdjust,
   );
 
   // Update the styles when the position changes.
@@ -312,7 +299,55 @@ const ContextualMenuDropdown = <L,>({
 
   useEffect(() => {
     updateVerticalPosition();
-  }, [updateVerticalPosition]);
+  }, [updateVerticalPosition, isOpen]);
+
+  useEffect(() => {
+    if (!isOpen || (!autoAdjust && !scrollOverflow)) return undefined;
+
+    window.addEventListener("resize", updateVerticalPosition);
+    window.addEventListener("scroll", updateVerticalPosition, true);
+    const resizeObserver =
+      typeof ResizeObserver === "undefined"
+        ? null
+        : new ResizeObserver(updateVerticalPosition);
+    const dropdownNode = dropdown.current;
+    if (positionNode) resizeObserver?.observe(positionNode);
+    if (dropdownNode) {
+      resizeObserver?.observe(dropdownNode);
+      Array.from(dropdownNode.children).forEach((child) =>
+        resizeObserver?.observe(child),
+      );
+    }
+    const mutationObserver =
+      dropdownNode && typeof MutationObserver !== "undefined"
+        ? new MutationObserver(() => {
+            if (dropdownNode) {
+              Array.from(dropdownNode.children).forEach((child) =>
+                resizeObserver?.observe(child),
+              );
+            }
+            updateVerticalPosition();
+          })
+        : null;
+    mutationObserver?.observe(dropdownNode, {
+      childList: true,
+      characterData: true,
+      subtree: true,
+    });
+
+    return () => {
+      window.removeEventListener("resize", updateVerticalPosition);
+      window.removeEventListener("scroll", updateVerticalPosition, true);
+      resizeObserver?.disconnect();
+      mutationObserver?.disconnect();
+    };
+  }, [
+    autoAdjust,
+    isOpen,
+    positionNode,
+    scrollOverflow,
+    updateVerticalPosition,
+  ]);
 
   useEffect(() => {
     if (!dropdown.current) return;
@@ -340,10 +375,15 @@ const ContextualMenuDropdown = <L,>({
           ...(constrainPanelWidth && positionStyle?.width
             ? { width: positionStyle.width, minWidth: 0, maxWidth: "none" }
             : {}),
-          ...(scrollOverflow
-            ? { maxHeight, minHeight: "2rem", overflowX: "auto" }
+          ...(scrollOverflow && verticalLayout.maxHeight !== undefined
+            ? {
+                maxHeight: verticalLayout.maxHeight,
+                minHeight: Math.min(32, verticalLayout.maxHeight),
+                overflowX: "auto",
+                overflowY: "auto",
+              }
             : {}),
-          ...(verticalPosition === "top" ? { bottom: "0" } : {}),
+          ...(verticalLayout.position === "top" ? { bottom: "0" } : {}),
         }}
         {...props}
       >

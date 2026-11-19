@@ -170,11 +170,17 @@ const meta: Meta<StoryProps> = {
     name: "customSelect",
     label: "Custom Select",
     defaultToggleLabel: "Select an option",
+    disabled: false,
     searchable: "auto",
     searchPlaceholder: "Search",
     initialPosition: "left",
   },
   argTypes: {
+    disabled: {
+      control: {
+        type: "boolean",
+      },
+    },
     searchable: {
       options: ["auto", "always", "async", "never"],
       control: {

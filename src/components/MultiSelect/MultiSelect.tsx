@@ -38,7 +38,6 @@ export type MultiSelectProps = {
   emptyMessage?: string;
   showDropdownFooter?: boolean;
   variant?: "condensed" | "search";
-  scrollOverflow?: boolean;
   isSortedAlphabetically?: boolean;
   hasSelectedItemsFirst?: boolean;
   id?: string;
@@ -243,7 +242,6 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   searchButtonType = "submit",
   showDropdownFooter = true,
   variant = "search",
-  scrollOverflow = false,
   isSortedAlphabetically = true,
   hasSelectedItemsFirst = true,
   id,
@@ -422,7 +420,7 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
           )
         }
         visible={isDropdownOpen}
-        scrollOverflow={scrollOverflow}
+        scrollOverflow={true}
         aria-describedby={help ? helpId : undefined}
       >
         <MultiSelectDropdown

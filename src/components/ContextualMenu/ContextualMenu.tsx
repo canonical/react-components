@@ -44,7 +44,9 @@ export type BaseProps<L> = PropsWithSpread<
      */
     closeOnEsc?: boolean;
     /**
-     * Whether the menu should close when clicking outside the menu.
+     * Whether the menu should close when clicking outside the menu. Clicks on
+     * content rendered by the menu count as inside, even when that content is
+     * portalled elsewhere in the DOM (e.g. a modal opened from a menu item).
      */
     closeOnOutsideClick?: boolean;
     /**
@@ -179,6 +181,7 @@ const ContextualMenu = <L,>({
   dropdownProps,
   hasToggleIcon,
   links,
+  onMouseDownCapture,
   onToggleMenu,
   position = "right",
   positionNode,
@@ -273,7 +276,9 @@ const ContextualMenu = <L,>({
 
   const { openPortal, closePortal, isOpen, Portal } = usePortal({
     closeOnEsc,
-    closeOnOutsideClick,
+    // Outside clicks are handled below, so that clicks on content the menu
+    // portals elsewhere in the DOM (e.g. a modal) still count as inside.
+    closeOnOutsideClick: false,
     isOpen: visible,
     onOpen: (event) => {
       // Call the toggle callback, if supplied.
@@ -355,6 +360,44 @@ const ContextualMenu = <L,>({
     e.preventDefault();
     focusFirstDropdownItem();
   };
+
+  /**
+   * Close the menu when the user clicks outside of it.
+   *
+   * `usePortal` can do this itself, but it decides what is "outside" with a
+   * DOM `contains` check against the dropdown and the toggle. Content that the
+   * menu portals somewhere else, such as a modal opened from a menu item, is
+   * a separate DOM subtree, so a click inside it would close the menu and
+   * unmount the modal with it.
+   *
+   * React synthetic events bubble through portals following the component
+   * tree instead, so the capture handler on the wrapper sees every mousedown
+   * that starts anywhere inside the menu, portalled or not. The document
+   * listener then ignores that same native event.
+   */
+  const insideMouseDown = useRef<Event | null>(null);
+
+  const onWrapperMouseDownCapture = (e: React.MouseEvent<HTMLSpanElement>) => {
+    insideMouseDown.current = e.nativeEvent;
+    onMouseDownCapture?.(e);
+  };
+
+  useEffect(() => {
+    if (!isOpen || !closeOnOutsideClick) {
+      return undefined;
+    }
+    const handleMouseDown = (e: MouseEvent) => {
+      // Only the main button closes the menu, matching `usePortal`.
+      if (e.button !== 0 || e === insideMouseDown.current) {
+        return;
+      }
+      closePortal();
+    };
+    document.addEventListener("mousedown", handleMouseDown);
+    return () => {
+      document.removeEventListener("mousedown", handleMouseDown);
+    };
+  }, [closeOnOutsideClick, closePortal, isOpen]);
 
   const previousVisible = usePrevious(visible);
   const labelNode =
@@ -474,6 +517,7 @@ const ContextualMenu = <L,>({
     <span
       className={contextualMenuClassName}
       onKeyDown={onWrapperKeyDown}
+      onMouseDownCapture={onWrapperMouseDownCapture}
       ref={wrapperRef}
       {...wrapperProps}
     >
