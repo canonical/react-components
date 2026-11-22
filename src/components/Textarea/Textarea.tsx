@@ -86,12 +86,14 @@ export type Props = PropsWithSpread<
 const Textarea = ({
   caution,
   className,
+  defaultValue,
   error,
   grow = false,
   help,
   id,
   label,
   labelClassName,
+  onChange,
   onKeyUp,
   onControlEnter,
   required,
@@ -106,7 +108,7 @@ const Textarea = ({
   const validationId = useId();
   const helpId = useId();
   const hasError = !!error;
-  const [innerValue, setInnervalue] = useState(props.defaultValue);
+  const [innerValue, setInnervalue] = useState(defaultValue);
   const defaultTextAreaId = useId();
   const textAreaId = id || defaultTextAreaId;
 
@@ -178,6 +180,7 @@ const Textarea = ({
           if (!props.value) {
             setInnervalue(evt.target.value);
           }
+          onChange?.(evt);
         }}
         ref={textareaRef}
         style={

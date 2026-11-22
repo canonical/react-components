@@ -1,9 +1,29 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import React from "react";
 
 import Textarea from "./Textarea";
 
 describe("Textarea ", () => {
+  it("can be edited when it has a defaultValue and an onChange", async () => {
+    const onChange = jest.fn();
+    render(<Textarea defaultValue="abc" onChange={onChange} />);
+    const textarea = screen.getByRole("textbox");
+    expect(textarea).toHaveValue("abc");
+    await userEvent.type(textarea, "d");
+    expect(onChange).toHaveBeenCalled();
+    expect(textarea).toHaveValue("abcd");
+  });
+
+  it("calls onChange for a controlled textarea", async () => {
+    const onChange = jest.fn();
+    render(<Textarea value="abc" onChange={onChange} />);
+    const textarea = screen.getByRole("textbox");
+    await userEvent.type(textarea, "d");
+    expect(onChange).toHaveBeenCalled();
+    expect(textarea).toHaveValue("abc");
+  });
+
   it("renders", () => {
     const { container } = render(
       <Textarea id="test-id" wrapperClassName="textarea" />,
