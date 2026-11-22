@@ -42,6 +42,25 @@ it("goes to the last available page if the current page is out of bounds", () =>
   expect(result.current.pageData).toEqual([2]);
 });
 
+it("goes to the last page if it is partial and the current page is out of bounds", () => {
+  const options = { itemsPerPage: 2, initialPage: 3 };
+  const { result, rerender } = renderHook(
+    ({ data, options }) => usePagination(data, options),
+    {
+      initialProps: {
+        data: [1, 2, 3, 4, 5, 6],
+        options,
+      },
+    },
+  );
+  expect(result.current.currentPage).toBe(3);
+  expect(result.current.pageData).toEqual([5, 6]);
+  // Three items are left, on two pages: [1, 2] and [3].
+  rerender({ data: [1, 2, 3], options });
+  expect(result.current.currentPage).toBe(2);
+  expect(result.current.pageData).toEqual([3]);
+});
+
 it("go to the initial page if autoResetPage is true", () => {
   const options = { itemsPerPage: 1, initialPage: 3, autoResetPage: true };
   const { result, rerender } = renderHook(
