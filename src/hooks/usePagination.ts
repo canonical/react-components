@@ -44,10 +44,12 @@ export function usePagination<D, I = number | null>(
 
   useEffect(() => {
     if (typeof itemsPerPage === "number" && startIndex >= totalItems) {
+      // The last page can be partial, so round up to count it.
+      const lastPageIndex = Math.ceil(totalItems / itemsPerPage) - 1;
       const newPageIndex =
-        !autoResetPage && Math.floor(totalItems / itemsPerPage) > 0
+        !autoResetPage && lastPageIndex > 0
           ? // go to the last available page if the current page is out of bounds
-            Math.floor(totalItems / itemsPerPage) - 1
+            lastPageIndex
           : // go to the initial page if autoResetPage is true
             0;
       updatePageIndex(newPageIndex);
