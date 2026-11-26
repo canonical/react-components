@@ -26,6 +26,22 @@ it("should display a custom logo", () => {
   );
 });
 
+it("should display a custom logo element", () => {
+  render(
+    <LoginPageLayout
+      title="Login page"
+      logo={<img alt="Custom logo" src="custom-logo.svg" />}
+    />,
+  );
+  expect(screen.getByRole("img", { name: "Custom logo" })).toHaveAttribute(
+    "src",
+    "custom-logo.svg",
+  );
+  expect(
+    screen.queryByRole("link", { name: "Logo Canonical" }),
+  ).not.toBeInTheDocument();
+});
+
 it("should display the title", () => {
   render(<LoginPageLayout title="Login page" />);
   expect(
