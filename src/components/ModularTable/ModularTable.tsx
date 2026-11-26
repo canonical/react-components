@@ -20,6 +20,10 @@ import TableHeader from "../TableHeader";
 import TableCell from "../TableCell";
 import Icon from "../Icon";
 
+// Allows data attributes (e.g. `data-testid`) to be returned from the prop
+// getters, as they are not included in the HTML props types.
+type DataAttributes = { [data: `data-${string}`]: string };
+
 export type Props<D extends Record<string, unknown>> = PropsWithSpread<
   {
     /**
@@ -47,19 +51,22 @@ export type Props<D extends Record<string, unknown>> = PropsWithSpread<
      */
     getHeaderProps?: (
       header: HeaderGroup<D>,
-    ) => Partial<TableHeaderProps & HTMLProps<HTMLTableHeaderCellElement>>;
+    ) => Partial<TableHeaderProps & HTMLProps<HTMLTableHeaderCellElement>> &
+      DataAttributes;
     /**
      * This function is used to resolve any props needed for a particular row.
      */
     getRowProps?: (
       row: Row<D>,
-    ) => Partial<TableRowProps & HTMLProps<HTMLTableRowElement>>;
+    ) => Partial<TableRowProps & HTMLProps<HTMLTableRowElement>> &
+      DataAttributes;
     /**
      * This function is used to resolve any props needed for a particular cell.
      */
     getCellProps?: (
       cell: Cell<D>,
-    ) => Partial<TableCellProps & HTMLProps<HTMLTableCellElement>>;
+    ) => Partial<TableCellProps & HTMLProps<HTMLTableCellElement>> &
+      DataAttributes;
     getRowId?: UseTableOptions<D>["getRowId"];
     /**
      * The column that the table will be sorted by (this should match a cell selector).
@@ -153,7 +160,7 @@ In addition to standard column propeties from [`useTable`](https://react-table.t
 ##### Class names
 
 Custom `className` can be used to provide a specific CSS class name that will be added to all cells in given column.
-You can also provide `getHeaderProps`, `getRowProps` and `getCellProps` to resolve additional custom props for a specific element. More on this in [`useTable - cell properties`](https://react-table.tanstack.com/docs/api/useTable#cell-properties).
+You can also provide `getHeaderProps`, `getRowProps` and `getCellProps` to resolve additional custom props, such as class names or data attributes, for a specific element. More on this in [`useTable - cell properties`](https://react-table.tanstack.com/docs/api/useTable#cell-properties).
 
 ```js
 getCellProps={({ value, column }) => ({
